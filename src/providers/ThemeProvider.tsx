@@ -2,14 +2,14 @@ import type { JSX, ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { HeroUIProvider, type HeroUIProviderProps, ToastProvider } from '@heroui/react';
 
-import { ThemeContext } from './theme';
+import ThemeContext from '~/contexts/theme';
 
 interface ThemeProviderProps {
   children: ReactNode;
   heroUIProps?: Omit<HeroUIProviderProps, 'children'>;
 }
 
-export function ThemeProvider({ children, heroUIProps }: ThemeProviderProps): JSX.Element {
+export default function ThemeProvider({ children, heroUIProps }: ThemeProviderProps): JSX.Element {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check local storage for saved preference
     const saved = localStorage.getItem('darkMode');
@@ -40,7 +40,10 @@ export function ThemeProvider({ children, heroUIProps }: ThemeProviderProps): JS
   return (
     <ThemeContext.Provider value={contextValue}>
       <HeroUIProvider {...heroUIProps}>
-        <ToastProvider toastProps={{ shouldShowTimeoutProgress: true }} />
+        <ToastProvider
+          placement="bottom-center"
+          toastProps={{ shouldShowTimeoutProgress: true, variant: 'solid' }}
+        />
         {children}
       </HeroUIProvider>
     </ThemeContext.Provider>

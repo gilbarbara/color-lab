@@ -1,0 +1,370 @@
+import {
+  addColor,
+  clearColorOverrides,
+  createPalette,
+  getDefaultColorName,
+  getDefaultGlobalOptions,
+  getEffectiveOptions,
+  isValidColorValue,
+  isValidPaletteState,
+  MAX_COLORS,
+  removeColor,
+  resetGlobalOptions,
+  resetPalette,
+  updateColor,
+  updateColorOverrides,
+  updateGlobalOptions,
+} from '~/utils/palette';
+
+import type { PaletteState } from '~/types';
+
+// Test color used for creating test palettes
+const TEST_COLOR = '#FF0000';
+
+function createTestPalette(colorCount = 1): PaletteState {
+  const colors = Array.from({ length: colorCount }, (_, index) => ({
+    name: getDefaultColorName(index),
+    value: `#FF000${index}`,
+  }));
+
+  return {
+    colors,
+    globalOptions: getDefaultGlobalOptions(colors[0].value),
+  };
+}
+
+describe('utils/palette', () => {
+  describe('createPalette', () => {
+    it('creates palette with random color when no arg provided', () => {
+      const palette = createPalette();
+
+      expect(palette.colors).toHaveLength(1);
+      expect(palette.colors[0].name).toBe('Primary');
+      expect(palette.colors[0].value).toMatch(/^oklch\(/);
+      // globalOptions should use computed defaults based on the random color
+      expect(palette.globalOptions).toEqual(getDefaultGlobalOptions(palette.colors[0].value));
+    });
+
+    it('creates palette with provided color', () => {
+      const palette = createPalette('#FF0044');
+
+      expect(palette.colors).toHaveLength(1);
+      expect(palette.colors[0].value).toBe('#FF0044');
+      // Saturation should be computed from the provided color
+      expect(palette.globalOptions).toEqual(getDefaultGlobalOptions('#FF0044'));
+    });
+  });
+
+  describe('resetPalette', () => {
+    it('creates a new palette with random color', () => {
+      const palette = resetPalette();
+
+      expect(palette.colors).toHaveLength(1);
+      expect(palette.colors[0].name).toBe('Primary');
+      // globalOptions should use computed defaults based on the random color
+      expect(palette.globalOptions).toEqual(getDefaultGlobalOptions(palette.colors[0].value));
+    });
+  });
+
+  describe('addColor', () => {
+    it('adds color with default name', () => {
+      const initial = createTestPalette(1);
+      const result = addColor(initial, '#00FF00');
+
+      expect(result.colors).toHaveLength(2);
+      expect(result.colors[1].name).toBe('Secondary');
+      expect(result.colors[1].value).toBe('#00FF00');
+    });
+
+    it('adds color with custom name', () => {
+      const initial = createTestPalette(1);
+      const result = addColor(initial, '#00FF00', 'Custom Name');
+
+      expect(result.colors[1].name).toBe('Custom Name');
+    });
+
+    it('returns unchanged state at MAX_COLORS', () => {
+      const initial = createTestPalette(MAX_COLORS);
+      const result = addColor(initial, '#00FF00');
+
+      expect(result).toBe(initial);
+      expect(result.colors).toHaveLength(MAX_COLORS);
+    });
+
+    it('preserves existing state (immutable)', () => {
+      const initial = createTestPalette(1);
+      const originalColors = initial.colors;
+
+      addColor(initial, '#00FF00');
+
+      expect(initial.colors).toBe(originalColors);
+      expect(initial.colors).toHaveLength(1);
+    });
+  });
+
+  describe('removeColor', () => {
+    it('removes color by index', () => {
+      const initial = createTestPalette(3);
+      const result = removeColor(initial, 1);
+
+      expect(result.colors).toHaveLength(2);
+      expect(result.colors[0].name).toBe('Primary');
+      expect(result.colors[1].name).toBe('Tertiary');
+    });
+
+    it('returns unchanged state for invalid index', () => {
+      const initial = createTestPalette(2);
+
+      expect(removeColor(initial, -1)).toBe(initial);
+      expect(removeColor(initial, 5)).toBe(initial);
+    });
+
+    it('returns unchanged state when only one color remains', () => {
+      const initial = createTestPalette(1);
+      const result = removeColor(initial, 0);
+
+      expect(result).toBe(initial);
+      expect(result.colors).toHaveLength(1);
+    });
+
+    it('preserves other colors', () => {
+      const initial = createTestPalette(3);
+      const result = removeColor(initial, 0);
+
+      expect(result.colors).toHaveLength(2);
+      expect(result.colors[0].name).toBe('Secondary');
+      expect(result.colors[1].name).toBe('Tertiary');
+    });
+  });
+
+  describe('updateColor', () => {
+    it('updates color name', () => {
+      const initial = createTestPalette(1);
+      const result = updateColor(initial, 0, { name: 'New Name' });
+
+      expect(result.colors[0].name).toBe('New Name');
+      expect(result.colors[0].value).toBe(initial.colors[0].value);
+    });
+
+    it('updates color value', () => {
+      const initial = createTestPalette(1);
+      const result = updateColor(initial, 0, { value: '#FFFFFF' });
+
+      expect(result.colors[0].value).toBe('#FFFFFF');
+      expect(result.colors[0].name).toBe(initial.colors[0].name);
+    });
+
+    it('returns unchanged state for invalid index', () => {
+      const initial = createTestPalette(1);
+
+      expect(updateColor(initial, -1, { name: 'Test' })).toBe(initial);
+      expect(updateColor(initial, 5, { name: 'Test' })).toBe(initial);
+    });
+
+    it('preserves other fields when updating', () => {
+      const initial: PaletteState = {
+        colors: [{ name: 'Primary', value: TEST_COLOR, overrides: { steps: 9 } }],
+        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+      };
+      const result = updateColor(initial, 0, { name: 'New Name' });
+
+      expect(result.colors[0].overrides).toEqual({ steps: 9 });
+    });
+  });
+
+  describe('updateColorOverrides', () => {
+    it('sets overrides', () => {
+      const initial = createTestPalette(1);
+      const result = updateColorOverrides(initial, 0, { maxLightness: 0.9 });
+
+      expect(result.colors[0].overrides).toEqual({ maxLightness: 0.9 });
+    });
+
+    it('merges with existing overrides', () => {
+      const initial: PaletteState = {
+        colors: [{ name: 'Primary', value: TEST_COLOR, overrides: { steps: 9 } }],
+        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+      };
+      const result = updateColorOverrides(initial, 0, { maxLightness: 0.9 });
+
+      expect(result.colors[0].overrides).toEqual({ steps: 9, maxLightness: 0.9 });
+    });
+
+    it('returns unchanged state for invalid index', () => {
+      const initial = createTestPalette(1);
+
+      expect(updateColorOverrides(initial, 5, { steps: 9 })).toBe(initial);
+    });
+  });
+
+  describe('clearColorOverrides', () => {
+    it('removes overrides', () => {
+      const initial: PaletteState = {
+        colors: [{ name: 'Primary', value: TEST_COLOR, overrides: { steps: 9 } }],
+        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+      };
+      const result = clearColorOverrides(initial, 0);
+
+      expect(result.colors[0].overrides).toBeUndefined();
+    });
+
+    it('returns unchanged state for invalid index', () => {
+      const initial = createTestPalette(1);
+
+      expect(clearColorOverrides(initial, 5)).toBe(initial);
+    });
+  });
+
+  describe('updateGlobalOptions', () => {
+    it('merges partial updates', () => {
+      const initial = createTestPalette(1);
+      const result = updateGlobalOptions(initial, { lightnessCurve: 2.0 });
+
+      expect(result.globalOptions.lightnessCurve).toBe(2.0);
+      // steps should remain at default value (11)
+      expect(result.globalOptions.steps).toBe(11);
+    });
+
+    it('preserves unspecified options', () => {
+      const initial = createTestPalette(1);
+      const result = updateGlobalOptions(initial, { steps: 15 });
+
+      // mode and maxLightness should remain at default values
+      expect(result.globalOptions.mode).toBe('light');
+      expect(result.globalOptions.maxLightness).toBe(0.97);
+    });
+  });
+
+  describe('resetGlobalOptions', () => {
+    it('resets to defaults while keeping colors', () => {
+      const initial: PaletteState = {
+        colors: [{ name: 'Custom', value: '#123456' }],
+        globalOptions: { ...getDefaultGlobalOptions('#123456'), lightnessCurve: 2.5, steps: 20 },
+      };
+      const result = resetGlobalOptions(initial);
+
+      // Should reset to computed defaults based on first color
+      expect(result.globalOptions).toEqual(getDefaultGlobalOptions('#123456'));
+      expect(result.colors).toEqual(initial.colors);
+    });
+  });
+
+  describe('getEffectiveOptions', () => {
+    it('omits saturation when saturationOverride is false (default)', () => {
+      const color = { name: 'Primary', value: TEST_COLOR };
+      const globalOptions = getDefaultGlobalOptions(TEST_COLOR);
+      const result = getEffectiveOptions(color, globalOptions);
+
+      // saturationOverride is stripped, and saturation is omitted when override is false
+      expect(result.saturation).toBeUndefined();
+      expect((result as Record<string, unknown>).saturationOverride).toBeUndefined();
+    });
+
+    it('includes saturation when saturationOverride is true', () => {
+      const color = { name: 'Primary', value: TEST_COLOR };
+      const globalOptions = { ...getDefaultGlobalOptions(TEST_COLOR), saturationOverride: true };
+      const result = getEffectiveOptions(color, globalOptions);
+
+      expect(result.saturation).toBe(globalOptions.saturation);
+    });
+
+    it('merges overrides with global options', () => {
+      const color = { name: 'Primary', value: TEST_COLOR, overrides: { steps: 15 } };
+      const globalOptions = getDefaultGlobalOptions(TEST_COLOR);
+      const result = getEffectiveOptions(color, globalOptions);
+
+      expect(result.steps).toBe(15);
+      expect(result.mode).toBe('light');
+    });
+
+    it('override wins over global', () => {
+      const globalOptions = { ...getDefaultGlobalOptions(TEST_COLOR), maxLightness: 0.95 };
+      const color = { name: 'Primary', value: TEST_COLOR, overrides: { maxLightness: 0.8 } };
+      const result = getEffectiveOptions(color, globalOptions);
+
+      expect(result.maxLightness).toBe(0.8);
+    });
+  });
+
+  describe('getDefaultColorName', () => {
+    it('returns named colors for index 0-9', () => {
+      expect(getDefaultColorName(0)).toBe('Primary');
+      expect(getDefaultColorName(1)).toBe('Secondary');
+      expect(getDefaultColorName(2)).toBe('Tertiary');
+      expect(getDefaultColorName(3)).toBe('Accent');
+      expect(getDefaultColorName(4)).toBe('Color 5');
+      expect(getDefaultColorName(9)).toBe('Color 10');
+    });
+
+    it('returns "Color N" for index >= 10', () => {
+      expect(getDefaultColorName(10)).toBe('Color 11');
+      expect(getDefaultColorName(15)).toBe('Color 16');
+    });
+  });
+
+  describe('isValidColorValue', () => {
+    it('returns true for valid hex', () => {
+      expect(isValidColorValue('#FF0044')).toBe(true);
+      expect(isValidColorValue('#abc')).toBe(true);
+    });
+
+    it('returns true for valid oklch', () => {
+      expect(isValidColorValue('oklch(0.7 0.2 120)')).toBe(true);
+    });
+
+    it('returns false for invalid values', () => {
+      expect(isValidColorValue('invalid')).toBe(false);
+      expect(isValidColorValue('')).toBe(false);
+      expect(isValidColorValue('#GGGGGG')).toBe(false);
+    });
+  });
+
+  describe('isValidPaletteState', () => {
+    it('returns true for valid state', () => {
+      const state = createTestPalette(2);
+
+      expect(isValidPaletteState(state)).toBe(true);
+    });
+
+    it('returns false for empty colors', () => {
+      const state = { colors: [], globalOptions: getDefaultGlobalOptions(TEST_COLOR) };
+
+      expect(isValidPaletteState(state)).toBe(false);
+    });
+
+    it('returns false for >10 colors', () => {
+      const colors = Array.from({ length: 11 }, (_, index) => ({
+        name: `Color ${index}`,
+        value: TEST_COLOR,
+      }));
+      const state = { colors, globalOptions: getDefaultGlobalOptions(TEST_COLOR) };
+
+      expect(isValidPaletteState(state)).toBe(false);
+    });
+
+    it('returns false for invalid color value', () => {
+      const state = {
+        colors: [{ name: 'Primary', value: 'not-a-color' }],
+        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+      };
+
+      expect(isValidPaletteState(state)).toBe(false);
+    });
+
+    it('returns false for missing globalOptions', () => {
+      const state = { colors: [{ name: 'Primary', value: '#FF0000' }] };
+
+      expect(isValidPaletteState(state)).toBe(false);
+    });
+
+    it('returns false for null/undefined', () => {
+      expect(isValidPaletteState(null)).toBe(false);
+      expect(isValidPaletteState(undefined)).toBe(false);
+    });
+
+    it('returns false for non-object', () => {
+      expect(isValidPaletteState('string')).toBe(false);
+      expect(isValidPaletteState(123)).toBe(false);
+    });
+  });
+});

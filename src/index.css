@@ -3,3 +3,11 @@
 /* Note: You may need to change the path to fit your project structure */
 @source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-tooltip: #d5e2ec;
+}
+
+html.dark {
+  --color-tooltip: #2e323d;
+}

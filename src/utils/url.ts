@@ -1,0 +1,409 @@
+import type { Params } from 'react-router';
+import { objectEntries } from '@gilbarbara/helpers';
+import { formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
+
+import { getDefaultGlobalOptions } from '~/utils/palette';
+
+import type { ColorEntry, GlobalScaleOptions, PaletteState, ScaleOptions } from '~/types';
+
+// Option key mappings (short keys for URL)
+const OPTION_KEYS = {
+  chromaCurve: 'c',
+  lightnessCurve: 'f',
+  lock: 'k',
+  maxLightness: 'x',
+  minLightness: 'n',
+  mode: 'm',
+  saturation: 's',
+  saturationOverride: 'o',
+  steps: 'i',
+  variant: 'v',
+} as const;
+
+// Reverse mapping for parsing
+const OPTION_KEYS_REVERSE = Object.fromEntries(
+  objectEntries(OPTION_KEYS).map(([k, v]) => [v, k]),
+) as Record<string, keyof typeof OPTION_KEYS>;
+
+// Mode short values
+const MODE_SHORT: Record<string, string> = {
+  dark: 'd',
+  light: 'l',
+};
+
+const MODE_LONG: Record<string, string> = {
+  d: 'dark',
+  l: 'light',
+};
+
+/**
+ * Convert color value to URL format
+ * - Hex: 'FF0044' (without #)
+ * - OKLch: '0.64_0.142_329' (L_C_H with underscores)
+ */
+function colorValueToUrl(value: string): string {
+  // If it's a hex color, strip #
+  if (isHex(value)) {
+    return value.replace('#', '').toUpperCase();
+  }
+
+  // If it's oklch, convert to L_C_H format
+  if (isValidColor(value, 'oklch')) {
+    const oklch = parseCSS(value, 'oklch');
+
+    return `${oklch.l}_${oklch.c}_${oklch.h}`;
+  }
+
+  // Try to convert to hex
+  try {
+    return formatCSS(parseCSS(value, 'oklch'), { format: 'hex' }).replace('#', '').toUpperCase();
+  } catch {
+    return value;
+  }
+}
+
+/**
+ * Parse global options from query params
+ */
+function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleOptions> {
+  const result: Partial<GlobalScaleOptions> = {};
+
+  for (const [shortKey, value] of searchParams.entries()) {
+    const fullKey = OPTION_KEYS_REVERSE[shortKey];
+
+    if (!fullKey) {
+      continue;
+    }
+
+    // Parse value based on option type
+    switch (fullKey) {
+      case 'mode': {
+        result.mode = (MODE_LONG[value] ?? value) as 'dark' | 'light';
+
+        break;
+      }
+      case 'saturationOverride': {
+        // o=1 means true, missing means false (default)
+        result.saturationOverride = value === '1';
+
+        break;
+      }
+      case 'variant': {
+        (result as Record<string, string>)[fullKey] = value;
+
+        break;
+      }
+      default: {
+        const numberValue = Number.parseFloat(value);
+
+        if (!Number.isNaN(numberValue)) {
+          (result as Record<string, number>)[fullKey] = numberValue;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Parse options from URL format
+ * Input: 'x:0.95,m:d'
+ */
+function parseOptions(optString: string): Partial<ScaleOptions> {
+  const result: Partial<ScaleOptions> = {};
+
+  if (!optString) {
+    return result;
+  }
+
+  for (const part of optString.split(',')) {
+    const [key, value] = part.split(':');
+
+    if (!key || !value) {
+      continue;
+    }
+
+    const fullKey = OPTION_KEYS_REVERSE[key];
+
+    if (!fullKey) {
+      continue;
+    }
+
+    // Parse value based on option type
+    if (fullKey === 'mode') {
+      result.mode = (MODE_LONG[value] ?? value) as 'dark' | 'light';
+    } else if (fullKey === 'lock' || fullKey === 'variant') {
+      result[fullKey] = value as never;
+    } else {
+      const numberValue = Number.parseFloat(value);
+
+      if (!Number.isNaN(numberValue)) {
+        (result as Record<string, number>)[fullKey] = numberValue;
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Serialize global options to query string (only non-default values)
+ * Returns: 'f=1.8&s=15' or empty string
+ */
+function serializeGlobalOptions(options: GlobalScaleOptions, defaults: GlobalScaleOptions): string {
+  const params = new URLSearchParams();
+
+  for (const [key, shortKey] of objectEntries(OPTION_KEYS)) {
+    const value = options[key as keyof GlobalScaleOptions];
+    const defaultValue = defaults[key];
+
+    if (value !== undefined && value !== defaultValue) {
+      let serialized: string;
+
+      if (key === 'mode' && typeof value === 'string') {
+        serialized = MODE_SHORT[value] ?? value;
+      } else if (key === 'saturationOverride') {
+        // Only serialize when true (default is false)
+        serialized = value ? '1' : '0';
+      } else {
+        serialized = String(value);
+      }
+
+      params.set(shortKey, serialized);
+    }
+  }
+
+  return params.toString();
+}
+
+/**
+ * Serialize options to URL format (only non-default values)
+ * Returns: 'x:0.95,m:d' or empty string
+ */
+function serializeOptions(
+  options: Partial<ScaleOptions> | undefined,
+  defaults: GlobalScaleOptions,
+): string {
+  if (!options) {
+    return '';
+  }
+
+  const parts: string[] = [];
+
+  for (const [key, shortKey] of objectEntries(OPTION_KEYS)) {
+    const value = options[key as keyof ScaleOptions];
+    const defaultValue = defaults[key];
+
+    if (value !== undefined && value !== defaultValue) {
+      const serialized =
+        key === 'mode' && typeof value === 'string' ? (MODE_SHORT[value] ?? value) : String(value);
+
+      parts.push(`${shortKey}:${serialized}`);
+    }
+  }
+
+  return parts.join(',');
+}
+
+/**
+ * Parse URL color value to usable color string
+ * - 'FF0044' → '#FF0044'
+ * - '0.64_0.142_329' → 'oklch(0.64 0.142 329)'
+ */
+function urlToColorValue(urlValue: string): string | null {
+  // Check if it's oklch format (contains underscores)
+  if (urlValue.includes('_')) {
+    const parts = urlValue.split('_');
+
+    if (parts.length === 3) {
+      const [l, c, h] = parts.map(Number.parseFloat);
+
+      if (!Number.isNaN(l) && !Number.isNaN(c) && !Number.isNaN(h)) {
+        const oklchString = `oklch(${l} ${c} ${h})`;
+
+        if (isValidColor(oklchString, 'oklch')) {
+          return oklchString;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  // Treat as hex
+  const hex = `#${urlValue}`;
+
+  if (isHex(hex)) {
+    return hex;
+  }
+
+  return null;
+}
+
+/**
+ * Convert color string to URL path (for single-color routes)
+ * Examples:
+ *   '#FF0044' → '/hex/FF0044'
+ *   'oklch(0.7 0.2 120)' → '/oklch/0.7/0.2/120'
+ */
+export function colorToPath(color: string): string {
+  // Handle hex colors
+  if (isHex(color)) {
+    const hex = color.replace('#', '').toUpperCase();
+
+    return `/hex/${hex}`;
+  }
+
+  // Handle oklch colors
+  if (isValidColor(color, 'oklch')) {
+    const oklch = parseCSS(color, 'oklch');
+
+    return `/oklch/${oklch.l}/${oklch.c}/${oklch.h}`;
+  }
+
+  // Try to convert to hex for other formats
+  try {
+    const hex = formatCSS(parseCSS(color, 'oklch'), { format: 'hex' }).replace('#', '');
+
+    return `/hex/${hex}`;
+  } catch {
+    return '/';
+  }
+}
+
+/**
+ * Parse URL params to color string (for single-color routes)
+ * Examples:
+ *   { color: 'FF0044' } → '#FF0044'
+ *   { l: '0.7', c: '0.2', h: '120' } → 'oklch(0.7 0.2 120)'
+ */
+export function parseColorFromParams(params: Params): string | null {
+  const { c, color, h, l } = params;
+
+  // Hex format: /hex/:color
+  if (color) {
+    const hex = color.startsWith('#') ? color : `#${color}`;
+
+    if (isHex(hex)) {
+      return hex;
+    }
+
+    return null;
+  }
+
+  // OKLch format: /oklch/:l/:c/:h
+  if (l !== undefined && c !== undefined && h !== undefined) {
+    const lightness = Number.parseFloat(l);
+    const chroma = Number.parseFloat(c);
+    const hue = Number.parseFloat(h);
+
+    if (Number.isNaN(lightness) || Number.isNaN(chroma) || Number.isNaN(hue)) {
+      return null;
+    }
+
+    const oklchString = `oklch(${lightness} ${chroma} ${hue})`;
+
+    if (isValidColor(oklchString, 'oklch')) {
+      return oklchString;
+    }
+
+    return null;
+  }
+
+  return null;
+}
+
+/**
+ * Parse palette from URL path segments and query params
+ * Returns null if parsing fails
+ */
+export function parsePaletteFromUrl(
+  pathSegments: string[],
+  searchParams: URLSearchParams,
+): PaletteState | null {
+  if (pathSegments.length === 0) {
+    return null;
+  }
+
+  const colors: ColorEntry[] = [];
+
+  for (const segment of pathSegments) {
+    // Split by - but handle name, value, and optional options
+    const parts = segment.split('-');
+
+    if (parts.length < 2) {
+      return null;
+    }
+
+    // Decode name (replace + with space)
+    const name = parts[0].replaceAll('+', ' ');
+    const valueString = parts[1];
+    const value = urlToColorValue(valueString);
+
+    if (!value) {
+      return null;
+    }
+
+    const color: ColorEntry = { name, value };
+
+    // Parse per-color options if present (3rd part)
+    if (parts.length >= 3) {
+      color.overrides = parseOptions(parts[2]);
+    }
+
+    colors.push(color);
+  }
+
+  if (colors.length === 0) {
+    return null;
+  }
+
+  // Compute defaults based on first color (for correct saturation)
+  const defaults = getDefaultGlobalOptions(colors[0].value);
+
+  // Parse global options from query params
+  const globalOverrides = parseGlobalOptions(searchParams);
+
+  return {
+    colors,
+    globalOptions: {
+      ...defaults,
+      ...globalOverrides,
+    },
+  };
+}
+
+/**
+ * Serialize palette state to URL path + query
+ * Format: /p/Name-Value-Opts/Name-Value-Opts?globalOpts
+ *
+ * Examples:
+ *   /p/Primary-FF0044/Secondary-698CE0
+ *   /p/Primary-0.64_0.142_329
+ *   /p/Primary-FF0044-x:0.95,m:d/Secondary-698CE0
+ *   /p/Primary-FF0044?f=1.8&s=15
+ */
+export function serializePaletteToUrl(state: PaletteState): string {
+  // Compute defaults based on first color (for correct saturation comparison)
+  const defaults = getDefaultGlobalOptions(state.colors[0].value);
+
+  const colorParts = state.colors.map(color => {
+    // Encode name to handle spaces (replace spaces with +)
+    const encodedName = color.name.replaceAll(' ', '+');
+    let part = `${encodedName}-${colorValueToUrl(color.value)}`;
+
+    const options = serializeOptions(color.overrides, state.globalOptions);
+
+    if (options) {
+      part += `-${options}`;
+    }
+
+    return part;
+  });
+
+  const path = `/p/${colorParts.join('/')}`;
+  const query = serializeGlobalOptions(state.globalOptions, defaults);
+
+  return query ? `${path}?${query}` : path;
+}

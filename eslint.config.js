@@ -5,4 +5,9 @@ export default [
   {
     ignores: ['dist/**', 'node_modules/**'],
   },
+  {
+    rules: {
+      'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
+    },
+  },
 ];
