@@ -1,4 +1,6 @@
 import '@testing-library/jest-dom';
+// Import global mocks (runs vi.mock calls and sets up clipboard)
+import './mocks';
 
 import { configure } from '@testing-library/react';
 import * as matchers from 'jest-extended';
@@ -27,3 +29,12 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: vi.fn(),
   })),
 });
+
+// Mock ResizeObserver for HeroUI components
+class ResizeObserverMock {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+}
+
+global.ResizeObserver = ResizeObserverMock;
