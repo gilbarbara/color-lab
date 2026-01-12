@@ -10,7 +10,8 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "~/*": ["src/*"],
-      "~/test-utils": ["tests/__setup__/test-utils.tsx"]
+      "~/test-utils": ["tests/__setup__/test-utils.tsx"],
+      "~/test-mocks": ["tests/__setup__/mocks.ts"]
     },
     "rootDir": ".",
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
