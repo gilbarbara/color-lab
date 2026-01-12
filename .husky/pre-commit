@@ -1,1 +1,1 @@
-npm run validate
+./node_modules/.bin/repo-tools check-remote && npm run typecheck && ./node_modules/.bin/lint-staged

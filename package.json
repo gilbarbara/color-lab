@@ -35,6 +35,7 @@
     "husky": "^9.1.7",
     "jest-extended": "^7.0.0",
     "jsdom": "^27.4.0",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "repo-tools": "^0.3.1",
     "serve": "^14.2.5",
@@ -48,7 +49,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "start": "serve --listen 3000 dist",
-    "lint": "eslint --fix .",
+    "lint": "eslint --cache --fix src tests",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -57,5 +58,12 @@
     "validate": "npm run typecheck && npm run lint && npm run test:coverage",
     "prepare": "husky"
   },
-  "prettier": "@gilbarbara/prettier-config"
+  "prettier": "@gilbarbara/prettier-config",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --cache --fix",
+      "vitest related --run"
+    ],
+    "*.{json,css,md,yml,yaml}": "prettier --write"
+  }
 }
