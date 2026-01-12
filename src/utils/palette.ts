@@ -47,7 +47,7 @@ export function addColor(state: PaletteState, value: string, name?: string): Pal
   }
 
   const colorName = name ?? getDefaultColorName(state.colors.length);
-  const newColor: ColorEntry = { name: colorName, value };
+  const newColor: ColorEntry = { id: crypto.randomUUID(), name: colorName, value };
 
   return {
     ...state,
@@ -69,7 +69,7 @@ export function createPalette(initialColor?: string): PaletteState {
   const color = initialColor ?? getRandomColor('oklch');
 
   return {
-    colors: [{ name: 'Primary', value: color }],
+    colors: [{ id: crypto.randomUUID(), name: 'Primary', value: color }],
     globalOptions: getDefaultGlobalOptions(color),
   };
 }
@@ -123,6 +123,7 @@ export function isValidPaletteState(data: unknown): data is PaletteState {
       c =>
         typeof c === 'object' &&
         c !== null &&
+        typeof (c as Record<string, unknown>).id === 'string' &&
         typeof (c as Record<string, unknown>).value === 'string' &&
         typeof (c as Record<string, unknown>).name === 'string' &&
         isValidColor((c as Record<string, unknown>).value as string),

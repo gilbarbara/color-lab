@@ -16,13 +16,22 @@ import {
   updateGlobalOptions,
 } from '~/utils/palette';
 
-import type { PaletteState } from '~/types';
+import type { ColorEntry, PaletteState } from '~/types';
 
 // Test color used for creating test palettes
 const TEST_COLOR = '#FF0000';
 
+function createColorEntry(
+  name: string,
+  value: string,
+  overrides?: ColorEntry['overrides'],
+): ColorEntry {
+  return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
+}
+
 function createTestPalette(colorCount = 1): PaletteState {
   const colors = Array.from({ length: colorCount }, (_, index) => ({
+    id: crypto.randomUUID(),
     name: getDefaultColorName(index),
     value: `#FF000${index}`,
   }));
@@ -163,7 +172,7 @@ describe('utils/palette', () => {
 
     it('preserves other fields when updating', () => {
       const initial: PaletteState = {
-        colors: [{ name: 'Primary', value: TEST_COLOR, overrides: { steps: 9 } }],
+        colors: [createColorEntry('Primary', TEST_COLOR, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(TEST_COLOR),
       };
       const result = updateColor(initial, 0, { name: 'New Name' });
@@ -182,7 +191,7 @@ describe('utils/palette', () => {
 
     it('merges with existing overrides', () => {
       const initial: PaletteState = {
-        colors: [{ name: 'Primary', value: TEST_COLOR, overrides: { steps: 9 } }],
+        colors: [createColorEntry('Primary', TEST_COLOR, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(TEST_COLOR),
       };
       const result = updateColorOverrides(initial, 0, { maxLightness: 0.9 });
@@ -200,7 +209,7 @@ describe('utils/palette', () => {
   describe('clearColorOverrides', () => {
     it('removes overrides', () => {
       const initial: PaletteState = {
-        colors: [{ name: 'Primary', value: TEST_COLOR, overrides: { steps: 9 } }],
+        colors: [createColorEntry('Primary', TEST_COLOR, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(TEST_COLOR),
       };
       const result = clearColorOverrides(initial, 0);
@@ -238,7 +247,7 @@ describe('utils/palette', () => {
   describe('resetGlobalOptions', () => {
     it('resets to defaults while keeping colors', () => {
       const initial: PaletteState = {
-        colors: [{ name: 'Custom', value: '#123456' }],
+        colors: [createColorEntry('Custom', '#123456')],
         globalOptions: { ...getDefaultGlobalOptions('#123456'), lightnessCurve: 2.5, steps: 20 },
       };
       const result = resetGlobalOptions(initial);
@@ -251,7 +260,7 @@ describe('utils/palette', () => {
 
   describe('getEffectiveOptions', () => {
     it('omits saturation when saturationOverride is false (default)', () => {
-      const color = { name: 'Primary', value: TEST_COLOR };
+      const color = createColorEntry('Primary', TEST_COLOR);
       const globalOptions = getDefaultGlobalOptions(TEST_COLOR);
       const result = getEffectiveOptions(color, globalOptions);
 
@@ -261,7 +270,7 @@ describe('utils/palette', () => {
     });
 
     it('includes saturation when saturationOverride is true', () => {
-      const color = { name: 'Primary', value: TEST_COLOR };
+      const color = createColorEntry('Primary', TEST_COLOR);
       const globalOptions = { ...getDefaultGlobalOptions(TEST_COLOR), saturationOverride: true };
       const result = getEffectiveOptions(color, globalOptions);
 
@@ -269,7 +278,7 @@ describe('utils/palette', () => {
     });
 
     it('merges overrides with global options', () => {
-      const color = { name: 'Primary', value: TEST_COLOR, overrides: { steps: 15 } };
+      const color = createColorEntry('Primary', TEST_COLOR, { steps: 15 });
       const globalOptions = getDefaultGlobalOptions(TEST_COLOR);
       const result = getEffectiveOptions(color, globalOptions);
 
@@ -279,7 +288,7 @@ describe('utils/palette', () => {
 
     it('override wins over global', () => {
       const globalOptions = { ...getDefaultGlobalOptions(TEST_COLOR), maxLightness: 0.95 };
-      const color = { name: 'Primary', value: TEST_COLOR, overrides: { maxLightness: 0.8 } };
+      const color = createColorEntry('Primary', TEST_COLOR, { maxLightness: 0.8 });
       const result = getEffectiveOptions(color, globalOptions);
 
       expect(result.maxLightness).toBe(0.8);

@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-
 import usePalette from '~/hooks/usePalette';
 
 import ColorSelector from './ColorSelector';
@@ -25,7 +23,7 @@ export default function ColorList(props: ColorListProps) {
       <div className="space-y-4 mt-4">
         {colors.map((colorEntry, index) => (
           <ColorSelector
-            key={`${colorEntry.name}-${index}`}
+            key={colorEntry.id}
             baseSaturation={baseSaturation}
             colorEntry={colorEntry}
             globalOptions={globalOptions}

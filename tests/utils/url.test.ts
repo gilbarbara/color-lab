@@ -6,7 +6,15 @@ import {
   serializePaletteToUrl,
 } from '~/utils/url';
 
-import type { PaletteState } from '~/types';
+import type { ColorEntry, PaletteState } from '~/types';
+
+function createColorEntry(
+  name: string,
+  value: string,
+  overrides?: ColorEntry['overrides'],
+): ColorEntry {
+  return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
+}
 
 describe('utils/url', () => {
   describe('colorToPath', () => {
@@ -70,7 +78,7 @@ describe('utils/url', () => {
     it('serializes single color with default options', () => {
       // Use computed defaults for the color being tested
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -79,10 +87,7 @@ describe('utils/url', () => {
 
     it('serializes multiple colors', () => {
       const state: PaletteState = {
-        colors: [
-          { name: 'Primary', value: '#FF0044' },
-          { name: 'Secondary', value: '#698CE0' },
-        ],
+        colors: [createColorEntry('Primary', '#FF0044'), createColorEntry('Secondary', '#698CE0')],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -91,7 +96,7 @@ describe('utils/url', () => {
 
     it('serializes oklch color value', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: 'oklch(0.64 0.142 329)' }],
+        colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
         globalOptions: getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
       };
 
@@ -100,7 +105,7 @@ describe('utils/url', () => {
 
     it('serializes rgb color value as hex', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: 'rgb(255, 0, 68)' }],
+        colors: [createColorEntry('Primary', 'rgb(255, 0, 68)')],
         globalOptions: getDefaultGlobalOptions('rgb(255, 0, 68)'),
       };
 
@@ -109,7 +114,7 @@ describe('utils/url', () => {
 
     it('serializes hsl color value as hex', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: 'hsl(344, 100%, 50%)' }],
+        colors: [createColorEntry('Primary', 'hsl(344, 100%, 50%)')],
         globalOptions: getDefaultGlobalOptions('hsl(344, 100%, 50%)'),
       };
 
@@ -118,9 +123,7 @@ describe('utils/url', () => {
 
     it('serializes color with per-color overrides', () => {
       const state: PaletteState = {
-        colors: [
-          { name: 'Primary', value: '#FF0044', overrides: { maxLightness: 0.95, mode: 'dark' } },
-        ],
+        colors: [createColorEntry('Primary', '#FF0044', { maxLightness: 0.95, mode: 'dark' })],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -129,7 +132,7 @@ describe('utils/url', () => {
 
     it('serializes non-default global options as query params', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: { ...getDefaultGlobalOptions('#FF0044'), lightnessCurve: 1.8, steps: 15 },
       };
 
@@ -138,7 +141,7 @@ describe('utils/url', () => {
 
     it('encodes color names with spaces', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Color One', value: '#FF0044' }],
+        colors: [createColorEntry('Color One', '#FF0044')],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -148,8 +151,8 @@ describe('utils/url', () => {
     it('serializes full example with all options', () => {
       const state: PaletteState = {
         colors: [
-          { name: 'Primary', value: '#FF0044', overrides: { maxLightness: 0.95 } },
-          { name: 'Secondary', value: '#698CE0' },
+          createColorEntry('Primary', '#FF0044', { maxLightness: 0.95 }),
+          createColorEntry('Secondary', '#698CE0'),
         ],
         globalOptions: { ...getDefaultGlobalOptions('#FF0044'), lightnessCurve: 1.8 },
       };
@@ -159,7 +162,7 @@ describe('utils/url', () => {
 
     it('omits overrides that match global options', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044', overrides: { steps: 11 } }], // 11 is default
+        colors: [createColorEntry('Primary', '#FF0044', { steps: 11 })], // 11 is default
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -169,7 +172,7 @@ describe('utils/url', () => {
     it('does not serialize saturation when it matches the color default', () => {
       const defaults = getDefaultGlobalOptions('#FF0044');
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: defaults,
       };
 
@@ -180,7 +183,7 @@ describe('utils/url', () => {
     it('serializes saturation when it differs from color default', () => {
       const defaults = getDefaultGlobalOptions('#FF0044');
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: { ...defaults, saturation: 25 },
       };
 
@@ -191,7 +194,7 @@ describe('utils/url', () => {
     it('does not serialize saturationOverride when false (default)', () => {
       const defaults = getDefaultGlobalOptions('#FF0044');
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: { ...defaults, saturationOverride: false },
       };
 
@@ -202,7 +205,7 @@ describe('utils/url', () => {
     it('serializes saturationOverride when true', () => {
       const defaults = getDefaultGlobalOptions('#FF0044');
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: { ...defaults, saturationOverride: true },
       };
 
@@ -212,7 +215,7 @@ describe('utils/url', () => {
 
     it('serializes lock option in per-color overrides', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044', overrides: { lock: 500 } }],
+        colors: [createColorEntry('Primary', '#FF0044', { lock: 500 })],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -221,7 +224,7 @@ describe('utils/url', () => {
 
     it('serializes variant option in per-color overrides', () => {
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044', overrides: { variant: 'vibrant' } }],
+        colors: [createColorEntry('Primary', '#FF0044', { variant: 'vibrant' })],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
       };
 
@@ -231,7 +234,7 @@ describe('utils/url', () => {
     it('serializes variant option in global options', () => {
       const defaults = getDefaultGlobalOptions('#FF0044');
       const state: PaletteState = {
-        colors: [{ name: 'Primary', value: '#FF0044' }],
+        colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: { ...defaults, variant: 'neutral' },
       };
 
@@ -245,7 +248,8 @@ describe('utils/url', () => {
 
       expect(result).not.toBeNull();
       expect(result!.colors).toHaveLength(1);
-      expect(result!.colors[0]).toEqual({ name: 'Primary', value: '#FF0044' });
+      expect(result!.colors[0]).toMatchObject({ name: 'Primary', value: '#FF0044' });
+      expect(result!.colors[0].id).toEqual(expect.any(String));
     });
 
     it('parses lock option in per-color overrides', () => {
@@ -414,8 +418,8 @@ describe('utils/url', () => {
     it('round-trips: serialize then parse returns equivalent state', () => {
       const original: PaletteState = {
         colors: [
-          { name: 'Primary', value: '#FF0044', overrides: { maxLightness: 0.95 } },
-          { name: 'Color Two', value: 'oklch(0.64 0.142 329)' },
+          createColorEntry('Primary', '#FF0044', { maxLightness: 0.95 }),
+          createColorEntry('Color Two', 'oklch(0.64 0.142 329)'),
         ],
         globalOptions: { ...getDefaultGlobalOptions('#FF0044'), lightnessCurve: 1.8, mode: 'dark' },
       };
