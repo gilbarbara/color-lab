@@ -38,7 +38,7 @@ interface ColorSelectorState {
   hex: string;
   mode: 'srgb' | 'oklch';
   name: string;
-  shouldRemove: boolean | undefined;
+  shouldRemove: boolean;
 }
 
 export default function ColorSelector(props: ColorSelectorProps) {
@@ -57,7 +57,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
     hex: convert(colorEntry.value, 'hex'),
     mode: getColorType(colorEntry.value) === 'oklch' ? 'oklch' : 'srgb',
     name: colorEntry.name,
-    shouldRemove: undefined,
+    shouldRemove: false,
   });
   const { isOpen, onOpenChange } = useDisclosure();
   const { max, min } = useBreakpoint();
@@ -127,11 +127,11 @@ export default function ColorSelector(props: ColorSelectorProps) {
     if (!shouldRemove) {
       setState({ shouldRemove: true });
       setTimeout(() => {
-        setState({ shouldRemove: undefined });
+        setState({ shouldRemove: false });
       }, 2000);
     } else {
       onRemoveColor(index);
-      setState({ shouldRemove: undefined });
+      setState({ shouldRemove: false });
     }
   };
 
