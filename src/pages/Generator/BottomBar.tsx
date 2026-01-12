@@ -105,10 +105,6 @@ export default function BottomBar() {
             'gap-2': colors.length < 7,
             'gap-1': colors.length < 8,
           })}
-          // style={{
-          //   maskImage: 'linear-gradient(to right, black 80%, transparent 100%)',
-          //   WebkitMaskImage: 'linear-gradient(to right, black 80%, transparent 100%)',
-          // }}
         >
           {colors.map((color, index) => (
             <ColorCircle

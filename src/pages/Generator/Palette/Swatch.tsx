@@ -52,7 +52,6 @@ export default function Swatch({ color, lock, step }: SwatchProps) {
   return (
     <Tooltip content={color} placement="bottom" size="lg">
       <div
-        aria-hidden
         className="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
