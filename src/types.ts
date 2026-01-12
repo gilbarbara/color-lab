@@ -10,6 +10,7 @@ export type ScaleOptions = Omit<ScaleOptionsBase, 'format'>;
 export type ScaleSteps = Record<string, string>;
 
 export interface ColorEntry {
+  id: string;
   name: string;
   overrides?: Partial<ScaleOptions>;
   value: string;

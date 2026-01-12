@@ -345,7 +345,7 @@ export function parsePaletteFromUrl(
       return null;
     }
 
-    const color: ColorEntry = { name, value };
+    const color: ColorEntry = { id: crypto.randomUUID(), name, value };
 
     // Parse per-color options if present (3rd part)
     if (parts.length >= 3) {
