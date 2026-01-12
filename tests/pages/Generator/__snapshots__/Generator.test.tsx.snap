@@ -566,7 +566,7 @@ exports[`Generator > renders correctly 1`] = `
                             data-filled="true"
                             data-filled-within="true"
                             data-slot="input"
-                            id="react-aria-_r_12_"
+                            id="react-aria-_r_4j_"
                             tabindex="0"
                             title=""
                             type="text"
@@ -698,7 +698,7 @@ exports[`Generator > renders correctly 1`] = `
                               data-has-start-content="true"
                               data-slot="input"
                               data-type="text"
-                              id="react-aria-_r_1e_"
+                              id="react-aria-_r_4v_"
                               tabindex="0"
                               title=""
                               type="text"
@@ -737,7 +737,7 @@ exports[`Generator > renders correctly 1`] = `
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_1l_"
+                      id="react-aria-_r_56_"
                       role="group"
                     >
                       <div
@@ -779,10 +779,10 @@ exports[`Generator > renders correctly 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_1l_"
+                                aria-labelledby="react-aria-_r_56_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="344"
-                                id="react-aria-_r_1l_-0"
+                                id="react-aria-_r_56_-0"
                                 max="359.9"
                                 min="0"
                                 step="1"
@@ -805,7 +805,7 @@ exports[`Generator > renders correctly 1`] = `
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_1r_"
+                      id="react-aria-_r_5c_"
                       role="group"
                     >
                       <div
@@ -849,10 +849,10 @@ exports[`Generator > renders correctly 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_1r_"
+                                aria-labelledby="react-aria-_r_5c_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="100"
-                                id="react-aria-_r_1r_-0"
+                                id="react-aria-_r_5c_-0"
                                 max="100"
                                 min="0"
                                 step="1"
@@ -875,7 +875,7 @@ exports[`Generator > renders correctly 1`] = `
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_23_"
+                      id="react-aria-_r_5k_"
                       role="group"
                     >
                       <div
@@ -917,10 +917,10 @@ exports[`Generator > renders correctly 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_23_"
+                                aria-labelledby="react-aria-_r_5k_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="50"
-                                id="react-aria-_r_23_-0"
+                                id="react-aria-_r_5k_-0"
                                 max="100"
                                 min="0"
                                 step="1"
@@ -1760,7 +1760,6 @@ exports[`Generator > renders correctly 1`] = `
                 class="w-full flex flex-col lg:flex-row flex-wrap gap-1 overflow-x-auto"
               >
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(255, 240, 240); color: rgb(0, 0, 0);"
@@ -1773,7 +1772,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(255, 228, 227); color: rgb(0, 0, 0);"
@@ -1786,7 +1784,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(255, 205, 204); color: rgb(0, 0, 0);"
@@ -1799,7 +1796,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(255, 174, 174); color: rgb(0, 0, 0);"
@@ -1812,7 +1808,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(255, 132, 136); color: rgb(0, 0, 0);"
@@ -1825,7 +1820,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(255, 61, 90); color: rgb(255, 255, 255);"
@@ -1838,7 +1832,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(247, 0, 62); color: rgb(255, 255, 255);"
@@ -1851,7 +1844,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(205, 0, 41); color: rgb(255, 255, 255);"
@@ -1864,7 +1856,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(154, 0, 28); color: rgb(255, 255, 255);"
@@ -1877,7 +1868,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(102, 0, 15); color: rgb(255, 255, 255);"
@@ -1890,7 +1880,6 @@ exports[`Generator > renders correctly 1`] = `
                   </p>
                 </div>
                 <div
-                  aria-hidden="true"
                   class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
                   role="button"
                   style="background-color: rgb(53, 0, 4); color: rgb(255, 255, 255);"

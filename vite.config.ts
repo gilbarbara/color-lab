@@ -25,10 +25,10 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       thresholds: {
-        statements: 5,
-        branches: 5,
-        functions: 5,
-        lines: 5,
+        statements: 70,
+        branches: 70,
+        functions: 70,
+        lines: 70,
       },
       reporter: ['text', 'lcov'],
       include: ['src/**'],

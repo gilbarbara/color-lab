@@ -1,0 +1,786 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OKLCH > Render > renders correctly 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="space-y-3"
+      data-uid="OKLCH"
+    >
+      <div
+        class="flex h-12 items-center gap-2 pl-3 rounded-large border border-default-200"
+      >
+        <button
+          aria-label="Color Circle"
+          class="rounded-full shrink-0 size-6"
+          style="background-color: oklch(0.7 0.2 120);"
+          type="button"
+        />
+        <div
+          class="flex flex-1 items-center"
+        >
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-value="true"
+            data-slot="base"
+          >
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-12 min-h-12 !duration-150 transition-colors motion-reduce:transition-none rounded-none border-0 px-2 is-filled"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <span
+                    class="font-semibold text-foreground-500"
+                  >
+                    L
+                  </span>
+                  <input
+                    aria-label=" "
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-medium data-[has-end-content=true]:pe-0.5 text-right is-filled"
+                    data-filled="true"
+                    data-filled-within="true"
+                    data-has-end-content="true"
+                    data-has-start-content="true"
+                    data-slot="input"
+                    id="react-aria-_r_2_"
+                    readonly=""
+                    tabindex="0"
+                    title=""
+                    type="text"
+                    value="70"
+                  />
+                  <span
+                    class="text-foreground-500"
+                  >
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-value="true"
+            data-slot="base"
+          >
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-12 min-h-12 !duration-150 transition-colors motion-reduce:transition-none rounded-none border-0 px-2 is-filled"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <span
+                    class="font-semibold text-foreground-500"
+                  >
+                    C
+                  </span>
+                  <input
+                    aria-label=" "
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-medium is-filled"
+                    data-filled="true"
+                    data-filled-within="true"
+                    data-has-start-content="true"
+                    data-slot="input"
+                    id="react-aria-_r_7_"
+                    tabindex="0"
+                    title=""
+                    type="text"
+                    value="0.20"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-value="true"
+            data-slot="base"
+          >
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-12 min-h-12 !duration-150 transition-colors motion-reduce:transition-none rounded-none border-0 px-2 is-filled"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <span
+                    class="font-semibold text-foreground-500"
+                  >
+                    H
+                  </span>
+                  <input
+                    aria-label=" "
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-medium data-[has-end-content=true]:pe-0.5 text-right is-filled"
+                    data-filled="true"
+                    data-filled-within="true"
+                    data-has-end-content="true"
+                    data-has-start-content="true"
+                    data-slot="input"
+                    id="react-aria-_r_c_"
+                    tabindex="0"
+                    title=""
+                    type="text"
+                    value="120"
+                  />
+                  <span
+                    class="text-foreground-500"
+                  >
+                    °
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none"
+          data-react-aria-pressable="true"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            class="text-xl"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        style="--slider-gradient: linear-gradient(to right, oklch(0 0.2 120), oklch(0.7 0.2 120), oklch(1 0.2 120));"
+      >
+        <div
+          aria-label="Lightness"
+          class="flex flex-col w-full gap-1"
+          data-hover="false"
+          data-orientation="horizontal"
+          data-slot="base"
+          id="react-aria-_r_h_"
+          role="group"
+        >
+          <div
+            class="relative flex gap-2 items-center"
+            data-slot="track-wrapper"
+          >
+            <div
+              class="w-3 mr-2"
+              data-slot="startContent"
+            >
+              L
+            </div>
+            <div
+              class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
+              data-fill-end="false"
+              data-fill-start="true"
+              data-slot="track"
+              data-thumb-hidden="false"
+              data-vertical="false"
+              style="position: relative;"
+            >
+              <div
+                class="h-full absolute bg-transparent"
+                data-slot="filler"
+                style="left: 0%; width: 70%;"
+              />
+              <div
+                aria-label="Slider thumb 1"
+                class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-6 h-6 after:w-5 after:h-5 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small"
+                data-react-aria-pressable="true"
+                data-slot="thumb"
+                index="0"
+                orientation="horizontal"
+                style="position: absolute; left: 70%; transform: translate(-50%, -50%);"
+              >
+                <div
+                  style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-details=""
+                    aria-labelledby="react-aria-_r_h_"
+                    aria-orientation="horizontal"
+                    aria-valuetext="0.7"
+                    id="react-aria-_r_h_-0"
+                    max="1"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="0.7"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="--slider-gradient: linear-gradient(to right, oklch(0.7 0 120), oklch(0.7 0.19367 120));"
+      >
+        <div
+          aria-label="Chroma"
+          class="flex flex-col w-full gap-1"
+          data-hover="false"
+          data-orientation="horizontal"
+          data-slot="base"
+          id="react-aria-_r_n_"
+          role="group"
+        >
+          <div
+            class="relative flex gap-2 items-center"
+            data-slot="track-wrapper"
+          >
+            <div
+              class="w-3 mr-2"
+              data-slot="startContent"
+            >
+              <span>
+                C
+              </span>
+            </div>
+            <div
+              class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
+              data-fill-end="false"
+              data-fill-start="true"
+              data-slot="track"
+              data-thumb-hidden="false"
+              data-vertical="false"
+              style="position: relative;"
+            >
+              <div
+                class="h-full absolute bg-transparent"
+                data-slot="filler"
+                style="left: 0%; width: 99.65405070480713%;"
+              />
+              <div
+                aria-label="Slider thumb 1"
+                class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-6 h-6 after:w-5 after:h-5 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small"
+                data-react-aria-pressable="true"
+                data-slot="thumb"
+                index="0"
+                orientation="horizontal"
+                style="position: absolute; left: 99.65405070480713%; transform: translate(-50%, -50%);"
+              >
+                <div
+                  style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-details=""
+                    aria-labelledby="react-aria-_r_n_"
+                    aria-orientation="horizontal"
+                    aria-valuetext="0.193"
+                    id="react-aria-_r_n_-0"
+                    max="0.19367"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="0.193"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="--slider-gradient: linear-gradient(to right, oklch(0.7 0.2 0), oklch(0.7 0.2 60), oklch(0.7 0.2 120), oklch(0.7 0.2 180), oklch(0.7 0.2 240), oklch(0.7 0.2 300), oklch(0.7 0.2 360));"
+      >
+        <div
+          aria-label="Hue"
+          class="flex flex-col w-full gap-1"
+          data-hover="false"
+          data-orientation="horizontal"
+          data-slot="base"
+          id="react-aria-_r_v_"
+          role="group"
+        >
+          <div
+            class="relative flex gap-2 items-center"
+            data-slot="track-wrapper"
+          >
+            <div
+              class="w-3 mr-2"
+              data-slot="startContent"
+            >
+              H
+            </div>
+            <div
+              class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
+              data-fill-end="false"
+              data-fill-start="true"
+              data-slot="track"
+              data-thumb-hidden="false"
+              data-vertical="false"
+              style="position: relative;"
+            >
+              <div
+                class="h-full absolute bg-transparent"
+                data-slot="filler"
+                style="left: 0%; width: 33.33333333333333%;"
+              />
+              <div
+                aria-label="Slider thumb 1"
+                class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-6 h-6 after:w-5 after:h-5 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small"
+                data-react-aria-pressable="true"
+                data-slot="thumb"
+                index="0"
+                orientation="horizontal"
+                style="position: absolute; left: 33.33333333333333%; transform: translate(-50%, -50%);"
+              >
+                <div
+                  style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-details=""
+                    aria-labelledby="react-aria-_r_v_"
+                    aria-orientation="horizontal"
+                    aria-valuetext="120"
+                    id="react-aria-_r_v_-0"
+                    max="360"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="120"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OKLCH > Render > renders with disabled chroma 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="space-y-3"
+      data-uid="OKLCH"
+    >
+      <div
+        class="flex h-12 items-center gap-2 pl-3 rounded-large border border-default-200"
+      >
+        <button
+          aria-label="Color Circle"
+          class="rounded-full shrink-0 size-6"
+          style="background-color: oklch(0.7 0.2 120);"
+          type="button"
+        />
+        <div
+          class="flex flex-1 items-center"
+        >
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-value="true"
+            data-slot="base"
+          >
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-12 min-h-12 !duration-150 transition-colors motion-reduce:transition-none rounded-none border-0 px-2 is-filled"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <span
+                    class="font-semibold text-foreground-500"
+                  >
+                    L
+                  </span>
+                  <input
+                    aria-label=" "
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-medium data-[has-end-content=true]:pe-0.5 text-right is-filled"
+                    data-filled="true"
+                    data-filled-within="true"
+                    data-has-end-content="true"
+                    data-has-start-content="true"
+                    data-slot="input"
+                    id="react-aria-_r_17_"
+                    readonly=""
+                    tabindex="0"
+                    title=""
+                    type="text"
+                    value="70"
+                  />
+                  <span
+                    class="text-foreground-500"
+                  >
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-value="true"
+            data-slot="base"
+          >
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-12 min-h-12 !duration-150 transition-colors motion-reduce:transition-none rounded-none border-0 px-2 is-filled"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <span
+                    class="font-semibold text-foreground-500"
+                  >
+                    C
+                  </span>
+                  <input
+                    aria-label=" "
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-medium is-filled"
+                    data-filled="true"
+                    data-filled-within="true"
+                    data-has-start-content="true"
+                    data-slot="input"
+                    id="react-aria-_r_1c_"
+                    tabindex="0"
+                    title=""
+                    type="text"
+                    value="0.20"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-value="true"
+            data-slot="base"
+          >
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-12 min-h-12 !duration-150 transition-colors motion-reduce:transition-none rounded-none border-0 px-2 is-filled"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <span
+                    class="font-semibold text-foreground-500"
+                  >
+                    H
+                  </span>
+                  <input
+                    aria-label=" "
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-medium data-[has-end-content=true]:pe-0.5 text-right is-filled"
+                    data-filled="true"
+                    data-filled-within="true"
+                    data-has-end-content="true"
+                    data-has-start-content="true"
+                    data-slot="input"
+                    id="react-aria-_r_1h_"
+                    tabindex="0"
+                    title=""
+                    type="text"
+                    value="120"
+                  />
+                  <span
+                    class="text-foreground-500"
+                  >
+                    °
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none"
+          data-react-aria-pressable="true"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            class="text-xl"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        style="--slider-gradient: linear-gradient(to right, oklch(0 0.2 120), oklch(0.7 0.2 120), oklch(1 0.2 120));"
+      >
+        <div
+          aria-label="Lightness"
+          class="flex flex-col w-full gap-1"
+          data-hover="false"
+          data-orientation="horizontal"
+          data-slot="base"
+          id="react-aria-_r_1m_"
+          role="group"
+        >
+          <div
+            class="relative flex gap-2 items-center"
+            data-slot="track-wrapper"
+          >
+            <div
+              class="w-3 mr-2"
+              data-slot="startContent"
+            >
+              L
+            </div>
+            <div
+              class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
+              data-fill-end="false"
+              data-fill-start="true"
+              data-slot="track"
+              data-thumb-hidden="false"
+              data-vertical="false"
+              style="position: relative;"
+            >
+              <div
+                class="h-full absolute bg-transparent"
+                data-slot="filler"
+                style="left: 0%; width: 70%;"
+              />
+              <div
+                aria-label="Slider thumb 1"
+                class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-6 h-6 after:w-5 after:h-5 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small"
+                data-react-aria-pressable="true"
+                data-slot="thumb"
+                index="0"
+                orientation="horizontal"
+                style="position: absolute; left: 70%; transform: translate(-50%, -50%);"
+              >
+                <div
+                  style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-details=""
+                    aria-labelledby="react-aria-_r_1m_"
+                    aria-orientation="horizontal"
+                    aria-valuetext="0.7"
+                    id="react-aria-_r_1m_-0"
+                    max="1"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="0.7"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="--slider-gradient: linear-gradient(to right, oklch(0.7 0 120), oklch(0.7 0.19367 120));"
+      >
+        <div
+          aria-label="Chroma"
+          class="flex flex-col w-full gap-1 opacity-disabled"
+          data-hover="false"
+          data-orientation="horizontal"
+          data-slot="base"
+          id="react-aria-_r_1s_"
+          role="group"
+        >
+          <div
+            class="relative flex gap-2 items-center"
+            data-slot="track-wrapper"
+          >
+            <div
+              class="w-3 mr-2"
+              data-slot="startContent"
+            >
+              <span>
+                C
+              </span>
+            </div>
+            <div
+              class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
+              data-fill-end="false"
+              data-fill-start="true"
+              data-slot="track"
+              data-thumb-hidden="false"
+              data-vertical="false"
+              style="position: relative;"
+            >
+              <div
+                class="h-full absolute bg-transparent"
+                data-slot="filler"
+                style="left: 0%; width: 99.65405070480713%;"
+              />
+              <div
+                aria-label="Slider thumb 1"
+                class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-6 h-6 after:w-5 after:h-5 rounded-full after:rounded-full bg-foreground top-1/2 cursor-default ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small"
+                data-react-aria-pressable="true"
+                data-slot="thumb"
+                index="0"
+                orientation="horizontal"
+                style="position: absolute; left: 99.65405070480713%; transform: translate(-50%, -50%);"
+              >
+                <div
+                  style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-details=""
+                    aria-labelledby="react-aria-_r_1s_"
+                    aria-orientation="horizontal"
+                    aria-valuetext="0.193"
+                    disabled=""
+                    id="react-aria-_r_1s_-0"
+                    max="0.19367"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="0.193"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="--slider-gradient: linear-gradient(to right, oklch(0.7 0.2 0), oklch(0.7 0.2 60), oklch(0.7 0.2 120), oklch(0.7 0.2 180), oklch(0.7 0.2 240), oklch(0.7 0.2 300), oklch(0.7 0.2 360));"
+      >
+        <div
+          aria-label="Hue"
+          class="flex flex-col w-full gap-1"
+          data-hover="false"
+          data-orientation="horizontal"
+          data-slot="base"
+          id="react-aria-_r_24_"
+          role="group"
+        >
+          <div
+            class="relative flex gap-2 items-center"
+            data-slot="track-wrapper"
+          >
+            <div
+              class="w-3 mr-2"
+              data-slot="startContent"
+            >
+              H
+            </div>
+            <div
+              class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
+              data-fill-end="false"
+              data-fill-start="true"
+              data-slot="track"
+              data-thumb-hidden="false"
+              data-vertical="false"
+              style="position: relative;"
+            >
+              <div
+                class="h-full absolute bg-transparent"
+                data-slot="filler"
+                style="left: 0%; width: 33.33333333333333%;"
+              />
+              <div
+                aria-label="Slider thumb 1"
+                class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-6 h-6 after:w-5 after:h-5 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small"
+                data-react-aria-pressable="true"
+                data-slot="thumb"
+                index="0"
+                orientation="horizontal"
+                style="position: absolute; left: 33.33333333333333%; transform: translate(-50%, -50%);"
+              >
+                <div
+                  style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-details=""
+                    aria-labelledby="react-aria-_r_24_"
+                    aria-orientation="horizontal"
+                    aria-valuetext="120"
+                    id="react-aria-_r_24_-0"
+                    max="360"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="120"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

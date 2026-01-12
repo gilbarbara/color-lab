@@ -1,0 +1,41 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Contact > Render > renders correctly 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      data-uid="Contact"
+    >
+      <button
+        class="text-base"
+        type="button"
+      >
+        Feedback
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Contact > Render > renders modal correctly when open 1`] = `
+<div
+  aria-hidden="true"
+>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      data-uid="Contact"
+    >
+      <button
+        class="text-base"
+        type="button"
+      >
+        Feedback
+      </button>
+    </div>
+  </div>
+</div>
+`;
