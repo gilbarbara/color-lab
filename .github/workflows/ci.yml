@@ -53,5 +53,5 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          version: ${{ github.ref_name }}
+          release: ${{ github.ref_name }}
           sourcemaps: ./dist

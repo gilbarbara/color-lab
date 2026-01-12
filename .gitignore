@@ -28,5 +28,5 @@ coverage
 *.sln
 *.sw?
 
-# Sentry Config File
-.env.sentry-build-plugin
+# Environment files
+.env
