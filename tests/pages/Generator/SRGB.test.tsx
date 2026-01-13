@@ -112,5 +112,50 @@ describe('SRGB', () => {
       expect(mockOnChangeHex).toHaveBeenCalledWith('#FF8800');
       expect(mockOnChangeColor).toHaveBeenCalledWith('#FF8800');
     });
+
+    it('hue slider change calls callbacks', () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const hueSlider = screen.getByRole('slider', { name: /hue/i });
+
+      fireEvent.change(hueSlider, { target: { value: '180' } });
+
+      expect(mockOnChangeHex).toHaveBeenCalled();
+      expect(mockOnChangeColor).toHaveBeenCalled();
+    });
+
+    it('saturation slider change calls callbacks', () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const saturationSlider = screen.getByRole('slider', { name: /saturation/i });
+
+      fireEvent.change(saturationSlider, { target: { value: '50' } });
+
+      expect(mockOnChangeHex).toHaveBeenCalled();
+      expect(mockOnChangeColor).toHaveBeenCalled();
+    });
+
+    it('lightness slider change calls callbacks', () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const lightnessSlider = screen.getByRole('slider', { name: /lightness/i });
+
+      fireEvent.change(lightnessSlider, { target: { value: '70' } });
+
+      expect(mockOnChangeHex).toHaveBeenCalled();
+      expect(mockOnChangeColor).toHaveBeenCalled();
+    });
+
+    it('color picker input change calls callbacks', () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const colorInput = document.querySelector('input[type="color"]') as HTMLInputElement;
+
+      expect(colorInput).not.toBeNull();
+      fireEvent.change(colorInput, { target: { value: '#0000ff' } });
+
+      expect(mockOnChangeHex).toHaveBeenCalledWith('#0000ff');
+      expect(mockOnChangeColor).toHaveBeenCalledWith('#0000ff');
+    });
   });
 });

@@ -6,6 +6,8 @@ describe('stores/appStore', () => {
       exportColorFormat: 'oklch',
       exportFormatType: 'tailwind4',
       showBottomBar: false,
+      showColorOptionsPanel: false,
+      showPaletteOptionsPanel: false,
     });
   });
 
@@ -16,6 +18,8 @@ describe('stores/appStore', () => {
       expect(state.exportColorFormat).toBe('oklch');
       expect(state.exportFormatType).toBe('tailwind4');
       expect(state.showBottomBar).toBe(false);
+      expect(state.showColorOptionsPanel).toBe(false);
+      expect(state.showPaletteOptionsPanel).toBe(false);
     });
   });
 
@@ -101,6 +105,72 @@ describe('stores/appStore', () => {
 
       toggleBottomBar();
       expect(useAppStore.getState().showBottomBar).toBe(true);
+    });
+  });
+
+  describe('toggleColorOptionsPanel', () => {
+    it('toggles showColorOptionsPanel from false to true', () => {
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(false);
+
+      useAppStore.getState().toggleColorOptionsPanel();
+
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(true);
+    });
+
+    it('toggles showColorOptionsPanel from true to false', () => {
+      useAppStore.setState({ showColorOptionsPanel: true });
+
+      useAppStore.getState().toggleColorOptionsPanel();
+
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(false);
+    });
+
+    it('toggles multiple times correctly', () => {
+      const { toggleColorOptionsPanel } = useAppStore.getState();
+
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(false);
+
+      toggleColorOptionsPanel();
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(true);
+
+      toggleColorOptionsPanel();
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(false);
+
+      toggleColorOptionsPanel();
+      expect(useAppStore.getState().showColorOptionsPanel).toBe(true);
+    });
+  });
+
+  describe('toggleBottomBar', () => {
+    it('toggles showPaletteOptionsPanel from false to true', () => {
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(false);
+
+      useAppStore.getState().togglePaletteOptionsPanel();
+
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(true);
+    });
+
+    it('toggles showPaletteOptionsPanel from true to false', () => {
+      useAppStore.setState({ showPaletteOptionsPanel: true });
+
+      useAppStore.getState().togglePaletteOptionsPanel();
+
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(false);
+    });
+
+    it('toggles multiple times correctly', () => {
+      const { togglePaletteOptionsPanel } = useAppStore.getState();
+
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(false);
+
+      togglePaletteOptionsPanel();
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(true);
+
+      togglePaletteOptionsPanel();
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(false);
+
+      togglePaletteOptionsPanel();
+      expect(useAppStore.getState().showPaletteOptionsPanel).toBe(true);
     });
   });
 });

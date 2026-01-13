@@ -23,6 +23,7 @@ React 19 app for generating color palettes using the [colorizr](https://github.c
 ### State Management
 
 Two Zustand stores:
+
 - **paletteStore** (`src/stores/paletteStore.ts`): Colors array + global scale options
 - **appStore** (`src/stores/appStore.ts`): UI state (export format, bottom bar visibility)
 
@@ -35,6 +36,7 @@ Two Zustand stores:
 ### URL State
 
 Shareable URLs encode entire palette: `/p/{name}-{color}[-{options}]/...?globalOpts`
+
 - Color values: hex (no `#`) or OKLCH as `L_C_H`
 - Options use single-letter keys for compression
 
@@ -72,10 +74,32 @@ ThemeProvider
 
 ## Testing
 
-- Vitest with jsdom environment, globals enabled
-- Custom render wrapper in `tests/__setup__/test-utils.tsx` (MemoryRouter + ThemeProvider)
-- Uses `data-uid` attribute instead of `data-testid`
-- Reset Zustand stores in `beforeEach()` for isolation
+Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` extensions.
+
+**Path aliases (tsconfig):**
+
+- `~/test-utils` → `tests/__setup__/test-utils.tsx` (custom render with MemoryRouter + ThemeProvider)
+- `~/test-mocks` → `tests/__setup__/mocks.ts` (global mocks: clipboard, HeroUI)
+
+**Patterns:**
+
+- **Simple component** (snapshot only): Single `describe`, one snapshot test
+- **Complex component**: Nested `Render` and `Behavior` describe blocks
+- **Hooks**: Use `renderHook()` + `act()` for state mutations
+- **Stores**: Reset with `store.setState({...})` in `beforeEach()`
+
+**Conventions:**
+
+- `data-uid` attribute (not `data-testid`)
+- Vitest globals enabled (no imports for describe/it/expect)
+- `vi.clearAllMocks()` in `beforeEach()` when using mocks
+- `waitFor()` for async assertions
+- Snapshots for render, behavior tests for interactions
+
+**Available mocks** (import from `~/test-mocks`):
+
+- `mockClipboard.writeText` - Navigator clipboard
+- `mockAddToast` - HeroUI toast function
 
 ## Stack
 
@@ -85,3 +109,19 @@ ThemeProvider
 - Tailwind CSS 4 via Vite plugin
 - Vite with React Compiler enabled
 - Path alias: `~/` maps to `src/`
+
+## Deployment (Dokploy)
+
+Hosted on Dokploy at `lab.colormeup.co`
+
+**Configuration:**
+
+- Build type: `nixpacks`
+- Publish directory: `./dist`
+- Static SPA: `true` (enables NGINX SPA routing with `try_files` fallback)
+- Port: `80`
+
+**Notes:**
+
+- No `start` script needed - Nixpacks builds with `pnpm build`, then NGINX serves the static files
+- `isStaticSpa: true` is required for React Router deep links to work (redirects all 404s to `index.html`)

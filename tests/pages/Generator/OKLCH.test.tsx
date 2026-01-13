@@ -104,5 +104,44 @@ describe('OKLCH', () => {
 
       expect(mockOnChangeColor).toHaveBeenCalledWith('oklch(0.65 0.15 180)');
     });
+
+    it('lightness slider change calls onChangeColor', () => {
+      render(<OKLCH {...createDefaultProps()} />);
+
+      const lightnessSlider = screen.getByRole('slider', { name: /lightness/i });
+
+      fireEvent.change(lightnessSlider, { target: { value: '0.5' } });
+
+      expect(mockOnChangeColor).toHaveBeenCalled();
+      const call = mockOnChangeColor.mock.calls[0][0];
+
+      expect(call).toMatch(/^oklch\(50%/);
+    });
+
+    it('chroma slider change calls onChangeColor', () => {
+      render(<OKLCH {...createDefaultProps()} />);
+
+      const chromaSlider = screen.getByRole('slider', { name: /chroma/i });
+
+      fireEvent.change(chromaSlider, { target: { value: '0.1' } });
+
+      expect(mockOnChangeColor).toHaveBeenCalled();
+      const call = mockOnChangeColor.mock.calls[0][0];
+
+      expect(call).toMatch(/^oklch\(70% 0\.1/);
+    });
+
+    it('hue slider change calls onChangeColor', () => {
+      render(<OKLCH {...createDefaultProps()} />);
+
+      const hueSlider = screen.getByRole('slider', { name: /hue/i });
+
+      fireEvent.change(hueSlider, { target: { value: '240' } });
+
+      expect(mockOnChangeColor).toHaveBeenCalled();
+      const call = mockOnChangeColor.mock.calls[0][0];
+
+      expect(call).toMatch(/240\)$/);
+    });
   });
 });
