@@ -9,6 +9,10 @@ export default function Footer() {
         @gilbarbara
       </a>
       <span className="text-foreground-500">·</span>
+      <a href="https://github.com/gilbarbara/color-lab" rel="noopener noreferrer" target="_blank">
+        color-lab
+      </a>
+      <span className="text-foreground-500">·</span>
       <a href="https://github.com/gilbarbara/colorizr" rel="noopener noreferrer" target="_blank">
         colorizr
       </a>

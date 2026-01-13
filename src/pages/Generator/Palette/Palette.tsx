@@ -25,7 +25,7 @@ export default function Palette({ showBottomBar = false }: PaletteProps) {
       })}
       data-uid="Palette"
     >
-      <div className="p-4">
+      <div className="flex-1 p-4">
         <Header />
         <div className="flex flex-col items-start flex-1 gap-6">
           {colors.map((colorEntry, index) => {

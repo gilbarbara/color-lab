@@ -974,7 +974,7 @@ exports[`Generator > renders correctly 1`] = `
         data-uid="Palette"
       >
         <div
-          class="p-4"
+          class="flex-1 p-4"
         >
           <div
             data-uid="PaletteHeader"
@@ -1920,6 +1920,18 @@ exports[`Generator > renders correctly 1`] = `
             target="_blank"
           >
             @gilbarbara
+          </a>
+          <span
+            class="text-foreground-500"
+          >
+            ·
+          </span>
+          <a
+            href="https://github.com/gilbarbara/color-lab"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            color-lab
           </a>
           <span
             class="text-foreground-500"
