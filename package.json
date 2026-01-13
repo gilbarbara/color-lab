@@ -48,7 +48,6 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "start": "serve --listen 3000 dist",
     "lint": "eslint --cache --fix src tests",
     "test": "vitest run",
     "test:watch": "vitest",
