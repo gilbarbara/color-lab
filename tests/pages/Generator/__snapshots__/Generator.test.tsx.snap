@@ -1896,7 +1896,7 @@ exports[`Generator > renders correctly 1`] = `
           </div>
         </div>
         <footer
-          class="flex items-center justify-center gap-2 p-4"
+          class="flex items-center justify-center gap-2 flex-wrap p-4"
           data-uid="Footer"
         >
           <div
