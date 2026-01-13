@@ -9,15 +9,15 @@
     "@phosphor-icons/react": "^2.1.10",
     "@sentry/react": "^10.33.0",
     "colorizr": "^4.0.1",
-    "framer-motion": "^12.25.0",
+    "framer-motion": "^12.26.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router": "^7.12.0",
     "tailwindcss": "^4.1.18",
-    "zustand": "^5.0.9"
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
-    "@gilbarbara/eslint-config": "^1.0.2",
+    "@gilbarbara/eslint-config": "^1.0.3",
     "@gilbarbara/prettier-config": "^1.0.0",
     "@gilbarbara/tsconfig": "^1.0.0",
     "@tailwindcss/vite": "^4.1.18",
@@ -29,7 +29,7 @@
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
-    "@vitest/coverage-v8": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.17",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
@@ -42,7 +42,7 @@
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
     "vite-tsconfig-paths": "^6.0.4",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.17"
   },
   "scripts": {
     "dev": "vite",
