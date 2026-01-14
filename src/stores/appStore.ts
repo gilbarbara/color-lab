@@ -7,10 +7,13 @@ interface AppState {
   exportFormatType: ExportFormatType;
   showBottomBar: boolean;
   showColorOptionsPanel: boolean;
+  showLoginModal: boolean;
   showPaletteOptionsPanel: boolean;
 }
 
 interface AppStateWithActions extends AppState {
+  closeLoginModal: () => void;
+  openLoginModal: () => void;
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
   toggleBottomBar: () => void;
@@ -23,11 +26,16 @@ const initialState: AppState = {
   exportFormatType: 'tailwind4',
   showBottomBar: false,
   showColorOptionsPanel: false,
+  showLoginModal: false,
   showPaletteOptionsPanel: false,
 };
 
 export const useAppStore = create<AppStateWithActions>(set => ({
   ...initialState,
+
+  closeLoginModal: (): void => set({ showLoginModal: false }),
+
+  openLoginModal: (): void => set({ showLoginModal: true }),
 
   setExportColorFormat: (format): void => set({ exportColorFormat: format }),
 

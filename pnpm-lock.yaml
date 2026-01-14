@@ -22,6 +22,9 @@ importers:
       '@sentry/react':
         specifier: ^10.33.0
         version: 10.33.0(react@19.2.3)
+      appwrite:
+        specifier: ^21.5.0
+        version: 21.5.0
       colorizr:
         specifier: ^4.0.1
         version: 4.0.1
@@ -3634,6 +3637,12 @@ packages:
         integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==,
       }
     engines: { node: '>=12' }
+
+  appwrite@21.5.0:
+    resolution:
+      {
+        integrity: sha512-643bMRZVYXMluXvSXbdaLAi9qqTJLWbVGguKH4vH6IdKHur6gGIirhCOqAEt33pV4TOFJ55VBu8c/+Ft1ke2SA==,
+      }
 
   arch@2.2.0:
     resolution:
@@ -10492,6 +10501,8 @@ snapshots:
   ansi-styles@5.2.0: {}
 
   ansi-styles@6.2.3: {}
+
+  appwrite@21.5.0: {}
 
   arch@2.2.0: {}
 
