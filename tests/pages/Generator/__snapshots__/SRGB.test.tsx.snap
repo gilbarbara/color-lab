@@ -20,7 +20,7 @@ exports[`SRGB > Render > renders correctly 1`] = `
           value="#FF0044"
         />
         <div
-          class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+          class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
           data-filled="true"
           data-filled-within="true"
           data-has-value="true"
@@ -54,6 +54,7 @@ exports[`SRGB > Render > renders correctly 1`] = `
                   data-slot="input"
                   data-type="text"
                   id="react-aria-_r_0_"
+                  placeholder=" "
                   tabindex="0"
                   title=""
                   type="text"
@@ -314,7 +315,7 @@ exports[`SRGB > Render > renders with disabled saturation 1`] = `
           value="#FF0044"
         />
         <div
-          class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+          class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
           data-filled="true"
           data-filled-within="true"
           data-has-value="true"
@@ -348,6 +349,7 @@ exports[`SRGB > Render > renders with disabled saturation 1`] = `
                   data-slot="input"
                   data-type="text"
                   id="react-aria-_r_r_"
+                  placeholder=" "
                   tabindex="0"
                   title=""
                   type="text"

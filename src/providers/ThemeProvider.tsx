@@ -1,4 +1,4 @@
-import type { JSX, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { HeroUIProvider, type HeroUIProviderProps, ToastProvider } from '@heroui/react';
 
@@ -9,7 +9,7 @@ interface ThemeProviderProps {
   heroUIProps?: Omit<HeroUIProviderProps, 'children'>;
 }
 
-export default function ThemeProvider({ children, heroUIProps }: ThemeProviderProps): JSX.Element {
+export default function ThemeProvider({ children, heroUIProps }: ThemeProviderProps) {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check local storage for saved preference
     const saved = localStorage.getItem('darkMode');

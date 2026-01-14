@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
-import { Button, Input } from '@heroui/react';
+import { Button } from '@heroui/react';
 import { ArrowsClockwiseIcon } from '@phosphor-icons/react';
 import { formatCSS, getOkLCHMaxChroma, type LCH } from 'colorizr';
 
 import { getRandomColor } from '~/utils/color';
 
 import ColorCircle from '~/components/ColorCircle';
+import { Input } from '~/components/Field';
 import GradientSlider from '~/components/GradientSlider';
 import Tooltip from '~/components/Tooltip';
 
@@ -82,7 +83,6 @@ export default function OKLCH(props: OKLCHProps) {
             size="lg"
             startContent={<span className="font-semibold text-foreground-500">L</span>}
             value={`${Math.round(l * 100)}`}
-            variant="bordered"
           />
           <Input
             classNames={{
@@ -91,7 +91,6 @@ export default function OKLCH(props: OKLCHProps) {
             size="lg"
             startContent={<span className="font-semibold text-foreground-500">C</span>}
             value={c.toFixed(2)}
-            variant="bordered"
           />
           <Input
             classNames={{
@@ -102,7 +101,6 @@ export default function OKLCH(props: OKLCHProps) {
             size="lg"
             startContent={<span className="font-semibold text-foreground-500">H</span>}
             value={`${Math.round(h)}`}
-            variant="bordered"
           />
         </div>
         <Button

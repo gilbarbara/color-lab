@@ -1,16 +1,6 @@
 import { type Key, type ReactNode } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
-import {
-  addToast,
-  Divider,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  Tab,
-  Tabs,
-  useDisclosure,
-} from '@heroui/react';
+import { addToast, Divider, Tab, Tabs, useDisclosure } from '@heroui/react';
 
 import { useAppStore } from '~/stores/appStore';
 import {
@@ -19,6 +9,8 @@ import {
   formatTypes,
   getAvailableColorFormats,
 } from '~/utils/export';
+
+import Modal, { ModalBody, ModalContent, ModalHeader } from '~/components/Modal';
 
 import type { ExportColorFormat, ExportFormatType } from '~/types';
 
@@ -85,14 +77,11 @@ export default function ExportModal(props: ExportModalProps) {
       {trigger(onOpen)}
       {isOpen && (
         <Modal
-          backdrop="blur"
           classNames={{
-            header: 'p-4 text-lg/3',
-            body: 'p-4 min-h-96',
+            body: 'min-h-96',
           }}
           isOpen={isOpen}
           onClose={onOpenChange}
-          scrollBehavior="inside"
           size={min('lg') ? '4xl' : '2xl'}
         >
           <ModalContent>
