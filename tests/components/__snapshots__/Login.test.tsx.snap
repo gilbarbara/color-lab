@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Login > Render > renders modal when open 1`] = `
+<div
+  aria-hidden="true"
+>
+  <div
+    data-overlay-container="true"
+  />
+</div>
+`;
+
+exports[`Login > Render > renders nothing when modal is closed 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  />
+</div>
+`;

@@ -22,16 +22,28 @@ React 19 app for generating color palettes using the [colorizr](https://github.c
 
 ### State Management
 
-Two Zustand stores:
+Zustand stores:
 
+- **appStore** (`src/stores/appStore.ts`): UI state (export format, panel visibility)
+- **authStore** (`src/stores/authStore.ts`): Authentication state (user, status, error)
 - **paletteStore** (`src/stores/paletteStore.ts`): Colors array + global scale options
-- **appStore** (`src/stores/appStore.ts`): UI state (export format, bottom bar visibility)
 
 ### Hooks
 
+- **useAuth** (`src/hooks/useAuth.ts`): Authentication context consumer (user, login/logout methods)
 - **usePalette** (`src/hooks/usePalette.ts`): Primary hook for palette state + actions + computed values (baseSaturation, defaultOptions)
-- **useUrlSync** (`src/hooks/useUrlSync.ts`): Bidirectional URL ↔ store sync, called once in Generator
 - **useTheme** (`src/hooks/useTheme.ts`): Dark mode state from ThemeProvider
+- **useUrlSync** (`src/hooks/useUrlSync.ts`): Bidirectional URL ↔ store sync, called once in Generator
+
+### Authentication
+
+Appwrite-powered authentication supporting:
+
+- OAuth (Google, GitHub)
+- Email/password login and signup
+- Magic link (passwordless)
+
+Flow: `AuthProvider` wraps app, restores session on mount, provides auth methods via `AuthContext`.
 
 ### URL State
 
@@ -44,32 +56,47 @@ Shareable URLs encode entire palette: `/p/{name}-{color}[-{options}]/...?globalO
 
 ```
 ThemeProvider
-└── Generator (page)
-    ├── Sidebar (desktop) / Header+BottomBar (mobile)
-    │   ├── ColorOptions (global scale options)
-    │   └── ColorList → ColorSelector[] (SRGB or OKLCH mode)
-    ├── Palette → Scale[] → Swatch[]
-    └── Footer
+└── AuthProvider
+    └── App (BrowserRouter)
+        ├── Header (global: logo, dark mode toggle, Login/Avatar)
+        └── Routes
+            ├── Generator (/)
+            │   ├── GeneratorHeader (mobile only, above divider)
+            │   ├── Sidebar (desktop only)
+            │   │   ├── GeneratorHeader
+            │   │   ├── ColorOptions
+            │   │   ├── ColorList → ColorSelector[] (SRGB | OKLCH)
+            │   │   └── Add Color button
+            │   └── Palette
+            │       ├── PaletteHeader (options panel + export)
+            │       ├── Scale[] → Swatch[]
+            │       ├── BottomBar (mobile only, slide-up drawer)
+            │       │   ├── ColorOptions
+            │       │   └── ColorList → ColorSelector[]
+            │       └── Footer
+            └── AuthCallback (/auth/callback)
 ```
 
 ### Key Types
 
-- **ColorEntry**: `{ name, value, overrides? }`
+- **ColorEntry**: `{ id, name, value, overrides? }`
 - **GlobalScaleOptions**: `{ steps, saturation, saturationOverride, chromaCurve, lightnessCurve, minLightness, maxLightness }`
 
 ### Core Utilities
 
+- `src/utils/appwrite.ts`: Appwrite client, account, databases exports
+- `src/utils/color.ts`: Color helpers (chroma percentage, random color)
+- `src/utils/export.ts`: Generate CSS/SCSS/Tailwind/SVG exports
 - `src/utils/palette.ts`: Pure functions for palette CRUD operations (used by store)
 - `src/utils/url.ts`: URL encoding/decoding for shareable palettes
-- `src/utils/export.ts`: Generate CSS/SCSS/Tailwind/SVG exports
-- `src/utils/color.ts`: Color helpers (chroma percentage, random color)
 
 ## Key Dependencies
 
 - **colorizr**: Color manipulation, `scale()` function for generating tone steps
 - **Zustand**: State management (stores in `src/stores/`)
 - **HeroUI**: Component library with Tailwind CSS 4
-- **React Router**: Routing (`/` and `/p/*` routes)
+- **React Router**: Routing (`/`, `/p/*`, `/auth/callback` routes)
+- **Appwrite**: Backend authentication service
 - **@gilbarbara/hooks**: `useMemoDeepCompare`, `useToggle`, `useBreakpoint`, `useSetState`
 
 ## Testing
@@ -78,8 +105,10 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 
 **Path aliases (tsconfig):**
 
-- `~/test-utils` → `tests/__setup__/test-utils.tsx` (custom render with MemoryRouter + ThemeProvider)
-- `~/test-mocks` → `tests/__setup__/mocks.ts` (global mocks: clipboard, HeroUI)
+- `~/test-utils` → `tests/__setup__/test-utils.tsx`
+  - custom render with MemoryRouter + ThemeProvider + MockAuthProvider. Supports `initialEntries` for routing, and `authState` for auth context overrides.
+- `~/test-mocks` → `tests/__setup__/mocks.ts`
+  - global mocks: clipboard, HeroUI
 
 **Patterns:**
 

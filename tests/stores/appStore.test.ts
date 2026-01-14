@@ -7,6 +7,7 @@ describe('stores/appStore', () => {
       exportFormatType: 'tailwind4',
       showBottomBar: false,
       showColorOptionsPanel: false,
+      showLoginModal: false,
       showPaletteOptionsPanel: false,
     });
   });
@@ -19,6 +20,7 @@ describe('stores/appStore', () => {
       expect(state.exportFormatType).toBe('tailwind4');
       expect(state.showBottomBar).toBe(false);
       expect(state.showColorOptionsPanel).toBe(false);
+      expect(state.showLoginModal).toBe(false);
       expect(state.showPaletteOptionsPanel).toBe(false);
     });
   });
@@ -141,7 +143,7 @@ describe('stores/appStore', () => {
     });
   });
 
-  describe('toggleBottomBar', () => {
+  describe('togglePaletteOptionsPanel', () => {
     it('toggles showPaletteOptionsPanel from false to true', () => {
       expect(useAppStore.getState().showPaletteOptionsPanel).toBe(false);
 
@@ -171,6 +173,25 @@ describe('stores/appStore', () => {
 
       togglePaletteOptionsPanel();
       expect(useAppStore.getState().showPaletteOptionsPanel).toBe(true);
+    });
+  });
+  describe('openLoginModal', () => {
+    it('sets showLoginModal to true', () => {
+      expect(useAppStore.getState().showLoginModal).toBe(false);
+
+      useAppStore.getState().openLoginModal();
+
+      expect(useAppStore.getState().showLoginModal).toBe(true);
+    });
+  });
+
+  describe('closeLoginModal', () => {
+    it('sets showLoginModal to false', () => {
+      useAppStore.setState({ showLoginModal: true });
+
+      useAppStore.getState().closeLoginModal();
+
+      expect(useAppStore.getState().showLoginModal).toBe(false);
     });
   });
 });
