@@ -22,7 +22,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
           class="flex flex-1 items-center"
         >
           <div
-            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
             data-filled="true"
             data-filled-within="true"
             data-has-value="true"
@@ -54,7 +54,9 @@ exports[`OKLCH > Render > renders correctly 1`] = `
                     data-has-end-content="true"
                     data-has-start-content="true"
                     data-slot="input"
+                    data-type="text"
                     id="react-aria-_r_2_"
+                    placeholder=" "
                     readonly=""
                     tabindex="0"
                     title=""
@@ -71,7 +73,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
             </div>
           </div>
           <div
-            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
             data-filled="true"
             data-filled-within="true"
             data-has-value="true"
@@ -102,7 +104,9 @@ exports[`OKLCH > Render > renders correctly 1`] = `
                     data-filled-within="true"
                     data-has-start-content="true"
                     data-slot="input"
+                    data-type="text"
                     id="react-aria-_r_7_"
+                    placeholder=" "
                     tabindex="0"
                     title=""
                     type="text"
@@ -113,7 +117,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
             </div>
           </div>
           <div
-            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
             data-filled="true"
             data-filled-within="true"
             data-has-value="true"
@@ -145,7 +149,9 @@ exports[`OKLCH > Render > renders correctly 1`] = `
                     data-has-end-content="true"
                     data-has-start-content="true"
                     data-slot="input"
+                    data-type="text"
                     id="react-aria-_r_c_"
+                    placeholder=" "
                     tabindex="0"
                     title=""
                     type="text"
@@ -414,7 +420,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
           class="flex flex-1 items-center"
         >
           <div
-            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
             data-filled="true"
             data-filled-within="true"
             data-has-value="true"
@@ -446,7 +452,9 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
                     data-has-end-content="true"
                     data-has-start-content="true"
                     data-slot="input"
+                    data-type="text"
                     id="react-aria-_r_17_"
+                    placeholder=" "
                     readonly=""
                     tabindex="0"
                     title=""
@@ -463,7 +471,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
             </div>
           </div>
           <div
-            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
             data-filled="true"
             data-filled-within="true"
             data-has-value="true"
@@ -494,7 +502,9 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
                     data-filled-within="true"
                     data-has-start-content="true"
                     data-slot="input"
+                    data-type="text"
                     id="react-aria-_r_1c_"
+                    placeholder=" "
                     tabindex="0"
                     title=""
                     type="text"
@@ -505,7 +515,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
             </div>
           </div>
           <div
-            class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+            class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
             data-filled="true"
             data-filled-within="true"
             data-has-value="true"
@@ -537,7 +547,9 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
                     data-has-end-content="true"
                     data-has-start-content="true"
                     data-slot="input"
+                    data-type="text"
                     id="react-aria-_r_1h_"
+                    placeholder=" "
                     tabindex="0"
                     title=""
                     type="text"

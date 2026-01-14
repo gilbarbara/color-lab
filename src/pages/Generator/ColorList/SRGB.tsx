@@ -1,11 +1,12 @@
 import { type ChangeEvent, useMemo, useRef } from 'react';
-import { Button, Input } from '@heroui/react';
+import { Button } from '@heroui/react';
 import { ArrowsClockwiseIcon } from '@phosphor-icons/react';
 import { hex2hsl, type HSL, hsl2hex, isHex } from 'colorizr';
 
 import { getRandomColor } from '~/utils/color';
 
 import ColorCircle from '~/components/ColorCircle';
+import { Input } from '~/components/Field';
 import GradientSlider from '~/components/GradientSlider';
 import Tooltip from '~/components/Tooltip';
 
@@ -101,7 +102,6 @@ export default function SRGB(props: SRGBProps) {
           }
           type="text"
           value={hex}
-          variant="bordered"
         />
         <Button
           className="rounded-s-none border-l-0"

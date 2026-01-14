@@ -685,7 +685,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                   value="#FF0000"
                 />
                 <div
-                  class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+                  class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
                   data-filled="true"
                   data-filled-within="true"
                   data-has-value="true"
@@ -719,6 +719,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                           data-slot="input"
                           data-type="text"
                           id="react-aria-_r_1e_"
+                          placeholder=" "
                           tabindex="0"
                           title=""
                           type="text"
@@ -1099,7 +1100,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                   value="#FF0001"
                 />
                 <div
-                  class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+                  class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
                   data-filled="true"
                   data-filled-within="true"
                   data-has-value="true"
@@ -1133,6 +1134,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                           data-slot="input"
                           data-type="text"
                           id="react-aria-_r_2m_"
+                          placeholder=" "
                           tabindex="0"
                           title=""
                           type="text"
@@ -2088,7 +2090,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                   value="#FF0000"
                 />
                 <div
-                  class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+                  class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
                   data-filled="true"
                   data-filled-within="true"
                   data-has-value="true"
@@ -2122,6 +2124,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                           data-slot="input"
                           data-type="text"
                           id="react-aria-_r_4v_"
+                          placeholder=" "
                           tabindex="0"
                           title=""
                           type="text"
@@ -2502,7 +2505,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                   value="#FF0001"
                 />
                 <div
-                  class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_12px)] is-filled"
+                  class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
                   data-filled="true"
                   data-filled-within="true"
                   data-has-value="true"
@@ -2536,6 +2539,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                           data-slot="input"
                           data-type="text"
                           id="react-aria-_r_67_"
+                          placeholder=" "
                           tabindex="0"
                           title=""
                           type="text"

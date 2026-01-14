@@ -1,18 +1,11 @@
 import { type FormEvent, type ReactNode, useRef } from 'react';
 import { ASYNC_STATUS, request } from '@gilbarbara/helpers';
 import { useSetState } from '@gilbarbara/hooks';
-import {
-  Button,
-  Divider,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  Textarea,
-  useDisclosure,
-} from '@heroui/react';
+import { Button, Divider, useDisclosure } from '@heroui/react';
 import { CheckCircleIcon, WarningCircleIcon, XCircleIcon } from '@phosphor-icons/react';
+
+import { Input, Textarea } from '~/components/Field';
+import Modal, { ModalBody, ModalContent, ModalHeader } from '~/components/Modal';
 
 interface Form extends HTMLFormElement {
   elements: HTMLFormControlsCollection & {
@@ -104,23 +97,14 @@ export default function Contact() {
         Feedback
       </button>
       {isOpen && (
-        <Modal
-          backdrop="blur"
-          classNames={{
-            header: 'p-4 text-lg/3',
-            body: 'p-4 gap-4',
-          }}
-          isOpen={isOpen}
-          onClose={onOpenChange}
-          scrollBehavior="inside"
-          size="lg"
-        >
+        <Modal isOpen={isOpen} onClose={onOpenChange} size="lg">
           <ModalContent>
             <ModalHeader>Feedback</ModalHeader>
             <Divider />
             <form ref={formRef} onSubmit={handleSubmit}>
               <ModalBody>
                 <Textarea
+                  labelPlacement="inside"
                   name="message"
                   placeholder="Your feedback, suggestions or bug reports"
                   required
