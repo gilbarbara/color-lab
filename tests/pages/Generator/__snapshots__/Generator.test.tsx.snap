@@ -566,7 +566,7 @@ exports[`Generator > renders correctly 1`] = `
                             data-filled="true"
                             data-filled-within="true"
                             data-slot="input"
-                            id="react-aria-_r_4j_"
+                            id="react-aria-_r_4v_"
                             tabindex="0"
                             title=""
                             type="text"
@@ -698,7 +698,7 @@ exports[`Generator > renders correctly 1`] = `
                               data-has-start-content="true"
                               data-slot="input"
                               data-type="text"
-                              id="react-aria-_r_4v_"
+                              id="react-aria-_r_5b_"
                               placeholder=" "
                               tabindex="0"
                               title=""
@@ -738,7 +738,7 @@ exports[`Generator > renders correctly 1`] = `
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_56_"
+                      id="react-aria-_r_5i_"
                       role="group"
                     >
                       <div
@@ -780,10 +780,10 @@ exports[`Generator > renders correctly 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_56_"
+                                aria-labelledby="react-aria-_r_5i_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="344"
-                                id="react-aria-_r_56_-0"
+                                id="react-aria-_r_5i_-0"
                                 max="359.9"
                                 min="0"
                                 step="1"
@@ -806,7 +806,7 @@ exports[`Generator > renders correctly 1`] = `
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_5c_"
+                      id="react-aria-_r_5o_"
                       role="group"
                     >
                       <div
@@ -850,10 +850,10 @@ exports[`Generator > renders correctly 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_5c_"
+                                aria-labelledby="react-aria-_r_5o_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="100"
-                                id="react-aria-_r_5c_-0"
+                                id="react-aria-_r_5o_-0"
                                 max="100"
                                 min="0"
                                 step="1"
@@ -876,7 +876,7 @@ exports[`Generator > renders correctly 1`] = `
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_5k_"
+                      id="react-aria-_r_60_"
                       role="group"
                     >
                       <div
@@ -918,10 +918,10 @@ exports[`Generator > renders correctly 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_5k_"
+                                aria-labelledby="react-aria-_r_60_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="50"
-                                id="react-aria-_r_5k_-0"
+                                id="react-aria-_r_60_-0"
                                 max="100"
                                 min="0"
                                 step="1"
@@ -983,25 +983,54 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="flex items-center justify-between mb-4"
             >
-              <h2
-                class="text-2xl font-semibold"
-              >
-                Color Palette
-              </h2>
               <div
-                class="flex items-center gap-2"
+                class="group flex flex-col data-[hidden=true]:hidden w-full pointer-events-none relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_8px)] opacity-100 is-filled"
+                data-disabled="true"
+                data-filled="true"
+                data-filled-within="true"
+                data-has-value="true"
+                data-slot="base"
+              >
+                <div
+                  class="h-full flex flex-col"
+                  data-slot="main-wrapper"
+                >
+                  <div
+                    class="w-full inline-flex tap-highlight-transparent flex-row items-center gap-3 !px-1 !pb-0 !gap-0 relative box-border shadow-[0_1px_0px_0_rgba(0,0,0,0.05)] border-default-200 !rounded-none hover:border-default-300 after:content-[''] after:w-0 after:origin-center after:bg-default-foreground after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[2px] group-data-[focus=true]:after:w-full h-8 min-h-8 px-2 rounded-small pointer-events-none transition-background motion-reduce:transition-none !duration-150 after:transition-width motion-reduce:after:transition-none is-filled"
+                    data-slot="input-wrapper"
+                    style="cursor: text;"
+                  >
+                    <div
+                      class="inline-flex w-full items-center h-full box-border pb-0"
+                      data-slot="inner-wrapper"
+                    >
+                      <input
+                        aria-label=" "
+                        class="w-full bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden group-data-[has-value=true]:text-foreground text-2xl font-semibold text-foreground-800 is-filled"
+                        data-filled="true"
+                        data-filled-within="true"
+                        data-slot="input"
+                        disabled=""
+                        id="react-aria-_r_29_"
+                        type="text"
+                        value="Color Palette"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="flex items-center md:gap-2"
               >
                 <button
-                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 px-2 min-w-8"
+                  aria-label="Palette Options"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 size-8"
                   data-react-aria-pressable="true"
                   tabindex="0"
                   type="button"
                 >
-                  <span>
-                    Options
-                  </span>
                   <svg
-                    class="transition-transform text-xs"
+                    class="text-lg"
                     fill="currentColor"
                     height="1em"
                     viewBox="0 0 256 256"
@@ -1009,7 +1038,7 @@ exports[`Generator > renders correctly 1`] = `
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z"
+                      d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z"
                     />
                   </svg>
                 </button>
@@ -1020,6 +1049,27 @@ exports[`Generator > renders correctly 1`] = `
                   type="button"
                 >
                   Export All
+                </button>
+                <button
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-4 min-w-20 h-10 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"
+                    />
+                  </svg>
+                  Save
                 </button>
               </div>
             </div>
@@ -1107,7 +1157,7 @@ exports[`Generator > renders correctly 1`] = `
                       <label
                         class="block z-10 flex-shrink-0 subpixel-antialiased pointer-events-none group-data-[has-label-outside=true]:pointer-events-auto text-tiny relative pe-2 text-foreground will-change-auto origin-top-left rtl:origin-top-right !duration-200 !ease-out transition-[transform,color,left,opacity,translate,scale] motion-reduce:transition-none group-data-[has-helper=true]:pt-2"
                         data-slot="label"
-                        id="react-aria-_r_2d_"
+                        id="react-aria-_r_2m_"
                       >
                         <p
                           class="flex items-center gap-2"
@@ -1138,11 +1188,11 @@ exports[`Generator > renders correctly 1`] = `
                         <button
                           aria-expanded="false"
                           aria-haspopup="listbox"
-                          aria-labelledby="react-aria-_r_2h_ react-aria-_r_2d_ "
+                          aria-labelledby="react-aria-_r_2q_ react-aria-_r_2m_ "
                           class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                           data-react-aria-pressable="true"
                           data-slot="trigger"
-                          id="react-aria-_r_2c_"
+                          id="react-aria-_r_2l_"
                           tabindex="0"
                           type="button"
                         >
@@ -1153,7 +1203,7 @@ exports[`Generator > renders correctly 1`] = `
                             <span
                               class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                               data-slot="value"
-                              id="react-aria-_r_2h_"
+                              id="react-aria-_r_2q_"
                             >
                               Select variant
                             </span>
@@ -1287,7 +1337,7 @@ exports[`Generator > renders correctly 1`] = `
                       <label
                         class="block z-10 flex-shrink-0 subpixel-antialiased pointer-events-none group-data-[has-label-outside=true]:pointer-events-auto text-tiny relative pe-2 text-foreground will-change-auto origin-top-left rtl:origin-top-right !duration-200 !ease-out transition-[transform,color,left,opacity,translate,scale] motion-reduce:transition-none group-data-[has-helper=true]:pt-2"
                         data-slot="label"
-                        id="react-aria-_r_2p_"
+                        id="react-aria-_r_32_"
                       >
                         <p
                           class="flex items-center gap-2"
@@ -1318,11 +1368,11 @@ exports[`Generator > renders correctly 1`] = `
                         <button
                           aria-expanded="false"
                           aria-haspopup="listbox"
-                          aria-labelledby="react-aria-_r_2t_ react-aria-_r_2p_ "
+                          aria-labelledby="react-aria-_r_36_ react-aria-_r_32_ "
                           class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                           data-react-aria-pressable="true"
                           data-slot="trigger"
-                          id="react-aria-_r_2o_"
+                          id="react-aria-_r_31_"
                           tabindex="0"
                           type="button"
                         >
@@ -1333,7 +1383,7 @@ exports[`Generator > renders correctly 1`] = `
                             <span
                               class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                               data-slot="value"
-                              id="react-aria-_r_2t_"
+                              id="react-aria-_r_36_"
                             >
                               Select lock
                             </span>
@@ -1369,12 +1419,12 @@ exports[`Generator > renders correctly 1`] = `
                     >
                       <div
                         aria-label="Steps"
-                        aria-labelledby="react-aria-_r_32_ react-aria-_r_33_"
+                        aria-labelledby="react-aria-_r_3b_ react-aria-_r_3c_"
                         class="flex flex-col w-full gap-1"
                         data-hover="false"
                         data-orientation="horizontal"
                         data-slot="base"
-                        id="react-aria-_r_32_"
+                        id="react-aria-_r_3b_"
                         role="group"
                       >
                         <div
@@ -1384,7 +1434,7 @@ exports[`Generator > renders correctly 1`] = `
                           <label
                             class="flex gap-2 items-center"
                             data-slot="label"
-                            for="react-aria-_r_33_"
+                            for="react-aria-_r_3c_"
                           >
                             Steps
                             <button
@@ -1425,7 +1475,7 @@ exports[`Generator > renders correctly 1`] = `
                             aria-live="off"
                             class="text-small"
                             data-slot="value"
-                            for="react-aria-_r_33_-0"
+                            for="react-aria-_r_3c_-0"
                           >
                             <span
                               class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1471,10 +1521,10 @@ exports[`Generator > renders correctly 1`] = `
                                 <input
                                   aria-describedby=""
                                   aria-details=""
-                                  aria-labelledby="react-aria-_r_33_"
+                                  aria-labelledby="react-aria-_r_3c_"
                                   aria-orientation="horizontal"
                                   aria-valuetext="11"
-                                  id="react-aria-_r_33_-0"
+                                  id="react-aria-_r_3c_-0"
                                   max="20"
                                   min="3"
                                   name="steps"
@@ -1494,12 +1544,12 @@ exports[`Generator > renders correctly 1`] = `
                     >
                       <div
                         aria-label="Saturation"
-                        aria-labelledby="react-aria-_r_3c_ react-aria-_r_3d_"
+                        aria-labelledby="react-aria-_r_3l_ react-aria-_r_3m_"
                         class="flex flex-col w-full gap-1 opacity-disabled"
                         data-hover="false"
                         data-orientation="horizontal"
                         data-slot="base"
-                        id="react-aria-_r_3c_"
+                        id="react-aria-_r_3l_"
                         role="group"
                       >
                         <div
@@ -1509,7 +1559,7 @@ exports[`Generator > renders correctly 1`] = `
                           <label
                             class="flex gap-2 items-center"
                             data-slot="label"
-                            for="react-aria-_r_3d_"
+                            for="react-aria-_r_3m_"
                           >
                             Saturation
                             <button
@@ -1534,7 +1584,7 @@ exports[`Generator > renders correctly 1`] = `
                             aria-live="off"
                             class="text-small"
                             data-slot="value"
-                            for="react-aria-_r_3d_-0"
+                            for="react-aria-_r_3m_-0"
                           >
                             <span
                               class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1580,11 +1630,11 @@ exports[`Generator > renders correctly 1`] = `
                                 <input
                                   aria-describedby=""
                                   aria-details=""
-                                  aria-labelledby="react-aria-_r_3d_"
+                                  aria-labelledby="react-aria-_r_3m_"
                                   aria-orientation="horizontal"
                                   aria-valuetext="88.7"
                                   disabled=""
-                                  id="react-aria-_r_3d_-0"
+                                  id="react-aria-_r_3m_-0"
                                   max="100"
                                   min="0"
                                   name="saturation"
@@ -1605,7 +1655,7 @@ exports[`Generator > renders correctly 1`] = `
                           class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
                         >
                           <input
-                            aria-labelledby="_r_3k_"
+                            aria-labelledby="_r_3t_"
                             class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                             data-react-aria-pressable="true"
                             name="saturationOverride"
@@ -1624,7 +1674,7 @@ exports[`Generator > renders correctly 1`] = `
                           </span>
                           <span
                             class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                            id="_r_3k_"
+                            id="_r_3t_"
                           >
                             <span>
                               Apply saturation to all colors
@@ -1657,7 +1707,7 @@ exports[`Generator > renders correctly 1`] = `
                       >
                         <input
                           aria-label="Light scale"
-                          aria-labelledby="_r_3n_"
+                          aria-labelledby="_r_40_"
                           class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                           data-react-aria-pressable="true"
                           name="mode"
@@ -1676,7 +1726,7 @@ exports[`Generator > renders correctly 1`] = `
                         </span>
                         <span
                           class="relative text-foreground select-none ms-2 text-small"
-                          id="_r_3n_"
+                          id="_r_40_"
                         >
                           Light scale
                         </span>

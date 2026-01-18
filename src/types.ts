@@ -1,3 +1,4 @@
+import type { Models } from 'appwrite';
 import type { ScaleOptions as ScaleOptionsBase } from 'colorizr';
 
 export type ExportColorFormat = 'oklch' | 'hex' | 'hsl' | 'rgb' | 'rgb-channels';
@@ -54,6 +55,13 @@ export interface PaletteState {
    * Global scale options that apply to all colors unless overridden
    */
   globalOptions: GlobalScaleOptions;
+}
+
+export interface SavedPalette extends Models.Row {
+  isFavorite: boolean;
+  name: string;
+  url: string;
+  userId: string;
 }
 
 export interface ScaleExportData {

@@ -1,13 +1,26 @@
-import { useMemo } from 'react';
-import { Button, cn, Select, SelectItem, type SharedSelection, Slider } from '@heroui/react';
-import { CaretUpIcon, EraserIcon, InfoIcon } from '@phosphor-icons/react';
+import { type ChangeEvent, type KeyboardEvent, useMemo } from 'react';
+import { useSetState } from '@gilbarbara/hooks';
+import {
+  addToast,
+  Button,
+  cn,
+  Input,
+  Select,
+  SelectItem,
+  type SharedSelection,
+  Slider,
+} from '@heroui/react';
+import { EraserIcon, GearSixIcon, HeartIcon, InfoIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys } from 'colorizr';
 
+import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
+import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 
 import Collapse from '~/components/Collapse';
 import ExportPalette from '~/components/ExportPalette';
+import SavePaletteModal from '~/components/SavePaletteModal';
 import SliderLabel from '~/components/SliderLabel';
 import SliderValue from '~/components/SliderValue';
 import Switch from '~/components/Switch';
@@ -15,10 +28,39 @@ import Tooltip from '~/components/Tooltip';
 
 import type { ScaleOptions } from '~/types';
 
+interface PaletteHeaderState {
+  isSaveModalOpen: boolean;
+  isSaving: boolean;
+  name: string;
+}
+
 export default function PaletteHeader() {
+  const { isAuthenticated } = useAuth();
   const { defaultOptions, globalOptions, updateGlobalOptions } = usePalette();
   const { lock, mode, saturation, saturationOverride, steps, variant } = globalOptions;
-  const { showPaletteOptionsPanel, togglePaletteOptionsPanel } = useAppStore();
+  const { openLoginModal, showPaletteOptionsPanel, togglePaletteOptionsPanel } = useAppStore();
+  const {
+    hasUnsavedChanges,
+    loadedPaletteId,
+    loadedPaletteName,
+    renamePalette,
+    savePalette,
+    updateCurrentPalette,
+  } = useSavedPalettes();
+
+  const [{ isSaveModalOpen, isSaving, name }, setState] = useSetState<PaletteHeaderState>({
+    isSaveModalOpen: false,
+    isSaving: false,
+    name: loadedPaletteName,
+  });
+
+  const handleBlurName = () => {
+    if (loadedPaletteName && loadedPaletteName !== name) {
+      setState({
+        name: loadedPaletteName,
+      });
+    }
+  };
 
   const handleChangeLock = ({ currentKey }: SharedSelection) => {
     if (!currentKey || currentKey === 'None') {
@@ -30,14 +72,16 @@ export default function PaletteHeader() {
     updateGlobalOptions({ lock: parseInt(currentKey, 10) });
   };
 
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    setState({ name: value });
+  };
+
   const handleChangeSaturation = (value: number | number[]) => {
     if (!Array.isArray(value)) {
       updateGlobalOptions({ saturation: value });
     }
-  };
-
-  const handleToggleSaturationOverride = (value: boolean) => {
-    updateGlobalOptions({ saturationOverride: value });
   };
 
   const handleChangeSteps = (value: number | number[]) => {
@@ -56,6 +100,30 @@ export default function PaletteHeader() {
     updateGlobalOptions({ variant: currentKey as ScaleOptions['variant'] });
   };
 
+  const handleClickSave = async () => {
+    if (!isAuthenticated) {
+      openLoginModal();
+
+      return;
+    }
+
+    if (loadedPaletteId) {
+      // Update existing palette
+      setState({ isSaving: true });
+
+      const success = await updateCurrentPalette();
+
+      setState({ isSaving: false });
+
+      if (success) {
+        addToast({ title: 'Palette updated', color: 'success' });
+      }
+    } else {
+      // Open modal to save new palette
+      setState({ isSaveModalOpen: true });
+    }
+  };
+
   const handleClickReset = () => {
     updateGlobalOptions({
       lock: defaultOptions.lock,
@@ -67,8 +135,43 @@ export default function PaletteHeader() {
     });
   };
 
+  const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      if (!isAuthenticated) {
+        openLoginModal();
+
+        return;
+      }
+
+      if (loadedPaletteId) {
+        renamePalette(loadedPaletteId, name);
+
+        return;
+      }
+
+      savePalette(name);
+    }
+  };
+
+  const handleSaveNewPalette = async (value: string) => {
+    setState({ isSaving: true });
+
+    const palette = await savePalette(value);
+
+    setState({ isSaving: false });
+
+    if (palette) {
+      setState({ isSaveModalOpen: false });
+      addToast({ title: 'Palette saved', color: 'success' });
+    }
+  };
+
   const handleToggleMode = (value: boolean) => {
     updateGlobalOptions({ mode: value ? 'dark' : 'light' });
+  };
+
+  const handleToggleSaturationOverride = (value: boolean) => {
+    updateGlobalOptions({ saturationOverride: value });
   };
 
   const variants = useMemo(
@@ -87,17 +190,43 @@ export default function PaletteHeader() {
   return (
     <div data-uid="PaletteHeader">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-semibold">Color Palette</h2>
-        <div className="flex items-center gap-2">
-          <Button className="h-8 px-2 min-w-8" onPress={togglePaletteOptionsPanel} variant="light">
-            <span>Options</span>
-            <CaretUpIcon
-              className={cn('transition-transform text-xs', {
-                'rotate-180': showPaletteOptionsPanel,
-              })}
-            />
-          </Button>
+        <Input
+          classNames={{
+            base: 'opacity-100',
+            innerWrapper: 'pb-0',
+            input: 'text-2xl font-semibold text-foreground-800',
+          }}
+          color={loadedPaletteName !== name ? 'warning' : undefined}
+          isDisabled={!isAuthenticated}
+          onBlur={handleBlurName}
+          onChange={handleChangeName}
+          onKeyDown={handleKeyDownName}
+          size="sm"
+          value={name}
+          variant="underlined"
+        />
+
+        <div className="flex items-center md:gap-2">
+          <Tooltip content="Palette Options" delay={250} placement="bottom">
+            <Button
+              aria-label="Palette Options"
+              className="min-w-8 size-8"
+              isIconOnly
+              onPress={togglePaletteOptionsPanel}
+              variant={showPaletteOptionsPanel ? 'solid' : 'light'}
+            >
+              <GearSixIcon className="text-lg" />
+            </Button>
+          </Tooltip>
           <ExportPalette />
+          <Button
+            color={hasUnsavedChanges ? 'warning' : 'primary'}
+            isLoading={isSaving}
+            onPress={handleClickSave}
+            startContent={<HeartIcon />}
+          >
+            {loadedPaletteId ? 'Update' : 'Save'}
+          </Button>
         </div>
       </div>
 
@@ -296,6 +425,12 @@ export default function PaletteHeader() {
           </div>
         </div>
       </Collapse>
+      <SavePaletteModal
+        isOpen={isSaveModalOpen}
+        isSaving={isSaving}
+        onClose={() => setState({ isSaveModalOpen: false })}
+        onSave={handleSaveNewPalette}
+      />
     </div>
   );
 }
