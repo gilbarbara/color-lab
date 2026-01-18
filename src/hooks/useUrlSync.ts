@@ -22,17 +22,11 @@ export default function useUrlSync() {
       return;
     }
 
-    const pathMatch = location.pathname.match(/^\/p\/(.+)$/);
-
-    if (pathMatch) {
-      const segments = pathMatch[1].split('/').filter(Boolean);
-      const searchParams = new URLSearchParams(location.search);
-      const urlState = parsePaletteFromUrl(segments, searchParams);
+    if (location.pathname.startsWith('/p/')) {
+      const urlState = parsePaletteFromUrl(currentUrl);
 
       if (urlState) {
-        const targetUrl = `/p/${segments.join('/')}${location.search}`;
-
-        if (storeUrl !== targetUrl) {
+        if (storeUrl !== currentUrl) {
           usePaletteStore.setState(urlState);
         }
 

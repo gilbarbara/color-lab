@@ -104,6 +104,7 @@ export default function SRGB(props: SRGBProps) {
           value={hex}
         />
         <Button
+          aria-label="Random color"
           className="rounded-s-none border-l-0"
           isIconOnly
           onPress={handleClickRandomHex}

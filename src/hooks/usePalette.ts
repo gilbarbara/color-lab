@@ -3,12 +3,14 @@ import { useMemoDeepCompare } from '@gilbarbara/hooks';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { getChromaAsPercentage } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
+import { serializePaletteToUrl } from '~/utils/url';
 
 import type { GlobalScaleOptions, PaletteActions, PaletteState } from '~/types';
 
 interface UsePaletteResult extends PaletteState, PaletteActions {
   baseSaturation: number;
   defaultOptions: GlobalScaleOptions;
+  generatorUrl: string;
 }
 
 /**
@@ -30,5 +32,10 @@ export default function usePalette(): UsePaletteResult {
     [store.colors],
   );
 
-  return { baseSaturation, defaultOptions, ...store };
+  const generatorUrl = useMemoDeepCompare(
+    () => serializePaletteToUrl({ colors: store.colors, globalOptions: store.globalOptions }),
+    [store.colors, store.globalOptions],
+  );
+
+  return { baseSaturation, defaultOptions, generatorUrl, ...store };
 }

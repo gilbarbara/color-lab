@@ -113,6 +113,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                     >
                       Lightness Range
                       <button
+                        aria-label="Description for Lightness Range"
                         class="text-lg"
                         type="button"
                       >
@@ -129,6 +130,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                         </svg>
                       </button>
                       <button
+                        aria-label="Reset Lightness Range to default"
                         class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
                         disabled=""
                         type="button"
@@ -272,6 +274,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                     >
                       Lightness Curve
                       <button
+                        aria-label="Description for Lightness Curve"
                         class="text-lg"
                         type="button"
                       >
@@ -288,6 +291,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                         </svg>
                       </button>
                       <button
+                        aria-label="Reset Lightness Curve to default"
                         class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
                         disabled=""
                         type="button"
@@ -393,6 +397,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                     >
                       Chroma Curve
                       <button
+                        aria-label="Description for Chroma Curve"
                         class="text-lg"
                         type="button"
                       >
@@ -409,6 +414,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                         </svg>
                       </button>
                       <button
+                        aria-label="Reset Chroma Curve to default"
                         class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
                         disabled=""
                         type="button"
@@ -730,6 +736,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                   </div>
                 </div>
                 <button
+                  aria-label="Random color"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none border-l-0"
                   data-react-aria-pressable="true"
                   tabindex="0"
@@ -1145,6 +1152,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                   </div>
                 </div>
                 <button
+                  aria-label="Random color"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none border-l-0"
                   data-react-aria-pressable="true"
                   tabindex="0"
@@ -1518,6 +1526,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                     >
                       Lightness Range
                       <button
+                        aria-label="Description for Lightness Range"
                         class="text-lg"
                         type="button"
                       >
@@ -1534,6 +1543,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                         </svg>
                       </button>
                       <button
+                        aria-label="Reset Lightness Range to default"
                         class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
                         disabled=""
                         type="button"
@@ -1677,6 +1687,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                     >
                       Lightness Curve
                       <button
+                        aria-label="Description for Lightness Curve"
                         class="text-lg"
                         type="button"
                       >
@@ -1693,6 +1704,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                         </svg>
                       </button>
                       <button
+                        aria-label="Reset Lightness Curve to default"
                         class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
                         disabled=""
                         type="button"
@@ -1798,6 +1810,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                     >
                       Chroma Curve
                       <button
+                        aria-label="Description for Chroma Curve"
                         class="text-lg"
                         type="button"
                       >
@@ -1814,6 +1827,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                         </svg>
                       </button>
                       <button
+                        aria-label="Reset Chroma Curve to default"
                         class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
                         disabled=""
                         type="button"
@@ -2135,6 +2149,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                   </div>
                 </div>
                 <button
+                  aria-label="Random color"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none border-l-0"
                   data-react-aria-pressable="true"
                   tabindex="0"
@@ -2550,6 +2565,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                   </div>
                 </div>
                 <button
+                  aria-label="Random color"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none border-l-0"
                   data-react-aria-pressable="true"
                   tabindex="0"

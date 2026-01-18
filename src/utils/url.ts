@@ -315,16 +315,30 @@ export function parseColorFromParams(params: Params): string | null {
 }
 
 /**
- * Parse palette from URL path segments and query params
+ * Parse palette from URL string
+ * Accepts full URL, path, or just the palette segments
+ * Examples:
+ *   '/p/Primary-FF0044/Secondary-698CE0?f=1.8'
+ *   'Primary-FF0044/Secondary-698CE0?f=1.8'
  * Returns null if parsing fails
  */
-export function parsePaletteFromUrl(
-  pathSegments: string[],
-  searchParams: URLSearchParams,
-): PaletteState | null {
+export function parsePaletteFromUrl(url: string): PaletteState | null {
+  if (!url) {
+    return null;
+  }
+
+  // Split path and query string
+  const [pathPart, queryPart] = url.split('?');
+
+  // Strip /p/ prefix if present
+  const segmentPath = pathPart.startsWith('/p/') ? pathPart.slice(3) : pathPart;
+  const pathSegments = segmentPath.split('/').filter(Boolean);
+
   if (pathSegments.length === 0) {
     return null;
   }
+
+  const searchParams = new URLSearchParams(queryPart ?? '');
 
   const colors: ColorEntry[] = [];
 

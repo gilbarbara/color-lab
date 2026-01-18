@@ -11,3 +11,7 @@
 html.dark {
   --color-tooltip: #2e323d;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+}

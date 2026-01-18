@@ -1,6 +1,8 @@
 import { type DOMAttributes, type MouseEvent, type ReactNode } from 'react';
 import { EraserIcon, InfoIcon } from '@phosphor-icons/react';
 
+import { getTextFromNode } from '~/utils/strings';
+
 import Tooltip from '~/components/Tooltip';
 
 interface SliderLabelProps extends DOMAttributes<HTMLLabelElement> {
@@ -37,7 +39,12 @@ export default function SliderLabel(props: SliderLabelProps) {
           delay={250}
           isDisabled={isDisabled}
         >
-          <button className="text-lg" onClick={event => event.stopPropagation()} type="button">
+          <button
+            aria-label={`Description for ${getTextFromNode(children)}`}
+            className="text-lg"
+            onClick={event => event.stopPropagation()}
+            type="button"
+          >
             <InfoIcon />
           </button>
         </Tooltip>
@@ -51,6 +58,7 @@ export default function SliderLabel(props: SliderLabelProps) {
         isDisabled={isDisabled}
       >
         <button
+          aria-label={`Reset ${getTextFromNode(children)} to default`}
           className="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
           disabled={disableReset || isDisabled}
           onClick={handleClickReset}

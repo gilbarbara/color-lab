@@ -14,6 +14,7 @@ import { convert, getColorType, parseCSS, readableColorAPCA } from 'colorizr';
 
 import { getChromaAsPercentage } from '~/utils/color';
 
+import ConfirmTooltip from '~/components/ConfirmTooltip';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
 
@@ -38,7 +39,6 @@ interface ColorSelectorState {
   hex: string;
   mode: 'srgb' | 'oklch';
   name: string;
-  shouldRemove: boolean;
 }
 
 export default function ColorSelector(props: ColorSelectorProps) {
@@ -53,11 +53,10 @@ export default function ColorSelector(props: ColorSelectorProps) {
     onUpdateColor,
     onUpdateGlobalOptions,
   } = props;
-  const [{ hex, mode, name, shouldRemove }, setState] = useSetState<ColorSelectorState>({
+  const [{ hex, mode, name }, setState] = useSetState<ColorSelectorState>({
     hex: convert(colorEntry.value, 'hex'),
     mode: getColorType(colorEntry.value) === 'oklch' ? 'oklch' : 'srgb',
     name: colorEntry.name,
-    shouldRemove: false,
   });
   const { isOpen, onOpenChange } = useDisclosure();
   const { max, min } = useBreakpoint();
@@ -117,22 +116,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
 
   const handleClickMode = () => {
     setState({ mode: mode === 'srgb' ? 'oklch' : 'srgb' });
-  };
-
-  const handleClickRemove = () => {
-    if (isOnlyColor) {
-      return;
-    }
-
-    if (!shouldRemove) {
-      setState({ shouldRemove: true });
-      setTimeout(() => {
-        setState({ shouldRemove: false });
-      }, 2000);
-    } else {
-      onRemoveColor(index);
-      setState({ shouldRemove: false });
-    }
   };
 
   const handleResetOptions = () => {
@@ -220,25 +203,22 @@ export default function ColorSelector(props: ColorSelectorProps) {
               />
             </PopoverContent>
           </Popover>
-          <Tooltip
-            color={shouldRemove ? 'danger' : 'tooltip'}
-            content={shouldRemove ? 'Click again to remove' : 'Remove color'}
-            delay={250}
+          <ConfirmTooltip
+            confirmMessage="Click again to remove"
             isDisabled={isOnlyColor}
-            isOpen={shouldRemove}
-            placement="bottom-end"
+            message="Remove color"
+            onConfirm={() => onRemoveColor(index)}
           >
             <Button
               aria-label="Remove color"
               isDisabled={isOnlyColor}
               isIconOnly
-              onPress={handleClickRemove}
               size="sm"
               variant="light"
             >
               <TrashIcon className="text-base" />
             </Button>
-          </Tooltip>
+          </ConfirmTooltip>
         </div>
       </div>
 

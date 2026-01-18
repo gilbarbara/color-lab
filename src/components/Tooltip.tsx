@@ -21,4 +21,6 @@ const Tooltip = extendVariants(HeroUITooltip, {
   },
 });
 
+export type { TooltipProps } from '@heroui/react';
+
 export default Tooltip;
