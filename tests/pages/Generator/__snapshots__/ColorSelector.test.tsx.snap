@@ -296,6 +296,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
             </div>
           </div>
           <button
+            aria-label="Random color"
             class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none"
             data-react-aria-pressable="true"
             tabindex="0"
@@ -720,6 +721,7 @@ exports[`ColorSelector > Render > renders correctly in SRGB mode 1`] = `
             </div>
           </div>
           <button
+            aria-label="Random color"
             class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-medium gap-3 rounded-large px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground min-w-12 w-12 h-12 data-[hover=true]:opacity-hover rounded-s-none border-l-0"
             data-react-aria-pressable="true"
             tabindex="0"

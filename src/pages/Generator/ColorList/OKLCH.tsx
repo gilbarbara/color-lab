@@ -104,6 +104,7 @@ export default function OKLCH(props: OKLCHProps) {
           />
         </div>
         <Button
+          aria-label="Random color"
           className="rounded-s-none"
           isIconOnly
           onPress={handleClickRandomOKLCH}

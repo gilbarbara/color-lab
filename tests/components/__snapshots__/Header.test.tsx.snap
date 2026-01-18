@@ -6,25 +6,48 @@ exports[`Header > should render properly when authenticated 1`] = `
   data-uid="Header"
 >
   <div
-    class="flex items-center justify-between w-full max-w-7xl mx-auto px-4"
+    class="flex items-center w-full max-w-7xl mx-auto px-4"
   >
-    <h1
-      aria-label="ColorMeUp LAB"
-      class="flex items-start gap-1"
+    <a
+      data-discover="true"
+      href="/"
     >
-      <img
-        alt="Lab"
-        class="h-8"
-        src="/brand/logo.svg"
-      />
-      <span
-        class="font-bold text-sm"
+      <h1
+        aria-label="ColorMeUp LAB"
+        class="flex items-start gap-1"
       >
-        LAB
-      </span>
-    </h1>
+        <img
+          alt="Lab"
+          class="h-6 md:h-8"
+          src="/brand/logo.svg"
+        />
+        <span
+          class="font-bold text-sm"
+        >
+          LAB
+        </span>
+      </h1>
+    </a>
     <div
-      class="flex items-center gap-2"
+      class="flex items-center gap-4 ml-8"
+    >
+      <a
+        class="text-foreground-500"
+        data-discover="true"
+        href="/palettes"
+      >
+        My Palettes
+      </a>
+      <a
+        class="text-foreground-500"
+        data-discover="true"
+        href="/about"
+      >
+        About
+      </a>
+    </div>
+    <div
+      class="flex items-center gap-2 ml-auto"
     >
       <button
         aria-label="Toggle dark mode"
@@ -52,7 +75,7 @@ exports[`Header > should render properly when authenticated 1`] = `
         class="flex relative justify-center items-center box-border overflow-hidden align-middle outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-8 h-8 text-tiny bg-default text-default-foreground rounded-full z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased transition-transform"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_1_"
+        id="react-aria-_r_0_"
         tabindex="0"
         type="button"
       >
@@ -75,25 +98,48 @@ exports[`Header > should render properly when unauthenticated 1`] = `
   data-uid="Header"
 >
   <div
-    class="flex items-center justify-between w-full max-w-7xl mx-auto px-4"
+    class="flex items-center w-full max-w-7xl mx-auto px-4"
   >
-    <h1
-      aria-label="ColorMeUp LAB"
-      class="flex items-start gap-1"
+    <a
+      data-discover="true"
+      href="/"
     >
-      <img
-        alt="Lab"
-        class="h-8"
-        src="/brand/logo.svg"
-      />
-      <span
-        class="font-bold text-sm"
+      <h1
+        aria-label="ColorMeUp LAB"
+        class="flex items-start gap-1"
       >
-        LAB
-      </span>
-    </h1>
+        <img
+          alt="Lab"
+          class="h-6 md:h-8"
+          src="/brand/logo.svg"
+        />
+        <span
+          class="font-bold text-sm"
+        >
+          LAB
+        </span>
+      </h1>
+    </a>
     <div
-      class="flex items-center gap-2"
+      class="flex items-center gap-4 ml-8"
+    >
+      <a
+        class="text-foreground-500"
+        data-discover="true"
+        href="/palettes"
+      >
+        My Palettes
+      </a>
+      <a
+        class="text-foreground-500"
+        data-discover="true"
+        href="/about"
+      >
+        About
+      </a>
+    </div>
+    <div
+      class="flex items-center gap-2 ml-auto"
     >
       <button
         aria-label="Toggle dark mode"
@@ -116,6 +162,7 @@ exports[`Header > should render properly when unauthenticated 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Sign In"
         class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-10 w-10 h-10"
         data-react-aria-pressable="true"
         tabindex="0"

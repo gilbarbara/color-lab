@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import { useAuth } from '~/hooks/useAuth';
+import useAuth from '~/hooks/useAuth';
 import AuthProvider from '~/providers/AuthProvider';
 import { useAuthStore } from '~/stores/authStore';
 import { account } from '~/utils/appwrite';

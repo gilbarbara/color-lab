@@ -244,7 +244,7 @@ describe('utils/url', () => {
 
   describe('parsePaletteFromUrl', () => {
     it('parses single color', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
 
       expect(result).not.toBeNull();
       expect(result!.colors).toHaveLength(1);
@@ -253,21 +253,21 @@ describe('utils/url', () => {
     });
 
     it('parses lock option in per-color overrides', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044-k:500'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-k:500');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].overrides).toEqual({ lock: '500' });
     });
 
     it('parses variant option in per-color overrides', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044-v:vibrant'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-v:vibrant');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].overrides).toEqual({ variant: 'vibrant' });
     });
 
     it('parses variant option in global options', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams('v=muted'));
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?v=muted');
 
       expect(result).not.toBeNull();
       expect(result!.globalOptions.variant).toBe('muted');
@@ -275,19 +275,17 @@ describe('utils/url', () => {
 
     it('returns null for oklch with wrong number of parts', () => {
       // Only 2 parts instead of 3
-      expect(parsePaletteFromUrl(['Primary-0.64_0.142'], new URLSearchParams())).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-0.64_0.142')).toBeNull();
       // 4 parts instead of 3
-      expect(
-        parsePaletteFromUrl(['Primary-0.64_0.142_329_extra'], new URLSearchParams()),
-      ).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-0.64_0.142_329_extra')).toBeNull();
     });
 
     it('returns null for oklch with non-numeric values', () => {
-      expect(parsePaletteFromUrl(['Primary-abc_0.142_329'], new URLSearchParams())).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-abc_0.142_329')).toBeNull();
     });
 
     it('ignores unknown option keys', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044-z:unknown'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-z:unknown');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].overrides).toEqual({});
@@ -295,7 +293,7 @@ describe('utils/url', () => {
 
     it('ignores malformed option parts', () => {
       // Missing value after colon
-      const result = parsePaletteFromUrl(['Primary-FF0044-x:'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:');
 
       expect(result).not.toBeNull();
       // x: without value should be ignored
@@ -303,14 +301,14 @@ describe('utils/url', () => {
 
     it('handles empty options string', () => {
       // Color with trailing dash but no options
-      const result = parsePaletteFromUrl(['Primary-FF0044-'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].overrides).toEqual({});
     });
 
     it('ignores non-numeric values for numeric options', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044-x:abc'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:abc');
 
       expect(result).not.toBeNull();
       // x:abc should be ignored since 'abc' is not a number
@@ -318,7 +316,7 @@ describe('utils/url', () => {
     });
 
     it('ignores non-numeric global option values', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams('f=abc'));
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?f=abc');
 
       expect(result).not.toBeNull();
       // f=abc should be ignored, use default
@@ -326,24 +324,21 @@ describe('utils/url', () => {
     });
 
     it('ignores unknown global option keys', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams('z=unknown'));
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?z=unknown');
 
       expect(result).not.toBeNull();
       // Unknown key should be ignored, only defaults applied
     });
 
     it('parses mode with full name if short not found', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044-m:custom'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-m:custom');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].overrides?.mode).toBe('custom');
     });
 
     it('parses multiple colors', () => {
-      const result = parsePaletteFromUrl(
-        ['Primary-FF0044', 'Secondary-698CE0'],
-        new URLSearchParams(),
-      );
+      const result = parsePaletteFromUrl('/p/Primary-FF0044/Secondary-698CE0');
 
       expect(result).not.toBeNull();
       expect(result!.colors).toHaveLength(2);
@@ -352,21 +347,21 @@ describe('utils/url', () => {
     });
 
     it('parses oklch format', () => {
-      const result = parsePaletteFromUrl(['Primary-0.64_0.142_329'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-0.64_0.142_329');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].value).toBe('oklch(0.64 0.142 329)');
     });
 
     it('parses per-color options', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044-x:0.95,m:d'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:0.95,m:d');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].overrides).toEqual({ maxLightness: 0.95, mode: 'dark' });
     });
 
     it('parses global options from query params', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams('f=1.8&i=15'));
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?f=1.8&i=15');
 
       expect(result).not.toBeNull();
       expect(result!.globalOptions.lightnessCurve).toBe(1.8);
@@ -374,7 +369,7 @@ describe('utils/url', () => {
     });
 
     it('uses computed saturation as default', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
       const expectedDefaults = getDefaultGlobalOptions('#FF0044');
 
       expect(result).not.toBeNull();
@@ -382,37 +377,44 @@ describe('utils/url', () => {
     });
 
     it('defaults saturationOverride to false when not in URL', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
 
       expect(result).not.toBeNull();
       expect(result!.globalOptions.saturationOverride).toBe(false);
     });
 
     it('parses saturationOverride=true from URL', () => {
-      const result = parsePaletteFromUrl(['Primary-FF0044'], new URLSearchParams('o=1'));
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?o=1');
 
       expect(result).not.toBeNull();
       expect(result!.globalOptions.saturationOverride).toBe(true);
     });
 
     it('decodes name with + to space', () => {
-      const result = parsePaletteFromUrl(['Color+One-FF0044'], new URLSearchParams());
+      const result = parsePaletteFromUrl('/p/Color+One-FF0044');
 
       expect(result).not.toBeNull();
       expect(result!.colors[0].name).toBe('Color One');
     });
 
     it('returns null for invalid color value', () => {
-      expect(parsePaletteFromUrl(['Primary-GGGGGG'], new URLSearchParams())).toBeNull();
-      expect(parsePaletteFromUrl(['Primary-invalid'], new URLSearchParams())).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-GGGGGG')).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-invalid')).toBeNull();
     });
 
-    it('returns null for empty segments', () => {
-      expect(parsePaletteFromUrl([], new URLSearchParams())).toBeNull();
+    it('returns null for empty URL', () => {
+      expect(parsePaletteFromUrl('')).toBeNull();
     });
 
     it('returns null for malformed segment', () => {
-      expect(parsePaletteFromUrl(['Primary'], new URLSearchParams())).toBeNull(); // missing value
+      expect(parsePaletteFromUrl('/p/Primary')).toBeNull(); // missing value
+    });
+
+    it('parses URL without /p/ prefix', () => {
+      const result = parsePaletteFromUrl('Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.colors[0]).toMatchObject({ name: 'Primary', value: '#FF0044' });
     });
 
     it('round-trips: serialize then parse returns equivalent state', () => {
@@ -425,12 +427,7 @@ describe('utils/url', () => {
       };
 
       const url = serializePaletteToUrl(original);
-      // Extract path segments and query
-      const [path, query] = url.split('?');
-      const segments = path.replace('/p/', '').split('/');
-      const searchParams = new URLSearchParams(query ?? '');
-
-      const parsed = parsePaletteFromUrl(segments, searchParams);
+      const parsed = parsePaletteFromUrl(url);
 
       expect(parsed).not.toBeNull();
       expect(parsed!.colors).toHaveLength(2);
