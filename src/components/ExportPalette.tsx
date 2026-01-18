@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
-import { useEffectDeepCompare } from '@gilbarbara/hooks';
-import { Button, Checkbox, Chip } from '@heroui/react';
-import { CopyIcon } from '@phosphor-icons/react';
+import { useBreakpoint, useEffectDeepCompare } from '@gilbarbara/hooks';
+import { Button, Checkbox, Chip, cn } from '@heroui/react';
+import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
 import { readableColorAPCA, scale } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
@@ -69,6 +69,7 @@ export default function ExportPalette() {
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(
     () => new Set(colors.map((_, index) => index)),
   );
+  const { min } = useBreakpoint();
 
   // Reset to all selected when colors change
   useEffectDeepCompare(() => {
@@ -105,13 +106,25 @@ export default function ExportPalette() {
     setSelectedIndices(new Set());
   };
 
+  const isLarge = min('md');
+
   return (
     <ExportModal
       title="Export All"
       trigger={onOpen => (
-        <Button className="h-8 px-2 min-w-8" onPress={onOpen} variant="light">
-          Export All
-        </Button>
+        <Tooltip content="Export all" isDisabled={isLarge} placement="bottom-end">
+          <Button
+            aria-label="Export All"
+            className={cn({
+              'h-8 px-2 min-w-8': isLarge,
+            })}
+            isIconOnly={!isLarge}
+            onPress={onOpen}
+            variant="light"
+          >
+            {isLarge ? 'Export All' : <ExportIcon className="text-lg" />}
+          </Button>
+        </Tooltip>
       )}
     >
       {({ colorFormat, formatType, onCopy }) => {

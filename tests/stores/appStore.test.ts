@@ -1,3 +1,4 @@
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { useAppStore } from '~/stores/appStore';
 
 describe('stores/appStore', () => {
@@ -5,6 +6,9 @@ describe('stores/appStore', () => {
     useAppStore.setState({
       exportColorFormat: 'oklch',
       exportFormatType: 'tailwind4',
+      lastSavedUrl: null,
+      loadedPaletteId: null,
+      loadedPaletteName: undefined,
       showBottomBar: false,
       showColorOptionsPanel: false,
       showLoginModal: false,
@@ -18,6 +22,9 @@ describe('stores/appStore', () => {
 
       expect(state.exportColorFormat).toBe('oklch');
       expect(state.exportFormatType).toBe('tailwind4');
+      expect(state.lastSavedUrl).toBe(null);
+      expect(state.loadedPaletteId).toBe(null);
+      expect(state.loadedPaletteName).toBe(undefined);
       expect(state.showBottomBar).toBe(false);
       expect(state.showColorOptionsPanel).toBe(false);
       expect(state.showLoginModal).toBe(false);
@@ -175,6 +182,43 @@ describe('stores/appStore', () => {
       expect(useAppStore.getState().showPaletteOptionsPanel).toBe(true);
     });
   });
+
+  describe('setLoadedPalette', () => {
+    it('sets all loaded palette fields', () => {
+      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+
+      const state = useAppStore.getState();
+
+      expect(state.loadedPaletteId).toBe('palette-123');
+      expect(state.loadedPaletteName).toBe('My Palette');
+      expect(state.lastSavedUrl).toBe('/p/Primary-FF0000');
+    });
+
+    it('can set fields to null', () => {
+      useAppStore.getState().setLoadedPalette('id', 'name', 'url');
+      useAppStore.getState().setLoadedPalette(null, null, null);
+
+      const state = useAppStore.getState();
+
+      expect(state.loadedPaletteId).toBe(null);
+      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
+      expect(state.lastSavedUrl).toBe(null);
+    });
+  });
+
+  describe('clearLoadedPalette', () => {
+    it('clears all loaded palette fields', () => {
+      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+      useAppStore.getState().clearLoadedPalette();
+
+      const state = useAppStore.getState();
+
+      expect(state.loadedPaletteId).toBe(null);
+      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
+      expect(state.lastSavedUrl).toBe(null);
+    });
+  });
+
   describe('openLoginModal', () => {
     it('sets showLoginModal to true', () => {
       expect(useAppStore.getState().showLoginModal).toBe(false);

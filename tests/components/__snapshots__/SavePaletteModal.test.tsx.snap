@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SavePaletteModal > Render > renders modal when open 1`] = `
+<div
+  aria-hidden="true"
+>
+  <div
+    data-overlay-container="true"
+  />
+</div>
+`;
+
+exports[`SavePaletteModal > Render > renders nothing when closed 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  />
+</div>
+`;

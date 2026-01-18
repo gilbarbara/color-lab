@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Palettes > Render > shows spinner while auth is loading 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="flex flex-col items-center justify-center min-h-[50vh] gap-4"
+    >
+      <div
+        aria-label="Loading"
+        class="relative inline-flex flex-col gap-2 items-center justify-center"
+      >
+        <div
+          class="relative flex w-10 h-10"
+        >
+          <i
+            class="absolute w-full h-full rounded-full border-3 border-b-primary animate-spinner-ease-spin border-solid border-t-transparent border-l-transparent border-r-transparent"
+          />
+          <i
+            class="absolute w-full h-full rounded-full border-3 border-b-primary opacity-75 animate-spinner-linear-spin border-dotted border-t-transparent border-l-transparent border-r-transparent"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
