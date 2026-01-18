@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
+import { useHref, useNavigate } from 'react-router';
 import { HeroUIProvider, type HeroUIProviderProps, ToastProvider } from '@heroui/react';
 
 import ThemeContext from '~/contexts/theme';
@@ -18,6 +19,7 @@ export default function ThemeProvider({ children, heroUIProps }: ThemeProviderPr
 
     return saved ? saved === 'true' : prefersDark;
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Update document class when dark mode changes
@@ -39,7 +41,8 @@ export default function ThemeProvider({ children, heroUIProps }: ThemeProviderPr
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      <HeroUIProvider {...heroUIProps}>
+      {/* eslint-disable-next-line react-compiler/react-compiler */}
+      <HeroUIProvider {...heroUIProps} navigate={navigate} useHref={useHref}>
         <ToastProvider
           placement="bottom-center"
           toastProps={{ shouldShowTimeoutProgress: true, variant: 'solid' }}
