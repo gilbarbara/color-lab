@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 
 import useAuth from '~/hooks/useAuth';
 
@@ -12,19 +12,17 @@ export default function App() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <BrowserRouter>
-      <div className="flex flex-col items-stretch min-h-screen">
-        <Header />
-        <main className="flex flex-col pt-16 items-stretch flex-1">
-          <Routes>
-            <Route element={<Generator />} path="/" />
-            <Route element={<Generator />} path="/p/*" />
-            <Route element={<Palettes />} path="/palettes" />
-            <Route element={<AuthCallback />} path="/auth/callback" />
-          </Routes>
-        </main>
-        {!isAuthenticated && <Login />}
-      </div>
-    </BrowserRouter>
+    <div className="flex flex-col items-stretch min-h-screen">
+      <Header />
+      <main className="flex flex-col pt-16 items-stretch flex-1">
+        <Routes>
+          <Route element={<Generator />} path="/" />
+          <Route element={<Generator />} path="/p/*" />
+          <Route element={<Palettes />} path="/palettes" />
+          <Route element={<AuthCallback />} path="/auth/callback" />
+        </Routes>
+      </main>
+      {!isAuthenticated && <Login />}
+    </div>
   );
 }
