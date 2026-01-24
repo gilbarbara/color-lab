@@ -4,6 +4,7 @@ import useAuth from '~/hooks/useAuth';
 
 import Header from '~/components/Header';
 import Login from '~/components/Login';
+import About from '~/pages/About';
 import AuthCallback from '~/pages/AuthCallback';
 import Generator from '~/pages/Generator';
 import Palettes from '~/pages/Palettes';
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route element={<Generator />} path="/" />
           <Route element={<Generator />} path="/p/*" />
+          <Route element={<About />} path="/about" />
           <Route element={<Palettes />} path="/palettes" />
           <Route element={<AuthCallback />} path="/auth/callback" />
         </Routes>

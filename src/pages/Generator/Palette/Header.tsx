@@ -323,7 +323,7 @@ export default function PaletteHeader() {
                     {...renderProps}
                     description={
                       <>
-                        <p className="mb-1">Number of shades generated in the palette.</p>
+                        <p className="mb-1">Number of swatches generated in the palette.</p>
                         <p>More steps add nuance; fewer steps keep it compact.</p>
                       </>
                     }
