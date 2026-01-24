@@ -9,6 +9,7 @@ import ColorCircle from '~/components/ColorCircle';
 import { Input } from '~/components/Field';
 import GradientSlider from '~/components/GradientSlider';
 import Tooltip from '~/components/Tooltip';
+import TooltipClickable from '~/components/TooltipClickable';
 
 interface SRGBProps {
   baseSaturation: number;
@@ -132,7 +133,7 @@ export default function SRGB(props: SRGBProps) {
         maxValue={100}
         onValueChange={handleChangeSaturation}
         startContent={
-          <Tooltip
+          <TooltipClickable
             classNames={{
               base: '-ml-3',
             }}
@@ -146,8 +147,8 @@ export default function SRGB(props: SRGBProps) {
             }
             isDisabled={!disableSaturation}
           >
-            <span>S</span>
-          </Tooltip>
+            S
+          </TooltipClickable>
         }
         step={1}
         value={s}

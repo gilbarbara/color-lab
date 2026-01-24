@@ -114,7 +114,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                       Lightness Range
                       <button
                         aria-label="Description for Lightness Range"
-                        class="text-lg"
+                        class="shrink-0 text-lg"
                         type="button"
                       >
                         <svg
@@ -275,7 +275,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                       Lightness Curve
                       <button
                         aria-label="Description for Lightness Curve"
-                        class="text-lg"
+                        class="shrink-0 text-lg"
                         type="button"
                       >
                         <svg
@@ -398,7 +398,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                       Chroma Curve
                       <button
                         aria-label="Description for Chroma Curve"
-                        class="text-lg"
+                        class="shrink-0 text-lg"
                         type="button"
                       >
                         <svg
@@ -844,9 +844,12 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                       class="w-3 mr-2"
                       data-slot="startContent"
                     >
-                      <span>
+                      <button
+                        class="shrink-0 text-lg"
+                        type="button"
+                      >
                         S
-                      </span>
+                      </button>
                     </div>
                     <div
                       class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
@@ -1260,9 +1263,12 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
                       class="w-3 mr-2"
                       data-slot="startContent"
                     >
-                      <span>
+                      <button
+                        class="shrink-0 text-lg"
+                        type="button"
+                      >
                         S
-                      </span>
+                      </button>
                     </div>
                     <div
                       class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
@@ -1527,7 +1533,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       Lightness Range
                       <button
                         aria-label="Description for Lightness Range"
-                        class="text-lg"
+                        class="shrink-0 text-lg"
                         type="button"
                       >
                         <svg
@@ -1688,7 +1694,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       Lightness Curve
                       <button
                         aria-label="Description for Lightness Curve"
-                        class="text-lg"
+                        class="shrink-0 text-lg"
                         type="button"
                       >
                         <svg
@@ -1811,7 +1817,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       Chroma Curve
                       <button
                         aria-label="Description for Chroma Curve"
-                        class="text-lg"
+                        class="shrink-0 text-lg"
                         type="button"
                       >
                         <svg
@@ -2257,9 +2263,12 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       class="w-3 mr-2"
                       data-slot="startContent"
                     >
-                      <span>
+                      <button
+                        class="shrink-0 text-lg"
+                        type="button"
+                      >
                         S
-                      </span>
+                      </button>
                     </div>
                     <div
                       class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"
@@ -2673,9 +2682,12 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       class="w-3 mr-2"
                       data-slot="startContent"
                     >
-                      <span>
+                      <button
+                        class="shrink-0 text-lg"
+                        type="button"
+                      >
                         S
-                      </span>
+                      </button>
                     </div>
                     <div
                       class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-0 bg-[image:var(--slider-gradient)]"

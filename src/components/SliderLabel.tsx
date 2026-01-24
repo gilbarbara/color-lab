@@ -1,9 +1,10 @@
 import { type DOMAttributes, type MouseEvent, type ReactNode } from 'react';
-import { EraserIcon, InfoIcon } from '@phosphor-icons/react';
+import { EraserIcon } from '@phosphor-icons/react';
 
 import { getTextFromNode } from '~/utils/strings';
 
 import Tooltip from '~/components/Tooltip';
+import TooltipClickable from '~/components/TooltipClickable';
 
 interface SliderLabelProps extends DOMAttributes<HTMLLabelElement> {
   children?: ReactNode;
@@ -31,23 +32,14 @@ export default function SliderLabel(props: SliderLabelProps) {
     <label {...rest} className="flex gap-2 items-center" htmlFor={id}>
       {children}
       {!!description && (
-        <Tooltip
+        <TooltipClickable
+          aria-label={`Description for ${getTextFromNode(children)}`}
           classNames={{
             base: '-ml-2',
           }}
           content={description}
-          delay={250}
           isDisabled={isDisabled}
-        >
-          <button
-            aria-label={`Description for ${getTextFromNode(children)}`}
-            className="text-lg"
-            onClick={event => event.stopPropagation()}
-            type="button"
-          >
-            <InfoIcon />
-          </button>
-        </Tooltip>
+        />
       )}
       <Tooltip
         classNames={{

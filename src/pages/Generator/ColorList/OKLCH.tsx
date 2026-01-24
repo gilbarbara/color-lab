@@ -9,6 +9,7 @@ import ColorCircle from '~/components/ColorCircle';
 import { Input } from '~/components/Field';
 import GradientSlider from '~/components/GradientSlider';
 import Tooltip from '~/components/Tooltip';
+import TooltipClickable from '~/components/TooltipClickable';
 
 interface OKLCHProps {
   baseSaturation: number;
@@ -132,7 +133,7 @@ export default function OKLCH(props: OKLCHProps) {
         maxValue={maxChroma}
         onValueChange={handleChangeChroma}
         startContent={
-          <Tooltip
+          <TooltipClickable
             classNames={{
               base: '-ml-3',
             }}
@@ -146,8 +147,8 @@ export default function OKLCH(props: OKLCHProps) {
             }
             isDisabled={!disableChroma}
           >
-            <span>C</span>
-          </Tooltip>
+            C
+          </TooltipClickable>
         }
         step={0.001}
         value={c}
