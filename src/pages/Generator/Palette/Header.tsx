@@ -10,7 +10,7 @@ import {
   type SharedSelection,
   Slider,
 } from '@heroui/react';
-import { EraserIcon, GearSixIcon, HeartIcon, InfoIcon } from '@phosphor-icons/react';
+import { EraserIcon, GearSixIcon, HeartIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys } from 'colorizr';
 
 import useAuth from '~/hooks/useAuth';
@@ -25,6 +25,7 @@ import SliderLabel from '~/components/SliderLabel';
 import SliderValue from '~/components/SliderValue';
 import Switch from '~/components/Switch';
 import Tooltip from '~/components/Tooltip';
+import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ScaleOptions } from '~/types';
 
@@ -246,17 +247,17 @@ export default function PaletteHeader() {
               label={
                 <p className="flex items-center gap-2">
                   <span className="text-base">Variant</span>
-                  <Tooltip
+                  <TooltipClickable
+                    classNames={{
+                      base: '-ml-2',
+                    }}
                     content={
                       <>
                         <p className="mb-1">Applies a preset style to the palette.</p>
                         <p>Each variant balances lightness and color intensity differently.</p>
                       </>
                     }
-                    delay={250}
-                  >
-                    <InfoIcon className="text-lg" />
-                  </Tooltip>
+                  />
                 </p>
               }
               labelPlacement="outside-left"
@@ -283,17 +284,17 @@ export default function PaletteHeader() {
               label={
                 <p className="flex items-center gap-2">
                   <span className="text-base">Lock</span>
-                  <Tooltip
+                  <TooltipClickable
+                    classNames={{
+                      base: '-ml-2',
+                    }}
                     content={
                       <>
                         <p className="mb-1">Pins the base color to a specific step.</p>
                         <p>Other shades are generated around it.</p>
                       </>
                     }
-                    delay={250}
-                  >
-                    <InfoIcon className="text-base" />
-                  </Tooltip>
+                  />
                 </p>
               }
               labelPlacement="outside-left"
@@ -377,7 +378,10 @@ export default function PaletteHeader() {
                 >
                   <span>Apply saturation to all colors</span>
                 </Switch>
-                <Tooltip
+                <TooltipClickable
+                  classNames={{
+                    base: '-mr-2',
+                  }}
                   content={
                     <>
                       <p className="mb-1">
@@ -386,10 +390,8 @@ export default function PaletteHeader() {
                       <p>Enable this to adjust saturation globally.</p>
                     </>
                   }
-                  delay={250}
-                >
-                  <InfoIcon className="text-base shrink-0" />
-                </Tooltip>
+                  placement="bottom-end"
+                />
               </div>
             </div>
           </div>
@@ -398,7 +400,7 @@ export default function PaletteHeader() {
               <Switch isSelected={mode === 'dark'} name="mode" onValueChange={handleToggleMode}>
                 {mode === 'light' ? 'Light scale' : 'Dark scale'}
               </Switch>
-              <Tooltip
+              <TooltipClickable
                 content={
                   <>
                     <p className="mb-1">Toggles between light and dark color scales.</p>
@@ -408,10 +410,8 @@ export default function PaletteHeader() {
                     </p>
                   </>
                 }
-                delay={250}
-              >
-                <InfoIcon className="text-base shrink-0" />
-              </Tooltip>
+                placement="bottom"
+              />
             </div>
             <div>
               <Button
