@@ -5,6 +5,7 @@ import { addToast, Button, Spinner } from '@heroui/react';
 import useAuth from '~/hooks/useAuth';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 
+import Page from '~/components/Page';
 import { PaletteCard } from '~/pages/Palettes/PaletteCard';
 
 export default function Palettes() {
@@ -33,7 +34,7 @@ export default function Palettes() {
     );
   }
 
-  let content: ReactNode = null;
+  let content: ReactNode;
 
   if (!isAuthenticated) {
     content = <div>Sign in to view your saved palettes</div>;
@@ -73,12 +74,9 @@ export default function Palettes() {
   }
 
   return (
-    <div
-      className="w-full max-w-7xl mx-auto flex flex-col flex-1 mt-8 md:mt-16 px-4 md:px-8 items-center"
-      data-uid="Palettes"
-    >
+    <Page className="items-center" data-uid="Palettes">
       <h1 className="text-4xl font-bold mb-16">My Palettes</h1>
       {content}
-    </div>
+    </Page>
   );
 }

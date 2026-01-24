@@ -42,7 +42,7 @@ export default function Palette({ showBottomBar = false }: PaletteProps) {
         </div>
       </div>
       {showBottomBar && <BottomBar />}
-      <Footer />
+      <Footer hideBorder />
     </div>
   );
 }

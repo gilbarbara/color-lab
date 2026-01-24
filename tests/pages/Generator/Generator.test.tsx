@@ -1,4 +1,4 @@
-import { render } from '~/test-utils';
+import { render, screen } from '~/test-utils';
 
 import Generator from '~/pages/Generator';
 
@@ -14,8 +14,8 @@ vi.mock('~/utils/color', async importOriginal => {
 
 describe('Generator', () => {
   it('renders correctly', () => {
-    const { container } = render(<Generator />);
+    render(<Generator />);
 
-    expect(container).toMatchSnapshot();
+    expect(screen.getByTestId('Generator')).toMatchSnapshot();
   });
 });
