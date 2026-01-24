@@ -1,8 +1,11 @@
 import type { Models } from 'appwrite';
 import { create } from 'zustand';
 
+import type { OAuthProvider } from '~/contexts/auth';
+
 interface AuthState {
   error: string | null;
+  provider: OAuthProvider | null;
   status: AuthStatus;
   user: Models.User<Models.Preferences> | null;
 }
@@ -10,6 +13,7 @@ interface AuthState {
 interface AuthStateWithActions extends AuthState {
   reset: () => void;
   setError: (error: string | null) => void;
+  setProvider: (provider: OAuthProvider | null) => void;
   setStatus: (status: AuthStatus) => void;
   setUser: (user: Models.User<Models.Preferences> | null) => void;
 }
@@ -17,9 +21,10 @@ interface AuthStateWithActions extends AuthState {
 export type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'unauthenticated';
 
 const initialState: AuthState = {
-  user: null,
-  status: 'idle',
   error: null,
+  provider: null,
+  status: 'idle',
+  user: null,
 };
 
 export const useAuthStore = create<AuthStateWithActions>(set => ({
@@ -31,6 +36,8 @@ export const useAuthStore = create<AuthStateWithActions>(set => ({
       status: user ? 'authenticated' : 'unauthenticated',
       error: null,
     }),
+
+  setProvider: (provider): void => set({ provider }),
 
   setStatus: (status): void => set({ status }),
 
