@@ -8,17 +8,18 @@ exports[`Header > should render properly when authenticated 1`] = `
   <div
     class="flex items-center w-full max-w-7xl mx-auto px-4"
   >
-    <a
-      data-discover="true"
-      href="/"
+    <h1
+      aria-label="ColorMeUp LAB"
+      class="flex shrink-0"
     >
-      <h1
-        aria-label="ColorMeUp LAB"
-        class="flex items-start gap-1"
+      <a
+        class="inline-flex items-start gap-1"
+        data-discover="true"
+        href="/"
       >
         <img
           alt="Lab"
-          class="h-6 md:h-8"
+          class="h-8"
           src="/brand/logo.svg"
         />
         <span
@@ -26,20 +27,45 @@ exports[`Header > should render properly when authenticated 1`] = `
         >
           LAB
         </span>
-      </h1>
-    </a>
+      </a>
+    </h1>
     <div
-      class="flex items-center gap-4 ml-8"
+      class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
       <a
-        class="text-foreground-500"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm"
+        data-discover="true"
+        data-react-aria-pressable="true"
+        href="/p"
+        role="button"
+        tabindex="0"
+      >
+        <span
+          class="inline-flex items-center gap-1"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"
+            />
+          </svg>
+          New Palette
+        </span>
+      </a>
+      <a
+        class="text-sm text-foreground-500"
         data-discover="true"
         href="/palettes"
       >
         My Palettes
       </a>
       <a
-        class="text-foreground-500"
+        class="text-sm text-foreground-500"
         data-discover="true"
         href="/about"
       >
@@ -57,7 +83,7 @@ exports[`Header > should render properly when authenticated 1`] = `
         type="button"
       >
         <svg
-          class="h-6 w-6"
+          class="size-6"
           fill="currentColor"
           height="1em"
           viewBox="0 0 256 256"
@@ -100,17 +126,18 @@ exports[`Header > should render properly when unauthenticated 1`] = `
   <div
     class="flex items-center w-full max-w-7xl mx-auto px-4"
   >
-    <a
-      data-discover="true"
-      href="/"
+    <h1
+      aria-label="ColorMeUp LAB"
+      class="flex shrink-0"
     >
-      <h1
-        aria-label="ColorMeUp LAB"
-        class="flex items-start gap-1"
+      <a
+        class="inline-flex items-start gap-1"
+        data-discover="true"
+        href="/"
       >
         <img
           alt="Lab"
-          class="h-6 md:h-8"
+          class="h-8"
           src="/brand/logo.svg"
         />
         <span
@@ -118,20 +145,45 @@ exports[`Header > should render properly when unauthenticated 1`] = `
         >
           LAB
         </span>
-      </h1>
-    </a>
+      </a>
+    </h1>
     <div
-      class="flex items-center gap-4 ml-8"
+      class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
       <a
-        class="text-foreground-500"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm"
+        data-discover="true"
+        data-react-aria-pressable="true"
+        href="/p"
+        role="button"
+        tabindex="0"
+      >
+        <span
+          class="inline-flex items-center gap-1"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"
+            />
+          </svg>
+          New Palette
+        </span>
+      </a>
+      <a
+        class="text-sm text-foreground-500"
         data-discover="true"
         href="/palettes"
       >
         My Palettes
       </a>
       <a
-        class="text-foreground-500"
+        class="text-sm text-foreground-500"
         data-discover="true"
         href="/about"
       >
@@ -149,7 +201,7 @@ exports[`Header > should render properly when unauthenticated 1`] = `
         type="button"
       >
         <svg
-          class="h-6 w-6"
+          class="size-6"
           fill="currentColor"
           height="1em"
           viewBox="0 0 256 256"
