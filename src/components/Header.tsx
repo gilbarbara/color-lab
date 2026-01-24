@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { Link, NavLink, type NavLinkRenderProps } from 'react-router';
 import { useBreakpoint } from '@gilbarbara/hooks';
 import {
@@ -11,8 +10,9 @@ import {
   DropdownTrigger,
 } from '@heroui/react';
 import {
-  BookmarksIcon,
+  CaretDownIcon,
   MoonIcon,
+  PlusIcon,
   SignInIcon,
   SignOutIcon,
   SunIcon,
@@ -24,8 +24,8 @@ import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
 import { useAppStore } from '~/stores/appStore';
 
-function className({ isActive }: NavLinkRenderProps) {
-  return cn('text-foreground-500', { 'text-foreground': isActive });
+function navLinkClassName({ isActive }: NavLinkRenderProps) {
+  return cn('text-sm text-foreground-500', { 'text-foreground': isActive });
 }
 
 export default function Header() {
@@ -35,34 +35,65 @@ export default function Header() {
   const { openLoginModal } = useAppStore();
   const { min } = useBreakpoint();
 
-  let inlineMenu: ReactNode = null;
+  const isLarge = min('md');
 
-  if (min('md')) {
-    inlineMenu = (
-      <div className="flex items-center gap-4 ml-8">
-        <NavLink className={className} to="/palettes">
-          My Palettes
-        </NavLink>
-        <NavLink className={className} to="/about">
-          About
-        </NavLink>
-      </div>
-    );
-  }
-
-  let menu = (
-    <Button
-      aria-label="Sign In"
-      isIconOnly
-      isLoading={isLoading}
-      onPress={openLoginModal}
-      startContent={!isLoading && <SignInIcon className="h-5 w-5" />}
-      variant="light"
-    />
+  const renderNavigation = () => (
+    <div className="flex items-center gap-2 md:gap-4 ml-4 md:ml-8">
+      <Button as={NavLink} className="text-sm" size="sm" to="/p" variant="flat">
+        <span className="inline-flex items-center gap-1">
+          <PlusIcon />
+          {isLarge ? 'New Palette' : 'New'}
+        </span>
+      </Button>
+      {isLarge ? (
+        <>
+          <NavLink className={navLinkClassName} to="/palettes">
+            My Palettes
+          </NavLink>
+          <NavLink className={navLinkClassName} to="/about">
+            About
+          </NavLink>
+        </>
+      ) : (
+        <Dropdown placement="bottom">
+          <DropdownTrigger>
+            <Button
+              className="text-sm text-foreground-500"
+              endContent={<CaretDownIcon />}
+              size="sm"
+              variant="light"
+            >
+              Menu
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu>
+            <DropdownItem key="palettes" href="/palettes">
+              My Palettes
+            </DropdownItem>
+            <DropdownItem key="about" href="/about">
+              About
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      )}
+    </div>
   );
 
-  if (isAuthenticated) {
-    menu = (
+  const renderUserMenu = () => {
+    if (!isAuthenticated) {
+      return (
+        <Button
+          aria-label="Sign In"
+          isIconOnly
+          isLoading={isLoading}
+          onPress={openLoginModal}
+          startContent={!isLoading && <SignInIcon className="h-5 w-5" />}
+          variant="light"
+        />
+      );
+    }
+
+    return (
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
           <Avatar
@@ -78,33 +109,24 @@ export default function Header() {
             key="profile"
             className="h-14 gap-2"
             isReadOnly
-            startContent={<UserIcon className="h-4 w-4" />}
+            startContent={<UserIcon className="size-4" />}
             textValue="Profile"
           >
             <p className="font-semibold">{user?.name || 'User'}</p>
             <p className="text-sm text-default-500">{user?.email}</p>
           </DropdownItem>
-          {isDarkMode ? (
-            <DropdownItem
-              key="palettes"
-              href="/palettes"
-              startContent={<BookmarksIcon className="h-4 w-4" />}
-            >
-              My Palettes
-            </DropdownItem>
-          ) : null}
           <DropdownItem
             key="logout"
             color="danger"
             onPress={logout}
-            startContent={<SignOutIcon className="h-4 w-4" />}
+            startContent={<SignOutIcon className="size-4" />}
           >
             Sign Out
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
-  }
+  };
 
   return (
     <header
@@ -112,19 +134,20 @@ export default function Header() {
       data-uid="Header"
     >
       <div className="flex items-center w-full max-w-7xl mx-auto px-4">
-        <Link to={generatorUrl}>
-          <h1 aria-label="ColorMeUp LAB" className="flex items-start gap-1">
-            <img alt="Lab" className="h-6 md:h-8" src="/brand/logo.svg" />
+        <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">
+          <Link className="inline-flex items-start gap-1" to={generatorUrl}>
+            <img alt="Lab" className="h-8" src={isLarge ? '/brand/logo.svg' : '/brand/icon.svg'} />
             <span className="font-bold text-sm">LAB</span>
-          </h1>
-        </Link>
-        {inlineMenu}
+          </Link>
+        </h1>
+
+        {renderNavigation()}
+
         <div className="flex items-center gap-2 ml-auto">
           <Button aria-label="Toggle dark mode" isIconOnly onPress={toggleDarkMode} variant="light">
-            {isDarkMode ? <SunIcon className="h-6 w-6" /> : <MoonIcon className="h-6 w-6" />}
+            {isDarkMode ? <SunIcon className="size-6" /> : <MoonIcon className="size-6" />}
           </Button>
-
-          {menu}
+          {renderUserMenu()}
         </div>
       </div>
     </header>
