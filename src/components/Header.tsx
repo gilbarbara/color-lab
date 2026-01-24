@@ -30,12 +30,18 @@ function navLinkClassName({ isActive }: NavLinkRenderProps) {
 
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const { isAuthenticated, isLoading, logout, user } = useAuth();
+  const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette();
   const { openLoginModal } = useAppStore();
   const { min } = useBreakpoint();
 
   const isLarge = min('md');
+
+  let imageUrl: string | undefined;
+
+  if (provider) {
+    imageUrl = provider === 'github' ? user?.prefs?.avatarGithub : user?.prefs?.avatarGoogle;
+  }
 
   const renderNavigation = () => (
     <div className="flex items-center gap-2 md:gap-4 ml-4 md:ml-8">
@@ -102,6 +108,7 @@ export default function Header() {
             name={user?.name || user?.email}
             showFallback
             size="sm"
+            src={imageUrl}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User menu">

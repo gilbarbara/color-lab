@@ -11,7 +11,8 @@ interface AuthProviderProps {
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const { error, setError, setStatus, setUser, status, user } = useAuthStore();
+  const { error, provider, setError, setProvider, setStatus, setUser, status, user } =
+    useAuthStore();
 
   // Session restoration on mount
   useEffect(() => {
@@ -22,6 +23,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const currentUser = await account.get();
 
         setUser(currentUser);
+
+        const session = await account.getSession({ sessionId: 'current' });
+
+        if (session.provider === 'google' || session.provider === 'github') {
+          setProvider(session.provider);
+        }
       } catch {
         // No valid session
         setUser(null);
@@ -29,7 +36,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     };
 
     restoreSession();
-  }, [setUser, setStatus]);
+  }, [setProvider, setStatus, setUser]);
 
   // Email/Password Login
   const loginWithEmail = useCallback(
@@ -74,14 +81,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   );
 
   // OAuth Login (Google/GitHub)
-  const loginWithOAuth = useCallback((provider: Provider) => {
-    const oauthProvider = provider === 'google' ? OAuthProvider.Google : OAuthProvider.Github;
+  const loginWithOAuth = useCallback((oauthProvider: Provider) => {
+    const appwriteProvider =
+      oauthProvider === 'google' ? OAuthProvider.Google : OAuthProvider.Github;
     const successUrl = `${window.location.origin}/auth/callback`;
     const failureUrl = `${window.location.origin}/auth/callback?error=oauth_failed`;
 
     // This redirects the browser - no return value
     account.createOAuth2Session({
-      provider: oauthProvider,
+      provider: appwriteProvider,
       success: successUrl,
       failure: failureUrl,
     });
@@ -115,17 +123,28 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   const contextValue = useMemo(
     () => ({
-      user,
-      isLoading: status === 'loading' || status === 'idle',
+      error,
       isAuthenticated: status === 'authenticated',
+      isLoading: status === 'loading' || status === 'idle',
+      loginWithEmail,
+      loginWithOAuth,
+      logout,
+      provider,
+      sendMagicLink,
+      signupWithEmail,
+      user,
+    }),
+    [
       error,
       loginWithEmail,
-      signupWithEmail,
       loginWithOAuth,
-      sendMagicLink,
       logout,
-    }),
-    [user, status, error, loginWithEmail, signupWithEmail, loginWithOAuth, sendMagicLink, logout],
+      provider,
+      sendMagicLink,
+      signupWithEmail,
+      status,
+      user,
+    ],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

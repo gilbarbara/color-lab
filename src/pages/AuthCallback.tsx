@@ -4,11 +4,12 @@ import { Spinner } from '@heroui/react';
 
 import { useAuthStore } from '~/stores/authStore';
 import { account } from '~/utils/appwrite';
+import { syncUserAvatar } from '~/utils/oauth';
 
 export default function AuthCallback() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { setError, setStatus, setUser } = useAuthStore();
+  const { setError, setProvider, setStatus, setUser } = useAuthStore();
   const [message, setMessage] = useState('Completing authentication...');
 
   useEffect(() => {
@@ -50,6 +51,21 @@ export default function AuthCallback() {
         const currentUser = await account.get();
 
         setUser(currentUser);
+
+        const session = await account.getSession({ sessionId: 'current' });
+
+        if (session.provider === 'google' || session.provider === 'github') {
+          setProvider(session.provider);
+        }
+
+        // Sync avatar in background (don't block navigation)
+        syncUserAvatar(account)
+          .then(async () => {
+            const updatedUser = await account.get();
+
+            setUser(updatedUser);
+          })
+          .catch(() => {});
       } catch {
         setStatus('unauthenticated');
       }
@@ -58,7 +74,7 @@ export default function AuthCallback() {
     };
 
     handleCallback();
-  }, [searchParams, navigate, setUser, setStatus, setError]);
+  }, [searchParams, navigate, setError, setProvider, setStatus, setUser]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">

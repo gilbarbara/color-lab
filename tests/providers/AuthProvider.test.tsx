@@ -9,6 +9,7 @@ import { account } from '~/utils/appwrite';
 vi.mock('~/utils/appwrite', () => ({
   account: {
     get: vi.fn(),
+    getSession: vi.fn(),
     create: vi.fn(),
     createEmailPasswordSession: vi.fn(),
     createMagicURLToken: vi.fn(),
@@ -45,8 +46,10 @@ function wrapper({ children }: { children: ReactNode }) {
 describe('providers/AuthProvider', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(account.getSession).mockResolvedValue({ provider: '' } as never);
     useAuthStore.setState({
       error: null,
+      provider: null,
       status: 'idle',
       user: null,
     });
