@@ -11,8 +11,13 @@ export default function Page(props: PageProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <div className={cn('flex flex-col flex-1', className)} {...rest}>
-      <div className="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16">
+    <div className="flex flex-col flex-1" {...rest}>
+      <div
+        className={cn(
+          'w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16',
+          className,
+        )}
+      >
         {children}
       </div>
       <Footer />

@@ -51,24 +51,15 @@ describe('PaletteCard', () => {
 
   describe('Render', () => {
     it('renders correctly', () => {
-      const { container } = renderCard();
-
-      expect(container).toMatchSnapshot();
-    });
-
-    it('shows palette name and formatted date', () => {
       renderCard();
 
-      expect(screen.getByText('Test Palette')).toBeInTheDocument();
-      expect(screen.getByText('Jan 2, 2024')).toBeInTheDocument();
+      expect(screen.getByTestId('PaletteCard')).toMatchSnapshot();
     });
 
-    it('renders color circles', () => {
-      renderCard();
+    it('renders filled heart for favorited palette', () => {
+      renderCard({ ...mockPalette, isFavorite: true });
 
-      const circles = screen.getAllByLabelText('Color Circle');
-
-      expect(circles).toHaveLength(2);
+      expect(screen.getByTestId('PaletteCard')).toMatchSnapshot();
     });
   });
 
@@ -109,12 +100,6 @@ describe('PaletteCard', () => {
       await waitFor(() => {
         expect(mockOnDelete).toHaveBeenCalledWith('palette-1');
       });
-    });
-
-    it('renders filled heart for favorited palette', () => {
-      const { container } = renderCard({ ...mockPalette, isFavorite: true });
-
-      expect(container).toMatchSnapshot();
     });
   });
 });

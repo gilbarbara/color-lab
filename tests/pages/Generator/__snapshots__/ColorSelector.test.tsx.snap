@@ -51,6 +51,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                   data-filled-within="true"
                   data-slot="input"
                   id="react-aria-_r_19_"
+                  name="color-name-0"
                   tabindex="0"
                   title=""
                   type="text"
@@ -143,6 +144,8 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
           <button
             aria-label="Color Circle"
             class="rounded-full shrink-0 size-6"
+            data-color="oklch(0.7 0.2 120)"
+            data-uid="ColorCircle"
             style="background-color: oklch(0.7 0.2 120);"
             type="button"
           />
@@ -582,6 +585,7 @@ exports[`ColorSelector > Render > renders correctly in SRGB mode 1`] = `
                   data-filled-within="true"
                   data-slot="input"
                   id="react-aria-_r_1_"
+                  name="color-name-0"
                   tabindex="0"
                   title=""
                   type="text"
@@ -701,6 +705,8 @@ exports[`ColorSelector > Render > renders correctly in SRGB mode 1`] = `
                   <button
                     aria-label="Color picker"
                     class="rounded-full shrink-0 size-6 cursor-pointer"
+                    data-color="#FF0044"
+                    data-uid="ColorCircle"
                     style="background-color: rgb(255, 0, 68);"
                     type="button"
                   />

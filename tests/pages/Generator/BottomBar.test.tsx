@@ -48,16 +48,16 @@ describe('BottomBar', () => {
 
   describe('Render', () => {
     it('renders correctly in closed state', () => {
-      const { container } = render(<BottomBar />);
+      render(<BottomBar />);
 
-      expect(container).toMatchSnapshot();
+      expect(screen.getByTestId('BottomBar')).toMatchSnapshot();
     });
 
     it('renders correctly in open state', () => {
       useAppStore.setState({ showBottomBar: true });
-      const { container } = render(<BottomBar />);
+      render(<BottomBar />);
 
-      expect(container).toMatchSnapshot();
+      expect(screen.getByTestId('BottomBar')).toMatchSnapshot();
     });
   });
 

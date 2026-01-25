@@ -161,6 +161,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
           }}
           color={colorEntry.name !== name ? 'warning' : undefined}
           disableAnimation
+          name={`color-name-${index}`}
           onBlur={handleBlurName}
           onChange={handleChangeName}
           onKeyDown={handleKeyDownName}

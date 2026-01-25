@@ -53,6 +53,7 @@ vi.mock('~/utils/url', () => ({
     colors: [{ value: '#ff0000' }, { value: '#0000ff' }],
     globalOptions: {},
   }),
+  serializePaletteToUrl: () => '/p/red-ff0000/blue-0000ff',
 }));
 
 describe('Palettes', () => {
@@ -76,9 +77,9 @@ describe('Palettes', () => {
     it('shows spinner while auth is loading', () => {
       mockAuthReturn = { isAuthenticated: false, isLoading: true };
 
-      const { container } = render(<Palettes />);
+      render(<Palettes />);
 
-      expect(container).toMatchSnapshot();
+      expect(screen.getByLabelText('Loading')).toBeInTheDocument();
     });
 
     it('shows sign in message when not authenticated', () => {
@@ -86,7 +87,7 @@ describe('Palettes', () => {
 
       render(<Palettes />);
 
-      expect(screen.getByText(/sign in to view/i)).toBeInTheDocument();
+      expect(screen.getByTestId('Palettes')).toMatchSnapshot();
     });
 
     it('shows loading spinner when fetching palettes', () => {
@@ -94,14 +95,13 @@ describe('Palettes', () => {
 
       render(<Palettes />);
 
-      expect(screen.getByText(/loading palettes/i)).toBeInTheDocument();
+      expect(screen.getByTestId('Palettes')).toMatchSnapshot();
     });
 
     it('shows empty state when no palettes', () => {
       render(<Palettes />);
 
-      expect(screen.getByText(/no saved palettes/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /create palette/i })).toBeInTheDocument();
+      expect(screen.getByTestId('Palettes')).toMatchSnapshot();
     });
 
     it('shows palette grid', () => {
@@ -112,8 +112,7 @@ describe('Palettes', () => {
 
       render(<Palettes />);
 
-      expect(screen.getByText('Test Palette')).toBeInTheDocument();
-      expect(screen.getByText('Second')).toBeInTheDocument();
+      expect(screen.getByTestId('Palettes')).toMatchSnapshot();
     });
   });
 
