@@ -17,6 +17,7 @@ import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
+import { trackEvent } from '~/utils/analytics';
 
 import Collapse from '~/components/Collapse';
 import ExportPalette from '~/components/ExportPalette';
@@ -65,11 +66,13 @@ export default function PaletteHeader() {
 
   const handleChangeLock = ({ currentKey }: SharedSelection) => {
     if (!currentKey || currentKey === 'None') {
+      trackEvent('lock', { value: 'none' });
       updateGlobalOptions({ lock: undefined });
 
       return;
     }
 
+    trackEvent('lock', { value: currentKey });
     updateGlobalOptions({ lock: parseInt(currentKey, 10) });
   };
 
@@ -93,11 +96,13 @@ export default function PaletteHeader() {
 
   const handleChangeVariant = ({ currentKey }: SharedSelection) => {
     if (!currentKey) {
+      trackEvent('variant', { value: 'none' });
       updateGlobalOptions({ variant: undefined });
 
       return;
     }
 
+    trackEvent('variant', { value: currentKey });
     updateGlobalOptions({ variant: currentKey as ScaleOptions['variant'] });
   };
 
@@ -117,6 +122,7 @@ export default function PaletteHeader() {
       setState({ isSaving: false });
 
       if (success) {
+        trackEvent('update-palette');
         addToast({ title: 'Palette updated', color: 'success' });
       }
     } else {
@@ -134,6 +140,8 @@ export default function PaletteHeader() {
       steps: defaultOptions.steps,
       variant: defaultOptions.variant,
     });
+
+    trackEvent('reset-palette-options');
   };
 
   const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -162,16 +170,19 @@ export default function PaletteHeader() {
     setState({ isSaving: false });
 
     if (palette) {
+      trackEvent('save-palette');
       setState({ isSaveModalOpen: false });
       addToast({ title: 'Palette saved', color: 'success' });
     }
   };
 
   const handleToggleMode = (value: boolean) => {
+    trackEvent('scale-mode', { value: value ? 'dark' : 'light' });
     updateGlobalOptions({ mode: value ? 'dark' : 'light' });
   };
 
   const handleToggleSaturationOverride = (value: boolean) => {
+    trackEvent('saturation-override', { enabled: value });
     updateGlobalOptions({ saturationOverride: value });
   };
 
@@ -232,7 +243,7 @@ export default function PaletteHeader() {
       </div>
 
       <Collapse isOpen={showPaletteOptionsPanel}>
-        <div className="border border-default p-4 rounded-xl">
+        <div className="border border-default p-4 mb-4 rounded-xl">
           <div className="w-full flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <Select
               classNames={{
@@ -319,6 +330,7 @@ export default function PaletteHeader() {
                 minValue={3}
                 name="steps"
                 onChange={handleChangeSteps}
+                onChangeEnd={value => trackEvent('steps', { value: value as number })}
                 renderLabel={renderProps => (
                   <SliderLabel
                     {...renderProps}
@@ -350,6 +362,7 @@ export default function PaletteHeader() {
                 maxValue={100}
                 name="saturation"
                 onChange={handleChangeSaturation}
+                onChangeEnd={value => trackEvent('saturation', { value: value as number })}
                 renderLabel={renderProps => (
                   <SliderLabel
                     {...renderProps}

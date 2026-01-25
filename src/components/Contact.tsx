@@ -4,6 +4,8 @@ import { useSetState } from '@gilbarbara/hooks';
 import { Button, Divider, useDisclosure } from '@heroui/react';
 import { CheckCircleIcon, WarningCircleIcon, XCircleIcon } from '@phosphor-icons/react';
 
+import { trackEvent } from '~/utils/analytics';
+
 import { Input, Textarea } from '~/components/Field';
 import Modal, { ModalBody, ModalContent, ModalHeader } from '~/components/Modal';
 
@@ -36,6 +38,8 @@ export default function Contact() {
   const handleClickOpen = () => {
     setState(defaultState);
     onOpen();
+
+    trackEvent('feedback');
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -61,6 +65,8 @@ export default function Contact() {
       setState({ status: ASYNC_STATUS.SUCCESS });
 
       formRef.current?.reset();
+
+      trackEvent('feedback-sent');
     } catch {
       setState({ errorMessage: 'Failed to send. Try again.', status: ASYNC_STATUS.ERROR });
     }

@@ -1,5 +1,6 @@
 import { Button } from '@heroui/react';
 
+import { trackEvent } from '~/utils/analytics';
 import { generateExport } from '~/utils/export';
 
 import type { ScaleSteps } from '~/types';
@@ -38,7 +39,14 @@ export default function ExportScale(props: ExportScaleProps) {
     <ExportModal
       title="Export"
       trigger={onOpen => (
-        <Button className="h-8 px-2 min-w-8" onPress={onOpen} variant="light">
+        <Button
+          className="h-8 px-2 min-w-8"
+          onPress={() => {
+            trackEvent('open-export-scale');
+            onOpen();
+          }}
+          variant="light"
+        >
           Export
         </Button>
       )}
@@ -46,7 +54,12 @@ export default function ExportScale(props: ExportScaleProps) {
       {({ colorFormat, formatType, onCopy }) => {
         const code = generateExport(name, steps, { colorFormat, formatType });
 
-        return <CodePreview code={code} onCopy={onCopy} />;
+        const handleCopy = (value: string) => {
+          trackEvent('copy-export-scale', { format: formatType, colorFormat });
+          onCopy(value);
+        };
+
+        return <CodePreview code={code} onCopy={handleCopy} />;
       }}
     </ExportModal>
   );

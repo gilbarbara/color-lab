@@ -5,6 +5,7 @@ import { rotate } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { useAppStore } from '~/stores/appStore';
+import { trackEvent } from '~/utils/analytics';
 import { getRandomColor } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
 import { scrollToSelector } from '~/utils/scroll';
@@ -34,6 +35,7 @@ export default function BottomBar() {
       : getRandomColor('oklch', baseSaturation);
 
     addColor(nextColor);
+    trackEvent('add-color');
 
     setTimeout(() => scrollToSelector(`${colors.length}-${nextColor}`), 100);
   };

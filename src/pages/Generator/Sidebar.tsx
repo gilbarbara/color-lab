@@ -3,6 +3,7 @@ import { PlusIcon } from '@phosphor-icons/react';
 import { rotate } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
+import { trackEvent } from '~/utils/analytics';
 import { getRandomColor } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
 import { scrollToSelector } from '~/utils/scroll';
@@ -22,6 +23,7 @@ export default function Sidebar() {
       : getRandomColor('oklch', baseSaturation);
 
     addColor(nextColor);
+    trackEvent('add-color');
 
     setTimeout(() => scrollToSelector(`${colors.length}-${nextColor}`), 100);
   };

@@ -5,6 +5,7 @@ import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
 import { readableColorAPCA, scale } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
+import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
 
 import Tooltip from '~/components/Tooltip';
@@ -119,7 +120,10 @@ export default function ExportPalette() {
               'h-8 px-2 min-w-8': isLarge,
             })}
             isIconOnly={!isLarge}
-            onPress={onOpen}
+            onPress={() => {
+              trackEvent('open-export-palette');
+              onOpen();
+            }}
             variant="light"
           >
             {isLarge ? 'Export All' : <ExportIcon className="text-lg" />}
@@ -171,7 +175,14 @@ export default function ExportPalette() {
               className="absolute right-2 bottom-2"
               color="primary"
               isDisabled={selectedIndices.size === 0}
-              onPress={() => onCopy(allCode)}
+              onPress={() => {
+                trackEvent('copy-export-palette', {
+                  format: formatType,
+                  colorFormat,
+                  count: selectedIndices.size,
+                });
+                onCopy(allCode);
+              }}
             >
               Copy All ({selectedIndices.size})
             </Button>

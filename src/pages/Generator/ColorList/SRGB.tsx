@@ -3,6 +3,7 @@ import { Button } from '@heroui/react';
 import { ArrowsClockwiseIcon } from '@phosphor-icons/react';
 import { hex2hsl, type HSL, hsl2hex, isHex } from 'colorizr';
 
+import { trackEvent } from '~/utils/analytics';
 import { getRandomColor } from '~/utils/color';
 
 import ColorCircle from '~/components/ColorCircle';
@@ -67,6 +68,7 @@ export default function SRGB(props: SRGBProps) {
   };
 
   const handleClickRandomHex = () => {
+    trackEvent('random-color');
     const newHex = getRandomColor('hex', baseSaturation);
 
     onChangeHex(newHex);
@@ -97,7 +99,10 @@ export default function SRGB(props: SRGBProps) {
               <ColorCircle
                 aria-label="Color picker"
                 color={hex}
-                onClick={() => colorInputRef.current?.click()}
+                onClick={() => {
+                  trackEvent('color-picker');
+                  colorInputRef.current?.click();
+                }}
               />
             </Tooltip>
           }

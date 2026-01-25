@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { Button, Card, CardBody } from '@heroui/react';
 import { HeartIcon, TrashIcon } from '@phosphor-icons/react';
 
+import { trackEvent } from '~/utils/analytics';
 import { formatDate } from '~/utils/date';
 import { parsePaletteFromUrl } from '~/utils/url';
 
@@ -28,17 +29,29 @@ export function PaletteCard(props: PaletteCardProps) {
     setIsDeleting(true);
     onDelete(palette.$id);
     setIsDeleting(false);
+
+    trackEvent('delete-saved-palette', { value: palette.name });
   };
 
   const handleClickFavorite = () => {
     onToggleFavorite(palette.$id);
+
+    trackEvent(palette.isFavorite ? 'unfavorite-palette' : 'favorite-palette', {
+      value: palette.name,
+    });
+  };
+
+  const handleClickLoad = () => {
+    onLoad(palette);
+
+    trackEvent('load-saved-palette', { value: palette.name });
   };
 
   return (
     <Card className="w-full">
       <CardBody className="p-4">
         <div className="flex items-start justify-between mb-4">
-          <Link className="space-y-0.5" onClick={() => onLoad(palette)} to={palette.url}>
+          <Link className="space-y-0.5" onClick={handleClickLoad} to={palette.url}>
             <h3 className="font-semibold text-lg">{palette.name}</h3>
             <p className="text-xs text-default-500">{formatDate(palette.$updatedAt)}</p>
           </Link>

@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router';
 
 import useAuth from '~/hooks/useAuth';
+import usePageTracking from '~/hooks/usePageTracking';
 
 import Header from '~/components/Header';
 import Login from '~/components/Login';
@@ -11,6 +12,8 @@ import Palettes from '~/pages/Palettes';
 
 export default function App() {
   const { isAuthenticated } = useAuth();
+
+  usePageTracking();
 
   return (
     <div className="flex flex-col items-stretch min-h-screen">
