@@ -1,10 +1,14 @@
 import { type ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import { addToast, Button, Spinner } from '@heroui/react';
+import { PlusIcon, SignInIcon } from '@phosphor-icons/react';
 
 import useAuth from '~/hooks/useAuth';
+import usePalette from '~/hooks/usePalette';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
+import { useAppStore } from '~/stores/appStore';
 
+import Feedback from '~/components/Feedback';
 import Page from '~/components/Page';
 import { PaletteCard } from '~/pages/Palettes/PaletteCard';
 
@@ -12,6 +16,8 @@ export default function Palettes() {
   const navigate = useNavigate();
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const { deletePalette, isLoading, loadPalette, palettes, toggleFavorite } = useSavedPalettes();
+  const { generatorUrl } = usePalette();
+  const { openLoginModal } = useAppStore();
 
   const handleDelete = async (id: string) => {
     const success = await deletePalette(id);
@@ -37,25 +43,36 @@ export default function Palettes() {
   let content: ReactNode;
 
   if (!isAuthenticated) {
-    content = <div>Sign in to view your saved palettes</div>;
+    content = (
+      <Feedback description="Sign in to view your saved palettes" type={null}>
+        <Button color="primary" onPress={openLoginModal} startContent={<SignInIcon />}>
+          Sign In
+        </Button>
+      </Feedback>
+    );
   } else if (isLoading) {
     content = (
-      <div className="flex flex-col items-center justify-center min-h-[30vh] gap-4">
-        <Spinner size="lg" />
-        <p className="text-default-500">Loading palettes...</p>
-      </div>
+      <Feedback
+        description={<span className="text-foreground-500">Loading palettes...</span>}
+        icon={<Spinner size="lg" />}
+        type={null}
+      />
     );
   } else if (palettes.length === 0) {
     content = (
-      <div className="flex flex-col items-center justify-center min-h-[30vh] gap-4 text-center">
-        <p className="text-default-500 text-lg">No saved palettes yet</p>
-        <p className="text-default-400 text-sm">
-          Create a color palette and click Save to add it here.
-        </p>
-        <Button color="primary" onPress={() => navigate('/')}>
+      <Feedback
+        description="Create a color palette and click Save to add it here."
+        title="You have no saved palettes yet."
+        type="empty"
+      >
+        <Button
+          color="primary"
+          onPress={() => navigate(generatorUrl)}
+          startContent={<PlusIcon weight="bold" />}
+        >
           Create Palette
         </Button>
-      </div>
+      </Feedback>
     );
   } else {
     content = (
@@ -74,7 +91,7 @@ export default function Palettes() {
   }
 
   return (
-    <Page className="items-center" data-uid="Palettes">
+    <Page className="text-center" data-uid="Palettes">
       <h1 className="text-4xl font-bold mb-16">My Palettes</h1>
       {content}
     </Page>

@@ -33,7 +33,7 @@ export default function Header() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette();
-  const { openLoginModal } = useAppStore();
+  const { clearLoadedPalette, openLoginModal } = useAppStore();
   const { min } = useBreakpoint();
 
   const handleClickDarkMode = () => {
@@ -54,7 +54,10 @@ export default function Header() {
       <Button
         as={NavLink}
         className="text-sm"
-        onPress={() => trackEvent('new-palette')}
+        onPress={() => {
+          clearLoadedPalette();
+          trackEvent('new-palette');
+        }}
         size="sm"
         to="/p"
         variant="flat"
@@ -116,6 +119,7 @@ export default function Header() {
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
           <Avatar
+            aria-label="User Menu"
             as="button"
             className="transition-transform"
             name={user?.name || user?.email}

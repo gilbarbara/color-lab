@@ -42,6 +42,8 @@ exports[`SRGB > Render > renders correctly 1`] = `
                 <button
                   aria-label="Color picker"
                   class="rounded-full shrink-0 size-6 cursor-pointer"
+                  data-color="#FF0044"
+                  data-uid="ColorCircle"
                   style="background-color: rgb(255, 0, 68);"
                   type="button"
                 />
@@ -341,6 +343,8 @@ exports[`SRGB > Render > renders with disabled saturation 1`] = `
                 <button
                   aria-label="Color picker"
                   class="rounded-full shrink-0 size-6 cursor-pointer"
+                  data-color="#FF0044"
+                  data-uid="ColorCircle"
                   style="background-color: rgb(255, 0, 68);"
                   type="button"
                 />

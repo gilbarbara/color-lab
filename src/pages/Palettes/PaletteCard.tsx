@@ -48,15 +48,25 @@ export function PaletteCard(props: PaletteCardProps) {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full" data-uid="PaletteCard">
       <CardBody className="p-4">
-        <div className="flex items-start justify-between mb-4">
-          <Link className="space-y-0.5" onClick={handleClickLoad} to={palette.url}>
-            <h3 className="font-semibold text-lg">{palette.name}</h3>
+        <div className="flex items-start mb-4">
+          <div className="grow space-y-0.5">
+            <h3 className="font-semibold text-lg">
+              <Link
+                aria-label={`Load Palette (${palette.name})`}
+                className="flex hover:underline"
+                onClick={handleClickLoad}
+                to={palette.url}
+              >
+                {palette.name}
+              </Link>
+            </h3>
             <p className="text-xs text-default-500">{formatDate(palette.$updatedAt)}</p>
-          </Link>
+          </div>
           <div className="flex items-center gap-0.5">
             <Button
+              aria-label={`${palette.isFavorite ? 'Unfavorite Palette' : 'Favorite Palette'} (${palette.name})`}
               color={palette.isFavorite ? 'success' : undefined}
               isIconOnly
               onPress={handleClickFavorite}
@@ -70,19 +80,27 @@ export function PaletteCard(props: PaletteCardProps) {
               onConfirm={handleClickDelete}
               title={`Remove "${palette.name}"?`}
             >
-              <Button color="danger" isIconOnly isLoading={isDeleting} size="sm" variant="light">
+              <Button
+                aria-label={`Remove Palette (${palette.name})`}
+                color="danger"
+                isIconOnly
+                isLoading={isDeleting}
+                size="sm"
+                variant="light"
+              >
                 {!isDeleting && <TrashIcon className="h-4 w-4" />}
               </Button>
             </Popconfirm>
           </div>
         </div>
         <Link
-          className="flex gap-1 h-8 rounded-lg overflow-hidden"
+          aria-label={`Load Palette Colors (${palette.name})`}
+          className="flex gap-1 h-8 rounded-lg cursor-pointer overflow-hidden"
           onClick={() => onLoad(palette)}
           to={palette.url}
         >
           {colors.map((color, index) => (
-            <ColorCircle key={`${color}-${index}`} color={color} size="lg" />
+            <ColorCircle key={`${color}-${index}`} as="span" color={color} size="lg" />
           ))}
         </Link>
       </CardBody>

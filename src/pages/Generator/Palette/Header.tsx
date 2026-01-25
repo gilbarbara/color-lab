@@ -1,4 +1,4 @@
-import { type ChangeEvent, type KeyboardEvent, useMemo } from 'react';
+import { type ChangeEvent, type KeyboardEvent, useEffect, useMemo } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import {
   addToast,
@@ -55,6 +55,11 @@ export default function PaletteHeader() {
     isSaving: false,
     name: loadedPaletteName,
   });
+
+  // Sync local name state when loadedPaletteName changes (e.g., new palette or palette loaded)
+  useEffect(() => {
+    setState({ name: loadedPaletteName });
+  }, [loadedPaletteName, setState]);
 
   const handleBlurName = () => {
     if (loadedPaletteName && loadedPaletteName !== name) {
@@ -171,7 +176,7 @@ export default function PaletteHeader() {
 
     if (palette) {
       trackEvent('save-palette');
-      setState({ isSaveModalOpen: false });
+      setState({ isSaveModalOpen: false, name: palette.name });
       addToast({ title: 'Palette saved', color: 'success' });
     }
   };
@@ -210,6 +215,7 @@ export default function PaletteHeader() {
           }}
           color={loadedPaletteName !== name ? 'warning' : undefined}
           isDisabled={!isAuthenticated}
+          name="palette-name"
           onBlur={handleBlurName}
           onChange={handleChangeName}
           onKeyDown={handleKeyDownName}
@@ -233,6 +239,7 @@ export default function PaletteHeader() {
           <ExportPalette />
           <Button
             color={hasUnsavedChanges ? 'warning' : 'primary'}
+            isDisabled={!!loadedPaletteId && !hasUnsavedChanges}
             isLoading={isSaving}
             onPress={handleClickSave}
             startContent={<HeartIcon />}

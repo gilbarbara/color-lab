@@ -1,4 +1,11 @@
-import { type KeyboardEvent, type MouseEvent, type TouchEvent, useEffect, useRef } from 'react';
+import {
+  type KeyboardEvent,
+  type MouseEvent,
+  type TouchEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Button, cn, Divider } from '@heroui/react';
 import { CaretUpIcon, PlusIcon } from '@phosphor-icons/react';
 import { rotate } from 'colorizr';
@@ -18,6 +25,7 @@ export default function BottomBar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
     usePalette();
   const { showBottomBar, toggleBottomBar } = useAppStore();
+  const [shouldRenderContent, setShouldRenderContent] = useState(false);
   const dragStartY = useRef<number | null>(null);
 
   useEffect(() => {
@@ -26,6 +34,19 @@ export default function BottomBar() {
     return () => {
       document.body.style.overflow = '';
     };
+  }, [showBottomBar]);
+
+  useEffect(() => {
+    if (showBottomBar) {
+      setShouldRenderContent(true);
+
+      return () => {};
+    }
+
+    // Delay unmount until transition completes
+    const timer = setTimeout(() => setShouldRenderContent(false), 500);
+
+    return () => clearTimeout(timer);
   }, [showBottomBar]);
 
   const handleAddColor = () => {
@@ -82,13 +103,14 @@ export default function BottomBar() {
 
   return (
     <div
-      className={cn('fixed left-0 z-10 w-full bg-background transition-all duration-500', {
+      className={cn('fixed left-0 z-10 w-full h-dvh bg-background transition-all duration-500', {
         'top-[100dvh] -mt-16 overflow-hidden': !showBottomBar,
-        'top-0 h-dvh overflow-y-auto': showBottomBar,
+        'top-0 overflow-y-auto': showBottomBar,
       })}
       data-uid="BottomBar"
     >
       <div
+        aria-label="Toggle Bottom Bar"
         className="sticky top-0 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
         data-uid="BottomBarHeader"
         onClick={toggleBottomBar}
@@ -130,25 +152,29 @@ export default function BottomBar() {
           />
         </button>
       </div>
-      <ColorOptions
-        defaultOptions={defaultOptions}
-        globalOptions={globalOptions}
-        updateGlobalOptions={updateGlobalOptions}
-      />
-      <Divider />
-      <ColorList baseSaturation={baseSaturation} />
-      <Divider />
-      <div className="p-4">
-        <Button
-          color="primary"
-          fullWidth
-          isDisabled={colors.length >= MAX_COLORS}
-          onPress={handleAddColor}
-          startContent={<PlusIcon />}
-        >
-          Add Color
-        </Button>
-      </div>
+      {shouldRenderContent && (
+        <>
+          <ColorOptions
+            defaultOptions={defaultOptions}
+            globalOptions={globalOptions}
+            updateGlobalOptions={updateGlobalOptions}
+          />
+          <Divider />
+          <ColorList baseSaturation={baseSaturation} />
+          <Divider />
+          <div className="p-4">
+            <Button
+              color="primary"
+              fullWidth
+              isDisabled={colors.length >= MAX_COLORS}
+              onPress={handleAddColor}
+              startContent={<PlusIcon />}
+            >
+              Add Color
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

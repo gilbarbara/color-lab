@@ -1,8 +1,14 @@
-import { cloneElement, type ReactElement, type ReactNode, useState } from 'react';
-import { Button, type ButtonProps, useDisclosure } from '@heroui/react';
+import { type ReactNode, useState } from 'react';
+import {
+  Button,
+  type ButtonProps,
+  Popover,
+  PopoverContent,
+  type PopoverProps,
+  PopoverTrigger,
+  useDisclosure,
+} from '@heroui/react';
 import { WarningCircleIcon } from '@phosphor-icons/react';
-
-import Tooltip, { type TooltipProps } from '~/components/Tooltip';
 
 export interface PopconfirmProps {
   /**
@@ -16,7 +22,7 @@ export interface PopconfirmProps {
   children: ReactNode;
   /**
    * Confirm button color.
-   * @default "primary"
+   * @default "danger"
    */
   confirmColor?: ButtonProps['color'];
   /**
@@ -46,10 +52,10 @@ export interface PopconfirmProps {
    */
   onConfirm?: () => void | Promise<void>;
   /**
-   * Tooltip placement.
-   * @default "top"
+   * Popover placement.
+   * @default "bottom"
    */
-  placement?: TooltipProps['placement'];
+  placement?: PopoverProps['placement'];
   /**
    * The confirmation title/message.
    */
@@ -63,7 +69,7 @@ export default function Popconfirm(props: PopconfirmProps) {
     confirmColor = 'primary',
     confirmText = 'Confirm',
     description,
-    icon = <WarningCircleIcon className="size-5 text-warning" weight="fill" />,
+    icon = <WarningCircleIcon className="size-5 text-danger shrink-0" weight="fill" />,
     isDisabled = false,
     onCancel,
     onConfirm,
@@ -71,7 +77,7 @@ export default function Popconfirm(props: PopconfirmProps) {
     title,
   } = props;
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isOpen, onClose, onOpenChange } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCancel = () => {
@@ -90,41 +96,32 @@ export default function Popconfirm(props: PopconfirmProps) {
     }
   };
 
-  const content = (
-    <>
-      <div className="flex items-center gap-2">
-        {icon}
-        <p className="text-base font-medium">{title}</p>
-      </div>
-      {description && <div className="mt-2 text-sm">{description}</div>}
-      <div className="w-full flex justify-end mt-3 gap-2">
-        <Button onPress={handleCancel} size="sm" variant="light">
-          {cancelText}
-        </Button>
-        <Button color={confirmColor} isLoading={isLoading} onPress={handleConfirm} size="sm">
-          {confirmText}
-        </Button>
-      </div>
-    </>
-  );
-
-  const trigger = cloneElement(children as ReactElement<{ onPress?: () => void }>, {
-    onPress: isDisabled ? undefined : onOpen,
-  });
-
   return (
-    <Tooltip
+    <Popover
       classNames={{
         content: 'p-4 w-64',
       }}
-      content={content}
-      isDisabled={isDisabled}
-      isDismissable
       isOpen={isOpen}
+      onOpenChange={onOpenChange}
       placement={placement}
-      triggerScaleOnOpen={false}
+      showArrow
     >
-      {trigger}
-    </Tooltip>
+      <PopoverTrigger disabled={isDisabled}>{children}</PopoverTrigger>
+      <PopoverContent>
+        <div className="flex items-center gap-2">
+          {icon}
+          <p className="text-base font-medium">{title}</p>
+        </div>
+        {description && <div className="mt-2 text-sm">{description}</div>}
+        <div className="w-full flex justify-end mt-3 gap-2">
+          <Button onPress={handleCancel} size="sm" variant="light">
+            {cancelText}
+          </Button>
+          <Button color={confirmColor} isLoading={isLoading} onPress={handleConfirm} size="sm">
+            {confirmText}
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }

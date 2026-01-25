@@ -98,6 +98,7 @@ exports[`Header > should render properly when authenticated 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="true"
+        aria-label="User Menu"
         class="flex relative justify-center items-center box-border overflow-hidden align-middle outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-8 h-8 text-tiny bg-default text-default-foreground rounded-full z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased transition-transform"
         data-react-aria-pressable="true"
         data-slot="trigger"
