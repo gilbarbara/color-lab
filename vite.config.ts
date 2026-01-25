@@ -42,6 +42,7 @@ export default defineConfig({
         'src/utils/appwrite.ts',
       ],
     },
+    exclude: ['node_modules/**', 'dist/**', 'e2e/**'],
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/__setup__/vitest.setup.ts'],
