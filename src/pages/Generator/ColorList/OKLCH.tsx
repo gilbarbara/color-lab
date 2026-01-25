@@ -3,6 +3,7 @@ import { Button } from '@heroui/react';
 import { ArrowsClockwiseIcon } from '@phosphor-icons/react';
 import { formatCSS, getOkLCHMaxChroma, type LCH } from 'colorizr';
 
+import { trackEvent } from '~/utils/analytics';
 import { getRandomColor } from '~/utils/color';
 
 import ColorCircle from '~/components/ColorCircle';
@@ -65,6 +66,7 @@ export default function OKLCH(props: OKLCHProps) {
     const newOklch = getRandomColor('oklch', baseSaturation);
 
     onChangeColor(newOklch);
+    trackEvent('random-color');
   };
 
   return (

@@ -3,6 +3,8 @@ import { addToast } from '@heroui/react';
 import { LockSimpleIcon } from '@phosphor-icons/react';
 import { readableColorAPCA } from 'colorizr';
 
+import { trackEvent } from '~/utils/analytics';
+
 import Tooltip from '~/components/Tooltip';
 
 interface SwatchProps {
@@ -13,6 +15,7 @@ interface SwatchProps {
 
 export default function Swatch({ color, lock, step }: SwatchProps) {
   const handleClick = () => {
+    trackEvent('copy-swatch');
     navigator.clipboard
       .writeText(color)
       .then(() => {

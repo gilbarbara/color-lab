@@ -23,6 +23,7 @@ import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
 import { useAppStore } from '~/stores/appStore';
+import { trackEvent } from '~/utils/analytics';
 
 function navLinkClassName({ isActive }: NavLinkRenderProps) {
   return cn('text-sm text-foreground-500', { 'text-foreground': isActive });
@@ -35,6 +36,11 @@ export default function Header() {
   const { openLoginModal } = useAppStore();
   const { min } = useBreakpoint();
 
+  const handleClickDarkMode = () => {
+    trackEvent('dark-mode', { enabled: !isDarkMode });
+    toggleDarkMode();
+  };
+
   const isLarge = min('md');
 
   let imageUrl: string | undefined;
@@ -45,7 +51,14 @@ export default function Header() {
 
   const renderNavigation = () => (
     <div className="flex items-center gap-2 md:gap-4 ml-4 md:ml-8">
-      <Button as={NavLink} className="text-sm" size="sm" to="/p" variant="flat">
+      <Button
+        as={NavLink}
+        className="text-sm"
+        onPress={() => trackEvent('new-palette')}
+        size="sm"
+        to="/p"
+        variant="flat"
+      >
         <span className="inline-flex items-center gap-1">
           <PlusIcon />
           {isLarge ? 'New Palette' : 'New'}
@@ -125,7 +138,10 @@ export default function Header() {
           <DropdownItem
             key="logout"
             color="danger"
-            onPress={logout}
+            onPress={() => {
+              trackEvent('logout');
+              logout();
+            }}
             startContent={<SignOutIcon className="size-4" />}
           >
             Sign Out
@@ -151,7 +167,12 @@ export default function Header() {
         {renderNavigation()}
 
         <div className="flex items-center gap-2 ml-auto">
-          <Button aria-label="Toggle dark mode" isIconOnly onPress={toggleDarkMode} variant="light">
+          <Button
+            aria-label="Toggle dark mode"
+            isIconOnly
+            onPress={handleClickDarkMode}
+            variant="light"
+          >
             {isDarkMode ? <SunIcon className="size-6" /> : <MoonIcon className="size-6" />}
           </Button>
           {renderUserMenu()}

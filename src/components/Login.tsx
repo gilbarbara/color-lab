@@ -6,6 +6,7 @@ import { Button, Tab, Tabs } from '@heroui/react';
 import useAuth from '~/hooks/useAuth';
 import useTheme from '~/hooks/useTheme';
 import { useAppStore } from '~/stores/appStore';
+import { trackEvent } from '~/utils/analytics';
 
 import { Input, Password } from '~/components/Field';
 import Modal, { ModalBody, ModalContent } from '~/components/Modal';
@@ -44,6 +45,7 @@ export default function Login() {
 
     try {
       await loginWithEmail(email, password);
+      trackEvent('login', { provider: 'email' });
       handleClose();
     } catch {
       // Error is handled by auth context
@@ -55,6 +57,7 @@ export default function Login() {
 
     try {
       await signupWithEmail(email, password, name || undefined);
+      trackEvent('login', { provider: 'email' });
       handleClose();
     } catch {
       // Error is handled by auth context
@@ -66,6 +69,7 @@ export default function Login() {
 
     try {
       await sendMagicLink(email);
+      trackEvent('login', { provider: 'magic-link' });
       setState({ magicLinkSent: true });
     } catch {
       // Error is handled by auth context
@@ -73,6 +77,7 @@ export default function Login() {
   };
 
   const handleOAuth = (provider: 'google' | 'github') => {
+    trackEvent('login', { provider });
     loginWithOAuth(provider);
   };
 

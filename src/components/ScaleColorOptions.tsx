@@ -2,6 +2,8 @@ import { type ReactNode, useCallback } from 'react';
 import { Button, cn, Slider } from '@heroui/react';
 import { EraserIcon } from '@phosphor-icons/react';
 
+import { trackEvent } from '~/utils/analytics';
+
 import type { GlobalScaleOptions } from '~/types';
 
 import SliderLabel from './SliderLabel';
@@ -60,6 +62,11 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         maxValue={1}
         name="lightness"
         onChange={handleChangeLightness}
+        onChangeEnd={value => {
+          if (Array.isArray(value)) {
+            trackEvent('lightness-range', { min: value[0], max: value[1] });
+          }
+        }}
         renderLabel={renderProps => (
           <SliderLabel
             {...renderProps}
@@ -99,6 +106,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         maxValue={5}
         name="lightnessCurve"
         onChange={handleChangeLightnessFactor}
+        onChangeEnd={value => trackEvent('lightness-curve', { value: value as number })}
         renderLabel={renderProps => (
           <SliderLabel
             {...renderProps}
@@ -131,6 +139,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         maxValue={1}
         name="chromaCurve"
         onChange={handleChangeChromaCurve}
+        onChangeEnd={value => trackEvent('chroma-curve', { value: value as number })}
         renderLabel={renderProps => (
           <SliderLabel
             {...renderProps}

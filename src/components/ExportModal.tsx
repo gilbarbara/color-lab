@@ -3,6 +3,7 @@ import { useBreakpoint } from '@gilbarbara/hooks';
 import { addToast, Divider, Tab, Tabs, useDisclosure } from '@heroui/react';
 
 import { useAppStore } from '~/stores/appStore';
+import { trackEvent } from '~/utils/analytics';
 import {
   colorFormatLabels,
   formatTypeLabels,
@@ -60,6 +61,8 @@ export default function ExportModal(props: ExportModalProps) {
 
     setExportFormatType(newFormatType);
 
+    trackEvent('format-type', { value: key as string });
+
     // Reset color format if not available for new format type
     const newAvailableFormats = getAvailableColorFormats(newFormatType);
 
@@ -70,6 +73,8 @@ export default function ExportModal(props: ExportModalProps) {
 
   const handleColorFormatChange = (key: Key) => {
     setExportColorFormat(key as ExportColorFormat);
+
+    trackEvent('color-format', { value: key as string });
   };
 
   return (

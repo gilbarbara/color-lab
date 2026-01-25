@@ -12,6 +12,7 @@ import {
 import { CaretUpDownIcon, GearIcon, TrashIcon } from '@phosphor-icons/react';
 import { convert, getColorType, parseCSS, readableColorAPCA } from 'colorizr';
 
+import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage } from '~/utils/color';
 
 import ConfirmTooltip from '~/components/ConfirmTooltip';
@@ -111,15 +112,24 @@ export default function ColorSelector(props: ColorSelectorProps) {
   const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       onUpdateColor(index, { name });
+      trackEvent('edit-color-name', { name });
     }
   };
 
   const handleClickMode = () => {
-    setState({ mode: mode === 'srgb' ? 'oklch' : 'srgb' });
+    const next = mode === 'srgb' ? 'oklch' : 'srgb';
+
+    trackEvent('color-mode', { value: next });
+    setState({ mode: next });
+  };
+
+  const handleClickOptions = () => {
+    trackEvent('open-color-options-overrides');
   };
 
   const handleResetOptions = () => {
     onResetColor(index);
+    trackEvent('reset-color-options-overrides');
   };
 
   const handleUpdateOptions = (updates: Partial<GlobalScaleOptions>) => {
@@ -185,7 +195,13 @@ export default function ColorSelector(props: ColorSelectorProps) {
             size="lg"
           >
             <PopoverTrigger>
-              <Button aria-label="Change color options" isIconOnly size="sm" variant="light">
+              <Button
+                aria-label="Change color options"
+                isIconOnly
+                onPress={handleClickOptions}
+                size="sm"
+                variant="light"
+              >
                 <Tooltip content="Color options" delay={250} placement="bottom-end">
                   <span className="size-8 inline-flex items-center justify-center">
                     <GearIcon className="text-base" />
@@ -207,7 +223,10 @@ export default function ColorSelector(props: ColorSelectorProps) {
             confirmMessage="Click again to remove"
             isDisabled={isOnlyColor}
             message="Remove color"
-            onConfirm={() => onRemoveColor(index)}
+            onConfirm={() => {
+              trackEvent('remove-color');
+              onRemoveColor(index);
+            }}
           >
             <Button
               aria-label="Remove color"

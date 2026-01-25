@@ -2,6 +2,7 @@ import { cn, Divider } from '@heroui/react';
 import { CaretUpIcon } from '@phosphor-icons/react';
 
 import { useAppStore } from '~/stores/appStore';
+import { trackEvent } from '~/utils/analytics';
 
 import Collapse from '~/components/Collapse';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
@@ -25,6 +26,8 @@ export default function ColorOptions(props: ColorOptionsProps) {
       lightnessCurve: defaultOptions.lightnessCurve,
       chromaCurve: defaultOptions.chromaCurve,
     });
+
+    trackEvent('reset-color-options');
   };
 
   return (
