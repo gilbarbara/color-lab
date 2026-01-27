@@ -46,13 +46,13 @@ describe('Login', () => {
     });
 
     it('renders modal when open', async () => {
-      const { container } = renderLogin({ showLoginModal: true });
+      renderLogin({ showLoginModal: true });
 
       await waitFor(() => {
         expect(screen.getByRole('dialog')).toBeInTheDocument();
       });
 
-      expect(container).toMatchSnapshot();
+      expect(screen.getByRole('dialog')).toMatchSnapshot();
     });
   });
 
