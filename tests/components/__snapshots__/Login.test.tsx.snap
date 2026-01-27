@@ -1,13 +1,341 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Login > Render > renders modal when open 1`] = `
-<div
-  aria-hidden="true"
+<section
+  aria-describedby="_r_2_"
+  aria-modal="true"
+  class="flex flex-col relative z-50 box-border bg-content1 outline-solid outline-transparent mx-1 my-1 sm:mx-6 sm:my-16 max-w-sm rounded-large shadow-small max-h-[calc(100%_-_8rem)] w-full 5xl"
+  data-dismissable="true"
+  data-open="true"
+  data-placement="center"
+  data-test-id="Modal"
+  id="_r_0_"
+  role="dialog"
+  tabindex="-1"
 >
   <div
-    data-overlay-container="true"
-  />
-</div>
+    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+  >
+    <button
+      aria-label="Dismiss"
+      id="react-aria-_r_5_"
+      style="width: 1px; height: 1px;"
+      tabindex="-1"
+    />
+  </div>
+  <button
+    aria-label="Close"
+    class="absolute appearance-none select-none top-1 end-1 p-2 text-foreground-500 rounded-full hover:bg-default-100 active:bg-default-200 tap-highlight-transparent outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
+    data-react-aria-pressable="true"
+    role="button"
+    tabindex="0"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="fill-current"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="presentation"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="1em"
+    >
+      <path
+        d="M18 6L6 18M6 6l12 12"
+      />
+    </svg>
+  </button>
+  <div
+    class="flex flex-1 flex-col overflow-y-auto p-4 gap-4"
+    id="_r_2_"
+  >
+    <div
+      class="flex items-center justify-center py-4"
+    >
+      <h2
+        class="text-5xl font-bold"
+      >
+        Sign in
+      </h2>
+    </div>
+    <div
+      class="flex flex-col gap-3"
+    >
+      <button
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium px-4 min-w-20 h-10 text-small gap-2 rounded-medium w-full [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground data-[hover=true]:opacity-hover"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        <img
+          alt="Google"
+          aria-hidden="true"
+          class="size-5"
+          focusable="false"
+          src="/icons/google.svg"
+        />
+        Continue with Google
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium px-4 min-w-20 h-10 text-small gap-2 rounded-medium w-full [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground data-[hover=true]:opacity-hover"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        <img
+          alt="GitHub"
+          aria-hidden="true"
+          class="size-5"
+          focusable="false"
+          src="/icons/github.svg"
+        />
+        Continue with GitHub
+      </button>
+      <div
+        class="flex items-center"
+      >
+        <div
+          class="grow border-t border-default"
+        />
+        <span
+          class="shrink mx-4 text-foreground-500"
+        >
+          OR
+        </span>
+        <div
+          class="grow border-t border-default"
+        />
+      </div>
+      <div
+        class="inline-flex w-full"
+        data-slot="base"
+      >
+        <div
+          aria-orientation="horizontal"
+          class="relative flex p-1 h-fit gap-2 items-center flex-nowrap overflow-x-scroll scrollbar-hide bg-default-100 rounded-medium w-full"
+          data-collection="react-aria-_r_6_"
+          data-slot="tabList"
+          id="react-aria-_r_7_"
+          role="tablist"
+        >
+          <span
+            class="absolute z-0 will-change-[transform,width,height] invisible data-[initialized=true]:visible data-[animated=true]:transition-[left,top,width,height] data-[animated=true]:duration-250 data-[animated=true]:ease-out rounded-small bg-background dark:bg-default shadow-small"
+            data-slot="cursor"
+          />
+          <button
+            aria-controls="react-aria-_r_7_-tabpanel-login"
+            aria-selected="true"
+            class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 text-small rounded-small"
+            data-collection="react-aria-_r_6_"
+            data-key="login"
+            data-react-aria-pressable="true"
+            data-selected="true"
+            data-slot="tab"
+            id="react-aria-_r_7_-tab-login"
+            role="tab"
+            tabindex="0"
+            type="button"
+          >
+            <div
+              class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-default-foreground"
+              data-slot="tabContent"
+            >
+              Login
+            </div>
+          </button>
+          <button
+            aria-selected="false"
+            class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 text-small rounded-small"
+            data-collection="react-aria-_r_6_"
+            data-key="signup"
+            data-react-aria-pressable="true"
+            data-slot="tab"
+            id="react-aria-_r_7_-tab-signup"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <div
+              class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-default-foreground"
+              data-slot="tabContent"
+            >
+              Sign Up
+            </div>
+          </button>
+          <button
+            aria-selected="false"
+            class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 text-small rounded-small"
+            data-collection="react-aria-_r_6_"
+            data-key="magic-link"
+            data-react-aria-pressable="true"
+            data-slot="tab"
+            id="react-aria-_r_7_-tab-magic-link"
+            role="tab"
+            tabindex="-1"
+            type="button"
+          >
+            <div
+              class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-default-foreground"
+              data-slot="tabContent"
+            >
+              Magic Link
+            </div>
+          </button>
+        </div>
+      </div>
+      <div
+        aria-labelledby="react-aria-_r_7_-tab-login"
+        class="py-3 px-1 data-[inert=true]:hidden outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
+        data-focus="false"
+        data-focus-visible="false"
+        data-slot="panel"
+        id="react-aria-_r_7_-tabpanel-login"
+        role="tabpanel"
+      >
+        <form
+          class="flex flex-col gap-4 pt-2"
+        >
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-elements="true"
+            data-has-label="true"
+            data-required="true"
+            data-slot="base"
+          >
+            <label
+              class="z-10 origin-top-left shrink-0 rtl:origin-top-right subpixel-antialiased block text-small relative text-foreground pb-2 pointer-events-auto after:content-['*'] after:text-danger after:ms-0.5 will-change-auto !duration-200 !ease-out motion-reduce:transition-none transition-[transform,color,left,opacity,translate,scale]"
+              data-slot="label"
+              for="react-aria-_r_d_"
+              id="react-aria-_r_e_"
+            >
+              Email
+            </label>
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs px-3 gap-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-10 min-h-10 rounded-medium !duration-150 transition-colors motion-reduce:transition-none"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <input
+                    aria-labelledby="react-aria-_r_e_"
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-small"
+                    data-slot="input"
+                    data-type="email"
+                    id="react-aria-_r_d_"
+                    placeholder=" "
+                    required=""
+                    tabindex="0"
+                    title=""
+                    type="email"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col data-[hidden=true]:hidden w-full"
+            data-filled="true"
+            data-filled-within="true"
+            data-has-elements="true"
+            data-has-label="true"
+            data-required="true"
+            data-slot="base"
+          >
+            <label
+              class="z-10 origin-top-left shrink-0 rtl:origin-top-right subpixel-antialiased block text-small relative text-foreground pb-2 pointer-events-auto after:content-['*'] after:text-danger after:ms-0.5 will-change-auto !duration-200 !ease-out motion-reduce:transition-none transition-[transform,color,left,opacity,translate,scale]"
+              data-slot="label"
+              for="react-aria-_r_i_"
+              id="react-aria-_r_j_"
+            >
+              Password
+            </label>
+            <div
+              class="h-full flex flex-col"
+              data-slot="main-wrapper"
+            >
+              <div
+                class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs px-3 gap-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-10 min-h-10 rounded-medium !duration-150 transition-colors motion-reduce:transition-none"
+                data-slot="input-wrapper"
+                style="cursor: text;"
+              >
+                <div
+                  class="inline-flex w-full items-center h-full box-border"
+                  data-slot="inner-wrapper"
+                >
+                  <input
+                    aria-labelledby="react-aria-_r_j_"
+                    class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] text-small [&::-ms-reveal]:hidden"
+                    data-has-end-content="true"
+                    data-slot="input"
+                    data-type="password"
+                    id="react-aria-_r_i_"
+                    placeholder=" "
+                    required=""
+                    tabindex="0"
+                    title=""
+                    type="password"
+                    value=""
+                  />
+                  <button
+                    aria-label="toggle password visibility"
+                    class="focus:outline-none text-foreground-400"
+                    type="button"
+                  >
+                    <svg
+                      class="h-4 w-4"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-4 min-w-20 h-10 text-small gap-2 rounded-medium w-full [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="submit"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+  >
+    <button
+      aria-label="Dismiss"
+      id="react-aria-_r_p_"
+      style="width: 1px; height: 1px;"
+      tabindex="-1"
+    />
+  </div>
+</section>
 `;
 
 exports[`Login > Render > renders nothing when modal is closed 1`] = `

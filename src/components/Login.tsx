@@ -1,5 +1,4 @@
 import type { FormEvent } from 'react';
-import InlineSVG from 'react-inlinesvg';
 import { useSetState } from '@gilbarbara/hooks';
 import { Button, Tab, Tabs } from '@heroui/react';
 
@@ -98,7 +97,7 @@ export default function Login() {
             <Button
               fullWidth
               onPress={() => handleOAuth('google')}
-              startContent={<InlineSVG className="size-5" src="/icons/google.svg" />}
+              startContent={<img alt="Google" className="size-5" src="/icons/google.svg" />}
               variant="bordered"
             >
               Continue with Google
@@ -107,7 +106,8 @@ export default function Login() {
               fullWidth
               onPress={() => handleOAuth('github')}
               startContent={
-                <InlineSVG
+                <img
+                  alt="GitHub"
                   className="size-5"
                   src={isDarkMode ? '/icons/github-light.svg' : '/icons/github.svg'}
                 />
