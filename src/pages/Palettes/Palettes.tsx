@@ -15,7 +15,7 @@ import { PaletteCard } from '~/pages/Palettes/PaletteCard';
 export default function Palettes() {
   const navigate = useNavigate();
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
-  const { deletePalette, isLoading, loadPalette, palettes, toggleFavorite } = useSavedPalettes();
+  const { deletePalette, isLoading, palettes, toggleFavorite } = useSavedPalettes();
   const { generatorUrl } = usePalette();
   const { openLoginModal } = useAppStore();
 
@@ -81,7 +81,6 @@ export default function Palettes() {
           <PaletteCard
             key={palette.$id}
             onDelete={handleDelete}
-            onLoad={loadPalette}
             onToggleFavorite={handleToggleFavorite}
             palette={palette}
           />

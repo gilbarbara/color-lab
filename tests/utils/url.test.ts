@@ -1,9 +1,11 @@
 import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
   colorToPath,
+  getPaletteIdFromUrl,
   parseColorFromParams,
   parsePaletteFromUrl,
   serializePaletteToUrl,
+  updatePaletteIdInUrl,
 } from '~/utils/url';
 
 import type { ColorEntry, PaletteState } from '~/types';
@@ -438,6 +440,56 @@ describe('utils/url', () => {
       expect(parsed!.colors[1].value).toBe('oklch(0.64 0.142 329)');
       expect(parsed!.globalOptions.lightnessCurve).toBe(1.8);
       expect(parsed!.globalOptions.mode).toBe('dark');
+    });
+  });
+
+  describe('getPaletteIdFromUrl', () => {
+    it('returns ID when present', () => {
+      expect(getPaletteIdFromUrl('?id=abc123')).toBe('abc123');
+      expect(getPaletteIdFromUrl('?f=1.8&id=abc123&s=15')).toBe('abc123');
+    });
+
+    it('returns null when not present', () => {
+      expect(getPaletteIdFromUrl('')).toBe(null);
+      expect(getPaletteIdFromUrl('?f=1.8&s=15')).toBe(null);
+    });
+
+    it('handles ID at the end of query string', () => {
+      expect(getPaletteIdFromUrl('?f=1.8&s=15&id=palette-123')).toBe('palette-123');
+    });
+  });
+
+  describe('updatePaletteIdInUrl', () => {
+    it('adds ID to URL without query params', () => {
+      expect(updatePaletteIdInUrl('/p/Primary-FF0044', 'abc123')).toBe(
+        '/p/Primary-FF0044?id=abc123',
+      );
+    });
+
+    it('adds ID to URL with existing query params (at end)', () => {
+      expect(updatePaletteIdInUrl('/p/Primary-FF0044?f=1.8', 'abc123')).toBe(
+        '/p/Primary-FF0044?f=1.8&id=abc123',
+      );
+    });
+
+    it('removes ID when null', () => {
+      expect(updatePaletteIdInUrl('/p/Primary-FF0044?f=1.8&id=abc123', null)).toBe(
+        '/p/Primary-FF0044?f=1.8',
+      );
+    });
+
+    it('removes ID and leaves empty query when only param', () => {
+      expect(updatePaletteIdInUrl('/p/Primary-FF0044?id=abc123', null)).toBe('/p/Primary-FF0044');
+    });
+
+    it('replaces existing ID (moves to end)', () => {
+      expect(updatePaletteIdInUrl('/p/Primary-FF0044?id=old&f=1.8', 'new')).toBe(
+        '/p/Primary-FF0044?f=1.8&id=new',
+      );
+    });
+
+    it('handles URL with no query string when removing', () => {
+      expect(updatePaletteIdInUrl('/p/Primary-FF0044', null)).toBe('/p/Primary-FF0044');
     });
   });
 });

@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 
 import usePalette from '~/hooks/usePalette';
 import useUrlSync from '~/hooks/useUrlSync';
+import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
 
@@ -13,11 +14,27 @@ vi.mock('react-router', () => ({
   useNavigate: () => mockNavigate,
 }));
 
+vi.mock('~/hooks/useAuth', () => ({
+  default: () => ({
+    isAuthenticated: false,
+    user: null,
+  }),
+}));
+
+vi.mock('~/services/palettes', () => ({
+  getPalette: vi.fn().mockResolvedValue(null),
+}));
+
 describe('hooks/useUrlSync', () => {
   beforeEach(() => {
     mockNavigate.mockClear();
     mockLocation = { pathname: '/', search: '' };
     usePaletteStore.setState(createPalette());
+    useAppStore.setState({
+      loadedPaletteId: null,
+      loadedPaletteName: 'Palette',
+      lastSavedUrl: null,
+    });
   });
 
   describe('initialization', () => {
