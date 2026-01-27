@@ -30,14 +30,12 @@ const mockPalette: SavedPalette = {
 };
 
 const mockOnDelete = vi.fn();
-const mockOnLoad = vi.fn();
 const mockOnToggleFavorite = vi.fn();
 
 function renderCard(palette = mockPalette) {
   return render(
     <PaletteCard
       onDelete={mockOnDelete}
-      onLoad={mockOnLoad}
       onToggleFavorite={mockOnToggleFavorite}
       palette={palette}
     />,
@@ -64,14 +62,6 @@ describe('PaletteCard', () => {
   });
 
   describe('Behavior', () => {
-    it('calls onLoad when name link is clicked', () => {
-      renderCard();
-
-      fireEvent.click(screen.getByText('Test Palette'));
-
-      expect(mockOnLoad).toHaveBeenCalledWith(mockPalette);
-    });
-
     it('calls onToggleFavorite when favorite button is clicked', () => {
       renderCard();
 

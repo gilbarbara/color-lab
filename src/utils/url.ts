@@ -1,11 +1,10 @@
 import type { Params } from 'react-router';
-import { objectEntries } from '@gilbarbara/helpers';
+import { objectEntries, uuid } from '@gilbarbara/helpers';
 import { formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
 
 import { getDefaultGlobalOptions } from '~/utils/palette';
 
 import type { ColorEntry, GlobalScaleOptions, PaletteState, ScaleOptions } from '~/types';
-
 // Option key mappings (short keys for URL)
 const OPTION_KEYS = {
   chromaCurve: 'c',
@@ -273,6 +272,16 @@ export function colorToPath(color: string): string {
 }
 
 /**
+ * Extract palette ID from URL query string
+ * Returns null if no ID present
+ */
+export function getPaletteIdFromUrl(search: string): string | null {
+  const params = new URLSearchParams(search);
+
+  return params.get('id');
+}
+
+/**
  * Parse URL params to color string (for single-color routes)
  * Examples:
  *   { color: 'FF0044' } → '#FF0044'
@@ -359,7 +368,7 @@ export function parsePaletteFromUrl(url: string): PaletteState | null {
       return null;
     }
 
-    const color: ColorEntry = { id: crypto.randomUUID(), name, value };
+    const color: ColorEntry = { id: uuid(), name, value };
 
     // Parse per-color options if present (3rd part)
     if (parts.length >= 3) {
@@ -420,4 +429,24 @@ export function serializePaletteToUrl(state: PaletteState): string {
   const query = serializeGlobalOptions(state.globalOptions, defaults);
 
   return query ? `${path}?${query}` : path;
+}
+
+/**
+ * Add or remove palette ID from URL
+ * ID is always placed at the end of query params
+ */
+export function updatePaletteIdInUrl(url: string, id: string | null): string {
+  const [path, queryString] = url.split('?');
+  const params = new URLSearchParams(queryString ?? '');
+
+  // Remove existing id first to ensure it goes at the end
+  params.delete('id');
+
+  if (id) {
+    params.append('id', id);
+  }
+
+  const newQuery = params.toString();
+
+  return newQuery ? `${path}?${newQuery}` : path;
 }

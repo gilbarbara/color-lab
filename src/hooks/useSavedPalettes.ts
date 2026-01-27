@@ -11,7 +11,7 @@ import {
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
 import { usePaletteStore } from '~/stores/paletteStore';
-import { parsePaletteFromUrl, serializePaletteToUrl } from '~/utils/url';
+import { serializePaletteToUrl, updatePaletteIdInUrl } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
 
@@ -45,13 +45,13 @@ export default function useSavedPalettes() {
     [paletteStore.colors, paletteStore.globalOptions],
   );
 
-  // Check if there are unsaved changes
+  // Check if there are unsaved changes (strip ID from lastSavedUrl for comparison)
   const hasUnsavedChanges = useMemo(() => {
     if (!loadedPaletteId || !lastSavedUrl) {
       return false;
     }
 
-    return currentUrl !== lastSavedUrl;
+    return currentUrl !== updatePaletteIdInUrl(lastSavedUrl, null);
   }, [currentUrl, lastSavedUrl, loadedPaletteId]);
 
   // Fetch palettes on mount when authenticated
@@ -90,6 +90,8 @@ export default function useSavedPalettes() {
         addPalette(palette);
         setLoadedPalette(palette.$id, palette.name, palette.url);
 
+        navigate(palette.url, { replace: true });
+
         return palette;
       } catch (error_) {
         setError(error_ instanceof Error ? error_.message : 'Failed to save palette');
@@ -97,7 +99,7 @@ export default function useSavedPalettes() {
         return null;
       }
     },
-    [user?.$id, currentUrl, addPalette, setLoadedPalette, setError],
+    [user?.$id, currentUrl, addPalette, setLoadedPalette, setError, navigate],
   );
 
   // Update the currently loaded palette
@@ -109,8 +111,8 @@ export default function useSavedPalettes() {
     try {
       const updated = await updatePaletteService(loadedPaletteId, { url: currentUrl });
 
-      updatePaletteInStore(loadedPaletteId, { url: currentUrl, $updatedAt: updated.$updatedAt });
-      setLoadedPalette(loadedPaletteId, loadedPaletteName, currentUrl);
+      updatePaletteInStore(loadedPaletteId, { url: updated.url, $updatedAt: updated.$updatedAt });
+      setLoadedPalette(loadedPaletteId, loadedPaletteName, updated.url);
 
       return true;
     } catch (error_) {
@@ -127,30 +129,6 @@ export default function useSavedPalettes() {
     setError,
   ]);
 
-  // Load a palette (parse URL and update stores)
-  const loadPalette = useCallback(
-    (palette: SavedPalette) => {
-      // Parse the URL to get palette state
-      const paletteState = parsePaletteFromUrl(palette.url);
-
-      if (!paletteState) {
-        setError('Failed to parse palette URL');
-
-        return;
-      }
-
-      // Update palette store with the loaded state
-      usePaletteStore.setState(paletteState);
-
-      // Track the loaded palette
-      setLoadedPalette(palette.$id, palette.name, palette.url);
-
-      // Navigate to the palette URL
-      navigate(palette.url);
-    },
-    [navigate, setLoadedPalette, setError],
-  );
-
   // Delete a palette
   const deletePalette = useCallback(
     async (id: string): Promise<boolean> => {
@@ -158,9 +136,13 @@ export default function useSavedPalettes() {
         await deletePaletteService(id);
         removePalette(id);
 
-        // If we deleted the currently loaded palette, clear it
+        // If we deleted the currently loaded palette, clear it and remove ID from URL
         if (loadedPaletteId === id) {
           clearLoadedPalette();
+
+          const cleanUrl = updatePaletteIdInUrl(currentUrl, null);
+
+          navigate(cleanUrl, { replace: true });
         }
 
         return true;
@@ -170,7 +152,7 @@ export default function useSavedPalettes() {
         return false;
       }
     },
-    [removePalette, loadedPaletteId, clearLoadedPalette, setError],
+    [removePalette, loadedPaletteId, clearLoadedPalette, setError, currentUrl, navigate],
   );
 
   // Toggle favorite status
@@ -233,7 +215,6 @@ export default function useSavedPalettes() {
     // Actions
     clearLoadedPalette,
     deletePalette,
-    loadPalette,
     renamePalette,
     savePalette,
     toggleFavorite,

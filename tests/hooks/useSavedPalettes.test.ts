@@ -46,7 +46,7 @@ const mockPalette: SavedPalette = {
   $sequence: 1,
   userId: 'user-1',
   name: 'Test Palette',
-  url: '/p/red-ff0000/blue-0000ff',
+  url: '/p/red-ff0000/blue-0000ff?id=palette-1',
   isFavorite: false,
 };
 
@@ -200,32 +200,6 @@ describe('hooks/useSavedPalettes', () => {
       });
 
       expect(usePalettesStore.getState().error).toBe('Update failed');
-    });
-  });
-
-  describe('loadPalette', () => {
-    it('parses URL, updates stores, and navigates', async () => {
-      const { result } = await renderUseSavedPalettes();
-
-      act(() => {
-        result.current.loadPalette(mockPalette);
-      });
-
-      expect(useAppStore.getState().loadedPaletteId).toBe('palette-1');
-      expect(useAppStore.getState().loadedPaletteName).toBe('Test Palette');
-      expect(mockNavigate).toHaveBeenCalledWith('/p/red-ff0000/blue-0000ff');
-    });
-
-    it('sets error if URL parsing fails', async () => {
-      const invalidPalette = { ...mockPalette, url: '/invalid' };
-
-      const { result } = await renderUseSavedPalettes();
-
-      act(() => {
-        result.current.loadPalette(invalidPalette);
-      });
-
-      expect(usePalettesStore.getState().error).toBe('Failed to parse palette URL');
     });
   });
 

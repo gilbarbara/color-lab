@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
+import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { createPalette } from '~/utils/palette';
-import { parsePaletteFromUrl, serializePaletteToUrl } from '~/utils/url';
+import { parsePaletteFromUrl, serializePaletteToUrl, updatePaletteIdInUrl } from '~/utils/url';
 
 /**
  * Syncs palette store with URL. Call once in Generator.
@@ -16,9 +17,10 @@ export default function useUrlSync() {
   useEffect(() => {
     const currentUrl = `${location.pathname}${location.search}`;
     const storeUrl = serializePaletteToUrl(usePaletteStore.getState());
+    const { loadedPaletteId } = useAppStore.getState();
 
-    // Skip if we just navigated here internally
-    if (storeUrl === currentUrl) {
+    // Skip if URL already matches store state
+    if (updatePaletteIdInUrl(storeUrl, loadedPaletteId) === currentUrl) {
       return;
     }
 
@@ -26,7 +28,10 @@ export default function useUrlSync() {
       const urlState = parsePaletteFromUrl(currentUrl);
 
       if (urlState) {
-        if (storeUrl !== currentUrl) {
+        const urlWithoutId = updatePaletteIdInUrl(currentUrl, null);
+        const storeUrlWithoutId = updatePaletteIdInUrl(storeUrl, null);
+
+        if (storeUrlWithoutId !== urlWithoutId) {
           usePaletteStore.setState(urlState);
         }
 
@@ -34,7 +39,7 @@ export default function useUrlSync() {
       }
     }
 
-    // No valid URL - create default palette and redirect
+    // Invalid URL → create default palette
     const state = createPalette();
 
     usePaletteStore.setState(state);
@@ -61,8 +66,9 @@ export default function useUrlSync() {
           isPaused.current = false;
 
           const url = serializePaletteToUrl(usePaletteStore.getState());
+          const { loadedPaletteId } = useAppStore.getState();
 
-          navigate(url);
+          navigate(updatePaletteIdInUrl(url, loadedPaletteId));
         }
       }
     });
@@ -88,8 +94,9 @@ export default function useUrlSync() {
         state.globalOptions !== previousState.globalOptions
       ) {
         const url = serializePaletteToUrl(state);
+        const { loadedPaletteId } = useAppStore.getState();
 
-        navigate(url);
+        navigate(updatePaletteIdInUrl(url, loadedPaletteId));
       }
     });
 

@@ -6,7 +6,6 @@ import Palettes from '~/pages/Palettes/Palettes';
 import type { SavedPalette } from '~/types';
 
 const mockDeletePalette = vi.fn();
-const mockLoadPalette = vi.fn();
 const mockToggleFavorite = vi.fn();
 
 const mockPalette: SavedPalette = {
@@ -31,7 +30,6 @@ let mockAuthReturn = {
 let mockSavedPalettesReturn = {
   deletePalette: mockDeletePalette,
   isLoading: false,
-  loadPalette: mockLoadPalette,
   palettes: [] as SavedPalette[],
   toggleFavorite: mockToggleFavorite,
 };
@@ -67,7 +65,6 @@ describe('Palettes', () => {
     mockSavedPalettesReturn = {
       deletePalette: mockDeletePalette,
       isLoading: false,
-      loadPalette: mockLoadPalette,
       palettes: [],
       toggleFavorite: mockToggleFavorite,
     };

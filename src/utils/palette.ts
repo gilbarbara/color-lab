@@ -1,3 +1,4 @@
+import { uuid } from '@gilbarbara/helpers';
 import { isValidColor } from 'colorizr';
 
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
@@ -47,7 +48,7 @@ export function addColor(state: PaletteState, value: string, name?: string): Pal
   }
 
   const colorName = name ?? getDefaultColorName(state.colors.length);
-  const newColor: ColorEntry = { id: crypto.randomUUID(), name: colorName, value };
+  const newColor: ColorEntry = { id: uuid(), name: colorName, value };
 
   return {
     ...state,
@@ -69,7 +70,7 @@ export function createPalette(initialColor?: string): PaletteState {
   const color = initialColor ?? getRandomColor('oklch');
 
   return {
-    colors: [{ id: crypto.randomUUID(), name: 'Primary', value: color }],
+    colors: [{ id: uuid(), name: 'Primary', value: color }],
     globalOptions: getDefaultGlobalOptions(color),
   };
 }

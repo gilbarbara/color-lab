@@ -14,20 +14,19 @@ import Popconfirm from '~/components/Popconfirm';
 import type { SavedPalette } from '~/types';
 
 interface PaletteCardProps {
-  onDelete: (id: string) => void;
-  onLoad: (palette: SavedPalette) => void;
+  onDelete: (id: string) => Promise<void>;
   onToggleFavorite: (id: string) => void;
   palette: SavedPalette;
 }
 
 export function PaletteCard(props: PaletteCardProps) {
-  const { onDelete, onLoad, onToggleFavorite, palette } = props;
+  const { onDelete, onToggleFavorite, palette } = props;
   const [isDeleting, setIsDeleting] = useState(false);
   const colors = parsePaletteFromUrl(palette.url)?.colors.map(c => c.value) ?? [];
 
   const handleClickDelete = async () => {
     setIsDeleting(true);
-    onDelete(palette.$id);
+    await onDelete(palette.$id);
     setIsDeleting(false);
 
     trackEvent('delete-saved-palette', { value: palette.name });
@@ -42,8 +41,6 @@ export function PaletteCard(props: PaletteCardProps) {
   };
 
   const handleClickLoad = () => {
-    onLoad(palette);
-
     trackEvent('load-saved-palette', { value: palette.name });
   };
 
@@ -96,7 +93,7 @@ export function PaletteCard(props: PaletteCardProps) {
         <Link
           aria-label={`Load Palette Colors (${palette.name})`}
           className="flex gap-1 h-8 rounded-lg cursor-pointer overflow-hidden"
-          onClick={() => onLoad(palette)}
+          onClick={handleClickLoad}
           to={palette.url}
         >
           {colors.map((color, index) => (
