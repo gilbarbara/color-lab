@@ -325,6 +325,28 @@ exports[`pages/Privacy > renders correctly 1`] = `
       ·
     </span>
     <a
+      data-discover="true"
+      href="/privacy"
+    >
+      Privacy
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/terms"
+    >
+      Terms
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
       href="https://x.com/gilbarbara"
       rel="noopener noreferrer"
       target="_blank"

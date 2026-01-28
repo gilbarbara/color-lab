@@ -105,6 +105,28 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
       ·
     </span>
     <a
+      data-discover="true"
+      href="/privacy"
+    >
+      Privacy
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/terms"
+    >
+      Terms
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
       href="https://x.com/gilbarbara"
       rel="noopener noreferrer"
       target="_blank"
@@ -190,6 +212,28 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
       href="/about"
     >
       About
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/privacy"
+    >
+      Privacy
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/terms"
+    >
+      Terms
     </a>
     <span
       class="text-foreground-500"
@@ -450,6 +494,28 @@ exports[`Palettes > Render > shows palette grid 1`] = `
       ·
     </span>
     <a
+      data-discover="true"
+      href="/privacy"
+    >
+      Privacy
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/terms"
+    >
+      Terms
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
       href="https://x.com/gilbarbara"
       rel="noopener noreferrer"
       target="_blank"
@@ -537,6 +603,28 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
       href="/about"
     >
       About
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/privacy"
+    >
+      Privacy
+    </a>
+    <span
+      class="text-foreground-500"
+    >
+      ·
+    </span>
+    <a
+      data-discover="true"
+      href="/terms"
+    >
+      Terms
     </a>
     <span
       class="text-foreground-500"

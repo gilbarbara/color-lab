@@ -1,5 +1,3 @@
-import { Link } from 'react-router';
-
 import Page from '~/components/Page';
 
 export default function About() {
@@ -92,15 +90,6 @@ export default function About() {
       </div>
       <p>That's it. Use it, tweak your scales, and explore a bit.</p>
       <p>If you find it useful, starring the repos is appreciated.</p>
-      <p className="mt-8 text-foreground-500">
-        <Link className="underline" to="/privacy">
-          Privacy Policy
-        </Link>
-        {' · '}
-        <Link className="underline" to="/terms">
-          Terms of Service
-        </Link>
-      </p>
     </Page>
   );
 }
