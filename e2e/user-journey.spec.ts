@@ -252,7 +252,9 @@ test.describe('User Journey', () => {
 
       await page.getByRole('button', { name: 'Confirm' }).click();
 
-      await expect(page.getByRole('link', { name: `Load Palette (${paletteName})` })).not.toBeVisible();
+      await expect(
+        page.getByRole('link', { name: `Load Palette (${paletteName})` }),
+      ).not.toBeVisible();
 
       expect(mockState.palettes.length).toBe(0);
     });
