@@ -1,8 +1,6 @@
 import type { Page } from '@playwright/test';
 
-const APPWRITE_API = 'https://nyc.cloud.appwrite.io/v1';
-const DATABASE_ID = 'color-lab';
-const TABLE_ID = 'palettes';
+import { API_ENDPOINT, COLLECTION_ID, DATABASE_ID } from '../../src/config/appwrite';
 
 interface MockPalette {
   $createdAt: string;
@@ -44,7 +42,7 @@ export class AppwriteMockState {
     const palette: MockPalette = {
       $id: `palette-${Date.now()}-${Math.random().toString(36).slice(2)}`,
       $databaseId: DATABASE_ID,
-      $tableId: TABLE_ID,
+      $tableId: COLLECTION_ID,
       $sequence: this.palettes.length + 1,
       $createdAt: new Date().toISOString(),
       $updatedAt: new Date().toISOString(),
@@ -129,10 +127,10 @@ function matchesPathPrefix(url: string, prefix: string): boolean {
   }
 }
 
-const PALETTES_PATH = `/tablesdb/${DATABASE_ID}/tables/${TABLE_ID}/rows`;
+const PALETTES_PATH = `/tablesdb/${DATABASE_ID}/tables/${COLLECTION_ID}/rows`;
 
 export async function setupAppwriteMocks(page: Page, state: AppwriteMockState) {
-  await page.route(`${APPWRITE_API}/**`, async route => {
+  await page.route(`${API_ENDPOINT}/**`, async route => {
     const url = route.request().url();
     const method = route.request().method();
 
