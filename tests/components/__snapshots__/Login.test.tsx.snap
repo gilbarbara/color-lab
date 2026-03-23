@@ -18,7 +18,7 @@ exports[`Login > Render > renders modal when open 1`] = `
   >
     <button
       aria-label="Dismiss"
-      id="react-aria-_r_5_"
+      id="react-aria-_r_6_"
       style="width: 1px; height: 1px;"
       tabindex="-1"
     />
@@ -118,9 +118,9 @@ exports[`Login > Render > renders modal when open 1`] = `
         <div
           aria-orientation="horizontal"
           class="relative flex p-1 h-fit gap-2 items-center flex-nowrap overflow-x-scroll scrollbar-hide bg-default-100 rounded-medium w-full"
-          data-collection="react-aria-_r_6_"
+          data-collection="react-aria-_r_7_"
           data-slot="tabList"
-          id="react-aria-_r_7_"
+          id="react-aria-_r_8_"
           role="tablist"
         >
           <span
@@ -128,15 +128,15 @@ exports[`Login > Render > renders modal when open 1`] = `
             data-slot="cursor"
           />
           <button
-            aria-controls="react-aria-_r_7_-tabpanel-login"
+            aria-controls="react-aria-_r_8_-tabpanel-login"
             aria-selected="true"
             class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 text-small rounded-small"
-            data-collection="react-aria-_r_6_"
+            data-collection="react-aria-_r_7_"
             data-key="login"
             data-react-aria-pressable="true"
             data-selected="true"
             data-slot="tab"
-            id="react-aria-_r_7_-tab-login"
+            id="react-aria-_r_8_-tab-login"
             role="tab"
             tabindex="0"
             type="button"
@@ -151,11 +151,11 @@ exports[`Login > Render > renders modal when open 1`] = `
           <button
             aria-selected="false"
             class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 text-small rounded-small"
-            data-collection="react-aria-_r_6_"
+            data-collection="react-aria-_r_7_"
             data-key="signup"
             data-react-aria-pressable="true"
             data-slot="tab"
-            id="react-aria-_r_7_-tab-signup"
+            id="react-aria-_r_8_-tab-signup"
             role="tab"
             tabindex="-1"
             type="button"
@@ -170,11 +170,11 @@ exports[`Login > Render > renders modal when open 1`] = `
           <button
             aria-selected="false"
             class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 text-small rounded-small"
-            data-collection="react-aria-_r_6_"
+            data-collection="react-aria-_r_7_"
             data-key="magic-link"
             data-react-aria-pressable="true"
             data-slot="tab"
-            id="react-aria-_r_7_-tab-magic-link"
+            id="react-aria-_r_8_-tab-magic-link"
             role="tab"
             tabindex="-1"
             type="button"
@@ -189,12 +189,12 @@ exports[`Login > Render > renders modal when open 1`] = `
         </div>
       </div>
       <div
-        aria-labelledby="react-aria-_r_7_-tab-login"
+        aria-labelledby="react-aria-_r_8_-tab-login"
         class="py-3 px-1 data-[inert=true]:hidden outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
         data-focus="false"
         data-focus-visible="false"
         data-slot="panel"
-        id="react-aria-_r_7_-tabpanel-login"
+        id="react-aria-_r_8_-tabpanel-login"
         role="tabpanel"
       >
         <form
@@ -212,8 +212,8 @@ exports[`Login > Render > renders modal when open 1`] = `
             <label
               class="z-10 origin-top-left shrink-0 rtl:origin-top-right subpixel-antialiased block text-small relative text-foreground pb-2 pointer-events-auto after:content-['*'] after:text-danger after:ms-0.5 will-change-auto !duration-200 !ease-out motion-reduce:transition-none transition-[transform,color,left,opacity,translate,scale]"
               data-slot="label"
-              for="react-aria-_r_d_"
-              id="react-aria-_r_e_"
+              for="react-aria-_r_e_"
+              id="react-aria-_r_f_"
             >
               Email
             </label>
@@ -231,11 +231,11 @@ exports[`Login > Render > renders modal when open 1`] = `
                   data-slot="inner-wrapper"
                 >
                   <input
-                    aria-labelledby="react-aria-_r_e_"
+                    aria-labelledby="react-aria-_r_f_"
                     class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-small"
                     data-slot="input"
                     data-type="email"
-                    id="react-aria-_r_d_"
+                    id="react-aria-_r_e_"
                     placeholder=" "
                     required=""
                     tabindex="0"
@@ -259,8 +259,8 @@ exports[`Login > Render > renders modal when open 1`] = `
             <label
               class="z-10 origin-top-left shrink-0 rtl:origin-top-right subpixel-antialiased block text-small relative text-foreground pb-2 pointer-events-auto after:content-['*'] after:text-danger after:ms-0.5 will-change-auto !duration-200 !ease-out motion-reduce:transition-none transition-[transform,color,left,opacity,translate,scale]"
               data-slot="label"
-              for="react-aria-_r_i_"
-              id="react-aria-_r_j_"
+              for="react-aria-_r_j_"
+              id="react-aria-_r_k_"
             >
               Password
             </label>
@@ -278,12 +278,12 @@ exports[`Login > Render > renders modal when open 1`] = `
                   data-slot="inner-wrapper"
                 >
                   <input
-                    aria-labelledby="react-aria-_r_j_"
+                    aria-labelledby="react-aria-_r_k_"
                     class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] text-small [&::-ms-reveal]:hidden"
                     data-has-end-content="true"
                     data-slot="input"
                     data-type="password"
-                    id="react-aria-_r_i_"
+                    id="react-aria-_r_j_"
                     placeholder=" "
                     required=""
                     tabindex="0"
@@ -330,7 +330,7 @@ exports[`Login > Render > renders modal when open 1`] = `
   >
     <button
       aria-label="Dismiss"
-      id="react-aria-_r_p_"
+      id="react-aria-_r_q_"
       style="width: 1px; height: 1px;"
       tabindex="-1"
     />

@@ -219,7 +219,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
               data-slot="track"
               data-thumb-hidden="false"
               data-vertical="false"
-              style="position: relative;"
+              style="position: relative; touch-action: none;"
             >
               <div
                 class="h-full absolute bg-transparent"
@@ -233,7 +233,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
                 data-slot="thumb"
                 index="0"
                 orientation="horizontal"
-                style="position: absolute; left: 70%; transform: translate(-50%, -50%);"
+                style="position: absolute; left: 70%; transform: translate(-50%, -50%); touch-action: none;"
               >
                 <div
                   style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
@@ -292,7 +292,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
               data-slot="track"
               data-thumb-hidden="false"
               data-vertical="false"
-              style="position: relative;"
+              style="position: relative; touch-action: none;"
             >
               <div
                 class="h-full absolute bg-transparent"
@@ -306,7 +306,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
                 data-slot="thumb"
                 index="0"
                 orientation="horizontal"
-                style="position: absolute; left: 99.65405070480713%; transform: translate(-50%, -50%);"
+                style="position: absolute; left: 99.65405070480713%; transform: translate(-50%, -50%); touch-action: none;"
               >
                 <div
                   style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
@@ -360,7 +360,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
               data-slot="track"
               data-thumb-hidden="false"
               data-vertical="false"
-              style="position: relative;"
+              style="position: relative; touch-action: none;"
             >
               <div
                 class="h-full absolute bg-transparent"
@@ -374,7 +374,7 @@ exports[`OKLCH > Render > renders correctly 1`] = `
                 data-slot="thumb"
                 index="0"
                 orientation="horizontal"
-                style="position: absolute; left: 33.33333333333333%; transform: translate(-50%, -50%);"
+                style="position: absolute; left: 33.33333333333333%; transform: translate(-50%, -50%); touch-action: none;"
               >
                 <div
                   style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
@@ -623,7 +623,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
               data-slot="track"
               data-thumb-hidden="false"
               data-vertical="false"
-              style="position: relative;"
+              style="position: relative; touch-action: none;"
             >
               <div
                 class="h-full absolute bg-transparent"
@@ -637,7 +637,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
                 data-slot="thumb"
                 index="0"
                 orientation="horizontal"
-                style="position: absolute; left: 70%; transform: translate(-50%, -50%);"
+                style="position: absolute; left: 70%; transform: translate(-50%, -50%); touch-action: none;"
               >
                 <div
                   style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
@@ -696,7 +696,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
               data-slot="track"
               data-thumb-hidden="false"
               data-vertical="false"
-              style="position: relative;"
+              style="position: relative; touch-action: none;"
             >
               <div
                 class="h-full absolute bg-transparent"
@@ -710,7 +710,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
                 data-slot="thumb"
                 index="0"
                 orientation="horizontal"
-                style="position: absolute; left: 99.65405070480713%; transform: translate(-50%, -50%);"
+                style="position: absolute; left: 99.65405070480713%; transform: translate(-50%, -50%); touch-action: none;"
               >
                 <div
                   style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
@@ -765,7 +765,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
               data-slot="track"
               data-thumb-hidden="false"
               data-vertical="false"
-              style="position: relative;"
+              style="position: relative; touch-action: none;"
             >
               <div
                 class="h-full absolute bg-transparent"
@@ -779,7 +779,7 @@ exports[`OKLCH > Render > renders with disabled chroma 1`] = `
                 data-slot="thumb"
                 index="0"
                 orientation="horizontal"
-                style="position: absolute; left: 33.33333333333333%; transform: translate(-50%, -50%);"
+                style="position: absolute; left: 33.33333333333333%; transform: translate(-50%, -50%); touch-action: none;"
               >
                 <div
                   style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
