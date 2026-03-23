@@ -7,7 +7,7 @@ import AuthCallback from '~/pages/AuthCallback';
 vi.mock('~/utils/appwrite', () => ({
   account: {
     get: vi.fn(),
-    updateMagicURLSession: vi.fn(),
+    createSession: vi.fn(),
   },
 }));
 
@@ -107,7 +107,7 @@ describe('pages/AuthCallback', () => {
 
   describe('Magic Link flow', () => {
     it('verifies magic link and redirects on success', async () => {
-      vi.mocked(account.updateMagicURLSession).mockResolvedValueOnce({} as never);
+      vi.mocked(account.createSession).mockResolvedValueOnce({} as never);
       vi.mocked(account.get).mockResolvedValueOnce(mockUser);
 
       renderWithRouter('/auth/callback?userId=user-123&secret=secret-token');
@@ -117,7 +117,7 @@ describe('pages/AuthCallback', () => {
       });
 
       await waitFor(() => {
-        expect(account.updateMagicURLSession).toHaveBeenCalledWith({
+        expect(account.createSession).toHaveBeenCalledWith({
           userId: 'user-123',
           secret: 'secret-token',
         });
@@ -131,9 +131,7 @@ describe('pages/AuthCallback', () => {
     });
 
     it('handles magic link verification failure', async () => {
-      vi.mocked(account.updateMagicURLSession).mockRejectedValueOnce(
-        new Error('Invalid or expired link'),
-      );
+      vi.mocked(account.createSession).mockRejectedValueOnce(new Error('Invalid or expired link'));
 
       renderWithRouter('/auth/callback?userId=user-123&secret=invalid-token');
 

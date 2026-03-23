@@ -55,6 +55,7 @@ function MockAuthProvider(props: MockAuthProviderProps) {
       loginWithEmail: vi.fn(),
       loginWithOAuth: vi.fn(),
       logout: vi.fn(),
+      provider: null,
       sendMagicLink: vi.fn(),
       signupWithEmail: vi.fn(),
       user: mergedState.user as AuthContextType['user'],

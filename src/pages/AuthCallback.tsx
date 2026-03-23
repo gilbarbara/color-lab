@@ -31,7 +31,7 @@ export default function AuthCallback() {
         setMessage('Verifying magic link...');
 
         try {
-          await account.updateMagicURLSession({ userId, secret });
+          await account.createSession({ userId, secret });
           const currentUser = await account.get();
 
           setUser(currentUser);
