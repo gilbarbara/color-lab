@@ -1,26 +1,19 @@
+import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
-import tsConfigPaths from 'vite-tsconfig-paths';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-    tsConfigPaths(),
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler']],
-      },
-    }),
-  ],
-
+  plugins: [tailwindcss(), react(), babel({ presets: [reactCompilerPreset()] })],
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
     host: true,
     open: true,
     port: 3000,
     allowedHosts: true,
   },
-
   test: {
     coverage: {
       provider: 'v8',
@@ -46,8 +39,12 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/__setup__/vitest.setup.ts'],
+    server: {
+      deps: {
+        inline: [/@heroui\//],
+      },
+    },
   },
-
   build: {
     sourcemap: true,
   },

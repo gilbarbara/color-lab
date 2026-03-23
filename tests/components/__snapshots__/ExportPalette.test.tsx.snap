@@ -35,7 +35,7 @@ exports[`ExportPalette > Render > renders modal correctly when open 1`] = `
       Export All
       <span
         class="heroui-ripple"
-        style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
+        style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
       />
     </button>
   </div>
