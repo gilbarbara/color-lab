@@ -1,6 +1,7 @@
-import { type ChangeEvent, useMemo, useRef } from 'react';
-import { Button } from '@heroui/react';
+import { useMemo } from 'react';
+import { Button, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { ArrowsClockwiseIcon } from '@phosphor-icons/react';
+import Chrome, { ChromeInputType } from '@uiw/react-color-chrome';
 import { hex2hsl, type HSL, hsl2hex, isHex } from 'colorizr';
 
 import { trackEvent } from '~/utils/analytics';
@@ -9,7 +10,6 @@ import { getRandomColor } from '~/utils/color';
 import ColorCircle from '~/components/ColorCircle';
 import { Input } from '~/components/Field';
 import GradientSlider from '~/components/GradientSlider';
-import Tooltip from '~/components/Tooltip';
 import TooltipClickable from '~/components/TooltipClickable';
 
 interface SRGBProps {
@@ -25,7 +25,7 @@ const hueGradient =
 
 export default function SRGB(props: SRGBProps) {
   const { baseSaturation, disableSaturation, hex, onChangeColor, onChangeHex } = props;
-  const colorInputRef = useRef<HTMLInputElement>(null);
+  const { isOpen, onOpenChange } = useDisclosure();
 
   const hsl = useMemo(() => (isHex(hex) ? hex2hsl(hex) : { h: 0, s: 0, l: 50 }), [hex]);
   const { h, l, s } = hsl;
@@ -52,18 +52,17 @@ export default function SRGB(props: SRGBProps) {
   const handleChangeSaturation = (sat: number) => updateFromHSL({ h, s: sat, l });
   const handleChangeLightness = (light: number) => updateFromHSL({ h, s, l: light });
 
-  const handleChangeColorInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const newHex = event.target.value;
-
-    onChangeHex(newHex);
-    onChangeColor(newHex);
-  };
-
   const handleChangeHex = (value: string) => {
-    onChangeHex(value);
+    let prefixed = '';
 
-    if (isHex(value)) {
-      onChangeColor(value);
+    if (value) {
+      prefixed = value.startsWith('#') ? value : `#${value}`;
+    }
+
+    onChangeHex(prefixed);
+
+    if ((prefixed.length === 4 || prefixed.length === 7) && isHex(prefixed)) {
+      onChangeColor(prefixed);
     }
   };
 
@@ -78,15 +77,6 @@ export default function SRGB(props: SRGBProps) {
   return (
     <div className="space-y-3" data-uid="SRGB">
       <div className="flex items-center relative">
-        <input
-          ref={colorInputRef}
-          aria-hidden="true"
-          className="sr-only absolute top-0 left-10"
-          onChange={handleChangeColorInput}
-          tabIndex={-1}
-          type="color"
-          value={hex}
-        />
         <Input
           aria-label="Hex color"
           classNames={{
@@ -95,16 +85,36 @@ export default function SRGB(props: SRGBProps) {
           onValueChange={handleChangeHex}
           size="lg"
           startContent={
-            <Tooltip content="Open a color picker" delay={250} placement="bottom-start">
-              <ColorCircle
-                aria-label="Color picker"
-                color={hex}
-                onClick={() => {
-                  trackEvent('color-picker');
-                  colorInputRef.current?.click();
-                }}
-              />
-            </Tooltip>
+            <Popover
+              backdrop="transparent"
+              classNames={{
+                base: '-ml-1.5',
+                trigger: 'aria-expanded:opacity-100 aria-expanded:scale-[1]',
+              }}
+              isOpen={isOpen}
+              onOpenChange={onOpenChange}
+              placement="bottom-start"
+              showArrow
+            >
+              <PopoverTrigger>
+                <ColorCircle
+                  aria-label="Color picker"
+                  color={hex}
+                  onClick={() => trackEvent('color-picker')}
+                />
+              </PopoverTrigger>
+              <PopoverContent className="p-0">
+                <Chrome
+                  color={hex}
+                  inputType={ChromeInputType.HEXA}
+                  onChange={color => {
+                    handleChangeHex(color.hex);
+                  }}
+                  showAlpha={false}
+                  showTriangle={false}
+                />
+              </PopoverContent>
+            </Popover>
           }
           type="text"
           value={hex}
