@@ -12,13 +12,6 @@ exports[`SRGB > Render > renders correctly 1`] = `
       <div
         class="flex items-center relative"
       >
-        <input
-          aria-hidden="true"
-          class="sr-only absolute top-0 left-10"
-          tabindex="-1"
-          type="color"
-          value="#FF0044"
-        />
         <div
           class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
           data-filled="true"
@@ -40,11 +33,16 @@ exports[`SRGB > Render > renders correctly 1`] = `
                 data-slot="inner-wrapper"
               >
                 <button
+                  aria-expanded="false"
+                  aria-haspopup="dialog"
                   aria-label="Color picker"
-                  class="rounded-full shrink-0 size-6 cursor-pointer"
+                  class="rounded-full shrink-0 size-6 z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
                   data-color="#FF0044"
+                  data-react-aria-pressable="true"
+                  data-slot="trigger"
                   data-uid="ColorCircle"
                   style="background-color: rgb(255, 0, 68);"
+                  tabindex="0"
                   type="button"
                 />
                 <input
@@ -55,7 +53,7 @@ exports[`SRGB > Render > renders correctly 1`] = `
                   data-has-start-content="true"
                   data-slot="input"
                   data-type="text"
-                  id="react-aria-_r_0_"
+                  id="react-aria-_r_1_"
                   placeholder=" "
                   tabindex="0"
                   title=""
@@ -313,13 +311,6 @@ exports[`SRGB > Render > renders with disabled saturation 1`] = `
       <div
         class="flex items-center relative"
       >
-        <input
-          aria-hidden="true"
-          class="sr-only absolute top-0 left-10"
-          tabindex="-1"
-          type="color"
-          value="#FF0044"
-        />
         <div
           class="group flex flex-col data-[hidden=true]:hidden w-full is-filled"
           data-filled="true"
@@ -341,11 +332,16 @@ exports[`SRGB > Render > renders with disabled saturation 1`] = `
                 data-slot="inner-wrapper"
               >
                 <button
+                  aria-expanded="false"
+                  aria-haspopup="dialog"
                   aria-label="Color picker"
-                  class="rounded-full shrink-0 size-6 cursor-pointer"
+                  class="rounded-full shrink-0 size-6 z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
                   data-color="#FF0044"
+                  data-react-aria-pressable="true"
+                  data-slot="trigger"
                   data-uid="ColorCircle"
                   style="background-color: rgb(255, 0, 68);"
+                  tabindex="0"
                   type="button"
                 />
                 <input
@@ -356,7 +352,7 @@ exports[`SRGB > Render > renders with disabled saturation 1`] = `
                   data-has-start-content="true"
                   data-slot="input"
                   data-type="text"
-                  id="react-aria-_r_r_"
+                  id="react-aria-_r_s_"
                   placeholder=" "
                   tabindex="0"
                   title=""

@@ -4,6 +4,16 @@ import SRGB from '~/pages/Generator/ColorList/SRGB';
 
 const mockOnChangeColor = vi.fn();
 const mockOnChangeHex = vi.fn();
+const mockChromeOnChange = vi.fn();
+
+vi.mock('@uiw/react-color-chrome', () => ({
+  default: (props: { onChange?: (color: { hex: string }) => void }) => {
+    mockChromeOnChange.mockImplementation(() => props.onChange?.({ hex: '#00AABB' }));
+
+    return <div data-uid="chrome-picker" />;
+  },
+  ChromeInputType: { HEXA: 'hexa' },
+}));
 
 vi.mock('~/utils/color', async importOriginal => {
   const actual = await importOriginal<typeof import('~/utils/color')>();
@@ -146,16 +156,29 @@ describe('SRGB', () => {
       expect(mockOnChangeColor).toHaveBeenCalled();
     });
 
-    it('color picker input change calls callbacks', () => {
+    it('color picker button is present', () => {
       render(<SRGB {...createDefaultProps()} />);
 
-      const colorInput = document.querySelector('input[type="color"]') as HTMLInputElement;
+      expect(screen.getByRole('button', { name: /color picker/i })).toBeInTheDocument();
+    });
 
-      expect(colorInput).not.toBeNull();
-      fireEvent.change(colorInput, { target: { value: '#0000ff' } });
+    it('color picker onChange calls callbacks', async () => {
+      render(<SRGB {...createDefaultProps()} />);
 
-      expect(mockOnChangeHex).toHaveBeenCalledWith('#0000ff');
-      expect(mockOnChangeColor).toHaveBeenCalledWith('#0000ff');
+      const pickerButton = screen.getByRole('button', { name: /color picker/i });
+
+      fireEvent.click(pickerButton);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('chrome-picker')).toBeInTheDocument();
+      });
+
+      mockChromeOnChange();
+
+      await waitFor(() => {
+        expect(mockOnChangeHex).toHaveBeenCalledWith('#00AABB');
+        expect(mockOnChangeColor).toHaveBeenCalledWith('#00AABB');
+      });
     });
   });
 });

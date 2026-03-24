@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin './config/hero.ts';
 /* Note: You may need to change the path to fit your project structure */
 @source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
@@ -14,4 +14,10 @@ html.dark {
 
 body {
   font-family: 'Inter', sans-serif;
+}
+
+.w-color-chrome {
+  > div:nth-child(3) {
+    padding-bottom: 8px !important;
+  }
 }
