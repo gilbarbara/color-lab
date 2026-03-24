@@ -13,6 +13,12 @@ export default function AuthCallback() {
   const [message, setMessage] = useState('Completing authentication...');
 
   useEffect(() => {
+    const navigateBack = () => {
+      const returnUrl = sessionStorage.getItem('authReturnUrl') || '/';
+
+      navigate(returnUrl, { replace: true });
+    };
+
     const handleCallback = async () => {
       const error = searchParams.get('error');
       const userId = searchParams.get('userId');
@@ -21,7 +27,7 @@ export default function AuthCallback() {
       // Handle OAuth failure
       if (error) {
         setError('Authentication failed');
-        navigate('/', { replace: true });
+        navigateBack();
 
         return;
       }
@@ -35,12 +41,12 @@ export default function AuthCallback() {
           const currentUser = await account.get();
 
           setUser(currentUser);
-          navigate('/', { replace: true });
+          navigateBack();
 
           return;
         } catch (error_) {
           setError(error_ instanceof Error ? error_.message : 'Magic link verification failed');
-          navigate('/', { replace: true });
+          navigateBack();
 
           return;
         }
@@ -70,7 +76,7 @@ export default function AuthCallback() {
         setStatus('unauthenticated');
       }
 
-      navigate('/', { replace: true });
+      navigateBack();
     };
 
     handleCallback();

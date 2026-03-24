@@ -87,6 +87,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     const successUrl = `${window.location.origin}/auth/callback`;
     const failureUrl = `${window.location.origin}/auth/callback?error=oauth_failed`;
 
+    sessionStorage.setItem('authReturnUrl', window.location.pathname + window.location.search);
+
     // This redirects the browser - no return value
     account.createOAuth2Session({
       provider: appwriteProvider,
@@ -103,6 +105,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       try {
         const callbackUrl = `${window.location.origin}/auth/callback`;
 
+        sessionStorage.setItem('authReturnUrl', window.location.pathname + window.location.search);
         await account.createMagicURLToken({ userId: ID.unique(), email, url: callbackUrl });
       } catch (error_) {
         setError(error_ instanceof Error ? error_.message : 'Failed to send magic link');
