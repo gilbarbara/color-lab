@@ -106,7 +106,7 @@ describe('BottomBar', () => {
 
       fireEvent.click(addButton);
 
-      expect(usePaletteStore.getState().colors.length).toBe(initialColors + 1);
+      expect(usePaletteStore.getState().colors).toHaveLength(initialColors + 1);
     });
 
     it('Add Color is disabled at MAX_COLORS', () => {
@@ -128,7 +128,7 @@ describe('BottomBar', () => {
         .getAllByRole('button')
         .filter(button => button.getAttribute('data-id')?.match(/^\d+-#/));
 
-      expect(colorCircles.length).toBe(3);
+      expect(colorCircles).toHaveLength(3);
     });
   });
 });

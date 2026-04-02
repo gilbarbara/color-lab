@@ -51,13 +51,13 @@ const mockPalette: SavedPalette = {
 };
 
 async function renderUseSavedPalettes() {
-  const hook = renderHook(() => useSavedPalettes());
+  const view = renderHook(() => useSavedPalettes());
 
   await waitFor(() => {
     expect(mockListPalettes).toHaveBeenCalled();
   });
 
-  return hook;
+  return view;
 }
 
 describe('hooks/useSavedPalettes', () => {
