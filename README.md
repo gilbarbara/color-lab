@@ -25,13 +25,10 @@ Built for designers and developers who need precise control over lightness, chro
 
 ## Tech Stack
 
-- React 19 with React Compiler
-- TypeScript
+- React 19 with Vite and TypeScript
 - Zustand for state management
-- Tailwind CSS 4
-- HeroUI components
-- Appwrite for authentication
-- Vite
+- Tailwind CSS 4 with HeroUI v2 components
+- Firebase for authentication and storage
 
 ## Development
 

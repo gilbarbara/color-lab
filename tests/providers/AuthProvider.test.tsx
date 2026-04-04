@@ -4,39 +4,46 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import useAuth from '~/hooks/useAuth';
 import AuthProvider from '~/providers/AuthProvider';
 import { useAuthStore } from '~/stores/authStore';
-import { account } from '~/utils/appwrite';
 
-vi.mock('~/utils/appwrite', () => ({
-  account: {
-    get: vi.fn(),
-    getSession: vi.fn(),
-    create: vi.fn(),
-    createEmailPasswordSession: vi.fn(),
-    createMagicURLToken: vi.fn(),
-    createOAuth2Session: vi.fn(),
-    deleteSession: vi.fn(),
-  },
+const mockOnAuthStateChanged = vi.fn();
+const mockSignInWithEmailAndPassword = vi.fn();
+const mockCreateUserWithEmailAndPassword = vi.fn();
+const mockUpdateProfile = vi.fn();
+const mockSignInWithPopup = vi.fn();
+const mockSendSignInLinkToEmail = vi.fn();
+const mockSignOut = vi.fn();
+const mockLinkWithCredential = vi.fn();
+
+vi.mock('firebase/auth', () => ({
+  getAuth: vi.fn(),
+  onAuthStateChanged: (...arguments_: unknown[]) => mockOnAuthStateChanged(...arguments_),
+  signInWithEmailAndPassword: (...arguments_: unknown[]) =>
+    mockSignInWithEmailAndPassword(...arguments_),
+  createUserWithEmailAndPassword: (...arguments_: unknown[]) =>
+    mockCreateUserWithEmailAndPassword(...arguments_),
+  updateProfile: (...arguments_: unknown[]) => mockUpdateProfile(...arguments_),
+  signInWithPopup: (...arguments_: unknown[]) => mockSignInWithPopup(...arguments_),
+  sendSignInLinkToEmail: (...arguments_: unknown[]) => mockSendSignInLinkToEmail(...arguments_),
+  signOut: (...arguments_: unknown[]) => mockSignOut(...arguments_),
+  linkWithCredential: (...arguments_: unknown[]) => mockLinkWithCredential(...arguments_),
+  GoogleAuthProvider: Object.assign(vi.fn(), {
+    credentialFromError: vi.fn(() => 'mock-google-credential'),
+  }),
+  GithubAuthProvider: Object.assign(vi.fn(), {
+    credentialFromError: vi.fn(() => 'mock-github-credential'),
+  }),
 }));
 
-const mockUser = {
-  $id: 'user-123',
-  $createdAt: '2024-01-01T00:00:00.000Z',
-  $updatedAt: '2024-01-01T00:00:00.000Z',
-  name: 'Test User',
+vi.mock('~/utils/firebase', () => ({
+  auth: {},
+}));
+
+const mockFirebaseUser = {
+  uid: 'user-123',
   email: 'test@example.com',
-  phone: '',
-  emailVerification: true,
-  phoneVerification: false,
-  mfa: false,
-  prefs: {},
-  targets: [],
-  accessedAt: '2024-01-01T00:00:00.000Z',
-  registration: '2024-01-01T00:00:00.000Z',
-  status: true,
-  labels: [],
-  passwordUpdate: '2024-01-01T00:00:00.000Z',
-  hashOptions: {},
-  hash: '',
+  displayName: 'Test User',
+  photoURL: null,
+  providerData: [{ providerId: 'password' }],
 };
 
 function wrapper({ children }: { children: ReactNode }) {
@@ -46,7 +53,16 @@ function wrapper({ children }: { children: ReactNode }) {
 describe('providers/AuthProvider', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(account.getSession).mockResolvedValue({ provider: '' } as never);
+
+    mockOnAuthStateChanged.mockImplementation(
+      (_auth: unknown, callback: (user: unknown) => void) => {
+        // Simulate no user initially
+        callback(null);
+
+        return vi.fn(); // unsubscribe
+      },
+    );
+
     useAuthStore.setState({
       error: null,
       provider: null,
@@ -57,7 +73,13 @@ describe('providers/AuthProvider', () => {
 
   describe('session restoration', () => {
     it('restores session on mount when user exists', async () => {
-      vi.mocked(account.get).mockResolvedValueOnce(mockUser);
+      mockOnAuthStateChanged.mockImplementation(
+        (_auth: unknown, callback: (user: unknown) => void) => {
+          callback(mockFirebaseUser);
+
+          return vi.fn();
+        },
+      );
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -65,13 +87,16 @@ describe('providers/AuthProvider', () => {
         expect(result.current.isAuthenticated).toBe(true);
       });
 
-      expect(account.get).toHaveBeenCalled();
-      expect(result.current.user).toEqual(mockUser);
+      expect(result.current.user).toEqual({
+        uid: 'user-123',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        photoURL: null,
+        providerData: [{ providerId: 'password', photoURL: undefined }],
+      });
     });
 
     it('sets unauthenticated when no session exists', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-
       const { result } = renderHook(() => useAuth(), { wrapper });
 
       await waitFor(() => {
@@ -84,10 +109,8 @@ describe('providers/AuthProvider', () => {
   });
 
   describe('loginWithEmail', () => {
-    it('creates session and fetches user on success', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-      vi.mocked(account.createEmailPasswordSession).mockResolvedValueOnce({} as never);
-      vi.mocked(account.get).mockResolvedValueOnce(mockUser);
+    it('calls signInWithEmailAndPassword on success', async () => {
+      mockSignInWithEmailAndPassword.mockResolvedValueOnce({ user: mockFirebaseUser });
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -99,19 +122,15 @@ describe('providers/AuthProvider', () => {
         await result.current.loginWithEmail('test@example.com', 'password123');
       });
 
-      expect(account.createEmailPasswordSession).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123',
-      });
-      expect(result.current.isAuthenticated).toBe(true);
-      expect(result.current.user).toEqual(mockUser);
+      expect(mockSignInWithEmailAndPassword).toHaveBeenCalledWith(
+        expect.anything(),
+        'test@example.com',
+        'password123',
+      );
     });
 
     it('sets error on login failure', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-      vi.mocked(account.createEmailPasswordSession).mockRejectedValueOnce(
-        new Error('Invalid credentials'),
-      );
+      mockSignInWithEmailAndPassword.mockRejectedValueOnce(new Error('Invalid credentials'));
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -136,11 +155,9 @@ describe('providers/AuthProvider', () => {
   });
 
   describe('signupWithEmail', () => {
-    it('creates account, then session, and fetches user', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-      vi.mocked(account.create).mockResolvedValueOnce({} as never);
-      vi.mocked(account.createEmailPasswordSession).mockResolvedValueOnce({} as never);
-      vi.mocked(account.get).mockResolvedValueOnce(mockUser);
+    it('creates account with displayName', async () => {
+      mockCreateUserWithEmailAndPassword.mockResolvedValueOnce({ user: mockFirebaseUser });
+      mockUpdateProfile.mockResolvedValueOnce(undefined);
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -152,22 +169,18 @@ describe('providers/AuthProvider', () => {
         await result.current.signupWithEmail('test@example.com', 'password123', 'Test User');
       });
 
-      expect(account.create).toHaveBeenCalledWith({
-        userId: expect.any(String),
-        email: 'test@example.com',
-        password: 'password123',
-        name: 'Test User',
+      expect(mockCreateUserWithEmailAndPassword).toHaveBeenCalledWith(
+        expect.anything(),
+        'test@example.com',
+        'password123',
+      );
+      expect(mockUpdateProfile).toHaveBeenCalledWith(mockFirebaseUser, {
+        displayName: 'Test User',
       });
-      expect(account.createEmailPasswordSession).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123',
-      });
-      expect(result.current.isAuthenticated).toBe(true);
     });
 
     it('sets error on signup failure', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-      vi.mocked(account.create).mockRejectedValueOnce(new Error('Email already exists'));
+      mockCreateUserWithEmailAndPassword.mockRejectedValueOnce(new Error('Email already exists'));
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -192,8 +205,8 @@ describe('providers/AuthProvider', () => {
   });
 
   describe('loginWithOAuth', () => {
-    it('calls createOAuth2Session with Google provider', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
+    it('calls signInWithPopup with Google provider', async () => {
+      mockSignInWithPopup.mockResolvedValueOnce({ user: mockFirebaseUser });
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -205,15 +218,11 @@ describe('providers/AuthProvider', () => {
         result.current.loginWithOAuth('google');
       });
 
-      expect(account.createOAuth2Session).toHaveBeenCalledWith({
-        provider: 'google',
-        success: expect.stringContaining('/auth/callback'),
-        failure: expect.stringContaining('/auth/callback?error=oauth_failed'),
-      });
+      expect(mockSignInWithPopup).toHaveBeenCalledWith(expect.anything(), expect.any(Object));
     });
 
-    it('calls createOAuth2Session with GitHub provider', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
+    it('calls signInWithPopup with GitHub provider', async () => {
+      mockSignInWithPopup.mockResolvedValueOnce({ user: mockFirebaseUser });
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -225,18 +234,60 @@ describe('providers/AuthProvider', () => {
         result.current.loginWithOAuth('github');
       });
 
-      expect(account.createOAuth2Session).toHaveBeenCalledWith({
-        provider: 'github',
-        success: expect.stringContaining('/auth/callback'),
-        failure: expect.stringContaining('/auth/callback?error=oauth_failed'),
+      expect(mockSignInWithPopup).toHaveBeenCalledWith(expect.anything(), expect.any(Object));
+    });
+
+    it('stores pending credential on account-exists error', async () => {
+      const authError = Object.assign(new Error('account exists'), {
+        code: 'auth/account-exists-with-different-credential',
+        customData: { email: 'test@example.com' },
       });
+
+      mockSignInWithPopup.mockRejectedValueOnce(authError);
+
+      const { result } = renderHook(() => useAuth(), { wrapper });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      await act(async () => {
+        await result.current.loginWithOAuth('github');
+      });
+
+      await waitFor(() => {
+        expect(result.current.error).toContain('already linked to Google');
+      });
+
+      expect(useAuthStore.getState().pendingCredential).toBe('mock-github-credential');
+    });
+
+    it('links pending credential on subsequent OAuth success', async () => {
+      useAuthStore.setState({ pendingCredential: 'mock-pending-credential' as never });
+      mockSignInWithPopup.mockResolvedValueOnce({ user: mockFirebaseUser });
+      mockLinkWithCredential.mockResolvedValueOnce({});
+
+      const { result } = renderHook(() => useAuth(), { wrapper });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      await act(async () => {
+        await result.current.loginWithOAuth('google');
+      });
+
+      expect(mockLinkWithCredential).toHaveBeenCalledWith(
+        mockFirebaseUser,
+        'mock-pending-credential',
+      );
+      expect(useAuthStore.getState().pendingCredential).toBeNull();
     });
   });
 
   describe('sendMagicLink', () => {
-    it('calls createMagicURLToken with email', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-      vi.mocked(account.createMagicURLToken).mockResolvedValueOnce({} as never);
+    it('calls sendSignInLinkToEmail with email', async () => {
+      mockSendSignInLinkToEmail.mockResolvedValueOnce(undefined);
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -248,16 +299,18 @@ describe('providers/AuthProvider', () => {
         await result.current.sendMagicLink('test@example.com');
       });
 
-      expect(account.createMagicURLToken).toHaveBeenCalledWith({
-        userId: expect.any(String),
-        email: 'test@example.com',
-        url: expect.stringContaining('/auth/callback'),
-      });
+      expect(mockSendSignInLinkToEmail).toHaveBeenCalledWith(
+        expect.anything(),
+        'test@example.com',
+        expect.objectContaining({
+          url: expect.stringContaining('/auth/callback'),
+          handleCodeInApp: true,
+        }),
+      );
     });
 
     it('sets error on magic link failure', async () => {
-      vi.mocked(account.get).mockRejectedValueOnce(new Error('No session'));
-      vi.mocked(account.createMagicURLToken).mockRejectedValueOnce(new Error('Rate limited'));
+      mockSendSignInLinkToEmail.mockRejectedValueOnce(new Error('Rate limited'));
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -280,9 +333,15 @@ describe('providers/AuthProvider', () => {
   });
 
   describe('logout', () => {
-    it('deletes session and clears user', async () => {
-      vi.mocked(account.get).mockResolvedValueOnce(mockUser);
-      vi.mocked(account.deleteSession).mockResolvedValueOnce({} as never);
+    it('signs out and clears user', async () => {
+      mockOnAuthStateChanged.mockImplementation(
+        (_auth: unknown, callback: (user: unknown) => void) => {
+          callback(mockFirebaseUser);
+
+          return vi.fn();
+        },
+      );
+      mockSignOut.mockResolvedValueOnce(undefined);
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -294,14 +353,20 @@ describe('providers/AuthProvider', () => {
         await result.current.logout();
       });
 
-      expect(account.deleteSession).toHaveBeenCalledWith({ sessionId: 'current' });
+      expect(mockSignOut).toHaveBeenCalled();
       expect(result.current.user).toBeNull();
       expect(result.current.isAuthenticated).toBe(false);
     });
 
-    it('clears user even if session deletion fails', async () => {
-      vi.mocked(account.get).mockResolvedValueOnce(mockUser);
-      vi.mocked(account.deleteSession).mockRejectedValueOnce(new Error('Network error'));
+    it('clears user even if signOut fails', async () => {
+      mockOnAuthStateChanged.mockImplementation(
+        (_auth: unknown, callback: (user: unknown) => void) => {
+          callback(mockFirebaseUser);
+
+          return vi.fn();
+        },
+      );
+      mockSignOut.mockRejectedValueOnce(new Error('Network error'));
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -309,13 +374,12 @@ describe('providers/AuthProvider', () => {
         expect(result.current.isAuthenticated).toBe(true);
       });
 
-      // The logout function uses finally, so user is cleared even if deleteSession fails
       try {
         await act(async () => {
           await result.current.logout();
         });
       } catch {
-        // Network error is expected but swallowed by finally
+        // Network error expected
       }
 
       await waitFor(() => {

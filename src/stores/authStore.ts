@@ -1,27 +1,30 @@
-import type { Models } from 'appwrite';
+import type { AuthCredential } from 'firebase/auth';
 import { create } from 'zustand';
 
-import type { OAuthProvider } from '~/contexts/auth';
+import type { AppUser, OAuthProvider } from '~/contexts/auth';
 
 interface AuthState {
   error: string | null;
+  pendingCredential: AuthCredential | null;
   provider: OAuthProvider | null;
   status: AuthStatus;
-  user: Models.User<Models.Preferences> | null;
+  user: AppUser | null;
 }
 
 interface AuthStateWithActions extends AuthState {
   reset: () => void;
   setError: (error: string | null) => void;
+  setPendingCredential: (credential: AuthCredential | null) => void;
   setProvider: (provider: OAuthProvider | null) => void;
   setStatus: (status: AuthStatus) => void;
-  setUser: (user: Models.User<Models.Preferences> | null) => void;
+  setUser: (user: AppUser | null) => void;
 }
 
 export type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'unauthenticated';
 
 const initialState: AuthState = {
   error: null,
+  pendingCredential: null,
   provider: null,
   status: 'idle',
   user: null,
@@ -36,6 +39,8 @@ export const useAuthStore = create<AuthStateWithActions>(set => ({
       status: user ? 'authenticated' : 'unauthenticated',
       error: null,
     }),
+
+  setPendingCredential: (pendingCredential): void => set({ pendingCredential }),
 
   setProvider: (provider): void => set({ provider }),
 

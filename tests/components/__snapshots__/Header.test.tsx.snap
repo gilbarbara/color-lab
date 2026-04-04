@@ -107,11 +107,11 @@ exports[`Header > should render properly when authenticated 1`] = `
         type="button"
       >
         <span
-          aria-label="Test User"
+          aria-label="test@example.com"
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-normal text-center text-inherit"
           role="img"
         >
-          TU
+          TC
         </span>
       </button>
     </div>

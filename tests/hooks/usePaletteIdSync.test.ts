@@ -17,7 +17,7 @@ vi.mock('react-router', () => ({
 let mockAuthState = {
   isAuthenticated: false,
   isLoading: false,
-  user: null as { $id: string } | null,
+  user: null as { uid: string } | null,
 };
 
 vi.mock('~/hooks/useAuth', () => ({
@@ -31,13 +31,9 @@ vi.mock('~/services/palettes', () => ({
 }));
 
 const mockPalette: SavedPalette = {
-  $id: 'palette-123',
-  $createdAt: '2024-01-01T00:00:00.000Z',
-  $updatedAt: '2024-01-02T00:00:00.000Z',
-  $permissions: [],
-  $databaseId: 'color-lab',
-  $tableId: 'palettes',
-  $sequence: 1,
+  id: 'palette-123',
+  createdAt: '2024-01-01T00:00:00.000Z',
+  updatedAt: '2024-01-02T00:00:00.000Z',
   userId: 'user-1',
   name: 'Test Palette',
   url: '/p/Primary-FF0044?id=palette-123',
@@ -109,7 +105,7 @@ describe('hooks/usePaletteIdSync', () => {
   describe('authenticated user - cache hit', () => {
     it('loads palette from cache when found with matching userId', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
-      mockAuthState = { isAuthenticated: true, isLoading: false, user: { $id: 'user-1' } };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       usePalettesStore.setState({ palettes: [mockPalette] });
 
       renderHook(() => usePaletteIdSync());
@@ -122,7 +118,7 @@ describe('hooks/usePaletteIdSync', () => {
 
     it('does not load from cache when userId does not match', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
-      mockAuthState = { isAuthenticated: true, isLoading: false, user: { $id: 'other-user' } };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'other-user' } };
       usePalettesStore.setState({ palettes: [mockPalette] });
       mockGetPalette.mockResolvedValue(null);
 
@@ -137,7 +133,7 @@ describe('hooks/usePaletteIdSync', () => {
   describe('authenticated user - API fallback', () => {
     it('fetches from API when not in cache and sets state on success', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
-      mockAuthState = { isAuthenticated: true, isLoading: false, user: { $id: 'user-1' } };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       mockGetPalette.mockResolvedValue(mockPalette);
 
       renderHook(() => usePaletteIdSync());
@@ -152,7 +148,7 @@ describe('hooks/usePaletteIdSync', () => {
 
     it('removes ID and clears state when API returns null', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
-      mockAuthState = { isAuthenticated: true, isLoading: false, user: { $id: 'user-1' } };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       mockGetPalette.mockResolvedValue(null);
 
       renderHook(() => usePaletteIdSync());
@@ -170,7 +166,7 @@ describe('hooks/usePaletteIdSync', () => {
 
     it('removes ID and clears state when API returns palette with wrong userId', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
-      mockAuthState = { isAuthenticated: true, isLoading: false, user: { $id: 'user-1' } };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       mockGetPalette.mockResolvedValue({ ...mockPalette, userId: 'other-user' });
 
       renderHook(() => usePaletteIdSync());
@@ -190,7 +186,7 @@ describe('hooks/usePaletteIdSync', () => {
   describe('validation flag', () => {
     it('does not re-validate on same path after initial validation', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
-      mockAuthState = { isAuthenticated: true, isLoading: false, user: { $id: 'user-1' } };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       usePalettesStore.setState({ palettes: [mockPalette] });
 
       const { rerender } = renderHook(() => usePaletteIdSync());

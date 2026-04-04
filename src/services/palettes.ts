@@ -1,73 +1,105 @@
-import { ID, Permission, Query, Role } from 'appwrite';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
+  where,
+} from 'firebase/firestore/lite';
+import type { DocumentSnapshot } from 'firebase/firestore/lite';
 
-import { COLLECTION_ID, DATABASE_ID } from '~/config/appwrite';
-import { databases } from '~/utils/appwrite';
+import { PALETTES_COLLECTION } from '~/config/firebase';
+import { db } from '~/utils/firebase';
 import { updatePaletteIdInUrl } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
 
-function withIdInUrl(palette: SavedPalette): SavedPalette {
-  return { ...palette, url: updatePaletteIdInUrl(palette.url, palette.$id) };
+function documentToSavedPalette(snapshot: DocumentSnapshot): SavedPalette {
+  const data = snapshot.data();
+
+  if (!data) {
+    throw new Error(`Palette document ${snapshot.id} has no data`);
+  }
+
+  return {
+    id: snapshot.id,
+    createdAt: data.createdAt?.toDate().toISOString(),
+    updatedAt: data.updatedAt?.toDate().toISOString(),
+    isFavorite: data.isFavorite,
+    name: data.name,
+    url: data.url,
+    userId: data.userId,
+  };
 }
 
+function withIdInUrl(palette: SavedPalette): SavedPalette {
+  return { ...palette, url: updatePaletteIdInUrl(palette.url, palette.id) };
+}
+
+const palettesRef = collection(db, PALETTES_COLLECTION);
+
 export async function createPalette(userId: string, name: string, url: string) {
-  const palette = await databases.createRow<SavedPalette>({
-    databaseId: DATABASE_ID,
-    data: { userId, name, url, isFavorite: false },
-    permissions: [
-      Permission.read(Role.user(userId)),
-      Permission.update(Role.user(userId)),
-      Permission.delete(Role.user(userId)),
-    ],
-    tableId: COLLECTION_ID,
-    rowId: ID.unique(),
+  const now = new Date().toISOString();
+
+  const documentRef = await addDoc(palettesRef, {
+    userId,
+    name,
+    url,
+    isFavorite: false,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   });
+
+  const palette: SavedPalette = {
+    id: documentRef.id,
+    createdAt: now,
+    updatedAt: now,
+    isFavorite: false,
+    name,
+    url,
+    userId,
+  };
 
   return withIdInUrl(palette);
 }
 
 export async function deletePalette(id: string) {
-  return databases.deleteRow({
-    databaseId: DATABASE_ID,
-    tableId: COLLECTION_ID,
-    rowId: id,
-  });
+  await deleteDoc(doc(db, PALETTES_COLLECTION, id));
 }
 
 export async function getPalette(id: string): Promise<SavedPalette | null> {
   try {
-    const palette = await databases.getRow<SavedPalette>({
-      databaseId: DATABASE_ID,
-      tableId: COLLECTION_ID,
-      rowId: id,
-    });
+    const snapshot = await getDoc(doc(db, PALETTES_COLLECTION, id));
 
-    return withIdInUrl(palette);
+    if (!snapshot.exists()) return null;
+
+    return withIdInUrl(documentToSavedPalette(snapshot));
   } catch {
-    return null; // Not found or permission denied
+    return null;
   }
 }
 
-export async function listPalettes(userId: string) {
-  const result = await databases.listRows<SavedPalette>({
-    databaseId: DATABASE_ID,
-    tableId: COLLECTION_ID,
-    queries: [Query.equal('userId', userId), Query.orderDesc('$updatedAt')],
-  });
+export async function listPalettes(userId: string): Promise<SavedPalette[]> {
+  const q = query(palettesRef, where('userId', '==', userId), orderBy('updatedAt', 'desc'));
+  const snapshot = await getDocs(q);
 
-  return { ...result, rows: result.rows.map(withIdInUrl) };
+  return snapshot.docs.map(d => withIdInUrl(documentToSavedPalette(d)));
 }
 
 export async function updatePalette(
   id: string,
   data: Partial<Pick<SavedPalette, 'isFavorite' | 'name' | 'url'>>,
 ) {
-  const palette = await databases.updateRow<SavedPalette>({
-    databaseId: DATABASE_ID,
-    tableId: COLLECTION_ID,
-    rowId: id,
-    data,
-  });
+  const documentRef = doc(db, PALETTES_COLLECTION, id);
 
-  return withIdInUrl(palette);
+  await updateDoc(documentRef, { ...data, updatedAt: serverTimestamp() });
+
+  const snapshot = await getDoc(documentRef);
+
+  return withIdInUrl(documentToSavedPalette(snapshot));
 }

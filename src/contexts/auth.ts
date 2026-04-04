@@ -1,7 +1,14 @@
 import { createContext } from 'react';
-import type { Models } from 'appwrite';
 
 export type OAuthProvider = 'google' | 'github';
+
+export interface AppUser {
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+  providerData: Array<{ photoURL: string | null; providerId: string }>;
+  uid: string;
+}
 
 export interface AuthContextType {
   error: string | null;
@@ -13,7 +20,7 @@ export interface AuthContextType {
   provider: OAuthProvider | null;
   sendMagicLink: (email: string) => Promise<void>;
   signupWithEmail: (email: string, password: string, name?: string) => Promise<void>;
-  user: Models.User<Record<string, string>> | null;
+  user: AppUser | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

@@ -33,7 +33,7 @@ export default function Header() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette();
-  const { clearLoadedPalette, openLoginModal } = useAppStore();
+  const { clearLoadedPalette, closeLoginModal, openLoginModal } = useAppStore();
   const { min } = useBreakpoint();
 
   const handleClickDarkMode = () => {
@@ -43,11 +43,11 @@ export default function Header() {
 
   const isLarge = min('md');
 
-  let imageUrl: string | undefined;
+  const providerIdMap: Record<string, string> = { google: 'google.com', github: 'github.com' };
 
-  if (provider) {
-    imageUrl = provider === 'github' ? user?.prefs?.avatarGithub : user?.prefs?.avatarGoogle;
-  }
+  const providerPhoto =
+    provider && user?.providerData.find(p => p.providerId === providerIdMap[provider])?.photoURL;
+  const imageUrl = providerPhoto ?? user?.photoURL ?? undefined;
 
   const renderNavigation = () => (
     <div className="flex items-center gap-2 md:gap-4 ml-4 md:ml-8">
@@ -122,7 +122,7 @@ export default function Header() {
             aria-label="User Menu"
             as="button"
             className="transition-transform"
-            name={user?.name || user?.email}
+            name={user?.displayName ?? user?.email ?? undefined}
             showFallback
             size="sm"
             src={imageUrl}
@@ -136,7 +136,7 @@ export default function Header() {
             startContent={<UserIcon className="size-4" />}
             textValue="Profile"
           >
-            <p className="font-semibold">{user?.name || 'User'}</p>
+            <p className="font-semibold">{user?.displayName || 'User'}</p>
             <p className="text-sm text-default-500">{user?.email}</p>
           </DropdownItem>
           <DropdownItem
@@ -144,6 +144,7 @@ export default function Header() {
             color="danger"
             onPress={() => {
               trackEvent('logout');
+              closeLoginModal();
               logout();
             }}
             startContent={<SignOutIcon className="size-4" />}

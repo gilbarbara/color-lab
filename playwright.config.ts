@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-const baseURL = 'http://localhost:4173';
+const baseURL = 'http://localhost:3000';
 
 export default defineConfig({
   testDir: './e2e',
@@ -18,7 +18,7 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: 'pnpm preview',
+    command: 'pnpm dev:e2e',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
   },

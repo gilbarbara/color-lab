@@ -1,5 +1,3 @@
-import { Permission, Query, Role } from 'appwrite';
-
 import {
   createPalette,
   deletePalette,
@@ -7,20 +5,47 @@ import {
   listPalettes,
   updatePalette,
 } from '~/services/palettes';
-import { databases } from '~/utils/appwrite';
 
-vi.mock('~/utils/appwrite', () => ({
-  databases: {
-    createRow: vi.fn(),
-    deleteRow: vi.fn(),
-    getRow: vi.fn(),
-    listRows: vi.fn(),
-    updateRow: vi.fn(),
-  },
+const mockAddDocument = vi.fn();
+const mockDeleteDocument = vi.fn();
+const mockGetDocument = vi.fn();
+const mockGetDocuments = vi.fn();
+const mockUpdateDocument = vi.fn();
+
+vi.mock('firebase/firestore/lite', () => ({
+  addDoc: (...arguments_: unknown[]) => mockAddDocument(...arguments_),
+  collection: vi.fn(() => 'palettes-ref'),
+  deleteDoc: (...arguments_: unknown[]) => mockDeleteDocument(...arguments_),
+  doc: vi.fn((_db, _collection, id) => `doc-ref-${id}`),
+  getDoc: (...arguments_: unknown[]) => mockGetDocument(...arguments_),
+  getDocs: (...arguments_: unknown[]) => mockGetDocuments(...arguments_),
+  getFirestore: vi.fn(),
+  orderBy: vi.fn(),
+  query: vi.fn(),
+  serverTimestamp: vi.fn(() => 'SERVER_TIMESTAMP'),
+  updateDoc: (...arguments_: unknown[]) => mockUpdateDocument(...arguments_),
+  where: vi.fn(),
 }));
 
-const DATABASE_ID = 'color-lab';
-const COLLECTION_ID = 'palettes';
+vi.mock('~/utils/firebase', () => ({
+  db: {},
+}));
+
+function mockSnapshot(id: string, data: Record<string, unknown>) {
+  const toDate = () => ({
+    toISOString: () => '2024-01-01T00:00:00.000Z',
+  });
+
+  return {
+    id,
+    exists: () => true,
+    data: () => ({
+      ...data,
+      createdAt: { toDate },
+      updatedAt: { toDate },
+    }),
+  };
+}
 
 describe('services/palettes', () => {
   beforeEach(() => {
@@ -28,61 +53,59 @@ describe('services/palettes', () => {
   });
 
   describe('createPalette', () => {
-    it('calls databases.createRow with correct parameters', async () => {
-      const mockResult = { $id: 'new-id', name: 'My Palette', url: '/p/red-ff0000' };
-
-      vi.mocked(databases.createRow).mockResolvedValueOnce(mockResult as any);
+    it('calls addDoc and constructs palette locally', async () => {
+      mockAddDocument.mockResolvedValueOnce({ id: 'new-id' });
 
       const result = await createPalette('user-1', 'My Palette', '/p/red-ff0000');
 
-      expect(databases.createRow).toHaveBeenCalledWith({
-        databaseId: DATABASE_ID,
-        data: { userId: 'user-1', name: 'My Palette', url: '/p/red-ff0000', isFavorite: false },
-        permissions: [
-          Permission.read(Role.user('user-1')),
-          Permission.update(Role.user('user-1')),
-          Permission.delete(Role.user('user-1')),
-        ],
-        tableId: COLLECTION_ID,
-        rowId: expect.any(String),
+      expect(mockAddDocument).toHaveBeenCalledWith('palettes-ref', {
+        userId: 'user-1',
+        name: 'My Palette',
+        url: '/p/red-ff0000',
+        isFavorite: false,
+        createdAt: 'SERVER_TIMESTAMP',
+        updatedAt: 'SERVER_TIMESTAMP',
       });
-      // Result includes ID in URL via withIdInUrl
+      expect(mockGetDocument).not.toHaveBeenCalled();
       expect(result.url).toBe('/p/red-ff0000?id=new-id');
+      expect(result.name).toBe('My Palette');
+      expect(result.userId).toBe('user-1');
+      expect(result.isFavorite).toBe(false);
     });
   });
 
   describe('deletePalette', () => {
-    it('calls databases.deleteRow with correct parameters', async () => {
-      vi.mocked(databases.deleteRow).mockResolvedValueOnce(undefined as any);
+    it('calls deleteDoc with correct reference', async () => {
+      mockDeleteDocument.mockResolvedValueOnce(undefined);
 
       await deletePalette('palette-1');
 
-      expect(databases.deleteRow).toHaveBeenCalledWith({
-        databaseId: DATABASE_ID,
-        tableId: COLLECTION_ID,
-        rowId: 'palette-1',
-      });
+      expect(mockDeleteDocument).toHaveBeenCalledWith('doc-ref-palette-1');
     });
   });
 
   describe('getPalette', () => {
     it('returns palette with ID in URL on success', async () => {
-      const mockResult = { $id: 'palette-1', name: 'My Palette', url: '/p/red-ff0000' };
-
-      vi.mocked(databases.getRow).mockResolvedValueOnce(mockResult as any);
+      mockGetDocument.mockResolvedValueOnce(
+        mockSnapshot('palette-1', {
+          name: 'My Palette',
+          url: '/p/red-ff0000',
+          userId: 'user-1',
+          isFavorite: false,
+        }),
+      );
 
       const result = await getPalette('palette-1');
 
-      expect(databases.getRow).toHaveBeenCalledWith({
-        databaseId: DATABASE_ID,
-        tableId: COLLECTION_ID,
-        rowId: 'palette-1',
-      });
       expect(result?.url).toBe('/p/red-ff0000?id=palette-1');
     });
 
     it('returns null when palette not found', async () => {
-      vi.mocked(databases.getRow).mockRejectedValueOnce(new Error('Not found'));
+      mockGetDocument.mockResolvedValueOnce({
+        exists: () => false,
+        id: 'nonexistent',
+        data: () => null,
+      });
 
       const result = await getPalette('nonexistent');
 
@@ -91,53 +114,62 @@ describe('services/palettes', () => {
   });
 
   describe('listPalettes', () => {
-    it('calls databases.listRows with userId query and orderDesc', async () => {
-      const mockResult = { total: 1, rows: [{ $id: 'p1', url: '/p/red-ff0000' }] };
-
-      vi.mocked(databases.listRows).mockResolvedValueOnce(mockResult as any);
+    it('returns palettes with IDs in URLs', async () => {
+      mockGetDocuments.mockResolvedValueOnce({
+        docs: [
+          mockSnapshot('p1', {
+            name: 'Palette 1',
+            url: '/p/red-ff0000',
+            userId: 'user-1',
+            isFavorite: false,
+          }),
+        ],
+      });
 
       const result = await listPalettes('user-1');
 
-      expect(databases.listRows).toHaveBeenCalledWith({
-        databaseId: DATABASE_ID,
-        tableId: COLLECTION_ID,
-        queries: [Query.equal('userId', 'user-1'), Query.orderDesc('$updatedAt')],
-      });
-      // Result rows include ID in URL via withIdInUrl
-      expect(result.rows[0].url).toBe('/p/red-ff0000?id=p1');
+      expect(result).toHaveLength(1);
+      expect(result[0].url).toBe('/p/red-ff0000?id=p1');
     });
   });
 
   describe('updatePalette', () => {
-    it('calls databases.updateRow with partial data', async () => {
-      const mockResult = { $id: 'palette-1', name: 'Updated', url: '/p/red-ff0000' };
-
-      vi.mocked(databases.updateRow).mockResolvedValueOnce(mockResult as any);
+    it('calls updateDoc with data and serverTimestamp', async () => {
+      mockUpdateDocument.mockResolvedValueOnce(undefined);
+      mockGetDocument.mockResolvedValueOnce(
+        mockSnapshot('palette-1', {
+          name: 'Updated',
+          url: '/p/red-ff0000',
+          userId: 'user-1',
+          isFavorite: false,
+        }),
+      );
 
       const result = await updatePalette('palette-1', { name: 'Updated' });
 
-      expect(databases.updateRow).toHaveBeenCalledWith({
-        databaseId: DATABASE_ID,
-        tableId: COLLECTION_ID,
-        rowId: 'palette-1',
-        data: { name: 'Updated' },
+      expect(mockUpdateDocument).toHaveBeenCalledWith('doc-ref-palette-1', {
+        name: 'Updated',
+        updatedAt: 'SERVER_TIMESTAMP',
       });
-      // Result includes ID in URL via withIdInUrl
       expect(result.url).toBe('/p/red-ff0000?id=palette-1');
     });
 
     it('handles isFavorite update', async () => {
-      const mockResult = { $id: 'palette-1', isFavorite: true, url: '/p/red-ff0000' };
-
-      vi.mocked(databases.updateRow).mockResolvedValueOnce(mockResult as any);
+      mockUpdateDocument.mockResolvedValueOnce(undefined);
+      mockGetDocument.mockResolvedValueOnce(
+        mockSnapshot('palette-1', {
+          name: 'My Palette',
+          url: '/p/red-ff0000',
+          userId: 'user-1',
+          isFavorite: true,
+        }),
+      );
 
       await updatePalette('palette-1', { isFavorite: true });
 
-      expect(databases.updateRow).toHaveBeenCalledWith({
-        databaseId: DATABASE_ID,
-        tableId: COLLECTION_ID,
-        rowId: 'palette-1',
-        data: { isFavorite: true },
+      expect(mockUpdateDocument).toHaveBeenCalledWith('doc-ref-palette-1', {
+        isFavorite: true,
+        updatedAt: 'SERVER_TIMESTAMP',
       });
     });
   });
