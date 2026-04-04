@@ -1,10 +1,12 @@
 import type { FormEvent } from 'react';
+import { useEffect } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import { Button, Tab, Tabs } from '@heroui/react';
 
 import useAuth from '~/hooks/useAuth';
 import useTheme from '~/hooks/useTheme';
 import { useAppStore } from '~/stores/appStore';
+import { useAuthStore } from '~/stores/authStore';
 import { trackEvent } from '~/utils/analytics';
 
 import { Input, Password } from '~/components/Field';
@@ -21,8 +23,15 @@ interface State {
 }
 
 export default function Login() {
-  const { error, isLoading, loginWithEmail, loginWithOAuth, sendMagicLink, signupWithEmail } =
-    useAuth();
+  const {
+    error,
+    isAuthenticated,
+    isLoading,
+    loginWithEmail,
+    loginWithOAuth,
+    sendMagicLink,
+    signupWithEmail,
+  } = useAuth();
   const { closeLoginModal, showLoginModal } = useAppStore();
   const { isDarkMode } = useTheme();
 
@@ -33,6 +42,20 @@ export default function Login() {
     password: '',
     tab: 'login',
   });
+
+  // Close modal when auth succeeds (e.g. OAuth popup completes)
+  useEffect(() => {
+    if (isAuthenticated && showLoginModal) {
+      closeLoginModal();
+    }
+  }, [isAuthenticated, showLoginModal, closeLoginModal]);
+
+  // Clear stale auth errors when modal opens
+  useEffect(() => {
+    if (showLoginModal) {
+      useAuthStore.getState().setError(null);
+    }
+  }, [showLoginModal]);
 
   const handleClose = () => {
     closeLoginModal();

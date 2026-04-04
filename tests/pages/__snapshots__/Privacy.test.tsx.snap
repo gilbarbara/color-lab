@@ -58,7 +58,7 @@ exports[`pages/Privacy > renders correctly 1`] = `
          from the provider.
       </p>
       <p>
-        Passwords are hashed server-side by Appwrite and are never stored in plain text. We do not have access to your plain-text password.
+        Passwords are hashed server-side by Firebase Authentication and are never stored in plain text. We do not have access to your plain-text password.
       </p>
       <h3
         class="text-lg font-semibold mt-4"
@@ -160,13 +160,13 @@ exports[`pages/Privacy > renders correctly 1`] = `
       >
         <li>
           <strong>
-            Appwrite
+            Firebase (Google Cloud)
           </strong>
-           — Authentication and database hosting (NYC region).
+           — Authentication and database hosting (US region).
            
           <a
             class="underline"
-            href="https://appwrite.io/policy/privacy"
+            href="https://firebase.google.com/support/privacy"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -226,10 +226,10 @@ exports[`pages/Privacy > renders correctly 1`] = `
       class="space-y-2 mb-8"
     >
       <p>
-        Your account and palette data is stored on Appwrite Cloud servers. All communication between your browser and our services uses HTTPS encryption.
+        Your account and palette data is stored on Firebase (Google Cloud) servers. All communication between your browser and our services uses HTTPS encryption.
       </p>
       <p>
-        Access to your saved palettes is restricted to your account through Appwrite's permission system.
+        Access to your saved palettes is restricted to your account through Firestore security rules.
       </p>
     </div>
     <h2

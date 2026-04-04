@@ -3,13 +3,9 @@ import { usePalettesStore } from '~/stores/palettesStore';
 import type { SavedPalette } from '~/types';
 
 const mockPalette: SavedPalette = {
-  $id: 'palette-1',
-  $createdAt: '2024-01-01T00:00:00.000Z',
-  $updatedAt: '2024-01-02T00:00:00.000Z',
-  $permissions: [],
-  $databaseId: 'color-lab',
-  $tableId: 'palettes',
-  $sequence: 1,
+  id: 'palette-1',
+  createdAt: '2024-01-01T00:00:00.000Z',
+  updatedAt: '2024-01-02T00:00:00.000Z',
   userId: 'user-1',
   name: 'Test Palette',
   url: '/p/red-ff0000/blue-0000ff',
@@ -18,7 +14,7 @@ const mockPalette: SavedPalette = {
 
 const mockPalette2: SavedPalette = {
   ...mockPalette,
-  $id: 'palette-2',
+  id: 'palette-2',
   name: 'Second Palette',
 };
 
@@ -50,8 +46,8 @@ describe('stores/palettesStore', () => {
       const { palettes } = usePalettesStore.getState();
 
       expect(palettes).toHaveLength(2);
-      expect(palettes[0].$id).toBe('palette-1');
-      expect(palettes[1].$id).toBe('palette-2');
+      expect(palettes[0].id).toBe('palette-1');
+      expect(palettes[1].id).toBe('palette-2');
     });
   });
 
@@ -64,7 +60,7 @@ describe('stores/palettesStore', () => {
       const { palettes } = usePalettesStore.getState();
 
       expect(palettes).toHaveLength(1);
-      expect(palettes[0].$id).toBe('palette-2');
+      expect(palettes[0].id).toBe('palette-2');
     });
 
     it('does nothing if id not found', () => {
@@ -101,13 +97,8 @@ describe('stores/palettesStore', () => {
   });
 
   describe('setPalettes', () => {
-    it('sets palettes from RowList response', () => {
-      const rowList = {
-        total: 2,
-        rows: [mockPalette, mockPalette2],
-      };
-
-      usePalettesStore.getState().setPalettes(rowList as any);
+    it('sets palettes from array', () => {
+      usePalettesStore.getState().setPalettes([mockPalette, mockPalette2]);
 
       const state = usePalettesStore.getState();
 

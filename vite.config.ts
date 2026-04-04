@@ -3,15 +3,14 @@ import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [tailwindcss(), react(), babel({ presets: [reactCompilerPreset()] })],
   resolve: {
     tsconfigPaths: true,
   },
   server: {
     host: true,
-    open: true,
-    port: 3000,
+    port: mode === 'e2e' ? 3000 : undefined,
     allowedHosts: true,
   },
   test: {
@@ -32,10 +31,10 @@ export default defineConfig({
         'src/types.ts',
         'src/components/Field/**/*',
         'src/config/hero.ts',
-        'src/utils/appwrite.ts',
+        'src/utils/firebase.ts',
       ],
     },
-    exclude: ['node_modules/**', 'dist/**', 'e2e/**'],
+    exclude: ['node_modules/**', 'dist/**', 'e2e/**', 'cloud-functions/**'],
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/__setup__/vitest.setup.ts'],
@@ -48,4 +47,4 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-});
+}));

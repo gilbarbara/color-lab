@@ -1,18 +1,18 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { AppwriteMockState, setupAppwriteMocks } from './fixtures/appwrite-mock';
+import { FirebaseMockState, setupFirebaseMocks } from './fixtures/firebase-mock';
 
 let page: Page;
-let mockState: AppwriteMockState;
+let mockState: FirebaseMockState;
 let paletteName = `Test-${Date.now()}`;
 
 test.describe.configure({ mode: 'serial' });
 test.use({ ...devices['Desktop Chrome'] });
 
 test.beforeAll(async ({ browser }) => {
-  mockState = new AppwriteMockState();
+  mockState = new FirebaseMockState();
   page = await browser.newPage();
-  await setupAppwriteMocks(page, mockState);
+  await setupFirebaseMocks(page, mockState);
   await page.goto('/');
 });
 

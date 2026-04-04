@@ -15,7 +15,7 @@ export interface MockAuthState {
   error?: string | null;
   isAuthenticated?: boolean;
   isLoading?: boolean;
-  user?: { $id?: string; email?: string; name?: string } | null;
+  user?: { displayName?: string; email?: string; photoURL?: string | null; uid?: string } | null;
 }
 
 const defaultAuthState: MockAuthState = {

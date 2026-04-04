@@ -37,13 +37,15 @@ Zustand stores:
 
 ### Authentication
 
-Appwrite-powered authentication supporting:
+Firebase Authentication (with Identity Platform) supporting:
 
-- OAuth (Google, GitHub)
+- OAuth via popup (Google, GitHub)
 - Email/password login and signup
 - Magic link (passwordless)
 
-Flow: `AuthProvider` wraps app, restores session on mount, provides auth methods via `AuthContext`.
+Flow: `AuthProvider` wraps app, uses `onAuthStateChanged` for session restore, provides auth methods via `AuthContext`. OAuth provider stored in `localStorage` (`colorLabAuthProvider`) for avatar resolution across sessions.
+
+A Cloud Function (`cloud-functions/src/index.js`) runs `beforeUserCreated` to set `emailVerified: true` for OAuth providers, preventing Firebase's trusted-provider overwrite behavior.
 
 ### URL State
 
@@ -84,7 +86,7 @@ ThemeProvider
 
 ### Core Utilities
 
-- `src/utils/appwrite.ts`: Appwrite client, account, databases exports
+- `src/utils/firebase.ts`: Firebase app, auth, Firestore db exports
 - `src/utils/color.ts`: Color helpers (chroma percentage, random color)
 - `src/utils/export.ts`: Generate CSS/SCSS/Tailwind/SVG exports
 - `src/utils/palette.ts`: Pure functions for palette CRUD operations (used by store)
@@ -96,7 +98,7 @@ ThemeProvider
 - **Zustand**: State management (stores in `src/stores/`)
 - **HeroUI**: Component library with Tailwind CSS 4
 - **React Router**: Routing (`/`, `/p/*`, `/auth/callback` routes)
-- **Appwrite**: Backend authentication service
+- **Firebase**: Authentication (with Identity Platform) + Firestore Lite for palette storage
 - **@gilbarbara/hooks**: `useMemoDeepCompare`, `useToggle`, `useBreakpoint`, `useSetState`
 
 ## Testing

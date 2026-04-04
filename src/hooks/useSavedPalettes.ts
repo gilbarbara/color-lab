@@ -56,7 +56,7 @@ export default function useSavedPalettes() {
 
   // Fetch palettes on mount when authenticated
   useEffect(() => {
-    if (!isAuthenticated || !user?.$id) {
+    if (!isAuthenticated || !user?.uid) {
       reset();
 
       return;
@@ -66,7 +66,7 @@ export default function useSavedPalettes() {
       setStatus('loading');
 
       try {
-        const response = await listPalettes(user.$id);
+        const response = await listPalettes(user.uid);
 
         setPalettes(response);
       } catch (error_) {
@@ -75,20 +75,20 @@ export default function useSavedPalettes() {
     };
 
     fetchPalettes();
-  }, [isAuthenticated, user?.$id, reset, setError, setPalettes, setStatus]);
+  }, [isAuthenticated, user?.uid, reset, setError, setPalettes, setStatus]);
 
   // Save a new palette
   const savePalette = useCallback(
     async (name: string): Promise<SavedPalette | null> => {
-      if (!user?.$id) {
+      if (!user?.uid) {
         return null;
       }
 
       try {
-        const palette = await createPalette(user.$id, name, currentUrl);
+        const palette = await createPalette(user.uid, name, currentUrl);
 
         addPalette(palette);
-        setLoadedPalette(palette.$id, palette.name, palette.url);
+        setLoadedPalette(palette.id, palette.name, palette.url);
 
         navigate(palette.url, { replace: true });
 
@@ -99,7 +99,7 @@ export default function useSavedPalettes() {
         return null;
       }
     },
-    [user?.$id, currentUrl, addPalette, setLoadedPalette, setError, navigate],
+    [user?.uid, currentUrl, addPalette, setLoadedPalette, setError, navigate],
   );
 
   // Update the currently loaded palette
@@ -111,7 +111,7 @@ export default function useSavedPalettes() {
     try {
       const updated = await updatePaletteService(loadedPaletteId, { url: currentUrl });
 
-      updatePaletteInStore(loadedPaletteId, { url: updated.url, $updatedAt: updated.$updatedAt });
+      updatePaletteInStore(loadedPaletteId, { url: updated.url, updatedAt: updated.updatedAt });
       setLoadedPalette(loadedPaletteId, loadedPaletteName, updated.url);
 
       return true;
@@ -158,7 +158,7 @@ export default function useSavedPalettes() {
   // Toggle favorite status
   const toggleFavorite = useCallback(
     async (id: string): Promise<boolean> => {
-      const palette = palettes.find(p => p.$id === id);
+      const palette = palettes.find(p => p.id === id);
 
       if (!palette) {
         return false;

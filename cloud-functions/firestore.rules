@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /palettes/{paletteId} {
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.keys().hasOnly(['userId', 'name', 'url', 'isFavorite', 'createdAt', 'updatedAt'])
+                    && request.resource.data.name is string
+                    && request.resource.data.url is string
+                    && request.resource.data.isFavorite is bool;
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+      allow update: if request.auth != null
+                    && resource.data.userId == request.auth.uid
+                    && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['userId', 'createdAt']);
+    }
+  }
+}

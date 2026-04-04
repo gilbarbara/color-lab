@@ -65,10 +65,10 @@ export default function usePaletteIdSync() {
     }
 
     // Check cache first (from My Palettes visit)
-    const cachedPalette = palettes.find(p => p.$id === paletteId);
+    const cachedPalette = palettes.find(p => p.id === paletteId);
 
-    if (cachedPalette && cachedPalette.userId === user.$id) {
-      setLoadedPalette(cachedPalette.$id, cachedPalette.name, cachedPalette.url);
+    if (cachedPalette && cachedPalette.userId === user.uid) {
+      setLoadedPalette(cachedPalette.id, cachedPalette.name, cachedPalette.url);
 
       return;
     }
@@ -77,8 +77,8 @@ export default function usePaletteIdSync() {
     (async () => {
       const palette = await getPalette(paletteId);
 
-      if (palette && palette.userId === user.$id) {
-        setLoadedPalette(palette.$id, palette.name, palette.url);
+      if (palette && palette.userId === user.uid) {
+        setLoadedPalette(palette.id, palette.name, palette.url);
       } else {
         navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
         clearLoadedPalette();

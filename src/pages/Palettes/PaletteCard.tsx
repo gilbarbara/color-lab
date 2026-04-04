@@ -26,14 +26,14 @@ export function PaletteCard(props: PaletteCardProps) {
 
   const handleClickDelete = async () => {
     setIsDeleting(true);
-    await onDelete(palette.$id);
+    await onDelete(palette.id);
     setIsDeleting(false);
 
     trackEvent('delete-saved-palette', { value: palette.name });
   };
 
   const handleClickFavorite = () => {
-    onToggleFavorite(palette.$id);
+    onToggleFavorite(palette.id);
 
     trackEvent(palette.isFavorite ? 'unfavorite-palette' : 'favorite-palette', {
       value: palette.name,
@@ -59,7 +59,7 @@ export function PaletteCard(props: PaletteCardProps) {
                 {palette.name}
               </Link>
             </h3>
-            <p className="text-xs text-default-500">{formatDate(palette.$updatedAt)}</p>
+            <p className="text-xs text-default-500">{formatDate(palette.updatedAt)}</p>
           </div>
           <div className="flex items-center gap-0.5">
             <Button

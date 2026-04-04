@@ -15,7 +15,7 @@ vi.mock('react-router', () => ({
   useNavigate: () => mockNavigate,
 }));
 
-const mockUser = { $id: 'user-1', email: 'test@example.com', name: 'Test' };
+const mockUser = { uid: 'user-1', email: 'test@example.com', displayName: 'Test', photoURL: null };
 
 vi.mock('~/hooks/useAuth', () => ({
   default: () => ({
@@ -37,13 +37,9 @@ vi.mock('~/services/palettes', () => ({
 }));
 
 const mockPalette: SavedPalette = {
-  $id: 'palette-1',
-  $createdAt: '2024-01-01T00:00:00.000Z',
-  $updatedAt: '2024-01-02T00:00:00.000Z',
-  $permissions: [],
-  $databaseId: 'color-lab',
-  $tableId: 'palettes',
-  $sequence: 1,
+  id: 'palette-1',
+  createdAt: '2024-01-01T00:00:00.000Z',
+  updatedAt: '2024-01-02T00:00:00.000Z',
   userId: 'user-1',
   name: 'Test Palette',
   url: '/p/red-ff0000/blue-0000ff?id=palette-1',
@@ -63,7 +59,7 @@ async function renderUseSavedPalettes() {
 describe('hooks/useSavedPalettes', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockListPalettes.mockResolvedValue({ total: 0, rows: [] });
+    mockListPalettes.mockResolvedValue([]);
     usePaletteStore.setState(createPalette('#FF0044'));
     useAppStore.setState({
       lastSavedUrl: null,
@@ -79,7 +75,7 @@ describe('hooks/useSavedPalettes', () => {
 
   describe('initial fetch', () => {
     it('fetches palettes on mount when authenticated', async () => {
-      mockListPalettes.mockResolvedValueOnce({ total: 1, rows: [mockPalette] });
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
 
       renderHook(() => useSavedPalettes());
 
@@ -103,7 +99,7 @@ describe('hooks/useSavedPalettes', () => {
 
   describe('savePalette', () => {
     it('creates palette and updates stores', async () => {
-      const newPalette = { ...mockPalette, $id: 'new-id' };
+      const newPalette = { ...mockPalette, id: 'new-id' };
 
       mockCreatePalette.mockResolvedValueOnce(newPalette);
 
@@ -162,7 +158,7 @@ describe('hooks/useSavedPalettes', () => {
 
       mockUpdatePalette.mockResolvedValueOnce({
         ...mockPalette,
-        $updatedAt: '2024-01-03T00:00:00.000Z',
+        updatedAt: '2024-01-03T00:00:00.000Z',
       });
 
       const { result } = renderHook(() => useSavedPalettes());
@@ -250,7 +246,7 @@ describe('hooks/useSavedPalettes', () => {
 
   describe('toggleFavorite', () => {
     it('toggles favorite status', async () => {
-      mockListPalettes.mockResolvedValueOnce({ total: 1, rows: [mockPalette] });
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
       mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, isFavorite: true });
 
       const { result } = renderHook(() => useSavedPalettes());
@@ -283,7 +279,7 @@ describe('hooks/useSavedPalettes', () => {
     });
 
     it('sets error on failure', async () => {
-      mockListPalettes.mockResolvedValueOnce({ total: 1, rows: [mockPalette] });
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
       mockUpdatePalette.mockRejectedValueOnce(new Error('Favorite failed'));
 
       const { result } = renderHook(() => useSavedPalettes());
@@ -302,7 +298,7 @@ describe('hooks/useSavedPalettes', () => {
 
   describe('renamePalette', () => {
     it('updates palette name', async () => {
-      mockListPalettes.mockResolvedValueOnce({ total: 1, rows: [mockPalette] });
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
       mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Renamed' });
 
       const { result } = renderHook(() => useSavedPalettes());
@@ -323,7 +319,7 @@ describe('hooks/useSavedPalettes', () => {
     });
 
     it('updates loaded palette name if renaming the current one', async () => {
-      mockListPalettes.mockResolvedValueOnce({ total: 1, rows: [mockPalette] });
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
       useAppStore.setState({
         loadedPaletteId: 'palette-1',
         loadedPaletteName: 'Test Palette',

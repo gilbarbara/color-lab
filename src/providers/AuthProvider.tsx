@@ -1,41 +1,71 @@
 import type { ReactNode } from 'react';
 import { useCallback, useEffect, useMemo } from 'react';
-import { ID, OAuthProvider } from 'appwrite';
+import {
+  createUserWithEmailAndPassword,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  linkWithCredential,
+  onAuthStateChanged,
+  sendSignInLinkToEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from 'firebase/auth';
+import type { AuthError, User } from 'firebase/auth';
 
-import AuthContext, { type OAuthProvider as Provider } from '~/contexts/auth';
+import AuthContext, { type AppUser, type OAuthProvider } from '~/contexts/auth';
 import { useAuthStore } from '~/stores/authStore';
-import { account } from '~/utils/appwrite';
+import { auth } from '~/utils/firebase';
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
+const PROVIDER_STORAGE_KEY = 'colorLabAuthProvider';
+
+function toAppUser(user: User): AppUser {
+  return {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    providerData: user.providerData.map(p => ({
+      providerId: p.providerId,
+      photoURL: p.photoURL,
+    })),
+  };
+}
+
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const { error, provider, setError, setProvider, setStatus, setUser, status, user } =
-    useAuthStore();
+  const {
+    error,
+    provider,
+    setError,
+    setPendingCredential,
+    setProvider,
+    setStatus,
+    setUser,
+    status,
+    user,
+  } = useAuthStore();
 
-  // Session restoration on mount
+  // Listen for auth state changes (handles session restore + all sign-in/out)
   useEffect(() => {
-    const restoreSession = async () => {
-      setStatus('loading');
+    setStatus('loading');
 
-      try {
-        const currentUser = await account.get();
-
-        setUser(currentUser);
-
-        const session = await account.getSession({ sessionId: 'current' });
-
-        if (session.provider === 'google' || session.provider === 'github') {
-          setProvider(session.provider);
-        }
-      } catch {
-        // No valid session
+    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+      if (firebaseUser) {
+        setUser(toAppUser(firebaseUser));
+        setProvider(localStorage.getItem(PROVIDER_STORAGE_KEY) as OAuthProvider | null);
+      } else {
         setUser(null);
+        setProvider(null);
+        localStorage.removeItem(PROVIDER_STORAGE_KEY);
       }
-    };
+    });
 
-    restoreSession();
+    return unsubscribe;
   }, [setProvider, setStatus, setUser]);
 
   // Email/Password Login
@@ -45,17 +75,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setStatus('loading');
 
       try {
-        await account.createEmailPasswordSession({ email, password });
-        const currentUser = await account.get();
-
-        setUser(currentUser);
+        await signInWithEmailAndPassword(auth, email, password);
       } catch (error_) {
         setStatus('unauthenticated');
         setError(error_ instanceof Error ? error_.message : 'Login failed');
         throw error_;
       }
     },
-    [setUser, setStatus, setError],
+    [setStatus, setError],
   );
 
   // Email/Password Signup
@@ -65,37 +92,73 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setStatus('loading');
 
       try {
-        await account.create({ userId: ID.unique(), email, password, name });
-        // Auto-login after signup
-        await account.createEmailPasswordSession({ email, password });
-        const currentUser = await account.get();
+        const { user: newUser } = await createUserWithEmailAndPassword(auth, email, password);
 
-        setUser(currentUser);
+        if (name) {
+          await updateProfile(newUser, { displayName: name });
+          setUser(toAppUser(newUser));
+        }
       } catch (error_) {
         setStatus('unauthenticated');
         setError(error_ instanceof Error ? error_.message : 'Signup failed');
         throw error_;
       }
     },
-    [setUser, setStatus, setError],
+    [setStatus, setError, setUser],
   );
 
   // OAuth Login (Google/GitHub)
-  const loginWithOAuth = useCallback((oauthProvider: Provider) => {
-    const appwriteProvider =
-      oauthProvider === 'google' ? OAuthProvider.Google : OAuthProvider.Github;
-    const successUrl = `${window.location.origin}/auth/callback`;
-    const failureUrl = `${window.location.origin}/auth/callback?error=oauth_failed`;
+  const loginWithOAuth = useCallback(
+    async (oauthProvider: OAuthProvider) => {
+      const authProvider =
+        oauthProvider === 'google' ? new GoogleAuthProvider() : new GithubAuthProvider();
 
-    sessionStorage.setItem('authReturnUrl', window.location.pathname + window.location.search);
+      localStorage.setItem(PROVIDER_STORAGE_KEY, oauthProvider);
 
-    // This redirects the browser - no return value
-    account.createOAuth2Session({
-      provider: appwriteProvider,
-      success: successUrl,
-      failure: failureUrl,
-    });
-  }, []);
+      try {
+        const result = await signInWithPopup(auth, authProvider);
+
+        // If there's a pending credential from a prior linking attempt, link it now
+        const credential = useAuthStore.getState().pendingCredential;
+
+        if (credential) {
+          try {
+            await linkWithCredential(result.user, credential);
+          } catch (error_) {
+            // eslint-disable-next-line no-console
+            console.warn('Failed to link credential:', error_);
+          }
+
+          setPendingCredential(null);
+          setError(null);
+        }
+      } catch (error_: unknown) {
+        const authError = error_ as AuthError;
+
+        if (authError.code === 'auth/account-exists-with-different-credential') {
+          const credential =
+            oauthProvider === 'google'
+              ? GoogleAuthProvider.credentialFromError(authError)
+              : GithubAuthProvider.credentialFromError(authError);
+
+          if (credential) {
+            setPendingCredential(credential);
+            const existing = oauthProvider === 'google' ? 'GitHub' : 'Google';
+
+            setError(
+              `This email is already linked to ${existing}. Sign in with ${existing} now to link both accounts.`,
+            );
+
+            return;
+          }
+        }
+
+        localStorage.removeItem(PROVIDER_STORAGE_KEY);
+        setError(error_ instanceof Error ? error_.message : 'OAuth login failed');
+      }
+    },
+    [setError, setPendingCredential],
+  );
 
   // Magic Link
   const sendMagicLink = useCallback(
@@ -103,10 +166,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setError(null);
 
       try {
-        const callbackUrl = `${window.location.origin}/auth/callback`;
+        const actionCodeSettings = {
+          url: `${window.location.origin}/auth/callback`,
+          handleCodeInApp: true,
+        };
 
         sessionStorage.setItem('authReturnUrl', window.location.pathname + window.location.search);
-        await account.createMagicURLToken({ userId: ID.unique(), email, url: callbackUrl });
+        localStorage.setItem('emailForSignIn', email);
+        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
       } catch (error_) {
         setError(error_ instanceof Error ? error_.message : 'Failed to send magic link');
         throw error_;
@@ -118,8 +185,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // Logout
   const logout = useCallback(async () => {
     try {
-      await account.deleteSession({ sessionId: 'current' });
+      await signOut(auth);
     } finally {
+      localStorage.removeItem(PROVIDER_STORAGE_KEY);
       setUser(null);
     }
   }, [setUser]);

@@ -1,24 +1,11 @@
 import { useAuthStore } from '~/stores/authStore';
 
 const mockUser = {
-  $id: 'user-123',
-  $createdAt: '2024-01-01T00:00:00.000Z',
-  $updatedAt: '2024-01-01T00:00:00.000Z',
-  name: 'Test User',
+  uid: 'user-123',
   email: 'test@example.com',
-  phone: '',
-  emailVerification: true,
-  phoneVerification: false,
-  mfa: false,
-  prefs: {},
-  targets: [],
-  accessedAt: '2024-01-01T00:00:00.000Z',
-  registration: '2024-01-01T00:00:00.000Z',
-  status: true,
-  labels: [],
-  passwordUpdate: '2024-01-01T00:00:00.000Z',
-  hashOptions: {},
-  hash: '',
+  displayName: 'Test User',
+  photoURL: null,
+  providerData: [],
 };
 
 describe('stores/authStore', () => {

@@ -1,4 +1,3 @@
-import type { Models } from 'appwrite';
 import { create } from 'zustand';
 
 import type { SavedPalette } from '~/types';
@@ -8,7 +7,7 @@ interface PalettesActions {
   removePalette: (id: string) => void;
   reset: () => void;
   setError: (error: string | null) => void;
-  setPalettes: (palettes: Models.RowList<SavedPalette>) => void;
+  setPalettes: (palettes: SavedPalette[]) => void;
   setStatus: (status: PalettesState['status']) => void;
   updatePalette: (id: string, updates: Partial<SavedPalette>) => void;
 }
@@ -35,19 +34,19 @@ export const usePalettesStore = create<PalettesActions & PalettesState>(set => (
 
   removePalette: id =>
     set(state => ({
-      palettes: state.palettes.filter(p => p.$id !== id),
+      palettes: state.palettes.filter(p => p.id !== id),
     })),
 
   reset: () => set(initialState),
 
   setError: error => set({ error, status: error ? 'error' : 'idle' }),
 
-  setPalettes: palettes => set({ palettes: palettes.rows, status: 'idle' }),
+  setPalettes: palettes => set({ palettes, status: 'idle' }),
 
   setStatus: status => set({ status }),
 
   updatePalette: (id, updates) =>
     set(state => ({
-      palettes: state.palettes.map(p => (p.$id === id ? { ...p, ...updates } : p)),
+      palettes: state.palettes.map(p => (p.id === id ? { ...p, ...updates } : p)),
     })),
 }));

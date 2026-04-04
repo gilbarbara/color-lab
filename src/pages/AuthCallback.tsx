@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Spinner } from '@heroui/react';
+import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 
 import { useAuthStore } from '~/stores/authStore';
-import { account } from '~/utils/appwrite';
-import { syncUserAvatar } from '~/utils/oauth';
+import { auth } from '~/utils/firebase';
 
 export default function AuthCallback() {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { setError, setProvider, setStatus, setUser } = useAuthStore();
+  const { setError } = useAuthStore();
   const [message, setMessage] = useState('Completing authentication...');
 
   useEffect(() => {
@@ -20,67 +19,37 @@ export default function AuthCallback() {
     };
 
     const handleCallback = async () => {
-      const error = searchParams.get('error');
-      const userId = searchParams.get('userId');
-      const secret = searchParams.get('secret');
+      // Handle Magic Link verification
+      if (isSignInWithEmailLink(auth, window.location.href)) {
+        setMessage('Verifying magic link...');
 
-      // Handle OAuth failure
-      if (error) {
-        setError('Authentication failed');
+        const email = localStorage.getItem('emailForSignIn');
+
+        if (!email) {
+          setError('Please enter your email to complete sign-in');
+          navigateBack();
+
+          return;
+        }
+
+        try {
+          await signInWithEmailLink(auth, email, window.location.href);
+          localStorage.removeItem('emailForSignIn');
+        } catch (error_) {
+          setError(error_ instanceof Error ? error_.message : 'Magic link verification failed');
+        }
+
         navigateBack();
 
         return;
       }
 
-      // Handle Magic Link verification
-      if (userId && secret) {
-        setMessage('Verifying magic link...');
-
-        try {
-          await account.createSession({ userId, secret });
-          const currentUser = await account.get();
-
-          setUser(currentUser);
-          navigateBack();
-
-          return;
-        } catch (error_) {
-          setError(error_ instanceof Error ? error_.message : 'Magic link verification failed');
-          navigateBack();
-
-          return;
-        }
-      }
-
-      // Handle OAuth success (session already created by Appwrite)
-      try {
-        const currentUser = await account.get();
-
-        setUser(currentUser);
-
-        const session = await account.getSession({ sessionId: 'current' });
-
-        if (session.provider === 'google' || session.provider === 'github') {
-          setProvider(session.provider);
-        }
-
-        // Sync avatar in background (don't block navigation)
-        syncUserAvatar(account)
-          .then(async () => {
-            const updatedUser = await account.get();
-
-            setUser(updatedUser);
-          })
-          .catch(() => {});
-      } catch {
-        setStatus('unauthenticated');
-      }
-
+      // No magic link — just redirect back
       navigateBack();
     };
 
     handleCallback();
-  }, [searchParams, navigate, setError, setProvider, setStatus, setUser]);
+  }, [navigate, setError]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">

@@ -16,13 +16,9 @@ vi.mock('~/utils/url', () => ({
 }));
 
 const mockPalette: SavedPalette = {
-  $id: 'palette-1',
-  $createdAt: '2024-01-01T00:00:00.000Z',
-  $updatedAt: '2024-01-02T00:00:00.000Z',
-  $permissions: [],
-  $databaseId: 'color-lab',
-  $tableId: 'palettes',
-  $sequence: 1,
+  id: 'palette-1',
+  createdAt: '2024-01-01T00:00:00.000Z',
+  updatedAt: '2024-01-02T00:00:00.000Z',
   userId: 'user-1',
   name: 'Test Palette',
   url: '/p/red-ff0000/blue-0000ff',
