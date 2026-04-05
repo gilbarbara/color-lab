@@ -109,6 +109,58 @@ describe('SRGB', () => {
       });
     });
 
+    it('hex input sanitizes double hash', async () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const hexInput = screen.getByDisplayValue(TEST_HEX);
+
+      fireEvent.change(hexInput, { target: { value: '##FFFFFF' } });
+
+      await waitFor(() => {
+        expect(mockOnChangeHex).toHaveBeenCalledWith('#FFFFFF');
+        expect(mockOnChangeColor).toHaveBeenCalledWith('#FFFFFF');
+      });
+    });
+
+    it('hex input truncates extra characters', async () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const hexInput = screen.getByDisplayValue(TEST_HEX);
+
+      fireEvent.change(hexInput, { target: { value: 'FFFFFFF' } });
+
+      await waitFor(() => {
+        expect(mockOnChangeHex).toHaveBeenCalledWith('#FFFFFF');
+        expect(mockOnChangeColor).toHaveBeenCalledWith('#FFFFFF');
+      });
+    });
+
+    it('hex input strips non-hex characters', async () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const hexInput = screen.getByDisplayValue(TEST_HEX);
+
+      fireEvent.change(hexInput, { target: { value: '#GG00FF' } });
+
+      await waitFor(() => {
+        expect(mockOnChangeHex).toHaveBeenCalledWith('#00FF');
+        expect(mockOnChangeColor).not.toHaveBeenCalled();
+      });
+    });
+
+    it('hex input handles empty value', async () => {
+      render(<SRGB {...createDefaultProps()} />);
+
+      const hexInput = screen.getByDisplayValue(TEST_HEX);
+
+      fireEvent.change(hexInput, { target: { value: '' } });
+
+      await waitFor(() => {
+        expect(mockOnChangeHex).toHaveBeenCalledWith('');
+        expect(mockOnChangeColor).not.toHaveBeenCalled();
+      });
+    });
+
     it('randomize button generates new color', () => {
       render(<SRGB {...createDefaultProps()} />);
 

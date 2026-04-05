@@ -53,11 +53,8 @@ export default function SRGB(props: SRGBProps) {
   const handleChangeLightness = (light: number) => updateFromHSL({ h, s, l: light });
 
   const handleChangeHex = (value: string) => {
-    let prefixed = '';
-
-    if (value) {
-      prefixed = value.startsWith('#') ? value : `#${value}`;
-    }
+    const stripped = value.replace(/[^\da-f]/gi, '').slice(0, 6);
+    const prefixed = stripped ? `#${stripped}` : '';
 
     onChangeHex(prefixed);
 
