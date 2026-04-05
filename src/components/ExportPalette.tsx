@@ -124,9 +124,10 @@ export default function ExportPalette() {
               trackEvent('open-export-palette');
               onOpen();
             }}
+            startContent={<ExportIcon className="text-lg" />}
             variant="light"
           >
-            {isLarge ? 'Export All' : <ExportIcon className="text-lg" />}
+            {isLarge && 'Export All'}
           </Button>
         </Tooltip>
       )}
