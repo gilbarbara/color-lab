@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
   useDisclosure,
 } from '@heroui/react';
-import { CaretUpDownIcon, GearIcon, TrashIcon } from '@phosphor-icons/react';
+import { CaretUpDownIcon, SlidersHorizontalIcon, TrashIcon } from '@phosphor-icons/react';
 import { convert, getColorType, parseCSS, readableColorAPCA } from 'colorizr';
 
 import { trackEvent } from '~/utils/analytics';
@@ -205,7 +205,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
               >
                 <Tooltip content="Color options" delay={250} placement="bottom-end">
                   <span className="size-8 inline-flex items-center justify-center">
-                    <GearIcon className="text-base" />
+                    <SlidersHorizontalIcon className="text-base" />
                   </span>
                 </Tooltip>
               </Button>

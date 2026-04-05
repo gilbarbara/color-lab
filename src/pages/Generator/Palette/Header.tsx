@@ -1,5 +1,5 @@
 import { type ChangeEvent, type KeyboardEvent, useEffect, useMemo } from 'react';
-import { useSetState } from '@gilbarbara/hooks';
+import { useBreakpoint, useSetState } from '@gilbarbara/hooks';
 import {
   addToast,
   Button,
@@ -10,7 +10,7 @@ import {
   type SharedSelection,
   Slider,
 } from '@heroui/react';
-import { EraserIcon, GearSixIcon, HeartIcon } from '@phosphor-icons/react';
+import { EraserIcon, HeartIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys } from 'colorizr';
 
 import useAuth from '~/hooks/useAuth';
@@ -39,7 +39,6 @@ interface PaletteHeaderState {
 export default function PaletteHeader() {
   const { isAuthenticated } = useAuth();
   const { defaultOptions, globalOptions, updateGlobalOptions } = usePalette();
-  const { lock, mode, saturation, saturationOverride, steps, variant } = globalOptions;
   const { openLoginModal, showPaletteOptionsPanel, togglePaletteOptionsPanel } = useAppStore();
   const {
     hasUnsavedChanges,
@@ -49,12 +48,15 @@ export default function PaletteHeader() {
     savePalette,
     updateCurrentPalette,
   } = useSavedPalettes();
+  const { min } = useBreakpoint();
 
   const [{ isSaveModalOpen, isSaving, name }, setState] = useSetState<PaletteHeaderState>({
     isSaveModalOpen: false,
     isSaving: false,
     name: loadedPaletteName,
   });
+
+  const { lock, mode, saturation, saturationOverride, steps, variant } = globalOptions;
 
   // Sync local name state when loadedPaletteName changes (e.g., new palette or palette loaded)
   useEffect(() => {
@@ -191,6 +193,8 @@ export default function PaletteHeader() {
     updateGlobalOptions({ saturationOverride: value });
   };
 
+  const isLarge = min('md');
+
   const variants = useMemo(
     () => [
       { label: 'None', key: '' },
@@ -228,12 +232,15 @@ export default function PaletteHeader() {
           <Tooltip content="Palette Options" delay={250} placement="bottom">
             <Button
               aria-label="Palette Options"
-              className="min-w-8 size-8"
-              isIconOnly
+              className={cn({
+                'h-8 px-2 min-w-8': isLarge,
+              })}
+              isIconOnly={!isLarge}
               onPress={togglePaletteOptionsPanel}
+              startContent={<SlidersHorizontalIcon className="text-lg" />}
               variant={showPaletteOptionsPanel ? 'solid' : 'light'}
             >
-              <GearSixIcon className="text-lg" />
+              {isLarge && 'Options'}
             </Button>
           </Tooltip>
           <ExportPalette />
@@ -242,7 +249,7 @@ export default function PaletteHeader() {
             isDisabled={!!loadedPaletteId && !hasUnsavedChanges}
             isLoading={isSaving}
             onPress={handleClickSave}
-            startContent={<HeartIcon />}
+            startContent={isLarge && <HeartIcon />}
           >
             {loadedPaletteId ? 'Update' : 'Save'}
           </Button>
