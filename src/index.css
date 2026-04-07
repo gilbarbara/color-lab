@@ -6,6 +6,8 @@
 
 @theme {
   --color-tooltip: #d5e2ec;
+
+  --breakpoint-xs: 360px;
 }
 
 html.dark {

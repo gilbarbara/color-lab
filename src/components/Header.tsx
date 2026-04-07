@@ -34,14 +34,15 @@ export default function Header() {
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette();
   const { clearLoadedPalette, closeLoginModal, openLoginModal } = useAppStore();
-  const { min } = useBreakpoint();
+  const { min } = useBreakpoint({ xs: 0, sm: 360, md: 768, lg: 1024, xl: 1280 });
 
   const handleClickDarkMode = () => {
     trackEvent('dark-mode', { enabled: !isDarkMode });
     toggleDarkMode();
   };
 
-  const isLarge = min('md');
+  const isMedium = min('md');
+  const isSmall = min('sm');
 
   const providerIdMap: Record<string, string> = { google: 'google.com', github: 'github.com' };
 
@@ -54,20 +55,19 @@ export default function Header() {
       <Button
         as={NavLink}
         className="text-sm"
+        isIconOnly={!isSmall}
         onPress={() => {
           clearLoadedPalette();
           trackEvent('new-palette');
         }}
         size="sm"
+        startContent={<PlusIcon />}
         to="/p"
         variant="flat"
       >
-        <span className="inline-flex items-center gap-1">
-          <PlusIcon />
-          {isLarge ? 'New Palette' : 'New'}
-        </span>
+        <span className="hidden xs:inline-flex">{isMedium ? 'New Palette' : 'New'}</span>
       </Button>
-      {isLarge ? (
+      {isMedium ? (
         <>
           <NavLink className={navLinkClassName} to="/palettes">
             My Palettes
@@ -158,13 +158,13 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 h-16 z-10 flex items-center bg-background border-b border-default"
+      className="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
       data-uid="Header"
     >
       <div className="flex items-center w-full max-w-7xl mx-auto px-4">
         <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">
           <Link className="inline-flex items-start gap-1" to={generatorUrl}>
-            <img alt="Lab" className="h-8" src={isLarge ? '/brand/logo.svg' : '/brand/icon.svg'} />
+            <img alt="Lab" className="h-8" src={isMedium ? '/brand/logo.svg' : '/brand/icon.svg'} />
             <span className="font-bold text-sm">LAB</span>
           </Link>
         </h1>
