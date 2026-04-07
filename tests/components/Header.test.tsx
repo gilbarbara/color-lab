@@ -19,7 +19,7 @@ describe('Header', () => {
     render(<Header />, {
       authState: {
         isAuthenticated: true,
-        user: { name: 'Test User', email: 'test@example.com' },
+        user: { displayName: 'Test User', email: 'test@example.com' },
       },
     });
 
