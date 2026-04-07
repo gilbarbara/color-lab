@@ -1,5 +1,5 @@
 import { round } from '@gilbarbara/helpers';
-import { type ColorType, getOkLCHMaxChroma, parseCSS, random } from 'colorizr';
+import { getOkLCHMaxChroma, parseCSS, random } from 'colorizr';
 
 /**
  * Convert OKLCH chroma to a 0-100 percentage based on max chroma.
@@ -18,9 +18,9 @@ export function getChromaAsPercentage(color: string): number {
   return round((c / maxChroma) * 100, 1);
 }
 
-export function getRandomColor(format: ColorType, saturation?: number) {
+export function getRandomColor(saturation?: number) {
   return random({
-    format,
+    format: 'oklch',
     minLightness: 50,
     maxLightness: 70,
     minSaturation: saturation ?? 50,

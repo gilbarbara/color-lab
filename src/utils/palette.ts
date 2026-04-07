@@ -67,7 +67,7 @@ export function clearColorOverrides(state: PaletteState, index: number): Palette
  * Create a fresh palette with optional initial color
  */
 export function createPalette(initialColor?: string): PaletteState {
-  const color = initialColor ?? getRandomColor('oklch');
+  const color = initialColor ?? getRandomColor();
 
   return {
     colors: [{ id: uuid(), name: 'Primary', value: color }],
