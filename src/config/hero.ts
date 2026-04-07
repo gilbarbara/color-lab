@@ -1,6 +1,13 @@
 import { heroui } from '@heroui/react';
 
 export default heroui({
+  layout: {
+    radius: {
+      small: '4px',
+      medium: '6px',
+      large: '10px',
+    },
+  },
   themes: {
     light: {
       colors: {
@@ -15,7 +22,7 @@ export default heroui({
           700: '#535353',
           800: '#343434',
           900: '#161616',
-          DEFAULT: '#000',
+          DEFAULT: '#343434',
           foreground: '#fff',
         },
       },
@@ -33,7 +40,7 @@ export default heroui({
           700: '#a7a7a7',
           800: '#cccccc',
           900: '#f5f5f5',
-          DEFAULT: '#fff',
+          DEFAULT: '#cccccc',
           foreground: '#000',
         },
       },

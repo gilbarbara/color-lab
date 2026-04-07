@@ -40,12 +40,13 @@ export default function ExportScale(props: ExportScaleProps) {
       title="Export"
       trigger={onOpen => (
         <Button
-          className="h-8 px-2 min-w-8"
+          className="text-sm"
           onPress={() => {
             trackEvent('open-export-scale');
             onOpen();
           }}
-          variant="light"
+          size="sm"
+          variant="flat"
         >
           Export
         </Button>
