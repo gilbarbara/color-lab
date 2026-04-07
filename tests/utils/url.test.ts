@@ -1,3 +1,5 @@
+import { formatCSS, parseCSS } from 'colorizr';
+
 import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
   colorToPath,
@@ -16,6 +18,11 @@ function createColorEntry(
   overrides?: ColorEntry['overrides'],
 ): ColorEntry {
   return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
+}
+
+/** Convert hex to OKLCH string (what parsePaletteFromUrl now returns for hex URLs) */
+function hexToOklch(hex: string): string {
+  return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
 }
 
 describe('utils/url', () => {
@@ -78,7 +85,6 @@ describe('utils/url', () => {
 
   describe('serializePaletteToUrl', () => {
     it('serializes single color with default options', () => {
-      // Use computed defaults for the color being tested
       const state: PaletteState = {
         colors: [createColorEntry('Primary', '#FF0044')],
         globalOptions: getDefaultGlobalOptions('#FF0044'),
@@ -178,7 +184,6 @@ describe('utils/url', () => {
         globalOptions: defaults,
       };
 
-      // Should not include s= in URL since saturation matches the color's default
       expect(serializePaletteToUrl(state)).toBe('/p/Primary-FF0044');
     });
 
@@ -189,7 +194,6 @@ describe('utils/url', () => {
         globalOptions: { ...defaults, saturation: 25 },
       };
 
-      // Should include s=25 since it differs from the color's default saturation
       expect(serializePaletteToUrl(state)).toBe('/p/Primary-FF0044?s=25');
     });
 
@@ -200,7 +204,6 @@ describe('utils/url', () => {
         globalOptions: { ...defaults, saturationOverride: false },
       };
 
-      // Should not include o= since false is default
       expect(serializePaletteToUrl(state)).toBe('/p/Primary-FF0044');
     });
 
@@ -211,7 +214,6 @@ describe('utils/url', () => {
         globalOptions: { ...defaults, saturationOverride: true },
       };
 
-      // Should include o=1 since true differs from default
       expect(serializePaletteToUrl(state)).toBe('/p/Primary-FF0044?o=1');
     });
 
@@ -245,12 +247,13 @@ describe('utils/url', () => {
   });
 
   describe('parsePaletteFromUrl', () => {
-    it('parses single color', () => {
+    it('parses single hex color as OKLCH', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044');
 
       expect(result).not.toBeNull();
       expect(result!.colors).toHaveLength(1);
-      expect(result!.colors[0]).toMatchObject({ name: 'Primary', value: '#FF0044' });
+      expect(result!.colors[0].name).toBe('Primary');
+      expect(result!.colors[0].value).toBe(hexToOklch('#FF0044'));
       expect(result!.colors[0].id).toEqual(expect.any(String));
     });
 
@@ -276,9 +279,7 @@ describe('utils/url', () => {
     });
 
     it('returns null for oklch with wrong number of parts', () => {
-      // Only 2 parts instead of 3
       expect(parsePaletteFromUrl('/p/Primary-0.64_0.142')).toBeNull();
-      // 4 parts instead of 3
       expect(parsePaletteFromUrl('/p/Primary-0.64_0.142_329_extra')).toBeNull();
     });
 
@@ -294,15 +295,12 @@ describe('utils/url', () => {
     });
 
     it('ignores malformed option parts', () => {
-      // Missing value after colon
       const result = parsePaletteFromUrl('/p/Primary-FF0044-x:');
 
       expect(result).not.toBeNull();
-      // x: without value should be ignored
     });
 
     it('handles empty options string', () => {
-      // Color with trailing dash but no options
       const result = parsePaletteFromUrl('/p/Primary-FF0044-');
 
       expect(result).not.toBeNull();
@@ -313,7 +311,6 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-x:abc');
 
       expect(result).not.toBeNull();
-      // x:abc should be ignored since 'abc' is not a number
       expect(result!.colors[0].overrides).toEqual({});
     });
 
@@ -321,7 +318,6 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044?f=abc');
 
       expect(result).not.toBeNull();
-      // f=abc should be ignored, use default
       expect(result!.globalOptions.lightnessCurve).toBe(1.5);
     });
 
@@ -329,7 +325,6 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044?z=unknown');
 
       expect(result).not.toBeNull();
-      // Unknown key should be ignored, only defaults applied
     });
 
     it('parses mode with full name if short not found', () => {
@@ -370,9 +365,10 @@ describe('utils/url', () => {
       expect(result!.globalOptions.steps).toBe(15);
     });
 
-    it('uses computed saturation as default', () => {
+    it('computes saturation from parsed color value', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044');
-      const expectedDefaults = getDefaultGlobalOptions('#FF0044');
+      const parsedValue = result!.colors[0].value;
+      const expectedDefaults = getDefaultGlobalOptions(parsedValue);
 
       expect(result).not.toBeNull();
       expect(result!.globalOptions.saturation).toBe(expectedDefaults.saturation);
@@ -409,23 +405,28 @@ describe('utils/url', () => {
     });
 
     it('returns null for malformed segment', () => {
-      expect(parsePaletteFromUrl('/p/Primary')).toBeNull(); // missing value
+      expect(parsePaletteFromUrl('/p/Primary')).toBeNull();
     });
 
     it('parses URL without /p/ prefix', () => {
       const result = parsePaletteFromUrl('Primary-FF0044');
 
       expect(result).not.toBeNull();
-      expect(result!.colors[0]).toMatchObject({ name: 'Primary', value: '#FF0044' });
+      expect(result!.colors[0].name).toBe('Primary');
+      expect(result!.colors[0].value).toBe(hexToOklch('#FF0044'));
     });
 
-    it('round-trips: serialize then parse returns equivalent state', () => {
+    it('round-trips OKLCH: serialize then parse returns equivalent state', () => {
       const original: PaletteState = {
         colors: [
-          createColorEntry('Primary', '#FF0044', { maxLightness: 0.95 }),
-          createColorEntry('Color Two', 'oklch(0.64 0.142 329)'),
+          createColorEntry('Primary', 'oklch(0.64 0.142 329)', { maxLightness: 0.95 }),
+          createColorEntry('Color Two', 'oklch(0.7 0.2 120)'),
         ],
-        globalOptions: { ...getDefaultGlobalOptions('#FF0044'), lightnessCurve: 1.8, mode: 'dark' },
+        globalOptions: {
+          ...getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
+          lightnessCurve: 1.8,
+          mode: 'dark',
+        },
       };
 
       const url = serializePaletteToUrl(original);
@@ -434,12 +435,19 @@ describe('utils/url', () => {
       expect(parsed).not.toBeNull();
       expect(parsed!.colors).toHaveLength(2);
       expect(parsed!.colors[0].name).toBe('Primary');
-      expect(parsed!.colors[0].value).toBe('#FF0044');
+      expect(parsed!.colors[0].value).toBe('oklch(0.64 0.142 329)');
       expect(parsed!.colors[0].overrides).toEqual({ maxLightness: 0.95 });
       expect(parsed!.colors[1].name).toBe('Color Two');
-      expect(parsed!.colors[1].value).toBe('oklch(0.64 0.142 329)');
+      expect(parsed!.colors[1].value).toBe('oklch(0.7 0.2 120)');
       expect(parsed!.globalOptions.lightnessCurve).toBe(1.8);
       expect(parsed!.globalOptions.mode).toBe('dark');
+    });
+
+    it('backward compat: hex URLs are converted to OKLCH', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.colors[0].value).toMatch(/^oklch\(/);
     });
   });
 

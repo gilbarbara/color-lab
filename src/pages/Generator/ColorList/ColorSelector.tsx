@@ -1,81 +1,64 @@
-import { type ChangeEvent, type KeyboardEvent, useEffect } from 'react';
-import { useBreakpoint, useMemoDeepCompare, useSetState } from '@gilbarbara/hooks';
+import { type ChangeEvent, type KeyboardEvent, useEffect, useMemo } from 'react';
+import { useSetState } from '@gilbarbara/hooks';
 import {
   Button,
-  cn,
   Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
   useDisclosure,
 } from '@heroui/react';
-import { CaretUpDownIcon, SlidersHorizontalIcon, TrashIcon } from '@phosphor-icons/react';
-import { convert, getColorType, parseCSS, readableColorAPCA } from 'colorizr';
+import { CaretUpDownIcon } from '@phosphor-icons/react';
+import Chrome, { ChromeInputType } from '@uiw/react-color-chrome';
+import { convert, formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
 
+import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
-import { getChromaAsPercentage } from '~/utils/color';
+import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
-import ConfirmTooltip from '~/components/ConfirmTooltip';
-import ScaleColorOptions from '~/components/ScaleColorOptions';
+import ChannelSliders, { type ColorMode } from '~/components/ChannelSliders';
+import ColorCircle from '~/components/ColorCircle';
 import Tooltip from '~/components/Tooltip';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
 
-import OKLCH from './OKLCH';
-import SRGB from './SRGB';
+import ColorActions from './ColorActions';
+
+const modes: ColorMode[] = ['hsl', 'rgb', 'oklch'];
 
 interface ColorSelectorProps {
-  baseSaturation: number;
   colorEntry: ColorEntry;
   globalOptions: GlobalScaleOptions;
   index: number;
   isOnlyColor: boolean;
-  onRemoveColor: (index: number) => void;
-  onResetColor: (index: number) => void;
-  onUpdateColor: (index: number, updates: Partial<ColorEntry>) => void;
-  onUpdateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
 
 interface ColorSelectorState {
   hex: string;
-  mode: 'srgb' | 'oklch';
+  mode: ColorMode;
   name: string;
 }
 
 export default function ColorSelector(props: ColorSelectorProps) {
-  const {
-    baseSaturation,
-    colorEntry,
-    globalOptions,
-    index,
-    isOnlyColor,
-    onRemoveColor,
-    onResetColor,
-    onUpdateColor,
-    onUpdateGlobalOptions,
-  } = props;
+  const { colorEntry, globalOptions, index, isOnlyColor } = props;
+  const { baseSaturation, updateColor, updateGlobalOptions } = usePalette();
   const [{ hex, mode, name }, setState] = useSetState<ColorSelectorState>({
     hex: convert(colorEntry.value, 'hex'),
-    mode: getColorType(colorEntry.value) === 'oklch' ? 'oklch' : 'srgb',
+    mode: 'hsl',
     name: colorEntry.name,
   });
   const { isOpen, onOpenChange } = useDisclosure();
-  const { max, min } = useBreakpoint();
 
   const color = colorEntry.value;
-  const oklch = parseCSS(color, 'oklch');
+
+  const inputValue = useMemo(() => (mode === 'oklch' ? color : hex), [color, hex, mode]);
 
   // Sync when colorValue changes externally (URL navigation, reset)
   useEffect(() => {
     setState({
       hex: convert(color, 'hex'),
-      mode: getColorType(color) === 'oklch' ? 'oklch' : 'srgb',
     });
   }, [color, setState]);
-
-  const useLightTheme = useMemoDeepCompare(() => {
-    return readableColorAPCA(color) !== '#ffffff';
-  }, [color, globalOptions, colorEntry.overrides]);
 
   const handleBlurName = () => {
     if (colorEntry.name !== name) {
@@ -86,21 +69,15 @@ export default function ColorSelector(props: ColorSelectorProps) {
   };
 
   const handleChangeColor = (value: string) => {
-    onUpdateColor(index, { value });
+    updateColor(index, { value });
 
     if (index === 0) {
-      onUpdateGlobalOptions({
+      updateGlobalOptions({
         saturation: getChromaAsPercentage(value),
       });
     }
 
-    if (mode === 'oklch') {
-      setState({ hex: convert(value, 'hex') });
-    }
-  };
-
-  const handleChangeHex = (value: string) => {
-    setState({ hex: value });
+    setState({ hex: convert(value, 'hex') });
   };
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -111,29 +88,49 @@ export default function ColorSelector(props: ColorSelectorProps) {
 
   const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      onUpdateColor(index, { name });
+      updateColor(index, { name });
       trackEvent('edit-color-name', { name });
     }
   };
 
   const handleClickMode = () => {
-    const next = mode === 'srgb' ? 'oklch' : 'srgb';
+    const currentIndex = modes.indexOf(mode);
+    const next = modes[(currentIndex + 1) % modes.length];
 
     trackEvent('color-mode', { value: next });
     setState({ mode: next });
   };
 
-  const handleClickOptions = () => {
-    trackEvent('open-color-options-overrides');
+  const handleClickRandom = () => {
+    trackEvent('random-color');
+    const randomColor = getRandomColor(baseSaturation);
+
+    handleChangeColor(randomColor);
   };
 
-  const handleResetOptions = () => {
-    onResetColor(index);
-    trackEvent('reset-color-options-overrides');
+  const handleChangeInput = (value: string) => {
+    if (mode === 'oklch') {
+      if (isValidColor(value)) {
+        handleChangeColor(value);
+      }
+    } else {
+      const stripped = value.replace(/[^\da-f]/gi, '').slice(0, 6);
+      const prefixed = stripped ? `#${stripped}` : '';
+
+      setState({ hex: prefixed });
+
+      if ((prefixed.length === 4 || prefixed.length === 7) && isHex(prefixed)) {
+        const oklch = formatCSS(parseCSS(prefixed, 'oklch'), { format: 'oklch' });
+
+        handleChangeColor(oklch);
+      }
+    }
   };
 
-  const handleUpdateOptions = (updates: Partial<GlobalScaleOptions>) => {
-    onUpdateColor(index, { overrides: { ...colorEntry.overrides, ...updates } });
+  const handleChangePicker = (pickerHex: string) => {
+    const oklch = formatCSS(parseCSS(pickerHex, 'oklch'), { format: 'oklch' });
+
+    handleChangeColor(oklch);
   };
 
   return (
@@ -142,35 +139,56 @@ export default function ColorSelector(props: ColorSelectorProps) {
       data-uid="ColorSelector"
       id={`${index}-${color}`}
     >
-      <style>
-        {`
-      .popover-content-${index} { background-color: ${color}; }
-      .popover-base-${index} {
-        &:before {
-          background-color: ${color};
-          ${max('lg') ? 'right: calc(var(--spacing) * 8);' : ''}
-        }
-       }
-      `}
-      </style>
       <div className="flex items-center justify-between">
-        <Input
-          classNames={{
-            innerWrapper: 'pb-0',
-            input: 'text-base font-semibold text-foreground-800',
-          }}
-          color={colorEntry.name !== name ? 'warning' : undefined}
-          disableAnimation
-          name={`color-name-${index}`}
-          onBlur={handleBlurName}
-          onChange={handleChangeName}
-          onKeyDown={handleKeyDownName}
-          size="sm"
-          value={name}
-          variant="underlined"
-        />
+        <div className="flex items-center gap-1">
+          <Popover
+            backdrop="transparent"
+            classNames={{
+              base: '-ml-1.5',
+              trigger: 'aria-expanded:opacity-100 aria-expanded:scale-[1]',
+            }}
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            placement="bottom-start"
+            showArrow
+          >
+            <PopoverTrigger>
+              <ColorCircle
+                aria-label="Color picker"
+                color={hex}
+                onClick={() => trackEvent('color-picker')}
+              />
+            </PopoverTrigger>
+            <PopoverContent className="p-0">
+              <Chrome
+                color={hex}
+                inputType={ChromeInputType.HEXA}
+                onChange={result => {
+                  handleChangePicker(result.hex);
+                }}
+                showAlpha={false}
+                showTriangle={false}
+              />
+            </PopoverContent>
+          </Popover>
+          <Input
+            classNames={{
+              innerWrapper: 'pb-0',
+              input: 'text-base font-semibold text-foreground-800',
+            }}
+            color={colorEntry.name !== name ? 'warning' : undefined}
+            disableAnimation
+            name={`color-name-${index}`}
+            onBlur={handleBlurName}
+            onChange={handleChangeName}
+            onKeyDown={handleKeyDownName}
+            size="sm"
+            value={name}
+            variant="underlined"
+          />
+        </div>
         <div className="flex items-center ml-2">
-          <Tooltip content="Switch between HEX and OKLCH" delay={250}>
+          <Tooltip content="Switch color space (HSL / RGB / OKLCH)" delay={250}>
             <Button
               endContent={<CaretUpDownIcon />}
               onPress={handleClickMode}
@@ -180,85 +198,29 @@ export default function ColorSelector(props: ColorSelectorProps) {
               {mode.toUpperCase()}
             </Button>
           </Tooltip>
-          <Popover
-            classNames={{
-              base: cn(`popover-base-${index}`, {
-                light: useLightTheme,
-                dark: !useLightTheme,
-              }),
-              content: cn(`p-4 min-w-xs text-foreground popover-content-${index}`),
-            }}
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            placement={min('lg') ? 'right-start' : 'bottom-end'}
-            shouldBlockScroll
-            showArrow
-            size="lg"
-          >
-            <PopoverTrigger>
-              <Button
-                aria-label="Change color options"
-                isIconOnly
-                onPress={handleClickOptions}
-                size="sm"
-                variant="light"
-              >
-                <Tooltip content="Color options" delay={250} placement="bottom-end">
-                  <span className="size-8 inline-flex items-center justify-center">
-                    <SlidersHorizontalIcon className="text-base" />
-                  </span>
-                </Tooltip>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <ScaleColorOptions
-                defaultOptions={globalOptions}
-                onReset={handleResetOptions}
-                onUpdate={handleUpdateOptions}
-                options={{ ...globalOptions, ...colorEntry.overrides }}
-                title={`Options for ${colorEntry.name}`}
-              />
-            </PopoverContent>
-          </Popover>
-          <ConfirmTooltip
-            confirmMessage="Click again to remove"
-            isDisabled={isOnlyColor}
-            message="Remove color"
-            onConfirm={() => {
-              trackEvent('remove-color');
-              onRemoveColor(index);
-            }}
-          >
-            <Button
-              aria-label="Remove color"
-              isDisabled={isOnlyColor}
-              isIconOnly
-              size="sm"
-              variant="light"
-            >
-              <TrashIcon className="text-base" />
-            </Button>
-          </ConfirmTooltip>
         </div>
       </div>
 
-      {mode === 'srgb' ? (
-        <SRGB
-          baseSaturation={baseSaturation}
-          disableSaturation={globalOptions.saturationOverride}
-          hex={hex}
-          onChangeColor={handleChangeColor}
-          onChangeHex={handleChangeHex}
-        />
-      ) : (
-        <OKLCH
-          baseSaturation={baseSaturation}
-          disableChroma={globalOptions.saturationOverride}
-          oklch={oklch}
-          onChangeColor={handleChangeColor}
-          value={color}
-        />
-      )}
+      <Input
+        aria-label="Color value"
+        onValueChange={handleChangeInput}
+        type="text"
+        value={inputValue}
+        variant="bordered"
+      />
+
+      <ChannelSliders
+        color={color}
+        disableSaturation={globalOptions.saturationOverride}
+        mode={mode}
+        onChangeColor={handleChangeColor}
+      />
+      <ColorActions
+        colorEntry={colorEntry}
+        index={index}
+        isOnlyColor={isOnlyColor}
+        onRandomColor={handleClickRandom}
+      />
     </div>
   );
 }

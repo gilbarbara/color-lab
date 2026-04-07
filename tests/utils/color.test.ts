@@ -21,18 +21,18 @@ describe('utils/color', () => {
   });
 
   describe('getRandomColor', () => {
-    it('returns a HEX color string', () => {
-      const hexColor = getRandomColor('hex');
+    it('returns an OKLCH color string', () => {
+      const color = getRandomColor();
 
-      expect(typeof hexColor).toBe('string');
-      expect(hexColor).toMatch(/^#([\da-f]{6}|[\da-f]{3})$/i);
+      expect(typeof color).toBe('string');
+      expect(color).toMatch(/^oklch\(/);
     });
 
-    it('returns a OKLCH color string', () => {
-      const oklchColor = getRandomColor('oklch');
+    it('returns an OKLCH color string with saturation param', () => {
+      const color = getRandomColor(75);
 
-      expect(typeof oklchColor).toBe('string');
-      expect(oklchColor).toMatch(/^oklch\(/);
+      expect(typeof color).toBe('string');
+      expect(color).toMatch(/^oklch\(/);
     });
   });
 });

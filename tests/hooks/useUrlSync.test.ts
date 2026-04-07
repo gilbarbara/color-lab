@@ -1,10 +1,15 @@
 import { act, renderHook } from '@testing-library/react';
+import { formatCSS, parseCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import useUrlSync from '~/hooks/useUrlSync';
 import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
+
+function hexToOklch(hex: string): string {
+  return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
+}
 
 const mockNavigate = vi.fn();
 let mockLocation = { pathname: '/', search: '' };
@@ -59,9 +64,9 @@ describe('hooks/useUrlSync', () => {
 
       expect(state.colors).toHaveLength(2);
       expect(state.colors[0].name).toBe('Primary');
-      expect(state.colors[0].value).toBe('#FF0044');
+      expect(state.colors[0].value).toBe(hexToOklch('#FF0044'));
       expect(state.colors[1].name).toBe('Secondary');
-      expect(state.colors[1].value).toBe('#00FF00');
+      expect(state.colors[1].value).toBe(hexToOklch('#00FF00'));
     });
 
     it('parses global options from query params', () => {
@@ -117,7 +122,7 @@ describe('hooks/useUrlSync', () => {
     });
 
     it('navigates when state changes', () => {
-      mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
+      mockLocation = { pathname: '/p/Primary-0.64_0.142_329', search: '' };
 
       renderHook(() => useUrlSync());
       const { result } = renderHook(() => usePalette());
@@ -125,10 +130,12 @@ describe('hooks/useUrlSync', () => {
       mockNavigate.mockClear();
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor('oklch(0.7 0.15 180)');
       });
 
-      expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-FF0044/Secondary-00FF00');
+      expect(mockNavigate).toHaveBeenCalledWith(
+        expect.stringContaining('/p/Primary-0.64_0.142_329/Secondary-'),
+      );
     });
   });
 });

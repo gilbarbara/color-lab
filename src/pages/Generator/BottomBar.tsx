@@ -51,9 +51,7 @@ export default function BottomBar() {
 
   const handleAddColor = () => {
     const lastColor = colors.at(-1);
-    const nextColor = lastColor
-      ? rotate(lastColor.value, 30)
-      : getRandomColor('oklch', baseSaturation);
+    const nextColor = lastColor ? rotate(lastColor.value, 30) : getRandomColor(baseSaturation);
 
     addColor(nextColor);
     trackEvent('add-color');
@@ -160,7 +158,7 @@ export default function BottomBar() {
             updateGlobalOptions={updateGlobalOptions}
           />
           <Divider />
-          <ColorList baseSaturation={baseSaturation} />
+          <ColorList />
           <Divider />
           <div className="p-4">
             <Button

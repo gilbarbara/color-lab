@@ -56,10 +56,11 @@ export default function TooltipClickable(props: TooltipClickableProps) {
     >
       <button
         aria-label={ariaLabel}
-        className={cn('shrink-0 text-lg', className)}
+        className={cn('inline-flex shrink-0', className)}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        tabIndex={-1}
         type="button"
       >
         {children}

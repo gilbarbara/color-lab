@@ -2,20 +2,8 @@ import usePalette from '~/hooks/usePalette';
 
 import ColorSelector from './ColorSelector';
 
-interface ColorListProps {
-  baseSaturation: number;
-}
-
-export default function ColorList(props: ColorListProps) {
-  const { baseSaturation } = props;
-  const {
-    clearColorOverrides,
-    colors,
-    globalOptions,
-    removeColor,
-    updateColor,
-    updateGlobalOptions,
-  } = usePalette();
+export default function ColorList() {
+  const { colors, globalOptions } = usePalette();
 
   return (
     <div className="p-4" data-uid="ColorList">
@@ -24,15 +12,10 @@ export default function ColorList(props: ColorListProps) {
         {colors.map((colorEntry, index) => (
           <ColorSelector
             key={colorEntry.id}
-            baseSaturation={baseSaturation}
             colorEntry={colorEntry}
             globalOptions={globalOptions}
             index={index}
             isOnlyColor={colors.length === 1}
-            onRemoveColor={removeColor}
-            onResetColor={clearColorOverrides}
-            onUpdateColor={updateColor}
-            onUpdateGlobalOptions={updateGlobalOptions}
           />
         ))}
       </div>

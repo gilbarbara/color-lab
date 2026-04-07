@@ -230,11 +230,11 @@ function urlToColorValue(urlValue: string): string | null {
     return null;
   }
 
-  // Treat as hex
+  // Treat as hex — convert to OKLCH for consistent storage
   const hex = `#${urlValue}`;
 
   if (isHex(hex)) {
-    return hex;
+    return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
   }
 
   return null;
