@@ -22,8 +22,8 @@ export default function Scale(props: ScaleProps) {
     <div className="w-full flex flex-col gap-2" data-uid="Scale">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h3 className="font-semibold text-lg">{colorEntry.name}</h3>
           <ColorCircle color={colorEntry.value} />
+          <h3 className="font-semibold text-lg">{colorEntry.name}</h3>
         </div>
         <ExportScale name={colorEntry.name} steps={steps} />
       </div>
