@@ -12,11 +12,6 @@ export default [
     ignores: ['dist/**', 'node_modules/**'],
   },
   {
-    rules: {
-      'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
-    },
-  },
-  {
     files: ['e2e/*.spec.*'],
     ...playwright.configs['flat/recommended'],
     rules: {
