@@ -134,7 +134,7 @@ describe('hooks/useUrlSync', () => {
       });
 
       expect(mockNavigate).toHaveBeenCalledWith(
-        expect.stringContaining('/p/Primary-0.64_0.142_329/Secondary-'),
+        expect.stringContaining('/p/Primary-64_0.142_329/Secondary-'),
       );
     });
   });

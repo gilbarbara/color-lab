@@ -38,7 +38,7 @@ const MODE_LONG: Record<string, string> = {
 /**
  * Convert color value to URL format
  * - Hex: 'FF0044' (without #)
- * - OKLch: '0.64_0.142_329' (L_C_H with underscores)
+ * - OKLch: '64_0.142_329' (L%_C_H with underscores, rounded)
  */
 function colorValueToUrl(value: string): string {
   // If it's a hex color, strip #
@@ -46,11 +46,11 @@ function colorValueToUrl(value: string): string {
     return value.replace('#', '').toUpperCase();
   }
 
-  // If it's oklch, convert to L_C_H format
+  // If it's oklch, convert to L_C_H format (L as percentage)
   if (isValidColor(value, 'oklch')) {
     const oklch = parseCSS(value, 'oklch');
 
-    return `${oklch.l}_${oklch.c}_${oklch.h}`;
+    return `${parseFloat((oklch.l * 100).toFixed(3))}_${parseFloat(oklch.c.toFixed(5))}_${parseFloat(oklch.h.toFixed(3))}`;
   }
 
   // Try to convert to hex
@@ -208,7 +208,8 @@ function serializeOptions(
 /**
  * Parse URL color value to usable color string
  * - 'FF0044' → '#FF0044'
- * - '0.64_0.142_329' → 'oklch(0.64 0.142 329)'
+ * - '64_0.142_329' → 'oklch(64% 0.142 329)'
+ * - '0.64_0.142_329' → 'oklch(64% 0.142 329)' (legacy support)
  */
 function urlToColorValue(urlValue: string): string | null {
   // Check if it's oklch format (contains underscores)
@@ -216,14 +217,13 @@ function urlToColorValue(urlValue: string): string | null {
     const parts = urlValue.split('_');
 
     if (parts.length === 3) {
-      const [l, c, h] = parts.map(Number.parseFloat);
+      const [rawL, c, h] = parts.map(Number.parseFloat);
 
-      if (!Number.isNaN(l) && !Number.isNaN(c) && !Number.isNaN(h)) {
-        const oklchString = `oklch(${l} ${c} ${h})`;
+      if (!Number.isNaN(rawL) && !Number.isNaN(c) && !Number.isNaN(h)) {
+        // Legacy URLs used 0-1 for lightness, new URLs use 0-100
+        const l = rawL <= 1 ? rawL : rawL / 100;
 
-        if (isValidColor(oklchString, 'oklch')) {
-          return oklchString;
-        }
+        return formatCSS({ l, c, h }, { format: 'oklch' });
       }
     }
 
@@ -258,7 +258,7 @@ export function colorToPath(color: string): string {
   if (isValidColor(color, 'oklch')) {
     const oklch = parseCSS(color, 'oklch');
 
-    return `/oklch/${oklch.l}/${oklch.c}/${oklch.h}`;
+    return `/oklch/${parseFloat((oklch.l * 100).toFixed(3))}/${parseFloat(oklch.c.toFixed(5))}/${parseFloat(oklch.h.toFixed(3))}`;
   }
 
   // Try to convert to hex for other formats
@@ -311,13 +311,10 @@ export function parseColorFromParams(params: Params): string | null {
       return null;
     }
 
-    const oklchString = `oklch(${lightness} ${chroma} ${hue})`;
-
-    if (isValidColor(oklchString, 'oklch')) {
-      return oklchString;
-    }
-
-    return null;
+    return formatCSS(
+      { l: lightness <= 1 ? lightness : lightness / 100, c: chroma, h: hue },
+      { format: 'oklch' },
+    );
   }
 
   return null;

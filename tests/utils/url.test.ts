@@ -34,8 +34,8 @@ describe('utils/url', () => {
     });
 
     it('converts oklch color to path', () => {
-      expect(colorToPath('oklch(0.7 0.2 120)')).toBe('/oklch/0.7/0.2/120');
-      expect(colorToPath('oklch(0.64 0.142 329)')).toBe('/oklch/0.64/0.142/329');
+      expect(colorToPath('oklch(0.7 0.2 120)')).toBe('/oklch/70/0.2/120');
+      expect(colorToPath('oklch(0.64 0.142 329)')).toBe('/oklch/64/0.142/329');
     });
 
     it('converts rgb color to hex path', () => {
@@ -63,7 +63,7 @@ describe('utils/url', () => {
     });
 
     it('parses oklch params', () => {
-      expect(parseColorFromParams({ l: '0.7', c: '0.2', h: '120' })).toBe('oklch(0.7 0.2 120)');
+      expect(parseColorFromParams({ l: '70', c: '0.2', h: '120' })).toBe('oklch(70% 0.2 120)');
     });
 
     it('returns null for invalid hex', () => {
@@ -108,7 +108,7 @@ describe('utils/url', () => {
         globalOptions: getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
       };
 
-      expect(serializePaletteToUrl(state)).toBe('/p/Primary-0.64_0.142_329');
+      expect(serializePaletteToUrl(state)).toBe('/p/Primary-64_0.142_329');
     });
 
     it('serializes rgb color value as hex', () => {
@@ -347,7 +347,7 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-0.64_0.142_329');
 
       expect(result).not.toBeNull();
-      expect(result!.colors[0].value).toBe('oklch(0.64 0.142 329)');
+      expect(result!.colors[0].value).toBe('oklch(64% 0.142 329)');
     });
 
     it('parses per-color options', () => {
@@ -435,10 +435,10 @@ describe('utils/url', () => {
       expect(parsed).not.toBeNull();
       expect(parsed!.colors).toHaveLength(2);
       expect(parsed!.colors[0].name).toBe('Primary');
-      expect(parsed!.colors[0].value).toBe('oklch(0.64 0.142 329)');
+      expect(parsed!.colors[0].value).toBe('oklch(64% 0.142 329)');
       expect(parsed!.colors[0].overrides).toEqual({ maxLightness: 0.95 });
       expect(parsed!.colors[1].name).toBe('Color Two');
-      expect(parsed!.colors[1].value).toBe('oklch(0.7 0.2 120)');
+      expect(parsed!.colors[1].value).toBe('oklch(70% 0.2 120)');
       expect(parsed!.globalOptions.lightnessCurve).toBe(1.8);
       expect(parsed!.globalOptions.mode).toBe('dark');
     });
