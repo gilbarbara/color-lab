@@ -15,7 +15,7 @@ export default function ChannelSliders(props: ChannelSlidersProps) {
   const { color, disableSaturation = false, mode, onChangeColor } = props;
 
   return (
-    <div className="space-y-3" data-uid="ChannelSliders">
+    <div className="space-y-3" data-testid="ChannelSliders">
       {mode === 'hsl' && (
         <HSLSliders
           color={color}

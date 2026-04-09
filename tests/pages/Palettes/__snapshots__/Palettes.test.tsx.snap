@@ -3,7 +3,7 @@
 exports[`Palettes > Render > shows empty state when no palettes 1`] = `
 <div
   class="flex flex-col flex-1"
-  data-uid="Palettes"
+  data-testid="Palettes"
 >
   <div
     class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
@@ -76,10 +76,10 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
   </div>
   <footer
     class="w-full flex items-center justify-center gap-2 flex-wrap p-4 border-t border-default"
-    data-uid="Footer"
+    data-testid="Footer"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"
@@ -140,7 +140,7 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
 exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = `
 <div
   class="flex flex-col flex-1"
-  data-uid="Palettes"
+  data-testid="Palettes"
 >
   <div
     class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
@@ -190,10 +190,10 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
   </div>
   <footer
     class="w-full flex items-center justify-center gap-2 flex-wrap p-4 border-t border-default"
-    data-uid="Footer"
+    data-testid="Footer"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"
@@ -254,7 +254,7 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
 exports[`Palettes > Render > shows palette grid 1`] = `
 <div
   class="flex flex-col flex-1"
-  data-uid="Palettes"
+  data-testid="Palettes"
 >
   <div
     class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
@@ -269,7 +269,7 @@ exports[`Palettes > Render > shows palette grid 1`] = `
     >
       <div
         class="flex flex-col relative overflow-hidden h-auto text-foreground box-border bg-content1 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none w-full"
-        data-uid="PaletteCard"
+        data-testid="PaletteCard"
         tabindex="-1"
       >
         <div
@@ -366,7 +366,7 @@ exports[`Palettes > Render > shows palette grid 1`] = `
       </div>
       <div
         class="flex flex-col relative overflow-hidden h-auto text-foreground box-border bg-content1 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none w-full"
-        data-uid="PaletteCard"
+        data-testid="PaletteCard"
         tabindex="-1"
       >
         <div
@@ -465,10 +465,10 @@ exports[`Palettes > Render > shows palette grid 1`] = `
   </div>
   <footer
     class="w-full flex items-center justify-center gap-2 flex-wrap p-4 border-t border-default"
-    data-uid="Footer"
+    data-testid="Footer"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"
@@ -529,7 +529,7 @@ exports[`Palettes > Render > shows palette grid 1`] = `
 exports[`Palettes > Render > shows sign in message when not authenticated 1`] = `
 <div
   class="flex flex-col flex-1"
-  data-uid="Palettes"
+  data-testid="Palettes"
 >
   <div
     class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
@@ -581,10 +581,10 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
   </div>
   <footer
     class="w-full flex items-center justify-center gap-2 flex-wrap p-4 border-t border-default"
-    data-uid="Footer"
+    data-testid="Footer"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"

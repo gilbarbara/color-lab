@@ -105,12 +105,12 @@ export default function BottomBar() {
         'top-[100dvh] -mt-16 overflow-hidden': !showBottomBar,
         'top-0 overflow-y-auto': showBottomBar,
       })}
-      data-uid="BottomBar"
+      data-testid="BottomBar"
     >
       <div
         aria-label="Toggle Bottom Bar"
         className="sticky top-0 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
-        data-uid="BottomBarHeader"
+        data-testid="BottomBarHeader"
         onClick={toggleBottomBar}
         onKeyDown={handleKeyDown}
         onTouchEnd={handleTouchEnd}

@@ -167,7 +167,7 @@ test.describe('User Journey', () => {
 
     test('should rename palette', async () => {
       // HeroUI Input wraps the actual input element
-      const paletteHeader = page.locator('[data-uid="PaletteHeader"]');
+      const paletteHeader = page.locator('[data-testid="PaletteHeader"]');
       const nameInput = paletteHeader.locator('input');
 
       await expect(nameInput).toBeVisible();

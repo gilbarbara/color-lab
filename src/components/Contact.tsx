@@ -98,7 +98,7 @@ export default function Contact() {
   }
 
   return (
-    <div data-uid="Contact">
+    <div data-testid="Contact">
       <button className="text-base" onClick={handleClickOpen} type="button">
         Feedback
       </button>

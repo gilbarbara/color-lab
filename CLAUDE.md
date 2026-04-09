@@ -3,9 +3,10 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Commands
+Dev server URL: **https://color-lab.localhost** (via [portless](https://github.com/vercel-labs/portless) proxy — not `localhost:3000`).
 
 ```bash
-pnpm dev             # Start dev server on port 3000 (auto-opens browser)
+pnpm dev             # Start dev server at https://color-lab.localhost (portless run vite)
 pnpm build           # TypeScript check + Vite production build
 pnpm lint            # ESLint with auto-fix
 pnpm preview         # Preview production build
@@ -13,7 +14,7 @@ pnpm test            # Run tests
 pnpm test:watch      # Run tests in watch mode
 pnpm test:coverage   # Run tests with coverage
 pnpm typecheck       # TypeScript check only
-pnpm validate        # Full validation: lint + typecheck + test:coverage + build
+pnpm validate        # Full validation: lint + typecheck + test:coverage
 ```
 
 ## Architecture
@@ -121,7 +122,6 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 
 **Conventions:**
 
-- `data-uid` attribute (not `data-testid`)
 - Vitest globals enabled (no imports for describe/it/expect)
 - `vi.clearAllMocks()` in `beforeEach()` when using mocks
 - `waitFor()` for async assertions

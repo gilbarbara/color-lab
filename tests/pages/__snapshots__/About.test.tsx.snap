@@ -3,7 +3,7 @@
 exports[`pages/About > renders correctly 1`] = `
 <div
   class="flex flex-col flex-1"
-  data-uid="About"
+  data-testid="About"
 >
   <div
     class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16"
@@ -107,10 +107,10 @@ exports[`pages/About > renders correctly 1`] = `
   </div>
   <footer
     class="w-full flex items-center justify-center gap-2 flex-wrap p-4 border-t border-default"
-    data-uid="Footer"
+    data-testid="Footer"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"

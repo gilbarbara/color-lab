@@ -51,7 +51,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
   );
 
   return (
-    <div className={cn('w-full flex flex-col gap-3', className)} data-uid="ScaleColorOptions">
+    <div className={cn('w-full flex flex-col gap-3', className)} data-testid="ScaleColorOptions">
       {title && <h3 className="font-semibold text-lg">{title}</h3>}
       {description && <div className="text-sm">{description}</div>}
 

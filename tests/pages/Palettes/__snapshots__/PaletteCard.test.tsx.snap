@@ -3,7 +3,7 @@
 exports[`PaletteCard > Render > renders correctly 1`] = `
 <div
   class="flex flex-col relative overflow-hidden h-auto text-foreground box-border bg-content1 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none w-full"
-  data-uid="PaletteCard"
+  data-testid="PaletteCard"
   tabindex="-1"
 >
   <div
@@ -103,7 +103,7 @@ exports[`PaletteCard > Render > renders correctly 1`] = `
 exports[`PaletteCard > Render > renders filled heart for favorited palette 1`] = `
 <div
   class="flex flex-col relative overflow-hidden h-auto text-foreground box-border bg-content1 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none w-full"
-  data-uid="PaletteCard"
+  data-testid="PaletteCard"
   tabindex="-1"
 >
   <div

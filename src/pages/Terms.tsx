@@ -2,7 +2,7 @@ import Page from '~/components/Page';
 
 export default function Terms() {
   return (
-    <Page data-uid="Terms">
+    <Page data-testid="Terms">
       <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
       <p className="text-foreground-500 mb-8">Effective: January 2026</p>
 

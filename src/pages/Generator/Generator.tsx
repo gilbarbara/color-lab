@@ -21,7 +21,7 @@ export default function Generator() {
       className={cn('flex flex-col md:flex-row flex-1 w-full xl:w-7xl max-w-7xl mx-auto', {
         'pb-18': isSmallScreen,
       })}
-      data-uid="Generator"
+      data-testid="Generator"
     >
       {isSmallScreen && (
         <>

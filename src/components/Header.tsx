@@ -159,7 +159,7 @@ export default function Header() {
   return (
     <header
       className="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
-      data-uid="Header"
+      data-testid="Header"
     >
       <div className="flex items-center w-full max-w-7xl mx-auto px-4">
         <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">

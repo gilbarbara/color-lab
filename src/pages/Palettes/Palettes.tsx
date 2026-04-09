@@ -90,7 +90,7 @@ export default function Palettes() {
   }
 
   return (
-    <Page className="text-center" data-uid="Palettes">
+    <Page className="text-center" data-testid="Palettes">
       <h1 className="text-4xl font-bold mb-16">My Palettes</h1>
       {content}
     </Page>
