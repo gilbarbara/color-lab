@@ -209,7 +209,7 @@ export default function PaletteHeader() {
   const locks = useMemo(() => ['None', ...getScaleStepKeys(steps).map(d => `${d}`)], [steps]);
 
   return (
-    <div data-uid="PaletteHeader">
+    <div data-testid="PaletteHeader">
       <div className="flex items-center justify-between mb-4">
         <Input
           classNames={{

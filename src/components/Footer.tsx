@@ -13,7 +13,7 @@ export default function Footer({ hideBorder = false }: FooterProps) {
       className={cn('w-full flex items-center justify-center gap-2 flex-wrap p-4', {
         'border-t border-default': !hideBorder,
       })}
-      data-uid="Footer"
+      data-testid="Footer"
     >
       <Contact />
       <span className="text-foreground-500">·</span>

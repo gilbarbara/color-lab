@@ -2,12 +2,7 @@ import '@testing-library/jest-dom';
 // Import global mocks (runs vi.mock calls and sets up clipboard)
 import './mocks';
 
-import { configure } from '@testing-library/react';
 import * as matchers from 'jest-extended';
-
-configure({
-  testIdAttribute: 'data-uid',
-});
 
 expect.extend(matchers);
 

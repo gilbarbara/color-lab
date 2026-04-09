@@ -23,7 +23,7 @@ export default function Palette({ showBottomBar = false }: PaletteProps) {
       className={cn('w-full flex flex-col', {
         'border-l border-default': !showBottomBar,
       })}
-      data-uid="Palette"
+      data-testid="Palette"
     >
       <div className="flex-1 p-4">
         <Header />

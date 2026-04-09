@@ -6,7 +6,7 @@ exports[`Contact > Render > renders correctly 1`] = `
     data-overlay-container="true"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"
@@ -27,7 +27,7 @@ exports[`Contact > Render > renders modal correctly when open 1`] = `
     data-overlay-container="true"
   >
     <div
-      data-uid="Contact"
+      data-testid="Contact"
     >
       <button
         class="text-base"

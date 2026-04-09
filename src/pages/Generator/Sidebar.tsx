@@ -29,7 +29,7 @@ export default function Sidebar() {
   return (
     <div
       className="sticky top-16 w-sm h-[calc(100vh-4rem)] flex flex-col overflow-y-auto shrink-0"
-      data-uid="Sidebar"
+      data-testid="Sidebar"
     >
       <div>
         <Header />

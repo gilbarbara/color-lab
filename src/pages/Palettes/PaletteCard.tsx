@@ -45,7 +45,7 @@ export function PaletteCard(props: PaletteCardProps) {
   };
 
   return (
-    <Card className="w-full" data-uid="PaletteCard">
+    <Card className="w-full" data-testid="PaletteCard">
       <CardBody className="p-4">
         <div className="flex items-start mb-4">
           <div className="grow space-y-0.5">

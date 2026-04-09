@@ -19,7 +19,7 @@ export default function Scale(props: ScaleProps) {
   const steps = useMemo(() => scale(colorEntry.value, options), [colorEntry.value, options]);
 
   return (
-    <div className="w-full flex flex-col gap-2" data-uid="Scale">
+    <div className="w-full flex flex-col gap-2" data-testid="Scale">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <ColorCircle color={colorEntry.value} />

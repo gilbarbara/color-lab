@@ -2,7 +2,7 @@ import Page from '~/components/Page';
 
 export default function Privacy() {
   return (
-    <Page data-uid="Privacy">
+    <Page data-testid="Privacy">
       <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
       <p className="text-foreground-500 mb-8">Effective: January 2026</p>
 

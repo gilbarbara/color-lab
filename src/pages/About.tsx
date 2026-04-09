@@ -2,7 +2,7 @@ import Page from '~/components/Page';
 
 export default function About() {
   return (
-    <Page data-uid="About">
+    <Page data-testid="About">
       <h1 className="text-4xl font-bold mb-8">ColorMeUp LAB</h1>
 
       <p className="mb-6">A design tool for creating and fine-tuning perceptual color scales.</p>
