@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import type { Page } from '@playwright/test';
 
 const PROJECT_ID = 'colormeup-485618';

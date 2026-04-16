@@ -8,7 +8,7 @@ test.use({ ...devices['Desktop Chrome'] });
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
 
-  await page.goto('/p/Primary-0.73_0.12745_321');
+  await page.goto('/p/Primary-73.0_0.12745_321');
 });
 
 test.afterAll(async () => {
@@ -39,7 +39,7 @@ test.describe('Desktop', () => {
     });
 
     test('should encode palette state in URL', async () => {
-      await expect(page).toHaveURL(/Primary-0\.73_0\.12745_321/);
+      await expect(page).toHaveURL(/Primary-73\.0_0\.12745_321/);
     });
   });
 
@@ -91,7 +91,7 @@ test.describe('Desktop', () => {
       await expect(lightnessSlider).toHaveValue('0.5');
 
       // URL should update
-      await expect(page).toHaveURL(/0\.5/);
+      await expect(page).toHaveURL(/50/);
     });
 
     test('should modify chroma slider', async () => {
@@ -289,8 +289,8 @@ test.describe('Desktop', () => {
       await expect(toast.first()).toBeVisible({ timeout: 2000 });
     });
 
-    test('should have color circle indicator', async () => {
-      await expect(page.getByRole('button', { name: 'Color Circle' }).first()).toBeVisible();
+    test('should have color box indicator', async () => {
+      await expect(page.getByRole('button', { name: 'Color Box' }).first()).toBeVisible();
     });
   });
 });

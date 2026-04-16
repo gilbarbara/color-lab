@@ -56,7 +56,7 @@ export default function TooltipClickable(props: TooltipClickableProps) {
     >
       <button
         aria-label={ariaLabel}
-        className={cn('inline-flex shrink-0', className)}
+        className={cn('inline-flex shrink-0 text-base', className)}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

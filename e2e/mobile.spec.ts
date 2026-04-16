@@ -13,7 +13,7 @@ test.use({
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
 
-  await page.goto('/p/Primary-0.73_0.12745_321');
+  await page.goto('/p/Primary-73_0.12745_321');
 });
 
 test.afterAll(async () => {
@@ -35,7 +35,7 @@ test.describe('Mobile', () => {
     });
 
     test('should encode palette state in URL', async () => {
-      await expect(page).toHaveURL(/Primary-0\.73_0\.12745_321/);
+      await expect(page).toHaveURL(/Primary-73_0\.12745_321/);
     });
 
     test('should display swatches', async () => {
@@ -108,7 +108,7 @@ test.describe('Mobile', () => {
 
       await lightnessSlider.fill('0.6');
       await expect(lightnessSlider).toHaveValue('0.6');
-      await expect(page).toHaveURL(/0\.6/);
+      await expect(page).toHaveURL(/60_/);
     });
 
     test('should modify chroma slider', async () => {
@@ -258,8 +258,8 @@ test.describe('Mobile', () => {
       await expect(toast.first()).toBeVisible({ timeout: 2000 });
     });
 
-    test('should have color circle indicator', async () => {
-      await expect(page.getByRole('button', { name: 'Color Circle' }).first()).toBeVisible();
+    test('should have color box indicator', async () => {
+      await expect(page.getByRole('button', { name: 'Color Box' }).first()).toBeVisible();
     });
   });
 });

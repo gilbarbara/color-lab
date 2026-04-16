@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { formatCSS, getOkLCHMaxChroma, type LCH, parseCSS } from 'colorizr';
+import { formatCSS, getP3MaxChroma, type LCH, parseCSS } from 'colorizr';
 
-import GradientSlider from '~/components/GradientSlider';
-import SliderInput from '~/components/SliderInput';
 import TooltipClickable from '~/components/TooltipClickable';
 
 import { oklchHueGradient, saturationTooltip } from './constants';
+import GradientSlider from './GradientSlider';
+import NumericInput from './NumericInput';
 
 interface OKLCHSlidersProps {
   color: string;
@@ -19,7 +19,7 @@ export default function OKLCHSliders(props: OKLCHSlidersProps) {
   const oklch = useMemo(() => parseCSS(color, 'oklch'), [color]);
   const { c, h, l } = oklch;
 
-  const maxChroma = useMemo(() => getOkLCHMaxChroma({ l, c: 0, h }), [l, h]);
+  const maxChroma = useMemo(() => getP3MaxChroma({ l, c: 0, h }), [l, h]);
 
   const lightnessGradient = useMemo(
     () =>
@@ -38,7 +38,7 @@ export default function OKLCHSliders(props: OKLCHSlidersProps) {
 
   const handleChangeLightness = (lightness: number) => {
     const relativeChroma = maxChroma > 0 ? c / maxChroma : 0;
-    const newMaxChroma = getOkLCHMaxChroma({ l: lightness, c: 0, h });
+    const newMaxChroma = getP3MaxChroma({ l: lightness, c: 0, h });
 
     update({ l: lightness, c: relativeChroma * newMaxChroma, h });
   };
@@ -49,7 +49,7 @@ export default function OKLCHSliders(props: OKLCHSlidersProps) {
 
   const handleChangeHue = (hue: number) => {
     const relativeChroma = maxChroma > 0 ? c / maxChroma : 0;
-    const newMaxChroma = getOkLCHMaxChroma({ l, c: 0, h: hue });
+    const newMaxChroma = getP3MaxChroma({ l, c: 0, h: hue });
 
     update({ l, c: relativeChroma * newMaxChroma, h: hue });
   };
@@ -59,7 +59,7 @@ export default function OKLCHSliders(props: OKLCHSlidersProps) {
       <GradientSlider
         aria-label="Lightness"
         endContent={
-          <SliderInput
+          <NumericInput
             max={100}
             min={0}
             onChange={v => handleChangeLightness(v / 100)}
@@ -78,7 +78,7 @@ export default function OKLCHSliders(props: OKLCHSlidersProps) {
       <GradientSlider
         aria-label="Chroma"
         endContent={
-          <SliderInput
+          <NumericInput
             max={maxChroma}
             min={0}
             onChange={handleChangeChroma}
@@ -106,7 +106,7 @@ export default function OKLCHSliders(props: OKLCHSlidersProps) {
       <GradientSlider
         aria-label="Hue"
         endContent={
-          <SliderInput
+          <NumericInput
             max={360}
             min={0}
             onChange={handleChangeHue}

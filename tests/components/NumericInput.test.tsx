@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '~/test-utils';
 
-import SliderInput from '~/components/SliderInput';
+import NumericInput from '~/components/ChannelSliders/NumericInput';
 
 const mockOnChange = vi.fn();
 
-function createDefaultProps(overrides: Partial<Parameters<typeof SliderInput>[0]> = {}) {
+function createDefaultProps(overrides: Partial<Parameters<typeof NumericInput>[0]> = {}) {
   return {
     max: 360,
     min: 0,
@@ -14,26 +14,26 @@ function createDefaultProps(overrides: Partial<Parameters<typeof SliderInput>[0]
   };
 }
 
-describe('SliderInput', () => {
+describe('NumericInput', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe('Render', () => {
     it('renders value and suffix', () => {
-      const { container } = render(<SliderInput {...createDefaultProps({ suffix: '°' })} />);
+      const { container } = render(<NumericInput {...createDefaultProps({ suffix: '°' })} />);
 
       expect(container).toMatchSnapshot();
     });
 
     it('renders invisible spacer suffix', () => {
-      const { container } = render(<SliderInput {...createDefaultProps({ suffix: ' ' })} />);
+      const { container } = render(<NumericInput {...createDefaultProps({ suffix: ' ' })} />);
 
       expect(container).toMatchSnapshot();
     });
 
     it('renders without suffix', () => {
-      const { container } = render(<SliderInput {...createDefaultProps()} />);
+      const { container } = render(<NumericInput {...createDefaultProps()} />);
 
       expect(container).toMatchSnapshot();
     });
@@ -41,23 +41,24 @@ describe('SliderInput', () => {
 
   describe('Behavior', () => {
     it('displays the value', () => {
-      render(<SliderInput {...createDefaultProps()} />);
+      render(<NumericInput {...createDefaultProps()} />);
 
       expect(screen.getByDisplayValue('180')).toBeInTheDocument();
     });
 
     it('filters non-numeric characters', () => {
-      render(<SliderInput {...createDefaultProps()} />);
+      render(<NumericInput {...createDefaultProps()} />);
 
       const input = screen.getByDisplayValue('180');
 
+      fireEvent.focus(input);
       fireEvent.change(input, { target: { value: 'abc' } });
 
       expect(screen.getByDisplayValue('')).toBeInTheDocument();
     });
 
     it('allows decimal point', () => {
-      render(<SliderInput {...createDefaultProps({ value: '0.5' })} />);
+      render(<NumericInput {...createDefaultProps({ value: '0.5' })} />);
 
       const input = screen.getByDisplayValue('0.5');
 
@@ -67,7 +68,7 @@ describe('SliderInput', () => {
     });
 
     it('replaces comma with period', () => {
-      render(<SliderInput {...createDefaultProps({ value: '0.5' })} />);
+      render(<NumericInput {...createDefaultProps({ value: '0.5' })} />);
 
       const input = screen.getByDisplayValue('0.5');
 
@@ -77,7 +78,7 @@ describe('SliderInput', () => {
     });
 
     it('skips commit when value ends with period', () => {
-      render(<SliderInput {...createDefaultProps()} />);
+      render(<NumericInput {...createDefaultProps()} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -87,7 +88,7 @@ describe('SliderInput', () => {
     });
 
     it('clamps value to max', () => {
-      render(<SliderInput {...createDefaultProps()} />);
+      render(<NumericInput {...createDefaultProps()} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -97,7 +98,7 @@ describe('SliderInput', () => {
     });
 
     it('clamps value to min', () => {
-      render(<SliderInput {...createDefaultProps({ min: 10 })} />);
+      render(<NumericInput {...createDefaultProps({ min: 10 })} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -107,7 +108,7 @@ describe('SliderInput', () => {
     });
 
     it('increments on ArrowUp', () => {
-      render(<SliderInput {...createDefaultProps({ step: 1 })} />);
+      render(<NumericInput {...createDefaultProps({ step: 1 })} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -117,7 +118,7 @@ describe('SliderInput', () => {
     });
 
     it('decrements on ArrowDown', () => {
-      render(<SliderInput {...createDefaultProps({ step: 1 })} />);
+      render(<NumericInput {...createDefaultProps({ step: 1 })} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -127,7 +128,7 @@ describe('SliderInput', () => {
     });
 
     it('increments by 10 on Shift+ArrowUp', () => {
-      render(<SliderInput {...createDefaultProps({ step: 1 })} />);
+      render(<NumericInput {...createDefaultProps({ step: 1 })} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -137,7 +138,7 @@ describe('SliderInput', () => {
     });
 
     it('clamps ArrowUp at max', () => {
-      render(<SliderInput {...createDefaultProps({ value: '359' })} />);
+      render(<NumericInput {...createDefaultProps({ value: '359' })} />);
 
       const input = screen.getByDisplayValue('359');
 
@@ -147,7 +148,7 @@ describe('SliderInput', () => {
     });
 
     it('reverts to prop value on blur with invalid input', () => {
-      render(<SliderInput {...createDefaultProps()} />);
+      render(<NumericInput {...createDefaultProps()} />);
 
       const input = screen.getByDisplayValue('180');
 
@@ -158,7 +159,7 @@ describe('SliderInput', () => {
     });
 
     it('commits clamped value on blur', () => {
-      render(<SliderInput {...createDefaultProps()} />);
+      render(<NumericInput {...createDefaultProps()} />);
 
       const input = screen.getByDisplayValue('180');
 

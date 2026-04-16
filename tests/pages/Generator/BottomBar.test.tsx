@@ -123,12 +123,12 @@ describe('BottomBar', () => {
       usePaletteStore.setState(createTestPalette(3));
       render(<BottomBar />);
 
-      // Should have 3 color circles
-      const colorCircles = screen
+      // Should have 3 color boxes
+      const colorBoxes = screen
         .getAllByRole('button')
         .filter(button => button.getAttribute('data-id')?.match(/^\d+-#/));
 
-      expect(colorCircles).toHaveLength(3);
+      expect(colorBoxes).toHaveLength(3);
     });
   });
 });

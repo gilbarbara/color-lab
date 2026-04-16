@@ -1,5 +1,5 @@
 import { cn, Divider } from '@heroui/react';
-import { CaretUpIcon } from '@phosphor-icons/react';
+import { CaretUpIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
@@ -38,6 +38,7 @@ export default function ColorOptions(props: ColorOptionsProps) {
           onClick={toggleColorOptionsPanel}
           type="button"
         >
+          <SlidersHorizontalIcon className="text-base" />
           <span>Advanced Options</span>
           <CaretUpIcon
             className={cn('transition-transform text-xs', {

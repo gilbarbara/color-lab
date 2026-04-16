@@ -52,59 +52,34 @@ describe('ColorSelector', () => {
   });
 
   describe('Render', () => {
-    it('renders correctly in HSL mode', () => {
+    it('renders correctly in OKLCH mode', () => {
       const { container } = render(<ColorSelector {...createDefaultProps()} />);
 
       expect(container).toMatchSnapshot();
     });
 
-    it('renders correctly in OKLCH mode', () => {
-      const props = createDefaultProps({
-        colorEntry: createColorEntry('Primary', 'oklch(0.7 0.2 120)'),
-      });
-      const { container } = render(<ColorSelector {...props} />);
+    it('renders correctly in HSL mode', () => {
+      const { container } = render(<ColorSelector {...createDefaultProps()} />);
 
-      // Click mode button twice to get to OKLCH (HSL → RGB → OKLCH)
-      const modeButton = screen.getByRole('button', { name: /hsl/i });
+      fireEvent.click(screen.getByLabelText('Switch to HSL'));
 
-      fireEvent.click(modeButton);
-      fireEvent.click(screen.getByRole('button', { name: /rgb/i }));
+      expect(container).toMatchSnapshot();
+    });
+
+    it('renders correctly in RGB mode', () => {
+      const { container } = render(<ColorSelector {...createDefaultProps()} />);
+
+      fireEvent.click(screen.getByLabelText('Switch to RGB'));
 
       expect(container).toMatchSnapshot();
     });
   });
 
   describe('Behavior', () => {
-    it('starts in HSL mode', () => {
+    it('starts in OKLCH mode', () => {
       render(<ColorSelector {...createDefaultProps()} />);
 
-      const modeButton = screen.getByRole('button', { name: /hsl/i });
-
-      expect(modeButton).toBeInTheDocument();
-    });
-
-    it('cycles through HSL → RGB → OKLCH modes', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
-
-      // Initially HSL
-      const modeButton = screen.getByRole('button', { name: /hsl/i });
-
-      expect(modeButton).toBeInTheDocument();
-
-      // Click → RGB
-      fireEvent.click(modeButton);
-
-      expect(screen.getByRole('button', { name: /rgb/i })).toBeInTheDocument();
-
-      // Click → OKLCH
-      fireEvent.click(screen.getByRole('button', { name: /rgb/i }));
-
-      expect(screen.getByRole('button', { name: /oklch/i })).toBeInTheDocument();
-
-      // Click → back to HSL
-      fireEvent.click(screen.getByRole('button', { name: /oklch/i }));
-
-      expect(screen.getByRole('button', { name: /hsl/i })).toBeInTheDocument();
+      expect(screen.getByLabelText('Switch to OKLCH')).toBeInTheDocument();
     });
 
     it('updates color name on Enter key', () => {

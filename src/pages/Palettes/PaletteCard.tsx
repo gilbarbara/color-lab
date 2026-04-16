@@ -8,7 +8,7 @@ import { trackEvent } from '~/utils/analytics';
 import { formatDate } from '~/utils/date';
 import { parsePaletteFromUrl } from '~/utils/url';
 
-import ColorCircle from '~/components/ColorCircle';
+import ColorBox from '~/components/ColorBox';
 import Popconfirm from '~/components/Popconfirm';
 
 import type { SavedPalette } from '~/types';
@@ -92,12 +92,12 @@ export function PaletteCard(props: PaletteCardProps) {
         </div>
         <Link
           aria-label={`Load Palette Colors (${palette.name})`}
-          className="flex gap-1 h-8 rounded-lg cursor-pointer overflow-hidden"
+          className="flex flex-wrap gap-2 rounded-lg cursor-pointer overflow-hidden"
           onClick={handleClickLoad}
           to={palette.url}
         >
           {colors.map((color, index) => (
-            <ColorCircle key={`${color}-${index}`} as="span" color={color} size="lg" />
+            <ColorBox key={`${color}-${index}`} as="span" color={color} />
           ))}
         </Link>
       </CardBody>
