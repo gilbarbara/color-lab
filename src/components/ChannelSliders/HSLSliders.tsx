@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatCSS, type HSL, parseCSS } from 'colorizr';
 
-import GradientSlider from '~/components/GradientSlider';
-import SliderInput from '~/components/SliderInput';
 import TooltipClickable from '~/components/TooltipClickable';
 
 import { hslHueGradient, saturationTooltip } from './constants';
+import GradientSlider from './GradientSlider';
+import NumericInput from './NumericInput';
 
 interface HSLSlidersProps {
   color: string;
@@ -53,7 +53,7 @@ export default function HSLSliders(props: HSLSlidersProps) {
       <GradientSlider
         aria-label="Hue"
         endContent={
-          <SliderInput
+          <NumericInput
             max={360}
             min={0}
             onChange={v => update({ h: v, s, l })}
@@ -71,7 +71,7 @@ export default function HSLSliders(props: HSLSlidersProps) {
       <GradientSlider
         aria-label="Saturation"
         endContent={
-          <SliderInput
+          <NumericInput
             max={100}
             min={0}
             onChange={v => update({ h, s: v, l })}
@@ -98,7 +98,7 @@ export default function HSLSliders(props: HSLSlidersProps) {
       <GradientSlider
         aria-label="Lightness"
         endContent={
-          <SliderInput
+          <NumericInput
             max={100}
             min={0}
             onChange={v => update({ h, s, l: v })}

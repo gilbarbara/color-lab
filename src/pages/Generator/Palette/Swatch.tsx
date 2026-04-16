@@ -1,7 +1,7 @@
 import type { KeyboardEvent, ReactNode } from 'react';
 import { addToast } from '@heroui/react';
 import { LockSimpleIcon } from '@phosphor-icons/react';
-import { readableColorAPCA } from 'colorizr';
+import { readableColor } from 'colorizr';
 
 import { trackEvent } from '~/utils/analytics';
 
@@ -59,7 +59,7 @@ export default function Swatch({ color, lock, step }: SwatchProps) {
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         role="button"
-        style={{ backgroundColor: color, color: readableColorAPCA(color) }}
+        style={{ backgroundColor: color, color: readableColor(color, 'apca') }}
         tabIndex={0}
       >
         {icon}

@@ -132,7 +132,7 @@ export default function Login() {
                 <img
                   alt="GitHub"
                   className="size-5"
-                  src={isDarkMode ? '/icons/github-light.svg' : '/icons/github.svg'}
+                  src={isDarkMode ? '/icons/github-dark.svg' : '/icons/github.svg'}
                 />
               }
               variant="bordered"

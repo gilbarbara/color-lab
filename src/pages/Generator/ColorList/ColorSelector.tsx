@@ -1,30 +1,26 @@
-import { type ChangeEvent, type KeyboardEvent, useEffect, useMemo } from 'react';
+import { type ChangeEvent, type KeyboardEvent, useEffect, useRef } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import {
-  Button,
   Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
+  type PressEvent,
   useDisclosure,
 } from '@heroui/react';
-import { CaretUpDownIcon } from '@phosphor-icons/react';
 import Chrome, { ChromeInputType } from '@uiw/react-color-chrome';
-import { convert, formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
+import { convertCSS, formatCSS, isValidColor, parseCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
 import ChannelSliders, { type ColorMode } from '~/components/ChannelSliders';
-import ColorCircle from '~/components/ColorCircle';
-import Tooltip from '~/components/Tooltip';
+import ColorBox from '~/components/ColorBox';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
 
 import ColorActions from './ColorActions';
-
-const modes: ColorMode[] = ['hsl', 'rgb', 'oklch'];
 
 interface ColorSelectorProps {
   colorEntry: ColorEntry;
@@ -34,7 +30,7 @@ interface ColorSelectorProps {
 }
 
 interface ColorSelectorState {
-  hex: string;
+  input: string;
   mode: ColorMode;
   name: string;
 }
@@ -42,22 +38,26 @@ interface ColorSelectorState {
 export default function ColorSelector(props: ColorSelectorProps) {
   const { colorEntry, globalOptions, index, isOnlyColor } = props;
   const { baseSaturation, updateColor, updateGlobalOptions } = usePalette();
-  const [{ hex, mode, name }, setState] = useSetState<ColorSelectorState>({
-    hex: convert(colorEntry.value, 'hex'),
-    mode: 'hsl',
+  const [{ input, mode, name }, setState] = useSetState<ColorSelectorState>({
+    input: colorEntry.value,
+    mode: 'oklch',
     name: colorEntry.name,
   });
   const { isOpen, onOpenChange } = useDisclosure();
+  const isLocalChange = useRef(false);
 
   const color = colorEntry.value;
-
-  const inputValue = useMemo(() => (mode === 'oklch' ? color : hex), [color, hex, mode]);
+  const pickerHex = convertCSS(color, 'hex');
 
   // Sync when colorValue changes externally (URL navigation, reset)
   useEffect(() => {
-    setState({
-      hex: convert(color, 'hex'),
-    });
+    if (isLocalChange.current) {
+      isLocalChange.current = false;
+
+      return;
+    }
+
+    setState({ input: color });
   }, [color, setState]);
 
   const handleBlurName = () => {
@@ -76,8 +76,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
         saturation: getChromaAsPercentage(value),
       });
     }
-
-    setState({ hex: convert(value, 'hex') });
   };
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -93,9 +91,12 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
   };
 
-  const handleClickMode = () => {
-    const currentIndex = modes.indexOf(mode);
-    const next = modes[(currentIndex + 1) % modes.length];
+  const handleClickMode = (event: PressEvent) => {
+    const next = event.target.textContent?.toLowerCase() as ColorMode;
+
+    if (next === mode) {
+      return;
+    }
 
     trackEvent('color-mode', { value: next });
     setState({ mode: next });
@@ -109,26 +110,40 @@ export default function ColorSelector(props: ColorSelectorProps) {
   };
 
   const handleChangeInput = (value: string) => {
-    if (mode === 'oklch') {
-      if (isValidColor(value)) {
-        handleChangeColor(value);
-      }
-    } else {
-      const stripped = value.replace(/[^\da-f]/gi, '').slice(0, 6);
-      const prefixed = stripped ? `#${stripped}` : '';
+    const trimmed = value.trim();
+    const bareHexPattern = /^(?:[\da-f]{3}){1,2}$/i;
 
-      setState({ hex: prefixed });
+    if (bareHexPattern.test(trimmed)) {
+      const prefixed = `#${trimmed}`;
 
-      if ((prefixed.length === 4 || prefixed.length === 7) && isHex(prefixed)) {
-        const oklch = formatCSS(parseCSS(prefixed, 'oklch'), { format: 'oklch' });
+      setState({ input: prefixed });
+      isLocalChange.current = true;
 
-        handleChangeColor(oklch);
-      }
+      const oklch = formatCSS(parseCSS(prefixed, 'oklch'), { format: 'oklch' });
+
+      handleChangeColor(oklch);
+
+      return;
+    }
+
+    setState({ input: value });
+
+    // Only accept 3/6-char hex (no RGBA) to avoid transparent colors
+    if (/^#[\da-f]+$/i.test(trimmed) && trimmed.length !== 4 && trimmed.length !== 7) {
+      return;
+    }
+
+    if (isValidColor(trimmed)) {
+      isLocalChange.current = true;
+
+      const oklch = formatCSS(parseCSS(trimmed, 'oklch'), { format: 'oklch' });
+
+      handleChangeColor(oklch);
     }
   };
 
-  const handleChangePicker = (pickerHex: string) => {
-    const oklch = formatCSS(parseCSS(pickerHex, 'oklch'), { format: 'oklch' });
+  const handleChangePicker = (hex: string) => {
+    const oklch = formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
 
     handleChangeColor(oklch);
   };
@@ -136,44 +151,45 @@ export default function ColorSelector(props: ColorSelectorProps) {
   return (
     <div
       className="flex flex-col gap-3 bg-default-100 p-4 rounded-xl scroll-mt-20"
-      data-uid="ColorSelector"
+      data-testid="ColorSelector"
       id={`${index}-${color}`}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1">
-          <Popover
-            backdrop="transparent"
-            classNames={{
-              base: '-ml-1.5',
-              trigger: 'aria-expanded:opacity-100 aria-expanded:scale-[1]',
-            }}
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            placement="bottom-start"
-            showArrow
-          >
-            <PopoverTrigger>
-              <ColorCircle
-                aria-label="Color picker"
-                color={hex}
-                onClick={() => trackEvent('color-picker')}
-              />
-            </PopoverTrigger>
-            <PopoverContent className="p-0">
-              <Chrome
-                color={hex}
-                inputType={ChromeInputType.HEXA}
-                onChange={result => {
-                  handleChangePicker(result.hex);
-                }}
-                showAlpha={false}
-                showTriangle={false}
-              />
-            </PopoverContent>
-          </Popover>
+      <div className="flex items-start gap-2">
+        <Popover
+          backdrop="transparent"
+          classNames={{
+            trigger: 'aria-expanded:opacity-100 aria-expanded:scale-[1]',
+          }}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          placement="bottom-start"
+          showArrow
+        >
+          <PopoverTrigger>
+            <ColorBox
+              aria-label="Color picker"
+              color={color}
+              onClick={() => trackEvent('color-picker')}
+              size="lg"
+            />
+          </PopoverTrigger>
+          <PopoverContent className="p-0">
+            <Chrome
+              color={pickerHex}
+              inputType={ChromeInputType.HEXA}
+              onChange={result => {
+                handleChangePicker(result.hex);
+              }}
+              showAlpha={false}
+              showTriangle={false}
+            />
+          </PopoverContent>
+        </Popover>
+        <div className="w-full space-y-2">
           <Input
             classNames={{
               innerWrapper: 'pb-0',
+              inputWrapper: ' h-6 min-h-6',
               input: 'text-base font-semibold text-foreground-800',
             }}
             color={colorEntry.name !== name ? 'warning' : undefined}
@@ -186,28 +202,19 @@ export default function ColorSelector(props: ColorSelectorProps) {
             value={name}
             variant="underlined"
           />
-        </div>
-        <div className="flex items-center ml-2">
-          <Tooltip content="Switch color space (HSL / RGB / OKLCH)" delay={250}>
-            <Button
-              endContent={<CaretUpDownIcon />}
-              onPress={handleClickMode}
-              size="sm"
-              variant="bordered"
-            >
-              {mode.toUpperCase()}
-            </Button>
-          </Tooltip>
+
+          <Input
+            aria-label="Color value"
+            classNames={{
+              inputWrapper: 'h-8 min-h-8 px-2',
+            }}
+            onValueChange={handleChangeInput}
+            type="text"
+            value={input}
+            variant="bordered"
+          />
         </div>
       </div>
-
-      <Input
-        aria-label="Color value"
-        onValueChange={handleChangeInput}
-        type="text"
-        value={inputValue}
-        variant="bordered"
-      />
 
       <ChannelSliders
         color={color}
@@ -219,7 +226,9 @@ export default function ColorSelector(props: ColorSelectorProps) {
         colorEntry={colorEntry}
         index={index}
         isOnlyColor={isOnlyColor}
-        onRandomColor={handleClickRandom}
+        mode={mode}
+        onClickMode={handleClickMode}
+        onClickRandom={handleClickRandom}
       />
     </div>
   );

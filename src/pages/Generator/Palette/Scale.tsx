@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { scale } from 'colorizr';
 
-import ColorCircle from '~/components/ColorCircle';
+import ColorBox from '~/components/ColorBox';
 import ExportScale from '~/components/ExportScale';
 
 import type { ColorEntry, ScaleOptions } from '~/types';
@@ -19,10 +19,10 @@ export default function Scale(props: ScaleProps) {
   const steps = useMemo(() => scale(colorEntry.value, options), [colorEntry.value, options]);
 
   return (
-    <div className="w-full flex flex-col gap-2" data-testid="Scale">
+    <div className="w-full flex flex-col gap-4" data-testid="Scale">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <ColorCircle color={colorEntry.value} />
+          <ColorBox color={colorEntry.value} size="sm" />
           <h3 className="font-semibold text-lg">{colorEntry.name}</h3>
         </div>
         <ExportScale name={colorEntry.name} steps={steps} />

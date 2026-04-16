@@ -1,11 +1,21 @@
 import { useBreakpoint, useMemoDeepCompare } from '@gilbarbara/hooks';
-import { Button, cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
+import {
+  ButtonGroup,
+  cn,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  type PressEvent,
+  useDisclosure,
+} from '@heroui/react';
 import { ArrowsClockwiseIcon, SlidersHorizontalIcon, TrashIcon } from '@phosphor-icons/react';
-import { readableColorAPCA } from 'colorizr';
+import { readableColor } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 
+import Button from '~/components/Button';
+import type { ColorMode } from '~/components/ChannelSliders';
 import ConfirmTooltip from '~/components/ConfirmTooltip';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
@@ -16,11 +26,13 @@ interface ColorActionsProps {
   colorEntry: ColorEntry;
   index: number;
   isOnlyColor: boolean;
-  onRandomColor: () => void;
+  mode: ColorMode;
+  onClickMode: (event: PressEvent) => void;
+  onClickRandom: () => void;
 }
 
 export default function ColorActions(props: ColorActionsProps) {
-  const { colorEntry, index, isOnlyColor, onRandomColor } = props;
+  const { colorEntry, index, isOnlyColor, mode, onClickMode, onClickRandom } = props;
   const { clearColorOverrides, globalOptions, removeColor, updateColor } = usePalette();
   const { isOpen, onOpenChange } = useDisclosure();
   const { max, min } = useBreakpoint();
@@ -28,7 +40,7 @@ export default function ColorActions(props: ColorActionsProps) {
   const color = colorEntry.value;
 
   const useLightTheme = useMemoDeepCompare(() => {
-    return readableColorAPCA(color) !== '#ffffff';
+    return readableColor(color, 'apca') !== '#ffffff';
   }, [color, globalOptions, colorEntry.overrides]);
 
   const handleClickOptions = () => {
@@ -57,76 +69,105 @@ export default function ColorActions(props: ColorActionsProps) {
        }
       `}
       </style>
-      <div className="flex items-center justify-end gap-1">
-        <Button
-          aria-label="Random color"
-          className="rounded-s-none border-l-0"
-          isIconOnly
-          onPress={onRandomColor}
-          size="sm"
-          variant="light"
-        >
-          <ArrowsClockwiseIcon className="text-base" />
-        </Button>
-        <Popover
-          classNames={{
-            base: cn(`popover-base-${index}`, {
-              light: useLightTheme,
-              dark: !useLightTheme,
-            }),
-            content: cn(`p-4 min-w-xs text-foreground popover-content-${index}`),
-          }}
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          placement={min('lg') ? 'right-start' : 'bottom-end'}
-          shouldBlockScroll
-          showArrow
-          size="lg"
-        >
-          <PopoverTrigger>
-            <Button
-              aria-label="Change color options"
-              isIconOnly
-              onPress={handleClickOptions}
-              size="sm"
-              variant="light"
-            >
-              <Tooltip content="Color options" delay={250} placement="bottom-end">
-                <span className="size-8 inline-flex items-center justify-center">
-                  <SlidersHorizontalIcon className="text-base" />
-                </span>
-              </Tooltip>
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <ScaleColorOptions
-              defaultOptions={globalOptions}
-              onReset={handleResetOptions}
-              onUpdate={handleUpdateOptions}
-              options={{ ...globalOptions, ...colorEntry.overrides }}
-              title={`Options for ${colorEntry.name}`}
-            />
-          </PopoverContent>
-        </Popover>
-        <ConfirmTooltip
-          confirmMessage="Click again to remove"
-          isDisabled={isOnlyColor}
-          message="Remove color"
-          onConfirm={() => {
-            trackEvent('remove-color');
-            removeColor(index);
-          }}
-        >
+      <div className="flex items-center justify-between">
+        <ButtonGroup>
           <Button
-            aria-label="Remove color"
-            isDisabled={isOnlyColor}
+            aria-label="Switch to OKLCH"
+            onPress={onClickMode}
+            size="xs"
+            variant={mode === 'oklch' ? 'solid' : 'flat'}
+          >
+            OKLCH
+          </Button>
+          <Button
+            aria-label="Switch to HSL"
+            onPress={onClickMode}
+            size="xs"
+            variant={mode === 'hsl' ? 'solid' : 'flat'}
+          >
+            HSL
+          </Button>
+          <Button
+            aria-label="Switch to RGB"
+            onPress={onClickMode}
+            size="xs"
+            variant={mode === 'rgb' ? 'solid' : 'flat'}
+          >
+            RGB
+          </Button>
+        </ButtonGroup>
+
+        <div className="flex items-center gap-1">
+          <Button
+            aria-label="Random color"
+            className="rounded-s-none border-l-0"
             isIconOnly
+            onPress={onClickRandom}
             size="sm"
             variant="light"
           >
-            <TrashIcon className="text-base" />
+            <ArrowsClockwiseIcon className="text-base" />
           </Button>
-        </ConfirmTooltip>
+          <Popover
+            classNames={{
+              base: cn(`popover-base-${index}`, {
+                light: useLightTheme,
+                dark: !useLightTheme,
+              }),
+              content: cn(`p-4 min-w-xs text-foreground popover-content-${index}`),
+            }}
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            placement={min('lg') ? 'right-start' : 'bottom-end'}
+            shouldBlockScroll
+            showArrow
+            size="lg"
+          >
+            <PopoverTrigger>
+              <Button
+                aria-label="Change color options"
+                isIconOnly
+                onPress={handleClickOptions}
+                size="sm"
+                variant="light"
+              >
+                <Tooltip content="Color options" delay={250} placement="bottom-end">
+                  <span className="size-8 inline-flex items-center justify-center">
+                    <SlidersHorizontalIcon className="text-base" />
+                  </span>
+                </Tooltip>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <ScaleColorOptions
+                defaultOptions={globalOptions}
+                onReset={handleResetOptions}
+                onUpdate={handleUpdateOptions}
+                options={{ ...globalOptions, ...colorEntry.overrides }}
+                title={`Options for ${colorEntry.name}`}
+              />
+            </PopoverContent>
+          </Popover>
+          <ConfirmTooltip
+            confirmMessage="Click again to remove"
+            isDisabled={isOnlyColor}
+            message="Remove color"
+            onConfirm={() => {
+              trackEvent('remove-color');
+              removeColor(index);
+            }}
+          >
+            <Button
+              aria-label="Remove color"
+              isDisabled={isOnlyColor}
+              isIconOnly
+              size="sm"
+              variant="light"
+            >
+              <TrashIcon className="text-base" />
+            </Button>
+          </ConfirmTooltip>
+        </div>
       </div>
     </>
   );

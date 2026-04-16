@@ -83,16 +83,18 @@ exports[`PaletteCard > Render > renders correctly 1`] = `
     </div>
     <a
       aria-label="Load Palette Colors (Test Palette)"
-      class="flex gap-1 h-8 rounded-lg cursor-pointer overflow-hidden"
+      class="flex flex-wrap gap-2 rounded-lg cursor-pointer overflow-hidden"
       data-discover="true"
       href="/p/red-ff0000/blue-0000ff"
     >
       <span
-        class="rounded-full shrink-0 size-8"
+        aria-label="Color Box"
+        class="shrink-0 size-12 rounded-medium"
         style="background-color: rgb(255, 0, 0);"
       />
       <span
-        class="rounded-full shrink-0 size-8"
+        aria-label="Color Box"
+        class="shrink-0 size-12 rounded-medium"
         style="background-color: rgb(0, 0, 255);"
       />
     </a>
@@ -183,16 +185,18 @@ exports[`PaletteCard > Render > renders filled heart for favorited palette 1`] =
     </div>
     <a
       aria-label="Load Palette Colors (Test Palette)"
-      class="flex gap-1 h-8 rounded-lg cursor-pointer overflow-hidden"
+      class="flex flex-wrap gap-2 rounded-lg cursor-pointer overflow-hidden"
       data-discover="true"
       href="/p/red-ff0000/blue-0000ff"
     >
       <span
-        class="rounded-full shrink-0 size-8"
+        aria-label="Color Box"
+        class="shrink-0 size-12 rounded-medium"
         style="background-color: rgb(255, 0, 0);"
       />
       <span
-        class="rounded-full shrink-0 size-8"
+        aria-label="Color Box"
+        class="shrink-0 size-12 rounded-medium"
         style="background-color: rgb(0, 0, 255);"
       />
     </a>

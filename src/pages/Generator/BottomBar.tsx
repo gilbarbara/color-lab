@@ -17,7 +17,7 @@ import { getRandomColor } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
 import { scrollToSelector } from '~/utils/scroll';
 
-import ColorCircle from '~/components/ColorCircle';
+import ColorBox from '~/components/ColorBox';
 import ColorList from '~/pages/Generator/ColorList';
 import ColorOptions from '~/pages/Generator/ColorOptions';
 
@@ -90,9 +90,7 @@ export default function BottomBar() {
     const threshold = 30;
 
     // Drag up to open, drag down to close
-    if (deltaY < -threshold && !showBottomBar) {
-      toggleBottomBar();
-    } else if (deltaY > threshold && showBottomBar) {
+    if ((deltaY < -threshold && !showBottomBar) || (deltaY > threshold && showBottomBar)) {
       toggleBottomBar();
     }
 
@@ -129,7 +127,7 @@ export default function BottomBar() {
           })}
         >
           {colors.map((color, index) => (
-            <ColorCircle
+            <ColorBox
               key={color.value}
               className={cn('first:ms-0', {
                 '-ms-1': colors.length > 8,
@@ -138,7 +136,7 @@ export default function BottomBar() {
               color={color.value}
               data-id={`${index}-${color.value}`}
               onClick={handleClickCircle}
-              size="lg"
+              size="sm"
             />
           ))}
         </div>

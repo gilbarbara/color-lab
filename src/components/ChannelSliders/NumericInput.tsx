@@ -1,6 +1,6 @@
-import { type KeyboardEvent, useEffect, useState } from 'react';
+import { type KeyboardEvent, useState } from 'react';
 
-interface SliderInputProps {
+interface NumericInputProps {
   max: number;
   min: number;
   onChange: (value: number) => void;
@@ -9,13 +9,12 @@ interface SliderInputProps {
   value: string;
 }
 
-export default function SliderInput(props: SliderInputProps) {
+export default function NumericInput(props: NumericInputProps) {
   const { max, min, onChange, step = 1, suffix, value } = props;
-  const [editValue, setEditValue] = useState(value);
+  const [editValue, setEditValue] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    setEditValue(value);
-  }, [value]);
+  const displayValue = isEditing ? editValue : value;
 
   const clamp = (n: number) => Math.min(max, Math.max(min, n));
 
@@ -29,6 +28,11 @@ export default function SliderInput(props: SliderInputProps) {
     }
   };
 
+  const handleFocus = () => {
+    setIsEditing(true);
+    setEditValue(value);
+  };
+
   const handleChange = (newValue: string) => {
     const filtered = newValue.replace(/[^\d,.]/g, '').replace(',', '.');
 
@@ -39,20 +43,18 @@ export default function SliderInput(props: SliderInputProps) {
   const handleBlur = () => {
     const parsed = Number.parseFloat(editValue.replace(',', '.'));
 
-    if (Number.isNaN(parsed)) {
-      setEditValue(value);
-    } else {
-      const clamped = clamp(parsed);
-
-      onChange(clamped);
+    if (!Number.isNaN(parsed)) {
+      onChange(clamp(parsed));
     }
+
+    setIsEditing(false);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
 
-      const current = Number.parseFloat(editValue.replace(',', '.')) || 0;
+      const current = Number.parseFloat((isEditing ? editValue : value).replace(',', '.')) || 0;
       const increment = event.shiftKey ? step * 10 : step;
       const next = event.key === 'ArrowUp' ? current + increment : current - increment;
       const clamped = clamp(next);
@@ -67,9 +69,10 @@ export default function SliderInput(props: SliderInputProps) {
         className="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
         onBlur={handleBlur}
         onChange={event => handleChange(event.target.value)}
+        onFocus={handleFocus}
         onKeyDown={handleKeyDown}
         type="text"
-        value={editValue}
+        value={displayValue}
       />
       {suffix && (
         <span

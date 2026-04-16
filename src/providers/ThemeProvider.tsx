@@ -41,7 +41,6 @@ export default function ThemeProvider({ children, heroUIProps }: ThemeProviderPr
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      {/* eslint-disable-next-line react-compiler/react-compiler */}
       <HeroUIProvider {...heroUIProps} navigate={navigate} useHref={useHref}>
         <ToastProvider
           placement="bottom-center"

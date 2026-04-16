@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SliderInput > Render > renders invisible spacer suffix 1`] = `
+exports[`NumericInput > Render > renders invisible spacer suffix 1`] = `
 <div>
   <div
     data-overlay-container="true"
@@ -24,7 +24,7 @@ exports[`SliderInput > Render > renders invisible spacer suffix 1`] = `
 </div>
 `;
 
-exports[`SliderInput > Render > renders value and suffix 1`] = `
+exports[`NumericInput > Render > renders value and suffix 1`] = `
 <div>
   <div
     data-overlay-container="true"
@@ -47,7 +47,7 @@ exports[`SliderInput > Render > renders value and suffix 1`] = `
 </div>
 `;
 
-exports[`SliderInput > Render > renders without suffix 1`] = `
+exports[`NumericInput > Render > renders without suffix 1`] = `
 <div>
   <div
     data-overlay-container="true"

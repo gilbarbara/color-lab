@@ -3,15 +3,15 @@
 exports[`Generator > renders correctly 1`] = `
 <div
   class="flex flex-col md:flex-row flex-1 w-full xl:w-7xl max-w-7xl mx-auto"
-  data-uid="Generator"
+  data-testid="Generator"
 >
   <div
     class="sticky top-16 w-sm h-[calc(100vh-4rem)] flex flex-col overflow-y-auto shrink-0"
-    data-uid="Sidebar"
+    data-testid="Sidebar"
   >
     <div>
       <div
-        data-uid="GeneratorHeader"
+        data-testid="GeneratorHeader"
       >
         <div
           class="p-4"
@@ -41,6 +41,18 @@ exports[`Generator > renders correctly 1`] = `
             class="inline-flex items-center text-foreground-600 transition-colors duration-200 hover:text-foreground gap-2"
             type="button"
           >
+            <svg
+              class="text-base"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+              />
+            </svg>
             <span>
               Advanced Options
             </span>
@@ -65,7 +77,7 @@ exports[`Generator > renders correctly 1`] = `
       </div>
       <div
         class="p-4"
-        data-uid="ColorList"
+        data-testid="ColorList"
       >
         <h2
           class="font-semibold text-xl"
@@ -77,28 +89,28 @@ exports[`Generator > renders correctly 1`] = `
         >
           <div
             class="flex flex-col gap-3 bg-default-100 p-4 rounded-xl scroll-mt-20"
-            data-uid="ColorSelector"
+            data-testid="ColorSelector"
             id="0-#FF0044"
           >
             <div
-              class="flex items-center justify-between"
+              class="flex items-start gap-2"
             >
+              <button
+                aria-expanded="false"
+                aria-haspopup="dialog"
+                aria-label="Color picker"
+                class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
+                data-color="#FF0044"
+                data-react-aria-pressable="true"
+                data-slot="trigger"
+                data-testid="ColorBox"
+                style="background-color: rgb(255, 0, 68);"
+                tabindex="0"
+                type="button"
+              />
               <div
-                class="flex items-center gap-1"
+                class="w-full space-y-2"
               >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="dialog"
-                  aria-label="Color picker"
-                  class="rounded-full shrink-0 size-6 z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-                  data-color="#FF0044"
-                  data-react-aria-pressable="true"
-                  data-slot="trigger"
-                  data-uid="ColorCircle"
-                  style="background-color: rgb(255, 0, 68);"
-                  tabindex="0"
-                  type="button"
-                />
                 <div
                   class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_8px)] is-filled"
                   data-filled="true"
@@ -111,7 +123,7 @@ exports[`Generator > renders correctly 1`] = `
                     data-slot="main-wrapper"
                   >
                     <div
-                      class="w-full inline-flex tap-highlight-transparent flex-row items-center gap-3 !px-1 !pb-0 !gap-0 relative box-border shadow-[0_1px_0px_0_rgba(0,0,0,0.05)] border-default-200 !rounded-none hover:border-default-300 after:content-[''] after:w-0 after:origin-center after:bg-default-foreground after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[2px] group-data-[focus=true]:after:w-full h-8 min-h-8 px-2 rounded-small transition-none is-filled"
+                      class="w-full inline-flex tap-highlight-transparent flex-row items-center gap-3 !px-1 !pb-0 !gap-0 relative box-border shadow-[0_1px_0px_0_rgba(0,0,0,0.05)] border-default-200 !rounded-none hover:border-default-300 after:content-[''] after:w-0 after:origin-center after:bg-default-foreground after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[2px] group-data-[focus=true]:after:w-full px-2 rounded-small transition-none h-6 min-h-6 is-filled"
                       data-slot="input-wrapper"
                       style="cursor: text;"
                     >
@@ -125,7 +137,7 @@ exports[`Generator > renders correctly 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_2f_"
+                          id="react-aria-_r_2d_"
                           name="color-name-0"
                           tabindex="0"
                           title=""
@@ -136,260 +148,55 @@ exports[`Generator > renders correctly 1`] = `
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="flex items-center ml-2"
-              >
-                <button
-                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium px-3 min-w-16 h-8 text-tiny gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent border-default text-foreground data-[hover=true]:opacity-hover"
-                  data-react-aria-pressable="true"
-                  tabindex="0"
-                  type="button"
-                >
-                  HSL
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="1em"
-                    viewBox="0 0 256 256"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div
-              class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_10px)] is-filled"
-              data-filled="true"
-              data-filled-within="true"
-              data-has-value="true"
-              data-slot="base"
-            >
-              <div
-                class="h-full flex flex-col"
-                data-slot="main-wrapper"
-              >
                 <div
-                  class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs px-3 gap-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground h-10 min-h-10 rounded-medium !duration-150 transition-colors motion-reduce:transition-none is-filled"
-                  data-slot="input-wrapper"
-                  style="cursor: text;"
+                  class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_10px)] is-filled"
+                  data-filled="true"
+                  data-filled-within="true"
+                  data-has-value="true"
+                  data-slot="base"
                 >
                   <div
-                    class="inline-flex w-full items-center h-full box-border"
-                    data-slot="inner-wrapper"
+                    class="h-full flex flex-col"
+                    data-slot="main-wrapper"
                   >
-                    <input
-                      aria-label="Color value"
-                      class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-small is-filled"
-                      data-filled="true"
-                      data-filled-within="true"
-                      data-slot="input"
-                      data-type="text"
-                      id="react-aria-_r_2m_"
-                      tabindex="0"
-                      title=""
-                      type="text"
-                      value="#FF0044"
-                    />
+                    <div
+                      class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground rounded-medium !duration-150 transition-colors motion-reduce:transition-none h-8 min-h-8 px-2 is-filled"
+                      data-slot="input-wrapper"
+                      style="cursor: text;"
+                    >
+                      <div
+                        class="inline-flex w-full items-center h-full box-border"
+                        data-slot="inner-wrapper"
+                      >
+                        <input
+                          aria-label="Color value"
+                          class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-small is-filled"
+                          data-filled="true"
+                          data-filled-within="true"
+                          data-slot="input"
+                          data-type="text"
+                          id="react-aria-_r_2i_"
+                          tabindex="0"
+                          title=""
+                          type="text"
+                          value="#FF0044"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <div
               class="space-y-3"
-              data-uid="ChannelSliders"
+              data-testid="ChannelSliders"
             >
               <div
                 class="flex items-center gap-2"
               >
                 <div
                   class="flex-1"
-                  style="--slider-gradient: linear-gradient(to right, hsl(0 100% 70%), hsl(60 100% 70%), hsl(120 100% 70%), hsl(180 100% 70%), hsl(240 100% 70%), hsl(300 100% 70%), hsl(360 100% 70%));"
-                >
-                  <div
-                    aria-label="Hue"
-                    class="flex flex-col w-full gap-1"
-                    data-hover="false"
-                    data-orientation="horizontal"
-                    data-slot="base"
-                    id="react-aria-_r_2r_"
-                    role="group"
-                  >
-                    <div
-                      class="relative flex gap-2 items-center"
-                      data-slot="track-wrapper"
-                    >
-                      <div
-                        class="w-3 mr-2"
-                        data-slot="startContent"
-                      >
-                        H
-                      </div>
-                      <div
-                        class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                        data-fill-end="false"
-                        data-fill-start="true"
-                        data-slot="track"
-                        data-thumb-hidden="false"
-                        data-vertical="false"
-                        style="position: relative; touch-action: none;"
-                      >
-                        <div
-                          class="h-full absolute bg-transparent"
-                          data-slot="filler"
-                          style="left: 0%; width: 95.58210614059462%;"
-                        />
-                        <div
-                          aria-label="Slider thumb 1"
-                          class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                          data-react-aria-pressable="true"
-                          data-slot="thumb"
-                          index="0"
-                          orientation="horizontal"
-                          style="position: absolute; left: 95.58210614059462%; transform: translate(-50%, -50%); touch-action: none;"
-                        >
-                          <div
-                            style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                          >
-                            <input
-                              aria-describedby=""
-                              aria-details=""
-                              aria-labelledby="react-aria-_r_2r_"
-                              aria-orientation="horizontal"
-                              aria-valuetext="344"
-                              id="react-aria-_r_2r_-0"
-                              max="359.9"
-                              min="0"
-                              step="1"
-                              tabindex="0"
-                              type="range"
-                              value="344"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="flex items-center"
-                >
-                  <input
-                    class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
-                    type="text"
-                    value="344"
-                  />
-                  <span
-                    class="w-2 text-xs text-foreground-500"
-                  >
-                    °
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex items-center gap-2"
-              >
-                <div
-                  class="flex-1"
-                  style="--slider-gradient: linear-gradient(to right, hsl(344 0% 50%), hsl(344 100% 50%));"
-                >
-                  <div
-                    aria-label="Saturation"
-                    class="flex flex-col w-full gap-1"
-                    data-hover="false"
-                    data-orientation="horizontal"
-                    data-slot="base"
-                    id="react-aria-_r_31_"
-                    role="group"
-                  >
-                    <div
-                      class="relative flex gap-2 items-center"
-                      data-slot="track-wrapper"
-                    >
-                      <div
-                        class="w-3 mr-2"
-                        data-slot="startContent"
-                      >
-                        <button
-                          class="inline-flex shrink-0"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          S
-                        </button>
-                      </div>
-                      <div
-                        class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                        data-fill-end="true"
-                        data-fill-start="true"
-                        data-slot="track"
-                        data-thumb-hidden="false"
-                        data-vertical="false"
-                        style="position: relative; touch-action: none;"
-                      >
-                        <div
-                          class="h-full absolute bg-transparent"
-                          data-slot="filler"
-                          style="left: 0%; width: 100%;"
-                        />
-                        <div
-                          aria-label="Slider thumb 1"
-                          class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                          data-react-aria-pressable="true"
-                          data-slot="thumb"
-                          index="0"
-                          orientation="horizontal"
-                          style="position: absolute; left: 100%; transform: translate(-50%, -50%); touch-action: none;"
-                        >
-                          <div
-                            style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                          >
-                            <input
-                              aria-describedby=""
-                              aria-details=""
-                              aria-labelledby="react-aria-_r_31_"
-                              aria-orientation="horizontal"
-                              aria-valuetext="100"
-                              id="react-aria-_r_31_-0"
-                              max="100"
-                              min="0"
-                              step="1"
-                              tabindex="0"
-                              type="range"
-                              value="100"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="flex items-center"
-                >
-                  <input
-                    class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
-                    type="text"
-                    value="100"
-                  />
-                  <span
-                    class="w-2 text-xs text-foreground-500"
-                  >
-                    %
-                  </span>
-                </div>
-              </div>
-              <div
-                class="flex items-center gap-2"
-              >
-                <div
-                  class="flex-1"
-                  style="--slider-gradient: linear-gradient(to right, hsl(344 100% 0%), hsl(344 100% 50%), hsl(344 100% 100%));"
+                  style="--slider-gradient: linear-gradient(to right, oklch(0 0.25403954578734494 19.902240785746187), oklch(0.6326860506565246 0.25403954578734494 19.902240785746187), oklch(1 0.25403954578734494 19.902240785746187));"
                 >
                   <div
                     aria-label="Lightness"
@@ -397,7 +204,7 @@ exports[`Generator > renders correctly 1`] = `
                     data-hover="false"
                     data-orientation="horizontal"
                     data-slot="base"
-                    id="react-aria-_r_39_"
+                    id="react-aria-_r_2n_"
                     role="group"
                   >
                     <div
@@ -422,7 +229,7 @@ exports[`Generator > renders correctly 1`] = `
                         <div
                           class="h-full absolute bg-transparent"
                           data-slot="filler"
-                          style="left: 0%; width: 50%;"
+                          style="left: 0%; width: 63.3%;"
                         />
                         <div
                           aria-label="Slider thumb 1"
@@ -431,7 +238,7 @@ exports[`Generator > renders correctly 1`] = `
                           data-slot="thumb"
                           index="0"
                           orientation="horizontal"
-                          style="position: absolute; left: 50%; transform: translate(-50%, -50%); touch-action: none;"
+                          style="position: absolute; left: 63.3%; transform: translate(-50%, -50%); touch-action: none;"
                         >
                           <div
                             style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
@@ -439,16 +246,16 @@ exports[`Generator > renders correctly 1`] = `
                             <input
                               aria-describedby=""
                               aria-details=""
-                              aria-labelledby="react-aria-_r_39_"
+                              aria-labelledby="react-aria-_r_2n_"
                               aria-orientation="horizontal"
-                              aria-valuetext="50"
-                              id="react-aria-_r_39_-0"
-                              max="100"
+                              aria-valuetext="0.633"
+                              id="react-aria-_r_2n_-0"
+                              max="1"
                               min="0"
-                              step="1"
+                              step="0.001"
                               tabindex="0"
                               type="range"
-                              value="50"
+                              value="0.633"
                             />
                           </div>
                         </div>
@@ -462,12 +269,193 @@ exports[`Generator > renders correctly 1`] = `
                   <input
                     class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
                     type="text"
-                    value="50"
+                    value="63.3"
                   />
                   <span
                     class="w-2 text-xs text-foreground-500"
                   >
                     %
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-2"
+              >
+                <div
+                  class="flex-1"
+                  style="--slider-gradient: linear-gradient(to right, oklch(0.6326860506565246 0 19.902240785746187), oklch(0.6326860506565246 0.28643 19.902240785746187));"
+                >
+                  <div
+                    aria-label="Chroma"
+                    class="flex flex-col w-full gap-1"
+                    data-hover="false"
+                    data-orientation="horizontal"
+                    data-slot="base"
+                    id="react-aria-_r_2t_"
+                    role="group"
+                  >
+                    <div
+                      class="relative flex gap-2 items-center"
+                      data-slot="track-wrapper"
+                    >
+                      <div
+                        class="w-3 mr-2"
+                        data-slot="startContent"
+                      >
+                        <button
+                          class="inline-flex shrink-0 text-base"
+                          tabindex="-1"
+                          type="button"
+                        >
+                          C
+                        </button>
+                      </div>
+                      <div
+                        class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
+                        data-fill-end="false"
+                        data-fill-start="true"
+                        data-slot="track"
+                        data-thumb-hidden="false"
+                        data-vertical="false"
+                        style="position: relative; touch-action: none;"
+                      >
+                        <div
+                          class="h-full absolute bg-transparent"
+                          data-slot="filler"
+                          style="left: 0%; width: 88.67786195580072%;"
+                        />
+                        <div
+                          aria-label="Slider thumb 1"
+                          class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
+                          data-react-aria-pressable="true"
+                          data-slot="thumb"
+                          index="0"
+                          orientation="horizontal"
+                          style="position: absolute; left: 88.67786195580072%; transform: translate(-50%, -50%); touch-action: none;"
+                        >
+                          <div
+                            style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                          >
+                            <input
+                              aria-describedby=""
+                              aria-details=""
+                              aria-labelledby="react-aria-_r_2t_"
+                              aria-orientation="horizontal"
+                              aria-valuetext="0.254"
+                              id="react-aria-_r_2t_-0"
+                              max="0.28643"
+                              min="0"
+                              step="0.001"
+                              tabindex="0"
+                              type="range"
+                              value="0.254"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center"
+                >
+                  <input
+                    class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                    type="text"
+                    value="0.254"
+                  />
+                  <span
+                    class="w-2 text-xs text-foreground-500"
+                    style="visibility: hidden;"
+                  >
+                    °
+                  </span>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-2"
+              >
+                <div
+                  class="flex-1"
+                  style="--slider-gradient: linear-gradient(to right, oklch(0.7 0.2 0), oklch(0.7 0.2 60), oklch(0.7 0.2 120), oklch(0.7 0.2 180), oklch(0.7 0.2 240), oklch(0.7 0.2 300), oklch(0.7 0.2 360));"
+                >
+                  <div
+                    aria-label="Hue"
+                    class="flex flex-col w-full gap-1"
+                    data-hover="false"
+                    data-orientation="horizontal"
+                    data-slot="base"
+                    id="react-aria-_r_35_"
+                    role="group"
+                  >
+                    <div
+                      class="relative flex gap-2 items-center"
+                      data-slot="track-wrapper"
+                    >
+                      <div
+                        class="w-3 mr-2"
+                        data-slot="startContent"
+                      >
+                        H
+                      </div>
+                      <div
+                        class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
+                        data-fill-end="false"
+                        data-fill-start="true"
+                        data-slot="track"
+                        data-thumb-hidden="false"
+                        data-vertical="false"
+                        style="position: relative; touch-action: none;"
+                      >
+                        <div
+                          class="h-full absolute bg-transparent"
+                          data-slot="filler"
+                          style="left: 0%; width: 5.528333333333333%;"
+                        />
+                        <div
+                          aria-label="Slider thumb 1"
+                          class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
+                          data-react-aria-pressable="true"
+                          data-slot="thumb"
+                          index="0"
+                          orientation="horizontal"
+                          style="position: absolute; left: 5.528333333333333%; transform: translate(-50%, -50%); touch-action: none;"
+                        >
+                          <div
+                            style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                          >
+                            <input
+                              aria-describedby=""
+                              aria-details=""
+                              aria-labelledby="react-aria-_r_35_"
+                              aria-orientation="horizontal"
+                              aria-valuetext="19.902"
+                              id="react-aria-_r_35_-0"
+                              max="360"
+                              min="0"
+                              step="0.001"
+                              tabindex="0"
+                              type="range"
+                              value="19.902"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center"
+                >
+                  <input
+                    class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                    type="text"
+                    value="19.9"
+                  />
+                  <span
+                    class="w-2 text-xs text-foreground-500"
+                  >
+                    °
                   </span>
                 </div>
               </div>
@@ -484,40 +472,49 @@ exports[`Generator > renders correctly 1`] = `
       
             </style>
             <div
-              class="flex items-center justify-end gap-1"
+              class="flex items-center justify-between"
             >
-              <button
-                aria-label="Random color"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 rounded-s-none border-l-0"
-                data-react-aria-pressable="true"
-                tabindex="0"
-                type="button"
+              <div
+                class="inline-flex items-center justify-center h-auto"
+                role="group"
               >
-                <svg
-                  class="text-base"
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 256 256"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                <button
+                  aria-label="Switch to OKLCH"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground rounded-none first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-8 text-xs gap-1"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
                 >
-                  <path
-                    d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
-                  />
-                </svg>
-              </button>
-              <button
-                aria-expanded="false"
-                aria-haspopup="dialog"
-                aria-label="Change color options"
-                class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
-                data-react-aria-pressable="true"
-                data-slot="trigger"
-                tabindex="0"
-                type="button"
+                  OKLCH
+                </button>
+                <button
+                  aria-label="Switch to HSL"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 rounded-none first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-8 text-xs gap-1"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  HSL
+                </button>
+                <button
+                  aria-label="Switch to RGB"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 rounded-none first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-8 text-xs gap-1"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  RGB
+                </button>
+              </div>
+              <div
+                class="flex items-center gap-1"
               >
-                <span
-                  class="size-8 inline-flex items-center justify-center"
+                <button
+                  aria-label="Random color"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 rounded-s-none border-l-0"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
                 >
                   <svg
                     class="text-base"
@@ -528,32 +525,59 @@ exports[`Generator > renders correctly 1`] = `
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                      d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
                     />
                   </svg>
-                </span>
-              </button>
-              <button
-                aria-label="Remove color"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small opacity-disabled pointer-events-none px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
-                data-disabled="true"
-                data-react-aria-pressable="true"
-                disabled=""
-                type="button"
-              >
-                <svg
-                  class="text-base"
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 256 256"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+                </button>
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="dialog"
+                  aria-label="Change color options"
+                  class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
+                  data-react-aria-pressable="true"
+                  data-slot="trigger"
+                  tabindex="0"
+                  type="button"
                 >
-                  <path
-                    d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
-                  />
-                </svg>
-              </button>
+                  <span
+                    class="size-8 inline-flex items-center justify-center"
+                  >
+                    <svg
+                      class="text-base"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <button
+                  aria-label="Remove color"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small opacity-disabled pointer-events-none px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  data-disabled="true"
+                  data-react-aria-pressable="true"
+                  disabled=""
+                  type="button"
+                >
+                  <svg
+                    class="text-base"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -591,16 +615,17 @@ exports[`Generator > renders correctly 1`] = `
   </div>
   <div
     class="w-full flex flex-col border-l border-default"
-    data-uid="Palette"
+    data-testid="Palette"
   >
     <div
       class="flex-1 p-4"
     >
       <div
-        data-uid="PaletteHeader"
+        class="mb-8"
+        data-testid="PaletteHeader"
       >
         <div
-          class="flex items-center justify-between mb-4"
+          class="flex items-center justify-between"
         >
           <div
             class="group flex flex-col data-[hidden=true]:hidden w-full pointer-events-none relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_8px)] opacity-100 is-filled"
@@ -630,7 +655,7 @@ exports[`Generator > renders correctly 1`] = `
                     data-filled-within="true"
                     data-slot="input"
                     disabled=""
-                    id="react-aria-_r_18_"
+                    id="react-aria-_r_16_"
                     name="palette-name"
                     type="text"
                     value="Color Palette"
@@ -640,18 +665,18 @@ exports[`Generator > renders correctly 1`] = `
             </div>
           </div>
           <div
-            class="flex items-center md:gap-2"
+            class="flex items-center gap-1 md:gap-2"
           >
             <button
               aria-label="Palette Options"
-              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 px-2 min-w-8"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 min-w-8 px-2"
               data-react-aria-pressable="true"
               tabindex="0"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="text-lg"
+                class="text-xl"
                 fill="currentColor"
                 focusable="false"
                 height="1em"
@@ -660,21 +685,21 @@ exports[`Generator > renders correctly 1`] = `
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                  d="M200.77,53.89A103.27,103.27,0,0,0,128,24h-1.07A104,104,0,0,0,24,128c0,43,26.58,79.06,69.36,94.17A32,32,0,0,0,136,192a16,16,0,0,1,16-16h46.21a31.81,31.81,0,0,0,31.2-24.88,104.43,104.43,0,0,0,2.59-24A103.28,103.28,0,0,0,200.77,53.89Zm13,93.71A15.89,15.89,0,0,1,198.21,160H152a32,32,0,0,0-32,32,16,16,0,0,1-21.31,15.07C62.49,194.3,40,164,40,128a88,88,0,0,1,87.09-88h.9a88.35,88.35,0,0,1,88,87.25A88.86,88.86,0,0,1,213.81,147.6ZM140,76a12,12,0,1,1-12-12A12,12,0,0,1,140,76ZM96,100A12,12,0,1,1,84,88,12,12,0,0,1,96,100Zm0,56a12,12,0,1,1-12-12A12,12,0,0,1,96,156Zm88-56a12,12,0,1,1-12-12A12,12,0,0,1,184,100Z"
                 />
               </svg>
               Options
             </button>
             <button
               aria-label="Export All"
-              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 px-2 min-w-8"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 min-w-8 px-2"
               data-react-aria-pressable="true"
               tabindex="0"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="text-lg"
+                class="text-xl"
                 fill="currentColor"
                 focusable="false"
                 height="1em"
@@ -689,13 +714,14 @@ exports[`Generator > renders correctly 1`] = `
               Export All
             </button>
             <button
-              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-4 min-w-20 h-10 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none border-default bg-default-100 text-primary data-[hover=true]:opacity-hover h-8 min-w-8 px-2"
               data-react-aria-pressable="true"
               tabindex="0"
               type="button"
             >
               <svg
                 aria-hidden="true"
+                class="text-xl"
                 fill="currentColor"
                 focusable="false"
                 height="1em"
@@ -713,11 +739,11 @@ exports[`Generator > renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="flex flex-col items-start flex-1 gap-6"
+        class="flex flex-col items-start flex-1 gap-8"
       >
         <div
-          class="w-full flex flex-col gap-2"
-          data-uid="Scale"
+          class="w-full flex flex-col gap-4"
+          data-testid="Scale"
         >
           <div
             class="flex items-center justify-between"
@@ -726,10 +752,10 @@ exports[`Generator > renders correctly 1`] = `
               class="flex items-center gap-2"
             >
               <button
-                aria-label="Color Circle"
-                class="rounded-full shrink-0 size-6"
+                aria-label="Color Box"
+                class="shrink-0 size-8 rounded-small"
                 data-color="#FF0044"
-                data-uid="ColorCircle"
+                data-testid="ColorBox"
                 style="background-color: rgb(255, 0, 68);"
                 type="button"
               />
@@ -889,10 +915,10 @@ exports[`Generator > renders correctly 1`] = `
     </div>
     <footer
       class="w-full flex items-center justify-center gap-2 flex-wrap p-4"
-      data-uid="Footer"
+      data-testid="Footer"
     >
       <div
-        data-uid="Contact"
+        data-testid="Contact"
       >
         <button
           class="text-base"

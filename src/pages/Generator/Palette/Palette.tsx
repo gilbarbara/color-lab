@@ -27,7 +27,7 @@ export default function Palette({ showBottomBar = false }: PaletteProps) {
     >
       <div className="flex-1 p-4">
         <Header />
-        <div className="flex flex-col items-start flex-1 gap-6">
+        <div className="flex flex-col items-start flex-1 gap-8">
           {colors.map((colorEntry, index) => {
             const options = getEffectiveOptions(colorEntry, globalOptions);
 

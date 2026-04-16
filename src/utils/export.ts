@@ -1,4 +1,4 @@
-import { convert, parseCSS } from 'colorizr';
+import { convertCSS, parseCSS } from 'colorizr';
 
 import type {
   ExportColorFormat,
@@ -49,7 +49,7 @@ function generatePaletteSVG(palette: ScaleExportData[]): string {
       const toneEntries = Object.entries(steps);
       const rects = toneEntries
         .map(([, color], colIndex) => {
-          const hexColor = convert(color, 'hex');
+          const hexColor = convertCSS(color, 'hex');
 
           return `  <rect width="${rectWidth}" height="${rectHeight}" fill="${hexColor}" x="${colIndex * rectWidth}" y="${rectsY}"/>`;
         })
@@ -96,22 +96,22 @@ function normalizeColorName(name: string): string {
 
 /**
  * Convert a color string to the target format.
- * Uses colorizr's convert() directly to preserve wide gamut colors in OKLCH.
+ * Uses colorizr's convertCSS() directly to preserve wide gamut colors in OKLCH.
  * Colors are only clamped to sRGB when converting to hex/hsl/rgb formats.
  */
 export function formatColorValue(color: string, format: ExportColorFormat): string {
   switch (format) {
     case 'oklch': {
-      return convert(color, 'oklch');
+      return convertCSS(color, 'oklch');
     }
     case 'hsl': {
-      return convert(color, 'hsl');
+      return convertCSS(color, 'hsl');
     }
     case 'rgb': {
-      return convert(color, 'rgb');
+      return convertCSS(color, 'rgb');
     }
     case 'rgb-channels': {
-      const rgb = parseCSS(convert(color, 'rgb'));
+      const rgb = parseCSS(convertCSS(color, 'rgb'));
 
       if (typeof rgb === 'object' && 'r' in rgb) {
         return `${rgb.r} ${rgb.g} ${rgb.b}`;
@@ -120,7 +120,7 @@ export function formatColorValue(color: string, format: ExportColorFormat): stri
       return color;
     }
     case 'hex': {
-      return convert(color, 'hex');
+      return convertCSS(color, 'hex');
     }
     default: {
       return color;
@@ -229,7 +229,7 @@ export function generateSVG(name: string, tones: ScaleSteps): string {
   const rects = toneEntries
     .map(([, color], index) => {
       // SVG needs hex colors, so convert if needed
-      const hexColor = convert(color, 'hex');
+      const hexColor = convertCSS(color, 'hex');
 
       return `  <rect width="${rectWidth}" height="${rectHeight}" fill="${hexColor}" x="${index * rectWidth}" y="0"/>`;
     })
@@ -323,7 +323,7 @@ export const formatTypeLabels: Record<ExportFormatType, string> = {
  * Color format display labels.
  */
 export const colorFormatLabels: Record<ExportColorFormat, string> = {
-  hex: 'Hex code',
+  hex: 'Hex',
   hsl: 'HSL',
   oklch: 'OKLCH',
   rgb: 'RGB',

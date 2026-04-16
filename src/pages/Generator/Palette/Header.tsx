@@ -10,7 +10,7 @@ import {
   type SharedSelection,
   Slider,
 } from '@heroui/react';
-import { EraserIcon, HeartIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
+import { EraserIcon, HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys } from 'colorizr';
 
 import useAuth from '~/hooks/useAuth';
@@ -209,8 +209,8 @@ export default function PaletteHeader() {
   const locks = useMemo(() => ['None', ...getScaleStepKeys(steps).map(d => `${d}`)], [steps]);
 
   return (
-    <div data-testid="PaletteHeader">
-      <div className="flex items-center justify-between mb-4">
+    <div className="mb-8" data-testid="PaletteHeader">
+      <div className="flex items-center justify-between">
         <Input
           classNames={{
             base: 'opacity-100',
@@ -228,16 +228,16 @@ export default function PaletteHeader() {
           variant="underlined"
         />
 
-        <div className="flex items-center md:gap-2">
+        <div className="flex items-center gap-1 md:gap-2">
           <Tooltip content="Palette Options" delay={250} placement="bottom">
             <Button
               aria-label="Palette Options"
-              className={cn({
-                'h-8 px-2 min-w-8': isLarge,
+              className={cn('h-8 min-w-8 px-2', {
+                'w-8': !isLarge,
               })}
               isIconOnly={!isLarge}
               onPress={togglePaletteOptionsPanel}
-              startContent={<SlidersHorizontalIcon className="text-lg" />}
+              startContent={<PaletteIcon className="text-xl" />}
               variant={showPaletteOptionsPanel ? 'solid' : 'light'}
             >
               {isLarge && 'Options'}
@@ -245,19 +245,30 @@ export default function PaletteHeader() {
           </Tooltip>
           <ExportPalette />
           <Button
+            className={cn('h-8 min-w-8 px-2', {
+              'w-8': !isLarge,
+            })}
             color={hasUnsavedChanges ? 'warning' : 'primary'}
             isDisabled={!!loadedPaletteId && !hasUnsavedChanges}
+            isIconOnly={!isLarge}
             isLoading={isSaving}
             onPress={handleClickSave}
-            startContent={isLarge && <HeartIcon />}
+            startContent={
+              loadedPaletteId ? (
+                <PencilSimpleLineIcon className="text-xl" />
+              ) : (
+                <HeartIcon className="text-xl" />
+              )
+            }
+            variant="faded"
           >
-            {loadedPaletteId ? 'Update' : 'Save'}
+            {isLarge && (loadedPaletteId ? 'Update' : 'Save')}
           </Button>
         </div>
       </div>
 
       <Collapse isOpen={showPaletteOptionsPanel}>
-        <div className="border border-default p-4 mb-4 rounded-xl">
+        <div className="border border-default p-4 mt-4 rounded-xl">
           <div className="w-full flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <Select
               classNames={{

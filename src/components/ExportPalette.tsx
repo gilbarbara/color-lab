@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
-import { useBreakpoint, useEffectDeepCompare } from '@gilbarbara/hooks';
+import { useEffect, useMemo, useState } from 'react';
+import { useBreakpoint } from '@gilbarbara/hooks';
 import { Button, Checkbox, Chip, cn } from '@heroui/react';
 import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
-import { readableColorAPCA, scale } from 'colorizr';
+import { readableColor, scale } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
@@ -36,7 +36,7 @@ function ScaleItem(props: ScaleItemProps) {
     steps,
   } = props;
 
-  const textColor = readableColorAPCA(mainColor);
+  const textColor = readableColor(mainColor, 'apca');
   const code = generateExport(name, steps, { colorFormat, formatType });
 
   return (
@@ -72,10 +72,11 @@ export default function ExportPalette() {
   );
   const { min } = useBreakpoint();
 
-  // Reset to all selected when colors change
-  useEffectDeepCompare(() => {
+  // Reset to all selected when colors are added/removed
+  useEffect(() => {
     setSelectedIndices(new Set(colors.map((_, index) => index)));
-  }, [colors]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colors.length]);
 
   const scalesData = useMemo(() => {
     return colors.map(color => ({
@@ -116,15 +117,15 @@ export default function ExportPalette() {
         <Tooltip content="Export all" isDisabled={isLarge} placement="bottom-end">
           <Button
             aria-label="Export All"
-            className={cn({
-              'h-8 px-2 min-w-8': isLarge,
+            className={cn('h-8 min-w-8 px-2', {
+              'w-8': !isLarge,
             })}
             isIconOnly={!isLarge}
             onPress={() => {
               trackEvent('open-export-palette');
               onOpen();
             }}
-            startContent={<ExportIcon className="text-lg" />}
+            startContent={<ExportIcon className="text-xl" />}
             variant="light"
           >
             {isLarge && 'Export All'}

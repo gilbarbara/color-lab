@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatCSS, parseCSS, type RGB } from 'colorizr';
 
-import GradientSlider from '~/components/GradientSlider';
-import SliderInput from '~/components/SliderInput';
+import GradientSlider from './GradientSlider';
+import NumericInput from './NumericInput';
 
 interface RGBSlidersProps {
   color: string;
@@ -38,7 +38,7 @@ export default function RGBSliders(props: RGBSlidersProps) {
       <GradientSlider
         aria-label="Red"
         endContent={
-          <SliderInput
+          <NumericInput
             max={255}
             min={0}
             onChange={v => update({ r: v, g, b })}
@@ -56,7 +56,7 @@ export default function RGBSliders(props: RGBSlidersProps) {
       <GradientSlider
         aria-label="Green"
         endContent={
-          <SliderInput
+          <NumericInput
             max={255}
             min={0}
             onChange={v => update({ r, g: v, b })}
@@ -74,7 +74,7 @@ export default function RGBSliders(props: RGBSlidersProps) {
       <GradientSlider
         aria-label="Blue"
         endContent={
-          <SliderInput
+          <NumericInput
             max={255}
             min={0}
             onChange={v => update({ r, g, b: v })}
