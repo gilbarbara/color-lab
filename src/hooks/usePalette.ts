@@ -8,6 +8,7 @@ import { serializePaletteToUrl } from '~/utils/url';
 import type { GlobalScaleOptions, PaletteActions, PaletteState } from '~/types';
 
 interface UsePaletteResult extends PaletteState, PaletteActions {
+  activeColorId: string | null;
   baseSaturation: number;
   defaultOptions: GlobalScaleOptions;
   generatorUrl: string;

@@ -1,6 +1,7 @@
-import { type ChangeEvent, type KeyboardEvent } from 'react';
+import { type ChangeEvent, type KeyboardEvent, type SyntheticEvent } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import {
+  cn,
   Input,
   Popover,
   PopoverContent,
@@ -17,6 +18,7 @@ import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
 import ChannelSliders, { type ColorMode } from '~/components/ChannelSliders';
+import Collapse from '~/components/Collapse';
 import ColorBox from '~/components/ColorBox';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
@@ -39,7 +41,8 @@ interface ColorSelectorState {
 
 export default function ColorSelector(props: ColorSelectorProps) {
   const { colorEntry, globalOptions, index, isOnlyColor } = props;
-  const { baseSaturation, updateColor, updateGlobalOptions } = usePalette();
+  const { activeColorId, baseSaturation, setActiveColor, updateColor, updateGlobalOptions } =
+    usePalette();
   const [{ editInput, isEditingInput, mode, name }, setState] = useSetState<ColorSelectorState>({
     editInput: '',
     isEditingInput: false,
@@ -145,11 +148,28 @@ export default function ColorSelector(props: ColorSelectorProps) {
     handleChangeColor(oklch);
   };
 
+  const isActive = activeColorId === colorEntry.id;
+
+  const handleCaptureInactive = (event: SyntheticEvent) => {
+    if (isActive) {
+      return;
+    }
+
+    event.stopPropagation();
+    event.preventDefault();
+    setActiveColor(colorEntry.id);
+  };
+
   return (
     <div
-      className="flex flex-col gap-3 bg-default-100 p-4 rounded-xl scroll-mt-20"
+      className={cn('flex flex-col bg-default-50 p-4 rounded-xl scroll-mt-20', {
+        'bg-default-100': isActive,
+      })}
       data-testid="ColorSelector"
       id={`${index}-${color}`}
+      onClickCapture={handleCaptureInactive}
+      onPointerDownCapture={handleCaptureInactive}
+      role="presentation"
     >
       <div className="flex items-start gap-2">
         <Popover
@@ -215,20 +235,24 @@ export default function ColorSelector(props: ColorSelectorProps) {
         </div>
       </div>
 
-      <ChannelSliders
-        color={color}
-        disableSaturation={globalOptions.saturationOverride}
-        mode={mode}
-        onChangeColor={handleChangeColor}
-      />
-      <ColorActions
-        colorEntry={colorEntry}
-        index={index}
-        isOnlyColor={isOnlyColor}
-        mode={mode}
-        onClickMode={handleClickMode}
-        onClickRandom={handleClickRandom}
-      />
+      <Collapse duration={0.4} ease="circInOut" isOpen={isActive}>
+        <div className="flex flex-col mt-3 gap-2">
+          <ChannelSliders
+            color={color}
+            disableSaturation={globalOptions.saturationOverride}
+            mode={mode}
+            onChangeColor={handleChangeColor}
+          />
+          <ColorActions
+            colorEntry={colorEntry}
+            index={index}
+            isOnlyColor={isOnlyColor}
+            mode={mode}
+            onClickMode={handleClickMode}
+            onClickRandom={handleClickRandom}
+          />
+        </div>
+      </Collapse>
     </div>
   );
 }

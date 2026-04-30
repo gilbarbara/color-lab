@@ -28,23 +28,29 @@ function createDefaultProps(overrides: Partial<Parameters<typeof ColorSelector>[
   };
 }
 
-function setupStore(colors?: ColorEntry[]) {
+function renderActive(propsOverrides: Partial<Parameters<typeof ColorSelector>[0]> = {}) {
+  const props = createDefaultProps(propsOverrides);
+
+  setupStore([props.colorEntry]);
+
+  return { ...render(<ColorSelector {...props} />), props };
+}
+
+function setupStore(colors: ColorEntry[], activeIndex: number | null = 0) {
   const palette = createPalette(TEST_COLOR);
 
-  if (colors) {
-    palette.colors = colors;
-  }
+  palette.colors = colors;
 
-  usePaletteStore.setState(palette);
-
-  return palette;
+  usePaletteStore.setState({
+    ...palette,
+    activeColorId: activeIndex === null ? null : (colors[activeIndex]?.id ?? null),
+  });
 }
 
 describe('ColorSelector', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
-    setupStore();
   });
 
   afterEach(() => {
@@ -53,13 +59,13 @@ describe('ColorSelector', () => {
 
   describe('Render', () => {
     it('renders correctly in OKLCH mode', () => {
-      const { container } = render(<ColorSelector {...createDefaultProps()} />);
+      const { container } = renderActive();
 
       expect(container).toMatchSnapshot();
     });
 
     it('renders correctly in HSL mode', () => {
-      const { container } = render(<ColorSelector {...createDefaultProps()} />);
+      const { container } = renderActive();
 
       fireEvent.click(screen.getByLabelText('Switch to HSL'));
 
@@ -67,7 +73,7 @@ describe('ColorSelector', () => {
     });
 
     it('renders correctly in RGB mode', () => {
-      const { container } = render(<ColorSelector {...createDefaultProps()} />);
+      const { container } = renderActive();
 
       fireEvent.click(screen.getByLabelText('Switch to RGB'));
 
@@ -77,13 +83,13 @@ describe('ColorSelector', () => {
 
   describe('Behavior', () => {
     it('starts in OKLCH mode', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
+      renderActive();
 
       expect(screen.getByLabelText('Switch to OKLCH')).toBeInTheDocument();
     });
 
     it('updates color name on Enter key', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
+      renderActive();
 
       const input = screen.getByDisplayValue('Primary');
 
@@ -96,7 +102,7 @@ describe('ColorSelector', () => {
     });
 
     it('reverts name on blur without Enter', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
+      renderActive();
 
       const input = screen.getByDisplayValue('Primary');
 
@@ -110,7 +116,7 @@ describe('ColorSelector', () => {
     });
 
     it('shows remove confirmation on first click', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
+      renderActive();
 
       const removeButton = screen.getByRole('button', { name: /remove color/i });
       const initialCount = usePaletteStore.getState().colors.length;
@@ -169,7 +175,7 @@ describe('ColorSelector', () => {
     });
 
     it('disables remove when isOnlyColor is true', () => {
-      render(<ColorSelector {...createDefaultProps({ isOnlyColor: true })} />);
+      renderActive({ isOnlyColor: true });
 
       const removeButton = screen.getByRole('button', { name: /remove color/i });
 
@@ -177,7 +183,7 @@ describe('ColorSelector', () => {
     });
 
     it('opens options popover on gear click', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
+      renderActive();
 
       const optionsButton = screen.getByRole('button', { name: /change color options/i });
 
@@ -187,11 +193,28 @@ describe('ColorSelector', () => {
     });
 
     it('stores color values as OKLCH', () => {
-      render(<ColorSelector {...createDefaultProps()} />);
+      renderActive();
 
       const storeValue = usePaletteStore.getState().colors[0].value;
 
       expect(storeValue).toMatch(/^oklch\(/);
+    });
+
+    it('activates color in store on first click of inactive item', () => {
+      const colors = [
+        createColorEntry('Primary', TEST_COLOR),
+        createColorEntry('Secondary', 'oklch(0.7 0.15 180)'),
+      ];
+
+      setupStore(colors, 0);
+
+      render(<ColorSelector {...createDefaultProps({ colorEntry: colors[1], index: 1 })} />);
+
+      expect(usePaletteStore.getState().activeColorId).toBe(colors[0].id);
+
+      fireEvent.click(screen.getByTestId('ColorSelector'));
+
+      expect(usePaletteStore.getState().activeColorId).toBe(colors[1].id);
     });
   });
 });

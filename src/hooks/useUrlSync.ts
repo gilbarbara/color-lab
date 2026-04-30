@@ -32,7 +32,16 @@ export default function useUrlSync() {
         const storeUrlWithoutId = updatePaletteIdInUrl(storeUrl, null);
 
         if (storeUrlWithoutId !== urlWithoutId) {
-          usePaletteStore.setState(urlState);
+          usePaletteStore.setState(state => {
+            const colors = urlState.colors.map((c, index) =>
+              state.colors[index] ? { ...c, id: state.colors[index].id } : c,
+            );
+            const activeColorId = colors.some(c => c.id === state.activeColorId)
+              ? state.activeColorId
+              : (colors[0]?.id ?? null);
+
+            return { ...urlState, colors, activeColorId };
+          });
         }
 
         return;

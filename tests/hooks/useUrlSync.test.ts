@@ -7,6 +7,12 @@ import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
 
+async function flushObserver() {
+  await act(async () => {
+    await Promise.resolve();
+  });
+}
+
 function hexToOklch(hex: string): string {
   return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
 }
@@ -34,7 +40,10 @@ describe('hooks/useUrlSync', () => {
   beforeEach(() => {
     mockNavigate.mockClear();
     mockLocation = { pathname: '/', search: '' };
-    usePaletteStore.setState(createPalette());
+
+    const palette = createPalette();
+
+    usePaletteStore.setState({ ...palette, activeColorId: palette.colors[0].id });
     useAppStore.setState({
       loadedPaletteId: null,
       loadedPaletteName: 'Palette',
@@ -99,6 +108,42 @@ describe('hooks/useUrlSync', () => {
 
       expect(state.colors).toHaveLength(1);
       expect(state.colors[0].name).toBe('Primary');
+      expect(state.activeColorId).toBe(state.colors[0].id);
+    });
+
+    it('resets activeColorId to first color when URL hydrates with new ids', () => {
+      usePaletteStore.setState({ activeColorId: 'stale-id-from-prior-session' });
+      mockLocation = { pathname: '/p/Primary-FF0044/Secondary-00FF00', search: '' };
+
+      renderHook(() => useUrlSync());
+
+      const state = usePaletteStore.getState();
+
+      expect(state.activeColorId).toBe(state.colors[0].id);
+    });
+
+    it('preserves existing color ids when URL parse triggers state update', () => {
+      usePaletteStore.setState({
+        colors: [
+          { id: 'fixed-id-1', name: 'Primary', value: hexToOklch('#FF0044') },
+          { id: 'fixed-id-2', name: 'Secondary', value: hexToOklch('#00FF00') },
+        ],
+        activeColorId: 'fixed-id-1',
+      });
+
+      mockLocation = {
+        pathname: '/p/Primary-FF0044-x:0.9/Secondary-00FF00',
+        search: '',
+      };
+
+      renderHook(() => useUrlSync());
+
+      const state = usePaletteStore.getState();
+
+      expect(state.colors[0].id).toBe('fixed-id-1');
+      expect(state.colors[1].id).toBe('fixed-id-2');
+      expect(state.colors[0].overrides).toEqual({ maxLightness: 0.9 });
+      expect(state.activeColorId).toBe('fixed-id-1');
     });
   });
 
@@ -136,6 +181,89 @@ describe('hooks/useUrlSync', () => {
       expect(mockNavigate).toHaveBeenCalledWith(
         expect.stringContaining('/p/Primary-64_0.142_329/Secondary-'),
       );
+    });
+  });
+
+  describe('interaction pause', () => {
+    let interactingEl: HTMLDivElement;
+
+    beforeEach(() => {
+      interactingEl = document.createElement('div');
+      document.body.appendChild(interactingEl);
+    });
+
+    afterEach(() => {
+      interactingEl.remove();
+    });
+
+    it('pauses URL updates while data-interacting is true', async () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
+
+      renderHook(() => useUrlSync());
+      mockNavigate.mockClear();
+
+      interactingEl.setAttribute('data-interacting', 'true');
+      await flushObserver();
+
+      act(() => {
+        usePaletteStore.setState(state => ({
+          globalOptions: { ...state.globalOptions, steps: 12 },
+        }));
+      });
+
+      expect(mockNavigate).not.toHaveBeenCalled();
+    });
+
+    it('flushes once on release with latest state', async () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
+
+      renderHook(() => useUrlSync());
+      mockNavigate.mockClear();
+
+      interactingEl.setAttribute('data-interacting', 'true');
+      await flushObserver();
+
+      act(() => {
+        usePaletteStore.setState(state => ({
+          globalOptions: { ...state.globalOptions, steps: 12 },
+        }));
+      });
+      act(() => {
+        usePaletteStore.setState(state => ({
+          globalOptions: { ...state.globalOptions, steps: 15 },
+        }));
+      });
+
+      expect(mockNavigate).not.toHaveBeenCalled();
+
+      interactingEl.removeAttribute('data-interacting');
+      await flushObserver();
+
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining('i=15'));
+    });
+
+    it('resumes normal sync after release', async () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
+
+      renderHook(() => useUrlSync());
+      mockNavigate.mockClear();
+
+      interactingEl.setAttribute('data-interacting', 'true');
+      await flushObserver();
+      interactingEl.removeAttribute('data-interacting');
+      await flushObserver();
+
+      mockNavigate.mockClear();
+
+      act(() => {
+        usePaletteStore.setState(state => ({
+          globalOptions: { ...state.globalOptions, steps: 20 },
+        }));
+      });
+
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining('i=20'));
     });
   });
 });

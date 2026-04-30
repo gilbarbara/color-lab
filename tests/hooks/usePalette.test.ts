@@ -12,7 +12,9 @@ vi.mock('react-router', () => ({
 
 describe('hooks/usePalette', () => {
   beforeEach(() => {
-    usePaletteStore.setState(createPalette('#FF0044'));
+    const palette = createPalette('#FF0044');
+
+    usePaletteStore.setState({ ...palette, activeColorId: palette.colors[0].id });
   });
 
   describe('computed values', () => {
@@ -175,6 +177,134 @@ describe('hooks/usePalette', () => {
       expect(result.current.globalOptions).toEqual(
         getDefaultGlobalOptions(result.current.colors[0].value),
       );
+    });
+  });
+
+  describe('activeColor', () => {
+    it('initializes activeColorId to first color id', () => {
+      const { result } = renderHook(() => usePalette());
+
+      expect(result.current.activeColorId).toBe(result.current.colors[0].id);
+    });
+
+    it('setActiveColor with valid id updates active', () => {
+      const { result } = renderHook(() => usePalette());
+
+      act(() => {
+        result.current.addColor('#00FF00');
+      });
+
+      const secondId = result.current.colors[1].id;
+
+      act(() => {
+        result.current.setActiveColor(secondId);
+      });
+
+      expect(result.current.activeColorId).toBe(secondId);
+    });
+
+    it('setActiveColor with unknown id is a no-op', () => {
+      const { result } = renderHook(() => usePalette());
+      const initialActive = result.current.activeColorId;
+
+      act(() => {
+        result.current.setActiveColor('does-not-exist');
+      });
+
+      expect(result.current.activeColorId).toBe(initialActive);
+    });
+
+    it('addColor activates the new color', () => {
+      const { result } = renderHook(() => usePalette());
+
+      act(() => {
+        result.current.addColor('#00FF00');
+      });
+
+      expect(result.current.activeColorId).toBe(result.current.colors[1].id);
+    });
+
+    it('removeColor of active picks next neighbor', () => {
+      const { result } = renderHook(() => usePalette());
+
+      act(() => {
+        result.current.addColor('#00FF00');
+        result.current.addColor('#0000FF');
+      });
+
+      const middleId = result.current.colors[1].id;
+      const lastId = result.current.colors[2].id;
+
+      act(() => {
+        result.current.setActiveColor(middleId);
+      });
+
+      expect(result.current.activeColorId).toBe(middleId);
+
+      act(() => {
+        result.current.removeColor(1);
+      });
+
+      expect(result.current.activeColorId).toBe(lastId);
+    });
+
+    it('removeColor of last (active) falls back to previous', () => {
+      const { result } = renderHook(() => usePalette());
+
+      act(() => {
+        result.current.addColor('#00FF00');
+      });
+
+      const firstId = result.current.colors[0].id;
+      const lastId = result.current.colors[1].id;
+
+      act(() => {
+        result.current.setActiveColor(lastId);
+      });
+
+      act(() => {
+        result.current.removeColor(1);
+      });
+
+      expect(result.current.activeColorId).toBe(firstId);
+    });
+
+    it('removeColor of non-active leaves active unchanged', () => {
+      const { result } = renderHook(() => usePalette());
+
+      act(() => {
+        result.current.addColor('#00FF00');
+      });
+
+      const firstId = result.current.colors[0].id;
+
+      act(() => {
+        result.current.setActiveColor(firstId);
+      });
+
+      act(() => {
+        result.current.removeColor(1);
+      });
+
+      expect(result.current.activeColorId).toBe(firstId);
+    });
+
+    it('resetPalette sets active to new first color', () => {
+      const { result } = renderHook(() => usePalette());
+
+      act(() => {
+        result.current.addColor('#00FF00');
+      });
+
+      act(() => {
+        result.current.setActiveColor(result.current.colors[1].id);
+      });
+
+      act(() => {
+        result.current.resetPalette();
+      });
+
+      expect(result.current.activeColorId).toBe(result.current.colors[0].id);
     });
   });
 });
