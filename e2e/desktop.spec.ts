@@ -143,6 +143,11 @@ test.describe('Desktop', () => {
 
       // Back to one color
       await expect(removeButtons).toHaveCount(1);
+
+      // Wait for Collapse re-open animation on the remaining color (~400ms).
+      // Without this, the next test clicks while the trigger button is clipped
+      // by the still-animating overflow:hidden container, missing the popover.
+      await page.waitForTimeout(500);
     });
   });
 
@@ -290,7 +295,7 @@ test.describe('Desktop', () => {
     });
 
     test('should have color box indicator', async () => {
-      await expect(page.getByRole('button', { name: 'Color Box' }).first()).toBeVisible();
+      await expect(page.getByLabel('Color Box').first()).toBeVisible();
     });
   });
 });
