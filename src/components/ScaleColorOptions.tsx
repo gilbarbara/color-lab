@@ -4,10 +4,11 @@ import { EraserIcon } from '@phosphor-icons/react';
 
 import { trackEvent } from '~/utils/analytics';
 
-import type { GlobalScaleOptions } from '~/types';
+import CurvePreview from '~/components/CurvePreview';
+import SliderLabel from '~/components/SliderLabel';
+import SliderValue from '~/components/SliderValue';
 
-import SliderLabel from './SliderLabel';
-import SliderValue from './SliderValue';
+import type { GlobalScaleOptions } from '~/types';
 
 interface ScaleColorOptionsProps {
   className?: string;
@@ -95,6 +96,9 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
           />
         )}
         size="sm"
+        startContent={
+          <CurvePreview compute={t => minLightness + (maxLightness - minLightness) * t} />
+        }
         step={0.01}
         value={[minLightness, maxLightness]}
       />
@@ -104,6 +108,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         color="foreground"
         label="Lightness Curve"
         maxValue={5}
+        minValue={0.1}
         name="lightnessCurve"
         onChange={handleChangeLightnessFactor}
         onChangeEnd={value => trackEvent('lightness-curve', { value: value as number })}
@@ -128,6 +133,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
           <SliderValue {...renderProps} defaultValues={[defaultOptions.lightnessCurve]} />
         )}
         size="sm"
+        startContent={<CurvePreview compute={t => t ** lightnessCurve} />}
         step={0.1}
         value={lightnessCurve}
       />
@@ -169,6 +175,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
           <SliderValue {...renderProps} defaultValues={[defaultOptions.chromaCurve]} />
         )}
         size="sm"
+        startContent={<CurvePreview compute={t => 1 - chromaCurve * (1 - 4 * t * (1 - t))} />}
         step={0.1}
         value={chromaCurve}
       />
