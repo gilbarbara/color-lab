@@ -8,7 +8,7 @@ import {
   type PressEvent,
   useDisclosure,
 } from '@heroui/react';
-import { ArrowsClockwiseIcon, SlidersHorizontalIcon, TrashIcon } from '@phosphor-icons/react';
+import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 import { readableColor } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
@@ -16,7 +16,6 @@ import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
 import type { ColorMode } from '~/components/ChannelSliders';
-import ConfirmTooltip from '~/components/ConfirmTooltip';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
 
@@ -32,8 +31,8 @@ interface ColorActionsProps {
 }
 
 export default function ColorActions(props: ColorActionsProps) {
-  const { colorEntry, index, isOnlyColor, mode, onClickMode, onClickRandom } = props;
-  const { clearColorOverrides, globalOptions, removeColor, updateColor } = usePalette();
+  const { colorEntry, index, mode, onClickMode, onClickRandom } = props;
+  const { clearColorOverrides, globalOptions, updateColor } = usePalette();
   const { isOpen, onOpenChange } = useDisclosure();
   const { max, min } = useBreakpoint();
 
@@ -148,25 +147,6 @@ export default function ColorActions(props: ColorActionsProps) {
               />
             </PopoverContent>
           </Popover>
-          <ConfirmTooltip
-            confirmMessage="Click again to remove"
-            isDisabled={isOnlyColor}
-            message="Remove color"
-            onConfirm={() => {
-              trackEvent('remove-color');
-              removeColor(index);
-            }}
-          >
-            <Button
-              aria-label="Remove color"
-              isDisabled={isOnlyColor}
-              isIconOnly
-              size="sm"
-              variant="light"
-            >
-              <TrashIcon className="text-base" />
-            </Button>
-          </ConfirmTooltip>
         </div>
       </div>
     </>
