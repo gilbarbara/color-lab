@@ -9,6 +9,7 @@ import {
   type PressEvent,
   useDisclosure,
 } from '@heroui/react';
+import { TrashIcon } from '@phosphor-icons/react';
 import Chrome, { ChromeInputType } from '@uiw/react-color-chrome';
 import { convertCSS, formatCSS, isValidColor, parseCSS } from 'colorizr';
 
@@ -17,9 +18,11 @@ import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
+import Button from '~/components/Button';
 import ChannelSliders, { type ColorMode } from '~/components/ChannelSliders';
 import Collapse from '~/components/Collapse';
 import ColorBox from '~/components/ColorBox';
+import ConfirmTooltip from '~/components/ConfirmTooltip';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
 
@@ -41,8 +44,14 @@ interface ColorSelectorState {
 
 export default function ColorSelector(props: ColorSelectorProps) {
   const { colorEntry, globalOptions, index, isOnlyColor } = props;
-  const { activeColorId, baseSaturation, setActiveColor, updateColor, updateGlobalOptions } =
-    usePalette();
+  const {
+    activeColorId,
+    baseSaturation,
+    removeColor,
+    setActiveColor,
+    updateColor,
+    updateGlobalOptions,
+  } = usePalette();
   const [{ editInput, isEditingInput, mode, name }, setState] = useSetState<ColorSelectorState>({
     editInput: '',
     isEditingInput: false,
@@ -203,22 +212,43 @@ export default function ColorSelector(props: ColorSelectorProps) {
           </PopoverContent>
         </Popover>
         <div className="w-full space-y-2">
-          <Input
-            classNames={{
-              innerWrapper: 'pb-0',
-              inputWrapper: ' h-6 min-h-6',
-              input: 'text-base font-semibold text-foreground-800',
-            }}
-            color={colorEntry.name !== name ? 'warning' : undefined}
-            disableAnimation
-            name={`color-name-${index}`}
-            onBlur={handleBlurName}
-            onChange={handleChangeName}
-            onKeyDown={handleKeyDownName}
-            size="sm"
-            value={name}
-            variant="underlined"
-          />
+          <div className="flex items-center gap-1">
+            <Input
+              classNames={{
+                innerWrapper: 'pb-0',
+                inputWrapper: ' h-6 min-h-6',
+                input: 'text-base font-semibold text-foreground-800',
+              }}
+              color={colorEntry.name !== name ? 'warning' : undefined}
+              disableAnimation
+              name={`color-name-${index}`}
+              onBlur={handleBlurName}
+              onChange={handleChangeName}
+              onKeyDown={handleKeyDownName}
+              size="sm"
+              value={name}
+              variant="underlined"
+            />
+            <ConfirmTooltip
+              confirmMessage="Click again to remove"
+              isDisabled={isOnlyColor}
+              message="Remove color"
+              onConfirm={() => {
+                trackEvent('remove-color');
+                removeColor(index);
+              }}
+            >
+              <Button
+                aria-label="Remove color"
+                isDisabled={isOnlyColor}
+                isIconOnly
+                size="xs"
+                variant="light"
+              >
+                <TrashIcon className="text-base" />
+              </Button>
+            </ConfirmTooltip>
+          </div>
 
           <Input
             aria-label="Color value"
