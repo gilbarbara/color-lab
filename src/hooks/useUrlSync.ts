@@ -42,40 +42,42 @@ export default function useUrlSync() {
     // Invalid URL → create default palette
     const state = createPalette();
 
-    usePaletteStore.setState(state);
+    usePaletteStore.setState({ ...state, activeColorId: state.colors[0]?.id ?? null });
     navigate(serializePaletteToUrl(state), { replace: true });
   }, [location.pathname, location.search, navigate]);
 
   const isPaused = useRef(false);
 
-  // Watch slider thumbs for drag state
+  // Watch for user interaction on ColorPicker / ChannelSliders roots.
+  // They expose `data-interacting="true"` while a descendant is under pointer
+  // or keyboard interaction; we pause URL writes during that window and flush
+  // once on release so mid-interaction route churn doesn't break the gesture.
   useEffect(() => {
-    const observer = new MutationObserver(mutations => {
-      for (const m of mutations) {
-        const el = m.target as HTMLElement;
+    let wasInteracting = false;
 
-        if (el.dataset.slot !== 'thumb') {
-          continue;
-        }
+    const observer = new MutationObserver(() => {
+      const isInteracting = document.querySelector('[data-interacting="true"]') !== null;
 
-        const dragging = el.dataset.dragging === 'true';
+      if (isInteracting === wasInteracting) return;
+      wasInteracting = isInteracting;
 
-        if (dragging) {
-          isPaused.current = true;
-        } else if (isPaused.current) {
-          isPaused.current = false;
+      if (isInteracting) {
+        isPaused.current = true;
 
-          const url = serializePaletteToUrl(usePaletteStore.getState());
-          const { loadedPaletteId } = useAppStore.getState();
-
-          navigate(updatePaletteIdInUrl(url, loadedPaletteId));
-        }
+        return;
       }
+
+      isPaused.current = false;
+
+      const url = serializePaletteToUrl(usePaletteStore.getState());
+      const { loadedPaletteId } = useAppStore.getState();
+
+      navigate(updatePaletteIdInUrl(url, loadedPaletteId));
     });
 
     observer.observe(document.body, {
       attributes: true,
-      attributeFilter: ['data-dragging'],
+      attributeFilter: ['data-interacting'],
       subtree: true,
     });
 

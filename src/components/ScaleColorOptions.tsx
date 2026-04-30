@@ -1,7 +1,9 @@
-import { type ReactNode, useCallback } from 'react';
+import { type ReactNode } from 'react';
 import { Button, cn, Slider } from '@heroui/react';
 import { EraserIcon } from '@phosphor-icons/react';
 
+import useRafCallback from '~/hooks/useRafCallback';
+import useSliderInteraction from '~/hooks/useSliderInteraction';
 import { trackEvent } from '~/utils/analytics';
 
 import CurvePreview from '~/components/CurvePreview';
@@ -23,36 +25,64 @@ interface ScaleColorOptionsProps {
 export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
   const { className, defaultOptions, description, onReset, onUpdate, options, title } = props;
   const { chromaCurve, lightnessCurve, maxLightness, minLightness } = options;
+  const { end, ref: interactionRef, start } = useSliderInteraction();
+  const scheduleUpdate = useRafCallback(onUpdate);
 
   const handleChangeChromaCurve = (value: number | number[]) => {
+    start();
+
     if (!Array.isArray(value)) {
-      onUpdate({ chromaCurve: value });
+      scheduleUpdate({ chromaCurve: value });
     }
   };
 
-  const handleChangeLightnessFactor = (value: number | number[]) => {
+  const handleChangeEndChromaCurve = (value: number | number[]) => {
+    end();
+    trackEvent('chroma-curve', { value: value as number });
+  };
+
+  const handleChangeLightnessCurve = (value: number | number[]) => {
+    start();
+
     if (!Array.isArray(value)) {
-      onUpdate({ lightnessCurve: value });
+      scheduleUpdate({ lightnessCurve: value });
     }
   };
 
-  const handleChangeLightness = useCallback(
-    (value: number | number[]) => {
-      if (!Array.isArray(value)) {
-        return;
-      }
+  const handleChangeEndLightnessCurve = (value: number | number[]) => {
+    end();
 
-      const [min, max] = value;
+    trackEvent('lightness-curve', { value: value as number });
+  };
 
-      if (min < max) {
-        onUpdate({ minLightness: min, maxLightness: max });
-      }
-    },
-    [onUpdate],
-  );
+  const handleChangeLightness = (value: number | number[]) => {
+    start();
+
+    if (!Array.isArray(value)) {
+      return;
+    }
+
+    const [min, max] = value;
+
+    if (min < max) {
+      scheduleUpdate({ minLightness: min, maxLightness: max });
+    }
+  };
+
+  const handleChangeEndLightness = (value: number | number[]) => {
+    end();
+
+    if (Array.isArray(value)) {
+      trackEvent('lightness-range', { min: value[0], max: value[1] });
+    }
+  };
 
   return (
-    <div className={cn('w-full flex flex-col gap-3', className)} data-testid="ScaleColorOptions">
+    <div
+      ref={interactionRef}
+      className={cn('w-full flex flex-col gap-3', className)}
+      data-testid="ScaleColorOptions"
+    >
       {title && <h3 className="font-semibold text-lg">{title}</h3>}
       {description && <div className="text-sm">{description}</div>}
 
@@ -63,11 +93,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         maxValue={1}
         name="lightness"
         onChange={handleChangeLightness}
-        onChangeEnd={value => {
-          if (Array.isArray(value)) {
-            trackEvent('lightness-range', { min: value[0], max: value[1] });
-          }
-        }}
+        onChangeEnd={handleChangeEndLightness}
         renderLabel={renderProps => (
           <SliderLabel
             {...renderProps}
@@ -110,8 +136,8 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         maxValue={5}
         minValue={0.1}
         name="lightnessCurve"
-        onChange={handleChangeLightnessFactor}
-        onChangeEnd={value => trackEvent('lightness-curve', { value: value as number })}
+        onChange={handleChangeLightnessCurve}
+        onChangeEnd={handleChangeEndLightnessCurve}
         renderLabel={renderProps => (
           <SliderLabel
             {...renderProps}
@@ -145,7 +171,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         maxValue={1}
         name="chromaCurve"
         onChange={handleChangeChromaCurve}
-        onChangeEnd={value => trackEvent('chroma-curve', { value: value as number })}
+        onChangeEnd={handleChangeEndChromaCurve}
         renderLabel={renderProps => (
           <SliderLabel
             {...renderProps}
@@ -181,7 +207,12 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
       />
 
       <div>
-        <Button onPress={onReset} size="sm" startContent={<EraserIcon className="text-base" />}>
+        <Button
+          className="light:bg-black/30 dark:bg-white/30"
+          onPress={onReset}
+          size="sm"
+          startContent={<EraserIcon className="text-base" />}
+        >
           Reset
         </Button>
       </div>
