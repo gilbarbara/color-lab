@@ -12,6 +12,7 @@ import Chrome, { ChromeInputType } from '@uiw/react-color-chrome';
 import { convertCSS, formatCSS, isValidColor, parseCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
+import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
@@ -68,7 +69,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
   };
 
-  const handleChangeColor = (value: string) => {
+  const handleChangeColor = useRafCallback((value: string) => {
     updateColor(index, { value });
 
     if (index === 0) {
@@ -76,7 +77,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
         saturation: getChromaAsPercentage(value),
       });
     }
-  };
+  });
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

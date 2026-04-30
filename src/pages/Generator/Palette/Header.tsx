@@ -15,7 +15,9 @@ import { getScaleStepKeys } from 'colorizr';
 
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
+import useRafCallback from '~/hooks/useRafCallback';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
+import useSliderInteraction from '~/hooks/useSliderInteraction';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 
@@ -49,6 +51,8 @@ export default function PaletteHeader() {
     updateCurrentPalette,
   } = useSavedPalettes();
   const { min } = useBreakpoint();
+  const { end, ref: interactionRef, start } = useSliderInteraction();
+  const scheduleUpdateGlobalOptions = useRafCallback(updateGlobalOptions);
 
   const [{ isSaveModalOpen, isSaving, name }, setState] = useSetState<PaletteHeaderState>({
     isSaveModalOpen: false,
@@ -90,14 +94,18 @@ export default function PaletteHeader() {
   };
 
   const handleChangeSaturation = (value: number | number[]) => {
+    start();
+
     if (!Array.isArray(value)) {
-      updateGlobalOptions({ saturation: value });
+      scheduleUpdateGlobalOptions({ saturation: value });
     }
   };
 
   const handleChangeSteps = (value: number | number[]) => {
+    start();
+
     if (!Array.isArray(value)) {
-      updateGlobalOptions({ steps: value });
+      scheduleUpdateGlobalOptions({ steps: value });
     }
   };
 
@@ -345,7 +353,10 @@ export default function PaletteHeader() {
               ))}
             </Select>
           </div>
-          <div className="w-full flex flex-col md:flex-row items-start gap-4 md:gap-8 mt-4">
+          <div
+            ref={interactionRef}
+            className="w-full flex flex-col md:flex-row items-start gap-4 md:gap-8 mt-4"
+          >
             <div className="w-full">
               <Slider
                 aria-label="Steps"
@@ -355,7 +366,10 @@ export default function PaletteHeader() {
                 minValue={3}
                 name="steps"
                 onChange={handleChangeSteps}
-                onChangeEnd={value => trackEvent('steps', { value: value as number })}
+                onChangeEnd={value => {
+                  end();
+                  trackEvent('steps', { value: value as number });
+                }}
                 renderLabel={renderProps => (
                   <SliderLabel
                     {...renderProps}
@@ -387,7 +401,10 @@ export default function PaletteHeader() {
                 maxValue={100}
                 name="saturation"
                 onChange={handleChangeSaturation}
-                onChangeEnd={value => trackEvent('saturation', { value: value as number })}
+                onChangeEnd={value => {
+                  end();
+                  trackEvent('saturation', { value: value as number });
+                }}
                 renderLabel={renderProps => (
                   <SliderLabel
                     {...renderProps}
