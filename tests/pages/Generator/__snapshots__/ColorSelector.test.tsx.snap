@@ -97,7 +97,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                     tabindex="0"
                     title=""
                     type="text"
-                    value="oklch(0.55 0.22 27)"
+                    value="#d40c1a"
                   />
                 </div>
               </div>
@@ -1102,7 +1102,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                     tabindex="0"
                     title=""
                     type="text"
-                    value="oklch(0.55 0.22 27)"
+                    value="#d40c1a"
                   />
                 </div>
               </div>

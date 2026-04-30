@@ -1,4 +1,4 @@
-import { type ChangeEvent, type KeyboardEvent, useEffect, useRef } from 'react';
+import { type ChangeEvent, type KeyboardEvent } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import {
   Input,
@@ -31,7 +31,8 @@ interface ColorSelectorProps {
 }
 
 interface ColorSelectorState {
-  input: string;
+  editInput: string;
+  isEditingInput: boolean;
   mode: ColorMode;
   name: string;
 }
@@ -39,27 +40,17 @@ interface ColorSelectorState {
 export default function ColorSelector(props: ColorSelectorProps) {
   const { colorEntry, globalOptions, index, isOnlyColor } = props;
   const { baseSaturation, updateColor, updateGlobalOptions } = usePalette();
-  const [{ input, mode, name }, setState] = useSetState<ColorSelectorState>({
-    input: colorEntry.value,
+  const [{ editInput, isEditingInput, mode, name }, setState] = useSetState<ColorSelectorState>({
+    editInput: '',
+    isEditingInput: false,
     mode: 'oklch',
     name: colorEntry.name,
   });
   const { isOpen, onOpenChange } = useDisclosure();
-  const isLocalChange = useRef(false);
 
   const color = colorEntry.value;
   const pickerHex = convertCSS(color, 'hex');
-
-  // Sync when colorValue changes externally (URL navigation, reset)
-  useEffect(() => {
-    if (isLocalChange.current) {
-      isLocalChange.current = false;
-
-      return;
-    }
-
-    setState({ input: color });
-  }, [color, setState]);
+  const input = isEditingInput ? editInput : mode === 'oklch' ? color : convertCSS(color, 'hex');
 
   const handleBlurName = () => {
     if (colorEntry.name !== name) {
@@ -110,6 +101,14 @@ export default function ColorSelector(props: ColorSelectorProps) {
     handleChangeColor(randomColor);
   };
 
+  const handleFocusInput = () => {
+    setState({ isEditingInput: true, editInput: input });
+  };
+
+  const handleBlurInput = () => {
+    setState({ isEditingInput: false });
+  };
+
   const handleChangeInput = (value: string) => {
     const trimmed = value.trim();
     const bareHexPattern = /^(?:[\da-f]{3}){1,2}$/i;
@@ -117,8 +116,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
     if (bareHexPattern.test(trimmed)) {
       const prefixed = `#${trimmed}`;
 
-      setState({ input: prefixed });
-      isLocalChange.current = true;
+      setState({ editInput: prefixed });
 
       const oklch = formatCSS(parseCSS(prefixed, 'oklch'), { format: 'oklch' });
 
@@ -127,7 +125,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
       return;
     }
 
-    setState({ input: value });
+    setState({ editInput: value });
 
     // Only accept 3/6-char hex (no RGBA) to avoid transparent colors
     if (/^#[\da-f]+$/i.test(trimmed) && trimmed.length !== 4 && trimmed.length !== 7) {
@@ -135,8 +133,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
 
     if (isValidColor(trimmed)) {
-      isLocalChange.current = true;
-
       const oklch = formatCSS(parseCSS(trimmed, 'oklch'), { format: 'oklch' });
 
       handleChangeColor(oklch);
@@ -209,6 +205,8 @@ export default function ColorSelector(props: ColorSelectorProps) {
             classNames={{
               inputWrapper: 'h-8 min-h-8 px-2',
             }}
+            onBlur={handleBlurInput}
+            onFocus={handleFocusInput}
             onValueChange={handleChangeInput}
             type="text"
             value={input}
