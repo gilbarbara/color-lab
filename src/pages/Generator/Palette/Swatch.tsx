@@ -46,7 +46,7 @@ export default function Swatch({ color, lock, step }: SwatchProps) {
 
   if (parseInt(step, 10) === lock) {
     icon = (
-      <span className="mb-auto lg:mt-2 order-1 md:order-0">
+      <span className="mb-auto lg:mt-2 md:order-1">
         <LockSimpleIcon className="text-base" weight="bold" />
       </span>
     );
@@ -62,8 +62,8 @@ export default function Swatch({ color, lock, step }: SwatchProps) {
         style={{ backgroundColor: color, color: readableColor(color, 'apca') }}
         tabIndex={0}
       >
+        <p className="text-base/4 md:order-2">{step}</p>
         {icon}
-        <p className="text-base/4">{step}</p>
       </div>
     </Tooltip>
   );

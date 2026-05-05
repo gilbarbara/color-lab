@@ -751,13 +751,9 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="flex items-center gap-2"
             >
-              <button
-                aria-label="Color Box"
+              <span
                 class="shrink-0 size-8 rounded-small"
-                data-color="#FF0044"
-                data-testid="ColorBox"
                 style="background-color: rgb(255, 0, 68);"
-                type="button"
               />
               <h3
                 class="font-semibold text-lg"
@@ -784,7 +780,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 50
               </p>
@@ -796,7 +792,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 100
               </p>
@@ -808,7 +804,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 200
               </p>
@@ -820,7 +816,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 300
               </p>
@@ -832,7 +828,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 400
               </p>
@@ -844,7 +840,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 500
               </p>
@@ -856,7 +852,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 600
               </p>
@@ -868,7 +864,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 700
               </p>
@@ -880,7 +876,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 800
               </p>
@@ -892,7 +888,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 900
               </p>
@@ -904,7 +900,7 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
             >
               <p
-                class="text-base/4"
+                class="text-base/4 md:order-2"
               >
                 950
               </p>

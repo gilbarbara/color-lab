@@ -12,7 +12,7 @@ exports[`Swatch > Render > renders correctly 1`] = `
       tabindex="0"
     >
       <p
-        class="text-base/4"
+        class="text-base/4 md:order-2"
       >
         500
       </p>
@@ -32,8 +32,13 @@ exports[`Swatch > Render > renders with lock icon 1`] = `
       style="background-color: rgb(255, 0, 68); color: rgb(255, 255, 255);"
       tabindex="0"
     >
+      <p
+        class="text-base/4 md:order-2"
+      >
+        500
+      </p>
       <span
-        class="mb-auto lg:mt-2 order-1 md:order-0"
+        class="mb-auto lg:mt-2 md:order-1"
       >
         <svg
           class="text-base"
@@ -48,11 +53,6 @@ exports[`Swatch > Render > renders with lock icon 1`] = `
           />
         </svg>
       </span>
-      <p
-        class="text-base/4"
-      >
-        500
-      </p>
     </div>
   </div>
 </div>
