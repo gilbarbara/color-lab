@@ -1,21 +1,13 @@
 import { useBreakpoint, useMemoDeepCompare } from '@gilbarbara/hooks';
-import {
-  ButtonGroup,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  type PressEvent,
-  useDisclosure,
-} from '@heroui/react';
+import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
+import { type ColorMode, ModeSelector } from '@transience/color-picker';
 import { readableColor } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
-import type { ColorMode } from '~/components/ChannelSliders';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
 
@@ -26,7 +18,7 @@ interface ColorActionsProps {
   index: number;
   isOnlyColor: boolean;
   mode: ColorMode;
-  onClickMode: (event: PressEvent) => void;
+  onClickMode: (value: ColorMode) => void;
   onClickRandom: () => void;
 }
 
@@ -69,37 +61,11 @@ export default function ColorActions(props: ColorActionsProps) {
       `}
       </style>
       <div className="flex items-center justify-between">
-        <ButtonGroup>
-          <Button
-            aria-label="Switch to OKLCH"
-            onPress={onClickMode}
-            size="xs"
-            variant={mode === 'oklch' ? 'solid' : 'flat'}
-          >
-            OKLCH
-          </Button>
-          <Button
-            aria-label="Switch to HSL"
-            onPress={onClickMode}
-            size="xs"
-            variant={mode === 'hsl' ? 'solid' : 'flat'}
-          >
-            HSL
-          </Button>
-          <Button
-            aria-label="Switch to RGB"
-            onPress={onClickMode}
-            size="xs"
-            variant={mode === 'rgb' ? 'solid' : 'flat'}
-          >
-            RGB
-          </Button>
-        </ButtonGroup>
+        <ModeSelector mode={mode} onClick={onClickMode} />
 
         <div className="flex items-center gap-1">
           <Button
             aria-label="Random color"
-            className="rounded-s-none border-l-0"
             isIconOnly
             onPress={onClickRandom}
             size="sm"

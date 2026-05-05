@@ -1,0 +1,8 @@
+allowBuilds:
+  '@firebase/util': true
+  '@heroui/shared-utils': true
+  protobufjs: true
+  unrs-resolver: true
+publicHoistPattern:
+  - '*@heroui/*'
+  - '*@transience/color-picker/*'

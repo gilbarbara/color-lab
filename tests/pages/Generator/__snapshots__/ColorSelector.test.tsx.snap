@@ -59,7 +59,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                       data-filled="true"
                       data-filled-within="true"
                       data-slot="input"
-                      id="react-aria-_r_1d_"
+                      id="react-aria-_r_r_"
                       name="color-name-0"
                       tabindex="0"
                       title=""
@@ -118,7 +118,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                     data-filled-within="true"
                     data-slot="input"
                     data-type="text"
-                    id="react-aria-_r_1k_"
+                    id="react-aria-_r_12_"
                     tabindex="0"
                     title=""
                     type="text"
@@ -137,91 +137,55 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
           class="flex flex-col mt-3 gap-2"
         >
           <div
-            class="space-y-3"
+            class="flex flex-col gap-2"
             data-testid="ChannelSliders"
           >
             <div
               class="flex items-center gap-2"
+              data-testid="HueSlider"
             >
+              H
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, hsl(0 100% 70%), hsl(60 100% 70%), hsl(120 100% 70%), hsl(180 100% 70%), hsl(240 100% 70%), hsl(300 100% 70%), hsl(360 100% 70%));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Hue"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_2m_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Hue"
+                    aria-orientation="horizontal"
+                    aria-valuemax="359.9"
+                    aria-valuemin="0"
+                    aria-valuenow="355.8"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="359.9"
+                    min="0"
+                    step="1"
+                    tabindex="0"
+                    type="range"
+                    value="355.8"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      H
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 98.91636565712699%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 98.91636565712699%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_2m_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="356"
-                            id="react-aria-_r_2m_-0"
-                            max="359.9"
-                            min="0"
-                            step="1"
-                            tabindex="0"
-                            type="range"
-                            value="356"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(98.861% - 19.772px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Hue"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="356"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                 >
                   °
                 </span>
@@ -229,92 +193,56 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
             </div>
             <div
               class="flex items-center gap-2"
+              data-testid="SaturationSlider"
             >
+              <button
+                class="inline-flex shrink-0 text-base"
+                tabindex="-1"
+                type="button"
+              >
+                S
+              </button>
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, hsl(355.8 0% 43.92%), hsl(355.8 100% 43.92%));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Saturation"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_2s_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, rgb(112, 112, 112), rgb(224, 0, 16)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Saturation"
+                    aria-orientation="horizontal"
+                    aria-valuemax="100"
+                    aria-valuemin="0"
+                    aria-valuenow="89.29"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="100"
+                    min="0"
+                    step="1"
+                    tabindex="0"
+                    type="range"
+                    value="89.29"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      <button
-                        class="inline-flex shrink-0 text-base"
-                        tabindex="-1"
-                        type="button"
-                      >
-                        S
-                      </button>
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 89%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 89%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_2s_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="89"
-                            id="react-aria-_r_2s_-0"
-                            max="100"
-                            min="0"
-                            step="1"
-                            tabindex="0"
-                            type="range"
-                            value="89"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(89.29% - 17.858px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Saturation"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="89"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                 >
                   %
                 </span>
@@ -322,86 +250,50 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
             </div>
             <div
               class="flex items-center gap-2"
+              data-testid="LightnessSlider"
             >
+              L
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, hsl(355.8 89.29% 0%), hsl(355.8 89.29% 50%), hsl(355.8 89.29% 100%));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Lightness"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_35_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, rgb(0, 0, 0), rgb(241, 14, 30), rgb(255, 255, 255)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Lightness"
+                    aria-orientation="horizontal"
+                    aria-valuemax="100"
+                    aria-valuemin="0"
+                    aria-valuenow="43.92"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="100"
+                    min="0"
+                    step="1"
+                    tabindex="0"
+                    type="range"
+                    value="43.92"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      L
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 44%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 44%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_35_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="44"
-                            id="react-aria-_r_35_-0"
-                            max="100"
-                            min="0"
-                            step="1"
-                            tabindex="0"
-                            type="range"
-                            value="44"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(43.92% - 8.784px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Lightness"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="44"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                 >
                   %
                 </span>
@@ -423,36 +315,29 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
             class="flex items-center justify-between"
           >
             <div
-              class="inline-flex items-center justify-center h-auto"
-              role="group"
+              class="flex items-center"
+              data-testid="ModeSelector"
             >
               <button
                 aria-label="Switch to OKLCH"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="false"
+                class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
                 type="button"
               >
                 OKLCH
               </button>
               <button
                 aria-label="Switch to HSL"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="true"
+                class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
                 type="button"
               >
                 HSL
-                <span
-                  class="heroui-ripple"
-                  style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
-                />
               </button>
               <button
                 aria-label="Switch to RGB"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="false"
+                class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
                 type="button"
               >
                 RGB
@@ -463,7 +348,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
             >
               <button
                 aria-label="Random color"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 rounded-s-none border-l-0"
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
                 data-react-aria-pressable="true"
                 tabindex="0"
                 type="button"
@@ -654,91 +539,55 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
           class="flex flex-col mt-3 gap-2"
         >
           <div
-            class="space-y-3"
+            class="flex flex-col gap-2"
             data-testid="ChannelSliders"
           >
             <div
               class="flex items-center gap-2"
+              data-testid="LightnessSlider"
             >
+              L
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, oklch(0 0.22 27), oklch(0.55 0.22 27), oklch(1 0.22 27));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Lightness"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_g_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, oklch(0 0.22 27), oklch(0.55 0.22 27), oklch(1 0.22 27)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Lightness"
+                    aria-orientation="horizontal"
+                    aria-valuemax="1"
+                    aria-valuemin="0"
+                    aria-valuenow="0.55"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="1"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="0.55"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      L
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 55.00000000000001%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 55.00000000000001%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_g_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="0.55"
-                            id="react-aria-_r_g_-0"
-                            max="1"
-                            min="0"
-                            step="0.001"
-                            tabindex="0"
-                            type="range"
-                            value="0.55"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(55% - 11px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Lightness"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="55.0"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                 >
                   %
                 </span>
@@ -746,92 +595,56 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
             </div>
             <div
               class="flex items-center gap-2"
+              data-testid="ChromaSlider"
             >
+              <button
+                class="inline-flex shrink-0 text-base"
+                tabindex="-1"
+                type="button"
+              >
+                C
+              </button>
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, oklch(0.55 0 27), oklch(0.55 0.25246 27));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Chroma"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_m_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, oklch(0.55 0 27), oklch(0.55 0.25246 27)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Chroma"
+                    aria-orientation="horizontal"
+                    aria-valuemax="0.25246"
+                    aria-valuemin="0"
+                    aria-valuenow="0.22"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="0.25246"
+                    min="0"
+                    step="0.001"
+                    tabindex="0"
+                    type="range"
+                    value="0.22"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      <button
-                        class="inline-flex shrink-0 text-base"
-                        tabindex="-1"
-                        type="button"
-                      >
-                        C
-                      </button>
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 87.14251762655469%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 87.14251762655469%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_m_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="0.22"
-                            id="react-aria-_r_m_-0"
-                            max="0.25246"
-                            min="0"
-                            step="0.001"
-                            tabindex="0"
-                            type="range"
-                            value="0.22"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(87.143% - 17.429px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Chroma"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="0.220"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                   style="visibility: hidden;"
                 >
                   °
@@ -840,86 +653,50 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
             </div>
             <div
               class="flex items-center gap-2"
+              data-testid="HueSlider"
             >
+              H
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, oklch(0.7 0.2 0), oklch(0.7 0.2 60), oklch(0.7 0.2 120), oklch(0.7 0.2 180), oklch(0.7 0.2 240), oklch(0.7 0.2 300), oklch(0.7 0.2 360));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Hue"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_v_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, oklch(0.7 0.4 0), oklch(0.7 0.4 60), oklch(0.7 0.4 120), oklch(0.7 0.4 180), oklch(0.7 0.4 240), oklch(0.7 0.4 300), oklch(0.7 0.4 0)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Hue"
+                    aria-orientation="horizontal"
+                    aria-valuemax="360"
+                    aria-valuemin="0"
+                    aria-valuenow="27"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="360"
+                    min="0"
+                    step="0.01"
+                    tabindex="0"
+                    type="range"
+                    value="27"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      H
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 7.5%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 7.5%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_v_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="27"
-                            id="react-aria-_r_v_-0"
-                            max="360"
-                            min="0"
-                            step="0.001"
-                            tabindex="0"
-                            type="range"
-                            value="27"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(7.5% - 1.5px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Hue"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="27.0"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                 >
                   °
                 </span>
@@ -941,32 +718,29 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
             class="flex items-center justify-between"
           >
             <div
-              class="inline-flex items-center justify-center h-auto"
-              role="group"
+              class="flex items-center"
+              data-testid="ModeSelector"
             >
               <button
                 aria-label="Switch to OKLCH"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="true"
+                class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
                 type="button"
               >
                 OKLCH
               </button>
               <button
                 aria-label="Switch to HSL"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="false"
+                class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
                 type="button"
               >
                 HSL
               </button>
               <button
                 aria-label="Switch to RGB"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="false"
+                class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
                 type="button"
               >
                 RGB
@@ -977,7 +751,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
             >
               <button
                 aria-label="Random color"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 rounded-s-none border-l-0"
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
                 data-react-aria-pressable="true"
                 tabindex="0"
                 type="button"
@@ -1090,7 +864,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                       data-filled="true"
                       data-filled-within="true"
                       data-slot="input"
-                      id="react-aria-_r_3g_"
+                      id="react-aria-_r_1n_"
                       name="color-name-0"
                       tabindex="0"
                       title=""
@@ -1149,7 +923,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                     data-filled-within="true"
                     data-slot="input"
                     data-type="text"
-                    id="react-aria-_r_3n_"
+                    id="react-aria-_r_1u_"
                     tabindex="0"
                     title=""
                     type="text"
@@ -1168,91 +942,55 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
           class="flex flex-col mt-3 gap-2"
         >
           <div
-            class="space-y-3"
+            class="flex flex-col gap-2"
             data-testid="ChannelSliders"
           >
             <div
               class="flex items-center gap-2"
+              data-testid="RedSlider"
             >
+              R
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, rgb(0 0 0), rgb(255 0 0));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Red"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_4p_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 0, 0)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Red"
+                    aria-orientation="horizontal"
+                    aria-valuemax="255"
+                    aria-valuemin="0"
+                    aria-valuenow="212"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="255"
+                    min="0"
+                    step="1"
+                    tabindex="0"
+                    type="range"
+                    value="212"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      R
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 83.13725490196079%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 83.13725490196079%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_4p_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="212"
-                            id="react-aria-_r_4p_-0"
-                            max="255"
-                            min="0"
-                            step="1"
-                            tabindex="0"
-                            type="range"
-                            value="212"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(83.137% - 16.627px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Red"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="212"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                   style="visibility: hidden;"
                 >
                   °
@@ -1261,86 +999,50 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
             </div>
             <div
               class="flex items-center gap-2"
+              data-testid="GreenSlider"
             >
+              G
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, rgb(0 0 0), rgb(0 255 0));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Green"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_4v_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 255, 0)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Green"
+                    aria-orientation="horizontal"
+                    aria-valuemax="255"
+                    aria-valuemin="0"
+                    aria-valuenow="12"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="255"
+                    min="0"
+                    step="1"
+                    tabindex="0"
+                    type="range"
+                    value="12"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      G
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 4.705882352941177%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 4.705882352941177%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_4v_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="12"
-                            id="react-aria-_r_4v_-0"
-                            max="255"
-                            min="0"
-                            step="1"
-                            tabindex="0"
-                            type="range"
-                            value="12"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(4.706% - 0.941px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Green"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="12"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                   style="visibility: hidden;"
                 >
                   °
@@ -1349,86 +1051,50 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
             </div>
             <div
               class="flex items-center gap-2"
+              data-testid="BlueSlider"
             >
+              B
               <div
-                class="flex-1"
-                style="--slider-gradient: linear-gradient(to right, rgb(0 0 0), rgb(0 0 255));"
+                class="flex-1 py-1"
               >
                 <div
-                  aria-label="Blue"
-                  class="flex flex-col w-full gap-1"
-                  data-hover="false"
-                  data-orientation="horizontal"
-                  data-slot="base"
-                  id="react-aria-_r_55_"
-                  role="group"
+                  class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+                  style="background: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 0, 255)); touch-action: none;"
                 >
+                  <input
+                    aria-label="Blue"
+                    aria-orientation="horizontal"
+                    aria-valuemax="255"
+                    aria-valuemin="0"
+                    aria-valuenow="26"
+                    class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                    max="255"
+                    min="0"
+                    step="1"
+                    tabindex="0"
+                    type="range"
+                    value="26"
+                  />
                   <div
-                    class="relative flex gap-2 items-center"
-                    data-slot="track-wrapper"
-                  >
-                    <div
-                      class="w-3 mr-2"
-                      data-slot="startContent"
-                    >
-                      B
-                    </div>
-                    <div
-                      class="flex w-full relative rounded-full border-x-transparent h-3 my-[calc((theme(spacing.6)-theme(spacing.3))/2)] data-[fill-start=true]:border-s-foreground data-[fill-end=true]:border-e-foreground bg-transparent border-transparent! border-x-[calc(theme(spacing.5)/2)] bg-[image:var(--slider-gradient)] bg-origin-border bg-clip-border"
-                      data-fill-end="false"
-                      data-fill-start="true"
-                      data-slot="track"
-                      data-thumb-hidden="false"
-                      data-vertical="false"
-                      style="position: relative; touch-action: none;"
-                    >
-                      <div
-                        class="h-full absolute bg-transparent"
-                        data-slot="filler"
-                        style="left: 0%; width: 10.196078431372548%;"
-                      />
-                      <div
-                        aria-label="Slider thumb 1"
-                        class="flex justify-center items-center before:absolute before:w-11 before:h-11 before:rounded-full after:shadow-small after:bg-background data-[focused=true]:z-10 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 rounded-full after:rounded-full bg-foreground top-1/2 cursor-grab data-[dragging=true]:cursor-grabbing ring-transparent border-0 after:transition-all motion-reduce:after:transition-none data-[dragging=true]:after:scale-80 shadow-small size-5 after:size-4"
-                        data-react-aria-pressable="true"
-                        data-slot="thumb"
-                        index="0"
-                        orientation="horizontal"
-                        style="position: absolute; left: 10.196078431372548%; transform: translate(-50%, -50%); touch-action: none;"
-                      >
-                        <div
-                          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-                        >
-                          <input
-                            aria-describedby=""
-                            aria-details=""
-                            aria-labelledby="react-aria-_r_55_"
-                            aria-orientation="horizontal"
-                            aria-valuetext="26"
-                            id="react-aria-_r_55_-0"
-                            max="255"
-                            min="0"
-                            step="1"
-                            tabindex="0"
-                            type="range"
-                            value="26"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    aria-hidden="true"
+                    class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                    data-testid="GradientSliderThumb"
+                    style="left: calc(10.196% - 2.039px);"
+                  />
                 </div>
               </div>
               <div
                 class="flex items-center"
+                data-testid="NumericInput"
               >
                 <input
-                  class="w-11 bg-white/10 text-right text-sm text-foreground-600 outline-none focus:ring-1 focus:ring-foreground-300 rounded px-0.5"
+                  aria-label="Blue"
+                  class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
                   value="26"
                 />
                 <span
-                  class="w-2 text-xs text-foreground-500"
+                  class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
                   style="visibility: hidden;"
                 >
                   °
@@ -1451,39 +1117,32 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
             class="flex items-center justify-between"
           >
             <div
-              class="inline-flex items-center justify-center h-auto"
-              role="group"
+              class="flex items-center"
+              data-testid="ModeSelector"
             >
               <button
                 aria-label="Switch to OKLCH"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="false"
+                class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
                 type="button"
               >
                 OKLCH
               </button>
               <button
                 aria-label="Switch to HSL"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="false"
+                class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
                 type="button"
               >
                 HSL
               </button>
               <button
                 aria-label="Switch to RGB"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&:not(:first-child):not(:last-child)]:rounded-none [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground first:rounded-s-medium last:rounded-e-medium data-[hover=true]:opacity-hover px-2 min-w-12 h-6 text-tiny gap-1 rounded-small"
-                data-react-aria-pressable="true"
-                tabindex="0"
+                aria-pressed="true"
+                class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
                 type="button"
               >
                 RGB
-                <span
-                  class="heroui-ripple"
-                  style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
-                />
               </button>
             </div>
             <div
@@ -1491,7 +1150,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
             >
               <button
                 aria-label="Random color"
-                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 rounded-s-none border-l-0"
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
                 data-react-aria-pressable="true"
                 tabindex="0"
                 type="button"

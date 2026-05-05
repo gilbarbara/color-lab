@@ -1,16 +1,8 @@
 import { type ChangeEvent, type KeyboardEvent, type SyntheticEvent } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
-import {
-  cn,
-  Input,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  type PressEvent,
-  useDisclosure,
-} from '@heroui/react';
+import { cn, Input, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
-import Chrome, { ChromeInputType } from '@uiw/react-color-chrome';
+import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
 import { convertCSS, formatCSS, isValidColor, parseCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
@@ -19,14 +11,23 @@ import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
 import Button from '~/components/Button';
-import ChannelSliders, { type ColorMode } from '~/components/ChannelSliders';
 import Collapse from '~/components/Collapse';
 import ColorBox from '~/components/ColorBox';
 import ConfirmTooltip from '~/components/ConfirmTooltip';
+import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
 
 import ColorActions from './ColorActions';
+
+const saturationTooltip = (
+  <>
+    <p className="mb-1">Saturation is controlled globally.</p>
+    <p>
+      Turn off <b>Apply saturation to all colors</b> to edit.
+    </p>
+  </>
+);
 
 interface ColorSelectorProps {
   colorEntry: ColorEntry;
@@ -61,7 +62,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
   const { isOpen, onOpenChange } = useDisclosure();
 
   const color = colorEntry.value;
-  const pickerHex = convertCSS(color, 'hex');
   const input = isEditingInput ? editInput : mode === 'oklch' ? color : convertCSS(color, 'hex');
 
   const handleBlurName = () => {
@@ -95,15 +95,13 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
   };
 
-  const handleClickMode = (event: PressEvent) => {
-    const next = event.target.textContent?.toLowerCase() as ColorMode;
-
-    if (next === mode) {
+  const handleClickMode = (value: ColorMode) => {
+    if (value === mode) {
       return;
     }
 
-    trackEvent('color-mode', { value: next });
-    setState({ mode: next });
+    trackEvent('color-mode', { value });
+    setState({ mode: value });
   };
 
   const handleClickRandom = () => {
@@ -151,12 +149,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
   };
 
-  const handleChangePicker = (hex: string) => {
-    const oklch = formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
-
-    handleChangeColor(oklch);
-  };
-
   const isActive = activeColorId === colorEntry.id;
 
   const handleCaptureInactive = (event: SyntheticEvent) => {
@@ -184,11 +176,13 @@ export default function ColorSelector(props: ColorSelectorProps) {
         <Popover
           backdrop="transparent"
           classNames={{
+            content: 'bg-white dark:bg-black',
             trigger: 'aria-expanded:opacity-100 aria-expanded:scale-[1]',
           }}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           placement="bottom-start"
+          shouldCloseOnInteractOutside={element => !element.closest('[data-color-picker-portal]')}
           showArrow
         >
           <PopoverTrigger>
@@ -200,14 +194,16 @@ export default function ColorSelector(props: ColorSelectorProps) {
             />
           </PopoverTrigger>
           <PopoverContent className="p-0">
-            <Chrome
-              color={pickerHex}
-              inputType={ChromeInputType.HEXA}
-              onChange={result => {
-                handleChangePicker(result.hex);
-              }}
-              showAlpha={false}
-              showTriangle={false}
+            <ColorPicker
+              classNames={{ root: 'w-xs' }}
+              color={color}
+              defaultMode={mode}
+              onChange={handleChangeColor}
+              showColorInput={false}
+              showGlobalHue
+              showModeSelector={false}
+              showSliders={false}
+              showSwatch={false}
             />
           </PopoverContent>
         </Popover>
@@ -268,10 +264,45 @@ export default function ColorSelector(props: ColorSelectorProps) {
       <Collapse duration={0.4} ease="circInOut" isOpen={isActive}>
         <div className="flex flex-col mt-3 gap-2">
           <ChannelSliders
+            channels={{
+              s: {
+                disabled: globalOptions.saturationOverride,
+              },
+              c: {
+                disabled: globalOptions.saturationOverride,
+              },
+            }}
             color={color}
-            disableSaturation={globalOptions.saturationOverride}
+            labels={{
+              hslSliders: {
+                s: {
+                  label: (
+                    <TooltipClickable
+                      classNames={{ base: '-ml-3' }}
+                      content={saturationTooltip}
+                      isDisabled={!globalOptions.saturationOverride}
+                    >
+                      S
+                    </TooltipClickable>
+                  ),
+                },
+              },
+              oklchSliders: {
+                c: {
+                  label: (
+                    <TooltipClickable
+                      classNames={{ base: '-ml-3' }}
+                      content={saturationTooltip}
+                      isDisabled={!globalOptions.saturationOverride}
+                    >
+                      C
+                    </TooltipClickable>
+                  ),
+                },
+              },
+            }}
             mode={mode}
-            onChangeColor={handleChangeColor}
+            onChange={handleChangeColor}
           />
           <ColorActions
             colorEntry={colorEntry}
