@@ -39,8 +39,8 @@ interface ColorSelectorProps {
 interface ColorSelectorState {
   editInput: string;
   isEditingInput: boolean;
+  localName: string | null;
   mode: ColorMode;
-  name: string;
 }
 
 export default function ColorSelector(props: ColorSelectorProps) {
@@ -53,23 +53,27 @@ export default function ColorSelector(props: ColorSelectorProps) {
     updateColor,
     updateGlobalOptions,
   } = usePalette();
-  const [{ editInput, isEditingInput, mode, name }, setState] = useSetState<ColorSelectorState>({
-    editInput: '',
-    isEditingInput: false,
-    mode: 'oklch',
-    name: colorEntry.name,
-  });
+  const [{ editInput, isEditingInput, localName, mode }, setState] =
+    useSetState<ColorSelectorState>({
+      editInput: '',
+      isEditingInput: false,
+      mode: 'oklch',
+      localName: null,
+    });
   const { isOpen, onOpenChange } = useDisclosure();
 
   const color = colorEntry.value;
   const input = isEditingInput ? editInput : mode === 'oklch' ? color : convertCSS(color, 'hex');
 
+  const isEditingName = localName !== null;
+  const displayName = localName ?? colorEntry.name;
+
+  const handleFocusName = () => {
+    setState({ localName: colorEntry.name });
+  };
+
   const handleBlurName = () => {
-    if (colorEntry.name !== name) {
-      setState({
-        name: colorEntry.name,
-      });
-    }
+    setState({ localName: null });
   };
 
   const handleChangeColor = useRafCallback((value: string) => {
@@ -83,15 +87,14 @@ export default function ColorSelector(props: ColorSelectorProps) {
   });
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    setState({ name: value });
+    setState({ localName: event.target.value });
   };
 
   const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      updateColor(index, { name });
-      trackEvent('edit-color-name', { name });
+    if (event.key === 'Enter' && localName !== null) {
+      updateColor(index, { name: localName });
+      trackEvent('edit-color-name', { name: localName });
+      setState({ localName: null });
     }
   };
 
@@ -215,14 +218,15 @@ export default function ColorSelector(props: ColorSelectorProps) {
                 inputWrapper: ' h-6 min-h-6',
                 input: 'text-base font-semibold text-foreground-800',
               }}
-              color={colorEntry.name !== name ? 'warning' : undefined}
+              color={isEditingName && localName !== colorEntry.name ? 'warning' : undefined}
               disableAnimation
               name={`color-name-${index}`}
               onBlur={handleBlurName}
               onChange={handleChangeName}
+              onFocus={handleFocusName}
               onKeyDown={handleKeyDownName}
               size="sm"
-              value={name}
+              value={displayName}
               variant="underlined"
             />
             <ConfirmTooltip
