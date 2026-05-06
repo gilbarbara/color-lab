@@ -1,18 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
-import { Button, Checkbox, Chip, cn } from '@heroui/react';
-import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
+import { Button, cn } from '@heroui/react';
+import { ExportIcon } from '@phosphor-icons/react';
 import { readableColor, scale } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
 
+import CheckboxToggle from '~/components/CheckboxToggle';
+import CopyText from '~/components/CopyText';
 import Tooltip from '~/components/Tooltip';
 
 import type { ScaleExportData } from '~/types';
 
-import ExportModal, { type ExportRenderProps } from './ExportModal';
+import ExportDrawer, { type ExportRenderProps } from './ExportDrawer';
 
 interface ScaleItemProps extends ExportRenderProps {
   index: number;
@@ -41,26 +43,23 @@ function ScaleItem(props: ScaleItemProps) {
 
   return (
     <div className="flex items-center gap-1">
-      <Checkbox
+      <CheckboxToggle
+        endContent={
+          <CopyText
+            color={textColor}
+            content={`Copy ${name} scale`}
+            label={`Copy ${name}`}
+            onCopy={onCopy}
+            placement="bottom-start"
+            value={code}
+          />
+        }
         isSelected={isSelected}
         onValueChange={checked => onSelectionChange(index, checked)}
-      />
-      <Chip
-        classNames={{
-          base: 'pe-2',
-          content: 'font-medium',
-        }}
-        endContent={
-          <Tooltip content={`Copy ${name} scale`} placement="bottom-start">
-            <button aria-label={`Copy ${name}`} onClick={() => onCopy(code)} type="button">
-              <CopyIcon className="text-base" style={{ color: textColor }} />
-            </button>
-          </Tooltip>
-        }
         style={{ backgroundColor: mainColor, color: textColor }}
       >
         {name}
-      </Chip>
+      </CheckboxToggle>
     </div>
   );
 }
@@ -72,7 +71,6 @@ export default function ExportPalette() {
   );
   const { min } = useBreakpoint();
 
-  // Reset to all selected when colors are added/removed
   useEffect(() => {
     setSelectedIndices(new Set(colors.map((_, index) => index)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,9 +107,54 @@ export default function ExportPalette() {
   };
 
   const isLarge = min('md');
+  const showSelection = colors.length > 1;
 
   return (
-    <ExportModal
+    <ExportDrawer
+      footer={({ colorFormat, formatType, onCopy }) => {
+        const selectedScales: ScaleExportData[] = scalesData
+          .filter((_, index) => selectedIndices.has(index))
+          .map(({ name, steps }) => ({ name, steps }));
+
+        const allCode = generatePaletteExport(selectedScales, { colorFormat, formatType });
+
+        return (
+          <Button
+            className="w-full"
+            color="primary"
+            isDisabled={selectedIndices.size === 0}
+            onPress={() => {
+              trackEvent('copy-export-palette', {
+                format: formatType,
+                colorFormat,
+                count: selectedIndices.size,
+              });
+              onCopy(allCode);
+            }}
+          >
+            Copy All ({selectedIndices.size})
+          </Button>
+        );
+      }}
+      selection={
+        showSelection
+          ? () => (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Button onPress={handleSelectAll} size="sm" variant="flat">
+                    Select All
+                  </Button>
+                  <Button onPress={handleSelectNone} size="sm" variant="flat">
+                    Select None
+                  </Button>
+                </div>
+                <span className="text-sm text-foreground-500">
+                  {selectedIndices.size} of {scalesData.length} selected
+                </span>
+              </div>
+            )
+          : undefined
+      }
       title="Export All"
       trigger={onOpen => (
         <Tooltip content="Export all" isDisabled={isLarge} placement="bottom-end">
@@ -142,55 +185,36 @@ export default function ExportPalette() {
 
         return (
           <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Button onPress={handleSelectAll} size="sm" variant="flat">
-                  Select All
-                </Button>
-                <Button onPress={handleSelectNone} size="sm" variant="flat">
-                  Select None
-                </Button>
+            {showSelection && (
+              <div className="flex flex-wrap gap-2">
+                {scalesData.map((scaleData, index) => (
+                  <ScaleItem
+                    key={scaleData.name}
+                    colorFormat={colorFormat}
+                    formatType={formatType}
+                    index={index}
+                    isSelected={selectedIndices.has(index)}
+                    mainColor={scaleData.mainColor}
+                    name={scaleData.name}
+                    onCopy={onCopy}
+                    onSelectionChange={handleSelectionChange}
+                    steps={scaleData.steps}
+                  />
+                ))}
               </div>
-              <span className="text-sm text-foreground-500">
-                {selectedIndices.size} of {scalesData.length} selected
-              </span>
-            </div>
-
-            <div className="relative flex flex-col gap-2">
-              {scalesData.map((scaleData, index) => (
-                <ScaleItem
-                  key={scaleData.name}
-                  colorFormat={colorFormat}
-                  formatType={formatType}
-                  index={index}
-                  isSelected={selectedIndices.has(index)}
-                  mainColor={scaleData.mainColor}
-                  name={scaleData.name}
-                  onCopy={onCopy}
-                  onSelectionChange={handleSelectionChange}
-                  steps={scaleData.steps}
-                />
-              ))}
-            </div>
-
-            <Button
-              className="absolute right-2 bottom-2"
-              color="primary"
-              isDisabled={selectedIndices.size === 0}
-              onPress={() => {
-                trackEvent('copy-export-palette', {
-                  format: formatType,
-                  colorFormat,
-                  count: selectedIndices.size,
-                });
-                onCopy(allCode);
-              }}
-            >
-              Copy All ({selectedIndices.size})
-            </Button>
+            )}
+            {selectedIndices.size === 0 ? (
+              <div className="rounded-lg bg-content2 p-4 text-sm text-foreground-500">
+                Select at least one color to preview the export.
+              </div>
+            ) : (
+              <pre className="overflow-auto rounded-lg bg-content2 p-4 font-mono text-sm">
+                <code>{allCode}</code>
+              </pre>
+            )}
           </div>
         );
       }}
-    </ExportModal>
+    </ExportDrawer>
   );
 }
