@@ -216,5 +216,50 @@ describe('ColorSelector', () => {
 
       expect(usePaletteStore.getState().activeColorId).toBe(colors[1].id);
     });
+
+    it('reflects external name change when prop updates with same id (URL sync)', () => {
+      const entry = createColorEntry('Primary', TEST_COLOR);
+
+      setupStore([entry]);
+
+      const { rerender } = render(<ColorSelector {...createDefaultProps({ colorEntry: entry })} />);
+
+      expect(screen.getByDisplayValue('Primary')).toBeInTheDocument();
+
+      const renamed = { ...entry, name: 'Brand' };
+
+      act(() => {
+        setupStore([renamed]);
+      });
+
+      rerender(<ColorSelector {...createDefaultProps({ colorEntry: renamed })} />);
+
+      expect(screen.getByDisplayValue('Brand')).toBeInTheDocument();
+    });
+
+    it('preserves in-progress name edit when prop changes externally', () => {
+      const entry = createColorEntry('Primary', TEST_COLOR);
+
+      setupStore([entry]);
+
+      const { rerender } = render(<ColorSelector {...createDefaultProps({ colorEntry: entry })} />);
+
+      const input = screen.getByDisplayValue('Primary');
+
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: 'Foo' } });
+
+      expect(screen.getByDisplayValue('Foo')).toBeInTheDocument();
+
+      const renamed = { ...entry, name: 'Brand' };
+
+      act(() => {
+        setupStore([renamed]);
+      });
+
+      rerender(<ColorSelector {...createDefaultProps({ colorEntry: renamed })} />);
+
+      expect(screen.getByDisplayValue('Foo')).toBeInTheDocument();
+    });
   });
 });
