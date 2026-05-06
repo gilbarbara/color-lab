@@ -216,8 +216,8 @@ test.describe('Desktop', () => {
     });
   });
 
-  test.describe('Export Modal', () => {
-    test('should open export modal with format tabs', async () => {
+  test.describe('Export Drawer', () => {
+    test('should open export drawer with format tabs', async () => {
       await page.getByRole('button', { name: 'Export All' }).click();
 
       // Verify format tabs

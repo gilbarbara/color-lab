@@ -5,38 +5,34 @@ import { generateExport } from '~/utils/export';
 
 import type { ScaleSteps } from '~/types';
 
-import ExportModal from './ExportModal';
-
-interface CodePreviewProps {
-  code: string;
-  onCopy: (code: string) => void;
-}
+import ExportDrawer from './ExportDrawer';
 
 interface ExportScaleProps {
   name: string;
   steps: ScaleSteps;
 }
 
-function CodePreview(props: CodePreviewProps) {
-  const { code, onCopy } = props;
-
-  return (
-    <div className="relative min-h-80 overflow-hidden rounded-lg bg-content2">
-      <pre className="h-full overflow-auto p-4 font-mono text-sm">
-        <code>{code}</code>
-      </pre>
-      <Button className="absolute right-2 bottom-2" onPress={() => onCopy(code)}>
-        Copy
-      </Button>
-    </div>
-  );
-}
-
 export default function ExportScale(props: ExportScaleProps) {
   const { name, steps } = props;
 
   return (
-    <ExportModal
+    <ExportDrawer
+      footer={({ colorFormat, formatType, onCopy }) => {
+        const code = generateExport(name, steps, { colorFormat, formatType });
+
+        return (
+          <Button
+            className="w-full"
+            color="primary"
+            onPress={() => {
+              trackEvent('copy-export-scale', { format: formatType, colorFormat });
+              onCopy(code);
+            }}
+          >
+            Copy
+          </Button>
+        );
+      }}
       title="Export"
       trigger={onOpen => (
         <Button
@@ -52,16 +48,15 @@ export default function ExportScale(props: ExportScaleProps) {
         </Button>
       )}
     >
-      {({ colorFormat, formatType, onCopy }) => {
+      {({ colorFormat, formatType }) => {
         const code = generateExport(name, steps, { colorFormat, formatType });
 
-        const handleCopy = (value: string) => {
-          trackEvent('copy-export-scale', { format: formatType, colorFormat });
-          onCopy(value);
-        };
-
-        return <CodePreview code={code} onCopy={handleCopy} />;
+        return (
+          <pre className="h-full overflow-auto rounded-lg bg-content2 p-4 font-mono text-sm">
+            <code>{code}</code>
+          </pre>
+        );
       }}
-    </ExportModal>
+    </ExportDrawer>
   );
 }

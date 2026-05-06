@@ -218,7 +218,7 @@ test.describe('Mobile', () => {
     });
   });
 
-  test.describe('Export Modal', () => {
+  test.describe('Export Drawer', () => {
     test('should open with format tabs', async () => {
       await page.getByRole('button', { name: 'Export All' }).click();
 
@@ -229,17 +229,15 @@ test.describe('Mobile', () => {
     });
 
     test('should switch between tabs', async () => {
-      await page.getByRole('tab', { name: 'CSS', exact: true }).click();
-      await expect(page.getByRole('tab', { name: 'CSS', exact: true })).toHaveAttribute(
-        'aria-selected',
-        'true',
-      );
+      const cssTab = page.getByRole('tab', { name: 'CSS', exact: true });
 
-      await page.getByRole('tab', { name: /hex/i }).click();
-      await expect(page.getByRole('tab', { name: /hex/i })).toHaveAttribute(
-        'aria-selected',
-        'true',
-      );
+      await cssTab.tap();
+      await expect(cssTab).toHaveAttribute('aria-selected', 'true');
+
+      const hexTab = page.getByRole('tab', { name: /hex/i });
+
+      await hexTab.tap();
+      await expect(hexTab).toHaveAttribute('aria-selected', 'true');
     });
 
     test('should close modal', async () => {
