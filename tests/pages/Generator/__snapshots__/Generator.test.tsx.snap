@@ -279,8 +279,10 @@ exports[`Generator > renders correctly 1`] = `
                     data-testid="ChromaSlider"
                   >
                     <button
+                      aria-expanded="false"
+                      aria-label="Saturation Override"
                       class="inline-flex shrink-0 text-base"
-                      tabindex="-1"
+                      disabled=""
                       type="button"
                     >
                       C

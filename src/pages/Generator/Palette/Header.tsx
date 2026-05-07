@@ -293,6 +293,7 @@ export default function PaletteHeader() {
                 <p className="flex items-center gap-2">
                   <span className="text-base">Variant</span>
                   <TooltipClickable
+                    aria-label="Variant options"
                     classNames={{
                       base: '-ml-2',
                     }}
@@ -330,6 +331,7 @@ export default function PaletteHeader() {
                 <p className="flex items-center gap-2">
                   <span className="text-base">Lock</span>
                   <TooltipClickable
+                    aria-label="Lock options"
                     classNames={{
                       base: '-ml-2',
                     }}
@@ -435,6 +437,7 @@ export default function PaletteHeader() {
                   <span>Apply saturation to all colors</span>
                 </Switch>
                 <TooltipClickable
+                  aria-label="Saturation override options"
                   classNames={{
                     base: '-mr-2',
                   }}
@@ -457,6 +460,7 @@ export default function PaletteHeader() {
                 {mode === 'light' ? 'Light scale' : 'Dark scale'}
               </Switch>
               <TooltipClickable
+                aria-label="Dark scale"
                 content={
                   <>
                     <p className="mb-1">Toggles between light and dark color scales.</p>

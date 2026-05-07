@@ -282,6 +282,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
                 s: {
                   label: (
                     <TooltipClickable
+                      aria-label="Saturation Override"
                       classNames={{ base: '-ml-3' }}
                       content={saturationTooltip}
                       isDisabled={!globalOptions.saturationOverride}
@@ -295,6 +296,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
                 c: {
                   label: (
                     <TooltipClickable
+                      aria-label="Saturation Override"
                       classNames={{ base: '-ml-3' }}
                       content={saturationTooltip}
                       isDisabled={!globalOptions.saturationOverride}
