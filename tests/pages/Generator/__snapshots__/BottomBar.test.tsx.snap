@@ -2,7 +2,7 @@
 
 exports[`BottomBar > Render > renders correctly in closed state 1`] = `
 <div
-  class="fixed left-0 z-10 w-full h-dvh bg-background transition-all duration-500 top-[100dvh] -mt-16 overflow-hidden"
+  class="fixed left-0 z-30 w-full h-dvh bg-background transition-all duration-500 top-[100dvh] -mt-16 overflow-hidden"
   data-testid="BottomBar"
 >
   <div
@@ -60,7 +60,7 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
 
 exports[`BottomBar > Render > renders correctly in open state 1`] = `
 <div
-  class="fixed left-0 z-10 w-full h-dvh bg-background transition-all duration-500 top-0 overflow-y-auto"
+  class="fixed left-0 z-30 w-full h-dvh bg-background transition-all duration-500 top-0 overflow-y-auto"
   data-testid="BottomBar"
 >
   <div

@@ -99,7 +99,7 @@ export default function BottomBar() {
 
   return (
     <div
-      className={cn('fixed left-0 z-10 w-full h-dvh bg-background transition-all duration-500', {
+      className={cn('fixed left-0 z-30 w-full h-dvh bg-background transition-all duration-500', {
         'top-[100dvh] -mt-16 overflow-hidden': !showBottomBar,
         'top-0 overflow-y-auto': showBottomBar,
       })}
