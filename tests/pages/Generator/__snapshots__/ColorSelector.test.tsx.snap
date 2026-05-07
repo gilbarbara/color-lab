@@ -196,8 +196,10 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
               data-testid="SaturationSlider"
             >
               <button
+                aria-expanded="false"
+                aria-label="Saturation Override"
                 class="inline-flex shrink-0 text-base"
-                tabindex="-1"
+                disabled=""
                 type="button"
               >
                 S
@@ -598,8 +600,10 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
               data-testid="ChromaSlider"
             >
               <button
+                aria-expanded="false"
+                aria-label="Saturation Override"
                 class="inline-flex shrink-0 text-base"
-                tabindex="-1"
+                disabled=""
                 type="button"
               >
                 C
