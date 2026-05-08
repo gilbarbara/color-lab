@@ -8,6 +8,8 @@ import * as Sentry from '@sentry/react';
 import AuthProvider from '~/providers/AuthProvider';
 import ThemeProvider from '~/providers/ThemeProvider';
 
+import ErrorFallback from '~/components/ErrorFallback';
+
 import App from './App';
 
 if (import.meta.env.PROD) {
@@ -21,9 +23,15 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <Sentry.ErrorBoundary
+          fallback={({ error, eventId, resetError }) => (
+            <ErrorFallback error={error} eventId={eventId} resetError={resetError} />
+          )}
+        >
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </Sentry.ErrorBoundary>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
