@@ -4,7 +4,6 @@ import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
   colorToPath,
   getPaletteIdFromUrl,
-  parseColorFromParams,
   parsePaletteFromUrl,
   serializePaletteToUrl,
   updatePaletteIdInUrl,
@@ -52,34 +51,295 @@ describe('utils/url', () => {
     });
   });
 
-  describe('parseColorFromParams', () => {
-    it('parses hex color param', () => {
-      expect(parseColorFromParams({ color: 'FF0044' })).toBe('#FF0044');
-      expect(parseColorFromParams({ color: 'abc' })).toBe('#abc');
+  describe('getPaletteIdFromUrl', () => {
+    it('returns ID when present', () => {
+      expect(getPaletteIdFromUrl('?id=abc123')).toBe('abc123');
+      expect(getPaletteIdFromUrl('?f=1.8&id=abc123&s=15')).toBe('abc123');
     });
 
-    it('parses hex color with # prefix', () => {
-      expect(parseColorFromParams({ color: '#FF0044' })).toBe('#FF0044');
+    it('returns null when not present', () => {
+      expect(getPaletteIdFromUrl('')).toBe(null);
+      expect(getPaletteIdFromUrl('?f=1.8&s=15')).toBe(null);
     });
 
-    it('parses oklch params', () => {
-      expect(parseColorFromParams({ l: '70', c: '0.2', h: '120' })).toBe('oklch(70% 0.2 120)');
+    it('handles ID at the end of query string', () => {
+      expect(getPaletteIdFromUrl('?f=1.8&s=15&id=palette-123')).toBe('palette-123');
+    });
+  });
+
+  describe('parsePaletteFromUrl', () => {
+    it('parses single hex color as OKLCH', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.state.colors[0].value).toBe(hexToOklch('#FF0044'));
+      expect(result!.state.colors[0].id).toEqual(expect.any(String));
     });
 
-    it('returns null for invalid hex', () => {
-      expect(parseColorFromParams({ color: 'GGGGGG' })).toBeNull();
-      expect(parseColorFromParams({ color: 'not-a-color' })).toBeNull();
+    it('parses lock option in per-color overrides', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-k:500');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides).toEqual({ lock: '500' });
     });
 
-    it('returns null for invalid oklch', () => {
-      expect(parseColorFromParams({ l: 'abc', c: '0.2', h: '120' })).toBeNull();
-      expect(parseColorFromParams({ l: '0.7', c: 'abc', h: '120' })).toBeNull();
+    it('parses variant option in per-color overrides', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-v:vibrant');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides).toEqual({ variant: 'vibrant' });
     });
 
-    it('returns null for missing params', () => {
-      expect(parseColorFromParams({})).toBeNull();
-      expect(parseColorFromParams({ l: '0.7' })).toBeNull();
-      expect(parseColorFromParams({ l: '0.7', c: '0.2' })).toBeNull();
+    it('parses variant option in global options', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?v=muted');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.globalOptions.variant).toBe('muted');
+    });
+
+    it('returns null for oklch with wrong number of parts', () => {
+      expect(parsePaletteFromUrl('/p/Primary-0.64_0.142')).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-0.64_0.142_329_extra')).toBeNull();
+    });
+
+    it('returns null for oklch with non-numeric values', () => {
+      expect(parsePaletteFromUrl('/p/Primary-abc_0.142_329')).toBeNull();
+    });
+
+    it('ignores unknown option keys', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-z:unknown');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides).toEqual({});
+    });
+
+    it('ignores malformed option parts', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:');
+
+      expect(result).not.toBeNull();
+    });
+
+    it('handles empty options string', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides).toEqual({});
+    });
+
+    it('ignores non-numeric values for numeric options', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:abc');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides).toEqual({});
+    });
+
+    it('ignores non-numeric global option values', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?f=abc');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.globalOptions.lightnessCurve).toBe(1.5);
+    });
+
+    it('ignores unknown global option keys', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?z=unknown');
+
+      expect(result).not.toBeNull();
+    });
+
+    it('parses mode with full name if short not found', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-m:custom');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides?.mode).toBe('custom');
+    });
+
+    it('parses multiple colors', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044/Secondary-698CE0');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(2);
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.state.colors[1].name).toBe('Secondary');
+    });
+
+    it('parses oklch format', () => {
+      const result = parsePaletteFromUrl('/p/Primary-0.64_0.142_329');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].value).toBe('oklch(64% 0.142 329)');
+    });
+
+    it('parses per-color options', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:0.95,m:d');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].overrides).toEqual({ maxLightness: 0.95, mode: 'dark' });
+    });
+
+    it('parses global options from query params', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?f=1.8&i=15');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.globalOptions.lightnessCurve).toBe(1.8);
+      expect(result!.state.globalOptions.steps).toBe(15);
+    });
+
+    it('computes saturation from parsed color value', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
+      const parsedValue = result!.state.colors[0].value;
+      const expectedDefaults = getDefaultGlobalOptions(parsedValue);
+
+      expect(result).not.toBeNull();
+      expect(result!.state.globalOptions.saturation).toBe(expectedDefaults.saturation);
+    });
+
+    it('defaults saturationOverride to false when not in URL', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.globalOptions.saturationOverride).toBe(false);
+    });
+
+    it('parses saturationOverride=true from URL', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?o=1');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.globalOptions.saturationOverride).toBe(true);
+    });
+
+    it('decodes name with + to space', () => {
+      const result = parsePaletteFromUrl('/p/Color+One-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].name).toBe('Color One');
+    });
+
+    it('returns null for invalid color value', () => {
+      expect(parsePaletteFromUrl('/p/Primary-GGGGGG')).toBeNull();
+      expect(parsePaletteFromUrl('/p/Primary-invalid')).toBeNull();
+    });
+
+    it('returns null for empty URL', () => {
+      expect(parsePaletteFromUrl('')).toBeNull();
+    });
+
+    it('returns null when only segment is malformed', () => {
+      expect(parsePaletteFromUrl('/p/Primary')).toBeNull();
+    });
+
+    it('drops malformed segment, keeps valid neighbor', () => {
+      const result = parsePaletteFromUrl('/p/Garbage/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.dropped).toEqual(['Garbage']);
+    });
+
+    it('drops empty-name segment, keeps valid neighbor', () => {
+      const result = parsePaletteFromUrl('/p/-FF0044/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.dropped).toEqual(['(unnamed)']);
+    });
+
+    it('drops whitespace-only name segment', () => {
+      const result = parsePaletteFromUrl('/p/+-FF0044/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.dropped).toEqual(['(unnamed)']);
+    });
+
+    it('returns null when only segment has empty name', () => {
+      expect(parsePaletteFromUrl('/p/-FF0044')).toBeNull();
+    });
+
+    it('parses URL without /p/ prefix', () => {
+      const result = parsePaletteFromUrl('Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.state.colors[0].value).toBe(hexToOklch('#FF0044'));
+    });
+
+    it('round-trips OKLCH: serialize then parse returns equivalent state', () => {
+      const original: PaletteState = {
+        colors: [
+          createColorEntry('Primary', 'oklch(0.64 0.142 329)', { maxLightness: 0.95 }),
+          createColorEntry('Color Two', 'oklch(0.7 0.2 120)'),
+        ],
+        globalOptions: {
+          ...getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
+          lightnessCurve: 1.8,
+          mode: 'dark',
+        },
+      };
+
+      const url = serializePaletteToUrl(original);
+      const parsed = parsePaletteFromUrl(url);
+
+      expect(parsed).not.toBeNull();
+      expect(parsed!.state.colors).toHaveLength(2);
+      expect(parsed!.state.colors[0].name).toBe('Primary');
+      expect(parsed!.state.colors[0].value).toBe('oklch(64% 0.142 329)');
+      expect(parsed!.state.colors[0].overrides).toEqual({ maxLightness: 0.95 });
+      expect(parsed!.state.colors[1].name).toBe('Color Two');
+      expect(parsed!.state.colors[1].value).toBe('oklch(70% 0.2 120)');
+      expect(parsed!.state.globalOptions.lightnessCurve).toBe(1.8);
+      expect(parsed!.state.globalOptions.mode).toBe('dark');
+    });
+
+    it('backward compat: hex URLs are converted to OKLCH', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].value).toMatch(/^oklch\(/);
+    });
+
+    it('returns empty dropped for valid URL', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.dropped).toEqual([]);
+    });
+
+    it('drops bad OKLCH segment, keeps valid ones', () => {
+      const result = parsePaletteFromUrl('/p/Primary-500_99_999/Secondary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Secondary');
+      expect(result!.dropped).toEqual(['Primary']);
+    });
+
+    it('drops OKLCH segment with lightness > 100', () => {
+      const result = parsePaletteFromUrl('/p/Uno-164.9_0.24196_300.54/Deux-71.8_0.28773_326.81');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Deux');
+      expect(result!.dropped).toEqual(['Uno']);
+    });
+
+    it('drops OKLCH segment with negative chroma', () => {
+      const result = parsePaletteFromUrl('/p/Neg-50_-0.1_300/Primary-FF0044');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.dropped).toEqual(['Neg']);
+    });
+
+    it('returns null when all colors are invalid', () => {
+      expect(parsePaletteFromUrl('/p/Primary-500_99_999')).toBeNull();
+    });
+
+    it('returns null when only color has out-of-range lightness', () => {
+      expect(parsePaletteFromUrl('/p/Uno-164.9_0.24196_300.54')).toBeNull();
     });
   });
 
@@ -243,227 +503,6 @@ describe('utils/url', () => {
       };
 
       expect(serializePaletteToUrl(state)).toBe('/p/Primary-FF0044?v=neutral');
-    });
-  });
-
-  describe('parsePaletteFromUrl', () => {
-    it('parses single hex color as OKLCH', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors).toHaveLength(1);
-      expect(result!.colors[0].name).toBe('Primary');
-      expect(result!.colors[0].value).toBe(hexToOklch('#FF0044'));
-      expect(result!.colors[0].id).toEqual(expect.any(String));
-    });
-
-    it('parses lock option in per-color overrides', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-k:500');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides).toEqual({ lock: '500' });
-    });
-
-    it('parses variant option in per-color overrides', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-v:vibrant');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides).toEqual({ variant: 'vibrant' });
-    });
-
-    it('parses variant option in global options', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044?v=muted');
-
-      expect(result).not.toBeNull();
-      expect(result!.globalOptions.variant).toBe('muted');
-    });
-
-    it('returns null for oklch with wrong number of parts', () => {
-      expect(parsePaletteFromUrl('/p/Primary-0.64_0.142')).toBeNull();
-      expect(parsePaletteFromUrl('/p/Primary-0.64_0.142_329_extra')).toBeNull();
-    });
-
-    it('returns null for oklch with non-numeric values', () => {
-      expect(parsePaletteFromUrl('/p/Primary-abc_0.142_329')).toBeNull();
-    });
-
-    it('ignores unknown option keys', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-z:unknown');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides).toEqual({});
-    });
-
-    it('ignores malformed option parts', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:');
-
-      expect(result).not.toBeNull();
-    });
-
-    it('handles empty options string', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides).toEqual({});
-    });
-
-    it('ignores non-numeric values for numeric options', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:abc');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides).toEqual({});
-    });
-
-    it('ignores non-numeric global option values', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044?f=abc');
-
-      expect(result).not.toBeNull();
-      expect(result!.globalOptions.lightnessCurve).toBe(1.5);
-    });
-
-    it('ignores unknown global option keys', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044?z=unknown');
-
-      expect(result).not.toBeNull();
-    });
-
-    it('parses mode with full name if short not found', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-m:custom');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides?.mode).toBe('custom');
-    });
-
-    it('parses multiple colors', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044/Secondary-698CE0');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors).toHaveLength(2);
-      expect(result!.colors[0].name).toBe('Primary');
-      expect(result!.colors[1].name).toBe('Secondary');
-    });
-
-    it('parses oklch format', () => {
-      const result = parsePaletteFromUrl('/p/Primary-0.64_0.142_329');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].value).toBe('oklch(64% 0.142 329)');
-    });
-
-    it('parses per-color options', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:0.95,m:d');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].overrides).toEqual({ maxLightness: 0.95, mode: 'dark' });
-    });
-
-    it('parses global options from query params', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044?f=1.8&i=15');
-
-      expect(result).not.toBeNull();
-      expect(result!.globalOptions.lightnessCurve).toBe(1.8);
-      expect(result!.globalOptions.steps).toBe(15);
-    });
-
-    it('computes saturation from parsed color value', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044');
-      const parsedValue = result!.colors[0].value;
-      const expectedDefaults = getDefaultGlobalOptions(parsedValue);
-
-      expect(result).not.toBeNull();
-      expect(result!.globalOptions.saturation).toBe(expectedDefaults.saturation);
-    });
-
-    it('defaults saturationOverride to false when not in URL', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044');
-
-      expect(result).not.toBeNull();
-      expect(result!.globalOptions.saturationOverride).toBe(false);
-    });
-
-    it('parses saturationOverride=true from URL', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044?o=1');
-
-      expect(result).not.toBeNull();
-      expect(result!.globalOptions.saturationOverride).toBe(true);
-    });
-
-    it('decodes name with + to space', () => {
-      const result = parsePaletteFromUrl('/p/Color+One-FF0044');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].name).toBe('Color One');
-    });
-
-    it('returns null for invalid color value', () => {
-      expect(parsePaletteFromUrl('/p/Primary-GGGGGG')).toBeNull();
-      expect(parsePaletteFromUrl('/p/Primary-invalid')).toBeNull();
-    });
-
-    it('returns null for empty URL', () => {
-      expect(parsePaletteFromUrl('')).toBeNull();
-    });
-
-    it('returns null for malformed segment', () => {
-      expect(parsePaletteFromUrl('/p/Primary')).toBeNull();
-    });
-
-    it('parses URL without /p/ prefix', () => {
-      const result = parsePaletteFromUrl('Primary-FF0044');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].name).toBe('Primary');
-      expect(result!.colors[0].value).toBe(hexToOklch('#FF0044'));
-    });
-
-    it('round-trips OKLCH: serialize then parse returns equivalent state', () => {
-      const original: PaletteState = {
-        colors: [
-          createColorEntry('Primary', 'oklch(0.64 0.142 329)', { maxLightness: 0.95 }),
-          createColorEntry('Color Two', 'oklch(0.7 0.2 120)'),
-        ],
-        globalOptions: {
-          ...getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
-          lightnessCurve: 1.8,
-          mode: 'dark',
-        },
-      };
-
-      const url = serializePaletteToUrl(original);
-      const parsed = parsePaletteFromUrl(url);
-
-      expect(parsed).not.toBeNull();
-      expect(parsed!.colors).toHaveLength(2);
-      expect(parsed!.colors[0].name).toBe('Primary');
-      expect(parsed!.colors[0].value).toBe('oklch(64% 0.142 329)');
-      expect(parsed!.colors[0].overrides).toEqual({ maxLightness: 0.95 });
-      expect(parsed!.colors[1].name).toBe('Color Two');
-      expect(parsed!.colors[1].value).toBe('oklch(70% 0.2 120)');
-      expect(parsed!.globalOptions.lightnessCurve).toBe(1.8);
-      expect(parsed!.globalOptions.mode).toBe('dark');
-    });
-
-    it('backward compat: hex URLs are converted to OKLCH', () => {
-      const result = parsePaletteFromUrl('/p/Primary-FF0044');
-
-      expect(result).not.toBeNull();
-      expect(result!.colors[0].value).toMatch(/^oklch\(/);
-    });
-  });
-
-  describe('getPaletteIdFromUrl', () => {
-    it('returns ID when present', () => {
-      expect(getPaletteIdFromUrl('?id=abc123')).toBe('abc123');
-      expect(getPaletteIdFromUrl('?f=1.8&id=abc123&s=15')).toBe('abc123');
-    });
-
-    it('returns null when not present', () => {
-      expect(getPaletteIdFromUrl('')).toBe(null);
-      expect(getPaletteIdFromUrl('?f=1.8&s=15')).toBe(null);
-    });
-
-    it('handles ID at the end of query string', () => {
-      expect(getPaletteIdFromUrl('?f=1.8&s=15&id=palette-123')).toBe('palette-123');
     });
   });
 

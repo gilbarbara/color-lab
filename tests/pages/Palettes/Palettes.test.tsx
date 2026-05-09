@@ -44,8 +44,11 @@ vi.mock('~/utils/date', () => ({
 
 vi.mock('~/utils/url', () => ({
   parsePaletteFromUrl: () => ({
-    colors: [{ value: '#ff0000' }, { value: '#0000ff' }],
-    globalOptions: {},
+    state: {
+      colors: [{ value: '#ff0000' }, { value: '#0000ff' }],
+      globalOptions: {},
+    },
+    dropped: [],
   }),
   serializePaletteToUrl: () => '/p/red-ff0000/blue-0000ff',
 }));
