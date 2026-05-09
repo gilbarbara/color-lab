@@ -1,10 +1,15 @@
-import type { Params } from 'react-router';
 import { objectEntries, uuid } from '@gilbarbara/helpers';
 import { formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
 
 import { getDefaultGlobalOptions } from '~/utils/palette';
 
 import type { ColorEntry, GlobalScaleOptions, PaletteState, ScaleOptions } from '~/types';
+
+export interface ParsedPalette {
+  dropped: string[];
+  state: PaletteState;
+}
+
 // Option key mappings (short keys for URL)
 const OPTION_KEYS = {
   chromaCurve: 'c',
@@ -223,7 +228,16 @@ function urlToColorValue(urlValue: string): string | null {
         // Legacy URLs used 0-1 for lightness, new URLs use 0-100
         const l = rawL <= 1 ? rawL : rawL / 100;
 
-        return formatCSS({ l, c, h }, { format: 'oklch' });
+        // Reject out-of-range OKLCH (colorizr accepts silently then throws in getP3MaxChroma)
+        if (l < 0 || l > 1 || c < 0 || !Number.isFinite(h)) {
+          return null;
+        }
+
+        try {
+          return formatCSS({ l, c, h }, { format: 'oklch' });
+        } catch {
+          return null;
+        }
       }
     }
 
@@ -234,7 +248,11 @@ function urlToColorValue(urlValue: string): string | null {
   const hex = `#${urlValue}`;
 
   if (isHex(hex)) {
-    return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
+    try {
+      return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
+    } catch {
+      return null;
+    }
   }
 
   return null;
@@ -282,53 +300,16 @@ export function getPaletteIdFromUrl(search: string): string | null {
 }
 
 /**
- * Parse URL params to color string (for single-color routes)
- * Examples:
- *   { color: 'FF0044' } → '#FF0044'
- *   { l: '0.7', c: '0.2', h: '120' } → 'oklch(0.7 0.2 120)'
- */
-export function parseColorFromParams(params: Params): string | null {
-  const { c, color, h, l } = params;
-
-  // Hex format: /hex/:color
-  if (color) {
-    const hex = color.startsWith('#') ? color : `#${color}`;
-
-    if (isHex(hex)) {
-      return hex;
-    }
-
-    return null;
-  }
-
-  // OKLch format: /oklch/:l/:c/:h
-  if (l !== undefined && c !== undefined && h !== undefined) {
-    const lightness = Number.parseFloat(l);
-    const chroma = Number.parseFloat(c);
-    const hue = Number.parseFloat(h);
-
-    if (Number.isNaN(lightness) || Number.isNaN(chroma) || Number.isNaN(hue)) {
-      return null;
-    }
-
-    return formatCSS(
-      { l: lightness <= 1 ? lightness : lightness / 100, c: chroma, h: hue },
-      { format: 'oklch' },
-    );
-  }
-
-  return null;
-}
-
-/**
  * Parse palette from URL string
  * Accepts full URL, path, or just the palette segments
  * Examples:
  *   '/p/Primary-FF0044/Secondary-698CE0?f=1.8'
  *   'Primary-FF0044/Secondary-698CE0?f=1.8'
- * Returns null if parsing fails
+ *
+ * Bad color segments are skipped and reported via `dropped` (named slots that failed to parse).
+ * Returns null only if the URL is empty, structurally malformed, or every color fails to parse.
  */
-export function parsePaletteFromUrl(url: string): PaletteState | null {
+export function parsePaletteFromUrl(url: string): ParsedPalette | null {
   if (!url) {
     return null;
   }
@@ -347,22 +328,31 @@ export function parsePaletteFromUrl(url: string): PaletteState | null {
   const searchParams = new URLSearchParams(queryPart ?? '');
 
   const colors: ColorEntry[] = [];
+  const dropped: string[] = [];
 
   for (const segment of pathSegments) {
     // Split by - but handle name, value, and optional options
     const parts = segment.split('-');
 
     if (parts.length < 2) {
-      return null;
+      dropped.push(parts[0] || '(unnamed)');
+      continue;
     }
 
     // Decode name (replace + with space)
-    const name = parts[0].replaceAll('+', ' ');
+    const name = parts[0].replaceAll('+', ' ').trim();
+
+    if (!name) {
+      dropped.push('(unnamed)');
+      continue;
+    }
+
     const valueString = parts[1];
     const value = urlToColorValue(valueString);
 
     if (!value) {
-      return null;
+      dropped.push(name);
+      continue;
     }
 
     const color: ColorEntry = { id: uuid(), name, value };
@@ -386,11 +376,14 @@ export function parsePaletteFromUrl(url: string): PaletteState | null {
   const globalOverrides = parseGlobalOptions(searchParams);
 
   return {
-    colors,
-    globalOptions: {
-      ...defaults,
-      ...globalOverrides,
+    state: {
+      colors,
+      globalOptions: {
+        ...defaults,
+        ...globalOverrides,
+      },
     },
+    dropped,
   };
 }
 

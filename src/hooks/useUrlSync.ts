@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { addToast } from '@heroui/react';
 
 import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
@@ -12,6 +13,7 @@ import { parsePaletteFromUrl, serializePaletteToUrl, updatePaletteIdInUrl } from
 export default function useUrlSync() {
   const location = useLocation();
   const navigate = useNavigate();
+  const lastDroppedUrl = useRef<string | null>(null);
 
   // Hydrate store from URL
   useEffect(() => {
@@ -25,9 +27,10 @@ export default function useUrlSync() {
     }
 
     if (location.pathname.startsWith('/p/')) {
-      const urlState = parsePaletteFromUrl(currentUrl);
+      const parsed = parsePaletteFromUrl(currentUrl);
 
-      if (urlState) {
+      if (parsed) {
+        const { dropped, state: urlState } = parsed;
         const urlWithoutId = updatePaletteIdInUrl(currentUrl, null);
         const storeUrlWithoutId = updatePaletteIdInUrl(storeUrl, null);
 
@@ -42,6 +45,18 @@ export default function useUrlSync() {
 
             return { ...urlState, colors, activeColorId };
           });
+        }
+
+        if (dropped.length > 0 && lastDroppedUrl.current !== currentUrl) {
+          lastDroppedUrl.current = currentUrl;
+          addToast({
+            title: `Dropped invalid ${dropped.length === 1 ? 'color' : 'colors'}: ${dropped.join(', ')}`,
+            color: 'warning',
+          });
+
+          const cleanedUrl = updatePaletteIdInUrl(serializePaletteToUrl(urlState), loadedPaletteId);
+
+          navigate(cleanedUrl, { replace: true });
         }
 
         return;

@@ -22,7 +22,7 @@ interface PaletteCardProps {
 export function PaletteCard(props: PaletteCardProps) {
   const { onDelete, onToggleFavorite, palette } = props;
   const [isDeleting, setIsDeleting] = useState(false);
-  const colors = parsePaletteFromUrl(palette.url)?.colors.map(c => c.value) ?? [];
+  const colors = parsePaletteFromUrl(palette.url)?.state.colors.map(c => c.value) ?? [];
 
   const handleClickDelete = async () => {
     setIsDeleting(true);
