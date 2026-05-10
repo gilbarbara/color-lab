@@ -279,82 +279,78 @@ export default function PaletteHeader() {
       <Collapse isOpen={showPaletteOptionsPanel}>
         <div className="border border-default p-4 mt-4 rounded-xl">
           <div className="w-full flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <Select
-              classNames={{
-                trigger: cn({
-                  'bg-white text-black data-[hover=true]:bg-default-600': !!variant,
-                }),
-                value: cn({
-                  'group-data-[has-value=true]:text-black': !!variant,
-                }),
-              }}
-              isDisabled={saturationOverride}
-              label={
-                <p className="flex items-center gap-2">
-                  <span className="text-base">Variant</span>
-                  <TooltipClickable
-                    aria-label="Variant options"
-                    classNames={{
-                      base: '-ml-2',
-                    }}
-                    content={
-                      <>
-                        <p className="mb-1">Applies a preset style to the palette.</p>
-                        <p>Each variant balances lightness and color intensity differently.</p>
-                      </>
-                    }
-                  />
-                </p>
-              }
-              labelPlacement="outside-left"
-              name="variant"
-              onSelectionChange={handleChangeVariant}
-              placeholder="Select variant"
-              selectedKeys={variants.filter(({ key }) => key === variant).map(d => d.key)}
-              size="sm"
-            >
-              {variants.map(({ key, label }) => (
-                <SelectItem key={key}>{label}</SelectItem>
-              ))}
-            </Select>
+            <div className="w-full flex items-center gap-2">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label className="text-base shrink-0" htmlFor="variant-select">
+                Variant
+              </label>
+              <TooltipClickable
+                aria-label="Variant options"
+                classNames={{
+                  base: '-ml-2',
+                }}
+                content={
+                  <>
+                    <p className="mb-1">Applies a preset style to the palette.</p>
+                    <p>Each variant balances lightness and color intensity differently.</p>
+                  </>
+                }
+              />
 
-            <Select
-              classNames={{
-                trigger: cn({
-                  'bg-white text-black data-[hover=true]:bg-default-600': !!lock,
-                }),
-                value: cn({
-                  'group-data-[has-value=true]:text-black': !!lock,
-                }),
-              }}
-              label={
-                <p className="flex items-center gap-2">
-                  <span className="text-base">Lock</span>
-                  <TooltipClickable
-                    aria-label="Lock options"
-                    classNames={{
-                      base: '-ml-2',
-                    }}
-                    content={
-                      <>
-                        <p className="mb-1">Pins the base color to a specific step.</p>
-                        <p>Other shades are generated around it.</p>
-                      </>
-                    }
-                  />
-                </p>
-              }
-              labelPlacement="outside-left"
-              name="lock"
-              onSelectionChange={handleChangeLock}
-              placeholder="Select lock"
-              selectedKeys={lock ? [lock.toString()] : []}
-              size="sm"
-            >
-              {locks.map(v => (
-                <SelectItem key={v}>{v}</SelectItem>
-              ))}
-            </Select>
+              <Select
+                classNames={{
+                  trigger: cn({
+                    'bg-default-200 data-[hover=true]:bg-default-400': !!variant,
+                  }),
+                }}
+                id="variant-select"
+                isDisabled={saturationOverride}
+                name="variant"
+                onSelectionChange={handleChangeVariant}
+                placeholder="Select variant"
+                selectedKeys={variants.filter(({ key }) => key === variant).map(d => d.key)}
+                size="sm"
+              >
+                {variants.map(({ key, label }) => (
+                  <SelectItem key={key}>{label}</SelectItem>
+                ))}
+              </Select>
+            </div>
+            <div className="w-full flex items-center gap-2">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label className="text-base shrink-0" htmlFor="lock-select">
+                Lock
+              </label>
+              <TooltipClickable
+                aria-label="Lock options"
+                classNames={{
+                  base: '-ml-2',
+                }}
+                content={
+                  <>
+                    <p className="mb-1">Pins the base color to a specific step.</p>
+                    <p>Other shades are generated around it.</p>
+                  </>
+                }
+              />
+              <Select
+                classNames={{
+                  trigger: cn({
+                    'bg-default-200 data-[hover=true]:bg-default-400': !!lock,
+                  }),
+                }}
+                id="lock-select"
+                name="lock"
+                onSelectionChange={handleChangeLock}
+                placeholder="Select lock"
+                selectedKeys={lock ? [lock.toString()] : []}
+                size="sm"
+              >
+                {locks.map(v => (
+                  <SelectItem key={v}>{v}</SelectItem>
+                ))}
+              </Select>
+            </div>
           </div>
           <div
             ref={interactionRef}
