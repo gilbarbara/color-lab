@@ -1,8 +1,9 @@
 /* eslint-disable react/no-array-index-key */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { Button, Card, CardBody } from '@heroui/react';
 import { HeartIcon, TrashIcon } from '@phosphor-icons/react';
+import * as Sentry from '@sentry/react';
 
 import { trackEvent } from '~/utils/analytics';
 import { formatDate } from '~/utils/date';
@@ -22,7 +23,28 @@ interface PaletteCardProps {
 export function PaletteCard(props: PaletteCardProps) {
   const { onDelete, onToggleFavorite, palette } = props;
   const [isDeleting, setIsDeleting] = useState(false);
-  const colors = parsePaletteFromUrl(palette.url)?.state.colors.map(c => c.value) ?? [];
+  const parsed = parsePaletteFromUrl(palette.url);
+  const colors = parsed?.state.colors.map(c => c.value) ?? [];
+  const droppedKey = (parsed?.dropped ?? []).join(',');
+
+  useEffect(() => {
+    if (!droppedKey) {
+      return;
+    }
+
+    const droppedList = droppedKey.split(',');
+
+    Sentry.captureMessage(`Saved palette has invalid colors: ${droppedList.join(', ')}`, {
+      level: 'warning',
+      tags: { source: 'PaletteCard' },
+      extra: {
+        paletteId: palette.id,
+        paletteName: palette.name,
+        dropped: droppedList,
+      },
+    });
+    // Re-fire only when palette identity or dropped set changes.
+  }, [palette.id, palette.name, droppedKey]);
 
   const handleClickDelete = async () => {
     setIsDeleting(true);

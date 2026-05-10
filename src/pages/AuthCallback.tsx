@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Spinner } from '@heroui/react';
+import * as Sentry from '@sentry/react';
 import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 
 import { useAuthStore } from '~/stores/authStore';
@@ -36,6 +37,7 @@ export default function AuthCallback() {
           await signInWithEmailLink(auth, email, window.location.href);
           localStorage.removeItem('emailForSignIn');
         } catch (error_) {
+          Sentry.captureException(error_, { tags: { auth: 'magic-link' } });
           setError(error_ instanceof Error ? error_.message : 'Magic link verification failed');
         }
 

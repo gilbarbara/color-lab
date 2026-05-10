@@ -69,3 +69,4 @@ jobs:
         with:
           release: ${{ github.ref_name }}
           sourcemaps: ./dist
+          set_commits: auto

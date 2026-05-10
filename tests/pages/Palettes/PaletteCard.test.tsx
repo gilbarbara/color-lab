@@ -4,18 +4,20 @@ import { PaletteCard } from '~/pages/Palettes/PaletteCard';
 
 import type { SavedPalette } from '~/types';
 
+const mockCaptureMessage = vi.fn();
+
+vi.mock('@sentry/react', () => ({
+  captureMessage: (...arguments_: unknown[]) => mockCaptureMessage(...arguments_),
+}));
+
 vi.mock('~/utils/date', () => ({
   formatDate: () => 'Jan 2, 2024',
 }));
 
+const mockParsePaletteFromUrl = vi.fn();
+
 vi.mock('~/utils/url', () => ({
-  parsePaletteFromUrl: () => ({
-    state: {
-      colors: [{ value: '#ff0000' }, { value: '#0000ff' }],
-      globalOptions: {},
-    },
-    dropped: [],
-  }),
+  parsePaletteFromUrl: (url: string) => mockParsePaletteFromUrl(url),
 }));
 
 const mockPalette: SavedPalette = {
@@ -44,6 +46,13 @@ function renderCard(palette = mockPalette) {
 describe('PaletteCard', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockParsePaletteFromUrl.mockReturnValue({
+      state: {
+        colors: [{ value: '#ff0000' }, { value: '#0000ff' }],
+        globalOptions: {},
+      },
+      dropped: [] as string[],
+    });
   });
 
   describe('Render', () => {
@@ -70,6 +79,38 @@ describe('PaletteCard', () => {
       fireEvent.click(favoriteButton);
 
       expect(mockOnToggleFavorite).toHaveBeenCalledWith('palette-1');
+    });
+
+    it('captures a Sentry warning when the saved palette has dropped colors', () => {
+      mockParsePaletteFromUrl.mockReturnValue({
+        state: {
+          colors: [{ value: '#ff0000' }],
+          globalOptions: {},
+        },
+        dropped: ['Bad', '(unnamed)'],
+      });
+
+      renderCard();
+
+      expect(mockCaptureMessage).toHaveBeenCalledTimes(1);
+      expect(mockCaptureMessage).toHaveBeenCalledWith(
+        'Saved palette has invalid colors: Bad, (unnamed)',
+        expect.objectContaining({
+          level: 'warning',
+          tags: { source: 'PaletteCard' },
+          extra: expect.objectContaining({
+            paletteId: 'palette-1',
+            paletteName: 'Test Palette',
+            dropped: ['Bad', '(unnamed)'],
+          }),
+        }),
+      );
+    });
+
+    it('does not capture when there are no dropped colors', () => {
+      renderCard();
+
+      expect(mockCaptureMessage).not.toHaveBeenCalled();
     });
 
     it('calls onDelete after confirming deletion', async () => {

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { addToast } from '@heroui/react';
+import * as Sentry from '@sentry/react';
 
 import useAuth from '~/hooks/useAuth';
 import { getPalette } from '~/services/palettes';
@@ -75,14 +77,35 @@ export default function usePaletteIdSync() {
 
     // Fall back to API call (direct URL access, refresh, shared URL)
     (async () => {
-      const palette = await getPalette(paletteId);
+      const result = await getPalette(paletteId);
 
-      if (palette && palette.userId === user.uid) {
-        setLoadedPalette(palette.id, palette.name, palette.url);
-      } else {
-        navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
-        clearLoadedPalette();
+      if (result.kind === 'success' && result.palette.userId === user.uid) {
+        setLoadedPalette(result.palette.id, result.palette.name, result.palette.url);
+
+        return;
       }
+
+      if (result.kind === 'error') {
+        Sentry.addBreadcrumb({
+          category: 'palette-load',
+          message: 'getPalette error — toast shown',
+          level: 'warning',
+          data: { paletteId },
+        });
+
+        addToast({
+          title: 'Could not load palette',
+          description: 'Check your connection and try again.',
+          color: 'danger',
+        });
+
+        // Keep ID in URL — user can retry
+        return;
+      }
+
+      // not-found OR success-but-wrong-user → strip ID
+      navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
+      clearLoadedPalette();
     })();
   }, [
     clearLoadedPalette,
