@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useCallback, useEffect, useMemo } from 'react';
+import * as Sentry from '@sentry/react';
 import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
@@ -125,8 +126,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           try {
             await linkWithCredential(result.user, credential);
           } catch (error_) {
-            // eslint-disable-next-line no-console
-            console.warn('Failed to link credential:', error_);
+            Sentry.captureException(error_, { tags: { auth: 'link-credential' } });
           }
 
           setPendingCredential(null);

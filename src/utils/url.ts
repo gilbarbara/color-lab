@@ -1,6 +1,8 @@
 import { objectEntries, uuid } from '@gilbarbara/helpers';
+import * as Sentry from '@sentry/react';
 import { formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
 
+import { isInRangeOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 
 import type { ColorEntry, GlobalScaleOptions, PaletteState, ScaleOptions } from '~/types';
@@ -61,7 +63,12 @@ function colorValueToUrl(value: string): string {
   // Try to convert to hex
   try {
     return formatCSS(parseCSS(value, 'oklch'), { format: 'hex' }).replace('#', '').toUpperCase();
-  } catch {
+  } catch (error_) {
+    Sentry.captureException(error_, {
+      tags: { source: 'url-parse', call: 'colorValueToUrl' },
+      extra: { value },
+    });
+
     return value;
   }
 }
@@ -108,6 +115,42 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
   }
 
   return result;
+}
+
+/**
+ * Parse OKLCH URL value: '64_0.142_329' or legacy '0.64_0.142_329'
+ */
+function parseOklchUrlValue(urlValue: string): string | null {
+  const parts = urlValue.split('_');
+
+  if (parts.length !== 3) {
+    return null;
+  }
+
+  const [rawL, c, h] = parts.map(Number.parseFloat);
+
+  if (Number.isNaN(rawL) || Number.isNaN(c) || Number.isNaN(h)) {
+    return null;
+  }
+
+  // Legacy URLs used 0-1 for lightness, new URLs use 0-100
+  const l = rawL <= 1 ? rawL : rawL / 100;
+
+  // Reject out-of-range OKLCH (colorizr accepts silently then throws in getP3MaxChroma)
+  if (!isInRangeOklch({ l, c, h }) || !Number.isFinite(h)) {
+    return null;
+  }
+
+  try {
+    return formatCSS({ l, c, h }, { format: 'oklch' });
+  } catch (error_) {
+    Sentry.captureException(error_, {
+      tags: { source: 'url-parse', call: 'urlToColorValue.oklch' },
+      extra: { urlValue },
+    });
+
+    return null;
+  }
 }
 
 /**
@@ -217,45 +260,27 @@ function serializeOptions(
  * - '0.64_0.142_329' → 'oklch(64% 0.142 329)' (legacy support)
  */
 function urlToColorValue(urlValue: string): string | null {
-  // Check if it's oklch format (contains underscores)
   if (urlValue.includes('_')) {
-    const parts = urlValue.split('_');
-
-    if (parts.length === 3) {
-      const [rawL, c, h] = parts.map(Number.parseFloat);
-
-      if (!Number.isNaN(rawL) && !Number.isNaN(c) && !Number.isNaN(h)) {
-        // Legacy URLs used 0-1 for lightness, new URLs use 0-100
-        const l = rawL <= 1 ? rawL : rawL / 100;
-
-        // Reject out-of-range OKLCH (colorizr accepts silently then throws in getP3MaxChroma)
-        if (l < 0 || l > 1 || c < 0 || !Number.isFinite(h)) {
-          return null;
-        }
-
-        try {
-          return formatCSS({ l, c, h }, { format: 'oklch' });
-        } catch {
-          return null;
-        }
-      }
-    }
-
-    return null;
+    return parseOklchUrlValue(urlValue);
   }
 
   // Treat as hex — convert to OKLCH for consistent storage
   const hex = `#${urlValue}`;
 
-  if (isHex(hex)) {
-    try {
-      return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
-    } catch {
-      return null;
-    }
+  if (!isHex(hex)) {
+    return null;
   }
 
-  return null;
+  try {
+    return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
+  } catch (error_) {
+    Sentry.captureException(error_, {
+      tags: { source: 'url-parse', call: 'urlToColorValue.hex' },
+      extra: { urlValue },
+    });
+
+    return null;
+  }
 }
 
 /**
@@ -284,7 +309,12 @@ export function colorToPath(color: string): string {
     const hex = formatCSS(parseCSS(color, 'oklch'), { format: 'hex' }).replace('#', '');
 
     return `/hex/${hex}`;
-  } catch {
+  } catch (error_) {
+    Sentry.captureException(error_, {
+      tags: { source: 'url-parse', call: 'colorToPath' },
+      extra: { color },
+    });
+
     return '/';
   }
 }

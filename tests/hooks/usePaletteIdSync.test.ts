@@ -3,6 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
+import { mockAddToast } from '~/test-mocks';
 
 import type { SavedPalette } from '~/types';
 
@@ -45,7 +46,7 @@ describe('hooks/usePaletteIdSync', () => {
     vi.clearAllMocks();
     mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
     mockAuthState = { isAuthenticated: false, isLoading: false, user: null };
-    mockGetPalette.mockResolvedValue(null);
+    mockGetPalette.mockResolvedValue({ kind: 'not-found' });
     useAppStore.setState({
       loadedPaletteId: null,
       loadedPaletteName: 'Palette',
@@ -120,7 +121,7 @@ describe('hooks/usePaletteIdSync', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
       mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'other-user' } };
       usePalettesStore.setState({ palettes: [mockPalette] });
-      mockGetPalette.mockResolvedValue(null);
+      mockGetPalette.mockResolvedValue({ kind: 'not-found' });
 
       renderHook(() => usePaletteIdSync());
 
@@ -134,7 +135,7 @@ describe('hooks/usePaletteIdSync', () => {
     it('fetches from API when not in cache and sets state on success', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
       mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
-      mockGetPalette.mockResolvedValue(mockPalette);
+      mockGetPalette.mockResolvedValue({ kind: 'success', palette: mockPalette });
 
       renderHook(() => usePaletteIdSync());
 
@@ -146,10 +147,10 @@ describe('hooks/usePaletteIdSync', () => {
       expect(useAppStore.getState().loadedPaletteName).toBe('Test Palette');
     });
 
-    it('removes ID and clears state when API returns null', async () => {
+    it('removes ID and clears state when API returns not-found', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
       mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
-      mockGetPalette.mockResolvedValue(null);
+      mockGetPalette.mockResolvedValue({ kind: 'not-found' });
 
       renderHook(() => usePaletteIdSync());
 
@@ -167,7 +168,10 @@ describe('hooks/usePaletteIdSync', () => {
     it('removes ID and clears state when API returns palette with wrong userId', async () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
       mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
-      mockGetPalette.mockResolvedValue({ ...mockPalette, userId: 'other-user' });
+      mockGetPalette.mockResolvedValue({
+        kind: 'success',
+        palette: { ...mockPalette, userId: 'other-user' },
+      });
 
       renderHook(() => usePaletteIdSync());
 
@@ -179,6 +183,27 @@ describe('hooks/usePaletteIdSync', () => {
         expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-FF0044', { replace: true });
       });
 
+      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+    });
+
+    it('keeps ID, shows toast, and skips navigation on error', async () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
+      mockGetPalette.mockResolvedValue({ kind: 'error', error: new Error('Network') });
+
+      renderHook(() => usePaletteIdSync());
+
+      await waitFor(() => {
+        expect(mockGetPalette).toHaveBeenCalledWith('palette-123');
+      });
+
+      expect(mockAddToast).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'Could not load palette',
+          color: 'danger',
+        }),
+      );
+      expect(mockNavigate).not.toHaveBeenCalled();
       expect(useAppStore.getState().loadedPaletteId).toBe(null);
     });
   });

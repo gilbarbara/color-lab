@@ -1,10 +1,17 @@
+import { readFileSync } from 'node:fs';
+
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
+
+const packageJSON = JSON.parse(readFileSync('./package.json', 'utf8')) as { version: string };
 
 export default defineConfig(({ mode }) => ({
   plugins: [tailwindcss(), react(), babel({ presets: [reactCompilerPreset()] })],
+  define: {
+    __APP_VERSION__: JSON.stringify(packageJSON.version),
+  },
   resolve: {
     tsconfigPaths: true,
   },

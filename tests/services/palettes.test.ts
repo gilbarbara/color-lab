@@ -85,7 +85,7 @@ describe('services/palettes', () => {
   });
 
   describe('getPalette', () => {
-    it('returns palette with ID in URL on success', async () => {
+    it('returns success kind with palette on success', async () => {
       mockGetDocument.mockResolvedValueOnce(
         mockSnapshot('palette-1', {
           name: 'My Palette',
@@ -97,10 +97,15 @@ describe('services/palettes', () => {
 
       const result = await getPalette('palette-1');
 
-      expect(result?.url).toBe('/p/red-ff0000?id=palette-1');
+      expect(result.kind).toBe('success');
+
+      if (result.kind === 'success') {
+        // eslint-disable-next-line vitest/no-conditional-expect
+        expect(result.palette.url).toBe('/p/red-ff0000?id=palette-1');
+      }
     });
 
-    it('returns null when palette not found', async () => {
+    it('returns not-found kind when palette does not exist', async () => {
       mockGetDocument.mockResolvedValueOnce({
         exists: () => false,
         id: 'nonexistent',
@@ -109,7 +114,22 @@ describe('services/palettes', () => {
 
       const result = await getPalette('nonexistent');
 
-      expect(result).toBe(null);
+      expect(result).toEqual({ kind: 'not-found' });
+    });
+
+    it('returns error kind when Firestore throws', async () => {
+      const networkError = new Error('Network unavailable');
+
+      mockGetDocument.mockRejectedValueOnce(networkError);
+
+      const result = await getPalette('palette-1');
+
+      expect(result.kind).toBe('error');
+
+      if (result.kind === 'error') {
+        // eslint-disable-next-line vitest/no-conditional-expect
+        expect(result.error).toBe(networkError);
+      }
     });
   });
 

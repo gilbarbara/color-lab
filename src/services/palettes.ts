@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import {
   addDoc,
   collection,
@@ -17,7 +18,7 @@ import { PALETTES_COLLECTION } from '~/config/firebase';
 import { db } from '~/utils/firebase';
 import { updatePaletteIdInUrl } from '~/utils/url';
 
-import type { SavedPalette } from '~/types';
+import type { GetPaletteResult, SavedPalette } from '~/types';
 
 function documentToSavedPalette(snapshot: DocumentSnapshot): SavedPalette {
   const data = snapshot.data();
@@ -72,15 +73,20 @@ export async function deletePalette(id: string) {
   await deleteDoc(doc(db, PALETTES_COLLECTION, id));
 }
 
-export async function getPalette(id: string): Promise<SavedPalette | null> {
+export async function getPalette(id: string): Promise<GetPaletteResult> {
   try {
     const snapshot = await getDoc(doc(db, PALETTES_COLLECTION, id));
 
-    if (!snapshot.exists()) return null;
+    if (!snapshot.exists()) return { kind: 'not-found' };
 
-    return withIdInUrl(documentToSavedPalette(snapshot));
-  } catch {
-    return null;
+    return { kind: 'success', palette: withIdInUrl(documentToSavedPalette(snapshot)) };
+  } catch (error) {
+    Sentry.captureException(error, {
+      tags: { firestore: 'getPalette' },
+      extra: { id },
+    });
+
+    return { kind: 'error', error };
   }
 }
 
