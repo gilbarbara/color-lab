@@ -1,6 +1,6 @@
 import { objectEntries, uuid } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/react';
-import { formatCSS, isHex, isValidColor, parseCSS } from 'colorizr';
+import { formatCSS, isHex, parseCSS, type ScaleVariant } from 'colorizr';
 
 import { isInRangeOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
@@ -31,38 +31,35 @@ const OPTION_KEYS_REVERSE = Object.fromEntries(
   objectEntries(OPTION_KEYS).map(([k, v]) => [v, k]),
 ) as Record<string, keyof typeof OPTION_KEYS>;
 
-// Mode short values
-const MODE_SHORT: Record<string, string> = {
-  dark: 'd',
-  light: 'l',
-};
+// Local alias — colorizr exports ScaleVariant but not ScaleMode.
+type ScaleMode = 'light' | 'dark';
 
-const MODE_LONG: Record<string, string> = {
-  d: 'dark',
-  l: 'light',
-};
+// Mode short values — single source of truth; MODE_LONG and VALID_MODES derive from this.
+const MODE_SHORT = { light: 'l', dark: 'd' } as const satisfies Record<ScaleMode, string>;
+const MODE_LONG: Record<string, ScaleMode> = Object.fromEntries(
+  objectEntries(MODE_SHORT).map(([k, v]) => [v, k]),
+);
+
+// Whitelisted enum values for narrowing — bad values from URLs/query strings
+// silently dropped to prevent type-violating runtime state. `satisfies` makes
+// colorizr type drift a compile error.
+const VALID_MODES = Object.keys(MODE_SHORT) as ScaleMode[];
+const VALID_VARIANTS = [
+  'deep',
+  'neutral',
+  'pastel',
+  'subtle',
+  'vibrant',
+] as const satisfies readonly ScaleVariant[];
 
 /**
- * Convert color value to URL format
- * - Hex: 'FF0044' (without #)
- * - OKLch: '64_0.142_329' (L%_C_H with underscores, rounded)
+ * Convert OKLCH color value to URL format: '64_0.142_329' (L%_C_H, rounded)
  */
 function colorValueToUrl(value: string): string {
-  // If it's a hex color, strip #
-  if (isHex(value)) {
-    return value.replace('#', '').toUpperCase();
-  }
-
-  // If it's oklch, convert to L_C_H format (L as percentage)
-  if (isValidColor(value, 'oklch')) {
+  try {
     const oklch = parseCSS(value, 'oklch');
 
     return `${parseFloat((oklch.l * 100).toFixed(3))}_${parseFloat(oklch.c.toFixed(5))}_${parseFloat(oklch.h.toFixed(3))}`;
-  }
-
-  // Try to convert to hex
-  try {
-    return formatCSS(parseCSS(value, 'oklch'), { format: 'hex' }).replace('#', '').toUpperCase();
   } catch (error_) {
     Sentry.captureException(error_, {
       tags: { source: 'url-parse', call: 'colorValueToUrl' },
@@ -71,6 +68,76 @@ function colorValueToUrl(value: string): string {
 
     return value;
   }
+}
+
+/**
+ * Decode a URL-embedded color name. Inverse of `encodeName`.
+ * Backward compatible with legacy URLs that only encoded space as `+`.
+ */
+function decodeName(encoded: string): string {
+  return decodeURIComponent(encoded.replaceAll('+', '%20'));
+}
+
+/**
+ * Encode a color name for URL embedding.
+ * Uses standard URL encoding; preserves legacy space-as-`+` format.
+ */
+function encodeName(name: string): string {
+  return encodeURIComponent(name).replaceAll('%20', '+');
+}
+
+/**
+ * Parse a single color segment (Name[-Value[-Options]]). Returns either a parsed
+ * color, a dropped name (segment was invalid), or both undefined for empty input.
+ */
+function parseColorSegment(segment: string): { color?: ColorEntry; dropped?: string } {
+  const parts = segment.split('-');
+
+  // Trim ALL trailing empty chunks (lenient — 'Primary-FF0044-', 'Primary---ff0044--')
+  while (parts.at(-1) === '') parts.pop();
+
+  if (parts.length < 2) {
+    return { dropped: parts[0] || '(unnamed)' };
+  }
+
+  // Options chunk: leftmost ':'-bearing chunk starting at index 2 (leaves room
+  // for name+value). Rejoin with '-' to support future dashed override values
+  // (e.g. 'v:high-contrast'). parseOptions itself requires ':' per option.
+  let optionsString: string | undefined;
+  let optionsIndex = -1;
+
+  for (let index = 2; index < parts.length; index++) {
+    if (parts[index].includes(':')) {
+      optionsIndex = index;
+      break;
+    }
+  }
+
+  if (optionsIndex >= 2) {
+    optionsString = parts.slice(optionsIndex).join('-');
+    parts.length = optionsIndex;
+  }
+
+  const valueString = parts.pop()!;
+  const name = decodeName(parts.join('-')).trim();
+
+  if (!name) {
+    return { dropped: '(unnamed)' };
+  }
+
+  const value = urlToColorValue(valueString);
+
+  if (!value) {
+    return { dropped: name };
+  }
+
+  const color: ColorEntry = { id: uuid(), name, value };
+
+  if (optionsString !== undefined) {
+    color.overrides = parseOptions(optionsString);
+  }
+
+  return { color };
 }
 
 /**
@@ -89,7 +156,9 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
     // Parse value based on option type
     switch (fullKey) {
       case 'mode': {
-        result.mode = (MODE_LONG[value] ?? value) as 'dark' | 'light';
+        const mode = parseMode(value);
+
+        if (mode) result.mode = mode;
 
         break;
       }
@@ -100,7 +169,9 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
         break;
       }
       case 'variant': {
-        (result as Record<string, string>)[fullKey] = value;
+        const variant = parseVariant(value);
+
+        if (variant) result.variant = variant;
 
         break;
       }
@@ -115,6 +186,14 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
   }
 
   return result;
+}
+
+function parseMode(raw: string): ScaleMode | undefined {
+  const normalized = MODE_LONG[raw] ?? raw;
+
+  return (VALID_MODES as readonly string[]).includes(normalized)
+    ? (normalized as ScaleMode)
+    : undefined;
 }
 
 /**
@@ -178,20 +257,41 @@ function parseOptions(optString: string): Partial<ScaleOptions> {
     }
 
     // Parse value based on option type
-    if (fullKey === 'mode') {
-      result.mode = (MODE_LONG[value] ?? value) as 'dark' | 'light';
-    } else if (fullKey === 'lock' || fullKey === 'variant') {
-      result[fullKey] = value as never;
-    } else {
-      const numberValue = Number.parseFloat(value);
+    switch (fullKey) {
+      case 'mode': {
+        const mode = parseMode(value);
 
-      if (!Number.isNaN(numberValue)) {
-        (result as Record<string, number>)[fullKey] = numberValue;
+        if (mode) result.mode = mode;
+
+        break;
+      }
+      case 'variant': {
+        const variant = parseVariant(value);
+
+        if (variant) result.variant = variant;
+
+        break;
+      }
+      case 'lock': {
+        result.lock = value as never;
+
+        break;
+      }
+      default: {
+        const numberValue = Number.parseFloat(value);
+
+        if (!Number.isNaN(numberValue)) {
+          (result as Record<string, number>)[fullKey] = numberValue;
+        }
       }
     }
   }
 
   return result;
+}
+
+function parseVariant(raw: string): ScaleVariant | undefined {
+  return (VALID_VARIANTS as readonly string[]).includes(raw) ? (raw as ScaleVariant) : undefined;
 }
 
 /**
@@ -209,7 +309,7 @@ function serializeGlobalOptions(options: GlobalScaleOptions, defaults: GlobalSca
       let serialized: string;
 
       if (key === 'mode' && typeof value === 'string') {
-        serialized = MODE_SHORT[value] ?? value;
+        serialized = MODE_SHORT[value as ScaleMode] ?? value;
       } else if (key === 'saturationOverride') {
         // Only serialize when true (default is false)
         serialized = value ? '1' : '0';
@@ -244,7 +344,9 @@ function serializeOptions(
 
     if (value !== undefined && value !== defaultValue) {
       const serialized =
-        key === 'mode' && typeof value === 'string' ? (MODE_SHORT[value] ?? value) : String(value);
+        key === 'mode' && typeof value === 'string'
+          ? (MODE_SHORT[value as ScaleMode] ?? value)
+          : String(value);
 
       parts.push(`${shortKey}:${serialized}`);
     }
@@ -280,42 +382,6 @@ function urlToColorValue(urlValue: string): string | null {
     });
 
     return null;
-  }
-}
-
-/**
- * Convert color string to URL path (for single-color routes)
- * Examples:
- *   '#FF0044' → '/hex/FF0044'
- *   'oklch(0.7 0.2 120)' → '/oklch/0.7/0.2/120'
- */
-export function colorToPath(color: string): string {
-  // Handle hex colors
-  if (isHex(color)) {
-    const hex = color.replace('#', '').toUpperCase();
-
-    return `/hex/${hex}`;
-  }
-
-  // Handle oklch colors
-  if (isValidColor(color, 'oklch')) {
-    const oklch = parseCSS(color, 'oklch');
-
-    return `/oklch/${parseFloat((oklch.l * 100).toFixed(3))}/${parseFloat(oklch.c.toFixed(5))}/${parseFloat(oklch.h.toFixed(3))}`;
-  }
-
-  // Try to convert to hex for other formats
-  try {
-    const hex = formatCSS(parseCSS(color, 'oklch'), { format: 'hex' }).replace('#', '');
-
-    return `/hex/${hex}`;
-  } catch (error_) {
-    Sentry.captureException(error_, {
-      tags: { source: 'url-parse', call: 'colorToPath' },
-      extra: { color },
-    });
-
-    return '/';
   }
 }
 
@@ -361,38 +427,10 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
   const dropped: string[] = [];
 
   for (const segment of pathSegments) {
-    // Split by - but handle name, value, and optional options
-    const parts = segment.split('-');
+    const { color, dropped: droppedName } = parseColorSegment(segment);
 
-    if (parts.length < 2) {
-      dropped.push(parts[0] || '(unnamed)');
-      continue;
-    }
-
-    // Decode name (replace + with space)
-    const name = parts[0].replaceAll('+', ' ').trim();
-
-    if (!name) {
-      dropped.push('(unnamed)');
-      continue;
-    }
-
-    const valueString = parts[1];
-    const value = urlToColorValue(valueString);
-
-    if (!value) {
-      dropped.push(name);
-      continue;
-    }
-
-    const color: ColorEntry = { id: uuid(), name, value };
-
-    // Parse per-color options if present (3rd part)
-    if (parts.length >= 3) {
-      color.overrides = parseOptions(parts[2]);
-    }
-
-    colors.push(color);
+    if (color) colors.push(color);
+    if (droppedName !== undefined) dropped.push(droppedName);
   }
 
   if (colors.length === 0) {
@@ -432,8 +470,7 @@ export function serializePaletteToUrl(state: PaletteState): string {
   const defaults = getDefaultGlobalOptions(state.colors[0].value);
 
   const colorParts = state.colors.map(color => {
-    // Encode name to handle spaces (replace spaces with +)
-    const encodedName = color.name.replaceAll(' ', '+');
+    const encodedName = encodeName(color.name);
     let part = `${encodedName}-${colorValueToUrl(color.value)}`;
 
     const options = serializeOptions(color.overrides, state.globalOptions);
