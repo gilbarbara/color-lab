@@ -3,12 +3,12 @@ import { useSetState } from '@gilbarbara/hooks';
 import { cn, Input, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
 import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
-import { convertCSS, formatCSS, isValidColor, parseCSS } from 'colorizr';
+import { convertCSS, formatCSS, parseCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
-import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
+import { getChromaAsPercentage, getRandomColor, isValidColorValue } from '~/utils/color';
 
 import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
@@ -145,7 +145,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
       return;
     }
 
-    if (isValidColor(trimmed)) {
+    if (isValidColorValue(trimmed)) {
       const oklch = formatCSS(parseCSS(trimmed, 'oklch'), { format: 'oklch' });
 
       handleChangeColor(oklch);
