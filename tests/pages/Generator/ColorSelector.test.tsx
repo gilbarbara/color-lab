@@ -237,6 +237,19 @@ describe('ColorSelector', () => {
       expect(screen.getByDisplayValue('Brand')).toBeInTheDocument();
     });
 
+    it('ignores out-of-range OKLCH paste (L > 100%)', () => {
+      renderActive();
+
+      const initialValue = usePaletteStore.getState().colors[0].value;
+      const colorInput = screen.getByLabelText('Color value');
+
+      fireEvent.change(colorInput, {
+        target: { value: 'oklch(164.9% 0.24196 300.54)' },
+      });
+
+      expect(usePaletteStore.getState().colors[0].value).toBe(initialValue);
+    });
+
     it('preserves in-progress name edit when prop changes externally', () => {
       const entry = createColorEntry('Primary', TEST_COLOR);
 

@@ -1,5 +1,4 @@
 import { uuid } from '@gilbarbara/helpers';
-import { isValidColor } from 'colorizr';
 
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
@@ -97,40 +96,6 @@ export function getEffectiveOptions(
     ...(saturationOverride ? { saturation } : {}),
     ...color.overrides,
   };
-}
-
-/**
- * Validate color value using colorizr
- */
-export function isValidColorValue(value: string): boolean {
-  return isValidColor(value);
-}
-
-/**
- * Type guard to validate palette state structure
- */
-export function isValidPaletteState(data: unknown): data is PaletteState {
-  if (!data || typeof data !== 'object') {
-    return false;
-  }
-
-  const object = data as Record<string, unknown>;
-
-  return (
-    Array.isArray(object.colors) &&
-    object.colors.length > 0 &&
-    object.colors.length <= MAX_COLORS &&
-    object.colors.every(
-      c =>
-        typeof c === 'object' &&
-        c !== null &&
-        typeof (c as Record<string, unknown>).id === 'string' &&
-        typeof (c as Record<string, unknown>).value === 'string' &&
-        typeof (c as Record<string, unknown>).name === 'string' &&
-        isValidColor((c as Record<string, unknown>).value as string),
-    ) &&
-    typeof object.globalOptions === 'object'
-  );
 }
 
 /**

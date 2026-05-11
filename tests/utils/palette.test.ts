@@ -5,8 +5,6 @@ import {
   getDefaultColorName,
   getDefaultGlobalOptions,
   getEffectiveOptions,
-  isValidColorValue,
-  isValidPaletteState,
   MAX_COLORS,
   removeColor,
   resetGlobalOptions,
@@ -308,72 +306,6 @@ describe('utils/palette', () => {
     it('returns "Color N" for index >= 10', () => {
       expect(getDefaultColorName(10)).toBe('Color 11');
       expect(getDefaultColorName(15)).toBe('Color 16');
-    });
-  });
-
-  describe('isValidColorValue', () => {
-    it('returns true for valid hex', () => {
-      expect(isValidColorValue('#FF0044')).toBe(true);
-      expect(isValidColorValue('#abc')).toBe(true);
-    });
-
-    it('returns true for valid oklch', () => {
-      expect(isValidColorValue('oklch(0.7 0.2 120)')).toBe(true);
-    });
-
-    it('returns false for invalid values', () => {
-      expect(isValidColorValue('invalid')).toBe(false);
-      expect(isValidColorValue('')).toBe(false);
-      expect(isValidColorValue('#GGGGGG')).toBe(false);
-    });
-  });
-
-  describe('isValidPaletteState', () => {
-    it('returns true for valid state', () => {
-      const state = createTestPalette(2);
-
-      expect(isValidPaletteState(state)).toBe(true);
-    });
-
-    it('returns false for empty colors', () => {
-      const state = { colors: [], globalOptions: getDefaultGlobalOptions(TEST_COLOR) };
-
-      expect(isValidPaletteState(state)).toBe(false);
-    });
-
-    it('returns false for >10 colors', () => {
-      const colors = Array.from({ length: 11 }, (_, index) => ({
-        name: `Color ${index}`,
-        value: TEST_COLOR,
-      }));
-      const state = { colors, globalOptions: getDefaultGlobalOptions(TEST_COLOR) };
-
-      expect(isValidPaletteState(state)).toBe(false);
-    });
-
-    it('returns false for invalid color value', () => {
-      const state = {
-        colors: [{ name: 'Primary', value: 'not-a-color' }],
-        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
-      };
-
-      expect(isValidPaletteState(state)).toBe(false);
-    });
-
-    it('returns false for missing globalOptions', () => {
-      const state = { colors: [{ name: 'Primary', value: '#FF0000' }] };
-
-      expect(isValidPaletteState(state)).toBe(false);
-    });
-
-    it('returns false for null/undefined', () => {
-      expect(isValidPaletteState(null)).toBe(false);
-      expect(isValidPaletteState(undefined)).toBe(false);
-    });
-
-    it('returns false for non-object', () => {
-      expect(isValidPaletteState('string')).toBe(false);
-      expect(isValidPaletteState(123)).toBe(false);
     });
   });
 });

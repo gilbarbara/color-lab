@@ -1,4 +1,9 @@
-import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
+import {
+  getChromaAsPercentage,
+  getRandomColor,
+  isInRangeOklch,
+  isValidColorValue,
+} from '~/utils/color';
 
 describe('utils/color', () => {
   describe('getChromaAsPercentage', () => {
@@ -33,6 +38,61 @@ describe('utils/color', () => {
 
       expect(typeof color).toBe('string');
       expect(color).toMatch(/^oklch\(/);
+    });
+  });
+
+  describe('isInRangeOklch', () => {
+    it('accepts values within OKLCH ranges', () => {
+      expect(isInRangeOklch({ l: 0.5, c: 0.1, h: 200 })).toBe(true);
+      expect(isInRangeOklch({ l: 0, c: 0, h: 0 })).toBe(true);
+      expect(isInRangeOklch({ l: 1, c: 0.4, h: 359 })).toBe(true);
+    });
+
+    it('rejects lightness out of [0, 1]', () => {
+      expect(isInRangeOklch({ l: 1.649, c: 0.24, h: 300 })).toBe(false);
+      expect(isInRangeOklch({ l: -0.1, c: 0.1, h: 100 })).toBe(false);
+    });
+
+    it('rejects negative chroma', () => {
+      expect(isInRangeOklch({ l: 0.5, c: -0.1, h: 100 })).toBe(false);
+    });
+
+    it('rejects non-finite values', () => {
+      expect(isInRangeOklch({ l: Number.NaN, c: 0.1, h: 100 })).toBe(false);
+      expect(isInRangeOklch({ l: 0.5, c: Number.POSITIVE_INFINITY, h: 100 })).toBe(false);
+    });
+  });
+
+  describe('isValidColorValue', () => {
+    it('accepts valid hex', () => {
+      expect(isValidColorValue('#FF0044')).toBe(true);
+      expect(isValidColorValue('#abc')).toBe(true);
+    });
+
+    it('accepts valid OKLCH string', () => {
+      expect(isValidColorValue('oklch(0.7 0.2 120)')).toBe(true);
+      expect(isValidColorValue('oklch(70% 0.2 120)')).toBe(true);
+    });
+
+    it('accepts valid rgb/hsl strings', () => {
+      expect(isValidColorValue('rgb(255, 0, 68)')).toBe(true);
+      expect(isValidColorValue('hsl(344, 100%, 50%)')).toBe(true);
+    });
+
+    it('rejects OKLCH with lightness > 100%', () => {
+      expect(isValidColorValue('oklch(164.9% 0.24196 300.54)')).toBe(false);
+    });
+
+    it('rejects bad syntax', () => {
+      expect(isValidColorValue('invalid')).toBe(false);
+      expect(isValidColorValue('')).toBe(false);
+      expect(isValidColorValue('#GGGGGG')).toBe(false);
+    });
+
+    it('rejects OKLCH the underlying parser throws on (negative L, big H, negative C)', () => {
+      expect(isValidColorValue('oklch(-10% 0.1 100)')).toBe(false);
+      expect(isValidColorValue('oklch(50% 0.1 9999)')).toBe(false);
+      expect(isValidColorValue('oklch(50% -0.1 100)')).toBe(false);
     });
   });
 });
