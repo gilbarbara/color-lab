@@ -1,6 +1,7 @@
 import { useBreakpoint } from '@gilbarbara/hooks';
 import { cn, Divider } from '@heroui/react';
 
+import { BREAKPOINTS } from '~/config/globals';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import useUrlSync from '~/hooks/useUrlSync';
 
@@ -12,7 +13,7 @@ export default function Generator() {
   useUrlSync();
   usePaletteIdSync();
 
-  const { max, min } = useBreakpoint();
+  const { max, min } = useBreakpoint(BREAKPOINTS);
   const isLargeScreen = min('md');
   const isSmallScreen = max('md');
 

@@ -19,6 +19,7 @@ import {
   UserIcon,
 } from '@phosphor-icons/react';
 
+import { BREAKPOINTS } from '~/config/globals';
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
@@ -34,7 +35,7 @@ export default function Header() {
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette();
   const { clearLoadedPalette, closeLoginModal, openLoginModal } = useAppStore();
-  const { min } = useBreakpoint({ xs: 0, sm: 360, md: 768, lg: 1024, xl: 1280 });
+  const { min } = useBreakpoint(BREAKPOINTS);
 
   const handleClickDarkMode = () => {
     trackEvent('dark-mode', { enabled: !isDarkMode });

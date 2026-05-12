@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from '@heroui/react';
 
+import { BREAKPOINTS } from '~/config/globals';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { copyToClipboard } from '~/utils/clipboard';
@@ -41,7 +42,7 @@ export interface ExportRenderProps {
 export default function ExportDrawer(props: ExportDrawerProps) {
   const { children, footer, selection, title, trigger } = props;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { min } = useBreakpoint();
+  const { min } = useBreakpoint(BREAKPOINTS);
 
   const {
     exportColorFormat: colorFormat,
