@@ -1,4 +1,4 @@
-import type { FormEvent } from 'react';
+import type { SubmitEvent } from 'react';
 import { useEffect } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import { Button, Tab, Tabs } from '@heroui/react';
@@ -62,7 +62,7 @@ export default function Login() {
     setState({ email: '', magicLinkSent: false, name: '', password: '', tab: 'login' });
   };
 
-  const handleEmailLogin = async (event: FormEvent) => {
+  const handleEmailLogin = async (event: SubmitEvent) => {
     event.preventDefault();
 
     try {
@@ -74,7 +74,7 @@ export default function Login() {
     }
   };
 
-  const handleEmailSignup = async (event: FormEvent) => {
+  const handleEmailSignup = async (event: SubmitEvent) => {
     event.preventDefault();
 
     try {
@@ -86,7 +86,7 @@ export default function Login() {
     }
   };
 
-  const handleMagicLink = async (event: FormEvent) => {
+  const handleMagicLink = async (event: SubmitEvent) => {
     event.preventDefault();
 
     try {

@@ -1,4 +1,4 @@
-import type { FormEvent } from 'react';
+import type { SubmitEvent } from 'react';
 import { useState } from 'react';
 import { Button } from '@heroui/react';
 
@@ -22,7 +22,7 @@ export default function SavePaletteModal({
 }: SavePaletteModalProps) {
   const [name, setName] = useState('');
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
 
     if (name.trim()) {
@@ -57,8 +57,8 @@ export default function SavePaletteModal({
       }
       header="Save Palette"
       isOpen={isOpen}
-      maxWidth="sm"
       onOpenChange={handleOpenChange}
+      size="sm"
     >
       <form className="flex flex-col gap-4" id="save-palette-form" onSubmit={handleSubmit}>
         <Input

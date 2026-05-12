@@ -1,4 +1,4 @@
-import { type FormEvent, type ReactNode, useRef } from 'react';
+import { type ReactNode, type SubmitEvent, useRef } from 'react';
 import { ASYNC_STATUS, request } from '@gilbarbara/helpers';
 import { useSetState } from '@gilbarbara/hooks';
 import { Button, Divider, useDisclosure } from '@heroui/react';
@@ -42,7 +42,7 @@ export default function Contact() {
     trackEvent('feedback');
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
 
     const { email, message } = (event.target as Form).elements;
