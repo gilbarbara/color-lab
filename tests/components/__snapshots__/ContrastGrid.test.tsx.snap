@@ -1,0 +1,1110 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContrastGrid > Render > render correctly > grid 1`] = `
+<div
+  class="min-w-0 flex-1 overflow-auto max-h-[70vh]"
+  data-testid="ContrastGrid-Grid"
+>
+  <div
+    style="display: grid; grid-template-columns: repeat(12, 48px); gap: 4px; width: max-content;"
+  >
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 left-0 z-30"
+    />
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      50
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      100
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      200
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      300
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      400
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      500
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      600
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      700
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      800
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      900
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+    >
+      950
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      50
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.7752 0.26156 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      46
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.69776 0.30935 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      55
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.61214 0.30051 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      63
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.51904 0.25481 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      75
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.41903 0.20571 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      85
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.31256 0.15345 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      94
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.2 0.09819 334.79); color: oklch(0.97 0.02929 334.79);"
+    >
+      99
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      100
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.69776 0.30935 334.79); color: oklch(0.94565 0.05414 334.79);"
+    >
+      48
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.61214 0.30051 334.79); color: oklch(0.94565 0.05414 334.79);"
+    >
+      57
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.51904 0.25481 334.79); color: oklch(0.94565 0.05414 334.79);"
+    >
+      69
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.41903 0.20571 334.79); color: oklch(0.94565 0.05414 334.79);"
+    >
+      79
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.31256 0.15345 334.79); color: oklch(0.94565 0.05414 334.79);"
+    >
+      88
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.2 0.09819 334.79); color: oklch(0.94565 0.05414 334.79);"
+    >
+      92
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      200
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.61214 0.30051 334.79); color: oklch(0.90113 0.10229 334.79);"
+    >
+      46
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.51904 0.25481 334.79); color: oklch(0.90113 0.10229 334.79);"
+    >
+      57
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.41903 0.20571 334.79); color: oklch(0.90113 0.10229 334.79);"
+    >
+      68
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.31256 0.15345 334.79); color: oklch(0.90113 0.10229 334.79);"
+    >
+      76
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.2 0.09819 334.79); color: oklch(0.90113 0.10229 334.79);"
+    >
+      81
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      300
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.41903 0.20571 334.79); color: oklch(0.84348 0.17057 334.79);"
+    >
+      54
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.31256 0.15345 334.79); color: oklch(0.84348 0.17057 334.79);"
+    >
+      63
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.2 0.09819 334.79); color: oklch(0.84348 0.17057 334.79);"
+    >
+      67
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      400
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.31256 0.15345 334.79); color: oklch(0.7752 0.26156 334.79);"
+    >
+      47
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.2 0.09819 334.79); color: oklch(0.7752 0.26156 334.79);"
+    >
+      52
+    </div>
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      500
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.97 0.02929 334.79); color: oklch(0.69776 0.30935 334.79);"
+    >
+      50
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      600
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.97 0.02929 334.79); color: oklch(0.61214 0.30051 334.79);"
+    >
+      58
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.94565 0.05414 334.79); color: oklch(0.61214 0.30051 334.79);"
+    >
+      53
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      700
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.97 0.02929 334.79); color: oklch(0.51904 0.25481 334.79);"
+    >
+      70
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.94565 0.05414 334.79); color: oklch(0.51904 0.25481 334.79);"
+    >
+      65
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.90113 0.10229 334.79); color: oklch(0.51904 0.25481 334.79);"
+    >
+      54
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      800
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.97 0.02929 334.79); color: oklch(0.41903 0.20571 334.79);"
+    >
+      81
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.94565 0.05414 334.79); color: oklch(0.41903 0.20571 334.79);"
+    >
+      76
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.90113 0.10229 334.79); color: oklch(0.41903 0.20571 334.79);"
+    >
+      65
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.84348 0.17057 334.79); color: oklch(0.41903 0.20571 334.79);"
+    >
+      53
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      900
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.97 0.02929 334.79); color: oklch(0.31256 0.15345 334.79);"
+    >
+      91
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.94565 0.05414 334.79); color: oklch(0.31256 0.15345 334.79);"
+    >
+      86
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.90113 0.10229 334.79); color: oklch(0.31256 0.15345 334.79);"
+    >
+      75
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.84348 0.17057 334.79); color: oklch(0.31256 0.15345 334.79);"
+    >
+      62
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.7752 0.26156 334.79); color: oklch(0.31256 0.15345 334.79);"
+    >
+      48
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+    >
+      950
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.97 0.02929 334.79); color: oklch(0.2 0.09819 334.79);"
+    >
+      97
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.94565 0.05414 334.79); color: oklch(0.2 0.09819 334.79);"
+    >
+      91
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.90113 0.10229 334.79); color: oklch(0.2 0.09819 334.79);"
+    >
+      81
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.84348 0.17057 334.79); color: oklch(0.2 0.09819 334.79);"
+    >
+      68
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.7752 0.26156 334.79); color: oklch(0.2 0.09819 334.79);"
+    >
+      54
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="pass"
+      data-testid="ContrastGrid-Cell"
+      style="background-color: oklch(0.69776 0.30935 334.79); color: oklch(0.2 0.09819 334.79);"
+    >
+      45
+    </div>
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
+      data-state="fail"
+      data-testid="ContrastGrid-Cell"
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
+    <div
+      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+      data-state="identity"
+      data-testid="ContrastGrid-Cell"
+    >
+      —
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContrastGrid > Render > render correctly > header 1`] = `
+<header
+  class="flex flex-initial p-4 text-lg/3 gap-1 font-normal"
+  data-testid="ContrastGrid-Header"
+  id="_r_a_"
+>
+  <span>
+    Contrast grid
+  </span>
+  <span>
+    ·
+  </span>
+  <span
+    class="text-foreground-500"
+  >
+    Primary
+  </span>
+</header>
+`;
+
+exports[`ContrastGrid > Render > render correctly > sidebar 1`] = `
+<aside
+  class="shrink-0 w-full md:w-44 flex flex-col text-sm"
+  data-testid="ContrastGrid-Sidebar"
+>
+  <section>
+    <p
+      class="text-foreground-500 uppercase text-xs tracking-wide mb-2"
+    >
+      Guidelines
+    </p>
+    <div
+      class="flex flex-row md:flex-col gap-1"
+    >
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-default-200 text-foreground"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        WCAG 3 · APCA
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        WCAG 2
+      </button>
+    </div>
+  </section>
+  <section
+    class="mt-6"
+  >
+    <p
+      class="text-foreground-500 uppercase text-xs tracking-wide mb-2"
+    >
+      <span>
+        APCA 
+        <span>
+          L
+          <sup>
+            c
+          </sup>
+        </span>
+      </span>
+    </p>
+    <div
+      class="flex flex-row flex-wrap md:flex-col gap-1 overflow-x-auto"
+    >
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        Decorative 15+
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        Non-content 30+
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-default-200 text-foreground"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        Large min 45+
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        UI / Small 60+
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        Body min 75+
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        Body pref 90+
+      </button>
+      <button
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        All
+      </button>
+    </div>
+  </section>
+  <p
+    class="text-foreground-500 italic text-sm leading-snug mt-2"
+  >
+    <span>
+      <span>
+        L
+        <sup>
+          c
+        </sup>
+      </span>
+       45 • Large text minimum
+    </span>
+  </p>
+  <div
+    class="mt-4"
+  >
+    <p
+      class="text-foreground-500 text-sm"
+    >
+      Rows = text
+    </p>
+    <p
+      class="text-foreground-500 text-sm"
+    >
+      Cols = background
+    </p>
+  </div>
+</aside>
+`;
