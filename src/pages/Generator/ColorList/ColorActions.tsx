@@ -4,6 +4,7 @@ import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/reac
 import { type ColorMode, ModeSelector } from '@transience/color-picker';
 import { readableColor } from 'colorizr';
 
+import { BREAKPOINTS } from '~/config/globals';
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 
@@ -26,7 +27,7 @@ export default function ColorActions(props: ColorActionsProps) {
   const { colorEntry, index, mode, onClickMode, onClickRandom } = props;
   const { clearColorOverrides, globalOptions, updateColor } = usePalette();
   const { isOpen, onOpenChange } = useDisclosure();
-  const { max, min } = useBreakpoint();
+  const { max, min } = useBreakpoint(BREAKPOINTS);
 
   const color = colorEntry.value;
 

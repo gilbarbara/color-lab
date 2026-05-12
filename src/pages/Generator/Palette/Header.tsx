@@ -13,6 +13,7 @@ import {
 import { EraserIcon, HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys } from 'colorizr';
 
+import { BREAKPOINTS } from '~/config/globals';
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useRafCallback from '~/hooks/useRafCallback';
@@ -50,7 +51,7 @@ export default function PaletteHeader() {
     savePalette,
     updateCurrentPalette,
   } = useSavedPalettes();
-  const { min } = useBreakpoint();
+  const { min } = useBreakpoint(BREAKPOINTS);
   const { end, ref: interactionRef, start } = useSliderInteraction();
   const scheduleUpdateGlobalOptions = useRafCallback(updateGlobalOptions);
 

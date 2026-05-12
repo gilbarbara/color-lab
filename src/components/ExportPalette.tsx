@@ -4,6 +4,7 @@ import { Button, cn } from '@heroui/react';
 import { ExportIcon } from '@phosphor-icons/react';
 import { readableColor, scale } from 'colorizr';
 
+import { BREAKPOINTS } from '~/config/globals';
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
@@ -69,7 +70,7 @@ export default function ExportPalette() {
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(
     () => new Set(colors.map((_, index) => index)),
   );
-  const { min } = useBreakpoint();
+  const { min } = useBreakpoint(BREAKPOINTS);
 
   useEffect(() => {
     setSelectedIndices(new Set(colors.map((_, index) => index)));
