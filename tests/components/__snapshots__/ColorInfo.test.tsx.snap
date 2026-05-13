@@ -1,0 +1,2189 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ColorInfo > Render > renders correctly 1`] = `
+<section
+  aria-describedby="_r_b_"
+  aria-labelledby="_r_a_"
+  aria-modal="true"
+  class="flex flex-col relative z-50 box-border bg-content1 outline-solid outline-transparent mx-1 my-1 sm:mx-6 sm:my-16 max-w-md rounded-large shadow-small max-h-[calc(100%_-_8rem)] 5xl w-full"
+  data-dismissable="true"
+  data-open="true"
+  data-placement="center"
+  data-test-id="Modal"
+  data-testid="ColorInfo"
+  id="_r_9_"
+  role="dialog"
+  style="max-width: min(clamp(480px, 1156px, 1280px), calc(100% - 4rem));"
+  tabindex="-1"
+>
+  <div
+    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+  >
+    <button
+      aria-label="Dismiss"
+      id="react-aria-_r_h_"
+      style="width: 1px; height: 1px;"
+      tabindex="-1"
+    />
+  </div>
+  <button
+    aria-label="Close"
+    class="absolute appearance-none select-none top-1 end-1 p-2 text-foreground-500 rounded-full hover:bg-default-100 active:bg-default-200 tap-highlight-transparent outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
+    data-react-aria-pressable="true"
+    role="button"
+    tabindex="0"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="fill-current"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="presentation"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="1em"
+    >
+      <path
+        d="M18 6L6 18M6 6l12 12"
+      />
+    </svg>
+  </button>
+  <header
+    class="flex flex-initial p-4 text-lg/3 gap-1 font-normal"
+    data-testid="ColorInfo-Header"
+    id="_r_a_"
+  >
+    <span>
+      Color info
+    </span>
+    <span>
+      ·
+    </span>
+    <span
+      class="text-foreground-500"
+    >
+      Primary
+    </span>
+  </header>
+  <hr
+    class="shrink-0 bg-divider border-none w-full h-divider"
+    role="separator"
+  />
+  <div
+    class="flex-1 p-4 gap-4 overflow-hidden flex flex-col min-h-0"
+    id="_r_b_"
+  >
+    <div
+      class="flex flex-col lg:flex-row gap-6 flex-1 min-h-0"
+    >
+      <div
+        class="lg:basis-2/5 flex flex-col gap-6 min-w-0"
+      >
+        <section
+          data-testid="ColorInfo-ScaleOptions"
+        >
+          <p
+            class="text-foreground-500 text-xs uppercase tracking-wide mb-3"
+          >
+            Scale options
+          </p>
+          <dl
+            class="grid grid-cols-2 gap-x-6"
+          >
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm flex items-center gap-2"
+              >
+                <span>
+                  Steps
+                </span>
+              </dt>
+              <dd
+                class="text-sm text-right"
+              >
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    11
+                  </span>
+                </span>
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm flex items-center gap-2"
+              >
+                <span>
+                  Lightness range
+                </span>
+              </dt>
+              <dd
+                class="text-sm text-right"
+              >
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    0.2
+                  </span>
+                </span>
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                     ~ 
+                  </span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    0.97
+                  </span>
+                </span>
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm flex items-center gap-2"
+              >
+                <span>
+                  Lightness curve
+                </span>
+              </dt>
+              <dd
+                class="text-sm text-right"
+              >
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    1.5
+                  </span>
+                </span>
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm flex items-center gap-2"
+              >
+                <span>
+                  Chroma curve
+                </span>
+              </dt>
+              <dd
+                class="text-sm text-right"
+              >
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    0
+                  </span>
+                </span>
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm flex items-center gap-2"
+              >
+                <span>
+                  Mode
+                </span>
+              </dt>
+              <dd
+                class="text-sm text-right"
+              >
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    light
+                  </span>
+                </span>
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm flex items-center gap-2"
+              >
+                <span>
+                  Lock
+                </span>
+              </dt>
+              <dd
+                class="text-sm text-right"
+              >
+                <span>
+                  <span
+                    class="text-foreground-500"
+                  >
+                    500
+                  </span>
+                </span>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section
+          data-testid="ColorInfo-ChromaChart"
+        >
+          <p
+            class="text-foreground-500 text-xs uppercase tracking-wide mb-3"
+          >
+            Chroma distribution
+          </p>
+          <div
+            class="grid items-end gap-1 justify-center"
+            style="grid-template-columns: repeat(11, minmax(0, 32px)); height: 192px;"
+          >
+            <button
+              aria-label="Step 50, chroma 0.016"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.97 0.0157 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 100, chroma 0.029"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.94565 0.02867 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 200, chroma 0.053"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.90113 0.05294 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 300, chroma 0.085"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.84347 0.08545 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 400, chroma 0.126"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.7752 0.12555 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 500, chroma 0.173"
+              aria-pressed="true"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer ring-1 ring-current/50"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.69776 0.17313 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 600, chroma 0.173"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.65324 0.17313 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 700, chroma 0.173"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.57184 0.17313 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 800, chroma 0.173"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.46642 0.17313 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 900, chroma 0.173"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.34159 0.17313 276.66);"
+              type="button"
+            />
+            <button
+              aria-label="Step 950, chroma 0.125"
+              aria-pressed="false"
+              class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
+              data-testid="ColorInfo-ChromaChart-Bar"
+              style="background-color: oklch(0.2 0.12538 276.66);"
+              type="button"
+            />
+          </div>
+          <div
+            class="grid gap-1 mt-2 justify-center"
+            style="grid-template-columns: repeat(11, minmax(0, 32px));"
+          >
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              50
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              100
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              200
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              300
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              400
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground font-semibold"
+            >
+              500
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              600
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              700
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              800
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              900
+            </span>
+            <span
+              class="text-center text-[10px] tabular-nums text-foreground-500"
+            >
+              950
+            </span>
+          </div>
+        </section>
+        <section
+          data-testid="ColorInfo-Definition"
+        >
+          <div
+            class="flex items-center justify-between mb-3"
+          >
+            <p
+              class="text-foreground-500 text-xs uppercase tracking-wide"
+            >
+              OKLCH definition
+            </p>
+            <span
+              class="flex items-center gap-2 text-xs text-foreground-500"
+            >
+              <span
+                class="w-4 h-4 rounded-sm"
+                style="background-color: oklch(0.69776 0.17313 276.66);"
+              />
+              <span
+                class="tabular-nums"
+              >
+                500
+              </span>
+            </span>
+          </div>
+          <dl
+            class="flex flex-col"
+          >
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm text-foreground-500"
+              >
+                Lightness
+              </dt>
+              <dd
+                class="text-sm font-mono tabular-nums"
+              >
+                0.698
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm text-foreground-500"
+              >
+                Chroma
+              </dt>
+              <dd
+                class="text-sm font-mono tabular-nums"
+              >
+                0.173
+              </dd>
+            </div>
+            <div
+              class="flex items-center justify-between py-2 border-t border-default-100"
+            >
+              <dt
+                class="text-sm text-foreground-500"
+              >
+                Hue
+              </dt>
+              <dd
+                class="text-sm font-mono tabular-nums"
+              >
+                276.7°
+              </dd>
+            </div>
+          </dl>
+        </section>
+      </div>
+      <div
+        class="lg:basis-3/5 min-w-0 min-h-0 flex flex-col"
+      >
+        <div
+          class="overflow-auto flex-1 min-h-0"
+          data-testid="ColorInfo-Table"
+        >
+          <table
+            class="w-full text-left border-separate border-spacing-0"
+          >
+            <thead>
+              <tr
+                class="text-foreground-500 text-xs uppercase tracking-wide"
+              >
+                <th
+                  aria-label="Step"
+                  class="py-2 pr-3 font-normal w-12 sticky top-0 bg-content1 z-10"
+                />
+                <th
+                  class="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10"
+                >
+                  APCA 
+                  <span>
+                    L
+                    <sup>
+                      c
+                    </sup>
+                  </span>
+                </th>
+                <th
+                  class="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10"
+                >
+                  Gamut
+                </th>
+                <th
+                  class="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10"
+                >
+                  OKLCH
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="50"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    50
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 100, light text Lc 0"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.97 0.0157 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        100
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        0
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 0"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.97 0.0157 276.66);"
+                    >
+                      0
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 101"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.97 0.0157 276.66);"
+                    >
+                      101
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.97 0.0157 276.66);"
+                      title="OKLCH · oklch(97% 0.0157 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(242, 244, 255);"
+                      title="Hex · #f2f4ff"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#000000"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(97% 0.0157 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #f2f4ff
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="100"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    100
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 95, light text Lc 10"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.94565 0.02867 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        95
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        10
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 8"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.94565 0.02867 276.66);"
+                    >
+                      8
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 96"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.94565 0.02867 276.66);"
+                    >
+                      96
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.94565 0.02867 276.66);"
+                      title="OKLCH · oklch(94.565% 0.02867 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(232, 236, 255);"
+                      title="Hex · #e8ecff"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#000000"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(94.565% 0.02867 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #e8ecff
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="200"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    200
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 86, light text Lc 20"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.90113 0.05294 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        86
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        20
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 17"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.90113 0.05294 276.66);"
+                    >
+                      17
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 86"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.90113 0.05294 276.66);"
+                    >
+                      86
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.90113 0.05294 276.66);"
+                      title="OKLCH · oklch(90.113% 0.05294 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(213, 220, 255);"
+                      title="Hex · #d5dcff"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#000000"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(90.113% 0.05294 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #d5dcff
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="300"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    300
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 75, light text Lc 32"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.84347 0.08545 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        75
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        32
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 29"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.84347 0.08545 276.66);"
+                    >
+                      29
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 74"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.84347 0.08545 276.66);"
+                    >
+                      74
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.84347 0.08545 276.66);"
+                      title="OKLCH · oklch(84.347% 0.08545 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(189, 199, 255);"
+                      title="Hex · #bdc7ff"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#000000"
+                          height="1em"
+                          style="opacity: 0.16674999999999998;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(84.347% 0.08545 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #bdc7ff
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="400"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    400
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 63, light text Lc 46"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.7752 0.12555 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        63
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        46
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 41"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.7752 0.12555 276.66);"
+                    >
+                      41
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 61"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.7752 0.12555 276.66);"
+                    >
+                      61
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.7752 0.12555 276.66);"
+                      title="OKLCH · oklch(77.52% 0.12555 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(161, 174, 255);"
+                      title="Hex · #a1aeff"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#000000"
+                          height="1em"
+                          style="opacity: 0.23349999999999999;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(77.52% 0.12555 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #a1aeff
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 bg-default-100"
+                data-step="500"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    500
+                    <svg
+                      data-testid="ColorInfo-Row-Lock"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Z"
+                      />
+                    </svg>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 50, light text Lc 59"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.69776 0.17313 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        50
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        59
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 54"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.69776 0.17313 276.66);"
+                    >
+                      54
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 48"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.69776 0.17313 276.66);"
+                    >
+                      48
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.69776 0.17313 276.66);"
+                      title="OKLCH · oklch(69.776% 0.17313 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(132, 144, 255);"
+                      title="Hex · #8490ff"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#ffffff"
+                          height="1em"
+                          style="opacity: 0.295;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(69.776% 0.17313 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #8490ff
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="600"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    600
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 44, light text Lc 66"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.65324 0.17313 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        44
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        66
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 60"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.65324 0.17313 276.66);"
+                    >
+                      60
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 41"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.65324 0.17313 276.66);"
+                    >
+                      41
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.65324 0.17313 276.66);"
+                      title="OKLCH · oklch(65.324% 0.17313 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(119, 130, 247);"
+                      title="Hex · #7782f7"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#ffffff"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(65.324% 0.17313 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #7782f7
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="700"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    700
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 32, light text Lc 77"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.57184 0.17313 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        32
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        77
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 72"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.57184 0.17313 276.66);"
+                    >
+                      72
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 30"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.57184 0.17313 276.66);"
+                    >
+                      30
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.57184 0.17313 276.66);"
+                      title="OKLCH · oklch(57.184% 0.17313 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(97, 104, 219);"
+                      title="Hex · #6168db"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#ffffff"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(57.184% 0.17313 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #6168db
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="800"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    800
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 19, light text Lc 90"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.46642 0.17313 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        19
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        90
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 85"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.46642 0.17313 276.66);"
+                    >
+                      85
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 17"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.46642 0.17313 276.66);"
+                    >
+                      17
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.46642 0.17313 276.66);"
+                      title="OKLCH · oklch(46.642% 0.17313 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(70, 71, 184);"
+                      title="Hex · #4647b8"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#ffffff"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(46.642% 0.17313 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #4647b8
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="900"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    900
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 0, light text Lc 101"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.34159 0.17313 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        0
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        101
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 97"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.34159 0.17313 276.66);"
+                    >
+                      97
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 0"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.34159 0.17313 276.66);"
+                    >
+                      0
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.34159 0.17313 276.66);"
+                      title="OKLCH · oklch(34.159% 0.17313 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(42, 30, 142);"
+                      title="Hex · #2a1e8e"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#ffffff"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(34.159% 0.17313 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #2a1e8e
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="border-t border-default-100 cursor-pointer scroll-mt-10 hover:bg-default-50"
+                data-step="950"
+                data-testid="ColorInfo-Row"
+              >
+                <td
+                  class="py-2 px-2 text-foreground-500 text-sm"
+                >
+                  <div
+                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  >
+                    950
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="flex items-center gap-2"
+                  >
+                    <div
+                      aria-label="Dark text Lc 0, light text Lc 107"
+                      class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
+                      data-testid="ColorInfo-Chip-Shade"
+                      style="background-color: oklch(0.2 0.12538 276.66);"
+                    >
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(0, 0, 0);"
+                      >
+                        0
+                      </span>
+                      <span
+                        class="flex-1 text-center text-sm font-semibold tabular-nums"
+                        style="color: rgb(255, 255, 255);"
+                      >
+                        107
+                      </span>
+                    </div>
+                    <span
+                      aria-label="Shade on white Lc 104"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnWhite"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.2 0.12538 276.66);"
+                    >
+                      104
+                    </span>
+                    <span
+                      aria-label="Shade on black Lc 0"
+                      class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
+                      data-testid="ColorInfo-Chip-OnBlack"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.2 0.12538 276.66);"
+                    >
+                      0
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3"
+                >
+                  <div
+                    class="inline-flex gap-0.5 rounded-md overflow-hidden ring-1 ring-default-200"
+                    data-testid="ColorInfo-Gamut"
+                  >
+                    <span
+                      class="block size-9"
+                      style="background-color: oklch(0.2 0.12538 276.66);"
+                      title="OKLCH · oklch(20% 0.12538 276.66)"
+                    />
+                    <span
+                      class="size-9 flex items-center justify-center text-white/40"
+                      style="background-color: rgb(16, 0, 76);"
+                      title="Hex · #10004c"
+                    >
+                      <button
+                        aria-expanded="false"
+                        aria-label="More information"
+                        class="inline-flex shrink-0 text-base"
+                        type="button"
+                      >
+                        <svg
+                          fill="#ffffff"
+                          height="1em"
+                          style="opacity: 0.15;"
+                          viewBox="0 0 256 256"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+                          />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td
+                  class="py-2 pr-3 font-mono whitespace-nowrap"
+                >
+                  <div
+                    class="flex items-center gap-2 text-sm"
+                  >
+                    oklch(20% 0.12538 276.66)
+                     
+                    <button
+                      aria-label="Copy OKLCH"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-xs"
+                  >
+                    #10004c
+                     
+                    <button
+                      aria-label="Copy HEX"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+  >
+    <button
+      aria-label="Dismiss"
+      id="react-aria-_r_3l_"
+      style="width: 1px; height: 1px;"
+      tabindex="-1"
+    />
+  </div>
+</section>
+`;

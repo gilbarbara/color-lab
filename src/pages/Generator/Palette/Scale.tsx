@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { scale } from 'colorizr';
 
 import ColorBox from '~/components/ColorBox';
+import ColorInfo from '~/components/ColorInfo';
 import ContrastGrid from '~/components/ContrastGrid';
 import ExportScale from '~/components/ExportScale';
 
@@ -27,6 +28,7 @@ export default function Scale(props: ScaleProps) {
           <h3 className="font-semibold text-lg">{colorEntry.name}</h3>
         </div>
         <div className="flex items-center gap-2">
+          <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />
           <ContrastGrid colorEntry={colorEntry} steps={steps} />
           <ExportScale name={colorEntry.name} steps={steps} />
         </div>
