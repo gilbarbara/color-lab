@@ -6,13 +6,13 @@ exports[`Swatch > Render > renders correctly 1`] = `
     data-overlay-container="true"
   >
     <div
-      class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+      class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
       role="button"
       style="background-color: rgb(255, 0, 68); color: rgb(255, 255, 255);"
       tabindex="0"
     >
       <p
-        class="text-base/4 md:order-2"
+        class="text-base/4 lg:order-2"
       >
         500
       </p>
@@ -27,13 +27,13 @@ exports[`Swatch > Render > renders with lock icon 1`] = `
     data-overlay-container="true"
   >
     <div
-      class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+      class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
       role="button"
       style="background-color: rgb(255, 0, 68); color: rgb(255, 255, 255);"
       tabindex="0"
     >
       <p
-        class="text-base/4 md:order-2"
+        class="text-base/4 lg:order-2"
       >
         500
       </p>

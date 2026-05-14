@@ -522,10 +522,9 @@ exports[`Generator > renders correctly 1`] = `
     data-testid="Palette"
   >
     <div
-      class="flex-1 p-4"
+      class="flex-1 flex flex-col gap-8 p-4"
     >
       <div
-        class="mb-8"
         data-testid="PaletteHeader"
       >
         <div
@@ -679,133 +678,133 @@ exports[`Generator > renders correctly 1`] = `
             class="w-full flex flex-col lg:flex-row flex-wrap gap-1 overflow-x-auto"
           >
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(255, 240, 240); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 50
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(255, 228, 227); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 100
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(255, 205, 204); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 200
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(255, 174, 174); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 300
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(255, 132, 136); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 400
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(255, 61, 90); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 500
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(247, 0, 62); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 600
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(205, 0, 41); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 700
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(154, 0, 28); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 800
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(102, 0, 15); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 900
               </p>
             </div>
             <div
-              class="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+              class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
               style="background-color: rgb(53, 0, 4); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
-                class="text-base/4 md:order-2"
+                class="text-base/4 lg:order-2"
               >
                 950
               </p>

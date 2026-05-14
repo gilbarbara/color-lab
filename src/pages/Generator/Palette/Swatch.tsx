@@ -1,5 +1,5 @@
 import type { KeyboardEvent, ReactNode } from 'react';
-import { addToast } from '@heroui/react';
+import { addToast, cn } from '@heroui/react';
 import { LockSimpleIcon } from '@phosphor-icons/react';
 import { readableColor } from 'colorizr';
 
@@ -8,12 +8,15 @@ import { trackEvent } from '~/utils/analytics';
 import Tooltip from '~/components/Tooltip';
 
 interface SwatchProps {
+  className?: string;
   color: string;
   lock?: number;
   step: string;
 }
 
-export default function Swatch({ color, lock, step }: SwatchProps) {
+export default function Swatch(props: SwatchProps) {
+  const { className, color, lock, step } = props;
+
   const handleClick = () => {
     trackEvent('copy-swatch');
     navigator.clipboard
@@ -55,14 +58,19 @@ export default function Swatch({ color, lock, step }: SwatchProps) {
   return (
     <Tooltip content={color} placement="bottom" size="lg">
       <div
-        className="min-w-12 lg:min-w-18 lg:h-22 relative flex flex-row lg:flex-col gap-2 items-center justify-between lg:justify-end px-2 py-4 rounded-md text-center cursor-pointer"
+        className={cn(
+          'relative flex-1 min-w-9 lg:h-22',
+          'flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2',
+          'px-2 py-4 rounded-md text-center cursor-pointer',
+          className,
+        )}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         role="button"
         style={{ backgroundColor: color, color: readableColor(color, 'apca') }}
         tabIndex={0}
       >
-        <p className="text-base/4 md:order-2">{step}</p>
+        <p className="text-base/4 lg:order-2">{step}</p>
         {icon}
       </div>
     </Tooltip>
