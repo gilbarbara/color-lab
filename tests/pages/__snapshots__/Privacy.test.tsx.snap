@@ -295,7 +295,7 @@ exports[`pages/Privacy > renders correctly 1`] = `
     </p>
   </div>
   <footer
-    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 border-t border-default"
+    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 text-foreground-500 border-t border-default"
     data-testid="Footer"
   >
     <div
@@ -347,11 +347,17 @@ exports[`pages/Privacy > renders correctly 1`] = `
       ·
     </span>
     <a
-      href="https://x.com/gilbarbara"
+      class="inline-flex items-center gap-2"
+      href="https://github.com/gilbarbara/color-lab"
       rel="noopener noreferrer"
       target="_blank"
     >
-      @gilbarbara
+      <img
+        alt="GitHub"
+        class="size-3"
+        src="/icons/github.svg"
+      />
+      GitHub
     </a>
   </footer>
 </div>
