@@ -64,7 +64,7 @@ test.describe('User Journey', () => {
       await addButton.click();
       await addButton.click();
 
-      await expect(page.getByRole('button', { name: 'Export', exact: true })).toHaveCount(4);
+      await expect(page.getByLabel('Export scale')).toHaveCount(4);
     });
 
     test('should login with credentials', async () => {
@@ -162,7 +162,7 @@ test.describe('User Journey', () => {
     });
 
     test('should verify loaded palette has 4 colors', async () => {
-      await expect(page.getByRole('button', { name: 'Export', exact: true })).toHaveCount(4);
+      await expect(page.getByLabel('Export scale')).toHaveCount(4);
     });
 
     test('should rename palette', async () => {

@@ -6,6 +6,7 @@ import usePalette from '~/hooks/usePalette';
 import { getEffectiveOptions } from '~/utils/palette';
 
 import Footer from '~/components/Footer';
+import Preview from '~/components/Preview';
 import BottomBar from '~/pages/Generator/BottomBar';
 
 import Header from './Header';
@@ -39,6 +40,7 @@ export default function Palette({ showBottomBar = false }: PaletteProps) {
               />
             );
           })}
+          <Preview />
         </div>
       </div>
       {showBottomBar && <BottomBar />}

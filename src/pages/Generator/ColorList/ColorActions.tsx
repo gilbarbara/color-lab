@@ -9,6 +9,7 @@ import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
+import PreviewButton from '~/components/Preview/Button';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
 
@@ -65,6 +66,7 @@ export default function ColorActions(props: ColorActionsProps) {
         <ModeSelector mode={mode} onClick={onClickMode} />
 
         <div className="flex items-center gap-1">
+          <PreviewButton id={colorEntry.id} variant="light" />
           <Button
             aria-label="Random color"
             isIconOnly

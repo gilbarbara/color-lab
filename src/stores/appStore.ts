@@ -10,34 +10,40 @@ interface AppState {
   lastSavedUrl: string | null;
   loadedPaletteId: string | null;
   loadedPaletteName: string;
+  previewScrollNonce: number;
   showBottomBar: boolean;
   showColorOptionsPanel: boolean;
   showLoginModal: boolean;
   showPaletteOptionsPanel: boolean;
+  showPreview: boolean;
 }
 
 interface AppStateWithActions extends AppState {
   clearLoadedPalette: () => void;
   closeLoginModal: () => void;
   openLoginModal: () => void;
+  requestPreviewScroll: () => void;
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
   setLoadedPalette: (id: string | null, name: string | null, url: string | null) => void;
   toggleBottomBar: () => void;
   toggleColorOptionsPanel: () => void;
   togglePaletteOptionsPanel: () => void;
+  togglePreview: (toggle?: boolean) => void;
 }
 
-const initialState: AppState = {
+export const initialState: AppState = {
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
   lastSavedUrl: null,
   loadedPaletteId: null,
   loadedPaletteName: DEFAULT_PALETTE_NAME,
+  previewScrollNonce: 0,
   showBottomBar: false,
   showColorOptionsPanel: false,
   showLoginModal: false,
   showPaletteOptionsPanel: false,
+  showPreview: true,
 };
 
 export const useAppStore = create<AppStateWithActions>(set => ({
@@ -53,6 +59,9 @@ export const useAppStore = create<AppStateWithActions>(set => ({
   closeLoginModal: (): void => set({ showLoginModal: false }),
 
   openLoginModal: (): void => set({ showLoginModal: true }),
+
+  requestPreviewScroll: (): void =>
+    set(state => ({ previewScrollNonce: state.previewScrollNonce + 1 })),
 
   setExportColorFormat: (format): void => set({ exportColorFormat: format }),
 
@@ -78,5 +87,10 @@ export const useAppStore = create<AppStateWithActions>(set => ({
   togglePaletteOptionsPanel: (): void =>
     set(state => ({
       showPaletteOptionsPanel: !state.showPaletteOptionsPanel,
+    })),
+
+  togglePreview: (force): void =>
+    set(state => ({
+      showPreview: typeof force === 'boolean' ? force : !state.showPreview,
     })),
 }));

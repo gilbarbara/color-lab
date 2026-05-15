@@ -5,6 +5,7 @@ import ColorBox from '~/components/ColorBox';
 import ColorInfo from '~/components/ColorInfo';
 import ContrastGrid from '~/components/ContrastGrid';
 import ExportScale from '~/components/ExportScale';
+import PreviewButton from '~/components/Preview/Button';
 
 import type { ColorEntry, ScaleOptions } from '~/types';
 
@@ -25,9 +26,13 @@ export default function Scale(props: ScaleProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <ColorBox as="span" color={colorEntry.value} size="sm" />
-          <h3 className="font-semibold text-lg">{colorEntry.name}</h3>
+          <h3 className="font-semibold text-lg leading-none">{colorEntry.name}</h3>
+          <p className="hidden lg:block text-foreground-500 font-mono text-sm">
+            {colorEntry.value}
+          </p>
         </div>
         <div className="flex items-center gap-2">
+          <PreviewButton id={colorEntry.id} />
           <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />
           <ContrastGrid colorEntry={colorEntry} steps={steps} />
           <ExportScale name={colorEntry.name} steps={steps} />

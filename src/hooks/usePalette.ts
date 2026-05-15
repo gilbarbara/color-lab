@@ -12,6 +12,7 @@ interface UsePaletteResult extends PaletteState, PaletteActions {
   baseSaturation: number;
   defaultOptions: GlobalScaleOptions;
   generatorUrl: string;
+  previewColorId: string | null;
 }
 
 /**

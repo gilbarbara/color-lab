@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`stores/appStore > initial state > has correct defaults 1`] = `
+{
+  "clearLoadedPalette": [Function],
+  "closeLoginModal": [Function],
+  "exportColorFormat": "oklch",
+  "exportFormatType": "tailwind4",
+  "lastSavedUrl": null,
+  "loadedPaletteId": null,
+  "loadedPaletteName": "Color Palette",
+  "openLoginModal": [Function],
+  "previewScrollNonce": 0,
+  "requestPreviewScroll": [Function],
+  "setExportColorFormat": [Function],
+  "setExportFormatType": [Function],
+  "setLoadedPalette": [Function],
+  "showBottomBar": false,
+  "showColorOptionsPanel": false,
+  "showLoginModal": false,
+  "showPaletteOptionsPanel": false,
+  "showPreview": true,
+  "toggleBottomBar": [Function],
+  "toggleColorOptionsPanel": [Function],
+  "togglePaletteOptionsPanel": [Function],
+  "togglePreview": [Function],
+}
+`;
