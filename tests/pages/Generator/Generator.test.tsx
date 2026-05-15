@@ -12,6 +12,10 @@ vi.mock('~/utils/color', async importOriginal => {
   };
 });
 
+vi.mock('~/components/Preview', () => ({
+  default: () => <div data-testid="Preview" />,
+}));
+
 describe('Generator', () => {
   it('renders correctly', () => {
     render(<Generator />);

@@ -16,6 +16,7 @@ import type { PaletteActions, PaletteState } from '~/types';
 
 interface PaletteStore extends PaletteActions, PaletteState {
   activeColorId: string | null;
+  previewColorId: string | null;
 }
 
 const initialPalette = createPalette();
@@ -23,6 +24,7 @@ const initialPalette = createPalette();
 export const usePaletteStore = create<PaletteStore>(set => ({
   ...initialPalette,
   activeColorId: initialPalette.colors[0]?.id ?? null,
+  previewColorId: initialPalette.colors[0]?.id ?? null,
 
   addColor: (value, name) => {
     let newId: string | null = null;
@@ -65,7 +67,7 @@ export const usePaletteStore = create<PaletteStore>(set => ({
         return state;
       }
 
-      let { activeColorId } = state;
+      let { activeColorId, previewColorId } = state;
 
       if (removed && removed.id === activeColorId) {
         const neighbor = state.colors[index + 1] ?? state.colors[index - 1];
@@ -73,7 +75,13 @@ export const usePaletteStore = create<PaletteStore>(set => ({
         activeColorId = neighbor?.id ?? null;
       }
 
-      return { ...next, activeColorId };
+      if (removed && removed.id === previewColorId) {
+        const neighbor = state.colors[index + 1] ?? state.colors[index - 1];
+
+        previewColorId = neighbor?.id ?? null;
+      }
+
+      return { ...next, activeColorId, previewColorId };
     }),
 
   resetGlobalOptions: () =>
@@ -85,7 +93,13 @@ export const usePaletteStore = create<PaletteStore>(set => ({
     set(() => {
       const fresh = resetPaletteFn();
 
-      return { ...fresh, activeColorId: fresh.colors[0]?.id ?? null };
+      const nextId = fresh.colors[0]?.id ?? null;
+
+      return {
+        ...fresh,
+        activeColorId: nextId,
+        previewColorId: nextId,
+      };
     }),
 
   setActiveColor: id =>
@@ -95,6 +109,15 @@ export const usePaletteStore = create<PaletteStore>(set => ({
       }
 
       return { activeColorId: id };
+    }),
+
+  setPreviewColor: id =>
+    set(state => {
+      if (id === state.previewColorId || !state.colors.some(c => c.id === id)) {
+        return state;
+      }
+
+      return { previewColorId: id };
     }),
 
   updateColor: (index, updates) =>

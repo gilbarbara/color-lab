@@ -23,3 +23,4 @@ const Button = extendVariants(HeroUIButton, {
 });
 
 export default Button;
+export type { ButtonProps } from '@heroui/react';

@@ -1,34 +1,69 @@
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
-import { useAppStore } from '~/stores/appStore';
+import { initialState, useAppStore } from '~/stores/appStore';
 
 describe('stores/appStore', () => {
   beforeEach(() => {
-    useAppStore.setState({
-      exportColorFormat: 'oklch',
-      exportFormatType: 'tailwind4',
-      lastSavedUrl: null,
-      loadedPaletteId: null,
-      loadedPaletteName: undefined,
-      showBottomBar: false,
-      showColorOptionsPanel: false,
-      showLoginModal: false,
-      showPaletteOptionsPanel: false,
-    });
+    useAppStore.setState(initialState);
   });
 
   describe('initial state', () => {
     it('has correct defaults', () => {
       const state = useAppStore.getState();
 
-      expect(state.exportColorFormat).toBe('oklch');
-      expect(state.exportFormatType).toBe('tailwind4');
-      expect(state.lastSavedUrl).toBe(null);
+      expect(state).toMatchSnapshot();
+    });
+  });
+
+  describe('clearLoadedPalette', () => {
+    it('clears all loaded palette fields', () => {
+      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+      useAppStore.getState().clearLoadedPalette();
+
+      const state = useAppStore.getState();
+
       expect(state.loadedPaletteId).toBe(null);
-      expect(state.loadedPaletteName).toBe(undefined);
-      expect(state.showBottomBar).toBe(false);
-      expect(state.showColorOptionsPanel).toBe(false);
-      expect(state.showLoginModal).toBe(false);
-      expect(state.showPaletteOptionsPanel).toBe(false);
+      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
+      expect(state.lastSavedUrl).toBe(null);
+    });
+  });
+
+  describe('closeLoginModal', () => {
+    it('sets showLoginModal to false', () => {
+      useAppStore.setState({ showLoginModal: true });
+
+      useAppStore.getState().closeLoginModal();
+
+      expect(useAppStore.getState().showLoginModal).toBe(false);
+    });
+  });
+
+  describe('openLoginModal', () => {
+    it('sets showLoginModal to true', () => {
+      expect(useAppStore.getState().showLoginModal).toBe(false);
+
+      useAppStore.getState().openLoginModal();
+
+      expect(useAppStore.getState().showLoginModal).toBe(true);
+    });
+  });
+
+  describe('requestPreviewScroll', () => {
+    it('increments previewScrollNonce from 0', () => {
+      expect(useAppStore.getState().previewScrollNonce).toBe(0);
+
+      useAppStore.getState().requestPreviewScroll();
+
+      expect(useAppStore.getState().previewScrollNonce).toBe(1);
+    });
+
+    it('increments previewScrollNonce on each call', () => {
+      const { requestPreviewScroll } = useAppStore.getState();
+
+      requestPreviewScroll();
+      requestPreviewScroll();
+      requestPreviewScroll();
+
+      expect(useAppStore.getState().previewScrollNonce).toBe(3);
     });
   });
 
@@ -81,6 +116,29 @@ describe('stores/appStore', () => {
       useAppStore.getState().setExportFormatType('svg');
 
       expect(useAppStore.getState().exportFormatType).toBe('svg');
+    });
+  });
+
+  describe('setLoadedPalette', () => {
+    it('sets all loaded palette fields', () => {
+      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+
+      const state = useAppStore.getState();
+
+      expect(state.loadedPaletteId).toBe('palette-123');
+      expect(state.loadedPaletteName).toBe('My Palette');
+      expect(state.lastSavedUrl).toBe('/p/Primary-FF0000');
+    });
+
+    it('can set fields to null', () => {
+      useAppStore.getState().setLoadedPalette('id', 'name', 'url');
+      useAppStore.getState().setLoadedPalette(null, null, null);
+
+      const state = useAppStore.getState();
+
+      expect(state.loadedPaletteId).toBe(null);
+      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
+      expect(state.lastSavedUrl).toBe(null);
     });
   });
 
@@ -183,59 +241,41 @@ describe('stores/appStore', () => {
     });
   });
 
-  describe('setLoadedPalette', () => {
-    it('sets all loaded palette fields', () => {
-      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+  describe('togglePreview', () => {
+    it('toggles showPreview from true to false', () => {
+      expect(useAppStore.getState().showPreview).toBe(true);
 
-      const state = useAppStore.getState();
+      useAppStore.getState().togglePreview();
 
-      expect(state.loadedPaletteId).toBe('palette-123');
-      expect(state.loadedPaletteName).toBe('My Palette');
-      expect(state.lastSavedUrl).toBe('/p/Primary-FF0000');
+      expect(useAppStore.getState().showPreview).toBe(false);
     });
 
-    it('can set fields to null', () => {
-      useAppStore.getState().setLoadedPalette('id', 'name', 'url');
-      useAppStore.getState().setLoadedPalette(null, null, null);
+    it('toggles showPreview from false to true', () => {
+      useAppStore.setState({ showPreview: false });
 
-      const state = useAppStore.getState();
+      useAppStore.getState().togglePreview();
 
-      expect(state.loadedPaletteId).toBe(null);
-      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
-      expect(state.lastSavedUrl).toBe(null);
+      expect(useAppStore.getState().showPreview).toBe(true);
     });
-  });
 
-  describe('clearLoadedPalette', () => {
-    it('clears all loaded palette fields', () => {
-      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
-      useAppStore.getState().clearLoadedPalette();
+    it('forces showPreview to true when called with true', () => {
+      useAppStore.setState({ showPreview: false });
 
-      const state = useAppStore.getState();
+      useAppStore.getState().togglePreview(true);
 
-      expect(state.loadedPaletteId).toBe(null);
-      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
-      expect(state.lastSavedUrl).toBe(null);
+      expect(useAppStore.getState().showPreview).toBe(true);
     });
-  });
 
-  describe('openLoginModal', () => {
-    it('sets showLoginModal to true', () => {
-      expect(useAppStore.getState().showLoginModal).toBe(false);
+    it('forces showPreview to false when called with false', () => {
+      useAppStore.getState().togglePreview(false);
 
-      useAppStore.getState().openLoginModal();
-
-      expect(useAppStore.getState().showLoginModal).toBe(true);
+      expect(useAppStore.getState().showPreview).toBe(false);
     });
-  });
 
-  describe('closeLoginModal', () => {
-    it('sets showLoginModal to false', () => {
-      useAppStore.setState({ showLoginModal: true });
+    it('keeps showPreview when forced to current value', () => {
+      useAppStore.getState().togglePreview(true);
 
-      useAppStore.getState().closeLoginModal();
-
-      expect(useAppStore.getState().showLoginModal).toBe(false);
+      expect(useAppStore.getState().showPreview).toBe(true);
     });
   });
 });
