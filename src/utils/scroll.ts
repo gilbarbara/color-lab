@@ -1,7 +1,26 @@
-export function scrollToSelector(id: string | undefined) {
-  if (id) {
-    const element = document.getElementById(id);
+import { animate } from 'framer-motion';
 
-    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+export function scrollToSelector(id: string | undefined, container?: HTMLElement | null) {
+  if (!id) return;
+
+  if (container) {
+    const target = container.querySelector(`#${CSS.escape(id)}`) as HTMLElement | null;
+
+    if (!target) return;
+
+    const start = container.scrollTop;
+    const delta = target.getBoundingClientRect().top - container.getBoundingClientRect().top;
+
+    animate(start, start + delta, {
+      duration: 0.4,
+      ease: 'easeInOut',
+      onUpdate: y => container.scrollTo(0, y),
+    });
+
+    return;
   }
+
+  const element = document.getElementById(id);
+
+  element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

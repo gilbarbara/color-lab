@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import { flushSync } from 'react-dom';
 import { Button, Divider } from '@heroui/react';
 import { PlusIcon } from '@phosphor-icons/react';
 import { rotate } from 'colorizr';
@@ -15,19 +17,25 @@ import Header from './Header';
 export default function Sidebar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
     usePalette();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleAddColor = () => {
     const lastColor = colors.at(-1);
     const nextColor = lastColor ? rotate(lastColor.value, 30) : getRandomColor(baseSaturation);
 
-    addColor(nextColor);
+    let newId: string | null = null;
+
+    flushSync(() => {
+      newId = addColor(nextColor);
+    });
     trackEvent('add-color');
 
-    setTimeout(() => scrollToSelector(`${colors.length}-${nextColor}`), 100);
+    if (newId) scrollToSelector(newId, containerRef.current);
   };
 
   return (
     <div
+      ref={containerRef}
       className="sticky top-16 w-sm h-[calc(100vh-4rem)] flex flex-col overflow-y-auto shrink-0"
       data-testid="Sidebar"
     >

@@ -24,7 +24,9 @@ export const usePaletteStore = create<PaletteStore>(set => ({
   ...initialPalette,
   activeColorId: initialPalette.colors[0]?.id ?? null,
 
-  addColor: (value, name) =>
+  addColor: (value, name) => {
+    let newId: string | null = null;
+
     set(state => {
       const next = addColorFn(
         { colors: state.colors, globalOptions: state.globalOptions },
@@ -38,8 +40,13 @@ export const usePaletteStore = create<PaletteStore>(set => ({
 
       const newColor = next.colors[next.colors.length - 1];
 
+      newId = newColor?.id ?? null;
+
       return { ...next, activeColorId: newColor?.id ?? state.activeColorId };
-    }),
+    });
+
+    return newId;
+  },
 
   clearColorOverrides: index =>
     set(state =>

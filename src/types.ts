@@ -37,7 +37,7 @@ export interface GlobalScaleOptions extends ScaleOptions {
 }
 
 export interface PaletteActions {
-  addColor: (value: string, name?: string) => void;
+  addColor: (value: string, name?: string) => string | null;
   clearColorOverrides: (index: number) => void;
   removeColor: (index: number) => void;
   resetGlobalOptions: () => void;
