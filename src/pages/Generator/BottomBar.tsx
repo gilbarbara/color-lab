@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { flushSync } from 'react-dom';
 import { Button, cn, Divider } from '@heroui/react';
 import { CaretUpIcon, PlusIcon } from '@phosphor-icons/react';
 import { rotate } from 'colorizr';
@@ -27,6 +28,7 @@ export default function BottomBar() {
   const { showBottomBar, toggleBottomBar } = useAppStore();
   const [shouldRenderContent, setShouldRenderContent] = useState(false);
   const dragStartY = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = showBottomBar ? 'hidden' : '';
@@ -53,10 +55,14 @@ export default function BottomBar() {
     const lastColor = colors.at(-1);
     const nextColor = lastColor ? rotate(lastColor.value, 30) : getRandomColor(baseSaturation);
 
-    addColor(nextColor);
+    let newId: string | null = null;
+
+    flushSync(() => {
+      newId = addColor(nextColor);
+    });
     trackEvent('add-color');
 
-    setTimeout(() => scrollToSelector(`${colors.length}-${nextColor}`), 100);
+    if (newId) scrollToSelector(newId, containerRef.current);
   };
 
   const handleClickCircle = (event: MouseEvent<HTMLButtonElement>) => {
@@ -66,9 +72,9 @@ export default function BottomBar() {
     if (!showBottomBar) {
       toggleBottomBar();
       // Wait for 500ms animation to complete
-      setTimeout(() => scrollToSelector(id), 500);
+      setTimeout(() => scrollToSelector(id, containerRef.current), 500);
     } else {
-      scrollToSelector(id);
+      scrollToSelector(id, containerRef.current);
     }
   };
 
@@ -99,6 +105,7 @@ export default function BottomBar() {
 
   return (
     <div
+      ref={containerRef}
       className={cn('fixed left-0 z-30 w-full h-dvh bg-background transition-all duration-500', {
         'top-[100dvh] -mt-16 overflow-hidden': !showBottomBar,
         'top-0 overflow-y-auto': showBottomBar,
@@ -126,15 +133,15 @@ export default function BottomBar() {
             'gap-1': colors.length < 8,
           })}
         >
-          {colors.map((color, index) => (
+          {colors.map(color => (
             <ColorBox
-              key={color.value}
+              key={color.id}
               className={cn('first:ms-0', {
                 '-ms-1': colors.length > 8,
                 '-ms-2': colors.length > 9,
               })}
               color={color.value}
-              data-id={`${index}-${color.value}`}
+              data-id={color.id}
               onClick={handleClickCircle}
               size="sm"
             />

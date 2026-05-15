@@ -33,3 +33,8 @@ class ResizeObserverMock {
 }
 
 global.ResizeObserver = ResizeObserverMock;
+
+// jsdom does not implement Element.scrollTo
+if (!HTMLElement.prototype.scrollTo) {
+  HTMLElement.prototype.scrollTo = vi.fn();
+}

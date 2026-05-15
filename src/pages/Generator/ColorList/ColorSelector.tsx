@@ -166,11 +166,11 @@ export default function ColorSelector(props: ColorSelectorProps) {
 
   return (
     <div
-      className={cn('flex flex-col bg-default-50 p-4 rounded-xl scroll-mt-20', {
+      className={cn('flex flex-col bg-default-50 p-4 rounded-xl', {
         'bg-default-100': isActive,
       })}
       data-testid="ColorSelector"
-      id={`${index}-${color}`}
+      id={colorEntry.id}
       onClickCapture={handleCaptureInactive}
       onPointerDownCapture={handleCaptureInactive}
       role="presentation"

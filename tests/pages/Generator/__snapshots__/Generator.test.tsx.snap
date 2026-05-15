@@ -88,9 +88,9 @@ exports[`Generator > renders correctly 1`] = `
           class="space-y-4 mt-4"
         >
           <div
-            class="flex flex-col p-4 rounded-xl scroll-mt-20 bg-default-100"
+            class="flex flex-col p-4 rounded-xl bg-default-100"
             data-testid="ColorSelector"
-            id="0-#FF0044"
+            id="test-uuid-1"
             role="presentation"
           >
             <div
@@ -141,7 +141,7 @@ exports[`Generator > renders correctly 1`] = `
                             data-filled="true"
                             data-filled-within="true"
                             data-slot="input"
-                            id="react-aria-_r_20_"
+                            id="react-aria-_r_2_"
                             name="color-name-0"
                             tabindex="0"
                             title=""
@@ -201,7 +201,7 @@ exports[`Generator > renders correctly 1`] = `
                           data-filled-within="true"
                           data-slot="input"
                           data-type="text"
-                          id="react-aria-_r_27_"
+                          id="react-aria-_r_9_"
                           tabindex="0"
                           title=""
                           type="text"

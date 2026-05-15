@@ -6,9 +6,9 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
     data-overlay-container="true"
   >
     <div
-      class="flex flex-col p-4 rounded-xl scroll-mt-20 bg-default-100"
+      class="flex flex-col p-4 rounded-xl bg-default-100"
       data-testid="ColorSelector"
-      id="0-oklch(0.55 0.22 27)"
+      id="test-uuid-1"
       role="presentation"
     >
       <div
@@ -410,9 +410,9 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
     data-overlay-container="true"
   >
     <div
-      class="flex flex-col p-4 rounded-xl scroll-mt-20 bg-default-100"
+      class="flex flex-col p-4 rounded-xl bg-default-100"
       data-testid="ColorSelector"
-      id="0-oklch(0.55 0.22 27)"
+      id="test-uuid-1"
       role="presentation"
     >
       <div
@@ -815,9 +815,9 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
     data-overlay-container="true"
   >
     <div
-      class="flex flex-col p-4 rounded-xl scroll-mt-20 bg-default-100"
+      class="flex flex-col p-4 rounded-xl bg-default-100"
       data-testid="ColorSelector"
-      id="0-oklch(0.55 0.22 27)"
+      id="test-uuid-1"
       role="presentation"
     >
       <div

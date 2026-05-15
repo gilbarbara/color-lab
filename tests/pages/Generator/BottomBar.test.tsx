@@ -123,10 +123,7 @@ describe('BottomBar', () => {
       usePaletteStore.setState(createTestPalette(3));
       render(<BottomBar />);
 
-      // Should have 3 color boxes
-      const colorBoxes = screen
-        .getAllByRole('button')
-        .filter(button => button.getAttribute('data-id')?.match(/^\d+-#/));
+      const colorBoxes = screen.getAllByTestId('ColorBox');
 
       expect(colorBoxes).toHaveLength(3);
     });
