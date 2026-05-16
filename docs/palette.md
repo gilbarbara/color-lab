@@ -5,13 +5,15 @@ Technical reference for the multi-color palette system.
 ## Design Principles
 
 - **URL = Source of Truth**: No localStorage, everything encoded in URL
-- **No IDs**: Color name + position = identity
+- **Stable IDs**: each `ColorEntry` has a UUID, used for active-color tracking and store reconciliation (not surfaced in URLs)
 - **Human-readable URLs**: No base64, path-based format
 - **Max 10 colors** per palette
 
 ---
 
 ## URL Format
+
+> Color values in the URL are always OKLCH. See [`color-mode.md`](./color-mode.md) for the full color-format contract (input mode, palette display, URL).
 
 ```
 /p/{Name}-{Value}[-{Options}]/...?{GlobalOptions}
@@ -31,10 +33,14 @@ Technical reference for the multi-color palette system.
 
 ### Color Values
 
-| Format | URL Example | Parsed Value |
-|--------|-------------|--------------|
-| Hex | `FF0044` | `#FF0044` |
-| OKLCH | `0.64_0.142_329` | `oklch(0.64 0.142 329)` |
+OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`.
+
+| Format | URL Example | Parsed Value | Direction |
+|--------|-------------|--------------|-----------|
+| OKLCH | `64_0.142_329` | `oklch(64% 0.142 329)` | emit + parse |
+| Hex (legacy) | `FF0044` | `oklch(...)` (converted) | parse only |
+
+OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`0.64_0.142_329`) is still accepted by the parser.
 
 ### Option Keys
 
@@ -53,24 +59,33 @@ Technical reference for the multi-color palette system.
 
 ### URL Examples
 
+**Emitted form** (what `serializePaletteToUrl` produces today):
+
 ```
 # Simple (2 colors)
-/p/Primary-FF0044/Secondary-698CE0
-
-# OKLCH color
-/p/Primary-0.64_0.142_329
+/p/Primary-63.269_0.25404_19.902/Secondary-65.133_0.13204_265.764
 
 # Per-color overrides
-/p/Primary-FF0044-x:0.95,m:d/Secondary-698CE0
+/p/Primary-63.269_0.25404_19.902-x:0.95,m:d/Secondary-65.133_0.13204_265.764
 
 # Global options
-/p/Primary-FF0044?f=1.8&i=15
-
-# Combined
-/p/Primary-FF0044-x:0.95/Secondary-0.64_0.142_329?f=1.8&o=1
+/p/Primary-63.269_0.25404_19.902?f=1.8&i=15
 
 # Spaces in names
-/p/Brand+Primary-FF0044/Brand+Secondary-698CE0
+/p/Brand+Primary-63.269_0.25404_19.902/Brand+Secondary-65.133_0.13204_265.764
+```
+
+**Legacy input form** (still parsed for back-compat — equivalent OKLCH after load):
+
+```
+# Hex value
+/p/Primary-FF0044/Secondary-698CE0
+
+# OKLCH lightness as 0-1 (now emitted as percentage)
+/p/Primary-0.64_0.142_329
+
+# Mixed value formats
+/p/Primary-FF0044-x:0.95/Secondary-0.64_0.142_329?f=1.8&o=1
 ```
 
 ---
@@ -81,13 +96,16 @@ Technical reference for the multi-color palette system.
 
 ```typescript
 interface ColorEntry {
+  id: string;                       // UUID, assigned on creation
   name: string;
-  value: string;                    // '#FF0044' or 'oklch(0.64 0.142 329)'
   overrides?: Partial<ScaleOptions>;
+  value: string;                    // always OKLCH (storage invariant)
 }
 ```
 
 ### GlobalScaleOptions
+
+Extends `ScaleOptions` (`Omit<ScaleOptionsBase, 'format'>` from colorizr), which contributes `lock`, `variant`, and `mode`.
 
 ```typescript
 interface GlobalScaleOptions extends ScaleOptions {
@@ -114,33 +132,61 @@ interface PaletteState {
 
 ## State Flow
 
+`paletteStore` is the hub. URL and components are both bidirectional satellites.
+
 ```
-URL Navigation
-     │
-     ▼
-┌─────────────────┐
-│  useUrlSync()   │  Parses URL → hydrates store
-│  (in Generator) │  Observes store → updates URL
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  paletteStore   │  Zustand store (source of truth at runtime)
-│                 │  Uses pure functions from palette.ts
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  usePalette()   │  Hook exposing state + actions + computed values
-│                 │  - baseSaturation (from first color)
-│                 │  - defaultOptions (computed defaults)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│   Components    │  ColorSelector, ColorOptions, Scale, etc.
-└─────────────────┘
+                          ┌──────────────────┐
+                          │   URL (router)   │
+                          └────────┬─────────┘
+                                   │
+                          parse ↑↓ push
+                                   │
+                          ┌────────▼─────────┐
+                          │   useUrlSync()   │  bidirectional bridge,
+                          │  (in Generator)  │  called once at mount
+                          └────────┬─────────┘
+                                   │
+              pure functions       │
+              from palette.ts ────►│
+              (addColor,           │
+               removeColor,        ▼
+               updateColor, ...) ┌──────────────────────┐
+                                 │    paletteStore      │
+                                 │  (Zustand, hub)      │
+                                 │  - colors            │
+                                 │  - globalOptions     │
+                                 │  - activeColorId     │
+                                 └────────┬─────────────┘
+                                          │
+                                  read ↑↓ act
+                                          │
+                                 ┌────────▼─────────┐
+                                 │   usePalette()   │  thin wrapper +
+                                 │                  │  derived values:
+                                 │                  │  - baseSaturation
+                                 │                  │  - defaultOptions
+                                 │                  │  - generatorUrl
+                                 │                  │  - activeColorId
+                                 └────────┬─────────┘
+                                          │
+                                          ▼
+                                 ┌────────────────────────────┐
+                                 │    Components              │
+                                 │  ColorSelector, Scale, ... │
+                                 └────────────────────────────┘
 ```
+
+Components never read `paletteStore` directly — always via `usePalette`.
+
+### Active color tracking
+
+`activeColorId: string | null` lives on the store (`src/stores/paletteStore.ts`). It marks which `ColorEntry` is currently focused in the sidebar — drives highlight, scroll-into-view, and the active-slider panel.
+
+- Initial value: first color's `id` (`paletteStore.ts:25`)
+- Set explicitly by `setActiveColor(id)` action
+- Auto-updated by `addColor` (new color becomes active) and `removeColor` (falls back to a neighbor)
+- Surfaced through `usePalette()` for component consumption
+- **Not persisted in URL** — ephemeral UI state, reset on reload
 
 ---
 
@@ -152,6 +198,7 @@ URL Navigation
 |----------|---------|
 | `createPalette(color?)` | Create fresh palette (random color if none) |
 | `getDefaultGlobalOptions(color)` | Compute defaults from color's saturation |
+| `getDefaultColorName(index)` | Default name for new color slots (`Primary`, `Secondary`, …, `Color N`) |
 | `getEffectiveOptions(color, global)` | Merge global + per-color overrides |
 | `addColor(state, value, name?)` | Add color (max 10) |
 | `removeColor(state, index)` | Remove color (min 1) |
@@ -161,16 +208,19 @@ URL Navigation
 | `updateGlobalOptions(state, updates)` | Update global options |
 | `resetGlobalOptions(state)` | Reset to defaults (keeps colors) |
 | `resetPalette()` | Full reset (new random color) |
-| `isValidPaletteState(data)` | Type guard for validation |
+
+Also exports the constant `MAX_COLORS = 10`.
 
 ### `src/utils/url.ts`
 
 | Function | Purpose |
 |----------|---------|
-| `serializePaletteToUrl(state)` | State → URL path + query |
-| `parsePaletteFromUrl(segments, params)` | URL → PaletteState |
-| `colorToPath(color)` | Single color → `/hex/...` or `/oklch/...` |
-| `parseColorFromParams(params)` | Route params → color string |
+| `serializePaletteToUrl(state)` | `PaletteState` → URL path + query (OKLCH-only output) |
+| `parsePaletteFromUrl(url)` | URL string → `ParsedPalette \| null` (accepts hex on parse for back-compat) |
+| `getPaletteIdFromUrl(search)` | Extract `id` from query string |
+| `updatePaletteIdInUrl(url, id)` | Add or remove `id` query param |
+
+Also exports type `ParsedPalette = { state: PaletteState; dropped: string[] }` — `dropped` lists named slots whose segments failed to parse.
 
 ---
 
@@ -189,6 +239,7 @@ The `saturation` value is initialized from the first color's chroma (converted t
 ## Constraints
 
 - **Min colors**: 1 (cannot remove last color)
-- **Max colors**: 10
+- **Max colors**: 10 (`MAX_COLORS` in `src/utils/palette.ts`)
 - **Steps range**: Determined by colorizr (typically 3-21)
 - **Lightness range**: 0-1 (minLightness < maxLightness)
+- **Color IDs**: UUIDs assigned by `addColor` / `createPalette`. Not user-facing, not in URLs.
