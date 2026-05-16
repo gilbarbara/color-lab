@@ -162,7 +162,7 @@ export default function Header() {
       className="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
       data-testid="Header"
     >
-      <div className="flex items-center w-full max-w-7xl mx-auto px-4">
+      <div className="flex items-center w-full max-w-432 mx-auto px-4">
         <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">
           <Link className="inline-flex items-start gap-1" to={generatorUrl}>
             <img alt="Lab" className="h-8" src={isMedium ? '/brand/logo.svg' : '/brand/icon.svg'} />

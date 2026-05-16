@@ -6,7 +6,7 @@ exports[`Header > should render properly when authenticated 1`] = `
   data-testid="Header"
 >
   <div
-    class="flex items-center w-full max-w-7xl mx-auto px-4"
+    class="flex items-center w-full max-w-432 mx-auto px-4"
   >
     <h1
       aria-label="ColorMeUp LAB"
@@ -127,7 +127,7 @@ exports[`Header > should render properly when unauthenticated 1`] = `
   data-testid="Header"
 >
   <div
-    class="flex items-center w-full max-w-7xl mx-auto px-4"
+    class="flex items-center w-full max-w-432 mx-auto px-4"
   >
     <h1
       aria-label="ColorMeUp LAB"

@@ -19,7 +19,7 @@ export default function Generator() {
 
   return (
     <div
-      className={cn('flex flex-col md:flex-row flex-1 w-full xl:w-7xl max-w-7xl mx-auto', {
+      className={cn('flex flex-col md:flex-row flex-1 w-full max-w-432 mx-auto', {
         'pb-18': isSmallScreen,
       })}
       data-testid="Generator"

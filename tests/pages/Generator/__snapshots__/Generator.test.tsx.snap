@@ -2,7 +2,7 @@
 
 exports[`Generator > renders correctly 1`] = `
 <div
-  class="flex flex-col md:flex-row flex-1 w-full xl:w-7xl max-w-7xl mx-auto"
+  class="flex flex-col md:flex-row flex-1 w-full max-w-432 mx-auto"
   data-testid="Generator"
 >
   <div
