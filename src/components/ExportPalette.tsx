@@ -107,7 +107,7 @@ export default function ExportPalette() {
     setSelectedIndices(new Set());
   };
 
-  const isLarge = min('md');
+  const isLarge = min('lg');
   const showSelection = colors.length > 1;
 
   return (
@@ -169,7 +169,7 @@ export default function ExportPalette() {
               trackEvent('open-export-palette');
               onOpen();
             }}
-            startContent={<ExportIcon className="text-xl" />}
+            startContent={<ExportIcon className="text-xl" weight="bold" />}
             variant="light"
           >
             {isLarge && 'Export All'}
