@@ -2,10 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
 import { Button, cn } from '@heroui/react';
 import { ExportIcon } from '@phosphor-icons/react';
-import { readableColor, scale } from 'colorizr';
+import { convertCSS, readableColor, scale } from 'colorizr';
 
 import { BREAKPOINTS } from '~/config/globals';
 import usePalette from '~/hooks/usePalette';
+import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
 
@@ -38,8 +39,10 @@ function ScaleItem(props: ScaleItemProps) {
     onSelectionChange,
     steps,
   } = props;
+  const gamut = useAppStore(state => state.gamut);
 
-  const textColor = readableColor(mainColor, 'apca');
+  const displayMainColor = gamut === 'srgb' ? convertCSS(mainColor, 'hex') : mainColor;
+  const textColor = readableColor(displayMainColor, 'apca');
   const code = generateExport(name, steps, { colorFormat, formatType });
 
   return (
@@ -57,7 +60,7 @@ function ScaleItem(props: ScaleItemProps) {
         }
         isSelected={isSelected}
         onValueChange={checked => onSelectionChange(index, checked)}
-        style={{ backgroundColor: mainColor, color: textColor }}
+        style={{ backgroundColor: displayMainColor, color: textColor }}
       >
         {name}
       </CheckboxToggle>

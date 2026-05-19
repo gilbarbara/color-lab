@@ -1,5 +1,8 @@
 import { type HTMLAttributes, type Ref } from 'react';
 import { cn } from '@heroui/react';
+import { convertCSS } from 'colorizr';
+
+import { useAppStore } from '~/stores/appStore';
 
 type ColorBoxButtonProps = ColorBoxBaseProps &
   Omit<HTMLAttributes<HTMLButtonElement>, 'color'> & {
@@ -22,6 +25,10 @@ interface ColorBoxBaseProps {
 export default function ColorBox(props: ColorBoxProps) {
   const { as: Component = 'button', className, color, size = 'md', ...rest } = props;
 
+  const gamut = useAppStore(state => state.gamut);
+
+  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : color;
+
   const sizes = {
     sm: 'size-8 rounded-small',
     md: 'size-12 rounded-medium',
@@ -37,7 +44,7 @@ export default function ColorBox(props: ColorBoxProps) {
       <span
         aria-label={ariaLabel}
         className={sharedClassName}
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: displayColor }}
         {...spanRest}
       />
     );
@@ -57,7 +64,7 @@ export default function ColorBox(props: ColorBoxProps) {
       data-color={color}
       data-testid="ColorBox"
       onClick={onClick}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: displayColor }}
       type="button"
       {...buttonRest}
     />

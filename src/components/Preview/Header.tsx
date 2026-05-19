@@ -1,14 +1,16 @@
 import { cn } from '@heroui/react';
+import { convertCSS } from 'colorizr';
 
 import Tooltip from '~/components/Tooltip';
 
-import type { ColorEntry } from '~/types';
+import type { ColorEntry, Gamut } from '~/types';
 
 import ThemeToggle, { type PreviewThemeMode } from './ThemeToggle';
 
 interface HeaderProps {
   activeId: string;
   colors: ColorEntry[];
+  gamut: Gamut;
   name: string;
   onSelect: (id: string) => void;
   onThemeChange: (next: PreviewThemeMode) => void;
@@ -16,7 +18,7 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-  const { activeId, colors, name, onSelect, onThemeChange, themeMode } = props;
+  const { activeId, colors, gamut, name, onSelect, onThemeChange, themeMode } = props;
 
   return (
     <div
@@ -31,6 +33,7 @@ export default function Header(props: HeaderProps) {
         <div className="flex items-center gap-2">
           {colors.map(color => {
             const isActive = color.id === activeId;
+            const displayValue = gamut === 'srgb' ? convertCSS(color.value, 'hex') : color.value;
 
             return (
               <Tooltip key={color.id} content={color.name} placement="bottom">
@@ -42,7 +45,7 @@ export default function Header(props: HeaderProps) {
                     'hover:scale-110': !isActive,
                   })}
                   onClick={() => onSelect(color.id)}
-                  style={{ backgroundColor: color.value, color: color.value }}
+                  style={{ backgroundColor: displayValue, color: displayValue }}
                   type="button"
                 />
               </Tooltip>

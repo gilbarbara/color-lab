@@ -1,13 +1,16 @@
 import type { CSSProperties } from 'react';
 import { cn } from '@heroui/react';
-import { apcaContrast, contrast } from 'colorizr';
+import { apcaContrast, contrast, convertCSS } from 'colorizr';
 
 import type { ApcaThreshold, Guideline, WcagThreshold } from '~/components/ContrastGrid/constants';
+
+import type { Gamut } from '~/types';
 
 interface RowProps {
   cellBase: string;
   entries: Array<[string, string]>;
   failBg: CSSProperties;
+  gamut: Gamut;
   guideline: Guideline;
   rowColor: string;
   step: string;
@@ -49,7 +52,10 @@ function passes(
 }
 
 export default function Row(props: RowProps) {
-  const { cellBase, entries, failBg, guideline, rowColor, step, stickyBase, threshold } = props;
+  const { cellBase, entries, failBg, gamut, guideline, rowColor, step, stickyBase, threshold } =
+    props;
+
+  const displayRowColor = gamut === 'srgb' ? convertCSS(rowColor, 'hex') : rowColor;
 
   return (
     <>
@@ -68,7 +74,8 @@ export default function Row(props: RowProps) {
           );
         }
 
-        const ok = passes(guideline, threshold, rowColor, colColor);
+        const displayColColor = gamut === 'srgb' ? convertCSS(colColor, 'hex') : colColor;
+        const ok = passes(guideline, threshold, displayRowColor, displayColColor);
 
         if (!ok) {
           return (
@@ -82,7 +89,7 @@ export default function Row(props: RowProps) {
           );
         }
 
-        const value = getContrastValue(guideline, rowColor, colColor);
+        const value = getContrastValue(guideline, displayRowColor, displayColColor);
 
         return (
           <div
@@ -90,7 +97,7 @@ export default function Row(props: RowProps) {
             className={cellBase}
             data-state="pass"
             data-testid="ContrastGrid-Cell"
-            style={{ backgroundColor: colColor, color: rowColor }}
+            style={{ backgroundColor: displayColColor, color: displayRowColor }}
           >
             {formatContrast(guideline, value)}
           </div>

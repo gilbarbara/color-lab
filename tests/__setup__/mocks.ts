@@ -9,6 +9,18 @@ vi.mock('@heroui/react', async importOriginal => {
   };
 });
 
+export const mockIsP3Supported = vi.fn<() => boolean>(() => true);
+
+vi.mock('~/utils/gamut', async importOriginal => {
+  const actual = await importOriginal<typeof import('~/utils/gamut')>();
+
+  return {
+    ...actual,
+    isP3Supported: () => mockIsP3Supported(),
+    detectInitialGamut: () => (mockIsP3Supported() ? 'p3' : 'srgb'),
+  };
+});
+
 let uuidCounter = 0;
 const nextUuid = () => `test-uuid-${++uuidCounter}`;
 
@@ -26,6 +38,7 @@ Object.defineProperty(crypto, 'randomUUID', {
 
 beforeEach(() => {
   uuidCounter = 0;
+  mockIsP3Supported.mockReturnValue(true);
 });
 
 export const mockClipboard: { writeText: ReturnType<typeof vi.fn> } = {

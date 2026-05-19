@@ -5,6 +5,8 @@ export type ExportColorFormat = 'oklch' | 'hex' | 'hsl' | 'rgb' | 'rgb-channels'
 // Export types
 export type ExportFormatType = 'tailwind3' | 'tailwind4' | 'css' | 'scss' | 'svg';
 
+export type Gamut = 'p3' | 'srgb';
+
 export type GetPaletteResult =
   | { kind: 'success'; palette: SavedPalette }
   | { kind: 'not-found' }

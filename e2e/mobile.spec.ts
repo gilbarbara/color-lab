@@ -13,6 +13,18 @@ test.use({
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
 
+  await page.addInitScript(() => {
+    const original = window.matchMedia;
+
+    window.matchMedia = (q: string) => {
+      if (q === '(color-gamut: p3)') {
+        return { ...original.call(window, q), matches: true } as MediaQueryList;
+      }
+
+      return original.call(window, q);
+    };
+  });
+
   await page.goto('/p/Primary-73_0.12745_321');
 });
 
