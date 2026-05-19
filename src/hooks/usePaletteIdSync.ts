@@ -4,10 +4,10 @@ import { addToast } from '@heroui/react';
 import * as Sentry from '@sentry/react';
 
 import useAuth from '~/hooks/useAuth';
-import { getPalette } from '~/services/palettes';
+import { getPalette, migratePaletteUrl } from '~/services/palettes';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
-import { getPaletteIdFromUrl, updatePaletteIdInUrl } from '~/utils/url';
+import { canonicalizeUrl, getPaletteIdFromUrl, updatePaletteIdInUrl } from '~/utils/url';
 
 /**
  * Validates palette ID from URL and manages loadedPalette state.
@@ -20,11 +20,37 @@ export default function usePaletteIdSync() {
   const { clearLoadedPalette, loadedPaletteId, setLoadedPalette } = useAppStore();
   const { palettes } = usePalettesStore();
 
+  const updatePaletteInStore = usePalettesStore(state => state.updatePalette);
+
   const hasValidatedId = useRef(false);
   const lastPath = useRef<string | null>(null);
   const lastAuthState = useRef<boolean | null>(null);
 
   useEffect(() => {
+    // Canonicalise the palette URL (legacy hex / 3-decimal OKLCH → current OKLCH),
+    // fire-and-forget the Firestore migration when needed, and return the
+    // canonical url-with-id for setLoadedPalette. Migration write omits
+    // `updatedAt` so we don't bump it for a non-user-initiated change.
+    const canonicalizeAndMigrate = (id: string, urlWithId: string): string => {
+      const canonical = canonicalizeUrl(urlWithId);
+      const canonicalNoId = updatePaletteIdInUrl(canonical, null);
+      const originalNoId = updatePaletteIdInUrl(urlWithId, null);
+
+      if (canonicalNoId !== originalNoId) {
+        migratePaletteUrl(id, canonicalNoId).catch(error => {
+          Sentry.addBreadcrumb({
+            category: 'palette-load',
+            message: 'migratePaletteUrl failed',
+            level: 'warning',
+            data: { paletteId: id, error: String(error) },
+          });
+        });
+        updatePaletteInStore(id, { url: canonicalNoId });
+      }
+
+      return canonical;
+    };
+
     // Reset on path change
     if (lastPath.current !== location.pathname) {
       hasValidatedId.current = false;
@@ -70,7 +96,9 @@ export default function usePaletteIdSync() {
     const cachedPalette = palettes.find(p => p.id === paletteId);
 
     if (cachedPalette && cachedPalette.userId === user.uid) {
-      setLoadedPalette(cachedPalette.id, cachedPalette.name, cachedPalette.url);
+      const canonical = canonicalizeAndMigrate(cachedPalette.id, cachedPalette.url);
+
+      setLoadedPalette(cachedPalette.id, cachedPalette.name, canonical);
 
       return;
     }
@@ -80,7 +108,9 @@ export default function usePaletteIdSync() {
       const result = await getPalette(paletteId);
 
       if (result.kind === 'success' && result.palette.userId === user.uid) {
-        setLoadedPalette(result.palette.id, result.palette.name, result.palette.url);
+        const canonical = canonicalizeAndMigrate(result.palette.id, result.palette.url);
+
+        setLoadedPalette(result.palette.id, result.palette.name, canonical);
 
         return;
       }
@@ -117,6 +147,7 @@ export default function usePaletteIdSync() {
     navigate,
     palettes,
     setLoadedPalette,
+    updatePaletteInStore,
     user,
   ]);
 }

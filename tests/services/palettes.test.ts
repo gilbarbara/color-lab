@@ -3,6 +3,7 @@ import {
   deletePalette,
   getPalette,
   listPalettes,
+  migratePaletteUrl,
   updatePalette,
 } from '~/services/palettes';
 
@@ -191,6 +192,19 @@ describe('services/palettes', () => {
         isFavorite: true,
         updatedAt: 'SERVER_TIMESTAMP',
       });
+    });
+  });
+
+  describe('migratePaletteUrl', () => {
+    it('patches only the url field, no updatedAt', async () => {
+      mockUpdateDocument.mockResolvedValueOnce(undefined);
+
+      await migratePaletteUrl('palette-1', '/p/Primary-63.27_0.254_19.9');
+
+      expect(mockUpdateDocument).toHaveBeenCalledWith('doc-ref-palette-1', {
+        url: '/p/Primary-63.27_0.254_19.9',
+      });
+      expect(mockGetDocument).not.toHaveBeenCalled();
     });
   });
 });

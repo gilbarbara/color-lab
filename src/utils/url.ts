@@ -393,6 +393,29 @@ function urlToColorValue(urlValue: string): OklchString | null {
 }
 
 /**
+ * Round-trip a palette URL through parse + serialize so the result is in the
+ * current canonical form (OKLCH values, latest precision).
+ *
+ * - Returns the input unchanged if parsing fails (empty/malformed URL).
+ * - Returns the input unchanged if any color segment is dropped — never write
+ *   back a "canonicalised" URL that silently lost a color.
+ * - Preserves `id` query param if present.
+ */
+export function canonicalizeUrl(url: string): string {
+  const [, queryPart] = url.split('?');
+  const params = new URLSearchParams(queryPart ?? '');
+  const id = params.get('id');
+
+  const parsed = parsePaletteFromUrl(url);
+
+  if (!parsed || parsed.dropped.length > 0) {
+    return url;
+  }
+
+  return updatePaletteIdInUrl(serializePaletteToUrl(parsed.state), id);
+}
+
+/**
  * Extract palette ID from URL query string
  * Returns null if no ID present
  */

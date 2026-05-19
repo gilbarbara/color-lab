@@ -26,9 +26,11 @@ vi.mock('~/hooks/useAuth', () => ({
 }));
 
 const mockGetPalette = vi.fn();
+const mockMigratePaletteUrl = vi.fn();
 
 vi.mock('~/services/palettes', () => ({
   getPalette: (...arguments_: unknown[]) => mockGetPalette(...arguments_),
+  migratePaletteUrl: (...arguments_: unknown[]) => mockMigratePaletteUrl(...arguments_),
 }));
 
 const mockPalette: SavedPalette = {
@@ -47,6 +49,7 @@ describe('hooks/usePaletteIdSync', () => {
     mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
     mockAuthState = { isAuthenticated: false, isLoading: false, user: null };
     mockGetPalette.mockResolvedValue({ kind: 'not-found' });
+    mockMigratePaletteUrl.mockResolvedValue(undefined);
     useAppStore.setState({
       loadedPaletteId: null,
       loadedPaletteName: 'Palette',
@@ -104,7 +107,7 @@ describe('hooks/usePaletteIdSync', () => {
   });
 
   describe('authenticated user - cache hit', () => {
-    it('loads palette from cache when found with matching userId', () => {
+    it('loads palette from cache when found with matching userId, canonicalising legacy URL', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
       mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       usePalettesStore.setState({ palettes: [mockPalette] });
@@ -114,7 +117,26 @@ describe('hooks/usePaletteIdSync', () => {
       expect(mockGetPalette).not.toHaveBeenCalled();
       expect(useAppStore.getState().loadedPaletteId).toBe('palette-123');
       expect(useAppStore.getState().loadedPaletteName).toBe('Test Palette');
-      expect(useAppStore.getState().lastSavedUrl).toBe('/p/Primary-FF0044?id=palette-123');
+      // Legacy hex URL is canonicalised to OKLCH before lastSavedUrl is set,
+      // so comparisons in useSavedPalettes don't fire false "unsaved changes".
+      expect(useAppStore.getState().lastSavedUrl).toMatch(/^\/p\/Primary-\d/);
+      expect(useAppStore.getState().lastSavedUrl).toContain('?id=palette-123');
+      expect(mockMigratePaletteUrl).toHaveBeenCalledWith('palette-123', expect.any(String));
+    });
+
+    it('does not migrate or rewrite a palette already in canonical OKLCH form', () => {
+      const canonicalUrl = '/p/Primary-63.27_0.254_19.9?id=palette-123';
+
+      mockLocation = { pathname: '/p/Primary-63.27_0.254_19.9', search: '?id=palette-123' };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
+      usePalettesStore.setState({
+        palettes: [{ ...mockPalette, url: canonicalUrl }],
+      });
+
+      renderHook(() => usePaletteIdSync());
+
+      expect(mockMigratePaletteUrl).not.toHaveBeenCalled();
+      expect(useAppStore.getState().lastSavedUrl).toBe(canonicalUrl);
     });
 
     it('does not load from cache when userId does not match', async () => {
