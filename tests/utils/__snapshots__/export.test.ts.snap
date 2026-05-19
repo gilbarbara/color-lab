@@ -1,0 +1,134 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`utils/export > generateCSS > generates CSS custom properties 1`] = `
+"--plum-50: #ffeefe;
+--plum-100: #ffe0fd;
+--plum-200: #ffc5fb;
+--plum-300: #ff9dfa;
+--plum-400: #fe80e9;
+--plum-500: #e367cf;
+--plum-600: #c54bb3;
+--plum-700: #a62b96;
+--plum-800: #850077;
+--plum-900: #590050;
+--plum-950: #2d0028;"
+`;
+
+exports[`utils/export > generateCSS > generates rgb-channels format 1`] = `
+"--plum-50: 255 238 254;
+--plum-100: 255 224 253;
+--plum-200: 255 197 251;
+--plum-300: 255 157 250;
+--plum-400: 254 128 233;
+--plum-500: 227 103 207;
+--plum-600: 197 75 179;
+--plum-700: 166 43 150;
+--plum-800: 133 0 119;
+--plum-900: 89 0 80;
+--plum-950: 45 0 40;"
+`;
+
+exports[`utils/export > generateSCSS > generates SCSS variables 1`] = `
+"$plum-50: #ffeefe;
+$plum-100: #ffe0fd;
+$plum-200: #ffc5fb;
+$plum-300: #ff9dfa;
+$plum-400: #fe80e9;
+$plum-500: #e367cf;
+$plum-600: #c54bb3;
+$plum-700: #a62b96;
+$plum-800: #850077;
+$plum-900: #590050;
+$plum-950: #2d0028;"
+`;
+
+exports[`utils/export > generateSCSS > generates rgb-channels format 1`] = `
+"$plum-50: 255 238 254;
+$plum-100: 255 224 253;
+$plum-200: 255 197 251;
+$plum-300: 255 157 250;
+$plum-400: 254 128 233;
+$plum-500: 227 103 207;
+$plum-600: 197 75 179;
+$plum-700: 166 43 150;
+$plum-800: 133 0 119;
+$plum-900: 89 0 80;
+$plum-950: 45 0 40;"
+`;
+
+exports[`utils/export > generateSVG > generates SVG with colored rectangles 1`] = `
+"<svg width="1100" height="100" viewBox="0 0 1100 100">
+  <title>Plum</title>
+  <rect width="100" height="100" fill="#ffeefe" x="0" y="0"/>
+  <rect width="100" height="100" fill="#ffe0fd" x="100" y="0"/>
+  <rect width="100" height="100" fill="#ffc5fb" x="200" y="0"/>
+  <rect width="100" height="100" fill="#ff9dfa" x="300" y="0"/>
+  <rect width="100" height="100" fill="#fe80e9" x="400" y="0"/>
+  <rect width="100" height="100" fill="#e367cf" x="500" y="0"/>
+  <rect width="100" height="100" fill="#c54bb3" x="600" y="0"/>
+  <rect width="100" height="100" fill="#a62b96" x="700" y="0"/>
+  <rect width="100" height="100" fill="#850077" x="800" y="0"/>
+  <rect width="100" height="100" fill="#590050" x="900" y="0"/>
+  <rect width="100" height="100" fill="#2d0028" x="1000" y="0"/>
+</svg>"
+`;
+
+exports[`utils/export > generateTailwind3 > generates JS object format with hex values 1`] = `
+"'plum': {
+  '50': '#ffeefe',
+  '100': '#ffe0fd',
+  '200': '#ffc5fb',
+  '300': '#ff9dfa',
+  '400': '#fe80e9',
+  '500': '#e367cf',
+  '600': '#c54bb3',
+  '700': '#a62b96',
+  '800': '#850077',
+  '900': '#590050',
+  '950': '#2d0028',
+},"
+`;
+
+exports[`utils/export > generateTailwind3 > generates JS object format with oklch values 1`] = `
+"'plum': {
+  '50': 'oklch(97% 0.02982 333.92)',
+  '100': 'oklch(94.565% 0.05511 333.92)',
+  '200': 'oklch(90.113% 0.10411 333.92)',
+  '300': 'oklch(84.348% 0.17357 333.92)',
+  '400': 'oklch(77.52% 0.1953 333.92)',
+  '500': 'oklch(69.776% 0.1953 333.92)',
+  '600': 'oklch(61.214% 0.1953 333.92)',
+  '700': 'oklch(51.904% 0.1953 333.92)',
+  '800': 'oklch(41.903% 0.1953 333.92)',
+  '900': 'oklch(31.256% 0.15391 333.92)',
+  '950': 'oklch(20% 0.09849 333.92)',
+},"
+`;
+
+exports[`utils/export > generateTailwind4 > generates CSS custom properties with --color- prefix 1`] = `
+"--color-plum-50: #ffeefe;
+--color-plum-100: #ffe0fd;
+--color-plum-200: #ffc5fb;
+--color-plum-300: #ff9dfa;
+--color-plum-400: #fe80e9;
+--color-plum-500: #e367cf;
+--color-plum-600: #c54bb3;
+--color-plum-700: #a62b96;
+--color-plum-800: #850077;
+--color-plum-900: #590050;
+--color-plum-950: #2d0028;"
+`;
+
+exports[`utils/export > generateTailwind4 > generates oklch values when specified 1`] = `
+"--color-plum-50: oklch(97% 0.02982 333.92);
+--color-plum-100: oklch(94.565% 0.05511 333.92);
+--color-plum-200: oklch(90.113% 0.10411 333.92);
+--color-plum-300: oklch(84.348% 0.17357 333.92);
+--color-plum-400: oklch(77.52% 0.1953 333.92);
+--color-plum-500: oklch(69.776% 0.1953 333.92);
+--color-plum-600: oklch(61.214% 0.1953 333.92);
+--color-plum-700: oklch(51.904% 0.1953 333.92);
+--color-plum-800: oklch(41.903% 0.1953 333.92);
+--color-plum-900: oklch(31.256% 0.15391 333.92);
+--color-plum-950: oklch(20% 0.09849 333.92);"
+`;

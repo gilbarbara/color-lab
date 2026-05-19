@@ -14,7 +14,7 @@ import { rotate } from 'colorizr';
 import usePalette from '~/hooks/usePalette';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
-import { getRandomColor } from '~/utils/color';
+import { getRandomColor, toOklch } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
 import { scrollToSelector } from '~/utils/scroll';
 
@@ -53,7 +53,9 @@ export default function BottomBar() {
 
   const handleAddColor = () => {
     const lastColor = colors.at(-1);
-    const nextColor = lastColor ? rotate(lastColor.value, 30) : getRandomColor(baseSaturation);
+    const nextColor = lastColor
+      ? toOklch(rotate(lastColor.value, 30))
+      : getRandomColor(baseSaturation);
 
     let newId: string | null = null;
 

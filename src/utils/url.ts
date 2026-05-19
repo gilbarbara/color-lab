@@ -2,10 +2,16 @@ import { objectEntries, uuid } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/react';
 import { formatCSS, isHex, parseCSS, type ScaleVariant } from 'colorizr';
 
-import { isInRangeOklch } from '~/utils/color';
+import { isInRangeOklch, toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 
-import type { ColorEntry, GlobalScaleOptions, PaletteState, ScaleOptions } from '~/types';
+import type {
+  ColorEntry,
+  GlobalScaleOptions,
+  OklchString,
+  PaletteState,
+  ScaleOptions,
+} from '~/types';
 
 export interface ParsedPalette {
   dropped: string[];
@@ -199,7 +205,7 @@ function parseMode(raw: string): ScaleMode | undefined {
 /**
  * Parse OKLCH URL value: '64_0.142_329' or legacy '0.64_0.142_329'
  */
-function parseOklchUrlValue(urlValue: string): string | null {
+function parseOklchUrlValue(urlValue: string): OklchString | null {
   const parts = urlValue.split('_');
 
   if (parts.length !== 3) {
@@ -221,7 +227,7 @@ function parseOklchUrlValue(urlValue: string): string | null {
   }
 
   try {
-    return formatCSS({ l, c, h }, { format: 'oklch' });
+    return formatCSS({ l, c, h }, { format: 'oklch' }) as OklchString;
   } catch (error_) {
     Sentry.captureException(error_, {
       tags: { source: 'url-parse', call: 'urlToColorValue.oklch' },
@@ -361,7 +367,7 @@ function serializeOptions(
  * - '64_0.142_329' → 'oklch(64% 0.142 329)'
  * - '0.64_0.142_329' → 'oklch(64% 0.142 329)' (legacy support)
  */
-function urlToColorValue(urlValue: string): string | null {
+function urlToColorValue(urlValue: string): OklchString | null {
   if (urlValue.includes('_')) {
     return parseOklchUrlValue(urlValue);
   }
@@ -374,7 +380,7 @@ function urlToColorValue(urlValue: string): string | null {
   }
 
   try {
-    return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
+    return toOklch(hex);
   } catch (error_) {
     Sentry.captureException(error_, {
       tags: { source: 'url-parse', call: 'urlToColorValue.hex' },

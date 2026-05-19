@@ -2,13 +2,14 @@ import { type ChangeEvent, type KeyboardEvent, type SyntheticEvent } from 'react
 import { useSetState } from '@gilbarbara/hooks';
 import { cn, Input, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
+import * as Sentry from '@sentry/react';
 import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
-import { convertCSS, formatCSS, parseCSS } from 'colorizr';
+import { convertCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
-import { getChromaAsPercentage, getRandomColor, isValidColorValue } from '~/utils/color';
+import { getChromaAsPercentage, getRandomColor, isValidColorValue, toOklch } from '~/utils/color';
 
 import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
@@ -77,11 +78,24 @@ export default function ColorSelector(props: ColorSelectorProps) {
   };
 
   const handleChangeColor = useRafCallback((value: string) => {
-    updateColor(index, { value });
+    let branded;
+
+    try {
+      branded = toOklch(value);
+    } catch (error_) {
+      Sentry.captureException(error_, {
+        tags: { source: 'ColorSelector', call: 'handleChangeColor' },
+        extra: { value },
+      });
+
+      return;
+    }
+
+    updateColor(index, { value: branded });
 
     if (index === 0) {
       updateGlobalOptions({
-        saturation: getChromaAsPercentage(value),
+        saturation: getChromaAsPercentage(branded),
       });
     }
   });
@@ -130,10 +144,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
       const prefixed = `#${trimmed}`;
 
       setState({ editInput: prefixed });
-
-      const oklch = formatCSS(parseCSS(prefixed, 'oklch'), { format: 'oklch' });
-
-      handleChangeColor(oklch);
+      handleChangeColor(prefixed);
 
       return;
     }
@@ -146,9 +157,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
 
     if (isValidColorValue(trimmed)) {
-      const oklch = formatCSS(parseCSS(trimmed, 'oklch'), { format: 'oklch' });
-
-      handleChangeColor(oklch);
+      handleChangeColor(trimmed);
     }
   };
 

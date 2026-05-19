@@ -1,5 +1,6 @@
-import { formatCSS, parseCSS } from 'colorizr';
+import { parseCSS } from 'colorizr';
 
+import { toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
   getPaletteIdFromUrl,
@@ -15,17 +16,12 @@ function createColorEntry(
   value: string,
   overrides?: ColorEntry['overrides'],
 ): ColorEntry {
-  return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
-}
-
-/** Convert hex to OKLCH string (what parsePaletteFromUrl now returns for hex URLs) */
-function hexToOklch(hex: string): string {
-  return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
+  return { id: crypto.randomUUID(), name, value: toOklch(value), ...(overrides && { overrides }) };
 }
 
 /** Build a ColorEntry from a hex source (storage is always OKLCH). */
 function oklchEntry(name: string, hex: string, overrides?: ColorEntry['overrides']): ColorEntry {
-  return createColorEntry(name, hexToOklch(hex), overrides);
+  return createColorEntry(name, hex, overrides);
 }
 
 /**
@@ -34,7 +30,7 @@ function oklchEntry(name: string, hex: string, overrides?: ColorEntry['overrides
  * so precision matches what the encoder actually sees in production.
  */
 function urlFor(hex: string): string {
-  const o = parseCSS(hexToOklch(hex), 'oklch');
+  const o = parseCSS(toOklch(hex), 'oklch');
 
   return `${parseFloat((o.l * 100).toFixed(3))}_${parseFloat(o.c.toFixed(5))}_${parseFloat(o.h.toFixed(3))}`;
 }
@@ -66,7 +62,7 @@ describe('utils/url', () => {
       expect(result).not.toBeNull();
       expect(result!.state.colors).toHaveLength(1);
       expect(result!.state.colors[0].name).toBe('Primary');
-      expect(result!.state.colors[0].value).toBe(hexToOklch(hex));
+      expect(result!.state.colors[0].value).toBe(toOklch(hex));
       expect(result!.state.colors[0].id).toEqual(expect.any(String));
     });
 
@@ -256,7 +252,7 @@ describe('utils/url', () => {
 
       expect(result).not.toBeNull();
       expect(result!.state.colors[0].name).toBe('Primary');
-      expect(result!.state.colors[0].value).toBe(hexToOklch(hex));
+      expect(result!.state.colors[0].value).toBe(toOklch(hex));
     });
 
     it('round-trips OKLCH: serialize then parse returns equivalent state', () => {
@@ -266,7 +262,7 @@ describe('utils/url', () => {
           createColorEntry('Color Two', 'oklch(0.7 0.2 120)'),
         ],
         globalOptions: {
-          ...getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
+          ...getDefaultGlobalOptions(toOklch('oklch(0.64 0.142 329)')),
           lightnessCurve: 1.8,
           mode: 'dark',
         },
@@ -390,7 +386,7 @@ describe('utils/url', () => {
       for (const name of cases) {
         const state: PaletteState = {
           colors: [oklchEntry(name, hex)],
-          globalOptions: getDefaultGlobalOptions(hex),
+          globalOptions: getDefaultGlobalOptions(toOklch(hex)),
         };
         const url = serializePaletteToUrl(state);
         const parsed = parsePaletteFromUrl(url);
@@ -443,7 +439,7 @@ describe('utils/url', () => {
     it('serializes single color with default options', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}`);
@@ -452,7 +448,7 @@ describe('utils/url', () => {
     it('serializes multiple colors', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex), oklchEntry('Secondary', hexAlt)],
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(
@@ -463,7 +459,7 @@ describe('utils/url', () => {
     it('serializes oklch color value', () => {
       const state: PaletteState = {
         colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
-        globalOptions: getDefaultGlobalOptions('oklch(0.64 0.142 329)'),
+        globalOptions: getDefaultGlobalOptions(toOklch('oklch(0.64 0.142 329)')),
       };
 
       expect(serializePaletteToUrl(state)).toBe('/p/Primary-64_0.142_329');
@@ -472,7 +468,7 @@ describe('utils/url', () => {
     it('serializes color with per-color overrides', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex, { maxLightness: 0.95, mode: 'dark' })],
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}-x:0.95,m:d`);
@@ -481,7 +477,7 @@ describe('utils/url', () => {
     it('serializes non-default global options as query params', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
-        globalOptions: { ...getDefaultGlobalOptions(hex), lightnessCurve: 1.8, steps: 15 },
+        globalOptions: { ...getDefaultGlobalOptions(toOklch(hex)), lightnessCurve: 1.8, steps: 15 },
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}?f=1.8&i=15`);
@@ -490,7 +486,7 @@ describe('utils/url', () => {
     it('encodes color names with spaces', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Color One', hex)],
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Color+One-${urlFor(hex)}`);
@@ -502,7 +498,7 @@ describe('utils/url', () => {
           oklchEntry('Primary', hex, { maxLightness: 0.95 }),
           oklchEntry('Secondary', hexAlt),
         ],
-        globalOptions: { ...getDefaultGlobalOptions(hex), lightnessCurve: 1.8 },
+        globalOptions: { ...getDefaultGlobalOptions(toOklch(hex)), lightnessCurve: 1.8 },
       };
 
       expect(serializePaletteToUrl(state)).toBe(
@@ -513,14 +509,14 @@ describe('utils/url', () => {
     it('omits overrides that match global options', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex, { steps: 11 })], // 11 is default
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}`);
     });
 
     it('does not serialize saturation when it matches the color default', () => {
-      const defaults = getDefaultGlobalOptions(hex);
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: defaults,
@@ -530,7 +526,7 @@ describe('utils/url', () => {
     });
 
     it('serializes saturation when it differs from color default', () => {
-      const defaults = getDefaultGlobalOptions(hex);
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, saturation: 25 },
@@ -540,7 +536,7 @@ describe('utils/url', () => {
     });
 
     it('does not serialize saturationOverride when false (default)', () => {
-      const defaults = getDefaultGlobalOptions(hex);
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, saturationOverride: false },
@@ -550,7 +546,7 @@ describe('utils/url', () => {
     });
 
     it('serializes saturationOverride when true', () => {
-      const defaults = getDefaultGlobalOptions(hex);
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, saturationOverride: true },
@@ -562,7 +558,7 @@ describe('utils/url', () => {
     it('serializes lock option in per-color overrides', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex, { lock: 500 })],
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}-k:500`);
@@ -571,14 +567,14 @@ describe('utils/url', () => {
     it('serializes variant option in per-color overrides', () => {
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex, { variant: 'vibrant' })],
-        globalOptions: getDefaultGlobalOptions(hex),
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
 
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}-v:vibrant`);
     });
 
     it('serializes variant option in global options', () => {
-      const defaults = getDefaultGlobalOptions(hex);
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
       const state: PaletteState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, variant: 'neutral' },

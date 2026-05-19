@@ -21,16 +21,13 @@ interface UsePaletteResult extends PaletteState, PaletteActions {
 export default function usePalette(): UsePaletteResult {
   const store = usePaletteStore();
 
-  const baseSaturation = useMemoDeepCompare(() => {
-    if (!store.colors[0]?.value) {
-      return 80;
-    }
-
-    return getChromaAsPercentage(store.colors[0].value);
-  }, [store.colors]);
+  const baseSaturation = useMemoDeepCompare(
+    () => getChromaAsPercentage(store.colors[0].value),
+    [store.colors],
+  );
 
   const defaultOptions = useMemoDeepCompare(
-    () => getDefaultGlobalOptions(store.colors[0]?.value ?? ''),
+    () => getDefaultGlobalOptions(store.colors[0].value),
     [store.colors],
   );
 

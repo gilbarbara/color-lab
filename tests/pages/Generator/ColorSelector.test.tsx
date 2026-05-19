@@ -1,5 +1,6 @@
 import { usePaletteStore } from '~/stores/paletteStore';
 import { act, fireEvent, render, screen } from '~/test-utils';
+import { toOklch } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
 
 import ColorSelector from '~/pages/Generator/ColorList/ColorSelector';
@@ -11,10 +12,15 @@ function createColorEntry(
   value: string,
   overrides?: ColorEntry['overrides'],
 ): ColorEntry {
-  return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
+  return {
+    id: crypto.randomUUID(),
+    name,
+    value: toOklch(value),
+    ...(overrides && { overrides }),
+  };
 }
 
-const TEST_COLOR = 'oklch(0.55 0.22 27)';
+const TEST_COLOR = toOklch('oklch(0.55 0.22 27)');
 
 function createDefaultProps(overrides: Partial<Parameters<typeof ColorSelector>[0]> = {}) {
   const globalOptions: GlobalScaleOptions = getDefaultGlobalOptions(TEST_COLOR);

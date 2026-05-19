@@ -48,7 +48,10 @@ describe('PaletteCard', () => {
     vi.clearAllMocks();
     mockParsePaletteFromUrl.mockReturnValue({
       state: {
-        colors: [{ value: '#ff0000' }, { value: '#0000ff' }],
+        colors: [
+          { value: 'oklch(62.796% 0.25768 29.234)' },
+          { value: 'oklch(45.201% 0.31321 264.05)' },
+        ],
         globalOptions: {},
       },
       dropped: [] as string[],
@@ -84,7 +87,7 @@ describe('PaletteCard', () => {
     it('captures a Sentry warning when the saved palette has dropped colors', () => {
       mockParsePaletteFromUrl.mockReturnValue({
         state: {
-          colors: [{ value: '#ff0000' }],
+          colors: [{ value: 'oklch(62.796% 0.25768 29.234)' }],
           globalOptions: {},
         },
         dropped: ['Bad', '(unnamed)'],

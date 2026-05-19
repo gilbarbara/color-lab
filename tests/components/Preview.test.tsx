@@ -1,6 +1,7 @@
 import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { fireEvent, render, screen, within } from '~/test-utils';
+import { toOklch } from '~/utils/color';
 import { createPalette } from '~/utils/palette';
 
 import Preview from '~/components/Preview';
@@ -14,12 +15,12 @@ const LIGHT = 'oklch(0.95 0.1 64)';
 const DARK = 'oklch(0.2 0.2 302)';
 
 function createColorEntry(name: string, value: string): ColorEntry {
-  return { id: crypto.randomUUID(), name, value };
+  return { id: crypto.randomUUID(), name, value: toOklch(value) };
 }
 
 function createTestPalette(colors: Array<[string, string]>): PaletteState {
   const baseColor = colors[0]?.[1] ?? PRIMARY;
-  const base = createPalette(baseColor);
+  const base = createPalette(toOklch(baseColor));
 
   return {
     ...base,

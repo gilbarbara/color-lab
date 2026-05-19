@@ -1,26 +1,27 @@
 import { usePaletteStore } from '~/stores/paletteStore';
+import { CRIMSON, SKY_BLUE } from '~/test-fixtures';
 import { mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
 import { createPalette } from '~/utils/palette';
 
 import ExportPalette from '~/components/ExportPalette';
 
-import type { ColorEntry, PaletteState } from '~/types';
+import type { ColorEntry, OklchString, PaletteState } from '~/types';
 
 function createColorEntry(
   name: string,
-  value: string,
+  value: OklchString,
   overrides?: ColorEntry['overrides'],
 ): ColorEntry {
   return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
 }
 
 function createTestPalette(): PaletteState {
-  const basePalette = createPalette('#FF0044');
+  const basePalette = createPalette(CRIMSON);
 
   return {
     ...basePalette,
-    colors: [createColorEntry('Primary', '#FF0044'), createColorEntry('Secondary', '#0066FF')],
+    colors: [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', SKY_BLUE)],
   };
 }
 

@@ -4,6 +4,7 @@ import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
 import { usePaletteStore } from '~/stores/paletteStore';
+import { CRIMSON } from '~/test-fixtures';
 import { createPalette } from '~/utils/palette';
 import { serializePaletteToUrl } from '~/utils/url';
 
@@ -60,7 +61,7 @@ describe('hooks/useSavedPalettes', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockListPalettes.mockResolvedValue([]);
-    usePaletteStore.setState(createPalette('#FF0044'));
+    usePaletteStore.setState(createPalette(CRIMSON));
     useAppStore.setState({
       lastSavedUrl: null,
       loadedPaletteId: null,

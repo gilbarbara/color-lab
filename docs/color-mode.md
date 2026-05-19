@@ -133,7 +133,7 @@ Consequences:
 ## Migration notes
 
 - `src/pages/Generator/Palette/Swatch.tsx` — now reads `appStore.gamut` and derives `displayColor`. No `mode` prop.
-- `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to *accept* legacy HEX URLs and convert to OKLCH on load (one-way back-compat).
+- `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to *accept* legacy HEX and 0–1 OKLCH URLs and convert to OKLCH on load (one-way back-compat). `useUrlSync` rewrites the address bar to the canonical OKLCH form on hydration (`navigate(canonical, { replace: true })`) so shared legacy links self-heal.
 
 ---
 

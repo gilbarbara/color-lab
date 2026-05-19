@@ -1,6 +1,8 @@
 import { scale } from 'colorizr';
 
+import { SKY_BLUE } from '~/test-fixtures';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
+import { toOklch } from '~/utils/color';
 
 import ContrastGrid from '~/components/ContrastGrid';
 
@@ -9,7 +11,7 @@ import type { ColorEntry } from '~/types';
 const colorEntry: ColorEntry = {
   id: 'c1',
   name: 'Primary',
-  value: 'oklch(63.1% 0.30935 334.79)',
+  value: toOklch(SKY_BLUE),
 };
 
 const steps = scale(colorEntry.value);

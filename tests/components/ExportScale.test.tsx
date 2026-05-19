@@ -1,19 +1,13 @@
 import { useAppStore } from '~/stores/appStore';
+import { CRIMSON_SCALE } from '~/test-fixtures';
 import { mockAddToast, mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
 
 import ExportScale from '~/components/ExportScale';
 
-import type { ScaleSteps } from '~/types';
-
 const defaultProps = {
   name: 'primary',
-  steps: {
-    '50': '#fef2f2',
-    '100': '#fee2e2',
-    '500': '#ef4444',
-    '900': '#7f1d1d',
-  } as ScaleSteps,
+  steps: CRIMSON_SCALE,
 };
 
 describe('ExportScale', () => {

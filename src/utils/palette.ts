@@ -2,14 +2,20 @@ import { uuid } from '@gilbarbara/helpers';
 
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
-import type { ColorEntry, GlobalScaleOptions, PaletteState, ScaleOptions } from '~/types';
+import type {
+  ColorEntry,
+  GlobalScaleOptions,
+  OklchString,
+  PaletteState,
+  ScaleOptions,
+} from '~/types';
 
 export const MAX_COLORS = 10;
 
 /**
  * Get default global options with saturation computed from the given color.
  */
-export function getDefaultGlobalOptions(color: string): GlobalScaleOptions {
+export function getDefaultGlobalOptions(color: OklchString): GlobalScaleOptions {
   return {
     chromaCurve: 0,
     lightnessCurve: 1.5,
@@ -41,7 +47,7 @@ const DEFAULT_COLOR_NAMES = [
  * Add a new color to the palette
  * Returns unchanged state if at MAX_COLORS
  */
-export function addColor(state: PaletteState, value: string, name?: string): PaletteState {
+export function addColor(state: PaletteState, value: OklchString, name?: string): PaletteState {
   if (state.colors.length >= MAX_COLORS) {
     return state;
   }
@@ -65,7 +71,7 @@ export function clearColorOverrides(state: PaletteState, index: number): Palette
 /**
  * Create a fresh palette with optional initial color
  */
-export function createPalette(initialColor?: string): PaletteState {
+export function createPalette(initialColor?: OklchString): PaletteState {
   const color = initialColor ?? getRandomColor();
 
   return {

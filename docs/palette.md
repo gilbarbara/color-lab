@@ -33,7 +33,7 @@ Technical reference for the multi-color palette system.
 
 ### Color Values
 
-OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`.
+OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`. Legacy URLs are also canonicalised in the address bar on load — `useUrlSync` calls `navigate(canonicalUrl, { replace: true })` so shared legacy links converge to the OKLCH form for everyone (no back-button pollution).
 
 | Format | URL Example | Parsed Value | Direction |
 |--------|-------------|--------------|-----------|
@@ -75,7 +75,7 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 /p/Brand+Primary-63.269_0.25404_19.902/Brand+Secondary-65.133_0.13204_265.764
 ```
 
-**Legacy input form** (still parsed for back-compat — equivalent OKLCH after load):
+**Legacy input form** (still parsed for back-compat — rewritten to canonical OKLCH in the address bar on load):
 
 ```
 # Hex value
@@ -99,9 +99,19 @@ interface ColorEntry {
   id: string;                       // UUID, assigned on creation
   name: string;
   overrides?: Partial<ScaleOptions>;
-  value: string;                    // always OKLCH (storage invariant)
+  value: OklchString;               // branded; minted only via toOklch()
 }
 ```
+
+### OklchString
+
+Storage invariant is enforced at the type level. `OklchString` is a branded `string` defined in `src/types.ts`:
+
+```typescript
+type OklchString = string & { readonly __brand: 'OklchString' };
+```
+
+The only constructor is `toOklch(value: string): OklchString` in `src/utils/color.ts`, which validates via `parseCSS` (throws on invalid input) and canonicalises via `formatCSS({ format: 'oklch' })`. Every write to `ColorEntry.value` flows through `toOklch()` — `addColor`, `createPalette`, the URL parser (`urlToColorValue`), and the in-app color edit handlers all wrap their inputs at the boundary. Direct `as OklchString` casts are a code smell.
 
 ### GlobalScaleOptions
 

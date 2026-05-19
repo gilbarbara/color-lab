@@ -1,11 +1,13 @@
 import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
+import { CRIMSON } from '~/test-fixtures';
 import { fireEvent, render, screen } from '~/test-utils';
+import { toOklch } from '~/utils/color';
 import { createPalette, MAX_COLORS } from '~/utils/palette';
 
 import BottomBar from '~/pages/Generator/BottomBar';
 
-import type { ColorEntry, PaletteState } from '~/types';
+import type { ColorEntry, OklchString, PaletteState } from '~/types';
 
 vi.mock('~/utils/color', async importOriginal => {
   const actual = await importOriginal<typeof import('~/utils/color')>();
@@ -18,22 +20,23 @@ vi.mock('~/utils/color', async importOriginal => {
 
 function createColorEntry(
   name: string,
-  value: string,
+  value: OklchString,
   overrides?: ColorEntry['overrides'],
 ): ColorEntry {
   return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
 }
 
 function createTestPalette(colorCount = 1): PaletteState {
-  const basePalette = createPalette('#FF0044');
+  const basePalette = createPalette(CRIMSON);
   const colorNames = ['Primary', 'Secondary', 'Tertiary', 'Accent'];
 
+  // Spread hues across the wheel for visually distinct colors per index
   return {
     ...basePalette,
     colors: Array.from({ length: colorCount }, (_, index) =>
       createColorEntry(
         colorNames[index] || `Color ${index + 1}`,
-        `#FF00${index.toString().padStart(2, '0')}`,
+        toOklch(`oklch(63.269% 0.25404 ${(19.902 + index * 36) % 360})`),
       ),
     ),
   };
