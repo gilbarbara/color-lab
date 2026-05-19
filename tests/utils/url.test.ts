@@ -3,6 +3,7 @@ import { parseCSS } from 'colorizr';
 import { toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
+  canonicalizeUrl,
   getPaletteIdFromUrl,
   parsePaletteFromUrl,
   serializePaletteToUrl,
@@ -615,6 +616,41 @@ describe('utils/url', () => {
 
     it('handles URL with no query string when removing', () => {
       expect(updatePaletteIdInUrl('/p/Primary-FF0044', null)).toBe('/p/Primary-FF0044');
+    });
+  });
+
+  describe('canonicalizeUrl', () => {
+    it('converts legacy hex URL to canonical OKLCH', () => {
+      const result = canonicalizeUrl('/p/Primary-FF0044');
+
+      expect(result).toMatch(/^\/p\/Primary-\d/);
+      expect(result).not.toContain('FF0044');
+    });
+
+    it('preserves id query param', () => {
+      const result = canonicalizeUrl('/p/Primary-FF0044?id=abc123');
+
+      expect(result).toContain('?id=abc123');
+    });
+
+    it('is idempotent on already-canonical URL', () => {
+      const state: PaletteState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
+      };
+      const canonical = serializePaletteToUrl(state);
+
+      expect(canonicalizeUrl(canonical)).toBe(canonical);
+    });
+
+    it('returns input unchanged when URL is empty', () => {
+      expect(canonicalizeUrl('')).toBe('');
+    });
+
+    it('returns input unchanged when any color segment is dropped', () => {
+      const url = '/p/Primary-FF0044/-BADVALUE';
+
+      expect(canonicalizeUrl(url)).toBe(url);
     });
   });
 });

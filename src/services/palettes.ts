@@ -97,6 +97,17 @@ export async function listPalettes(userId: string): Promise<SavedPalette[]> {
   return snapshot.docs.map(d => withIdInUrl(documentToSavedPalette(d)));
 }
 
+/**
+ * Patch the `url` field only, without touching `updatedAt`.
+ * Used to canonicalise legacy palette URLs in Firestore without lying about
+ * when the user last modified the palette.
+ */
+export async function migratePaletteUrl(id: string, url: string): Promise<void> {
+  const documentRef = doc(db, PALETTES_COLLECTION, id);
+
+  await updateDoc(documentRef, { url });
+}
+
 export async function updatePalette(
   id: string,
   data: Partial<Pick<SavedPalette, 'isFavorite' | 'name' | 'url'>>,

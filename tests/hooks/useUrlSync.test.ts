@@ -155,8 +155,63 @@ describe('hooks/useUrlSync', () => {
       });
     });
 
-    it('does not navigate on initial mount when palette exists in URL', () => {
+    it('does not navigate on initial mount when palette URL is already canonical OKLCH', () => {
+      mockLocation = { pathname: '/p/Primary-63.27_0.254_19.9', search: '' };
+
+      renderHook(() => useUrlSync());
+
+      expect(mockNavigate).not.toHaveBeenCalled();
+    });
+
+    it('rewrites legacy hex URL to canonical OKLCH form with replace', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
+
+      renderHook(() => useUrlSync());
+
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9', {
+        replace: true,
+      });
+      expect(usePaletteStore.getState().colors[0].value).toBe(CRIMSON);
+    });
+
+    it('rewrites legacy 0-1 OKLCH URL to percentage form with replace', () => {
+      mockLocation = { pathname: '/p/Primary-0.64_0.142_329', search: '' };
+
+      renderHook(() => useUrlSync());
+
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-64_0.142_329', { replace: true });
+    });
+
+    it('preserves id query when canonicalising legacy URL', () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=abc123' };
+      useAppStore.setState({ loadedPaletteId: 'abc123' });
+
+      renderHook(() => useUrlSync());
+
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9?id=abc123', {
+        replace: true,
+      });
+    });
+
+    it('preserves id query when canonicalising before store has loadedPaletteId', () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=abc123' };
+
+      renderHook(() => useUrlSync());
+
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9?id=abc123', {
+        replace: true,
+      });
+    });
+
+    it('does not navigate when canonical URL with id matches before store sync', () => {
+      mockLocation = {
+        pathname: '/p/Primary-63.27_0.254_19.9',
+        search: '?id=abc123',
+      };
 
       renderHook(() => useUrlSync());
 

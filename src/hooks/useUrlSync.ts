@@ -5,7 +5,12 @@ import { addToast } from '@heroui/react';
 import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { createPalette } from '~/utils/palette';
-import { parsePaletteFromUrl, serializePaletteToUrl, updatePaletteIdInUrl } from '~/utils/url';
+import {
+  getPaletteIdFromUrl,
+  parsePaletteFromUrl,
+  serializePaletteToUrl,
+  updatePaletteIdInUrl,
+} from '~/utils/url';
 
 /**
  * Syncs palette store with URL. Call once in Generator.
@@ -20,9 +25,12 @@ export default function useUrlSync() {
     const currentUrl = `${location.pathname}${location.search}`;
     const storeUrl = serializePaletteToUrl(usePaletteStore.getState());
     const { loadedPaletteId } = useAppStore.getState();
+    // URL is the source of truth for the id while syncing — store value
+    // may not have caught up yet on initial palette load.
+    const urlId = getPaletteIdFromUrl(location.search) ?? loadedPaletteId;
 
     // Skip if URL already matches store state
-    if (updatePaletteIdInUrl(storeUrl, loadedPaletteId) === currentUrl) {
+    if (updatePaletteIdInUrl(storeUrl, urlId) === currentUrl) {
       return;
     }
 
@@ -54,9 +62,17 @@ export default function useUrlSync() {
             color: 'warning',
           });
 
-          const cleanedUrl = updatePaletteIdInUrl(serializePaletteToUrl(urlState), loadedPaletteId);
+          const cleanedUrl = updatePaletteIdInUrl(serializePaletteToUrl(urlState), urlId);
 
           navigate(cleanedUrl, { replace: true });
+        } else if (dropped.length === 0) {
+          // Canonicalise legacy URL forms (hex, 0-1 OKLCH) to the current OKLCH form.
+          // replace: true keeps the legacy URL out of the back-button history.
+          const canonicalUrl = updatePaletteIdInUrl(serializePaletteToUrl(urlState), urlId);
+
+          if (canonicalUrl !== currentUrl) {
+            navigate(canonicalUrl, { replace: true });
+          }
         }
 
         return;
