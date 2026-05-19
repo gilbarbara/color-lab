@@ -21,19 +21,19 @@ exports[`BottomBar > Render > renders correctly in closed state 1`] = `
       <button
         aria-label="Color Box"
         class="shrink-0 size-8 rounded-small first:ms-0 cursor-pointer"
-        data-color="#FF0000"
+        data-color="oklch(63.269% 0.25404 19.902)"
         data-id="test-uuid-2"
         data-testid="ColorBox"
-        style="background-color: rgb(255, 0, 0);"
+        style="background-color: oklch(0.63269 0.25404 19.902);"
         type="button"
       />
       <button
         aria-label="Color Box"
         class="shrink-0 size-8 rounded-small first:ms-0 cursor-pointer"
-        data-color="#FF0001"
+        data-color="oklch(63.269% 0.25404 55.902)"
         data-id="test-uuid-3"
         data-testid="ColorBox"
-        style="background-color: rgb(255, 0, 1);"
+        style="background-color: oklch(0.63269 0.25404 55.902);"
         type="button"
       />
     </div>
@@ -76,19 +76,19 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
       <button
         aria-label="Color Box"
         class="shrink-0 size-8 rounded-small first:ms-0 cursor-pointer"
-        data-color="#FF0000"
+        data-color="oklch(63.269% 0.25404 19.902)"
         data-id="test-uuid-2"
         data-testid="ColorBox"
-        style="background-color: rgb(255, 0, 0);"
+        style="background-color: oklch(0.63269 0.25404 19.902);"
         type="button"
       />
       <button
         aria-label="Color Box"
         class="shrink-0 size-8 rounded-small first:ms-0 cursor-pointer"
-        data-color="#FF0001"
+        data-color="oklch(63.269% 0.25404 55.902)"
         data-id="test-uuid-3"
         data-testid="ColorBox"
-        style="background-color: rgb(255, 0, 1);"
+        style="background-color: oklch(0.63269 0.25404 55.902);"
         type="button"
       />
     </div>
@@ -182,11 +182,11 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
             aria-haspopup="dialog"
             aria-label="Color picker"
             class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-            data-color="#FF0000"
+            data-color="oklch(63.269% 0.25404 19.902)"
             data-react-aria-pressable="true"
             data-slot="trigger"
             data-testid="ColorBox"
-            style="background-color: rgb(255, 0, 0);"
+            style="background-color: oklch(0.63269 0.25404 19.902);"
             tabindex="0"
             type="button"
           />
@@ -285,7 +285,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       tabindex="0"
                       title=""
                       type="text"
-                      value="#FF0000"
+                      value="oklch(63.269% 0.25404 19.902)"
                     />
                   </div>
                 </div>
@@ -308,11 +308,11 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
             aria-haspopup="dialog"
             aria-label="Color picker"
             class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-            data-color="#FF0001"
+            data-color="oklch(63.269% 0.25404 55.902)"
             data-react-aria-pressable="true"
             data-slot="trigger"
             data-testid="ColorBox"
-            style="background-color: rgb(255, 0, 1);"
+            style="background-color: oklch(0.63269 0.25404 55.902);"
             tabindex="0"
             type="button"
           />
@@ -411,7 +411,7 @@ exports[`BottomBar > Render > renders correctly in open state 1`] = `
                       tabindex="0"
                       title=""
                       type="text"
-                      value="#FF0001"
+                      value="oklch(63.269% 0.25404 55.902)"
                     />
                   </div>
                 </div>

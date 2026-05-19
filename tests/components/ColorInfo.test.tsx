@@ -2,6 +2,7 @@ import { convertCSS, scale } from 'colorizr';
 
 import { mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
+import { toOklch } from '~/utils/color';
 
 import ColorInfo from '~/components/ColorInfo';
 
@@ -18,7 +19,7 @@ Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
 const colorEntry: ColorEntry = {
   id: 'c1',
   name: 'Primary',
-  value: 'oklch(69.776% 0.17313 276.66)',
+  value: toOklch('oklch(69.776% 0.17313 276.66)'),
 };
 
 const options: ScaleOptions = { lock: 500 };

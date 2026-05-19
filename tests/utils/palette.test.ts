@@ -1,3 +1,5 @@
+import { CRIMSON, GREEN, RED, SLATE, WHITE } from '~/test-fixtures';
+import { toOklch } from '~/utils/color';
 import {
   addColor,
   clearColorOverrides,
@@ -14,24 +16,38 @@ import {
   updateGlobalOptions,
 } from '~/utils/palette';
 
-import type { ColorEntry, PaletteState } from '~/types';
+import type { ColorEntry, OklchString, PaletteState } from '~/types';
 
-// Test color used for creating test palettes
-const TEST_COLOR = '#FF0000';
+// Test color used for creating test palettes (ex-#FF0000)
+const TEST_COLOR = RED;
 
 function createColorEntry(
   name: string,
-  value: string,
+  value: OklchString,
   overrides?: ColorEntry['overrides'],
 ): ColorEntry {
   return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
 }
 
 function createTestPalette(colorCount = 1): PaletteState {
+  // Spread distinct hues so each color is unique and visibly different.
+  const palette = [
+    toOklch('oklch(62.796% 0.25768 29.234)'),
+    toOklch('oklch(62.796% 0.25768 59.234)'),
+    toOklch('oklch(62.796% 0.25768 89.234)'),
+    toOklch('oklch(62.796% 0.25768 119.234)'),
+    toOklch('oklch(62.796% 0.25768 149.234)'),
+    toOklch('oklch(62.796% 0.25768 179.234)'),
+    toOklch('oklch(62.796% 0.25768 209.234)'),
+    toOklch('oklch(62.796% 0.25768 239.234)'),
+    toOklch('oklch(62.796% 0.25768 269.234)'),
+    toOklch('oklch(62.796% 0.25768 299.234)'),
+  ];
+
   const colors = Array.from({ length: colorCount }, (_, index) => ({
     id: crypto.randomUUID(),
     name: getDefaultColorName(index),
-    value: `#FF000${index}`,
+    value: palette[index],
   }));
 
   return {
@@ -53,12 +69,12 @@ describe('utils/palette', () => {
     });
 
     it('creates palette with provided color', () => {
-      const palette = createPalette('#FF0044');
+      const palette = createPalette(CRIMSON);
 
       expect(palette.colors).toHaveLength(1);
-      expect(palette.colors[0].value).toBe('#FF0044');
+      expect(palette.colors[0].value).toBe(CRIMSON);
       // Saturation should be computed from the provided color
-      expect(palette.globalOptions).toEqual(getDefaultGlobalOptions('#FF0044'));
+      expect(palette.globalOptions).toEqual(getDefaultGlobalOptions(CRIMSON));
     });
   });
 
@@ -76,23 +92,23 @@ describe('utils/palette', () => {
   describe('addColor', () => {
     it('adds color with default name', () => {
       const initial = createTestPalette(1);
-      const result = addColor(initial, '#00FF00');
+      const result = addColor(initial, GREEN);
 
       expect(result.colors).toHaveLength(2);
       expect(result.colors[1].name).toBe('Secondary');
-      expect(result.colors[1].value).toBe('#00FF00');
+      expect(result.colors[1].value).toBe(GREEN);
     });
 
     it('adds color with custom name', () => {
       const initial = createTestPalette(1);
-      const result = addColor(initial, '#00FF00', 'Custom Name');
+      const result = addColor(initial, GREEN, 'Custom Name');
 
       expect(result.colors[1].name).toBe('Custom Name');
     });
 
     it('returns unchanged state at MAX_COLORS', () => {
       const initial = createTestPalette(MAX_COLORS);
-      const result = addColor(initial, '#00FF00');
+      const result = addColor(initial, GREEN);
 
       expect(result).toBe(initial);
       expect(result.colors).toHaveLength(MAX_COLORS);
@@ -102,7 +118,7 @@ describe('utils/palette', () => {
       const initial = createTestPalette(1);
       const originalColors = initial.colors;
 
-      addColor(initial, '#00FF00');
+      addColor(initial, GREEN);
 
       expect(initial.colors).toBe(originalColors);
       expect(initial.colors).toHaveLength(1);
@@ -155,9 +171,9 @@ describe('utils/palette', () => {
 
     it('updates color value', () => {
       const initial = createTestPalette(1);
-      const result = updateColor(initial, 0, { value: '#FFFFFF' });
+      const result = updateColor(initial, 0, { value: WHITE });
 
-      expect(result.colors[0].value).toBe('#FFFFFF');
+      expect(result.colors[0].value).toBe(WHITE);
       expect(result.colors[0].name).toBe(initial.colors[0].name);
     });
 
@@ -245,13 +261,13 @@ describe('utils/palette', () => {
   describe('resetGlobalOptions', () => {
     it('resets to defaults while keeping colors', () => {
       const initial: PaletteState = {
-        colors: [createColorEntry('Custom', '#123456')],
-        globalOptions: { ...getDefaultGlobalOptions('#123456'), lightnessCurve: 2.5, steps: 20 },
+        colors: [createColorEntry('Custom', SLATE)],
+        globalOptions: { ...getDefaultGlobalOptions(SLATE), lightnessCurve: 2.5, steps: 20 },
       };
       const result = resetGlobalOptions(initial);
 
       // Should reset to computed defaults based on first color
-      expect(result.globalOptions).toEqual(getDefaultGlobalOptions('#123456'));
+      expect(result.globalOptions).toEqual(getDefaultGlobalOptions(SLATE));
       expect(result.colors).toEqual(initial.colors);
     });
   });

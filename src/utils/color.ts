@@ -1,5 +1,7 @@
 import { round } from '@gilbarbara/helpers';
-import { getP3MaxChroma, parseCSS, random } from 'colorizr';
+import { formatCSS, getP3MaxChroma, parseCSS, random } from 'colorizr';
+
+import type { OklchString } from '~/types';
 
 interface OklchValues {
   c: number;
@@ -12,7 +14,7 @@ interface OklchValues {
  * This provides a consistent "saturation" value that reaches 100
  * when chroma is at its maximum for the given lightness/hue.
  */
-export function getChromaAsPercentage(color: string): number {
+export function getChromaAsPercentage(color: OklchString): number {
   const { c, h, l } = parseCSS(color, 'oklch');
 
   const maxChroma = getP3MaxChroma({ l, c: 0, h });
@@ -24,14 +26,14 @@ export function getChromaAsPercentage(color: string): number {
   return round((c / maxChroma) * 100, 1);
 }
 
-export function getRandomColor(saturation?: number) {
+export function getRandomColor(saturation?: number): OklchString {
   return random({
     format: 'oklch',
     minLightness: 50,
     maxLightness: 70,
     minSaturation: saturation ?? 50,
     maxSaturation: saturation,
-  });
+  }) as OklchString;
 }
 
 /**
@@ -52,4 +54,20 @@ export function isValidColorValue(value: string): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * The only mint site for `OklchString`. Validates via parseCSS (throws on
+ * syntax / negative L / big H / negative C) and via isInRangeOklch (catches
+ * the L > 1 case that parseCSS silently accepts). Normalises via formatCSS so
+ * every branded value is in canonical oklch CSS form.
+ */
+export function toOklch(value: string): OklchString {
+  const parsed = parseCSS(value, 'oklch');
+
+  if (!isInRangeOklch(parsed)) {
+    throw new Error(`toOklch: value out of OKLCH range: ${value}`);
+  }
+
+  return formatCSS(parsed, { format: 'oklch' }) as OklchString;
 }

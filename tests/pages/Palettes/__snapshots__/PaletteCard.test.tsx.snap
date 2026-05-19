@@ -90,12 +90,12 @@ exports[`PaletteCard > Render > renders correctly 1`] = `
       <span
         aria-label="Color Box"
         class="shrink-0 size-12 rounded-medium"
-        style="background-color: rgb(255, 0, 0);"
+        style="background-color: oklch(0.62796 0.25768 29.234);"
       />
       <span
         aria-label="Color Box"
         class="shrink-0 size-12 rounded-medium"
-        style="background-color: rgb(0, 0, 255);"
+        style="background-color: oklch(0.45201 0.31321 264.05);"
       />
     </a>
   </div>
@@ -192,12 +192,12 @@ exports[`PaletteCard > Render > renders filled heart for favorited palette 1`] =
       <span
         aria-label="Color Box"
         class="shrink-0 size-12 rounded-medium"
-        style="background-color: rgb(255, 0, 0);"
+        style="background-color: oklch(0.62796 0.25768 29.234);"
       />
       <span
         aria-label="Color Box"
         class="shrink-0 size-12 rounded-medium"
-        style="background-color: rgb(0, 0, 255);"
+        style="background-color: oklch(0.45201 0.31321 264.05);"
       />
     </a>
   </div>

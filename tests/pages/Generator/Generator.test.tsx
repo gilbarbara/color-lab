@@ -2,13 +2,15 @@ import { render, screen } from '~/test-utils';
 
 import Generator from '~/pages/Generator';
 
-// Mock random color for deterministic snapshots
+// Mock random color for deterministic snapshots.
+// Inline OKLCH literal (vi.mock factory cannot reference module-scope vars due to hoisting).
+// Equivalent to RED fixture (ex-#FF0044).
 vi.mock('~/utils/color', async importOriginal => {
   const actual = await importOriginal<typeof import('~/utils/color')>();
 
   return {
     ...actual,
-    getRandomColor: () => '#FF0044',
+    getRandomColor: () => 'oklch(63.269% 0.25404 19.902)',
   };
 });
 

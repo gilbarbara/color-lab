@@ -12,6 +12,8 @@ export type GetPaletteResult =
   | { kind: 'not-found' }
   | { error: unknown; kind: 'error' };
 
+export type OklchString = string & { readonly __brand: 'OklchString' };
+
 export type ScaleOptions = Omit<ScaleOptionsBase, 'format'>;
 
 export type ScaleSteps = Record<string, string>;
@@ -20,7 +22,7 @@ export interface ColorEntry {
   id: string;
   name: string;
   overrides?: Partial<ScaleOptions>;
-  value: string;
+  value: OklchString;
 }
 
 export interface ExportOptions {
@@ -39,7 +41,7 @@ export interface GlobalScaleOptions extends ScaleOptions {
 }
 
 export interface PaletteActions {
-  addColor: (value: string, name?: string) => string | null;
+  addColor: (value: OklchString, name?: string) => string | null;
   clearColorOverrides: (index: number) => void;
   removeColor: (index: number) => void;
   resetGlobalOptions: () => void;

@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 
 import usePalette from '~/hooks/usePalette';
 import { usePaletteStore } from '~/stores/paletteStore';
+import { BLUE, CRIMSON, GREEN } from '~/test-fixtures';
 import { getChromaAsPercentage } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
 
@@ -12,7 +13,7 @@ vi.mock('react-router', () => ({
 
 describe('hooks/usePalette', () => {
   beforeEach(() => {
-    const palette = createPalette('#FF0044');
+    const palette = createPalette(CRIMSON);
 
     usePaletteStore.setState({ ...palette, activeColorId: palette.colors[0].id });
   });
@@ -21,13 +22,13 @@ describe('hooks/usePalette', () => {
     it('returns baseSaturation from first color', () => {
       const { result } = renderHook(() => usePalette());
 
-      expect(result.current.baseSaturation).toBe(getChromaAsPercentage('#FF0044'));
+      expect(result.current.baseSaturation).toBe(getChromaAsPercentage(CRIMSON));
     });
 
     it('returns defaultOptions from first color', () => {
       const { result } = renderHook(() => usePalette());
 
-      expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions('#FF0044'));
+      expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions(CRIMSON));
     });
 
     it('updates baseSaturation when first color changes', () => {
@@ -36,10 +37,10 @@ describe('hooks/usePalette', () => {
       const initialSaturation = result.current.baseSaturation;
 
       act(() => {
-        result.current.updateColor(0, { value: '#00FF00' });
+        result.current.updateColor(0, { value: GREEN });
       });
 
-      expect(result.current.baseSaturation).toBe(getChromaAsPercentage('#00FF00'));
+      expect(result.current.baseSaturation).toBe(getChromaAsPercentage(GREEN));
       expect(result.current.baseSaturation).not.toBe(initialSaturation);
     });
 
@@ -47,10 +48,10 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.updateColor(0, { value: '#0000FF' });
+        result.current.updateColor(0, { value: BLUE });
       });
 
-      expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions('#0000FF'));
+      expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions(BLUE));
     });
   });
 
@@ -59,18 +60,18 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       expect(result.current.colors).toHaveLength(2);
-      expect(result.current.colors[1].value).toBe('#00FF00');
+      expect(result.current.colors[1].value).toBe(GREEN);
     });
 
     it('addColor with custom name', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00', 'Custom');
+        result.current.addColor(GREEN, 'Custom');
       });
 
       expect(result.current.colors[1].name).toBe('Custom');
@@ -80,7 +81,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       expect(result.current.colors).toHaveLength(2);
@@ -90,7 +91,7 @@ describe('hooks/usePalette', () => {
       });
 
       expect(result.current.colors).toHaveLength(1);
-      expect(result.current.colors[0].value).toBe('#00FF00');
+      expect(result.current.colors[0].value).toBe(GREEN);
     });
 
     it('updateColor updates state', () => {
@@ -152,7 +153,7 @@ describe('hooks/usePalette', () => {
         result.current.resetGlobalOptions();
       });
 
-      const expectedDefaults = getDefaultGlobalOptions('#FF0044');
+      const expectedDefaults = getDefaultGlobalOptions(CRIMSON);
 
       expect(result.current.globalOptions.lightnessCurve).toBe(expectedDefaults.lightnessCurve);
       expect(result.current.globalOptions.steps).toBe(expectedDefaults.steps);
@@ -162,7 +163,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
         result.current.updateGlobalOptions({ lightnessCurve: 2.0 });
       });
 
@@ -191,7 +192,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       const secondId = result.current.colors[1].id;
@@ -218,7 +219,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       expect(result.current.activeColorId).toBe(result.current.colors[1].id);
@@ -228,8 +229,8 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
-        result.current.addColor('#0000FF');
+        result.current.addColor(GREEN);
+        result.current.addColor(BLUE);
       });
 
       const middleId = result.current.colors[1].id;
@@ -252,7 +253,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       const firstId = result.current.colors[0].id;
@@ -273,7 +274,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       const firstId = result.current.colors[0].id;
@@ -293,7 +294,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.addColor('#00FF00');
+        result.current.addColor(GREEN);
       });
 
       act(() => {

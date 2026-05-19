@@ -1,3 +1,4 @@
+import { CRIMSON, PLUM_SCALE, SKY_SCALE } from '~/test-fixtures';
 import {
   colorFormatLabels,
   colorFormats,
@@ -15,54 +16,38 @@ import {
   isColorFormatAvailable,
 } from '~/utils/export';
 
-import type { ExportFormatType, ScaleSteps } from '~/types';
+import type { ExportFormatType } from '~/types';
 
 describe('utils/export', () => {
-  // Sample tones for testing
-  const sampleTones: ScaleSteps = {
-    '50': '#fef5fd',
-    '100': '#fcebfb',
-    '500': '#d85dc5',
-    '900': '#69265a',
-  };
-
-  // Sample OKLCH tones for testing wide gamut
-  const oklchTones: ScaleSteps = {
-    '50': 'oklch(97.94% 0.01 329.12)',
-    '100': 'oklch(95.81% 0.03 327.58)',
-    '500': 'oklch(66.72% 0.20 333.92)',
-    '900': 'oklch(38.67% 0.12 337.33)',
-  };
-
   describe('formatColorValue', () => {
-    it('converts hex to oklch', () => {
-      const result = formatColorValue('#ff0044', 'oklch');
+    it('converts oklch to oklch (canonical form)', () => {
+      const result = formatColorValue(CRIMSON, 'oklch');
 
       expect(result).toMatch(/^oklch\(.+\)$/);
     });
 
-    it('converts hex to hsl', () => {
-      const result = formatColorValue('#ff0044', 'hsl');
+    it('converts oklch to hsl', () => {
+      const result = formatColorValue(CRIMSON, 'hsl');
 
       expect(result).toMatch(/^hsl\(.+\)$/);
     });
 
-    it('converts hex to rgb', () => {
-      const result = formatColorValue('#ff0044', 'rgb');
+    it('converts oklch to rgb', () => {
+      const result = formatColorValue(CRIMSON, 'rgb');
 
       expect(result).toMatch(/^rgb\(.+\)$/);
     });
 
-    it('converts hex to rgb-channels (space-separated)', () => {
-      const result = formatColorValue('#ff0044', 'rgb-channels');
+    it('converts oklch to rgb-channels (space-separated)', () => {
+      const result = formatColorValue(CRIMSON, 'rgb-channels');
 
       expect(result).toMatch(/^\d+ \d+ \d+$/);
     });
 
-    it('returns hex directly for hex format', () => {
-      const result = formatColorValue('#ff0044', 'hex');
+    it('converts oklch to hex', () => {
+      const result = formatColorValue(CRIMSON, 'hex');
 
-      expect(result).toBe('#ff0044');
+      expect(result).toMatch(/^#[\da-f]{6}$/i);
     });
 
     it('preserves oklch format for oklch input', () => {
@@ -80,23 +65,19 @@ describe('utils/export', () => {
 
   describe('generateTailwind3', () => {
     it('generates JS object format with hex values', () => {
-      const result = generateTailwind3('Plum', sampleTones, 'hex');
+      const result = generateTailwind3('Plum', PLUM_SCALE, 'hex');
 
-      expect(result).toContain("'plum': {");
-      expect(result).toContain("'50': '#fef5fd'");
-      expect(result).toContain("'500': '#d85dc5'");
-      expect(result).toContain('},');
+      expect(result).toMatchSnapshot();
     });
 
     it('generates JS object format with oklch values', () => {
-      const result = generateTailwind3('Plum', sampleTones, 'oklch');
+      const result = generateTailwind3('Plum', PLUM_SCALE, 'oklch');
 
-      expect(result).toContain("'plum': {");
-      expect(result).toContain("'50': 'oklch(");
+      expect(result).toMatchSnapshot();
     });
 
     it('normalizes color name with spaces', () => {
-      const result = generateTailwind3('My Color', sampleTones, 'hex');
+      const result = generateTailwind3('My Color', PLUM_SCALE, 'hex');
 
       expect(result).toContain("'my-color': {");
     });
@@ -104,70 +85,55 @@ describe('utils/export', () => {
 
   describe('generateTailwind4', () => {
     it('generates CSS custom properties with --color- prefix', () => {
-      const result = generateTailwind4('Plum', sampleTones, 'hex');
+      const result = generateTailwind4('Plum', PLUM_SCALE, 'hex');
 
-      expect(result).toContain('--color-plum-50: #fef5fd;');
-      expect(result).toContain('--color-plum-500: #d85dc5;');
+      expect(result).toMatchSnapshot();
     });
 
     it('generates oklch values when specified', () => {
-      const result = generateTailwind4('Plum', sampleTones, 'oklch');
+      const result = generateTailwind4('Plum', PLUM_SCALE, 'oklch');
 
-      expect(result).toContain('--color-plum-50: oklch(');
+      expect(result).toMatchSnapshot();
     });
   });
 
   describe('generateCSS', () => {
     it('generates CSS custom properties', () => {
-      const result = generateCSS('Plum', sampleTones, 'hex');
+      const result = generateCSS('Plum', PLUM_SCALE, 'hex');
 
-      expect(result).toContain('--plum-50: #fef5fd;');
-      expect(result).toContain('--plum-500: #d85dc5;');
+      expect(result).toMatchSnapshot();
     });
 
     it('generates rgb-channels format', () => {
-      const result = generateCSS('Plum', sampleTones, 'rgb-channels');
+      const result = generateCSS('Plum', PLUM_SCALE, 'rgb-channels');
 
-      expect(result).toMatch(/--plum-50: \d+ \d+ \d+;/);
+      expect(result).toMatchSnapshot();
     });
   });
 
   describe('generateSCSS', () => {
     it('generates SCSS variables', () => {
-      const result = generateSCSS('Plum', sampleTones, 'hex');
+      const result = generateSCSS('Plum', PLUM_SCALE, 'hex');
 
-      expect(result).toContain('$plum-50: #fef5fd;');
-      expect(result).toContain('$plum-500: #d85dc5;');
+      expect(result).toMatchSnapshot();
     });
 
     it('generates rgb-channels format', () => {
-      const result = generateSCSS('Plum', sampleTones, 'rgb-channels');
+      const result = generateSCSS('Plum', PLUM_SCALE, 'rgb-channels');
 
-      expect(result).toMatch(/\$plum-50:(?: \d+){3};/);
+      expect(result).toMatchSnapshot();
     });
   });
 
   describe('generateSVG', () => {
     it('generates SVG with colored rectangles', () => {
-      const result = generateSVG('Plum', sampleTones);
+      const result = generateSVG('Plum', PLUM_SCALE);
 
-      expect(result).toContain('<svg');
-      expect(result).toContain('</svg>');
-      expect(result).toContain('<rect');
-      expect(result).toContain('fill="#fef5fd"');
-      expect(result).toContain('fill="#d85dc5"');
-    });
-
-    it('calculates correct width based on tone count', () => {
-      const result = generateSVG('Plum', sampleTones);
-
-      // 4 tones * 100px = 400px width
-      expect(result).toContain('width="400"');
-      expect(result).toContain('viewBox="0 0 400 100"');
+      expect(result).toMatchSnapshot();
     });
 
     it('converts oklch tones to hex for SVG', () => {
-      const result = generateSVG('Plum', oklchTones);
+      const result = generateSVG('Plum', PLUM_SCALE);
 
       // SVG should have hex colors, not oklch
       expect(result).not.toContain('oklch(');
@@ -177,14 +143,14 @@ describe('utils/export', () => {
 
   describe('generateExport', () => {
     it('delegates to correct generator based on format type', () => {
-      const tailwind3 = generateExport('Plum', sampleTones, {
+      const tailwind3 = generateExport('Plum', PLUM_SCALE, {
         colorFormat: 'hex',
         formatType: 'tailwind3',
       });
 
       expect(tailwind3).toContain("'plum': {");
 
-      const css = generateExport('Plum', sampleTones, {
+      const css = generateExport('Plum', PLUM_SCALE, {
         colorFormat: 'hex',
         formatType: 'css',
       });
@@ -194,7 +160,7 @@ describe('utils/export', () => {
     });
 
     it('generates tailwind4 format', () => {
-      const result = generateExport('Plum', sampleTones, {
+      const result = generateExport('Plum', PLUM_SCALE, {
         colorFormat: 'hex',
         formatType: 'tailwind4',
       });
@@ -203,7 +169,7 @@ describe('utils/export', () => {
     });
 
     it('generates scss format', () => {
-      const result = generateExport('Plum', sampleTones, {
+      const result = generateExport('Plum', PLUM_SCALE, {
         colorFormat: 'hex',
         formatType: 'scss',
       });
@@ -212,7 +178,7 @@ describe('utils/export', () => {
     });
 
     it('generates svg format', () => {
-      const result = generateExport('Plum', sampleTones, {
+      const result = generateExport('Plum', PLUM_SCALE, {
         colorFormat: 'hex',
         formatType: 'svg',
       });
@@ -222,7 +188,7 @@ describe('utils/export', () => {
     });
 
     it('returns empty string for unknown format type', () => {
-      const result = generateExport('Plum', sampleTones, {
+      const result = generateExport('Plum', PLUM_SCALE, {
         colorFormat: 'hex',
         formatType: 'unknown' as ExportFormatType,
       });
@@ -233,8 +199,8 @@ describe('utils/export', () => {
 
   describe('generatePaletteExport', () => {
     const samplePalette = [
-      { name: 'Primary', steps: sampleTones },
-      { name: 'Secondary', steps: { '50': '#f0f9ff', '500': '#0ea5e9', '900': '#0c4a6e' } },
+      { name: 'Primary', steps: PLUM_SCALE },
+      { name: 'Secondary', steps: SKY_SCALE },
     ];
 
     it('generates tailwind3 format for palette', () => {
@@ -376,14 +342,14 @@ describe('utils/export', () => {
 
   describe('wide gamut color handling', () => {
     it('preserves oklch values when exporting to oklch format', () => {
-      const result = generateTailwind3('Plum', oklchTones, 'oklch');
+      const result = generateTailwind3('Plum', PLUM_SCALE, 'oklch');
 
       // Should contain original oklch values (or normalized)
       expect(result).toContain('oklch(');
     });
 
     it('clamps to sRGB when exporting oklch tones to hex', () => {
-      const result = generateTailwind3('Plum', oklchTones, 'hex');
+      const result = generateTailwind3('Plum', PLUM_SCALE, 'hex');
 
       // Should contain hex values
       expect(result).toMatch(/'50': '#[\da-f]{6}'/i);

@@ -1,27 +1,31 @@
+import { BLUE, GRAY, GREEN, RED } from '~/test-fixtures';
 import {
   getChromaAsPercentage,
   getRandomColor,
   isInRangeOklch,
   isValidColorValue,
+  toOklch,
 } from '~/utils/color';
+
+import type { OklchString } from '~/types';
 
 describe('utils/color', () => {
   describe('getChromaAsPercentage', () => {
     it('returns 0 for achromatic colors', () => {
-      expect(getChromaAsPercentage('#808080')).toBe(0);
-      expect(getChromaAsPercentage('oklch(0.5 0 0)')).toBe(0);
+      expect(getChromaAsPercentage(GRAY)).toBe(0);
+      expect(getChromaAsPercentage('oklch(0.5 0 0)' as OklchString)).toBe(0);
     });
 
-    it('returns correct percentage for hex colors', () => {
-      expect(getChromaAsPercentage('#ff0000')).toBe(89.6);
-      expect(getChromaAsPercentage('#00ff00')).toBe(89.2);
-      expect(getChromaAsPercentage('#0000ff')).toBe(100);
+    it('returns correct percentage for primary colors', () => {
+      expect(getChromaAsPercentage(RED)).toBe(89.6);
+      expect(getChromaAsPercentage(GREEN)).toBe(89.2);
+      expect(getChromaAsPercentage(BLUE)).toBe(100);
     });
 
-    it('returns correct percentage for oklch colors', () => {
-      expect(getChromaAsPercentage('oklch(0.7 0.1 120)')).toBe(51.6);
-      expect(getChromaAsPercentage('oklch(0.6 0.15 30)')).toBe(55.8);
-      expect(getChromaAsPercentage('oklch(77.494% 0.18927 73.308)')).toBe(100);
+    it('returns correct percentage for arbitrary oklch values', () => {
+      expect(getChromaAsPercentage('oklch(0.7 0.1 120)' as OklchString)).toBe(51.6);
+      expect(getChromaAsPercentage('oklch(0.6 0.15 30)' as OklchString)).toBe(55.8);
+      expect(getChromaAsPercentage('oklch(77.494% 0.18927 73.308)' as OklchString)).toBe(100);
     });
   });
 
@@ -93,6 +97,28 @@ describe('utils/color', () => {
       expect(isValidColorValue('oklch(-10% 0.1 100)')).toBe(false);
       expect(isValidColorValue('oklch(50% 0.1 9999)')).toBe(false);
       expect(isValidColorValue('oklch(50% -0.1 100)')).toBe(false);
+    });
+  });
+
+  describe('toOklch', () => {
+    it('returns canonical OKLCH for hex input', () => {
+      expect(toOklch('#FF0044')).toBe('oklch(63.269% 0.25404 19.902)');
+    });
+
+    it('returns canonical OKLCH for oklch input', () => {
+      expect(toOklch('oklch(0.64 0.142 329)')).toBe('oklch(64% 0.142 329)');
+    });
+
+    it('throws on L > 100% (parser silent-pass case)', () => {
+      expect(() => toOklch('oklch(150% 0.1 100)')).toThrow(/out of OKLCH range/);
+    });
+
+    it('throws on negative L', () => {
+      expect(() => toOklch('oklch(-10% 0.1 100)')).toThrow();
+    });
+
+    it('throws on invalid CSS', () => {
+      expect(() => toOklch('garbage')).toThrow();
     });
   });
 });
