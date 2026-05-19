@@ -1,12 +1,14 @@
 import { create } from 'zustand';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
+import { detectInitialGamut } from '~/utils/gamut';
 
-import type { ExportColorFormat, ExportFormatType } from '~/types';
+import type { ExportColorFormat, ExportFormatType, Gamut } from '~/types';
 
 interface AppState {
   exportColorFormat: ExportColorFormat;
   exportFormatType: ExportFormatType;
+  gamut: Gamut;
   lastSavedUrl: string | null;
   loadedPaletteId: string | null;
   loadedPaletteName: string;
@@ -25,6 +27,7 @@ interface AppStateWithActions extends AppState {
   requestPreviewScroll: () => void;
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
+  setGamut: (gamut: Gamut) => void;
   setLoadedPalette: (id: string | null, name: string | null, url: string | null) => void;
   toggleBottomBar: () => void;
   toggleColorOptionsPanel: () => void;
@@ -35,6 +38,7 @@ interface AppStateWithActions extends AppState {
 export const initialState: AppState = {
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
+  gamut: detectInitialGamut(),
   lastSavedUrl: null,
   loadedPaletteId: null,
   loadedPaletteName: DEFAULT_PALETTE_NAME,
@@ -66,6 +70,8 @@ export const useAppStore = create<AppStateWithActions>(set => ({
   setExportColorFormat: (format): void => set({ exportColorFormat: format }),
 
   setExportFormatType: (format): void => set({ exportFormatType: format }),
+
+  setGamut: (gamut): void => set({ gamut }),
 
   setLoadedPalette: (id, name, url): void =>
     set({

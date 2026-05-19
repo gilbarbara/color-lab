@@ -33,7 +33,7 @@ function autoTheme(color: string, isAppDark: boolean): 'light' | 'dark' {
 export default function Preview() {
   const { isDarkMode } = useTheme();
   const { colors, previewColorId, setPreviewColor } = usePalette();
-  const { previewScrollNonce, showPreview, togglePreview } = useAppStore();
+  const { gamut, previewScrollNonce, showPreview, togglePreview } = useAppStore();
 
   const [{ themeOverrides }, setState] = useSetState<PreviewState>({
     themeOverrides: {},
@@ -82,7 +82,11 @@ export default function Preview() {
 
   const mode = themeOverrides[activeColor.id] ?? 'auto';
   const previewTheme = mode === 'auto' ? autoTheme(activeColor.value, isDarkMode) : mode;
-  const scope = buildPreviewScope(activeColor.value, previewTheme);
+  const scope = buildPreviewScope(
+    activeColor.value,
+    previewTheme,
+    gamut === 'p3' ? 'oklch' : 'hex',
+  );
 
   return (
     <section
@@ -119,6 +123,7 @@ export default function Preview() {
             <Header
               activeId={activeColor.id}
               colors={colors}
+              gamut={gamut}
               name={activeColor.name}
               onSelect={handleSelect}
               onThemeChange={next =>

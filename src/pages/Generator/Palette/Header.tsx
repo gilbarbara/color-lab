@@ -14,6 +14,7 @@ import ExportPalette from '~/components/ExportPalette';
 import SavePaletteModal from '~/components/SavePaletteModal';
 import Tooltip from '~/components/Tooltip';
 
+import GamutToggle from './GamutToggle';
 import Options from './Options';
 
 interface PaletteHeaderState {
@@ -140,6 +141,7 @@ export default function PaletteHeader() {
         />
 
         <div className="flex items-center gap-1 md:gap-2">
+          <GamutToggle />
           <Tooltip content="Palette Options" delay={250} placement="bottom">
             <Button
               aria-label="Palette Options"

@@ -93,6 +93,20 @@ describe('stores/appStore', () => {
     });
   });
 
+  describe('setGamut', () => {
+    it('updates gamut to p3', () => {
+      useAppStore.getState().setGamut('p3');
+
+      expect(useAppStore.getState().gamut).toBe('p3');
+    });
+
+    it('updates gamut to srgb', () => {
+      useAppStore.getState().setGamut('srgb');
+
+      expect(useAppStore.getState().gamut).toBe('srgb');
+    });
+  });
+
   describe('setExportFormatType', () => {
     it('updates exportFormatType to tailwind3', () => {
       useAppStore.getState().setExportFormatType('tailwind3');

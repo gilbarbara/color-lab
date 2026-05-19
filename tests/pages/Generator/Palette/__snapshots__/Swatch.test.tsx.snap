@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
+<div
+  class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
+  role="button"
+  style="background-color: oklch(0.63269 0.25404 19.902); color: rgb(255, 255, 255);"
+  tabindex="0"
+>
+  <p
+    class="text-base/4 lg:order-2"
+  >
+    500
+  </p>
+</div>
+`;
+
+exports[`Swatch > Render > renders hex background when gamut is srgb 1`] = `
+<div
+  class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
+  role="button"
+  style="background-color: rgb(255, 0, 68); color: rgb(255, 255, 255);"
+  tabindex="0"
+>
+  <p
+    class="text-base/4 lg:order-2"
+  >
+    500
+  </p>
+</div>
+`;
+
+exports[`Swatch > Render > renders with lock icon 1`] = `
+<div
+  class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
+  role="button"
+  style="background-color: oklch(0.63269 0.25404 19.902); color: rgb(255, 255, 255);"
+  tabindex="0"
+>
+  <p
+    class="text-base/4 lg:order-2"
+  >
+    500
+  </p>
+  <span
+    class="mb-auto lg:mt-2 md:order-1"
+  >
+    <svg
+      class="text-base"
+      fill="currentColor"
+      height="1em"
+      viewBox="0 0 256 256"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Z"
+      />
+    </svg>
+  </span>
+</div>
+`;

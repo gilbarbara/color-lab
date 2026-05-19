@@ -1,8 +1,9 @@
 import type { KeyboardEvent, ReactNode } from 'react';
 import { addToast, cn } from '@heroui/react';
 import { LockSimpleIcon } from '@phosphor-icons/react';
-import { readableColor } from 'colorizr';
+import { convertCSS, readableColor } from 'colorizr';
 
+import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 
 import Tooltip from '~/components/Tooltip';
@@ -16,14 +17,17 @@ interface SwatchProps {
 
 export default function Swatch(props: SwatchProps) {
   const { className, color, lock, step } = props;
+  const gamut = useAppStore(state => state.gamut);
+
+  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : color;
 
   const handleClick = () => {
     trackEvent('copy-swatch');
     navigator.clipboard
-      .writeText(color)
+      .writeText(displayColor)
       .then(() => {
         addToast({
-          description: `${color} copied`,
+          description: `${displayColor} copied`,
           color: 'foreground',
           variant: 'solid',
           timeout: 2500,
@@ -31,7 +35,7 @@ export default function Swatch(props: SwatchProps) {
       })
       .catch(() => {
         addToast({
-          description: `Failed to copy ${color} to your clipboard`,
+          description: `Failed to copy ${displayColor} to your clipboard`,
           color: 'danger',
           timeout: 2500,
         });
@@ -56,7 +60,7 @@ export default function Swatch(props: SwatchProps) {
   }
 
   return (
-    <Tooltip content={color} placement="bottom" size="lg">
+    <Tooltip content={displayColor} placement="bottom" size="lg">
       <div
         className={cn(
           'relative flex-1 min-w-9 lg:h-22',
@@ -67,7 +71,10 @@ export default function Swatch(props: SwatchProps) {
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         role="button"
-        style={{ backgroundColor: color, color: readableColor(color, 'apca') }}
+        style={{
+          backgroundColor: displayColor,
+          color: readableColor(displayColor, 'apca'),
+        }}
         tabIndex={0}
       >
         <p className="text-base/4 lg:order-2">{step}</p>
