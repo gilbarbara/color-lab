@@ -109,10 +109,12 @@ export default function ColorActions(props: ColorActionsProps) {
             <PopoverContent>
               <ScaleColorOptions
                 defaultOptions={globalOptions}
+                isChromatic
                 onReset={handleResetOptions}
                 onUpdate={handleUpdateOptions}
                 options={{ ...globalOptions, ...colorEntry.overrides }}
                 title={`Options for ${colorEntry.name}`}
+                useLightTheme={useLightTheme}
               />
             </PopoverContent>
           </Popover>
