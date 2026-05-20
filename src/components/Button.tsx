@@ -7,6 +7,11 @@ const Button = extendVariants(HeroUIButton, {
       size: 'xs',
       class: 'px-0 min-w-6 w-6',
     },
+    {
+      isIconOnly: true,
+      size: 'menu',
+      class: 'px-0 min-w-8 w-8',
+    },
   ],
   defaultVariants: {
     size: 'md',
@@ -18,6 +23,7 @@ const Button = extendVariants(HeroUIButton, {
     },
     size: {
       xs: 'px-2 min-w-12 h-6 text-tiny gap-1 rounded-small',
+      menu: 'px-2 min-w-16 h-8 text-small gap-2 rounded-medium',
     },
   },
 });

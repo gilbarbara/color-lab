@@ -1,10 +1,11 @@
 import { useBreakpoint, useSetState } from '@gilbarbara/hooks';
-import { Button, Divider, useDisclosure } from '@heroui/react';
+import { Divider, useDisclosure } from '@heroui/react';
 import { CircleHalfIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS, MODAL_BODY_PADDING, MODAL_GAP, MODAL_MIN_WIDTH } from '~/config/globals';
 import { trackEvent } from '~/utils/analytics';
 
+import Button from '~/components/Button';
 import type { ApcaThreshold, Guideline, WcagThreshold } from '~/components/ContrastGrid/constants';
 import Grid from '~/components/ContrastGrid/Grid';
 import Sidebar from '~/components/ContrastGrid/Sidebar';
@@ -55,16 +56,15 @@ export default function ContrastGrid(props: ContrastGridProps) {
       <Tooltip content="View Contrast Grid" placement="bottom-end">
         <Button
           aria-label="View Contrast Grid"
-          className="text-base"
           isIconOnly
           onPress={() => {
             trackEvent('open-contrast-grid');
             onOpen();
           }}
-          size="sm"
+          size="menu"
           variant="flat"
         >
-          <CircleHalfIcon weight="fill" />
+          <CircleHalfIcon className="text-lg" weight="fill" />
         </Button>
       </Tooltip>
 
