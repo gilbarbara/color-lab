@@ -4,7 +4,7 @@ exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
 <div
   class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
   role="button"
-  style="background-color: oklch(0.63269 0.25404 19.902); color: rgb(255, 255, 255);"
+  style="background-color: oklch(0.6327 0.254 19.9); color: rgb(255, 255, 255);"
   tabindex="0"
 >
   <p
@@ -34,7 +34,7 @@ exports[`Swatch > Render > renders with lock icon 1`] = `
 <div
   class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
   role="button"
-  style="background-color: oklch(0.63269 0.25404 19.902); color: rgb(255, 255, 255);"
+  style="background-color: oklch(0.6327 0.254 19.9); color: rgb(255, 255, 255);"
   tabindex="0"
 >
   <p

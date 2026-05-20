@@ -47,7 +47,7 @@ test.describe('Mobile', () => {
     });
 
     test('should encode palette state in URL', async () => {
-      await expect(page).toHaveURL(/Primary-73_0\.12745_321/);
+      await expect(page).toHaveURL(/Primary-73_0\.127_321/);
     });
 
     test('should display swatches', async () => {

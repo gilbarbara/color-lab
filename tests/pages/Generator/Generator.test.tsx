@@ -1,3 +1,4 @@
+import { CRIMSON } from '~/test-fixtures';
 import { render, screen } from '~/test-utils';
 
 import Generator from '~/pages/Generator';
@@ -10,7 +11,7 @@ vi.mock('~/utils/color', async importOriginal => {
 
   return {
     ...actual,
-    getRandomColor: () => 'oklch(63.269% 0.25404 19.902)',
+    getRandomColor: () => CRIMSON,
   };
 });
 

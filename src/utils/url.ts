@@ -1,8 +1,8 @@
 import { objectEntries, uuid } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/react';
-import { formatCSS, isHex, parseCSS, type ScaleVariant } from 'colorizr';
+import { isHex, type ScaleVariant } from 'colorizr';
 
-import { isInRangeOklch, toOklch } from '~/utils/color';
+import { formatOklch, formatOklchUrl, isInRangeOklch, toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 
 import type {
@@ -63,9 +63,7 @@ const VALID_VARIANTS = [
  */
 function colorValueToUrl(value: string): string {
   try {
-    const oklch = parseCSS(value, 'oklch');
-
-    return `${parseFloat((oklch.l * 100).toFixed(3))}_${parseFloat(oklch.c.toFixed(5))}_${parseFloat(oklch.h.toFixed(3))}`;
+    return formatOklchUrl(value);
   } catch (error_) {
     Sentry.captureException(error_, {
       tags: { source: 'url-parse', call: 'colorValueToUrl' },
@@ -194,6 +192,18 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
   return result;
 }
 
+function parseLock(value?: string): number | undefined {
+  if (!value) return undefined;
+
+  const numberValue = Number.parseInt(value, 10);
+
+  if (Number.isNaN(numberValue)) {
+    return undefined;
+  }
+
+  return numberValue;
+}
+
 function parseMode(raw: string): ScaleMode | undefined {
   const normalized = MODE_LONG[raw] ?? raw;
 
@@ -220,22 +230,13 @@ function parseOklchUrlValue(urlValue: string): OklchString | null {
 
   // Legacy URLs used 0-1 for lightness, new URLs use 0-100
   const l = rawL <= 1 ? rawL : rawL / 100;
+  const values = { l, c, h };
 
-  // Reject out-of-range OKLCH (colorizr accepts silently then throws in getP3MaxChroma)
-  if (!isInRangeOklch({ l, c, h }) || !Number.isFinite(h)) {
+  if (!isInRangeOklch(values) || !Number.isFinite(h)) {
     return null;
   }
 
-  try {
-    return formatCSS({ l, c, h }, { format: 'oklch' }) as OklchString;
-  } catch (error_) {
-    Sentry.captureException(error_, {
-      tags: { source: 'url-parse', call: 'urlToColorValue.oklch' },
-      extra: { urlValue },
-    });
-
-    return null;
-  }
+  return formatOklch(values) as OklchString;
 }
 
 /**
@@ -279,7 +280,7 @@ function parseOptions(optString: string): Partial<ScaleOptions> {
         break;
       }
       case 'lock': {
-        result.lock = value as never;
+        result.lock = parseLock(value);
 
         break;
       }

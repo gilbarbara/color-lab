@@ -3,6 +3,7 @@ import { cn } from '@heroui/react';
 import { convertCSS } from 'colorizr';
 
 import { useAppStore } from '~/stores/appStore';
+import { formatOklch } from '~/utils/color';
 
 type ColorBoxButtonProps = ColorBoxBaseProps &
   Omit<HTMLAttributes<HTMLButtonElement>, 'color'> & {
@@ -27,7 +28,7 @@ export default function ColorBox(props: ColorBoxProps) {
 
   const gamut = useAppStore(state => state.gamut);
 
-  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : color;
+  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : formatOklch(color);
 
   const sizes = {
     sm: 'size-8 rounded-small',

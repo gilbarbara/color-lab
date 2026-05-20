@@ -70,7 +70,7 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-k:500');
 
       expect(result).not.toBeNull();
-      expect(result!.state.colors[0].overrides).toEqual({ lock: '500' });
+      expect(result!.state.colors[0].overrides).toEqual({ lock: 500 });
     });
 
     it('parses variant option in per-color overrides', () => {
@@ -277,7 +277,7 @@ describe('utils/url', () => {
       expect(parsed!.state.colors[0].value).toBe('oklch(64% 0.142 329)');
       expect(parsed!.state.colors[0].overrides).toEqual({ maxLightness: 0.95 });
       expect(parsed!.state.colors[1].name).toBe('Color Two');
-      expect(parsed!.state.colors[1].value).toBe('oklch(70% 0.2 120)');
+      expect(parsed!.state.colors[1].value).toBe('oklch(70% 0.200 120)');
       expect(parsed!.state.globalOptions.lightnessCurve).toBe(1.8);
       expect(parsed!.state.globalOptions.mode).toBe('dark');
     });

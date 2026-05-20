@@ -1,5 +1,5 @@
 import { usePaletteStore } from '~/stores/paletteStore';
-import { CRIMSON, SKY_BLUE } from '~/test-fixtures';
+import { BLUE, CRIMSON } from '~/test-fixtures';
 import { mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
 import { createPalette } from '~/utils/palette';
@@ -21,7 +21,7 @@ function createTestPalette(): PaletteState {
 
   return {
     ...basePalette,
-    colors: [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', SKY_BLUE)],
+    colors: [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', BLUE)],
   };
 }
 

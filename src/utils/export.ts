@@ -1,4 +1,7 @@
+import { objectEntries } from '@gilbarbara/helpers';
 import { convertCSS, parseCSS } from 'colorizr';
+
+import { formatOklch } from '~/utils/color';
 
 import type {
   ExportColorFormat,
@@ -46,8 +49,8 @@ function generatePaletteSVG(palette: ScaleExportData[]): string {
       const textY = rowY + 14; // baseline offset for text
       const rectsY = rowY + textHeight;
 
-      const toneEntries = Object.entries(steps);
-      const rects = toneEntries
+      const stepEntries = objectEntries(steps);
+      const rects = stepEntries
         .map(([, color], colIndex) => {
           const hexColor = convertCSS(color, 'hex');
 
@@ -102,7 +105,7 @@ function normalizeColorName(name: string): string {
 export function formatColorValue(color: string, format: ExportColorFormat): string {
   switch (format) {
     case 'oklch': {
-      return convertCSS(color, 'oklch');
+      return formatOklch(color);
     }
     case 'hsl': {
       return convertCSS(color, 'hsl');
@@ -133,12 +136,12 @@ export function formatColorValue(color: string, format: ExportColorFormat): stri
  */
 export function generateCSS(
   name: string,
-  tones: ScaleSteps,
+  steps: ScaleSteps,
   colorFormat: ExportColorFormat,
 ): string {
   const normalizedName = normalizeColorName(name);
-  const lines = Object.entries(tones).map(
-    ([tone, color]) => `--${normalizedName}-${tone}: ${formatColorValue(color, colorFormat)};`,
+  const lines = objectEntries(steps).map(
+    ([step, color]) => `--${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
   );
 
   return lines.join('\n');
@@ -147,24 +150,24 @@ export function generateCSS(
 /**
  * Main entry point for generating export code.
  */
-export function generateExport(name: string, tones: ScaleSteps, options: ExportOptions): string {
+export function generateExport(name: string, steps: ScaleSteps, options: ExportOptions): string {
   const { colorFormat, formatType } = options;
 
   switch (formatType) {
     case 'tailwind3': {
-      return generateTailwind3(name, tones, colorFormat);
+      return generateTailwind3(name, steps, colorFormat);
     }
     case 'tailwind4': {
-      return generateTailwind4(name, tones, colorFormat);
+      return generateTailwind4(name, steps, colorFormat);
     }
     case 'css': {
-      return generateCSS(name, tones, colorFormat);
+      return generateCSS(name, steps, colorFormat);
     }
     case 'scss': {
-      return generateSCSS(name, tones, colorFormat);
+      return generateSCSS(name, steps, colorFormat);
     }
     case 'svg': {
-      return generateSVG(name, tones);
+      return generateSVG(name, steps);
     }
     default: {
       return '';
@@ -205,12 +208,12 @@ export function generatePaletteExport(palette: ScaleExportData[], options: Expor
  */
 export function generateSCSS(
   name: string,
-  tones: ScaleSteps,
+  steps: ScaleSteps,
   colorFormat: ExportColorFormat,
 ): string {
   const normalizedName = normalizeColorName(name);
-  const lines = Object.entries(tones).map(
-    ([tone, color]) => `$${normalizedName}-${tone}: ${formatColorValue(color, colorFormat)};`,
+  const lines = objectEntries(steps).map(
+    ([step, color]) => `$${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
   );
 
   return lines.join('\n');
@@ -218,15 +221,15 @@ export function generateSCSS(
 
 /**
  * Generate SVG format for Figma import.
- * Creates colored rectangles for each tone.
+ * Creates colored rectangles for each step.
  */
-export function generateSVG(name: string, tones: ScaleSteps): string {
-  const toneEntries = Object.entries(tones);
+export function generateSVG(name: string, steps: ScaleSteps): string {
+  const stepEntries = objectEntries(steps);
   const rectWidth = 100;
   const rectHeight = 100;
-  const totalWidth = toneEntries.length * rectWidth;
+  const totalWidth = stepEntries.length * rectWidth;
 
-  const rects = toneEntries
+  const rects = stepEntries
     .map(([, color], index) => {
       // SVG needs hex colors, so convert if needed
       const hexColor = convertCSS(color, 'hex');
@@ -243,12 +246,12 @@ export function generateSVG(name: string, tones: ScaleSteps): string {
  */
 export function generateTailwind3(
   name: string,
-  tones: ScaleSteps,
+  steps: ScaleSteps,
   colorFormat: ExportColorFormat,
 ): string {
   const normalizedName = normalizeColorName(name);
-  const lines = Object.entries(tones).map(
-    ([tone, color]) => `  '${tone}': '${formatColorValue(color, colorFormat)}',`,
+  const lines = objectEntries(steps).map(
+    ([step, color]) => `  '${step}': '${formatColorValue(color, colorFormat)}',`,
   );
 
   return `'${normalizedName}': {\n${lines.join('\n')}\n},`;
@@ -259,13 +262,13 @@ export function generateTailwind3(
  */
 export function generateTailwind4(
   name: string,
-  tones: ScaleSteps,
+  steps: ScaleSteps,
   colorFormat: ExportColorFormat,
 ): string {
   const normalizedName = normalizeColorName(name);
-  const lines = Object.entries(tones).map(
-    ([tone, color]) =>
-      `--color-${normalizedName}-${tone}: ${formatColorValue(color, colorFormat)};`,
+  const lines = objectEntries(steps).map(
+    ([step, color]) =>
+      `--color-${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
   );
 
   return lines.join('\n');

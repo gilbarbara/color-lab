@@ -1,6 +1,8 @@
 import { LockSimpleIcon, WarningIcon } from '@phosphor-icons/react';
 import { convertCSS, deltaE, readableColor } from 'colorizr';
 
+import { formatOklch } from '~/utils/color';
+
 import CopyText from '~/components/CopyText';
 import TooltipClickable from '~/components/TooltipClickable';
 
@@ -22,6 +24,8 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
   const delta = deltaE(color, hex);
   const gamutOpacity = Math.min(1, Math.max(GAMUT_DELTA_MIN_OPACITY, delta / GAMUT_DELTA_FULL));
 
+  const displayColor = formatOklch(color);
+
   return (
     <tr
       className={`border-t border-default-100 cursor-pointer scroll-mt-10 ${
@@ -39,16 +43,16 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
       </td>
       <td className="py-2 pr-3">
         <div className="flex items-center gap-2">
-          <ShadeBgChip shade={color} />
+          <ShadeBgChip shade={displayColor} />
           <CircleChip
             bg="#ffffff"
-            fg={color}
+            fg={displayColor}
             testid="ColorInfo-Chip-OnWhite"
             title="Shade on white"
           />
           <CircleChip
             bg="#000000"
-            fg={color}
+            fg={displayColor}
             testid="ColorInfo-Chip-OnBlack"
             title="Shade on black"
           />
@@ -61,8 +65,8 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
         >
           <span
             className="block size-9"
-            style={{ backgroundColor: color }}
-            title={`OKLCH · ${color}`}
+            style={{ backgroundColor: displayColor }}
+            title={`OKLCH · ${displayColor}`}
           />
           <span
             className="size-9 flex items-center justify-center text-white/40"
@@ -81,9 +85,10 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
       </td>
       <td className="py-2 pr-3 font-mono whitespace-nowrap">
         <div className="flex items-center gap-2 text-sm">
-          {color} <CopyText content="Copy OKLCH" label="Copy OKLCH" showToast value={color} />
+          {displayColor}{' '}
+          <CopyText content="Copy OKLCH" label="Copy OKLCH" showToast value={displayColor} />
         </div>
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-2 text-xs text-foreground-500">
           {hex} <CopyText content="Copy HEX" label="Copy HEX" showToast value={hex} />
         </div>
       </td>

@@ -1,20 +1,17 @@
 import { act, renderHook } from '@testing-library/react';
-import { formatCSS, parseCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import useUrlSync from '~/hooks/useUrlSync';
 import { useAppStore } from '~/stores/appStore';
 import { usePaletteStore } from '~/stores/paletteStore';
+import { CRIMSON } from '~/test-fixtures';
+import { toOklch } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
 
 async function flushObserver() {
   await act(async () => {
     await Promise.resolve();
   });
-}
-
-function hexToOklch(hex: string): string {
-  return formatCSS(parseCSS(hex, 'oklch'), { format: 'oklch' });
 }
 
 const mockNavigate = vi.fn();
@@ -73,9 +70,9 @@ describe('hooks/useUrlSync', () => {
 
       expect(state.colors).toHaveLength(2);
       expect(state.colors[0].name).toBe('Primary');
-      expect(state.colors[0].value).toBe(hexToOklch('#FF0044'));
+      expect(state.colors[0].value).toBe(CRIMSON);
       expect(state.colors[1].name).toBe('Secondary');
-      expect(state.colors[1].value).toBe(hexToOklch('#00FF00'));
+      expect(state.colors[1].value).toBe('oklch(86.64% 0.295 142.5)');
     });
 
     it('parses global options from query params', () => {
@@ -125,8 +122,8 @@ describe('hooks/useUrlSync', () => {
     it('preserves existing color ids when URL parse triggers state update', () => {
       usePaletteStore.setState({
         colors: [
-          { id: 'fixed-id-1', name: 'Primary', value: hexToOklch('#FF0044') },
-          { id: 'fixed-id-2', name: 'Secondary', value: hexToOklch('#00FF00') },
+          { id: 'fixed-id-1', name: 'Primary', value: toOklch('#FF0044') },
+          { id: 'fixed-id-2', name: 'Secondary', value: toOklch('#00FF00') },
         ],
         activeColorId: 'fixed-id-1',
       });
@@ -175,7 +172,7 @@ describe('hooks/useUrlSync', () => {
       mockNavigate.mockClear();
 
       act(() => {
-        result.current.addColor('oklch(0.7 0.15 180)');
+        result.current.addColor(toOklch('oklch(0.7 0.15 180)'));
       });
 
       expect(mockNavigate).toHaveBeenCalledWith(

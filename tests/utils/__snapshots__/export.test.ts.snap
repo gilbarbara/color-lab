@@ -1,134 +1,134 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`utils/export > generateCSS > generates CSS custom properties 1`] = `
-"--plum-50: #ffeefe;
---plum-100: #ffe0fd;
---plum-200: #ffc5fb;
---plum-300: #ff9dfa;
---plum-400: #fe80e9;
---plum-500: #e367cf;
---plum-600: #c54bb3;
---plum-700: #a62b96;
---plum-800: #850077;
---plum-900: #590050;
---plum-950: #2d0028;"
+"--plum-50: #f7f3ff;
+--plum-100: #f0e8ff;
+--plum-200: #e4d6ff;
+--plum-300: #d5bdff;
+--plum-400: #c59fff;
+--plum-500: #b27bff;
+--plum-600: #9860e6;
+--plum-700: #7c42c6;
+--plum-800: #601ea4;
+--plum-900: #420079;
+--plum-950: #20003f;"
 `;
 
 exports[`utils/export > generateCSS > generates rgb-channels format 1`] = `
-"--plum-50: 255 238 254;
---plum-100: 255 224 253;
---plum-200: 255 197 251;
---plum-300: 255 157 250;
---plum-400: 254 128 233;
---plum-500: 227 103 207;
---plum-600: 197 75 179;
---plum-700: 166 43 150;
---plum-800: 133 0 119;
---plum-900: 89 0 80;
---plum-950: 45 0 40;"
+"--plum-50: 247 243 255;
+--plum-100: 240 232 255;
+--plum-200: 228 214 255;
+--plum-300: 213 189 255;
+--plum-400: 197 159 255;
+--plum-500: 178 123 255;
+--plum-600: 152 96 230;
+--plum-700: 124 66 198;
+--plum-800: 96 30 164;
+--plum-900: 66 0 121;
+--plum-950: 32 0 63;"
 `;
 
 exports[`utils/export > generateSCSS > generates SCSS variables 1`] = `
-"$plum-50: #ffeefe;
-$plum-100: #ffe0fd;
-$plum-200: #ffc5fb;
-$plum-300: #ff9dfa;
-$plum-400: #fe80e9;
-$plum-500: #e367cf;
-$plum-600: #c54bb3;
-$plum-700: #a62b96;
-$plum-800: #850077;
-$plum-900: #590050;
-$plum-950: #2d0028;"
+"$plum-50: #f7f3ff;
+$plum-100: #f0e8ff;
+$plum-200: #e4d6ff;
+$plum-300: #d5bdff;
+$plum-400: #c59fff;
+$plum-500: #b27bff;
+$plum-600: #9860e6;
+$plum-700: #7c42c6;
+$plum-800: #601ea4;
+$plum-900: #420079;
+$plum-950: #20003f;"
 `;
 
 exports[`utils/export > generateSCSS > generates rgb-channels format 1`] = `
-"$plum-50: 255 238 254;
-$plum-100: 255 224 253;
-$plum-200: 255 197 251;
-$plum-300: 255 157 250;
-$plum-400: 254 128 233;
-$plum-500: 227 103 207;
-$plum-600: 197 75 179;
-$plum-700: 166 43 150;
-$plum-800: 133 0 119;
-$plum-900: 89 0 80;
-$plum-950: 45 0 40;"
+"$plum-50: 247 243 255;
+$plum-100: 240 232 255;
+$plum-200: 228 214 255;
+$plum-300: 213 189 255;
+$plum-400: 197 159 255;
+$plum-500: 178 123 255;
+$plum-600: 152 96 230;
+$plum-700: 124 66 198;
+$plum-800: 96 30 164;
+$plum-900: 66 0 121;
+$plum-950: 32 0 63;"
 `;
 
 exports[`utils/export > generateSVG > generates SVG with colored rectangles 1`] = `
 "<svg width="1100" height="100" viewBox="0 0 1100 100">
   <title>Plum</title>
-  <rect width="100" height="100" fill="#ffeefe" x="0" y="0"/>
-  <rect width="100" height="100" fill="#ffe0fd" x="100" y="0"/>
-  <rect width="100" height="100" fill="#ffc5fb" x="200" y="0"/>
-  <rect width="100" height="100" fill="#ff9dfa" x="300" y="0"/>
-  <rect width="100" height="100" fill="#fe80e9" x="400" y="0"/>
-  <rect width="100" height="100" fill="#e367cf" x="500" y="0"/>
-  <rect width="100" height="100" fill="#c54bb3" x="600" y="0"/>
-  <rect width="100" height="100" fill="#a62b96" x="700" y="0"/>
-  <rect width="100" height="100" fill="#850077" x="800" y="0"/>
-  <rect width="100" height="100" fill="#590050" x="900" y="0"/>
-  <rect width="100" height="100" fill="#2d0028" x="1000" y="0"/>
+  <rect width="100" height="100" fill="#f7f3ff" x="0" y="0"/>
+  <rect width="100" height="100" fill="#f0e8ff" x="100" y="0"/>
+  <rect width="100" height="100" fill="#e4d6ff" x="200" y="0"/>
+  <rect width="100" height="100" fill="#d5bdff" x="300" y="0"/>
+  <rect width="100" height="100" fill="#c59fff" x="400" y="0"/>
+  <rect width="100" height="100" fill="#b27bff" x="500" y="0"/>
+  <rect width="100" height="100" fill="#9860e6" x="600" y="0"/>
+  <rect width="100" height="100" fill="#7c42c6" x="700" y="0"/>
+  <rect width="100" height="100" fill="#601ea4" x="800" y="0"/>
+  <rect width="100" height="100" fill="#420079" x="900" y="0"/>
+  <rect width="100" height="100" fill="#20003f" x="1000" y="0"/>
 </svg>"
 `;
 
 exports[`utils/export > generateTailwind3 > generates JS object format with hex values 1`] = `
 "'plum': {
-  '50': '#ffeefe',
-  '100': '#ffe0fd',
-  '200': '#ffc5fb',
-  '300': '#ff9dfa',
-  '400': '#fe80e9',
-  '500': '#e367cf',
-  '600': '#c54bb3',
-  '700': '#a62b96',
-  '800': '#850077',
-  '900': '#590050',
-  '950': '#2d0028',
+  '50': '#f7f3ff',
+  '100': '#f0e8ff',
+  '200': '#e4d6ff',
+  '300': '#d5bdff',
+  '400': '#c59fff',
+  '500': '#b27bff',
+  '600': '#9860e6',
+  '700': '#7c42c6',
+  '800': '#601ea4',
+  '900': '#420079',
+  '950': '#20003f',
 },"
 `;
 
 exports[`utils/export > generateTailwind3 > generates JS object format with oklch values 1`] = `
 "'plum': {
-  '50': 'oklch(97% 0.02982 333.92)',
-  '100': 'oklch(94.565% 0.05511 333.92)',
-  '200': 'oklch(90.113% 0.10411 333.92)',
-  '300': 'oklch(84.348% 0.17357 333.92)',
-  '400': 'oklch(77.52% 0.1953 333.92)',
-  '500': 'oklch(69.776% 0.1953 333.92)',
-  '600': 'oklch(61.214% 0.1953 333.92)',
-  '700': 'oklch(51.904% 0.1953 333.92)',
-  '800': 'oklch(41.903% 0.1953 333.92)',
-  '900': 'oklch(31.256% 0.15391 333.92)',
-  '950': 'oklch(20% 0.09849 333.92)',
+  '50': 'oklch(97% 0.018 300)',
+  '100': 'oklch(94.57% 0.034 300)',
+  '200': 'oklch(90.11% 0.062 300)',
+  '300': 'oklch(84.35% 0.100 300)',
+  '400': 'oklch(77.52% 0.148 300)',
+  '500': 'oklch(69.78% 0.196 300)',
+  '600': 'oklch(61.21% 0.196 300)',
+  '700': 'oklch(51.9% 0.196 300)',
+  '800': 'oklch(41.9% 0.196 300)',
+  '900': 'oklch(31.26% 0.174 300)',
+  '950': 'oklch(20% 0.111 300)',
 },"
 `;
 
 exports[`utils/export > generateTailwind4 > generates CSS custom properties with --color- prefix 1`] = `
-"--color-plum-50: #ffeefe;
---color-plum-100: #ffe0fd;
---color-plum-200: #ffc5fb;
---color-plum-300: #ff9dfa;
---color-plum-400: #fe80e9;
---color-plum-500: #e367cf;
---color-plum-600: #c54bb3;
---color-plum-700: #a62b96;
---color-plum-800: #850077;
---color-plum-900: #590050;
---color-plum-950: #2d0028;"
+"--color-plum-50: #f7f3ff;
+--color-plum-100: #f0e8ff;
+--color-plum-200: #e4d6ff;
+--color-plum-300: #d5bdff;
+--color-plum-400: #c59fff;
+--color-plum-500: #b27bff;
+--color-plum-600: #9860e6;
+--color-plum-700: #7c42c6;
+--color-plum-800: #601ea4;
+--color-plum-900: #420079;
+--color-plum-950: #20003f;"
 `;
 
 exports[`utils/export > generateTailwind4 > generates oklch values when specified 1`] = `
-"--color-plum-50: oklch(97% 0.02982 333.92);
---color-plum-100: oklch(94.565% 0.05511 333.92);
---color-plum-200: oklch(90.113% 0.10411 333.92);
---color-plum-300: oklch(84.348% 0.17357 333.92);
---color-plum-400: oklch(77.52% 0.1953 333.92);
---color-plum-500: oklch(69.776% 0.1953 333.92);
---color-plum-600: oklch(61.214% 0.1953 333.92);
---color-plum-700: oklch(51.904% 0.1953 333.92);
---color-plum-800: oklch(41.903% 0.1953 333.92);
---color-plum-900: oklch(31.256% 0.15391 333.92);
---color-plum-950: oklch(20% 0.09849 333.92);"
+"--color-plum-50: oklch(97% 0.018 300);
+--color-plum-100: oklch(94.57% 0.034 300);
+--color-plum-200: oklch(90.11% 0.062 300);
+--color-plum-300: oklch(84.35% 0.100 300);
+--color-plum-400: oklch(77.52% 0.148 300);
+--color-plum-500: oklch(69.78% 0.196 300);
+--color-plum-600: oklch(61.21% 0.196 300);
+--color-plum-700: oklch(51.9% 0.196 300);
+--color-plum-800: oklch(41.9% 0.196 300);
+--color-plum-900: oklch(31.26% 0.174 300);
+--color-plum-950: oklch(20% 0.111 300);"
 `;

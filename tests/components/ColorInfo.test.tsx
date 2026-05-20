@@ -1,5 +1,6 @@
 import { convertCSS, scale } from 'colorizr';
 
+import { VIOLET } from '~/test-fixtures';
 import { mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
 import { toOklch } from '~/utils/color';
@@ -19,7 +20,7 @@ Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
 const colorEntry: ColorEntry = {
   id: 'c1',
   name: 'Primary',
-  value: toOklch('oklch(69.776% 0.17313 276.66)'),
+  value: toOklch(VIOLET),
 };
 
 const options: ScaleOptions = { lock: 500 };
@@ -91,9 +92,9 @@ describe('ColorInfo', () => {
       const definition = screen.getByTestId('ColorInfo-Definition');
 
       expect(within(definition).getByText('Lightness')).toBeInTheDocument();
-      expect(within(definition).getByText('0.698')).toBeInTheDocument();
-      expect(within(definition).getByText('0.173')).toBeInTheDocument();
-      expect(within(definition).getByText('276.7°')).toBeInTheDocument();
+      expect(within(definition).getByText('0.702')).toBeInTheDocument();
+      expect(within(definition).getByText('0.163')).toBeInTheDocument();
+      expect(within(definition).getByText('270°')).toBeInTheDocument();
     });
 
     it('clicking a chart bar updates selection and definition', async () => {
@@ -106,8 +107,8 @@ describe('ColorInfo', () => {
 
       const definition = screen.getByTestId('ColorInfo-Definition');
 
-      expect(within(definition).getByText('0.901')).toBeInTheDocument();
-      expect(within(definition).getByText('0.053')).toBeInTheDocument();
+      expect(within(definition).getByText('0.902')).toBeInTheDocument();
+      expect(within(definition).getByText('0.052')).toBeInTheDocument();
     });
 
     it('clicking a table row updates chart selection', async () => {
@@ -119,7 +120,7 @@ describe('ColorInfo', () => {
 
       const definition = screen.getByTestId('ColorInfo-Definition');
 
-      expect(within(definition).getByText('0.466')).toBeInTheDocument();
+      expect(within(definition).getByText('0.469')).toBeInTheDocument();
     });
 
     it('scrolls selected row into view when selection changes', async () => {

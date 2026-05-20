@@ -254,91 +254,91 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
             style="grid-template-columns: repeat(11, minmax(0, 32px)); height: 192px;"
           >
             <button
-              aria-label="Step 50, chroma 0.016"
+              aria-label="Step 50, chroma 0.015"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.97 0.0157 276.66);"
+              style="background-color: oklch(0.97 0.0155 270);"
               type="button"
             />
             <button
-              aria-label="Step 100, chroma 0.029"
+              aria-label="Step 100, chroma 0.028"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.94565 0.02867 276.66);"
+              style="background-color: oklch(0.94603 0.02811 270);"
               type="button"
             />
             <button
-              aria-label="Step 200, chroma 0.053"
+              aria-label="Step 200, chroma 0.052"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.90113 0.05294 276.66);"
+              style="background-color: oklch(0.9022 0.05169 270);"
               type="button"
             />
             <button
-              aria-label="Step 300, chroma 0.085"
+              aria-label="Step 300, chroma 0.083"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.84347 0.08545 276.66);"
+              style="background-color: oklch(0.84544 0.08324 270);"
               type="button"
             />
             <button
-              aria-label="Step 400, chroma 0.126"
+              aria-label="Step 400, chroma 0.122"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.7752 0.12555 276.66);"
+              style="background-color: oklch(0.77823 0.12212 270);"
               type="button"
             />
             <button
-              aria-label="Step 500, chroma 0.173"
+              aria-label="Step 500, chroma 0.163"
               aria-pressed="true"
               class="w-full rounded-t-sm transition-opacity cursor-pointer ring-1 ring-current/50"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.69776 0.17313 276.66);"
+              style="background-color: oklch(0.702 0.163 270);"
               type="button"
             />
             <button
-              aria-label="Step 600, chroma 0.173"
+              aria-label="Step 600, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.65324 0.17313 276.66);"
+              style="background-color: oklch(0.6571 0.163 270);"
               type="button"
             />
             <button
-              aria-label="Step 700, chroma 0.173"
+              aria-label="Step 700, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.57184 0.17313 276.66);"
+              style="background-color: oklch(0.575 0.163 270);"
               type="button"
             />
             <button
-              aria-label="Step 800, chroma 0.173"
+              aria-label="Step 800, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.46642 0.17313 276.66);"
+              style="background-color: oklch(0.46869 0.163 270);"
               type="button"
             />
             <button
-              aria-label="Step 900, chroma 0.173"
+              aria-label="Step 900, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.34159 0.17313 276.66);"
+              style="background-color: oklch(0.3428 0.163 270);"
               type="button"
             />
             <button
-              aria-label="Step 950, chroma 0.125"
+              aria-label="Step 950, chroma 0.132"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
               data-testid="ColorInfo-ChromaChart-Bar"
-              style="background-color: oklch(0.2 0.12538 276.66);"
+              style="background-color: oklch(0.2 0.13168 270);"
               type="button"
             />
           </div>
@@ -419,7 +419,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
             >
               <span
                 class="w-4 h-4 rounded-sm"
-                style="background-color: oklch(0.69776 0.17313 276.66);"
+                style="background-color: oklch(0.702 0.163 270);"
               />
               <span
                 class="tabular-nums"
@@ -442,7 +442,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               <dd
                 class="text-sm font-mono tabular-nums"
               >
-                0.698
+                0.702
               </dd>
             </div>
             <div
@@ -456,7 +456,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               <dd
                 class="text-sm font-mono tabular-nums"
               >
-                0.173
+                0.163
               </dd>
             </div>
             <div
@@ -470,7 +470,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               <dd
                 class="text-sm font-mono tabular-nums"
               >
-                276.7°
+                270°
               </dd>
             </div>
           </dl>
@@ -542,7 +542,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Dark text Lc 100, light text Lc 0"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.97 0.0157 276.66);"
+                      style="background-color: oklch(0.97 0.015 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -561,7 +561,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on white Lc 0"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.97 0.0157 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.97 0.015 270);"
                     >
                       0
                     </span>
@@ -569,7 +569,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on black Lc 101"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.97 0.0157 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.97 0.015 270);"
                     >
                       101
                     </span>
@@ -584,13 +584,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.97 0.0157 276.66);"
-                      title="OKLCH · oklch(97% 0.0157 276.66)"
+                      style="background-color: oklch(0.97 0.015 270);"
+                      title="OKLCH · oklch(97% 0.015 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(242, 244, 255);"
-                      title="Hex · #f2f4ff"
+                      style="background-color: rgb(241, 245, 255);"
+                      title="Hex · #f1f5ff"
                     >
                       <button
                         aria-expanded="false"
@@ -620,7 +620,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(97% 0.0157 276.66)
+                    oklch(97% 0.015 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -642,9 +642,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #f2f4ff
+                    #f1f5ff
                      
                     <button
                       aria-label="Copy HEX"
@@ -691,7 +691,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Dark text Lc 95, light text Lc 10"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.94565 0.02867 276.66);"
+                      style="background-color: oklch(0.946 0.028 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -710,7 +710,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on white Lc 8"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.94565 0.02867 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.946 0.028 270);"
                     >
                       8
                     </span>
@@ -718,7 +718,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on black Lc 96"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.94565 0.02867 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.946 0.028 270);"
                     >
                       96
                     </span>
@@ -733,13 +733,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.94565 0.02867 276.66);"
-                      title="OKLCH · oklch(94.565% 0.02867 276.66)"
+                      style="background-color: oklch(0.946 0.028 270);"
+                      title="OKLCH · oklch(94.6% 0.028 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(232, 236, 255);"
-                      title="Hex · #e8ecff"
+                      style="background-color: rgb(230, 237, 255);"
+                      title="Hex · #e6edff"
                     >
                       <button
                         aria-expanded="false"
@@ -769,7 +769,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(94.565% 0.02867 276.66)
+                    oklch(94.6% 0.028 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -791,9 +791,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #e8ecff
+                    #e6edff
                      
                     <button
                       aria-label="Copy HEX"
@@ -837,39 +837,39 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 86, light text Lc 20"
+                      aria-label="Dark text Lc 87, light text Lc 19"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.90113 0.05294 276.66);"
+                      style="background-color: oklch(0.9022 0.052 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(0, 0, 0);"
                       >
-                        86
+                        87
                       </span>
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(255, 255, 255);"
                       >
-                        20
+                        19
                       </span>
                     </div>
                     <span
                       aria-label="Shade on white Lc 17"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.90113 0.05294 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.9022 0.052 270);"
                     >
                       17
                     </span>
                     <span
-                      aria-label="Shade on black Lc 86"
+                      aria-label="Shade on black Lc 87"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.90113 0.05294 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.9022 0.052 270);"
                     >
-                      86
+                      87
                     </span>
                   </div>
                 </td>
@@ -882,13 +882,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.90113 0.05294 276.66);"
-                      title="OKLCH · oklch(90.113% 0.05294 276.66)"
+                      style="background-color: oklch(0.9022 0.052 270);"
+                      title="OKLCH · oklch(90.22% 0.052 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(213, 220, 255);"
-                      title="Hex · #d5dcff"
+                      style="background-color: rgb(209, 222, 255);"
+                      title="Hex · #d1deff"
                     >
                       <button
                         aria-expanded="false"
@@ -918,7 +918,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(90.113% 0.05294 276.66)
+                    oklch(90.22% 0.052 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -940,9 +940,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #d5dcff
+                    #d1deff
                      
                     <button
                       aria-label="Copy HEX"
@@ -986,16 +986,16 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 75, light text Lc 32"
+                      aria-label="Dark text Lc 76, light text Lc 32"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.84347 0.08545 276.66);"
+                      style="background-color: oklch(0.8454 0.083 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(0, 0, 0);"
                       >
-                        75
+                        76
                       </span>
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -1005,20 +1005,20 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       </span>
                     </div>
                     <span
-                      aria-label="Shade on white Lc 29"
+                      aria-label="Shade on white Lc 28"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.84347 0.08545 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.8454 0.083 270);"
                     >
-                      29
+                      28
                     </span>
                     <span
-                      aria-label="Shade on black Lc 74"
+                      aria-label="Shade on black Lc 75"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.84347 0.08545 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.8454 0.083 270);"
                     >
-                      74
+                      75
                     </span>
                   </div>
                 </td>
@@ -1031,13 +1031,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.84347 0.08545 276.66);"
-                      title="OKLCH · oklch(84.347% 0.08545 276.66)"
+                      style="background-color: oklch(0.8454 0.083 270);"
+                      title="OKLCH · oklch(84.54% 0.083 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(189, 199, 255);"
-                      title="Hex · #bdc7ff"
+                      style="background-color: rgb(183, 202, 255);"
+                      title="Hex · #b7caff"
                     >
                       <button
                         aria-expanded="false"
@@ -1048,7 +1048,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                         <svg
                           fill="#000000"
                           height="1em"
-                          style="opacity: 0.16674999999999998;"
+                          style="opacity: 0.16275;"
                           viewBox="0 0 256 256"
                           width="1em"
                           xmlns="http://www.w3.org/2000/svg"
@@ -1067,7 +1067,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(84.347% 0.08545 276.66)
+                    oklch(84.54% 0.083 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1089,9 +1089,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #bdc7ff
+                    #b7caff
                      
                     <button
                       aria-label="Copy HEX"
@@ -1135,39 +1135,39 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 63, light text Lc 46"
+                      aria-label="Dark text Lc 64, light text Lc 44"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.7752 0.12555 276.66);"
+                      style="background-color: oklch(0.7782 0.122 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(0, 0, 0);"
                       >
-                        63
+                        64
                       </span>
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(255, 255, 255);"
                       >
-                        46
+                        44
                       </span>
                     </div>
                     <span
-                      aria-label="Shade on white Lc 41"
+                      aria-label="Shade on white Lc 40"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.7752 0.12555 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.7782 0.122 270);"
                     >
-                      41
+                      40
                     </span>
                     <span
-                      aria-label="Shade on black Lc 61"
+                      aria-label="Shade on black Lc 62"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.7752 0.12555 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.7782 0.122 270);"
                     >
-                      61
+                      62
                     </span>
                   </div>
                 </td>
@@ -1180,13 +1180,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.7752 0.12555 276.66);"
-                      title="OKLCH · oklch(77.52% 0.12555 276.66)"
+                      style="background-color: oklch(0.7782 0.122 270);"
+                      title="OKLCH · oklch(77.82% 0.122 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(161, 174, 255);"
-                      title="Hex · #a1aeff"
+                      style="background-color: rgb(152, 179, 255);"
+                      title="Hex · #98b3ff"
                     >
                       <button
                         aria-expanded="false"
@@ -1197,7 +1197,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                         <svg
                           fill="#000000"
                           height="1em"
-                          style="opacity: 0.23349999999999999;"
+                          style="opacity: 0.2385;"
                           viewBox="0 0 256 256"
                           width="1em"
                           xmlns="http://www.w3.org/2000/svg"
@@ -1216,7 +1216,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(77.52% 0.12555 276.66)
+                    oklch(77.82% 0.122 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1238,9 +1238,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #a1aeff
+                    #98b3ff
                      
                     <button
                       aria-label="Copy HEX"
@@ -1296,39 +1296,39 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 50, light text Lc 59"
+                      aria-label="Dark text Lc 51, light text Lc 58"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.69776 0.17313 276.66);"
+                      style="background-color: oklch(0.702 0.163 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(0, 0, 0);"
                       >
-                        50
+                        51
                       </span>
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(255, 255, 255);"
                       >
-                        59
+                        58
                       </span>
                     </div>
                     <span
-                      aria-label="Shade on white Lc 54"
+                      aria-label="Shade on white Lc 53"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.69776 0.17313 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.702 0.163 270);"
                     >
-                      54
+                      53
                     </span>
                     <span
-                      aria-label="Shade on black Lc 48"
+                      aria-label="Shade on black Lc 49"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.69776 0.17313 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.702 0.163 270);"
                     >
-                      48
+                      49
                     </span>
                   </div>
                 </td>
@@ -1341,13 +1341,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.69776 0.17313 276.66);"
-                      title="OKLCH · oklch(69.776% 0.17313 276.66)"
+                      style="background-color: oklch(0.702 0.163 270);"
+                      title="OKLCH · oklch(70.2% 0.163 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(132, 144, 255);"
-                      title="Hex · #8490ff"
+                      style="background-color: rgb(120, 151, 255);"
+                      title="Hex · #7897ff"
                     >
                       <button
                         aria-expanded="false"
@@ -1358,7 +1358,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                         <svg
                           fill="#ffffff"
                           height="1em"
-                          style="opacity: 0.295;"
+                          style="opacity: 0.1765;"
                           viewBox="0 0 256 256"
                           width="1em"
                           xmlns="http://www.w3.org/2000/svg"
@@ -1377,7 +1377,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(69.776% 0.17313 276.66)
+                    oklch(70.2% 0.163 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1399,9 +1399,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #8490ff
+                    #7897ff
                      
                     <button
                       aria-label="Copy HEX"
@@ -1445,10 +1445,10 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 44, light text Lc 66"
+                      aria-label="Dark text Lc 44, light text Lc 65"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.65324 0.17313 276.66);"
+                      style="background-color: oklch(0.6571 0.163 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -1460,24 +1460,24 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(255, 255, 255);"
                       >
-                        66
+                        65
                       </span>
                     </div>
                     <span
                       aria-label="Shade on white Lc 60"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.65324 0.17313 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.6571 0.163 270);"
                     >
                       60
                     </span>
                     <span
-                      aria-label="Shade on black Lc 41"
+                      aria-label="Shade on black Lc 42"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.65324 0.17313 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.6571 0.163 270);"
                     >
-                      41
+                      42
                     </span>
                   </div>
                 </td>
@@ -1490,13 +1490,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.65324 0.17313 276.66);"
-                      title="OKLCH · oklch(65.324% 0.17313 276.66)"
+                      style="background-color: oklch(0.6571 0.163 270);"
+                      title="OKLCH · oklch(65.71% 0.163 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(119, 130, 247);"
-                      title="Hex · #7782f7"
+                      style="background-color: rgb(107, 136, 244);"
+                      title="Hex · #6b88f4"
                     >
                       <button
                         aria-expanded="false"
@@ -1526,7 +1526,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(65.324% 0.17313 276.66)
+                    oklch(65.71% 0.163 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1548,9 +1548,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #7782f7
+                    #6b88f4
                      
                     <button
                       aria-label="Copy HEX"
@@ -1594,16 +1594,16 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 32, light text Lc 77"
+                      aria-label="Dark text Lc 33, light text Lc 77"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.57184 0.17313 276.66);"
+                      style="background-color: oklch(0.575 0.163 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(0, 0, 0);"
                       >
-                        32
+                        33
                       </span>
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -1613,20 +1613,20 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       </span>
                     </div>
                     <span
-                      aria-label="Shade on white Lc 72"
+                      aria-label="Shade on white Lc 71"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.57184 0.17313 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.575 0.163 270);"
                     >
-                      72
+                      71
                     </span>
                     <span
-                      aria-label="Shade on black Lc 30"
+                      aria-label="Shade on black Lc 31"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.57184 0.17313 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.575 0.163 270);"
                     >
-                      30
+                      31
                     </span>
                   </div>
                 </td>
@@ -1639,13 +1639,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.57184 0.17313 276.66);"
-                      title="OKLCH · oklch(57.184% 0.17313 276.66)"
+                      style="background-color: oklch(0.575 0.163 270);"
+                      title="OKLCH · oklch(57.5% 0.163 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(97, 104, 219);"
-                      title="Hex · #6168db"
+                      style="background-color: rgb(84, 111, 216);"
+                      title="Hex · #546fd8"
                     >
                       <button
                         aria-expanded="false"
@@ -1675,7 +1675,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(57.184% 0.17313 276.66)
+                    oklch(57.5% 0.163 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1697,9 +1697,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #6168db
+                    #546fd8
                      
                     <button
                       aria-label="Copy HEX"
@@ -1743,29 +1743,29 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 19, light text Lc 90"
+                      aria-label="Dark text Lc 20, light text Lc 89"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.46642 0.17313 276.66);"
+                      style="background-color: oklch(0.4687 0.163 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(0, 0, 0);"
                       >
-                        19
+                        20
                       </span>
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(255, 255, 255);"
                       >
-                        90
+                        89
                       </span>
                     </div>
                     <span
                       aria-label="Shade on white Lc 85"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.46642 0.17313 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.4687 0.163 270);"
                     >
                       85
                     </span>
@@ -1773,7 +1773,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on black Lc 17"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.46642 0.17313 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.4687 0.163 270);"
                     >
                       17
                     </span>
@@ -1788,13 +1788,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.46642 0.17313 276.66);"
-                      title="OKLCH · oklch(46.642% 0.17313 276.66)"
+                      style="background-color: oklch(0.4687 0.163 270);"
+                      title="OKLCH · oklch(46.87% 0.163 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(70, 71, 184);"
-                      title="Hex · #4647b8"
+                      style="background-color: rgb(57, 78, 180);"
+                      title="Hex · #394eb4"
                     >
                       <button
                         aria-expanded="false"
@@ -1824,7 +1824,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(46.642% 0.17313 276.66)
+                    oklch(46.87% 0.163 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1846,9 +1846,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #4647b8
+                    #394eb4
                      
                     <button
                       aria-label="Copy HEX"
@@ -1895,7 +1895,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Dark text Lc 0, light text Lc 101"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.34159 0.17313 276.66);"
+                      style="background-color: oklch(0.3428 0.163 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -1914,7 +1914,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on white Lc 97"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.34159 0.17313 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.3428 0.163 270);"
                     >
                       97
                     </span>
@@ -1922,7 +1922,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on black Lc 0"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.34159 0.17313 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.3428 0.163 270);"
                     >
                       0
                     </span>
@@ -1937,13 +1937,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.34159 0.17313 276.66);"
-                      title="OKLCH · oklch(34.159% 0.17313 276.66)"
+                      style="background-color: oklch(0.3428 0.163 270);"
+                      title="OKLCH · oklch(34.28% 0.163 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(42, 30, 142);"
-                      title="Hex · #2a1e8e"
+                      style="background-color: rgb(29, 39, 139);"
+                      title="Hex · #1d278b"
                     >
                       <button
                         aria-expanded="false"
@@ -1973,7 +1973,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(34.159% 0.17313 276.66)
+                    oklch(34.28% 0.163 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -1995,9 +1995,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #2a1e8e
+                    #1d278b
                      
                     <button
                       aria-label="Copy HEX"
@@ -2041,10 +2041,10 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     class="flex items-center gap-2"
                   >
                     <div
-                      aria-label="Dark text Lc 0, light text Lc 107"
+                      aria-label="Dark text Lc 0, light text Lc 106"
                       class="w-20 h-9 inline-flex items-center rounded-md px-2 gap-1"
                       data-testid="ColorInfo-Chip-Shade"
-                      style="background-color: oklch(0.2 0.12538 276.66);"
+                      style="background-color: oklch(0.2 0.132 270);"
                     >
                       <span
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
@@ -2056,14 +2056,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                         class="flex-1 text-center text-sm font-semibold tabular-nums"
                         style="color: rgb(255, 255, 255);"
                       >
-                        107
+                        106
                       </span>
                     </div>
                     <span
                       aria-label="Shade on white Lc 104"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnWhite"
-                      style="background-color: rgb(255, 255, 255); color: oklch(0.2 0.12538 276.66);"
+                      style="background-color: rgb(255, 255, 255); color: oklch(0.2 0.132 270);"
                     >
                       104
                     </span>
@@ -2071,7 +2071,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                       aria-label="Shade on black Lc 0"
                       class="inline-flex items-center justify-center rounded-md size-9 text-sm font-semibold tabular-nums"
                       data-testid="ColorInfo-Chip-OnBlack"
-                      style="background-color: rgb(0, 0, 0); color: oklch(0.2 0.12538 276.66);"
+                      style="background-color: rgb(0, 0, 0); color: oklch(0.2 0.132 270);"
                     >
                       0
                     </span>
@@ -2086,13 +2086,13 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   >
                     <span
                       class="block size-9"
-                      style="background-color: oklch(0.2 0.12538 276.66);"
-                      title="OKLCH · oklch(20% 0.12538 276.66)"
+                      style="background-color: oklch(0.2 0.132 270);"
+                      title="OKLCH · oklch(20% 0.132 270)"
                     />
                     <span
                       class="size-9 flex items-center justify-center text-white/40"
-                      style="background-color: rgb(16, 0, 76);"
-                      title="Hex · #10004c"
+                      style="background-color: rgb(8, 0, 80);"
+                      title="Hex · #080050"
                     >
                       <button
                         aria-expanded="false"
@@ -2122,7 +2122,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   <div
                     class="flex items-center gap-2 text-sm"
                   >
-                    oklch(20% 0.12538 276.66)
+                    oklch(20% 0.132 270)
                      
                     <button
                       aria-label="Copy OKLCH"
@@ -2144,9 +2144,9 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                     </button>
                   </div>
                   <div
-                    class="flex items-center gap-2 text-xs"
+                    class="flex items-center gap-2 text-xs text-foreground-500"
                   >
-                    #10004c
+                    #080050
                      
                     <button
                       aria-label="Copy HEX"
