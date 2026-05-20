@@ -7,6 +7,7 @@ const Tooltip = extendVariants(HeroUITooltip, {
     shadow: 'lg',
     showArrow: 'true',
     size: 'md',
+    delay: 250,
   },
   slots: {
     content: 'max-w-64 items-start px-2 py-1 rounded-small',
