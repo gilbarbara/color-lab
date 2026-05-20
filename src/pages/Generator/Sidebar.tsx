@@ -2,11 +2,10 @@ import { useRef } from 'react';
 import { flushSync } from 'react-dom';
 import { Button, Divider } from '@heroui/react';
 import { PlusIcon } from '@phosphor-icons/react';
-import { rotate } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
-import { getRandomColor, toOklch } from '~/utils/color';
+import { getRandomColor, rotateOklchHue } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
 import { scrollToSelector } from '~/utils/scroll';
 
@@ -22,7 +21,7 @@ export default function Sidebar() {
   const handleAddColor = () => {
     const lastColor = colors.at(-1);
     const nextColor = lastColor
-      ? toOklch(rotate(lastColor.value, 30))
+      ? rotateOklchHue(lastColor.value, 30)
       : getRandomColor(baseSaturation);
 
     let newId: string | null = null;
