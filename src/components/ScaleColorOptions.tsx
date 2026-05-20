@@ -1,11 +1,12 @@
 import { type ReactNode } from 'react';
-import { Button, cn, Slider } from '@heroui/react';
+import { cn, Slider } from '@heroui/react';
 import { EraserIcon } from '@phosphor-icons/react';
 
 import useRafCallback from '~/hooks/useRafCallback';
 import useSliderInteraction from '~/hooks/useSliderInteraction';
 import { trackEvent } from '~/utils/analytics';
 
+import Button from '~/components/Button';
 import CurvePreview from '~/components/CurvePreview';
 import SliderLabel from '~/components/SliderLabel';
 import SliderValue from '~/components/SliderValue';
@@ -16,14 +17,26 @@ interface ScaleColorOptionsProps {
   className?: string;
   defaultOptions: GlobalScaleOptions;
   description?: ReactNode;
+  isChromatic?: boolean;
   onReset: () => void;
   onUpdate: (updates: Partial<GlobalScaleOptions>) => void;
   options: GlobalScaleOptions;
   title?: ReactNode;
+  useLightTheme?: boolean;
 }
 
 export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
-  const { className, defaultOptions, description, onReset, onUpdate, options, title } = props;
+  const {
+    className,
+    defaultOptions,
+    description,
+    isChromatic,
+    onReset,
+    onUpdate,
+    options,
+    title,
+    useLightTheme,
+  } = props;
   const { chromaCurve, lightnessCurve, maxLightness, minLightness } = options;
   const { end, ref: interactionRef, start } = useSliderInteraction();
   const scheduleUpdate = useRafCallback(onUpdate);
@@ -208,10 +221,14 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
 
       <div>
         <Button
-          className="light:bg-black/30 dark:bg-white/30"
+          className={cn({
+            'bg-black/10 dark:bg-white/20': !isChromatic,
+            'bg-black/10': isChromatic && useLightTheme,
+            'bg-white/20': isChromatic && !useLightTheme,
+          })}
           onPress={onReset}
-          size="sm"
-          startContent={<EraserIcon className="text-base" />}
+          size="menu"
+          startContent={<EraserIcon className="text-lg" />}
         >
           Reset
         </Button>

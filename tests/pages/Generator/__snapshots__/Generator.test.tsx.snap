@@ -35,15 +35,19 @@ exports[`Generator > renders correctly 1`] = `
       </div>
       <div>
         <div
-          class="p-4 text-sm/3"
+          class="px-4 py-2 text-sm/3"
         >
           <button
-            class="inline-flex items-center text-foreground-600 transition-colors duration-200 hover:text-foreground gap-2"
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium text-foreground-600"
+            data-react-aria-pressable="true"
+            tabindex="0"
             type="button"
           >
             <svg
-              class="text-base"
+              aria-hidden="true"
+              class="text-lg"
               fill="currentColor"
+              focusable="false"
               height="1em"
               viewBox="0 0 256 256"
               width="1em"
@@ -53,12 +57,12 @@ exports[`Generator > renders correctly 1`] = `
                 d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
               />
             </svg>
-            <span>
-              Advanced Options
-            </span>
+            Advanced Options
             <svg
+              aria-hidden="true"
               class="transition-transform text-xs"
               fill="currentColor"
+              focusable="false"
               height="1em"
               viewBox="0 0 256 256"
               width="1em"

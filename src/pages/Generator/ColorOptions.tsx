@@ -4,6 +4,7 @@ import { CaretUpIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 
+import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 
@@ -32,20 +33,23 @@ export default function ColorOptions(props: ColorOptionsProps) {
 
   return (
     <div>
-      <div className="p-4 text-sm/3">
-        <button
-          className="inline-flex items-center text-foreground-600 transition-colors duration-200 hover:text-foreground gap-2"
+      <div className="px-4 py-2 text-sm/3">
+        <Button
+          className="text-foreground-600"
+          endContent={
+            <CaretUpIcon
+              className={cn('transition-transform text-xs', {
+                'rotate-180': showColorOptionsPanel,
+              })}
+            />
+          }
           onClick={toggleColorOptionsPanel}
-          type="button"
+          size="menu"
+          startContent={<SlidersHorizontalIcon className="text-lg" />}
+          variant="light"
         >
-          <SlidersHorizontalIcon className="text-base" />
-          <span>Advanced Options</span>
-          <CaretUpIcon
-            className={cn('transition-transform text-xs', {
-              'rotate-180': showColorOptionsPanel,
-            })}
-          />
-        </button>
+          Advanced Options
+        </Button>
       </div>
       <Collapse isOpen={showColorOptionsPanel}>
         <div className="p-4">
