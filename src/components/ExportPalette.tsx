@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
-import { Button, cn } from '@heroui/react';
 import { ExportIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor, scale } from 'colorizr';
 
@@ -10,6 +9,7 @@ import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
 
+import Button from '~/components/Button';
 import CheckboxToggle from '~/components/CheckboxToggle';
 import CopyText from '~/components/CopyText';
 import Tooltip from '~/components/Tooltip';
@@ -164,14 +164,12 @@ export default function ExportPalette() {
         <Tooltip content="Export all" isDisabled={isLarge} placement="bottom-end">
           <Button
             aria-label="Export All"
-            className={cn('h-8 min-w-8 px-2', {
-              'w-8': !isLarge,
-            })}
             isIconOnly={!isLarge}
             onPress={() => {
               trackEvent('open-export-palette');
               onOpen();
             }}
+            size="menu"
             startContent={<ExportIcon className="text-xl" weight="bold" />}
             variant="light"
           >

@@ -1,6 +1,6 @@
 import { type ChangeEvent, type KeyboardEvent, useEffect } from 'react';
 import { useBreakpoint, useSetState } from '@gilbarbara/hooks';
-import { addToast, Button, cn, Input } from '@heroui/react';
+import { addToast, Input } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS } from '~/config/globals';
@@ -9,6 +9,7 @@ import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 
+import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
 import ExportPalette from '~/components/ExportPalette';
 import SavePaletteModal from '~/components/SavePaletteModal';
@@ -142,14 +143,12 @@ export default function PaletteHeader() {
 
         <div className="flex items-center gap-1 md:gap-2">
           <GamutToggle />
-          <Tooltip content="Palette Options" delay={250} placement="bottom">
+          <Tooltip content="Palette Options" placement="bottom">
             <Button
               aria-label="Palette Options"
-              className={cn('h-8 min-w-8 px-2', {
-                'w-8': !isLarge,
-              })}
               isIconOnly={!isLarge}
               onPress={togglePaletteOptionsPanel}
+              size="menu"
               startContent={<PaletteIcon className="text-xl" weight="bold" />}
               variant={showPaletteOptionsPanel ? 'solid' : 'light'}
             >
@@ -158,14 +157,12 @@ export default function PaletteHeader() {
           </Tooltip>
           <ExportPalette />
           <Button
-            className={cn('h-8 min-w-8 px-2', {
-              'w-8': !isLarge,
-            })}
             color={hasUnsavedChanges ? 'warning' : 'primary'}
             isDisabled={!!loadedPaletteId && !hasUnsavedChanges}
             isIconOnly={!isLarge}
             isLoading={isSaving}
             onPress={handleClickSave}
+            size="menu"
             startContent={
               loadedPaletteId ? (
                 <PencilSimpleLineIcon className="text-xl" />

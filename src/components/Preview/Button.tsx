@@ -20,7 +20,6 @@ export default function PreviewButton(props: PreviewButtonProps) {
     <Tooltip content="View Live Preview" placement="bottom">
       <Button
         aria-label="View Live Preview"
-        className="text-base"
         isIconOnly
         onPress={() => {
           setActiveColor(id);
@@ -28,10 +27,10 @@ export default function PreviewButton(props: PreviewButtonProps) {
           togglePreview(true);
           requestPreviewScroll();
         }}
-        size="sm"
+        size="menu"
         variant={variant}
       >
-        <EyeIcon />
+        <EyeIcon className="text-lg" />
       </Button>
     </Tooltip>
   );

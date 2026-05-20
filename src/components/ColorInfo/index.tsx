@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
-import { Button, Divider, useDisclosure } from '@heroui/react';
+import { Divider, useDisclosure } from '@heroui/react';
 import { InfoIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS, MODAL_BODY_PADDING, MODAL_GAP, MODAL_MIN_WIDTH } from '~/config/globals';
 import { trackEvent } from '~/utils/analytics';
 
+import Button from '~/components/Button';
 import Modal, { ModalBody, ModalContent, ModalHeader } from '~/components/Modal';
 import Tooltip from '~/components/Tooltip';
 
@@ -53,16 +54,15 @@ export default function ColorInfo(props: ColorInfoProps) {
       <Tooltip content="View color info" placement="bottom">
         <Button
           aria-label="View color info"
-          className="text-base"
           isIconOnly
           onPress={() => {
             trackEvent('open-color-info');
             onOpen();
           }}
-          size="sm"
+          size="menu"
           variant="flat"
         >
-          <InfoIcon />
+          <InfoIcon className="text-lg" />
         </Button>
       </Tooltip>
 

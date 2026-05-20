@@ -1,4 +1,3 @@
-import { Button } from '@heroui/react';
 import { ExportIcon } from '@phosphor-icons/react';
 
 import { trackEvent } from '~/utils/analytics';
@@ -8,6 +7,7 @@ import Tooltip from '~/components/Tooltip';
 
 import type { ScaleSteps } from '~/types';
 
+import Button from './Button';
 import ExportDrawer from './ExportDrawer';
 
 interface ExportScaleProps {
@@ -41,16 +41,15 @@ export default function ExportScale(props: ExportScaleProps) {
         <Tooltip content="Export scale" placement="bottom-end">
           <Button
             aria-label="Export scale"
-            className="text-base"
             isIconOnly
             onPress={() => {
               trackEvent('open-export-scale');
               onOpen();
             }}
-            size="sm"
+            size="menu"
             variant="flat"
           >
-            <ExportIcon />
+            <ExportIcon className="text-lg" />
           </Button>
         </Tooltip>
       )}
