@@ -368,12 +368,12 @@ exports[`Palettes > Render > shows palette grid 1`] = `
             <span
               aria-label="Color Box"
               class="shrink-0 size-12 rounded-medium"
-              style="background-color: oklch(0.62796 0.25768 29.234);"
+              style="background-color: oklch(0.628 0.258 29.23);"
             />
             <span
               aria-label="Color Box"
               class="shrink-0 size-12 rounded-medium"
-              style="background-color: oklch(0.45201 0.31321 264.05);"
+              style="background-color: oklch(0.452 0.313 264.05);"
             />
           </a>
         </div>
@@ -467,12 +467,12 @@ exports[`Palettes > Render > shows palette grid 1`] = `
             <span
               aria-label="Color Box"
               class="shrink-0 size-12 rounded-medium"
-              style="background-color: oklch(0.62796 0.25768 29.234);"
+              style="background-color: oklch(0.628 0.258 29.23);"
             />
             <span
               aria-label="Color Box"
               class="shrink-0 size-12 rounded-medium"
-              style="background-color: oklch(0.45201 0.31321 264.05);"
+              style="background-color: oklch(0.452 0.313 264.05);"
             />
           </a>
         </div>

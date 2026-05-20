@@ -1,5 +1,5 @@
-import { round } from '@gilbarbara/helpers';
-import { formatCSS, getP3MaxChroma, parseCSS, random } from 'colorizr';
+import { clamp, round } from '@gilbarbara/helpers';
+import { getP3MaxChroma, parseCSS, random } from 'colorizr';
 
 import type { OklchString } from '~/types';
 
@@ -7,6 +7,35 @@ interface OklchValues {
   c: number;
   h: number;
   l: number;
+}
+
+const L_PRECISION = 2;
+const C_PRECISION = 3;
+const H_PRECISION = 2;
+
+function toOklchValues(value: string | OklchValues): OklchValues {
+  return typeof value === 'string' ? parseCSS(value, 'oklch') : value;
+}
+
+export function formatOklch(value: string | OklchValues): string {
+  const { c, h, l } = toOklchValues(value);
+  const lightness = `${round(l * 100, L_PRECISION)}%`;
+
+  if (c === 0) {
+    return `oklch(${lightness} 0 none)`;
+  }
+
+  return `oklch(${lightness} ${c.toFixed(C_PRECISION)} ${round(h, H_PRECISION)})`;
+}
+
+/**
+ * URL-form OKLCH: `L_C_H` (no wrapper, underscore-joined).
+ * Shares precision with {@link formatOklch} so canonical and URL forms round-trip cleanly.
+ */
+export function formatOklchUrl(value: string | OklchValues): string {
+  const { c, h, l } = toOklchValues(value);
+
+  return `${round(l * 100, L_PRECISION)}_${round(c, C_PRECISION)}_${round(h, H_PRECISION)}`;
 }
 
 /**
@@ -23,7 +52,7 @@ export function getChromaAsPercentage(color: OklchString): number {
     return 0;
   }
 
-  return round((c / maxChroma) * 100, 1);
+  return clamp(round((c / maxChroma) * 100, 1), 0, 100);
 }
 
 export function getRandomColor(saturation?: number): OklchString {
@@ -69,5 +98,5 @@ export function toOklch(value: string): OklchString {
     throw new Error(`toOklch: value out of OKLCH range: ${value}`);
   }
 
-  return formatCSS(parsed, { format: 'oklch' }) as OklchString;
+  return formatOklch(parsed) as OklchString;
 }

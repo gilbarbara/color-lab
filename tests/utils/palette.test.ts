@@ -1,5 +1,18 @@
-import { CRIMSON, GREEN, RED, SLATE, WHITE } from '~/test-fixtures';
-import { toOklch } from '~/utils/color';
+import {
+  AZURE,
+  BLUE,
+  CHARTREUSE,
+  CRIMSON,
+  CYAN,
+  GREEN,
+  ORANGE,
+  PLUM,
+  RED,
+  SLATE,
+  VIOLET,
+  WHITE,
+  YELLOW,
+} from '~/test-fixtures';
 import {
   addColor,
   clearColorOverrides,
@@ -18,9 +31,6 @@ import {
 
 import type { ColorEntry, OklchString, PaletteState } from '~/types';
 
-// Test color used for creating test palettes (ex-#FF0000)
-const TEST_COLOR = RED;
-
 function createColorEntry(
   name: string,
   value: OklchString,
@@ -31,18 +41,7 @@ function createColorEntry(
 
 function createTestPalette(colorCount = 1): PaletteState {
   // Spread distinct hues so each color is unique and visibly different.
-  const palette = [
-    toOklch('oklch(62.796% 0.25768 29.234)'),
-    toOklch('oklch(62.796% 0.25768 59.234)'),
-    toOklch('oklch(62.796% 0.25768 89.234)'),
-    toOklch('oklch(62.796% 0.25768 119.234)'),
-    toOklch('oklch(62.796% 0.25768 149.234)'),
-    toOklch('oklch(62.796% 0.25768 179.234)'),
-    toOklch('oklch(62.796% 0.25768 209.234)'),
-    toOklch('oklch(62.796% 0.25768 239.234)'),
-    toOklch('oklch(62.796% 0.25768 269.234)'),
-    toOklch('oklch(62.796% 0.25768 299.234)'),
-  ];
+  const palette = [RED, ORANGE, YELLOW, CHARTREUSE, GREEN, CYAN, AZURE, BLUE, VIOLET, PLUM];
 
   const colors = Array.from({ length: colorCount }, (_, index) => ({
     id: crypto.randomUUID(),
@@ -186,8 +185,8 @@ describe('utils/palette', () => {
 
     it('preserves other fields when updating', () => {
       const initial: PaletteState = {
-        colors: [createColorEntry('Primary', TEST_COLOR, { steps: 9 })],
-        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+        colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
       const result = updateColor(initial, 0, { name: 'New Name' });
 
@@ -205,8 +204,8 @@ describe('utils/palette', () => {
 
     it('merges with existing overrides', () => {
       const initial: PaletteState = {
-        colors: [createColorEntry('Primary', TEST_COLOR, { steps: 9 })],
-        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+        colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
       const result = updateColorOverrides(initial, 0, { maxLightness: 0.9 });
 
@@ -223,8 +222,8 @@ describe('utils/palette', () => {
   describe('clearColorOverrides', () => {
     it('removes overrides', () => {
       const initial: PaletteState = {
-        colors: [createColorEntry('Primary', TEST_COLOR, { steps: 9 })],
-        globalOptions: getDefaultGlobalOptions(TEST_COLOR),
+        colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
       const result = clearColorOverrides(initial, 0);
 
@@ -274,8 +273,8 @@ describe('utils/palette', () => {
 
   describe('getEffectiveOptions', () => {
     it('omits saturation when saturationOverride is false (default)', () => {
-      const color = createColorEntry('Primary', TEST_COLOR);
-      const globalOptions = getDefaultGlobalOptions(TEST_COLOR);
+      const color = createColorEntry('Primary', CRIMSON);
+      const globalOptions = getDefaultGlobalOptions(CRIMSON);
       const result = getEffectiveOptions(color, globalOptions);
 
       // saturationOverride is stripped, and saturation is omitted when override is false
@@ -284,16 +283,16 @@ describe('utils/palette', () => {
     });
 
     it('includes saturation when saturationOverride is true', () => {
-      const color = createColorEntry('Primary', TEST_COLOR);
-      const globalOptions = { ...getDefaultGlobalOptions(TEST_COLOR), saturationOverride: true };
+      const color = createColorEntry('Primary', CRIMSON);
+      const globalOptions = { ...getDefaultGlobalOptions(CRIMSON), saturationOverride: true };
       const result = getEffectiveOptions(color, globalOptions);
 
       expect(result.saturation).toBe(globalOptions.saturation);
     });
 
     it('merges overrides with global options', () => {
-      const color = createColorEntry('Primary', TEST_COLOR, { steps: 15 });
-      const globalOptions = getDefaultGlobalOptions(TEST_COLOR);
+      const color = createColorEntry('Primary', CRIMSON, { steps: 15 });
+      const globalOptions = getDefaultGlobalOptions(CRIMSON);
       const result = getEffectiveOptions(color, globalOptions);
 
       expect(result.steps).toBe(15);
@@ -301,8 +300,8 @@ describe('utils/palette', () => {
     });
 
     it('override wins over global', () => {
-      const globalOptions = { ...getDefaultGlobalOptions(TEST_COLOR), maxLightness: 0.95 };
-      const color = createColorEntry('Primary', TEST_COLOR, { maxLightness: 0.8 });
+      const globalOptions = { ...getDefaultGlobalOptions(CRIMSON), maxLightness: 0.95 };
+      const color = createColorEntry('Primary', CRIMSON, { maxLightness: 0.8 });
       const result = getEffectiveOptions(color, globalOptions);
 
       expect(result.maxLightness).toBe(0.8);

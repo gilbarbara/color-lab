@@ -19,7 +19,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
           aria-haspopup="dialog"
           aria-label="Color picker"
           class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-          data-color="oklch(55% 0.22 27)"
+          data-color="oklch(55% 0.220 27)"
           data-react-aria-pressable="true"
           data-slot="trigger"
           data-testid="ColorBox"
@@ -304,10 +304,10 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
           </div>
           <style>
             
-      .popover-content-0 { background-color: oklch(55% 0.22 27); }
+      .popover-content-0 { background-color: oklch(55% 0.220 27); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(55% 0.22 27);
+          background-color: oklch(55% 0.220 27);
           
         }
        }
@@ -442,7 +442,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
           aria-haspopup="dialog"
           aria-label="Color picker"
           class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-          data-color="oklch(55% 0.22 27)"
+          data-color="oklch(55% 0.220 27)"
           data-react-aria-pressable="true"
           data-slot="trigger"
           data-testid="ColorBox"
@@ -545,7 +545,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                     tabindex="0"
                     title=""
                     type="text"
-                    value="oklch(55% 0.22 27)"
+                    value="oklch(55% 0.220 27)"
                   />
                 </div>
               </div>
@@ -728,10 +728,10 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
           </div>
           <style>
             
-      .popover-content-0 { background-color: oklch(55% 0.22 27); }
+      .popover-content-0 { background-color: oklch(55% 0.220 27); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(55% 0.22 27);
+          background-color: oklch(55% 0.220 27);
           
         }
        }
@@ -866,7 +866,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
           aria-haspopup="dialog"
           aria-label="Color picker"
           class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-          data-color="oklch(55% 0.22 27)"
+          data-color="oklch(55% 0.220 27)"
           data-react-aria-pressable="true"
           data-slot="trigger"
           data-testid="ColorBox"
@@ -1146,10 +1146,10 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
           </div>
           <style>
             
-      .popover-content-0 { background-color: oklch(55% 0.22 27); }
+      .popover-content-0 { background-color: oklch(55% 0.220 27); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(55% 0.22 27);
+          background-color: oklch(55% 0.220 27);
           
         }
        }

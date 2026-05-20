@@ -1,4 +1,4 @@
-import { CRIMSON, PLUM_SCALE, SKY_SCALE } from '~/test-fixtures';
+import { BLUE_SCALE, CRIMSON, PLUM_SCALE } from '~/test-fixtures';
 import {
   colorFormatLabels,
   colorFormats,
@@ -51,13 +51,13 @@ describe('utils/export', () => {
     });
 
     it('preserves oklch format for oklch input', () => {
-      const result = formatColorValue('oklch(63.269% 0.25404 19.90218)', 'oklch');
+      const result = formatColorValue(CRIMSON, 'oklch');
 
       expect(result).toMatch(/^oklch\(.+\)$/);
     });
 
     it('converts oklch to hex (clamps wide gamut)', () => {
-      const result = formatColorValue('oklch(63.269% 0.25404 19.90218)', 'hex');
+      const result = formatColorValue(CRIMSON, 'hex');
 
       expect(result).toMatch(/^#[\da-f]{6}$/i);
     });
@@ -200,7 +200,7 @@ describe('utils/export', () => {
   describe('generatePaletteExport', () => {
     const samplePalette = [
       { name: 'Primary', steps: PLUM_SCALE },
-      { name: 'Secondary', steps: SKY_SCALE },
+      { name: 'Secondary', steps: BLUE_SCALE },
     ];
 
     it('generates tailwind3 format for palette', () => {

@@ -5,6 +5,7 @@ import { convertCSS, readableColor } from 'colorizr';
 
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
+import { formatOklch } from '~/utils/color';
 
 import Tooltip from '~/components/Tooltip';
 
@@ -19,7 +20,7 @@ export default function Swatch(props: SwatchProps) {
   const { className, color, lock, step } = props;
   const gamut = useAppStore(state => state.gamut);
 
-  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : color;
+  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : formatOklch(color);
 
   const handleClick = () => {
     trackEvent('copy-swatch');

@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { scale } from 'colorizr';
 
+import { formatOklch } from '~/utils/color';
+
 import ColorBox from '~/components/ColorBox';
 import ColorInfo from '~/components/ColorInfo';
 import ContrastGrid from '~/components/ContrastGrid';
@@ -28,7 +30,7 @@ export default function Scale(props: ScaleProps) {
           <ColorBox as="span" color={colorEntry.value} size="sm" />
           <h3 className="font-semibold text-lg leading-none">{colorEntry.name}</h3>
           <p className="hidden lg:block text-foreground-500 font-mono text-sm">
-            {colorEntry.value}
+            {formatOklch(colorEntry.value)}
           </p>
         </div>
         <div className="flex items-center gap-2">

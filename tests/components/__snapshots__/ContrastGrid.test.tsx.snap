@@ -106,23 +106,23 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.69776 0.14787 237.32); color: oklch(0.97 0.01786 237.32);"
+      style="background-color: oklch(0.6978 0.183 240); color: oklch(0.97 0.017 240);"
     >
-      50
+      49
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.61214 0.14787 237.32); color: oklch(0.97 0.01786 237.32);"
+      style="background-color: oklch(0.6121 0.183 240); color: oklch(0.97 0.017 240);"
     >
-      62
+      61
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.51904 0.14787 237.32); color: oklch(0.97 0.01786 237.32);"
+      style="background-color: oklch(0.519 0.155 240); color: oklch(0.97 0.017 240);"
     >
       74
     </div>
@@ -130,7 +130,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.41903 0.12041 237.32); color: oklch(0.97 0.01786 237.32);"
+      style="background-color: oklch(0.419 0.125 240); color: oklch(0.97 0.017 240);"
     >
       86
     </div>
@@ -138,7 +138,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.31256 0.08981 237.32); color: oklch(0.97 0.01786 237.32);"
+      style="background-color: oklch(0.3126 0.094 240); color: oklch(0.97 0.017 240);"
     >
       95
     </div>
@@ -146,7 +146,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.2 0.05748 237.32); color: oklch(0.97 0.01786 237.32);"
+      style="background-color: oklch(0.2 0.06 240); color: oklch(0.97 0.017 240);"
     >
       100
     </div>
@@ -196,15 +196,15 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.61214 0.14787 237.32); color: oklch(0.94565 0.0326 237.32);"
+      style="background-color: oklch(0.6121 0.183 240); color: oklch(0.9457 0.032 240);"
     >
-      57
+      56
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.51904 0.14787 237.32); color: oklch(0.94565 0.0326 237.32);"
+      style="background-color: oklch(0.519 0.155 240); color: oklch(0.9457 0.032 240);"
     >
       69
     </div>
@@ -212,7 +212,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.41903 0.12041 237.32); color: oklch(0.94565 0.0326 237.32);"
+      style="background-color: oklch(0.419 0.125 240); color: oklch(0.9457 0.032 240);"
     >
       81
     </div>
@@ -220,7 +220,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.31256 0.08981 237.32); color: oklch(0.94565 0.0326 237.32);"
+      style="background-color: oklch(0.3126 0.094 240); color: oklch(0.9457 0.032 240);"
     >
       90
     </div>
@@ -228,7 +228,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.2 0.05748 237.32); color: oklch(0.94565 0.0326 237.32);"
+      style="background-color: oklch(0.2 0.06 240); color: oklch(0.9457 0.032 240);"
     >
       95
     </div>
@@ -278,15 +278,15 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.61214 0.14787 237.32); color: oklch(0.90113 0.06016 237.32);"
+      style="background-color: oklch(0.6121 0.183 240); color: oklch(0.9011 0.059 240);"
     >
-      48
+      47
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.51904 0.14787 237.32); color: oklch(0.90113 0.06016 237.32);"
+      style="background-color: oklch(0.519 0.155 240); color: oklch(0.9011 0.059 240);"
     >
       60
     </div>
@@ -294,15 +294,15 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.41903 0.12041 237.32); color: oklch(0.90113 0.06016 237.32);"
+      style="background-color: oklch(0.419 0.125 240); color: oklch(0.9011 0.059 240);"
     >
-      72
+      71
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.31256 0.08981 237.32); color: oklch(0.90113 0.06016 237.32);"
+      style="background-color: oklch(0.3126 0.094 240); color: oklch(0.9011 0.059 240);"
     >
       81
     </div>
@@ -310,7 +310,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.2 0.05748 237.32); color: oklch(0.90113 0.06016 237.32);"
+      style="background-color: oklch(0.2 0.06 240); color: oklch(0.9011 0.059 240);"
     >
       86
     </div>
@@ -366,7 +366,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.51904 0.14787 237.32); color: oklch(0.84348 0.09698 237.32);"
+      style="background-color: oklch(0.519 0.155 240); color: oklch(0.8435 0.095 240);"
     >
       49
     </div>
@@ -374,7 +374,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.41903 0.12041 237.32); color: oklch(0.84348 0.09698 237.32);"
+      style="background-color: oklch(0.419 0.125 240); color: oklch(0.8435 0.095 240);"
     >
       60
     </div>
@@ -382,15 +382,15 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.31256 0.08981 237.32); color: oklch(0.84348 0.09698 237.32);"
+      style="background-color: oklch(0.3126 0.094 240); color: oklch(0.8435 0.095 240);"
     >
-      70
+      69
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.2 0.05748 237.32); color: oklch(0.84348 0.09698 237.32);"
+      style="background-color: oklch(0.2 0.06 240); color: oklch(0.8435 0.095 240);"
     >
       75
     </div>
@@ -452,7 +452,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.41903 0.12041 237.32); color: oklch(0.7752 0.14229 237.32);"
+      style="background-color: oklch(0.419 0.125 240); color: oklch(0.7752 0.139 240);"
     >
       48
     </div>
@@ -460,7 +460,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.31256 0.08981 237.32); color: oklch(0.7752 0.14229 237.32);"
+      style="background-color: oklch(0.3126 0.094 240); color: oklch(0.7752 0.139 240);"
     >
       57
     </div>
@@ -468,7 +468,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.2 0.05748 237.32); color: oklch(0.7752 0.14229 237.32);"
+      style="background-color: oklch(0.2 0.06 240); color: oklch(0.7752 0.139 240);"
     >
       63
     </div>
@@ -479,12 +479,10 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="pass"
+      data-state="fail"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.97 0.01786 237.32); color: oklch(0.69776 0.14787 237.32);"
-    >
-      45
-    </div>
+      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+    />
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="fail"
@@ -536,17 +534,19 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
     />
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
+      data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
+      style="background-color: oklch(0.3126 0.094 240); color: oklch(0.6978 0.183 240);"
+    >
+      45
+    </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.2 0.05748 237.32); color: oklch(0.69776 0.14787 237.32);"
+      style="background-color: oklch(0.2 0.06 240); color: oklch(0.6978 0.183 240);"
     >
-      50
+      51
     </div>
     <div
       class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
@@ -557,17 +557,17 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.97 0.01786 237.32); color: oklch(0.61214 0.14787 237.32);"
+      style="background-color: oklch(0.97 0.017 240); color: oklch(0.6121 0.183 240);"
     >
-      57
+      56
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.94565 0.0326 237.32); color: oklch(0.61214 0.14787 237.32);"
+      style="background-color: oklch(0.9457 0.032 240); color: oklch(0.6121 0.183 240);"
     >
-      53
+      52
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
@@ -633,7 +633,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.97 0.01786 237.32); color: oklch(0.51904 0.14787 237.32);"
+      style="background-color: oklch(0.97 0.017 240); color: oklch(0.519 0.155 240);"
     >
       69
     </div>
@@ -641,7 +641,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.94565 0.0326 237.32); color: oklch(0.51904 0.14787 237.32);"
+      style="background-color: oklch(0.9457 0.032 240); color: oklch(0.519 0.155 240);"
     >
       65
     </div>
@@ -649,15 +649,15 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.90113 0.06016 237.32); color: oklch(0.51904 0.14787 237.32);"
+      style="background-color: oklch(0.9011 0.059 240); color: oklch(0.519 0.155 240);"
     >
-      57
+      56
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.84348 0.09698 237.32); color: oklch(0.51904 0.14787 237.32);"
+      style="background-color: oklch(0.8435 0.095 240); color: oklch(0.519 0.155 240);"
     >
       46
     </div>
@@ -713,7 +713,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.97 0.01786 237.32); color: oklch(0.41903 0.12041 237.32);"
+      style="background-color: oklch(0.97 0.017 240); color: oklch(0.419 0.125 240);"
     >
       82
     </div>
@@ -721,7 +721,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.94565 0.0326 237.32); color: oklch(0.41903 0.12041 237.32);"
+      style="background-color: oklch(0.9457 0.032 240); color: oklch(0.419 0.125 240);"
     >
       77
     </div>
@@ -729,7 +729,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.90113 0.06016 237.32); color: oklch(0.41903 0.12041 237.32);"
+      style="background-color: oklch(0.9011 0.059 240); color: oklch(0.419 0.125 240);"
     >
       69
     </div>
@@ -737,7 +737,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.84348 0.09698 237.32); color: oklch(0.41903 0.12041 237.32);"
+      style="background-color: oklch(0.8435 0.095 240); color: oklch(0.419 0.125 240);"
     >
       58
     </div>
@@ -745,7 +745,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.7752 0.14229 237.32); color: oklch(0.41903 0.12041 237.32);"
+      style="background-color: oklch(0.7752 0.139 240); color: oklch(0.419 0.125 240);"
     >
       47
     </div>
@@ -795,7 +795,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.97 0.01786 237.32); color: oklch(0.31256 0.08981 237.32);"
+      style="background-color: oklch(0.97 0.017 240); color: oklch(0.3126 0.094 240);"
     >
       92
     </div>
@@ -803,7 +803,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.94565 0.0326 237.32); color: oklch(0.31256 0.08981 237.32);"
+      style="background-color: oklch(0.9457 0.032 240); color: oklch(0.3126 0.094 240);"
     >
       88
     </div>
@@ -811,7 +811,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.90113 0.06016 237.32); color: oklch(0.31256 0.08981 237.32);"
+      style="background-color: oklch(0.9011 0.059 240); color: oklch(0.3126 0.094 240);"
     >
       79
     </div>
@@ -819,7 +819,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.84348 0.09698 237.32); color: oklch(0.31256 0.08981 237.32);"
+      style="background-color: oklch(0.8435 0.095 240); color: oklch(0.3126 0.094 240);"
     >
       69
     </div>
@@ -827,7 +827,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.7752 0.14229 237.32); color: oklch(0.31256 0.08981 237.32);"
+      style="background-color: oklch(0.7752 0.139 240); color: oklch(0.3126 0.094 240);"
     >
       57
     </div>
@@ -835,9 +835,9 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.69776 0.14787 237.32); color: oklch(0.31256 0.08981 237.32);"
+      style="background-color: oklch(0.6978 0.183 240); color: oklch(0.3126 0.094 240);"
     >
-      45
+      46
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
@@ -879,7 +879,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.97 0.01786 237.32); color: oklch(0.2 0.05748 237.32);"
+      style="background-color: oklch(0.97 0.017 240); color: oklch(0.2 0.06 240);"
     >
       99
     </div>
@@ -887,7 +887,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.94565 0.0326 237.32); color: oklch(0.2 0.05748 237.32);"
+      style="background-color: oklch(0.9457 0.032 240); color: oklch(0.2 0.06 240);"
     >
       94
     </div>
@@ -895,15 +895,15 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.90113 0.06016 237.32); color: oklch(0.2 0.05748 237.32);"
+      style="background-color: oklch(0.9011 0.059 240); color: oklch(0.2 0.06 240);"
     >
-      86
+      85
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.84348 0.09698 237.32); color: oklch(0.2 0.05748 237.32);"
+      style="background-color: oklch(0.8435 0.095 240); color: oklch(0.2 0.06 240);"
     >
       75
     </div>
@@ -911,7 +911,7 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.7752 0.14229 237.32); color: oklch(0.2 0.05748 237.32);"
+      style="background-color: oklch(0.7752 0.139 240); color: oklch(0.2 0.06 240);"
     >
       64
     </div>
@@ -919,9 +919,9 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
       data-state="pass"
       data-testid="ContrastGrid-Cell"
-      style="background-color: oklch(0.69776 0.14787 237.32); color: oklch(0.2 0.05748 237.32);"
+      style="background-color: oklch(0.6978 0.183 240); color: oklch(0.2 0.06 240);"
     >
-      51
+      52
     </div>
     <div
       class="size-12 rounded-md flex items-center justify-center text-xs font-medium"

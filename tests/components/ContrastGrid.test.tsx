@@ -1,6 +1,6 @@
 import { scale } from 'colorizr';
 
-import { SKY_BLUE } from '~/test-fixtures';
+import { BLUE } from '~/test-fixtures';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
 import { toOklch } from '~/utils/color';
 
@@ -11,7 +11,7 @@ import type { ColorEntry } from '~/types';
 const colorEntry: ColorEntry = {
   id: 'c1',
   name: 'Primary',
-  value: toOklch(SKY_BLUE),
+  value: toOklch(BLUE),
 };
 
 const steps = scale(colorEntry.value);

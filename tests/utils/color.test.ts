@@ -1,5 +1,9 @@
-import { BLUE, GRAY, GREEN, RED } from '~/test-fixtures';
+import { DELTA_E_JND, deltaE } from 'colorizr';
+
+import { BLUE, CRIMSON, GRAY, GREEN, PLUM, RED, WHITE } from '~/test-fixtures';
 import {
+  formatOklch,
+  formatOklchUrl,
   getChromaAsPercentage,
   getRandomColor,
   isInRangeOklch,
@@ -10,16 +14,55 @@ import {
 import type { OklchString } from '~/types';
 
 describe('utils/color', () => {
+  describe('formatOklch', () => {
+    it.each([
+      { input: 'oklch(59.987% 0 none)', result: 'oklch(59.99% 0 none)' },
+      { input: 'oklch(74.031% 0.17379 300.54)', result: 'oklch(74.03% 0.174 300.54)' },
+      { input: 'oklch(78.968% 0.22992 326.81)', result: 'oklch(78.97% 0.230 326.81)' },
+      { input: 'oklch(71.269% 0.21319 351.61)', result: 'oklch(71.27% 0.213 351.61)' },
+      { input: 'oklch(69.161% 0.19827 22.548)', result: 'oklch(69.16% 0.198 22.55)' },
+      { input: 'oklch(80.674% 0.13709 61.337)', result: 'oklch(80.67% 0.137 61.34)' },
+      { input: 'oklch(96.326% 0.17471 107.88)', result: 'oklch(96.33% 0.175 107.88)' },
+      { input: 'oklch(91.813% 0.20714 131.28)', result: 'oklch(91.81% 0.207 131.28)' },
+      { input: 'oklch(88.393% 0.24379 142.82)', result: 'oklch(88.39% 0.244 142.82)' },
+      { input: 'oklch(89.423% 0.18067 156.63)', result: 'oklch(89.42% 0.181 156.63)' },
+      { input: 'oklch(91.536% 0.13373 192.73)', result: 'oklch(91.54% 0.134 192.73)' },
+    ])('round-trips %s within JND', ({ input, result }) => {
+      const display = formatOklch(input);
+
+      expect(display).toBe(result);
+      expect(deltaE(input, display)).toBeLessThan(DELTA_E_JND);
+    });
+  });
+
+  describe('formatOklchUrl', () => {
+    it('formats with L_C_H using shared precision', () => {
+      expect(formatOklchUrl('oklch(63.6% 0.291 29.23)')).toBe('63.6_0.291_29.23');
+    });
+
+    it('returns plain "0" for chromatic-zero (no "none" wrapper)', () => {
+      expect(formatOklchUrl('oklch(50% 0 0)')).toBe('50_0_0');
+    });
+
+    it('rounds at 2/3/2 decimals (L/C/H)', () => {
+      expect(formatOklchUrl({ l: 0.74031, c: 0.17379, h: 300.547 })).toBe('74.03_0.174_300.55');
+    });
+
+    it('accepts OklchValues object directly', () => {
+      expect(formatOklchUrl({ l: 0.5, c: 0.1, h: 120 })).toBe('50_0.1_120');
+    });
+  });
+
   describe('getChromaAsPercentage', () => {
     it('returns 0 for achromatic colors', () => {
       expect(getChromaAsPercentage(GRAY)).toBe(0);
-      expect(getChromaAsPercentage('oklch(0.5 0 0)' as OklchString)).toBe(0);
+      expect(getChromaAsPercentage(WHITE)).toBe(0);
     });
 
     it('returns correct percentage for primary colors', () => {
-      expect(getChromaAsPercentage(RED)).toBe(89.6);
-      expect(getChromaAsPercentage(GREEN)).toBe(89.2);
-      expect(getChromaAsPercentage(BLUE)).toBe(100);
+      expect(getChromaAsPercentage(RED)).toBe(97.9);
+      expect(getChromaAsPercentage(GREEN)).toBe(98.2);
+      expect(getChromaAsPercentage(BLUE)).toBe(97.3);
     });
 
     it('returns correct percentage for arbitrary oklch values', () => {
@@ -102,11 +145,11 @@ describe('utils/color', () => {
 
   describe('toOklch', () => {
     it('returns canonical OKLCH for hex input', () => {
-      expect(toOklch('#FF0044')).toBe('oklch(63.269% 0.25404 19.902)');
+      expect(toOklch('#FF0044')).toBe(CRIMSON);
     });
 
     it('returns canonical OKLCH for oklch input', () => {
-      expect(toOklch('oklch(0.64 0.142 329)')).toBe('oklch(64% 0.142 329)');
+      expect(toOklch('oklch(70.2% 0.196 300)')).toBe(PLUM);
     });
 
     it('throws on L > 100% (parser silent-pass case)', () => {

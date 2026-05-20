@@ -1,6 +1,8 @@
 import { cn } from '@heroui/react';
 import { convertCSS } from 'colorizr';
 
+import { formatOklch } from '~/utils/color';
+
 import Tooltip from '~/components/Tooltip';
 
 import type { ColorEntry, Gamut } from '~/types';
@@ -33,7 +35,8 @@ export default function Header(props: HeaderProps) {
         <div className="flex items-center gap-2">
           {colors.map(color => {
             const isActive = color.id === activeId;
-            const displayValue = gamut === 'srgb' ? convertCSS(color.value, 'hex') : color.value;
+            const displayValue =
+              gamut === 'srgb' ? convertCSS(color.value, 'hex') : formatOklch(color.value);
 
             return (
               <Tooltip key={color.id} content={color.name} placement="bottom">

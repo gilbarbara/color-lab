@@ -14,7 +14,7 @@ vi.mock('~/utils/color', async importOriginal => {
 
   return {
     ...actual,
-    getRandomColor: () => 'oklch(0.65 0.15 180)',
+    getRandomColor: () => 'oklch(63.27% 0.254 19.9)',
   };
 });
 

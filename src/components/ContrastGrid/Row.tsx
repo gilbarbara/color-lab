@@ -2,6 +2,8 @@ import type { CSSProperties } from 'react';
 import { cn } from '@heroui/react';
 import { apcaContrast, contrast, convertCSS } from 'colorizr';
 
+import { formatOklch } from '~/utils/color';
+
 import type { ApcaThreshold, Guideline, WcagThreshold } from '~/components/ContrastGrid/constants';
 
 import type { Gamut } from '~/types';
@@ -55,7 +57,7 @@ export default function Row(props: RowProps) {
   const { cellBase, entries, failBg, gamut, guideline, rowColor, step, stickyBase, threshold } =
     props;
 
-  const displayRowColor = gamut === 'srgb' ? convertCSS(rowColor, 'hex') : rowColor;
+  const displayRowColor = gamut === 'srgb' ? convertCSS(rowColor, 'hex') : formatOklch(rowColor);
 
   return (
     <>
@@ -74,7 +76,8 @@ export default function Row(props: RowProps) {
           );
         }
 
-        const displayColColor = gamut === 'srgb' ? convertCSS(colColor, 'hex') : colColor;
+        const displayColColor =
+          gamut === 'srgb' ? convertCSS(colColor, 'hex') : formatOklch(colColor);
         const ok = passes(guideline, threshold, displayRowColor, displayColColor);
 
         if (!ok) {

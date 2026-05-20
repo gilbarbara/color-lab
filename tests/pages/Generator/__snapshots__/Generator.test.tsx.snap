@@ -101,11 +101,11 @@ exports[`Generator > renders correctly 1`] = `
                 aria-haspopup="dialog"
                 aria-label="Color picker"
                 class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-                data-color="oklch(63.269% 0.25404 19.902)"
+                data-color="oklch(63.27% 0.254 19.9)"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
                 data-testid="ColorBox"
-                style="background-color: oklch(0.63269 0.25404 19.902);"
+                style="background-color: oklch(0.6327 0.254 19.9);"
                 tabindex="0"
                 type="button"
               />
@@ -205,7 +205,7 @@ exports[`Generator > renders correctly 1`] = `
                           tabindex="0"
                           title=""
                           type="text"
-                          value="oklch(63.269% 0.25404 19.902)"
+                          value="oklch(63.27% 0.254 19.9)"
                         />
                       </div>
                     </div>
@@ -233,27 +233,27 @@ exports[`Generator > renders correctly 1`] = `
                     >
                       <div
                         class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-                        style="background: linear-gradient(to right, oklch(0 0.25404 19.902), oklch(0.63269 0.25404 19.902), oklch(1 0.25404 19.902)); touch-action: none;"
+                        style="background: linear-gradient(to right, oklch(0 0.254 19.9), oklch(0.6327 0.254 19.9), oklch(1 0.254 19.9)); touch-action: none;"
                       >
                         <input
                           aria-label="Lightness"
                           aria-orientation="horizontal"
                           aria-valuemax="1"
                           aria-valuemin="0"
-                          aria-valuenow="0.63269"
+                          aria-valuenow="0.6327"
                           class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                           max="1"
                           min="0"
                           step="0.001"
                           tabindex="0"
                           type="range"
-                          value="0.63269"
+                          value="0.6327"
                         />
                         <div
                           aria-hidden="true"
                           class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                           data-testid="GradientSliderThumb"
-                          style="left: calc(63.269% - 12.654px);"
+                          style="left: calc(63.27% - 12.654px);"
                         />
                       </div>
                     </div>
@@ -292,27 +292,27 @@ exports[`Generator > renders correctly 1`] = `
                     >
                       <div
                         class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-                        style="background: linear-gradient(to right, oklch(0.63269 0 19.902), oklch(0.63269 0.28643 19.902)); touch-action: none;"
+                        style="background: linear-gradient(to right, oklch(0.6327 0 19.9), oklch(0.6327 0.28643 19.9)); touch-action: none;"
                       >
                         <input
                           aria-label="Chroma"
                           aria-orientation="horizontal"
                           aria-valuemax="0.28643"
                           aria-valuemin="0"
-                          aria-valuenow="0.25404"
+                          aria-valuenow="0.254"
                           class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                           max="0.28643"
                           min="0"
                           step="0.001"
                           tabindex="0"
                           type="range"
-                          value="0.25404"
+                          value="0.254"
                         />
                         <div
                           aria-hidden="true"
                           class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                           data-testid="GradientSliderThumb"
-                          style="left: calc(88.692% - 17.738px);"
+                          style="left: calc(88.678% - 17.736px);"
                         />
                       </div>
                     </div>
@@ -351,14 +351,14 @@ exports[`Generator > renders correctly 1`] = `
                           aria-orientation="horizontal"
                           aria-valuemax="360"
                           aria-valuemin="0"
-                          aria-valuenow="19.902"
+                          aria-valuenow="19.9"
                           class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                           max="360"
                           min="0"
                           step="0.01"
                           tabindex="0"
                           type="range"
-                          value="19.902"
+                          value="19.9"
                         />
                         <div
                           aria-hidden="true"
@@ -388,10 +388,10 @@ exports[`Generator > renders correctly 1`] = `
                 </div>
                 <style>
                   
-      .popover-content-0 { background-color: oklch(63.269% 0.25404 19.902); }
+      .popover-content-0 { background-color: oklch(63.27% 0.254 19.9); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(63.269% 0.25404 19.902);
+          background-color: oklch(63.27% 0.254 19.9);
           
         }
        }
@@ -704,7 +704,7 @@ exports[`Generator > renders correctly 1`] = `
               <span
                 aria-label="Color Box"
                 class="shrink-0 size-8 rounded-small"
-                style="background-color: oklch(0.63269 0.25404 19.902);"
+                style="background-color: oklch(0.6327 0.254 19.9);"
               />
               <h3
                 class="font-semibold text-lg leading-none"
@@ -714,7 +714,7 @@ exports[`Generator > renders correctly 1`] = `
               <p
                 class="hidden lg:block text-foreground-500 font-mono text-sm"
               >
-                oklch(63.269% 0.25404 19.902)
+                oklch(63.27% 0.254 19.9)
               </p>
             </div>
             <div
@@ -804,7 +804,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.97 0.01918 19.902); color: rgb(0, 0, 0);"
+              style="background-color: oklch(0.97 0.019 19.9); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
@@ -816,7 +816,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.94565 0.03542 19.902); color: rgb(0, 0, 0);"
+              style="background-color: oklch(0.9457 0.035 19.9); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
@@ -828,7 +828,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.90113 0.06684 19.902); color: rgb(0, 0, 0);"
+              style="background-color: oklch(0.9011 0.067 19.9); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
@@ -840,7 +840,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.84348 0.11123 19.902); color: rgb(0, 0, 0);"
+              style="background-color: oklch(0.8435 0.111 19.9); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
@@ -852,7 +852,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.7752 0.17009 19.902); color: rgb(0, 0, 0);"
+              style="background-color: oklch(0.7752 0.17 19.9); color: rgb(0, 0, 0);"
               tabindex="0"
             >
               <p
@@ -864,7 +864,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.69776 0.24668 19.902); color: rgb(255, 255, 255);"
+              style="background-color: oklch(0.6978 0.247 19.9); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
@@ -876,7 +876,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.61214 0.25404 19.902); color: rgb(255, 255, 255);"
+              style="background-color: oklch(0.6121 0.254 19.9); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
@@ -888,7 +888,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.51904 0.23498 19.902); color: rgb(255, 255, 255);"
+              style="background-color: oklch(0.519 0.235 19.9); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
@@ -900,7 +900,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.41903 0.1897 19.902); color: rgb(255, 255, 255);"
+              style="background-color: oklch(0.419 0.19 19.9); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
@@ -912,7 +912,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.31256 0.1415 19.902); color: rgb(255, 255, 255);"
+              style="background-color: oklch(0.3126 0.141 19.9); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
@@ -924,7 +924,7 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
               role="button"
-              style="background-color: oklch(0.2 0.09055 19.902); color: rgb(255, 255, 255);"
+              style="background-color: oklch(0.2 0.091 19.9); color: rgb(255, 255, 255);"
               tabindex="0"
             >
               <p
