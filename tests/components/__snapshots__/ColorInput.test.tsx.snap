@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ColorInput > Render > renders correctly 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_10px)] is-filled"
+      data-filled="true"
+      data-filled-within="true"
+      data-has-value="true"
+      data-slot="base"
+    >
+      <div
+        class="h-full flex flex-col"
+        data-slot="main-wrapper"
+      >
+        <div
+          class="relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs gap-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground group-data-[focus=true]:data-[hover=true]:border-default-foreground rounded-medium !duration-150 transition-colors motion-reduce:transition-none h-8 min-h-8 px-2 is-filled"
+          data-slot="input-wrapper"
+          style="cursor: text;"
+        >
+          <div
+            class="inline-flex w-full items-center h-full box-border"
+            data-slot="inner-wrapper"
+          >
+            <input
+              aria-label="Color value"
+              class="w-full font-normal bg-transparent !outline-solid placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent data-[has-start-content=true]:ps-1.5 data-[has-end-content=true]:pe-1.5 data-[type=color]:rounded-none file:cursor-pointer file:bg-transparent file:border-0 autofill:bg-transparent bg-clip-text dark:autofill:[-webkit-text-fill-color:hsl(var(--heroui-foreground))] [&::-ms-reveal]:hidden text-small is-filled"
+              data-filled="true"
+              data-filled-within="true"
+              data-slot="input"
+              data-type="text"
+              id="react-aria-_r_0_"
+              tabindex="0"
+              title=""
+              type="text"
+              value="oklch(63.27% 0.254 19.9)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

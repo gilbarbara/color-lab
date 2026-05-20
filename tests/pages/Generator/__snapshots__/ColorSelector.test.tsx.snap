@@ -19,11 +19,11 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
           aria-haspopup="dialog"
           aria-label="Color picker"
           class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-          data-color="oklch(55% 0.220 27)"
+          data-color="oklch(63.27% 0.254 19.9)"
           data-react-aria-pressable="true"
           data-slot="trigger"
           data-testid="ColorBox"
-          style="background-color: oklch(0.55 0.22 27);"
+          style="background-color: oklch(0.6327 0.254 19.9);"
           tabindex="0"
           type="button"
         />
@@ -122,7 +122,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                     tabindex="0"
                     title=""
                     type="text"
-                    value="#d40c1a"
+                    value="#ff0044"
                   />
                 </div>
               </div>
@@ -157,20 +157,20 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                     aria-orientation="horizontal"
                     aria-valuemax="359.9"
                     aria-valuemin="0"
-                    aria-valuenow="355.8"
+                    aria-valuenow="344"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="359.9"
                     min="0"
                     step="1"
                     tabindex="0"
                     type="range"
-                    value="355.8"
+                    value="344"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(98.861% - 19.772px);"
+                    style="left: calc(95.582% - 19.116px);"
                   />
                 </div>
               </div>
@@ -182,7 +182,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                   aria-label="Hue"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="356"
+                  value="344"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -209,27 +209,27 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
               >
                 <div
                   class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-                  style="background: linear-gradient(to right, rgb(112, 112, 112), rgb(224, 0, 16)); touch-action: none;"
+                  style="background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 0, 68)); touch-action: none;"
                 >
                   <input
                     aria-label="Saturation"
                     aria-orientation="horizontal"
                     aria-valuemax="100"
                     aria-valuemin="0"
-                    aria-valuenow="89.29"
+                    aria-valuenow="100"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="100"
                     min="0"
                     step="1"
                     tabindex="0"
                     type="range"
-                    value="89.29"
+                    value="100"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(89.29% - 17.858px);"
+                    style="left: calc(100% - 20px);"
                   />
                 </div>
               </div>
@@ -241,7 +241,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                   aria-label="Saturation"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="89"
+                  value="100"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -260,27 +260,27 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
               >
                 <div
                   class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-                  style="background: linear-gradient(to right, rgb(0, 0, 0), rgb(241, 14, 30), rgb(255, 255, 255)); touch-action: none;"
+                  style="background: linear-gradient(to right, rgb(0, 0, 0), rgb(255, 0, 68), rgb(255, 255, 255)); touch-action: none;"
                 >
                   <input
                     aria-label="Lightness"
                     aria-orientation="horizontal"
                     aria-valuemax="100"
                     aria-valuemin="0"
-                    aria-valuenow="43.92"
+                    aria-valuenow="50"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="100"
                     min="0"
                     step="1"
                     tabindex="0"
                     type="range"
-                    value="43.92"
+                    value="50"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(43.92% - 8.784px);"
+                    style="left: calc(50% - 10px);"
                   />
                 </div>
               </div>
@@ -292,7 +292,7 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
                   aria-label="Lightness"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="44"
+                  value="50"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -304,10 +304,10 @@ exports[`ColorSelector > Render > renders correctly in HSL mode 1`] = `
           </div>
           <style>
             
-      .popover-content-0 { background-color: oklch(55% 0.220 27); }
+      .popover-content-0 { background-color: oklch(63.27% 0.254 19.9); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(55% 0.220 27);
+          background-color: oklch(63.27% 0.254 19.9);
           
         }
        }
@@ -442,11 +442,11 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
           aria-haspopup="dialog"
           aria-label="Color picker"
           class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-          data-color="oklch(55% 0.220 27)"
+          data-color="oklch(63.27% 0.254 19.9)"
           data-react-aria-pressable="true"
           data-slot="trigger"
           data-testid="ColorBox"
-          style="background-color: oklch(0.55 0.22 27);"
+          style="background-color: oklch(0.6327 0.254 19.9);"
           tabindex="0"
           type="button"
         />
@@ -545,7 +545,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                     tabindex="0"
                     title=""
                     type="text"
-                    value="oklch(55% 0.220 27)"
+                    value="oklch(63.27% 0.254 19.9)"
                   />
                 </div>
               </div>
@@ -573,27 +573,27 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
               >
                 <div
                   class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-                  style="background: linear-gradient(to right, oklch(0 0.22 27), oklch(0.55 0.22 27), oklch(1 0.22 27)); touch-action: none;"
+                  style="background: linear-gradient(to right, oklch(0 0.254 19.9), oklch(0.6327 0.254 19.9), oklch(1 0.254 19.9)); touch-action: none;"
                 >
                   <input
                     aria-label="Lightness"
                     aria-orientation="horizontal"
                     aria-valuemax="1"
                     aria-valuemin="0"
-                    aria-valuenow="0.55"
+                    aria-valuenow="0.6327"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="1"
                     min="0"
                     step="0.001"
                     tabindex="0"
                     type="range"
-                    value="0.55"
+                    value="0.6327"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(55% - 11px);"
+                    style="left: calc(63.27% - 12.654px);"
                   />
                 </div>
               </div>
@@ -605,7 +605,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                   aria-label="Lightness"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="55.0"
+                  value="63.3"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -632,27 +632,27 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
               >
                 <div
                   class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-                  style="background: linear-gradient(to right, oklch(0.55 0 27), oklch(0.55 0.25246 27)); touch-action: none;"
+                  style="background: linear-gradient(to right, oklch(0.6327 0 19.9), oklch(0.6327 0.28643 19.9)); touch-action: none;"
                 >
                   <input
                     aria-label="Chroma"
                     aria-orientation="horizontal"
-                    aria-valuemax="0.25246"
+                    aria-valuemax="0.28643"
                     aria-valuemin="0"
-                    aria-valuenow="0.22"
+                    aria-valuenow="0.254"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
-                    max="0.25246"
+                    max="0.28643"
                     min="0"
                     step="0.001"
                     tabindex="0"
                     type="range"
-                    value="0.22"
+                    value="0.254"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(87.143% - 17.429px);"
+                    style="left: calc(88.678% - 17.736px);"
                   />
                 </div>
               </div>
@@ -664,7 +664,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                   aria-label="Chroma"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="0.220"
+                  value="0.254"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -691,20 +691,20 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                     aria-orientation="horizontal"
                     aria-valuemax="360"
                     aria-valuemin="0"
-                    aria-valuenow="27"
+                    aria-valuenow="19.9"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="360"
                     min="0"
                     step="0.01"
                     tabindex="0"
                     type="range"
-                    value="27"
+                    value="19.9"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(7.5% - 1.5px);"
+                    style="left: calc(5.528% - 1.106px);"
                   />
                 </div>
               </div>
@@ -716,7 +716,7 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
                   aria-label="Hue"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="27.0"
+                  value="19.9"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -728,10 +728,10 @@ exports[`ColorSelector > Render > renders correctly in OKLCH mode 1`] = `
           </div>
           <style>
             
-      .popover-content-0 { background-color: oklch(55% 0.220 27); }
+      .popover-content-0 { background-color: oklch(63.27% 0.254 19.9); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(55% 0.220 27);
+          background-color: oklch(63.27% 0.254 19.9);
           
         }
        }
@@ -866,11 +866,11 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
           aria-haspopup="dialog"
           aria-label="Color picker"
           class="shrink-0 size-16 rounded-large z-10 subpixel-antialiased aria-expanded:opacity-100 aria-expanded:scale-[1] cursor-pointer"
-          data-color="oklch(55% 0.220 27)"
+          data-color="oklch(63.27% 0.254 19.9)"
           data-react-aria-pressable="true"
           data-slot="trigger"
           data-testid="ColorBox"
-          style="background-color: oklch(0.55 0.22 27);"
+          style="background-color: oklch(0.6327 0.254 19.9);"
           tabindex="0"
           type="button"
         />
@@ -969,7 +969,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                     tabindex="0"
                     title=""
                     type="text"
-                    value="#d40c1a"
+                    value="#ff0044"
                   />
                 </div>
               </div>
@@ -1004,20 +1004,20 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                     aria-orientation="horizontal"
                     aria-valuemax="255"
                     aria-valuemin="0"
-                    aria-valuenow="212"
+                    aria-valuenow="255"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="255"
                     min="0"
                     step="1"
                     tabindex="0"
                     type="range"
-                    value="212"
+                    value="255"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(83.137% - 16.627px);"
+                    style="left: calc(100% - 20px);"
                   />
                 </div>
               </div>
@@ -1029,7 +1029,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                   aria-label="Red"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="212"
+                  value="255"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -1056,20 +1056,20 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                     aria-orientation="horizontal"
                     aria-valuemax="255"
                     aria-valuemin="0"
-                    aria-valuenow="12"
+                    aria-valuenow="0"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="255"
                     min="0"
                     step="1"
                     tabindex="0"
                     type="range"
-                    value="12"
+                    value="0"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(4.706% - 0.941px);"
+                    style="left: calc(0% - 0px);"
                   />
                 </div>
               </div>
@@ -1081,7 +1081,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                   aria-label="Green"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="12"
+                  value="0"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -1108,20 +1108,20 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                     aria-orientation="horizontal"
                     aria-valuemax="255"
                     aria-valuemin="0"
-                    aria-valuenow="26"
+                    aria-valuenow="68"
                     class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
                     max="255"
                     min="0"
                     step="1"
                     tabindex="0"
                     type="range"
-                    value="26"
+                    value="68"
                   />
                   <div
                     aria-hidden="true"
                     class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
                     data-testid="GradientSliderThumb"
-                    style="left: calc(10.196% - 2.039px);"
+                    style="left: calc(26.667% - 5.333px);"
                   />
                 </div>
               </div>
@@ -1133,7 +1133,7 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
                   aria-label="Blue"
                   class="w-11 bg-black/10 dark:bg-white/10 text-right text-sm text-black/75 dark:text-white/75 outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 rounded px-0.5"
                   type="text"
-                  value="26"
+                  value="68"
                 />
                 <span
                   class="w-2 text-xs text-neutral-500 dark:text-neutral-400"
@@ -1146,10 +1146,10 @@ exports[`ColorSelector > Render > renders correctly in RGB mode 1`] = `
           </div>
           <style>
             
-      .popover-content-0 { background-color: oklch(55% 0.220 27); }
+      .popover-content-0 { background-color: oklch(63.27% 0.254 19.9); }
       .popover-base-0 {
         &:before {
-          background-color: oklch(55% 0.220 27);
+          background-color: oklch(63.27% 0.254 19.9);
           
         }
        }
