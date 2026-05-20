@@ -8,6 +8,7 @@ import {
   getRandomColor,
   isInRangeOklch,
   isValidColorValue,
+  rotateOklchHue,
   toOklch,
 } from '~/utils/color';
 
@@ -140,6 +141,40 @@ describe('utils/color', () => {
       expect(isValidColorValue('oklch(-10% 0.1 100)')).toBe(false);
       expect(isValidColorValue('oklch(50% 0.1 9999)')).toBe(false);
       expect(isValidColorValue('oklch(50% -0.1 100)')).toBe(false);
+    });
+  });
+
+  describe('rotateOklchHue', () => {
+    it('rotates hue by positive delta', () => {
+      const result = rotateOklchHue('oklch(50% 0.1 30)' as OklchString, 30);
+
+      expect(result).toMatch(/oklch\(50% 0\.1(00)? 60(\.\d+)?\)/);
+    });
+
+    it('wraps past 360', () => {
+      const result = rotateOklchHue('oklch(50% 0.1 350)' as OklchString, 30);
+
+      expect(result).toMatch(/oklch\(50% 0\.1(00)? 20(\.\d+)?\)/);
+    });
+
+    it('wraps negative delta below 0', () => {
+      const result = rotateOklchHue('oklch(50% 0.1 10)' as OklchString, -30);
+
+      expect(result).toMatch(/oklch\(50% 0\.1(00)? 340(\.\d+)?\)/);
+    });
+
+    it('preserves L and C unchanged', () => {
+      const result = rotateOklchHue('oklch(63.6% 0.291 29.23)' as OklchString, 30);
+
+      expect(result).toContain('63.6%');
+      expect(result).toContain('0.291');
+    });
+
+    it('360 rotation is identity (modulo precision)', () => {
+      const input = 'oklch(50% 0.1 120)' as OklchString;
+      const result = rotateOklchHue(input, 360);
+
+      expect(result).toBe(formatOklch(input));
     });
   });
 

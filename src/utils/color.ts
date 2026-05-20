@@ -86,6 +86,17 @@ export function isValidColorValue(value: string): boolean {
 }
 
 /**
+ * Rotate an OKLCH color's hue by `deltaDeg`, staying in OKLCH space.
+ * Avoids colorizr's `rotate` which round-trips through HSL (lossy + gamut-clipping).
+ */
+export function rotateOklchHue(value: OklchString, deltaDeg: number): OklchString {
+  const { c, h, l } = parseCSS(value, 'oklch');
+  const nextH = (((h + deltaDeg) % 360) + 360) % 360;
+
+  return formatOklch({ c, h: nextH, l }) as OklchString;
+}
+
+/**
  * The only mint site for `OklchString`. Validates via parseCSS (throws on
  * syntax / negative L / big H / negative C) and via isInRangeOklch (catches
  * the L > 1 case that parseCSS silently accepts). Normalises via formatCSS so
