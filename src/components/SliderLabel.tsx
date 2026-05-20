@@ -46,7 +46,6 @@ export default function SliderLabel(props: SliderLabelProps) {
           base: '-ml-2',
         }}
         content="Reset to default"
-        delay={250}
         isDisabled={isDisabled}
       >
         <button
