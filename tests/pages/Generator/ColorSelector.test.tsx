@@ -1,4 +1,5 @@
 import { usePaletteStore } from '~/stores/paletteStore';
+import { BLUE, CRIMSON } from '~/test-fixtures';
 import { act, fireEvent, render, screen } from '~/test-utils';
 import { toOklch } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
@@ -20,13 +21,11 @@ function createColorEntry(
   };
 }
 
-const TEST_COLOR = toOklch('oklch(0.55 0.22 27)');
-
 function createDefaultProps(overrides: Partial<Parameters<typeof ColorSelector>[0]> = {}) {
-  const globalOptions: GlobalScaleOptions = getDefaultGlobalOptions(TEST_COLOR);
+  const globalOptions: GlobalScaleOptions = getDefaultGlobalOptions(CRIMSON);
 
   return {
-    colorEntry: createColorEntry('Primary', TEST_COLOR),
+    colorEntry: createColorEntry('Primary', CRIMSON),
     globalOptions,
     index: 0,
     isOnlyColor: false,
@@ -43,7 +42,7 @@ function renderActive(propsOverrides: Partial<Parameters<typeof ColorSelector>[0
 }
 
 function setupStore(colors: ColorEntry[], activeIndex: number | null = 0) {
-  const palette = createPalette(TEST_COLOR);
+  const palette = createPalette(CRIMSON);
 
   palette.colors = colors;
 
@@ -133,10 +132,7 @@ describe('ColorSelector', () => {
     });
 
     it('removes color on second click within 2 seconds', () => {
-      const colors = [
-        createColorEntry('Primary', TEST_COLOR),
-        createColorEntry('Secondary', 'oklch(0.7 0.15 180)'),
-      ];
+      const colors = [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', BLUE)];
 
       setupStore(colors);
 
@@ -154,10 +150,7 @@ describe('ColorSelector', () => {
     });
 
     it('resets remove confirmation after 2 seconds', () => {
-      const colors = [
-        createColorEntry('Primary', TEST_COLOR),
-        createColorEntry('Secondary', 'oklch(0.7 0.15 180)'),
-      ];
+      const colors = [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', BLUE)];
 
       setupStore(colors);
 
@@ -198,19 +191,8 @@ describe('ColorSelector', () => {
       expect(optionsButton).toBeInTheDocument();
     });
 
-    it('stores color values as OKLCH', () => {
-      renderActive();
-
-      const storeValue = usePaletteStore.getState().colors[0].value;
-
-      expect(storeValue).toMatch(/^oklch\(/);
-    });
-
     it('activates color in store on first click of inactive item', () => {
-      const colors = [
-        createColorEntry('Primary', TEST_COLOR),
-        createColorEntry('Secondary', 'oklch(0.7 0.15 180)'),
-      ];
+      const colors = [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', BLUE)];
 
       setupStore(colors, 0);
 
@@ -224,7 +206,7 @@ describe('ColorSelector', () => {
     });
 
     it('reflects external name change when prop updates with same id (URL sync)', () => {
-      const entry = createColorEntry('Primary', TEST_COLOR);
+      const entry = createColorEntry('Primary', CRIMSON);
 
       setupStore([entry]);
 
@@ -243,21 +225,8 @@ describe('ColorSelector', () => {
       expect(screen.getByDisplayValue('Brand')).toBeInTheDocument();
     });
 
-    it('ignores out-of-range OKLCH paste (L > 100%)', () => {
-      renderActive();
-
-      const initialValue = usePaletteStore.getState().colors[0].value;
-      const colorInput = screen.getByLabelText('Color value');
-
-      fireEvent.change(colorInput, {
-        target: { value: 'oklch(164.9% 0.24196 300.54)' },
-      });
-
-      expect(usePaletteStore.getState().colors[0].value).toBe(initialValue);
-    });
-
     it('preserves in-progress name edit when prop changes externally', () => {
-      const entry = createColorEntry('Primary', TEST_COLOR);
+      const entry = createColorEntry('Primary', CRIMSON);
 
       setupStore([entry]);
 

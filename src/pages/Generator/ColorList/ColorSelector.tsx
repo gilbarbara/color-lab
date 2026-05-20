@@ -4,16 +4,16 @@ import { cn, Input, Popover, PopoverContent, PopoverTrigger, useDisclosure } fro
 import { TrashIcon } from '@phosphor-icons/react';
 import * as Sentry from '@sentry/react';
 import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
-import { convertCSS } from 'colorizr';
 
 import usePalette from '~/hooks/usePalette';
 import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
-import { getChromaAsPercentage, getRandomColor, isValidColorValue, toOklch } from '~/utils/color';
+import { getChromaAsPercentage, getRandomColor, toOklch } from '~/utils/color';
 
 import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
 import ColorBox from '~/components/ColorBox';
+import ColorInput from '~/components/ColorInput';
 import ConfirmTooltip from '~/components/ConfirmTooltip';
 import TooltipClickable from '~/components/TooltipClickable';
 
@@ -38,8 +38,6 @@ interface ColorSelectorProps {
 }
 
 interface ColorSelectorState {
-  editInput: string;
-  isEditingInput: boolean;
   localName: string | null;
   mode: ColorMode;
 }
@@ -54,17 +52,13 @@ export default function ColorSelector(props: ColorSelectorProps) {
     updateColor,
     updateGlobalOptions,
   } = usePalette();
-  const [{ editInput, isEditingInput, localName, mode }, setState] =
-    useSetState<ColorSelectorState>({
-      editInput: '',
-      isEditingInput: false,
-      mode: 'oklch',
-      localName: null,
-    });
+  const [{ localName, mode }, setState] = useSetState<ColorSelectorState>({
+    mode: 'oklch',
+    localName: null,
+  });
   const { isOpen, onOpenChange } = useDisclosure();
 
   const color = colorEntry.value;
-  const input = isEditingInput ? editInput : mode === 'oklch' ? color : convertCSS(color, 'hex');
 
   const isEditingName = localName !== null;
   const displayName = localName ?? colorEntry.name;
@@ -126,39 +120,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
     const randomColor = getRandomColor(baseSaturation);
 
     handleChangeColor(randomColor);
-  };
-
-  const handleFocusInput = () => {
-    setState({ isEditingInput: true, editInput: input });
-  };
-
-  const handleBlurInput = () => {
-    setState({ isEditingInput: false });
-  };
-
-  const handleChangeInput = (value: string) => {
-    const trimmed = value.trim();
-    const bareHexPattern = /^(?:[\da-f]{3}){1,2}$/i;
-
-    if (bareHexPattern.test(trimmed)) {
-      const prefixed = `#${trimmed}`;
-
-      setState({ editInput: prefixed });
-      handleChangeColor(prefixed);
-
-      return;
-    }
-
-    setState({ editInput: value });
-
-    // Only accept 3/6-char hex (no RGBA) to avoid transparent colors
-    if (/^#[\da-f]+$/i.test(trimmed) && trimmed.length !== 4 && trimmed.length !== 7) {
-      return;
-    }
-
-    if (isValidColorValue(trimmed)) {
-      handleChangeColor(trimmed);
-    }
   };
 
   const isActive = activeColorId === colorEntry.id;
@@ -259,18 +220,7 @@ export default function ColorSelector(props: ColorSelectorProps) {
             </ConfirmTooltip>
           </div>
 
-          <Input
-            aria-label="Color value"
-            classNames={{
-              inputWrapper: 'h-8 min-h-8 px-2',
-            }}
-            onBlur={handleBlurInput}
-            onFocus={handleFocusInput}
-            onValueChange={handleChangeInput}
-            type="text"
-            value={input}
-            variant="bordered"
-          />
+          <ColorInput color={color} mode={mode} onChange={handleChangeColor} />
         </div>
       </div>
 
