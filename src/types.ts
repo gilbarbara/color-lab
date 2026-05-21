@@ -47,9 +47,9 @@ export interface PaletteActions {
   resetGlobalOptions: () => void;
   resetPalette: () => void;
   setActiveColor: (id: string) => void;
+  setColorOverride: (index: number, updates: Partial<ScaleOptions>) => void;
   setPreviewColor: (id: string) => void;
   updateColor: (index: number, updates: Partial<ColorEntry>) => void;
-  updateColorOverrides: (index: number, overrides: Partial<ScaleOptions>) => void;
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
 

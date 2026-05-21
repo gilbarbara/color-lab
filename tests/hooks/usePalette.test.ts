@@ -104,11 +104,11 @@ describe('hooks/usePalette', () => {
       expect(result.current.colors[0].name).toBe('New Name');
     });
 
-    it('updateColorOverrides updates state', () => {
+    it('setColorOverride updates state', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.updateColorOverrides(0, { maxLightness: 0.9 });
+        result.current.setColorOverride(0, { maxLightness: 0.9 });
       });
 
       expect(result.current.colors[0].overrides).toEqual({ maxLightness: 0.9 });
@@ -118,7 +118,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => usePalette());
 
       act(() => {
-        result.current.updateColorOverrides(0, { maxLightness: 0.9 });
+        result.current.setColorOverride(0, { maxLightness: 0.9 });
       });
 
       expect(result.current.colors[0].overrides).toBeDefined();

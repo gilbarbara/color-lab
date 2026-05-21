@@ -2,7 +2,7 @@ import { useMemoDeepCompare } from '@gilbarbara/hooks';
 
 import { usePaletteStore } from '~/stores/paletteStore';
 import { getChromaAsPercentage } from '~/utils/color';
-import { getDefaultGlobalOptions } from '~/utils/palette';
+import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/palette';
 import { serializePaletteToUrl } from '~/utils/url';
 
 import type { GlobalScaleOptions, PaletteActions, PaletteState } from '~/types';
@@ -12,6 +12,8 @@ interface UsePaletteResult extends PaletteState, PaletteActions {
   baseSaturation: number;
   defaultOptions: GlobalScaleOptions;
   generatorUrl: string;
+  hasCustomCurves: boolean;
+  hasCustomPaletteOptions: boolean;
   previewColorId: string | null;
 }
 
@@ -36,5 +38,22 @@ export default function usePalette(): UsePaletteResult {
     [store.colors, store.globalOptions],
   );
 
-  return { baseSaturation, defaultOptions, generatorUrl, ...store };
+  const hasCustomCurves = useMemoDeepCompare(
+    () => CURVE_OPTION_KEYS.some(key => store.globalOptions[key] !== defaultOptions[key]),
+    [store.globalOptions, defaultOptions],
+  );
+
+  const hasCustomPaletteOptions = useMemoDeepCompare(
+    () => PALETTE_OPTION_KEYS.some(key => store.globalOptions[key] !== defaultOptions[key]),
+    [store.globalOptions, defaultOptions],
+  );
+
+  return {
+    baseSaturation,
+    defaultOptions,
+    generatorUrl,
+    hasCustomCurves,
+    hasCustomPaletteOptions,
+    ...store,
+  };
 }

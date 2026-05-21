@@ -12,6 +12,22 @@ import type {
 
 export const MAX_COLORS = 10;
 
+export const CURVE_OPTION_KEYS = [
+  'minLightness',
+  'maxLightness',
+  'lightnessCurve',
+  'chromaCurve',
+] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
+
+export const PALETTE_OPTION_KEYS = [
+  'lock',
+  'mode',
+  'saturation',
+  'saturationOverride',
+  'steps',
+  'variant',
+] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
+
 /**
  * Get default global options with saturation computed from the given color.
  */
@@ -137,6 +153,35 @@ export function resetPalette(): PaletteState {
 }
 
 /**
+ * Set per-color overrides. Strips any key whose value matches the current
+ * globalOptions value, so `ColorEntry.overrides` only ever contains genuine
+ * differences. Clears overrides entirely when no key remains.
+ */
+export function setColorOverride(
+  state: PaletteState,
+  index: number,
+  updates: Partial<ScaleOptions>,
+): PaletteState {
+  const currentColor = state.colors[index];
+
+  if (!currentColor) {
+    return state;
+  }
+
+  const merged: Partial<ScaleOptions> = { ...currentColor.overrides, ...updates };
+
+  for (const key of Object.keys(merged) as Array<keyof ScaleOptions>) {
+    if (merged[key] === state.globalOptions[key as keyof GlobalScaleOptions]) {
+      delete merged[key];
+    }
+  }
+
+  return updateColor(state, index, {
+    overrides: Object.keys(merged).length ? merged : undefined,
+  });
+}
+
+/**
  * Update a color entry by index
  */
 export function updateColor(
@@ -152,26 +197,6 @@ export function updateColor(
     ...state,
     colors: state.colors.map((c, index_) => (index_ === index ? { ...c, ...updates } : c)),
   };
-}
-
-/**
- * Update overrides for a specific color
- */
-export function updateColorOverrides(
-  state: PaletteState,
-  index: number,
-  overrides: Partial<ScaleOptions>,
-): PaletteState {
-  const currentColor = state.colors[index];
-
-  if (!currentColor) {
-    return state;
-  }
-
-  // Merge with existing overrides
-  const mergedOverrides = { ...currentColor.overrides, ...overrides };
-
-  return updateColor(state, index, { overrides: mergedOverrides });
 }
 
 /**

@@ -43,35 +43,29 @@ exports[`Generator > renders correctly 1`] = `
             tabindex="0"
             type="button"
           >
-            <svg
-              aria-hidden="true"
-              class="text-lg"
-              fill="currentColor"
-              focusable="false"
-              height="1em"
-              viewBox="0 0 256 256"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="relative inline-flex shrink-0"
             >
-              <path
-                d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+              <svg
+                class="text-lg"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                />
+              </svg>
+              <span
+                aria-hidden="true"
+                class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+                data-invisible="true"
+                focusable="false"
               />
-            </svg>
+            </div>
             Advanced Options
-            <svg
-              aria-hidden="true"
-              class="transition-transform text-xs"
-              fill="currentColor"
-              focusable="false"
-              height="1em"
-              viewBox="0 0 256 256"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z"
-              />
-            </svg>
           </button>
         </div>
         <hr
@@ -489,18 +483,26 @@ exports[`Generator > renders correctly 1`] = `
                       <span
                         class="size-8 inline-flex items-center justify-center"
                       >
-                        <svg
-                          class="text-base"
-                          fill="currentColor"
-                          height="1em"
-                          viewBox="0 0 256 256"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <div
+                          class="relative inline-flex shrink-0"
                         >
-                          <path
-                            d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                          <svg
+                            class="text-base"
+                            fill="currentColor"
+                            height="1em"
+                            viewBox="0 0 256 256"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                            />
+                          </svg>
+                          <span
+                            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+                            data-invisible="true"
                           />
-                        </svg>
+                        </div>
                       </span>
                     </button>
                   </div>
@@ -629,20 +631,28 @@ exports[`Generator > renders correctly 1`] = `
               tabindex="0"
               type="button"
             >
-              <svg
-                aria-hidden="true"
-                class="text-xl"
-                fill="currentColor"
-                focusable="false"
-                height="1em"
-                viewBox="0 0 256 256"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="relative inline-flex shrink-0"
               >
-                <path
-                  d="M203.57,51A107.9,107.9,0,0,0,20,128c0,44.72,27.6,82.25,72,97.94A36,36,0,0,0,140,192a12,12,0,0,1,12-12h46.21a35.79,35.79,0,0,0,35.1-28A108.6,108.6,0,0,0,236,127.09,107.23,107.23,0,0,0,203.57,51Zm6.34,95.67a11.91,11.91,0,0,1-11.7,9.3H152a36,36,0,0,0-36,36,12,12,0,0,1-16,11.3c-16.65-5.88-30.65-15.76-40.48-28.56A76,76,0,0,1,44,128a84,84,0,0,1,83.13-84H128a84.35,84.35,0,0,1,84,83.29A84.72,84.72,0,0,1,209.91,146.71ZM144,76a16,16,0,1,1-16-16A16,16,0,0,1,144,76Zm-44,24A16,16,0,1,1,84,84,16,16,0,0,1,100,100Zm0,56a16,16,0,1,1-16-16A16,16,0,0,1,100,156Zm88-56a16,16,0,1,1-16-16A16,16,0,0,1,188,100Z"
+                <svg
+                  class="text-xl"
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 256 256"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M203.57,51A107.9,107.9,0,0,0,20,128c0,44.72,27.6,82.25,72,97.94A36,36,0,0,0,140,192a12,12,0,0,1,12-12h46.21a35.79,35.79,0,0,0,35.1-28A108.6,108.6,0,0,0,236,127.09,107.23,107.23,0,0,0,203.57,51Zm6.34,95.67a11.91,11.91,0,0,1-11.7,9.3H152a36,36,0,0,0-36,36,12,12,0,0,1-16,11.3c-16.65-5.88-30.65-15.76-40.48-28.56A76,76,0,0,1,44,128a84,84,0,0,1,83.13-84H128a84.35,84.35,0,0,1,84,83.29A84.72,84.72,0,0,1,209.91,146.71ZM144,76a16,16,0,1,1-16-16A16,16,0,0,1,144,76Zm-44,24A16,16,0,1,1,84,84,16,16,0,0,1,100,100Zm0,56a16,16,0,1,1-16-16A16,16,0,0,1,100,156Zm88-56a16,16,0,1,1-16-16A16,16,0,0,1,188,100Z"
+                  />
+                </svg>
+                <span
+                  aria-hidden="true"
+                  class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+                  data-invisible="true"
+                  focusable="false"
                 />
-              </svg>
+              </div>
               Options
             </button>
             <button
@@ -669,7 +679,7 @@ exports[`Generator > renders correctly 1`] = `
               Export All
             </button>
             <button
-              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none border-default bg-default-100 text-primary data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary/20 text-primary-600 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium"
               data-react-aria-pressable="true"
               tabindex="0"
               type="button"

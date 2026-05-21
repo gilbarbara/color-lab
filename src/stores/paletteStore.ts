@@ -7,8 +7,8 @@ import {
   removeColor as removeColorFn,
   resetGlobalOptions as resetGlobalOptionsFn,
   resetPalette as resetPaletteFn,
+  setColorOverride as setColorOverrideFn,
   updateColor as updateColorFn,
-  updateColorOverrides as updateColorOverridesFn,
   updateGlobalOptions as updateGlobalOptionsFn,
 } from '~/utils/palette';
 
@@ -125,12 +125,12 @@ export const usePaletteStore = create<PaletteStore>(set => ({
       updateColorFn({ colors: state.colors, globalOptions: state.globalOptions }, index, updates),
     ),
 
-  updateColorOverrides: (index, overrides) =>
+  setColorOverride: (index, updates) =>
     set(state =>
-      updateColorOverridesFn(
+      setColorOverrideFn(
         { colors: state.colors, globalOptions: state.globalOptions },
         index,
-        overrides,
+        updates,
       ),
     ),
 

@@ -1,10 +1,11 @@
 import { type ChangeEvent, type KeyboardEvent, useEffect } from 'react';
 import { useBreakpoint, useSetState } from '@gilbarbara/hooks';
-import { addToast, Input } from '@heroui/react';
+import { addToast, Badge, Input } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS } from '~/config/globals';
 import useAuth from '~/hooks/useAuth';
+import usePalette from '~/hooks/usePalette';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
@@ -27,6 +28,7 @@ interface PaletteHeaderState {
 export default function PaletteHeader() {
   const { isAuthenticated } = useAuth();
   const { openLoginModal, showPaletteOptionsPanel, togglePaletteOptionsPanel } = useAppStore();
+  const { hasCustomPaletteOptions } = usePalette();
   const {
     hasUnsavedChanges,
     loadedPaletteId,
@@ -149,7 +151,17 @@ export default function PaletteHeader() {
               isIconOnly={!isLarge}
               onPress={togglePaletteOptionsPanel}
               size="menu"
-              startContent={<PaletteIcon className="text-xl" weight="bold" />}
+              startContent={
+                <Badge
+                  color="warning"
+                  content=""
+                  isDot
+                  isInvisible={!hasCustomPaletteOptions}
+                  size="sm"
+                >
+                  <PaletteIcon className="text-xl" weight="bold" />
+                </Badge>
+              }
               variant={showPaletteOptionsPanel ? 'solid' : 'light'}
             >
               {isLarge && 'Options'}
@@ -170,7 +182,7 @@ export default function PaletteHeader() {
                 <HeartIcon className="text-xl" />
               )
             }
-            variant="faded"
+            variant="flat"
           >
             {isLarge && (loadedPaletteId ? 'Update' : 'Save')}
           </Button>

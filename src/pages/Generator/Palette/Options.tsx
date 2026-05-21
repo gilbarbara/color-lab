@@ -7,6 +7,7 @@ import usePalette from '~/hooks/usePalette';
 import useRafCallback from '~/hooks/useRafCallback';
 import useSliderInteraction from '~/hooks/useSliderInteraction';
 import { trackEvent } from '~/utils/analytics';
+import { PALETTE_OPTION_KEYS } from '~/utils/palette';
 
 import Button from '~/components/Button';
 import SliderLabel from '~/components/SliderLabel';
@@ -64,14 +65,9 @@ export default function PaletteOptions() {
   };
 
   const handleClickReset = () => {
-    updateGlobalOptions({
-      lock: defaultOptions.lock,
-      mode: defaultOptions.mode,
-      saturation: defaultOptions.saturation,
-      saturationOverride: defaultOptions.saturationOverride,
-      steps: defaultOptions.steps,
-      variant: defaultOptions.variant,
-    });
+    updateGlobalOptions(
+      Object.fromEntries(PALETTE_OPTION_KEYS.map(key => [key, defaultOptions[key]])),
+    );
 
     trackEvent('reset-palette-options');
   };
