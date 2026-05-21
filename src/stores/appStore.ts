@@ -18,6 +18,7 @@ interface AppState {
   showLoginModal: boolean;
   showPaletteOptionsPanel: boolean;
   showPreview: boolean;
+  showSidebar: boolean;
 }
 
 interface AppStateWithActions extends AppState {
@@ -33,6 +34,7 @@ interface AppStateWithActions extends AppState {
   toggleColorOptionsPanel: () => void;
   togglePaletteOptionsPanel: () => void;
   togglePreview: (toggle?: boolean) => void;
+  toggleSidebar: () => void;
 }
 
 export const initialState: AppState = {
@@ -48,6 +50,7 @@ export const initialState: AppState = {
   showLoginModal: false,
   showPaletteOptionsPanel: false,
   showPreview: true,
+  showSidebar: true,
 };
 
 export const useAppStore = create<AppStateWithActions>(set => ({
@@ -98,5 +101,10 @@ export const useAppStore = create<AppStateWithActions>(set => ({
   togglePreview: (force): void =>
     set(state => ({
       showPreview: typeof force === 'boolean' ? force : !state.showPreview,
+    })),
+
+  toggleSidebar: (): void =>
+    set(state => ({
+      showSidebar: !state.showSidebar,
     })),
 }));

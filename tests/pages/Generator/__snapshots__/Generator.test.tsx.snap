@@ -6,10 +6,34 @@ exports[`Generator > renders correctly 1`] = `
   data-testid="Generator"
 >
   <div
-    class="sticky top-16 w-sm h-[calc(100vh-4rem)] flex flex-col overflow-y-auto shrink-0"
+    class="sticky top-16 h-[calc(100vh-4rem)] overflow-hidden flex flex-col shrink-0 overflow-y-auto"
     data-testid="Sidebar"
+    style="width: 24rem;"
   >
-    <div>
+    <button
+      aria-label="Toggle Sidebar"
+      class="group inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 absolute top-2 right-2 z-10"
+      data-react-aria-pressable="true"
+      tabindex="0"
+      type="button"
+    >
+      <svg
+        class="text-lg"
+        fill="currentColor"
+        height="1em"
+        viewBox="0 0 256 256"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H80V200H40ZM216,200H96V56H216V200Z"
+        />
+      </svg>
+    </button>
+    <div
+      class="w-sm"
+      style="opacity: 1;"
+    >
       <div
         data-testid="GeneratorHeader"
       >
@@ -139,7 +163,7 @@ exports[`Generator > renders correctly 1`] = `
                             data-filled="true"
                             data-filled-within="true"
                             data-slot="input"
-                            id="react-aria-_r_2_"
+                            id="react-aria-_r_8_"
                             name="color-name-0"
                             tabindex="0"
                             title=""
@@ -199,7 +223,7 @@ exports[`Generator > renders correctly 1`] = `
                           data-filled-within="true"
                           data-slot="input"
                           data-type="text"
-                          id="react-aria-_r_9_"
+                          id="react-aria-_r_g_"
                           tabindex="0"
                           title=""
                           type="text"
@@ -584,7 +608,7 @@ exports[`Generator > renders correctly 1`] = `
                     data-filled-within="true"
                     data-slot="input"
                     disabled=""
-                    id="react-aria-_r_s_"
+                    id="react-aria-_r_14_"
                     name="palette-name"
                     type="text"
                     value="Color Palette"
@@ -603,7 +627,7 @@ exports[`Generator > renders correctly 1`] = `
               class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap min-w-max font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
               data-react-aria-pressable="true"
               data-slot="trigger"
-              id="react-aria-_r_11_"
+              id="react-aria-_r_19_"
               tabindex="0"
               type="button"
             >
