@@ -13,7 +13,7 @@ import {
 } from '@heroui/react';
 
 import { BREAKPOINTS } from '~/config/globals';
-import { useAppStore } from '~/stores/appStore';
+import useApp from '~/hooks/useApp';
 import { trackEvent } from '~/utils/analytics';
 import { copyToClipboard } from '~/utils/clipboard';
 import {
@@ -49,7 +49,12 @@ export default function ExportDrawer(props: ExportDrawerProps) {
     exportFormatType: formatType,
     setExportColorFormat,
     setExportFormatType,
-  } = useAppStore();
+  } = useApp(
+    'exportColorFormat',
+    'exportFormatType',
+    'setExportColorFormat',
+    'setExportFormatType',
+  );
 
   const isDesktop = min('md');
 

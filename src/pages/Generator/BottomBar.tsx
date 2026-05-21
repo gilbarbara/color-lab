@@ -10,8 +10,8 @@ import { flushSync } from 'react-dom';
 import { Button, cn, Divider } from '@heroui/react';
 import { CaretUpIcon, PlusIcon } from '@phosphor-icons/react';
 
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
-import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { getRandomColor, rotateOklchHue } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
@@ -24,7 +24,7 @@ import ColorOptions from '~/pages/Generator/ColorOptions';
 export default function BottomBar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
     usePalette();
-  const { showBottomBar, toggleBottomBar } = useAppStore();
+  const { showBottomBar, toggleBottomBar } = useApp('showBottomBar', 'toggleBottomBar');
   const [shouldRenderContent, setShouldRenderContent] = useState(false);
   const dragStartY = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);

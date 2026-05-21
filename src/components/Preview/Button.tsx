@@ -1,7 +1,7 @@
 import { EyeIcon } from '@phosphor-icons/react';
 
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
-import { useAppStore } from '~/stores/appStore';
 
 import Button, { type ButtonProps } from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
@@ -14,7 +14,7 @@ interface PreviewButtonProps {
 export default function PreviewButton(props: PreviewButtonProps) {
   const { id, variant = 'flat' } = props;
   const { setActiveColor, setPreviewColor } = usePalette();
-  const { requestPreviewScroll, togglePreview } = useAppStore();
+  const { requestPreviewScroll, togglePreview } = useApp('requestPreviewScroll', 'togglePreview');
 
   return (
     <Tooltip content="View Live Preview" placement="bottom">

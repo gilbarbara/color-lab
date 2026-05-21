@@ -4,10 +4,10 @@ import { addToast, Badge, Input } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS } from '~/config/globals';
+import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
-import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
@@ -27,7 +27,11 @@ interface PaletteHeaderState {
 
 export default function PaletteHeader() {
   const { isAuthenticated } = useAuth();
-  const { openLoginModal, showPaletteOptionsPanel, togglePaletteOptionsPanel } = useAppStore();
+  const { openLoginModal, showPaletteOptionsPanel, togglePaletteOptionsPanel } = useApp(
+    'openLoginModal',
+    'showPaletteOptionsPanel',
+    'togglePaletteOptionsPanel',
+  );
   const { hasCustomPaletteOptions } = usePalette();
   const {
     hasUnsavedChanges,

@@ -2,7 +2,7 @@ import { type HTMLAttributes, type Ref } from 'react';
 import { cn } from '@heroui/react';
 import { convertCSS } from 'colorizr';
 
-import { useAppStore } from '~/stores/appStore';
+import useApp from '~/hooks/useApp';
 import { formatOklch } from '~/utils/color';
 
 type ColorBoxButtonProps = ColorBoxBaseProps &
@@ -26,7 +26,7 @@ interface ColorBoxBaseProps {
 export default function ColorBox(props: ColorBoxProps) {
   const { as: Component = 'button', className, color, size = 'md', ...rest } = props;
 
-  const gamut = useAppStore(state => state.gamut);
+  const { gamut } = useApp('gamut');
 
   const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : formatOklch(color);
 

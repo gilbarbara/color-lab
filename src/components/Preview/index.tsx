@@ -6,9 +6,9 @@ import { parseCSS } from 'colorizr';
 import { animate } from 'framer-motion';
 
 import { HEADER_HEIGHT } from '~/config/globals';
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
-import { useAppStore } from '~/stores/appStore';
 import { buildPreviewScope } from '~/utils/preview-tokens';
 
 import Cards from './Cards';
@@ -33,7 +33,12 @@ function autoTheme(color: string, isAppDark: boolean): 'light' | 'dark' {
 export default function Preview() {
   const { isDarkMode } = useTheme();
   const { colors, previewColorId, setPreviewColor } = usePalette();
-  const { gamut, previewScrollNonce, showPreview, togglePreview } = useAppStore();
+  const { gamut, previewScrollNonce, showPreview, togglePreview } = useApp(
+    'gamut',
+    'previewScrollNonce',
+    'showPreview',
+    'togglePreview',
+  );
 
   const [{ themeOverrides }, setState] = useSetState<PreviewState>({
     themeOverrides: {},

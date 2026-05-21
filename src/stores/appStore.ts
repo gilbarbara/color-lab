@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { detectInitialGamut } from '~/utils/gamut';
@@ -21,7 +22,7 @@ interface AppState {
   showSidebar: boolean;
 }
 
-interface AppStateWithActions extends AppState {
+export interface AppStateWithActions extends AppState {
   clearLoadedPalette: () => void;
   closeLoginModal: () => void;
   openLoginModal: () => void;
@@ -53,58 +54,86 @@ export const initialState: AppState = {
   showSidebar: true,
 };
 
-export const useAppStore = create<AppStateWithActions>(set => ({
-  ...initialState,
+export const useAppStore = create<AppStateWithActions>()(
+  persist(
+    set => ({
+      ...initialState,
 
-  clearLoadedPalette: (): void =>
-    set({
-      lastSavedUrl: null,
-      loadedPaletteId: null,
-      loadedPaletteName: DEFAULT_PALETTE_NAME,
+      clearLoadedPalette: () => {
+        set({
+          lastSavedUrl: null,
+          loadedPaletteId: null,
+          loadedPaletteName: DEFAULT_PALETTE_NAME,
+        });
+      },
+
+      closeLoginModal: () => {
+        set({ showLoginModal: false });
+      },
+
+      openLoginModal: () => {
+        set({ showLoginModal: true });
+      },
+
+      requestPreviewScroll: () => {
+        set(state => ({ previewScrollNonce: state.previewScrollNonce + 1 }));
+      },
+
+      setExportColorFormat: format => {
+        set({ exportColorFormat: format });
+      },
+
+      setExportFormatType: format => {
+        set({ exportFormatType: format });
+      },
+
+      setGamut: gamut => {
+        set({ gamut });
+      },
+
+      setLoadedPalette: (id, name, url) => {
+        set({
+          lastSavedUrl: url,
+          loadedPaletteId: id,
+          loadedPaletteName: name || DEFAULT_PALETTE_NAME,
+        });
+      },
+
+      toggleBottomBar: () => {
+        set(state => ({ showBottomBar: !state.showBottomBar }));
+      },
+
+      toggleColorOptionsPanel: () => {
+        set(state => ({ showColorOptionsPanel: !state.showColorOptionsPanel }));
+      },
+
+      togglePaletteOptionsPanel: () => {
+        set(state => ({ showPaletteOptionsPanel: !state.showPaletteOptionsPanel }));
+      },
+
+      togglePreview: force => {
+        set(state => ({
+          showPreview: typeof force === 'boolean' ? force : !state.showPreview,
+        }));
+      },
+
+      toggleSidebar: () => {
+        set(state => ({ showSidebar: !state.showSidebar }));
+      },
     }),
-
-  closeLoginModal: (): void => set({ showLoginModal: false }),
-
-  openLoginModal: (): void => set({ showLoginModal: true }),
-
-  requestPreviewScroll: (): void =>
-    set(state => ({ previewScrollNonce: state.previewScrollNonce + 1 })),
-
-  setExportColorFormat: (format): void => set({ exportColorFormat: format }),
-
-  setExportFormatType: (format): void => set({ exportFormatType: format }),
-
-  setGamut: (gamut): void => set({ gamut }),
-
-  setLoadedPalette: (id, name, url): void =>
-    set({
-      lastSavedUrl: url,
-      loadedPaletteId: id,
-      loadedPaletteName: name || DEFAULT_PALETTE_NAME,
-    }),
-
-  toggleBottomBar: (): void =>
-    set(state => ({
-      showBottomBar: !state.showBottomBar,
-    })),
-
-  toggleColorOptionsPanel: (): void =>
-    set(state => ({
-      showColorOptionsPanel: !state.showColorOptionsPanel,
-    })),
-
-  togglePaletteOptionsPanel: (): void =>
-    set(state => ({
-      showPaletteOptionsPanel: !state.showPaletteOptionsPanel,
-    })),
-
-  togglePreview: (force): void =>
-    set(state => ({
-      showPreview: typeof force === 'boolean' ? force : !state.showPreview,
-    })),
-
-  toggleSidebar: (): void =>
-    set(state => ({
-      showSidebar: !state.showSidebar,
-    })),
-}));
+    {
+      name: 'color-lab',
+      version: 1,
+      storage: createJSONStorage(() => localStorage),
+      partialize: state => ({
+        exportColorFormat: state.exportColorFormat,
+        exportFormatType: state.exportFormatType,
+        gamut: state.gamut,
+        showColorOptionsPanel: state.showColorOptionsPanel,
+        showPaletteOptionsPanel: state.showPaletteOptionsPanel,
+        showPreview: state.showPreview,
+        showSidebar: state.showSidebar,
+      }),
+    },
+  ),
+);

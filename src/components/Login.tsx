@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import { Button, Tab, Tabs } from '@heroui/react';
 
+import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import useTheme from '~/hooks/useTheme';
-import { useAppStore } from '~/stores/appStore';
 import { useAuthStore } from '~/stores/authStore';
 import { trackEvent } from '~/utils/analytics';
 
@@ -32,7 +32,7 @@ export default function Login() {
     sendMagicLink,
     signupWithEmail,
   } = useAuth();
-  const { closeLoginModal, showLoginModal } = useAppStore();
+  const { closeLoginModal, showLoginModal } = useApp('closeLoginModal', 'showLoginModal');
   const { isDarkMode } = useTheme();
 
   const [{ email, magicLinkSent, name, password, tab }, setState] = useSetState<State>({

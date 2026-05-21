@@ -3,7 +3,7 @@ import { addToast, cn } from '@heroui/react';
 import { LockSimpleIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor } from 'colorizr';
 
-import { useAppStore } from '~/stores/appStore';
+import useApp from '~/hooks/useApp';
 import { trackEvent } from '~/utils/analytics';
 import { formatOklch } from '~/utils/color';
 
@@ -18,7 +18,7 @@ interface SwatchProps {
 
 export default function Swatch(props: SwatchProps) {
   const { className, color, lock, step } = props;
-  const gamut = useAppStore(state => state.gamut);
+  const { gamut } = useApp('gamut');
 
   const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : formatOklch(color);
 

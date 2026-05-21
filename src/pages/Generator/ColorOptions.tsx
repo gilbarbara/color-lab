@@ -1,8 +1,8 @@
 import { Badge, Divider } from '@heroui/react';
 import { SlidersHorizontalIcon } from '@phosphor-icons/react';
 
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
-import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { CURVE_OPTION_KEYS } from '~/utils/palette';
 
@@ -20,7 +20,10 @@ interface ColorOptionsProps {
 
 export default function ColorOptions(props: ColorOptionsProps) {
   const { defaultOptions, globalOptions, updateGlobalOptions } = props;
-  const { showColorOptionsPanel, toggleColorOptionsPanel } = useAppStore();
+  const { showColorOptionsPanel, toggleColorOptionsPanel } = useApp(
+    'showColorOptionsPanel',
+    'toggleColorOptionsPanel',
+  );
   const { hasCustomCurves } = usePalette();
 
   const handleClickReset = () => {

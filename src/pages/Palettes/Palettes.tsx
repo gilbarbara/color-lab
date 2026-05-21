@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router';
 import { addToast, Button, Spinner } from '@heroui/react';
 import { PlusIcon, SignInIcon } from '@phosphor-icons/react';
 
+import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
-import { useAppStore } from '~/stores/appStore';
 
 import Feedback from '~/components/Feedback';
 import Page from '~/components/Page';
@@ -17,7 +17,7 @@ export default function Palettes() {
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const { deletePalette, isLoading, palettes, toggleFavorite } = useSavedPalettes();
   const { generatorUrl } = usePalette();
-  const { openLoginModal } = useAppStore();
+  const { openLoginModal } = useApp('openLoginModal');
 
   const handleDelete = async (id: string) => {
     const success = await deletePalette(id);

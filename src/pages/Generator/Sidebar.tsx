@@ -4,8 +4,8 @@ import { cn, Divider } from '@heroui/react';
 import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
-import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { getRandomColor, rotateOklchHue } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
@@ -21,7 +21,7 @@ import Header from './Header';
 export default function Sidebar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
     usePalette();
-  const { showSidebar, toggleSidebar } = useAppStore();
+  const { showSidebar, toggleSidebar } = useApp('showSidebar', 'toggleSidebar');
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleAddColor = () => {
