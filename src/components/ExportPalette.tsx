@@ -164,7 +164,7 @@ export default function ExportPalette() {
         <Tooltip content="Export all" isDisabled={isLarge} placement="bottom-end">
           <Button
             aria-label="Export All"
-            isIconOnly={!isLarge}
+            className="@max-xl:px-0 @max-xl:min-w-8 @max-xl:w-8"
             onPress={() => {
               trackEvent('open-export-palette');
               onOpen();
@@ -173,7 +173,7 @@ export default function ExportPalette() {
             startContent={<ExportIcon className="text-xl" weight="bold" />}
             variant="light"
           >
-            {isLarge && 'Export All'}
+            <span className="hidden @xl:inline-flex">Export All</span>
           </Button>
         </Tooltip>
       )}

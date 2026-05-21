@@ -54,7 +54,7 @@ export default function Swatch(props: SwatchProps) {
 
   if (parseInt(step, 10) === lock) {
     icon = (
-      <span className="mb-auto lg:mt-2 md:order-1">
+      <span className="mb-auto @xl:mt-2 @xl:order-1">
         <LockSimpleIcon className="text-base" weight="bold" />
       </span>
     );
@@ -64,8 +64,8 @@ export default function Swatch(props: SwatchProps) {
     <Tooltip content={displayColor} placement="bottom" size="lg">
       <div
         className={cn(
-          'relative flex-1 min-w-9 lg:h-22',
-          'flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2',
+          'relative flex-1 min-w-9 @xl:h-22',
+          'flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2',
           'px-2 py-4 rounded-md text-center cursor-pointer',
           className,
         )}
@@ -78,7 +78,7 @@ export default function Swatch(props: SwatchProps) {
         }}
         tabIndex={0}
       >
-        <p className="text-base/4 lg:order-2">{step}</p>
+        <p className="text-base/4 @xl:order-2">{step}</p>
         {icon}
       </div>
     </Tooltip>

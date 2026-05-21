@@ -97,7 +97,7 @@ export default function PaletteOptions() {
 
   return (
     <div className="border border-default p-4 mt-4 rounded-xl">
-      <div className="w-full flex flex-col md:flex-row items-center gap-4 md:gap-8">
+      <div className="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8">
         <div className="w-full flex items-center gap-2">
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label className="text-base shrink-0" htmlFor="variant-select">
@@ -173,7 +173,7 @@ export default function PaletteOptions() {
       </div>
       <div
         ref={interactionRef}
-        className="w-full flex flex-col md:flex-row items-start gap-4 md:gap-8 mt-4"
+        className="w-full flex flex-col @xl:flex-row items-start gap-4 @xl:gap-8 mt-4"
       >
         <div className="w-full">
           <Slider
@@ -267,7 +267,7 @@ export default function PaletteOptions() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between gap-4 mt-4 md:mt-2">
+      <div className="flex flex-col @xl:flex-row items-start @xl:items-center justify-start @xl:justify-between gap-4 mt-4 @xl:mt-2">
         <div className="flex items-center gap-2 shrink-0">
           <Switch isSelected={mode === 'dark'} name="mode" onValueChange={handleToggleMode}>
             {mode === 'light' ? 'Light scale' : 'Dark scale'}
