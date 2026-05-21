@@ -44,18 +44,18 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 
 ### Option Keys
 
-| Short | Full Name | Type | Default |
-|-------|-----------|------|---------|
-| `i` | steps | number | 11 |
-| `n` | minLightness | number | 0.2 |
-| `x` | maxLightness | number | 0.97 |
-| `f` | lightnessCurve | number | 1.5 |
-| `c` | chromaCurve | number | 0 |
-| `s` | saturation | number | (from color) |
-| `o` | saturationOverride | boolean | false |
-| `m` | mode | `l`/`d` | `l` (light) |
-| `k` | lock | string | - |
-| `v` | variant | string | - |
+| Short | Full Name          | Type     | Default      |
+|-------|--------------------|----------|--------------|
+| `i`   | steps              | number   | 11           |
+| `n`   | minLightness       | number   | 0.26         |
+| `x`   | maxLightness       | number   | 0.97         |
+| `f`   | lightnessCurve     | number   | 1.3          |
+| `c`   | chromaCurve        | number   | 0            |
+| `s`   | saturation         | number   | (from color) |
+| `o`   | saturationOverride | boolean  | false        |
+| `m`   | mode               | `l`/`d`  | `l` (light)  |
+| `k`   | lock               | string   | -            |
+| `v`   | variant            | string   | -            |
 
 ### URL Examples
 
