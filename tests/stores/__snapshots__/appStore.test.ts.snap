@@ -22,9 +22,11 @@ exports[`stores/appStore > initial state > has correct defaults 1`] = `
   "showLoginModal": false,
   "showPaletteOptionsPanel": false,
   "showPreview": true,
+  "showSidebar": true,
   "toggleBottomBar": [Function],
   "toggleColorOptionsPanel": [Function],
   "togglePaletteOptionsPanel": [Function],
   "togglePreview": [Function],
+  "toggleSidebar": [Function],
 }
 `;

@@ -1,13 +1,18 @@
 import { useRef } from 'react';
 import { flushSync } from 'react-dom';
-import { Button, Divider } from '@heroui/react';
-import { PlusIcon } from '@phosphor-icons/react';
+import { cn, Divider } from '@heroui/react';
+import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import usePalette from '~/hooks/usePalette';
+import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { getRandomColor, rotateOklchHue } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
 import { scrollToSelector } from '~/utils/scroll';
+
+import Button from '~/components/Button';
+import Tooltip from '~/components/Tooltip';
 
 import ColorList from './ColorList';
 import ColorOptions from './ColorOptions';
@@ -16,6 +21,7 @@ import Header from './Header';
 export default function Sidebar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
     usePalette();
+  const { showSidebar, toggleSidebar } = useAppStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleAddColor = () => {
@@ -35,32 +41,63 @@ export default function Sidebar() {
   };
 
   return (
-    <div
+    <motion.div
       ref={containerRef}
-      className="sticky top-16 w-sm h-[calc(100vh-4rem)] flex flex-col overflow-y-auto shrink-0"
+      animate={{ width: showSidebar ? '24rem' : '3rem' }}
+      className={cn(
+        'sticky top-16 h-[calc(100vh-4rem)] overflow-hidden',
+        'flex flex-col shrink-0',
+        {
+          'overflow-y-auto': showSidebar,
+        },
+      )}
       data-testid="Sidebar"
+      initial={false}
+      transition={{ duration: 0.5 }}
     >
-      <div>
-        <Header />
-        <ColorOptions
-          defaultOptions={defaultOptions}
-          globalOptions={globalOptions}
-          updateGlobalOptions={updateGlobalOptions}
-        />
-        <ColorList />
-        <Divider />
-        <div className="p-4">
-          <Button
-            color="primary"
-            fullWidth
-            isDisabled={colors.length >= MAX_COLORS}
-            onPress={handleAddColor}
-            startContent={<PlusIcon />}
+      <Tooltip content="Toggle Sidebar">
+        <Button
+          aria-label="Toggle Sidebar"
+          className="absolute top-2 right-2 z-10"
+          isIconOnly
+          onPress={toggleSidebar}
+          size="sm"
+          variant="light"
+        >
+          <SidebarSimpleIcon className="text-lg" />
+        </Button>
+      </Tooltip>
+      <AnimatePresence initial={false}>
+        {showSidebar && (
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="w-sm"
+            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            Add Color
-          </Button>
-        </div>
-      </div>
-    </div>
+            <Header />
+            <ColorOptions
+              defaultOptions={defaultOptions}
+              globalOptions={globalOptions}
+              updateGlobalOptions={updateGlobalOptions}
+            />
+            <ColorList />
+            <Divider />
+            <div className="p-4">
+              <Button
+                color="primary"
+                fullWidth
+                isDisabled={colors.length >= MAX_COLORS}
+                onPress={handleAddColor}
+                startContent={<PlusIcon />}
+              >
+                Add Color
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

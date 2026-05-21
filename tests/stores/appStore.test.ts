@@ -255,6 +255,39 @@ describe('stores/appStore', () => {
     });
   });
 
+  describe('toggleSidebar', () => {
+    it('toggles showSidebar from true to false', () => {
+      expect(useAppStore.getState().showSidebar).toBe(true);
+
+      useAppStore.getState().toggleSidebar();
+
+      expect(useAppStore.getState().showSidebar).toBe(false);
+    });
+
+    it('toggles showSidebar from false to true', () => {
+      useAppStore.setState({ showSidebar: false });
+
+      useAppStore.getState().toggleSidebar();
+
+      expect(useAppStore.getState().showSidebar).toBe(true);
+    });
+
+    it('toggles multiple times correctly', () => {
+      const { toggleSidebar } = useAppStore.getState();
+
+      expect(useAppStore.getState().showSidebar).toBe(true);
+
+      toggleSidebar();
+      expect(useAppStore.getState().showSidebar).toBe(false);
+
+      toggleSidebar();
+      expect(useAppStore.getState().showSidebar).toBe(true);
+
+      toggleSidebar();
+      expect(useAppStore.getState().showSidebar).toBe(false);
+    });
+  });
+
   describe('togglePreview', () => {
     it('toggles showPreview from true to false', () => {
       expect(useAppStore.getState().showPreview).toBe(true);
