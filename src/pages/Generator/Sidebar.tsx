@@ -20,7 +20,14 @@ import Header from './Header';
 
 export default function Sidebar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
-    usePalette();
+    usePalette(
+      'addColor',
+      'baseSaturation',
+      'colors',
+      'defaultOptions',
+      'globalOptions',
+      'updateGlobalOptions',
+    );
   const { showSidebar, toggleSidebar } = useApp('showSidebar', 'toggleSidebar');
   const containerRef = useRef<HTMLDivElement>(null);
 

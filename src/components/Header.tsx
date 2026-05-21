@@ -33,7 +33,7 @@ function navLinkClassName({ isActive }: NavLinkRenderProps) {
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
-  const { generatorUrl } = usePalette();
+  const { generatorUrl } = usePalette('generatorUrl');
   const { clearLoadedPalette, closeLoginModal, openLoginModal } = useApp(
     'clearLoadedPalette',
     'closeLoginModal',

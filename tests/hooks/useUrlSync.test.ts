@@ -222,7 +222,7 @@ describe('hooks/useUrlSync', () => {
       mockLocation = { pathname: '/p/Primary-0.64_0.142_329', search: '' };
 
       renderHook(() => useUrlSync());
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('addColor'));
 
       mockNavigate.mockClear();
 

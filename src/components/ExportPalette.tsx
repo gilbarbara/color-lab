@@ -69,7 +69,7 @@ function ScaleItem(props: ScaleItemProps) {
 }
 
 export default function ExportPalette() {
-  const { colors, globalOptions } = usePalette();
+  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(
     () => new Set(colors.map((_, index) => index)),
   );

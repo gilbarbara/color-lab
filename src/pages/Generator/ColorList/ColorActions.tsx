@@ -26,7 +26,11 @@ interface ColorActionsProps {
 
 export default function ColorActions(props: ColorActionsProps) {
   const { colorEntry, index, mode, onClickMode, onClickRandom } = props;
-  const { clearColorOverrides, globalOptions, setColorOverride } = usePalette();
+  const { clearColorOverrides, globalOptions, setColorOverride } = usePalette(
+    'clearColorOverrides',
+    'globalOptions',
+    'setColorOverride',
+  );
   const { isOpen, onOpenChange } = useDisclosure();
   const { max, min } = useBreakpoint(BREAKPOINTS);
 

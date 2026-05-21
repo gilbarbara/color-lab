@@ -51,7 +51,14 @@ export default function ColorSelector(props: ColorSelectorProps) {
     setActiveColor,
     updateColor,
     updateGlobalOptions,
-  } = usePalette();
+  } = usePalette(
+    'activeColorId',
+    'baseSaturation',
+    'removeColor',
+    'setActiveColor',
+    'updateColor',
+    'updateGlobalOptions',
+  );
   const [{ localName, mode }, setState] = useSetState<ColorSelectorState>({
     mode: 'oklch',
     localName: null,

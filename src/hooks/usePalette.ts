@@ -1,59 +1,125 @@
-import { useMemoDeepCompare } from '@gilbarbara/hooks';
+import { useMemo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
-import { usePaletteStore } from '~/stores/paletteStore';
+import { type PaletteStore, usePaletteStore } from '~/stores/paletteStore';
 import { getChromaAsPercentage } from '~/utils/color';
 import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/palette';
 import { serializePaletteToUrl } from '~/utils/url';
 
-import type { GlobalScaleOptions, PaletteActions, PaletteState } from '~/types';
+import type { GlobalScaleOptions } from '~/types';
 
-interface UsePaletteResult extends PaletteState, PaletteActions {
-  activeColorId: string | null;
+type ComputedKey = keyof ComputedPaletteValues;
+
+type PaletteAggregate = ComputedPaletteValues & PaletteStore;
+type StoreKey = keyof PaletteStore;
+type UsePaletteKey = keyof PaletteAggregate;
+interface ComputedPaletteValues {
   baseSaturation: number;
   defaultOptions: GlobalScaleOptions;
   generatorUrl: string;
   hasCustomCurves: boolean;
   hasCustomPaletteOptions: boolean;
-  previewColorId: string | null;
+}
+
+const COMPUTED_DEPS = {
+  baseSaturation: ['colors'],
+  defaultOptions: ['colors'],
+  generatorUrl: ['colors', 'globalOptions'],
+  hasCustomCurves: ['colors', 'globalOptions'],
+  hasCustomPaletteOptions: ['colors', 'globalOptions'],
+} as const satisfies Record<ComputedKey, readonly StoreKey[]>;
+
+const COMPUTED_KEYS = new Set(Object.keys(COMPUTED_DEPS) as ComputedKey[]);
+
+function isComputedKey(key: UsePaletteKey): key is ComputedKey {
+  return COMPUTED_KEYS.has(key as ComputedKey);
 }
 
 /**
- * Hook to access the palette store.
+ * Keyed selector hook for the palette store.
+ *
+ * Pass the keys you need (store fields, actions, or computed values).
+ * The hook subscribes only to the underlying store slice required to satisfy
+ * those keys, so unrelated state changes do not trigger re-renders.
  */
-export default function usePalette(): UsePaletteResult {
-  const store = usePaletteStore();
+export default function usePalette<K extends UsePaletteKey>(
+  ...keys: K[]
+): Pick<PaletteAggregate, K> {
+  const storeKeys = new Set<StoreKey>();
 
-  const baseSaturation = useMemoDeepCompare(
-    () => getChromaAsPercentage(store.colors[0].value),
-    [store.colors],
+  for (const key of keys) {
+    if (isComputedKey(key)) {
+      for (const dep of COMPUTED_DEPS[key]) {
+        storeKeys.add(dep);
+      }
+    } else {
+      storeKeys.add(key);
+    }
+  }
+
+  const slice = usePaletteStore(
+    useShallow(state => {
+      const out = {} as Partial<PaletteStore>;
+
+      storeKeys.forEach(k => {
+        (out as Record<string, unknown>)[k] = state[k];
+      });
+
+      return out;
+    }),
   );
 
-  const defaultOptions = useMemoDeepCompare(
-    () => getDefaultGlobalOptions(store.colors[0].value),
-    [store.colors],
+  const { colors, globalOptions } = slice;
+
+  const defaultOptions = useMemo(
+    () => (colors ? getDefaultGlobalOptions(colors[0].value) : (undefined as never)),
+    [colors],
   );
 
-  const generatorUrl = useMemoDeepCompare(
-    () => serializePaletteToUrl({ colors: store.colors, globalOptions: store.globalOptions }),
-    [store.colors, store.globalOptions],
+  const baseSaturation = useMemo(
+    () => (colors ? getChromaAsPercentage(colors[0].value) : (undefined as never)),
+    [colors],
   );
 
-  const hasCustomCurves = useMemoDeepCompare(
-    () => CURVE_OPTION_KEYS.some(key => store.globalOptions[key] !== defaultOptions[key]),
-    [store.globalOptions, defaultOptions],
+  const generatorUrl = useMemo(
+    () =>
+      colors && globalOptions
+        ? serializePaletteToUrl({ colors, globalOptions })
+        : (undefined as never),
+    [colors, globalOptions],
   );
 
-  const hasCustomPaletteOptions = useMemoDeepCompare(
-    () => PALETTE_OPTION_KEYS.some(key => store.globalOptions[key] !== defaultOptions[key]),
-    [store.globalOptions, defaultOptions],
+  const hasCustomCurves = useMemo(
+    () =>
+      globalOptions && defaultOptions
+        ? CURVE_OPTION_KEYS.some(key => globalOptions[key] !== defaultOptions[key])
+        : (undefined as never),
+    [globalOptions, defaultOptions],
   );
 
-  return {
+  const hasCustomPaletteOptions = useMemo(
+    () =>
+      globalOptions && defaultOptions
+        ? PALETTE_OPTION_KEYS.some(key => globalOptions[key] !== defaultOptions[key])
+        : (undefined as never),
+    [globalOptions, defaultOptions],
+  );
+
+  const computed: ComputedPaletteValues = {
     baseSaturation,
     defaultOptions,
     generatorUrl,
     hasCustomCurves,
     hasCustomPaletteOptions,
-    ...store,
   };
+
+  const result = {} as Pick<PaletteAggregate, K>;
+
+  for (const key of keys) {
+    (result as Record<string, unknown>)[key] = isComputedKey(key)
+      ? computed[key]
+      : (slice as PaletteStore)[key as StoreKey];
+  }
+
+  return result;
 }

@@ -13,7 +13,7 @@ interface PreviewButtonProps {
 
 export default function PreviewButton(props: PreviewButtonProps) {
   const { id, variant = 'flat' } = props;
-  const { setActiveColor, setPreviewColor } = usePalette();
+  const { setActiveColor, setPreviewColor } = usePalette('setActiveColor', 'setPreviewColor');
   const { requestPreviewScroll, togglePreview } = useApp('requestPreviewScroll', 'togglePreview');
 
   return (

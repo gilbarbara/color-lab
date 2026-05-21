@@ -20,19 +20,19 @@ describe('hooks/usePalette', () => {
 
   describe('computed values', () => {
     it('returns baseSaturation from first color', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('baseSaturation'));
 
       expect(result.current.baseSaturation).toBe(getChromaAsPercentage(CRIMSON));
     });
 
     it('returns defaultOptions from first color', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('defaultOptions'));
 
       expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions(CRIMSON));
     });
 
     it('updates baseSaturation when first color changes', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('baseSaturation', 'updateColor'));
 
       const initialSaturation = result.current.baseSaturation;
 
@@ -45,7 +45,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('updates defaultOptions when first color changes', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('defaultOptions', 'updateColor'));
 
       act(() => {
         result.current.updateColor(0, { value: BLUE });
@@ -57,7 +57,7 @@ describe('hooks/usePalette', () => {
 
   describe('actions', () => {
     it('addColor updates state', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('addColor', 'colors'));
 
       act(() => {
         result.current.addColor(GREEN);
@@ -68,7 +68,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('addColor with custom name', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('addColor', 'colors'));
 
       act(() => {
         result.current.addColor(GREEN, 'Custom');
@@ -78,7 +78,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('removeColor updates state', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('addColor', 'colors', 'removeColor'));
 
       act(() => {
         result.current.addColor(GREEN);
@@ -95,7 +95,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('updateColor updates state', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('colors', 'updateColor'));
 
       act(() => {
         result.current.updateColor(0, { name: 'New Name' });
@@ -105,7 +105,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('setColorOverride updates state', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('colors', 'setColorOverride'));
 
       act(() => {
         result.current.setColorOverride(0, { maxLightness: 0.9 });
@@ -115,7 +115,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('clearColorOverrides updates state', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('clearColorOverrides', 'colors', 'setColorOverride'),
+      );
 
       act(() => {
         result.current.setColorOverride(0, { maxLightness: 0.9 });
@@ -131,7 +133,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('updateGlobalOptions updates state', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('globalOptions', 'updateGlobalOptions'));
 
       act(() => {
         result.current.updateGlobalOptions({ lightnessCurve: 2.0 });
@@ -141,7 +143,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('resetGlobalOptions resets to defaults', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('globalOptions', 'resetGlobalOptions', 'updateGlobalOptions'),
+      );
 
       act(() => {
         result.current.updateGlobalOptions({ lightnessCurve: 2.0, steps: 15 });
@@ -160,7 +164,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('resetPalette creates new palette', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('addColor', 'colors', 'globalOptions', 'resetPalette', 'updateGlobalOptions'),
+      );
 
       act(() => {
         result.current.addColor(GREEN);
@@ -183,13 +189,15 @@ describe('hooks/usePalette', () => {
 
   describe('activeColor', () => {
     it('initializes activeColorId to first color id', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('activeColorId', 'colors'));
 
       expect(result.current.activeColorId).toBe(result.current.colors[0].id);
     });
 
     it('setActiveColor with valid id updates active', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('activeColorId', 'addColor', 'colors', 'setActiveColor'),
+      );
 
       act(() => {
         result.current.addColor(GREEN);
@@ -205,7 +213,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('setActiveColor with unknown id is a no-op', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('activeColorId', 'setActiveColor'));
       const initialActive = result.current.activeColorId;
 
       act(() => {
@@ -216,7 +224,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('addColor activates the new color', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() => usePalette('activeColorId', 'addColor', 'colors'));
 
       act(() => {
         result.current.addColor(GREEN);
@@ -226,7 +234,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('removeColor of active picks next neighbor', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
+      );
 
       act(() => {
         result.current.addColor(GREEN);
@@ -250,7 +260,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('removeColor of last (active) falls back to previous', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
+      );
 
       act(() => {
         result.current.addColor(GREEN);
@@ -271,7 +283,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('removeColor of non-active leaves active unchanged', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
+      );
 
       act(() => {
         result.current.addColor(GREEN);
@@ -291,7 +305,9 @@ describe('hooks/usePalette', () => {
     });
 
     it('resetPalette sets active to new first color', () => {
-      const { result } = renderHook(() => usePalette());
+      const { result } = renderHook(() =>
+        usePalette('activeColorId', 'addColor', 'colors', 'resetPalette', 'setActiveColor'),
+      );
 
       act(() => {
         result.current.addColor(GREEN);
@@ -306,6 +322,120 @@ describe('hooks/usePalette', () => {
       });
 
       expect(result.current.activeColorId).toBe(result.current.colors[0].id);
+    });
+  });
+
+  describe('subscription stability', () => {
+    it('action-only consumer never re-renders on unrelated state changes', () => {
+      let renderCount = 0;
+      const { result } = renderHook(() => {
+        renderCount++;
+
+        return usePalette('addColor');
+      });
+
+      const initialAddColor = result.current.addColor;
+
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().updateColor(0, { name: 'Renamed' });
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().updateGlobalOptions({ lightnessCurve: 1.5 });
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().setActiveColor(usePaletteStore.getState().colors[0].id);
+      });
+      expect(renderCount).toBe(1);
+
+      expect(result.current.addColor).toBe(initialAddColor);
+    });
+
+    it('generatorUrl consumer ignores active/preview changes', () => {
+      let renderCount = 0;
+      const { result } = renderHook(() => {
+        renderCount++;
+
+        return usePalette('generatorUrl');
+      });
+
+      const initialUrl = result.current.generatorUrl;
+
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().setPreviewColor(usePaletteStore.getState().colors[0].id);
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().updateColor(0, { value: GREEN });
+      });
+      expect(renderCount).toBe(2);
+      expect(result.current.generatorUrl).not.toBe(initialUrl);
+    });
+
+    it('activeColorId consumer ignores globalOptions changes', () => {
+      let renderCount = 0;
+      const { result } = renderHook(() => {
+        renderCount++;
+
+        return usePalette('activeColorId');
+      });
+
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().updateGlobalOptions({ lightnessCurve: 2 });
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().addColor(GREEN);
+      });
+      expect(renderCount).toBe(2);
+      expect(result.current.activeColorId).toBe(usePaletteStore.getState().colors[1].id);
+    });
+
+    it('baseSaturation consumer ignores globalOptions changes', () => {
+      let renderCount = 0;
+      const { result } = renderHook(() => {
+        renderCount++;
+
+        return usePalette('baseSaturation');
+      });
+
+      const initial = result.current.baseSaturation;
+
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().updateGlobalOptions({ lightnessCurve: 2 });
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        usePaletteStore.getState().updateColor(0, { value: GREEN });
+      });
+      expect(renderCount).toBe(2);
+      expect(result.current.baseSaturation).not.toBe(initial);
+    });
+
+    it('returned object stays shallow-stable across unrelated mutations', () => {
+      const { result } = renderHook(() => usePalette('colors', 'globalOptions'));
+
+      const previous = result.current;
+
+      act(() => {
+        usePaletteStore.getState().setActiveColor(usePaletteStore.getState().colors[0].id);
+      });
+
+      expect(result.current).toBe(previous);
     });
   });
 });
