@@ -1,7 +1,7 @@
 import { type CSSProperties, useMemo } from 'react';
 import { cn } from '@heroui/react';
 
-import { useAppStore } from '~/stores/appStore';
+import useApp from '~/hooks/useApp';
 
 import type { ScaleSteps } from '~/types';
 
@@ -16,7 +16,7 @@ interface GridProps {
 
 export default function Grid(props: GridProps) {
   const { guideline, steps, threshold } = props;
-  const gamut = useAppStore(state => state.gamut);
+  const { gamut } = useApp('gamut');
 
   const entries = useMemo(() => Object.entries(steps), [steps]);
 

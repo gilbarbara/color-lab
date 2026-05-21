@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router';
 import { addToast } from '@heroui/react';
 import * as Sentry from '@sentry/react';
 
+import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import { getPalette, migratePaletteUrl } from '~/services/palettes';
-import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
 import { canonicalizeUrl, getPaletteIdFromUrl, updatePaletteIdInUrl } from '~/utils/url';
 
@@ -17,7 +17,11 @@ export default function usePaletteIdSync() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, isLoading, user } = useAuth();
-  const { clearLoadedPalette, loadedPaletteId, setLoadedPalette } = useAppStore();
+  const { clearLoadedPalette, loadedPaletteId, setLoadedPalette } = useApp(
+    'clearLoadedPalette',
+    'loadedPaletteId',
+    'setLoadedPalette',
+  );
   const { palettes } = usePalettesStore();
 
   const updatePaletteInStore = usePalettesStore(state => state.updatePalette);

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
+import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import {
   createPalette,
@@ -8,7 +9,6 @@ import {
   listPalettes,
   updatePalette as updatePaletteService,
 } from '~/services/palettes';
-import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
 import { usePaletteStore } from '~/stores/paletteStore';
 import { serializePaletteToUrl, updatePaletteIdInUrl } from '~/utils/url';
@@ -21,7 +21,13 @@ export default function useSavedPalettes() {
 
   const paletteStore = usePaletteStore();
   const { clearLoadedPalette, lastSavedUrl, loadedPaletteId, loadedPaletteName, setLoadedPalette } =
-    useAppStore();
+    useApp(
+      'clearLoadedPalette',
+      'lastSavedUrl',
+      'loadedPaletteId',
+      'loadedPaletteName',
+      'setLoadedPalette',
+    );
   const {
     addPalette,
     error,

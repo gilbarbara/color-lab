@@ -1,6 +1,22 @@
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { initialState, useAppStore } from '~/stores/appStore';
 
+const PERSISTED_KEYS = [
+  'exportColorFormat',
+  'exportFormatType',
+  'gamut',
+  'showColorOptionsPanel',
+  'showPaletteOptionsPanel',
+  'showPreview',
+  'showSidebar',
+].sort();
+
+function readPersistedState(): { state: Record<string, unknown>; version: number } | null {
+  const raw = localStorage.getItem('color-lab');
+
+  return raw ? JSON.parse(raw) : null;
+}
+
 describe('stores/appStore', () => {
   beforeEach(() => {
     useAppStore.setState(initialState);
@@ -323,6 +339,51 @@ describe('stores/appStore', () => {
       useAppStore.getState().togglePreview(true);
 
       expect(useAppStore.getState().showPreview).toBe(true);
+    });
+  });
+
+  describe('persistence', () => {
+    beforeEach(() => {
+      localStorage.clear();
+      useAppStore.setState(initialState);
+    });
+
+    it('persists whitelisted keys after mutation', () => {
+      useAppStore.getState().setGamut('srgb');
+      useAppStore.getState().setExportColorFormat('hex');
+      useAppStore.getState().toggleSidebar();
+
+      const persisted = readPersistedState();
+
+      expect(persisted?.state.gamut).toBe('srgb');
+      expect(persisted?.state.exportColorFormat).toBe('hex');
+      expect(persisted?.state.showSidebar).toBe(false);
+    });
+
+    it('excludes transient keys from storage', () => {
+      useAppStore.getState().openLoginModal();
+      useAppStore.getState().requestPreviewScroll();
+      useAppStore.getState().toggleBottomBar();
+      useAppStore.getState().setLoadedPalette('id', 'name', 'url');
+
+      const persisted = readPersistedState();
+      const keys = Object.keys(persisted?.state ?? {});
+
+      expect(keys).not.toContain('showLoginModal');
+      expect(keys).not.toContain('previewScrollNonce');
+      expect(keys).not.toContain('showBottomBar');
+      expect(keys).not.toContain('loadedPaletteId');
+      expect(keys).not.toContain('loadedPaletteName');
+      expect(keys).not.toContain('lastSavedUrl');
+    });
+
+    it('writes envelope with version 1 and only whitelisted keys', () => {
+      useAppStore.getState().setGamut('srgb');
+
+      const persisted = readPersistedState();
+
+      expect(persisted?.version).toBe(1);
+      expect(Object.keys(persisted?.state ?? {}).sort()).toEqual(PERSISTED_KEYS);
     });
   });
 });

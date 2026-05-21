@@ -20,10 +20,10 @@ import {
 } from '@phosphor-icons/react';
 
 import { BREAKPOINTS } from '~/config/globals';
+import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
-import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 
 function navLinkClassName({ isActive }: NavLinkRenderProps) {
@@ -34,7 +34,11 @@ export default function Header() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette();
-  const { clearLoadedPalette, closeLoginModal, openLoginModal } = useAppStore();
+  const { clearLoadedPalette, closeLoginModal, openLoginModal } = useApp(
+    'clearLoadedPalette',
+    'closeLoginModal',
+    'openLoginModal',
+  );
   const { min } = useBreakpoint(BREAKPOINTS);
 
   const handleClickDarkMode = () => {

@@ -10,7 +10,7 @@ import {
 import { ExclamationMarkIcon, MonitorIcon, WarningIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS } from '~/config/globals';
-import { useAppStore } from '~/stores/appStore';
+import useApp from '~/hooks/useApp';
 import { trackEvent } from '~/utils/analytics';
 import { isP3Supported } from '~/utils/gamut';
 
@@ -21,7 +21,7 @@ import TooltipClickable from '~/components/TooltipClickable';
 import type { Gamut } from '~/types';
 
 export default function PaletteGamutToggle() {
-  const { gamut, setGamut } = useAppStore();
+  const { gamut, setGamut } = useApp('gamut', 'setGamut');
 
   const p3Supported = useMemo(() => isP3Supported(), []);
 

@@ -4,8 +4,8 @@ import { ExportIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor, scale } from 'colorizr';
 
 import { BREAKPOINTS } from '~/config/globals';
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
-import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
 
@@ -39,7 +39,7 @@ function ScaleItem(props: ScaleItemProps) {
     onSelectionChange,
     steps,
   } = props;
-  const gamut = useAppStore(state => state.gamut);
+  const { gamut } = useApp('gamut');
 
   const displayMainColor = gamut === 'srgb' ? convertCSS(mainColor, 'hex') : mainColor;
   const textColor = readableColor(displayMainColor, 'apca');
