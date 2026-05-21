@@ -148,7 +148,7 @@ export default function PaletteHeader() {
           <Tooltip content="Palette Options" placement="bottom">
             <Button
               aria-label="Palette Options"
-              isIconOnly={!isLarge}
+              className="@max-2xl:px-0 @max-2xl:min-w-8 @max-2xl:w-8"
               onPress={togglePaletteOptionsPanel}
               size="menu"
               startContent={
@@ -164,7 +164,7 @@ export default function PaletteHeader() {
               }
               variant={showPaletteOptionsPanel ? 'solid' : 'light'}
             >
-              {isLarge && 'Options'}
+              <span className="hidden @2xl:inline-flex">Options</span>
             </Button>
           </Tooltip>
           <ExportPalette />

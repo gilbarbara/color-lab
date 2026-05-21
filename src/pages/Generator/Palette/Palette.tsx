@@ -21,7 +21,7 @@ export default function Palette({ showBottomBar = false }: PaletteProps) {
 
   return (
     <div
-      className={cn('w-full flex flex-col', {
+      className={cn('@container w-full flex flex-col', {
         'border-l border-default': !showBottomBar,
       })}
       data-testid="Palette"

@@ -40,7 +40,7 @@ export default function Scale(props: ScaleProps) {
           <ExportScale name={colorEntry.name} steps={steps} />
         </div>
       </div>
-      <div className="w-full flex flex-col lg:flex-row flex-wrap gap-1 overflow-x-auto">
+      <div className="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto">
         {Object.entries(steps).map(([step, color]) => (
           <Swatch key={step} color={color} lock={options.lock} step={step} />
         ))}

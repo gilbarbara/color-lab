@@ -2,13 +2,13 @@
 
 exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
 <div
-  class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
+  class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
   role="button"
   style="background-color: oklch(0.6327 0.254 19.9); color: rgb(255, 255, 255);"
   tabindex="0"
 >
   <p
-    class="text-base/4 lg:order-2"
+    class="text-base/4 @xl:order-2"
   >
     500
   </p>
@@ -17,13 +17,13 @@ exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
 
 exports[`Swatch > Render > renders hex background when gamut is srgb 1`] = `
 <div
-  class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
+  class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
   role="button"
   style="background-color: rgb(255, 0, 68); color: rgb(255, 255, 255);"
   tabindex="0"
 >
   <p
-    class="text-base/4 lg:order-2"
+    class="text-base/4 @xl:order-2"
   >
     500
   </p>
@@ -32,18 +32,18 @@ exports[`Swatch > Render > renders hex background when gamut is srgb 1`] = `
 
 exports[`Swatch > Render > renders with lock icon 1`] = `
 <div
-  class="relative flex-1 min-w-9 lg:h-22 flex flex-row lg:flex-col items-center justify-between lg:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
+  class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer"
   role="button"
   style="background-color: oklch(0.6327 0.254 19.9); color: rgb(255, 255, 255);"
   tabindex="0"
 >
   <p
-    class="text-base/4 lg:order-2"
+    class="text-base/4 @xl:order-2"
   >
     500
   </p>
   <span
-    class="mb-auto lg:mt-2 md:order-1"
+    class="mb-auto @xl:mt-2 @xl:order-1"
   >
     <svg
       class="text-base"
