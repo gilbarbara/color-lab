@@ -24,8 +24,8 @@ import {
   removeColor,
   resetGlobalOptions,
   resetPalette,
+  setColorOverride,
   updateColor,
-  updateColorOverrides,
   updateGlobalOptions,
 } from '~/utils/palette';
 
@@ -194,10 +194,10 @@ describe('utils/palette', () => {
     });
   });
 
-  describe('updateColorOverrides', () => {
-    it('sets overrides', () => {
+  describe('setColorOverride', () => {
+    it('sets overrides that differ from global', () => {
       const initial = createTestPalette(1);
-      const result = updateColorOverrides(initial, 0, { maxLightness: 0.9 });
+      const result = setColorOverride(initial, 0, { maxLightness: 0.9 });
 
       expect(result.colors[0].overrides).toEqual({ maxLightness: 0.9 });
     });
@@ -207,15 +207,36 @@ describe('utils/palette', () => {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
-      const result = updateColorOverrides(initial, 0, { maxLightness: 0.9 });
+      const result = setColorOverride(initial, 0, { maxLightness: 0.9 });
 
       expect(result.colors[0].overrides).toEqual({ steps: 9, maxLightness: 0.9 });
+    });
+
+    it('strips key when update matches current global', () => {
+      const initial: PaletteState = {
+        colors: [createColorEntry('Primary', CRIMSON, { maxLightness: 0.5 })],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
+      };
+      const globalMaxLightness = initial.globalOptions.maxLightness;
+      const result = setColorOverride(initial, 0, { maxLightness: globalMaxLightness });
+
+      expect(result.colors[0].overrides).toBeUndefined();
+    });
+
+    it('strips matching keys but keeps differing ones', () => {
+      const initial: PaletteState = {
+        colors: [createColorEntry('Primary', CRIMSON, { steps: 9, maxLightness: 0.5 })],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
+      };
+      const result = setColorOverride(initial, 0, { steps: initial.globalOptions.steps });
+
+      expect(result.colors[0].overrides).toEqual({ maxLightness: 0.5 });
     });
 
     it('returns unchanged state for invalid index', () => {
       const initial = createTestPalette(1);
 
-      expect(updateColorOverrides(initial, 5, { steps: 9 })).toBe(initial);
+      expect(setColorOverride(initial, 5, { steps: 9 })).toBe(initial);
     });
   });
 

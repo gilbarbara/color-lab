@@ -1,8 +1,10 @@
-import { cn, Divider } from '@heroui/react';
-import { CaretUpIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
+import { Badge, Divider } from '@heroui/react';
+import { SlidersHorizontalIcon } from '@phosphor-icons/react';
 
+import usePalette from '~/hooks/usePalette';
 import { useAppStore } from '~/stores/appStore';
 import { trackEvent } from '~/utils/analytics';
+import { CURVE_OPTION_KEYS } from '~/utils/palette';
 
 import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
@@ -19,14 +21,12 @@ interface ColorOptionsProps {
 export default function ColorOptions(props: ColorOptionsProps) {
   const { defaultOptions, globalOptions, updateGlobalOptions } = props;
   const { showColorOptionsPanel, toggleColorOptionsPanel } = useAppStore();
+  const { hasCustomCurves } = usePalette();
 
   const handleClickReset = () => {
-    updateGlobalOptions({
-      minLightness: defaultOptions.minLightness,
-      maxLightness: defaultOptions.maxLightness,
-      lightnessCurve: defaultOptions.lightnessCurve,
-      chromaCurve: defaultOptions.chromaCurve,
-    });
+    updateGlobalOptions(
+      Object.fromEntries(CURVE_OPTION_KEYS.map(key => [key, defaultOptions[key]])),
+    );
 
     trackEvent('reset-color-options');
   };
@@ -36,17 +36,14 @@ export default function ColorOptions(props: ColorOptionsProps) {
       <div className="px-4 py-2 text-sm/3">
         <Button
           className="text-foreground-600"
-          endContent={
-            <CaretUpIcon
-              className={cn('transition-transform text-xs', {
-                'rotate-180': showColorOptionsPanel,
-              })}
-            />
-          }
           onClick={toggleColorOptionsPanel}
           size="menu"
-          startContent={<SlidersHorizontalIcon className="text-lg" />}
-          variant="light"
+          startContent={
+            <Badge color="warning" content="" isDot isInvisible={!hasCustomCurves} size="sm">
+              <SlidersHorizontalIcon className="text-lg" />
+            </Badge>
+          }
+          variant={showColorOptionsPanel ? 'solid' : 'light'}
         >
           Advanced Options
         </Button>

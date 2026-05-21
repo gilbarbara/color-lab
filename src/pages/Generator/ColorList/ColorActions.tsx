@@ -1,5 +1,5 @@
 import { useBreakpoint, useMemoDeepCompare } from '@gilbarbara/hooks';
-import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
+import { Badge, cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 import { type ColorMode, ModeSelector } from '@transience/color-picker';
 import { readableColor } from 'colorizr';
@@ -26,7 +26,7 @@ interface ColorActionsProps {
 
 export default function ColorActions(props: ColorActionsProps) {
   const { colorEntry, index, mode, onClickMode, onClickRandom } = props;
-  const { clearColorOverrides, globalOptions, updateColor } = usePalette();
+  const { clearColorOverrides, globalOptions, setColorOverride } = usePalette();
   const { isOpen, onOpenChange } = useDisclosure();
   const { max, min } = useBreakpoint(BREAKPOINTS);
 
@@ -46,7 +46,7 @@ export default function ColorActions(props: ColorActionsProps) {
   };
 
   const handleUpdateOptions = (updates: Partial<GlobalScaleOptions>) => {
-    updateColor(index, { overrides: { ...colorEntry.overrides, ...updates } });
+    setColorOverride(index, updates);
   };
 
   return (
@@ -101,7 +101,15 @@ export default function ColorActions(props: ColorActionsProps) {
               >
                 <Tooltip content="Color options" delay={250} placement="bottom-end">
                   <span className="size-8 inline-flex items-center justify-center">
-                    <SlidersHorizontalIcon className="text-base" />
+                    <Badge
+                      color="warning"
+                      content=""
+                      isDot
+                      isInvisible={!colorEntry.overrides}
+                      size="sm"
+                    >
+                      <SlidersHorizontalIcon className="text-base" />
+                    </Badge>
                   </span>
                 </Tooltip>
               </Button>
