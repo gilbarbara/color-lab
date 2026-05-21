@@ -129,7 +129,7 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044?f=abc');
 
       expect(result).not.toBeNull();
-      expect(result!.state.globalOptions.lightnessCurve).toBe(1.5);
+      expect(result!.state.globalOptions.lightnessCurve).toBe(1.3);
     });
 
     it('ignores unknown global option keys', () => {

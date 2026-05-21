@@ -34,10 +34,10 @@ export const PALETTE_OPTION_KEYS = [
 export function getDefaultGlobalOptions(color: OklchString): GlobalScaleOptions {
   return {
     chromaCurve: 0,
-    lightnessCurve: 1.5,
+    lightnessCurve: 1.3,
     lock: undefined,
     maxLightness: 0.97,
-    minLightness: 0.2,
+    minLightness: 0.26,
     mode: 'light',
     saturation: getChromaAsPercentage(color),
     saturationOverride: false,
