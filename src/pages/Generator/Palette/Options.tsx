@@ -18,7 +18,11 @@ import TooltipClickable from '~/components/TooltipClickable';
 import type { ScaleOptions } from '~/types';
 
 export default function PaletteOptions() {
-  const { defaultOptions, globalOptions, updateGlobalOptions } = usePalette();
+  const { defaultOptions, globalOptions, updateGlobalOptions } = usePalette(
+    'defaultOptions',
+    'globalOptions',
+    'updateGlobalOptions',
+  );
   const { end, ref: interactionRef, start } = useSliderInteraction();
   const scheduleUpdateGlobalOptions = useRafCallback(updateGlobalOptions);
 

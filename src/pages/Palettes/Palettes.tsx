@@ -16,7 +16,7 @@ export default function Palettes() {
   const navigate = useNavigate();
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const { deletePalette, isLoading, palettes, toggleFavorite } = useSavedPalettes();
-  const { generatorUrl } = usePalette();
+  const { generatorUrl } = usePalette('generatorUrl');
   const { openLoginModal } = useApp('openLoginModal');
 
   const handleDelete = async (id: string) => {

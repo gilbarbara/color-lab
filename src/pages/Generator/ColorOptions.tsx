@@ -24,7 +24,7 @@ export default function ColorOptions(props: ColorOptionsProps) {
     'showColorOptionsPanel',
     'toggleColorOptionsPanel',
   );
-  const { hasCustomCurves } = usePalette();
+  const { hasCustomCurves } = usePalette('hasCustomCurves');
 
   const handleClickReset = () => {
     updateGlobalOptions(

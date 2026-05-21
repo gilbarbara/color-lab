@@ -17,7 +17,7 @@ interface PaletteProps {
 }
 
 export default function Palette({ showBottomBar = false }: PaletteProps) {
-  const { colors, globalOptions } = usePalette();
+  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
 
   return (
     <div

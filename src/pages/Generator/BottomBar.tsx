@@ -23,7 +23,14 @@ import ColorOptions from '~/pages/Generator/ColorOptions';
 
 export default function BottomBar() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
-    usePalette();
+    usePalette(
+      'addColor',
+      'baseSaturation',
+      'colors',
+      'defaultOptions',
+      'globalOptions',
+      'updateGlobalOptions',
+    );
   const { showBottomBar, toggleBottomBar } = useApp('showBottomBar', 'toggleBottomBar');
   const [shouldRenderContent, setShouldRenderContent] = useState(false);
   const dragStartY = useRef<number | null>(null);

@@ -32,7 +32,7 @@ export default function PaletteHeader() {
     'showPaletteOptionsPanel',
     'togglePaletteOptionsPanel',
   );
-  const { hasCustomPaletteOptions } = usePalette();
+  const { hasCustomPaletteOptions } = usePalette('hasCustomPaletteOptions');
   const {
     hasUnsavedChanges,
     loadedPaletteId,

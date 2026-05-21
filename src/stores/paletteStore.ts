@@ -14,7 +14,7 @@ import {
 
 import type { PaletteActions, PaletteState } from '~/types';
 
-interface PaletteStore extends PaletteActions, PaletteState {
+export interface PaletteStore extends PaletteActions, PaletteState {
   activeColorId: string | null;
   previewColorId: string | null;
 }

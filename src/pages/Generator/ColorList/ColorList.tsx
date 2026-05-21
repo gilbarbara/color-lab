@@ -3,7 +3,7 @@ import usePalette from '~/hooks/usePalette';
 import ColorSelector from './ColorSelector';
 
 export default function ColorList() {
-  const { colors, globalOptions } = usePalette();
+  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
 
   return (
     <div className="p-4" data-testid="ColorList">

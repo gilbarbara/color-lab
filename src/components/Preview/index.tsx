@@ -32,7 +32,11 @@ function autoTheme(color: string, isAppDark: boolean): 'light' | 'dark' {
 
 export default function Preview() {
   const { isDarkMode } = useTheme();
-  const { colors, previewColorId, setPreviewColor } = usePalette();
+  const { colors, previewColorId, setPreviewColor } = usePalette(
+    'colors',
+    'previewColorId',
+    'setPreviewColor',
+  );
   const { gamut, previewScrollNonce, showPreview, togglePreview } = useApp(
     'gamut',
     'previewScrollNonce',
