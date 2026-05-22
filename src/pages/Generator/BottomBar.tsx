@@ -10,8 +10,10 @@ import { flushSync } from 'react-dom';
 import { Button, cn, Divider } from '@heroui/react';
 import { CaretUpIcon, PlusIcon } from '@phosphor-icons/react';
 
+import { SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
+import useScrollToColor from '~/hooks/useScrollToColor';
 import { trackEvent } from '~/utils/analytics';
 import { getRandomColor, rotateOklchHue } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/palette';
@@ -31,10 +33,21 @@ export default function BottomBar() {
       'globalOptions',
       'updateGlobalOptions',
     );
-  const { showBottomBar, toggleBottomBar } = useApp('showBottomBar', 'toggleBottomBar');
+  const { colorScrollRequest, requestColorScroll, showBottomBar, toggleBottomBar } = useApp(
+    'colorScrollRequest',
+    'requestColorScroll',
+    'showBottomBar',
+    'toggleBottomBar',
+  );
+  const scrollToColor = useScrollToColor();
   const [shouldRenderContent, setShouldRenderContent] = useState(false);
   const dragStartY = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!colorScrollRequest) return;
+    scrollToSelector(colorScrollRequest.id, containerRef.current, SCROLL_OFFSET);
+  }, [colorScrollRequest]);
 
   useEffect(() => {
     document.body.style.overflow = showBottomBar ? 'hidden' : '';
@@ -70,20 +83,14 @@ export default function BottomBar() {
     });
     trackEvent('add-color');
 
-    if (newId) scrollToSelector(newId, containerRef.current);
+    if (newId) requestColorScroll(newId);
   };
 
   const handleClickCircle = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     const { id } = event.currentTarget.dataset;
 
-    if (!showBottomBar) {
-      toggleBottomBar();
-      // Wait for 500ms animation to complete
-      setTimeout(() => scrollToSelector(id, containerRef.current), 500);
-    } else {
-      scrollToSelector(id, containerRef.current);
-    }
+    if (id) scrollToColor(id);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -122,9 +129,9 @@ export default function BottomBar() {
     >
       <div
         aria-label="Toggle Bottom Bar"
-        className="sticky top-0 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
+        className="sticky top-0 h-16 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
         data-testid="BottomBarHeader"
-        onClick={toggleBottomBar}
+        onClick={() => toggleBottomBar()}
         onKeyDown={handleKeyDown}
         onTouchEnd={handleTouchEnd}
         onTouchStart={handleTouchStart}

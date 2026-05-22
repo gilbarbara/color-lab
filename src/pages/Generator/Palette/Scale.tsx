@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { scale } from 'colorizr';
 
+import useScrollToColor from '~/hooks/useScrollToColor';
 import { formatOklch } from '~/utils/color';
 
 import ColorBox from '~/components/ColorBox';
@@ -20,6 +21,7 @@ interface ScaleProps {
 
 export default function Scale(props: ScaleProps) {
   const { colorEntry, options } = props;
+  const scrollToColor = useScrollToColor();
 
   const steps = useMemo(() => scale(colorEntry.value, options), [colorEntry.value, options]);
 
@@ -27,7 +29,12 @@ export default function Scale(props: ScaleProps) {
     <div className="w-full flex flex-col gap-4" data-testid="Scale">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <ColorBox as="span" color={colorEntry.value} size="sm" />
+          <ColorBox
+            aria-label={`Select ${colorEntry.name}`}
+            color={colorEntry.value}
+            onClick={() => scrollToColor(colorEntry.id)}
+            size="sm"
+          />
           <h3 className="font-semibold text-lg leading-none">{colorEntry.name}</h3>
           <p className="hidden lg:block text-foreground-500 font-mono text-sm">
             {formatOklch(colorEntry.value)}

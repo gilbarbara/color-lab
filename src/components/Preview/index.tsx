@@ -5,7 +5,7 @@ import { CaretDownIcon, CaretUpIcon } from '@phosphor-icons/react';
 import { parseCSS } from 'colorizr';
 import { animate } from 'framer-motion';
 
-import { HEADER_HEIGHT } from '~/config/globals';
+import { SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
@@ -58,8 +58,7 @@ export default function Preview() {
     }
 
     const startY = window.scrollY;
-    const spacingY = HEADER_HEIGHT + 16;
-    const targetY = startY + el.getBoundingClientRect().top - spacingY;
+    const targetY = startY + el.getBoundingClientRect().top - SCROLL_OFFSET;
 
     const controls = animate(startY, targetY, {
       duration: 0.5,

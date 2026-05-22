@@ -63,6 +63,35 @@ describe('stores/appStore', () => {
     });
   });
 
+  describe('requestColorScroll', () => {
+    it('sets request with nonce 1 from null', () => {
+      expect(useAppStore.getState().colorScrollRequest).toBe(null);
+
+      useAppStore.getState().requestColorScroll('color-a');
+
+      expect(useAppStore.getState().colorScrollRequest).toEqual({ id: 'color-a', nonce: 1 });
+    });
+
+    it('bumps nonce and updates id on subsequent calls', () => {
+      const { requestColorScroll } = useAppStore.getState();
+
+      requestColorScroll('color-a');
+      requestColorScroll('color-b');
+      requestColorScroll('color-c');
+
+      expect(useAppStore.getState().colorScrollRequest).toEqual({ id: 'color-c', nonce: 3 });
+    });
+
+    it('bumps nonce even when id repeats', () => {
+      const { requestColorScroll } = useAppStore.getState();
+
+      requestColorScroll('color-a');
+      requestColorScroll('color-a');
+
+      expect(useAppStore.getState().colorScrollRequest).toEqual({ id: 'color-a', nonce: 2 });
+    });
+  });
+
   describe('requestPreviewScroll', () => {
     it('increments previewScrollNonce from 0', () => {
       expect(useAppStore.getState().previewScrollNonce).toBe(0);
@@ -203,6 +232,28 @@ describe('stores/appStore', () => {
       toggleBottomBar();
       expect(useAppStore.getState().showBottomBar).toBe(true);
     });
+
+    it('forces showBottomBar to true when called with true', () => {
+      useAppStore.getState().toggleBottomBar(true);
+
+      expect(useAppStore.getState().showBottomBar).toBe(true);
+    });
+
+    it('forces showBottomBar to false when called with false', () => {
+      useAppStore.setState({ showBottomBar: true });
+
+      useAppStore.getState().toggleBottomBar(false);
+
+      expect(useAppStore.getState().showBottomBar).toBe(false);
+    });
+
+    it('keeps showBottomBar when forced to current value', () => {
+      useAppStore.setState({ showBottomBar: true });
+
+      useAppStore.getState().toggleBottomBar(true);
+
+      expect(useAppStore.getState().showBottomBar).toBe(true);
+    });
   });
 
   describe('toggleColorOptionsPanel', () => {
@@ -302,6 +353,26 @@ describe('stores/appStore', () => {
       toggleSidebar();
       expect(useAppStore.getState().showSidebar).toBe(false);
     });
+
+    it('forces showSidebar to true when called with true', () => {
+      useAppStore.setState({ showSidebar: false });
+
+      useAppStore.getState().toggleSidebar(true);
+
+      expect(useAppStore.getState().showSidebar).toBe(true);
+    });
+
+    it('forces showSidebar to false when called with false', () => {
+      useAppStore.getState().toggleSidebar(false);
+
+      expect(useAppStore.getState().showSidebar).toBe(false);
+    });
+
+    it('keeps showSidebar when forced to current value', () => {
+      useAppStore.getState().toggleSidebar(true);
+
+      expect(useAppStore.getState().showSidebar).toBe(true);
+    });
   });
 
   describe('togglePreview', () => {
@@ -363,6 +434,7 @@ describe('stores/appStore', () => {
     it('excludes transient keys from storage', () => {
       useAppStore.getState().openLoginModal();
       useAppStore.getState().requestPreviewScroll();
+      useAppStore.getState().requestColorScroll('color-a');
       useAppStore.getState().toggleBottomBar();
       useAppStore.getState().setLoadedPalette('id', 'name', 'url');
 
@@ -371,6 +443,7 @@ describe('stores/appStore', () => {
 
       expect(keys).not.toContain('showLoginModal');
       expect(keys).not.toContain('previewScrollNonce');
+      expect(keys).not.toContain('colorScrollRequest');
       expect(keys).not.toContain('showBottomBar');
       expect(keys).not.toContain('loadedPaletteId');
       expect(keys).not.toContain('loadedPaletteName');

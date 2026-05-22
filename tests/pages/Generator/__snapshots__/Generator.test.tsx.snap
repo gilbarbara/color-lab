@@ -748,10 +748,13 @@ exports[`Generator > renders correctly 1`] = `
             <div
               class="flex items-center gap-2"
             >
-              <span
-                aria-label="Color Box"
-                class="shrink-0 size-8 rounded-small"
+              <button
+                aria-label="Select Primary"
+                class="shrink-0 size-8 rounded-small cursor-pointer"
+                data-color="oklch(63.27% 0.254 19.9)"
+                data-testid="ColorBox"
                 style="background-color: oklch(0.6327 0.254 19.9);"
+                type="button"
               />
               <h3
                 class="font-semibold text-lg leading-none"

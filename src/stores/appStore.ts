@@ -7,6 +7,7 @@ import { detectInitialGamut } from '~/utils/gamut';
 import type { ExportColorFormat, ExportFormatType, Gamut } from '~/types';
 
 interface AppState {
+  colorScrollRequest: { id: string; nonce: number } | null;
   exportColorFormat: ExportColorFormat;
   exportFormatType: ExportFormatType;
   gamut: Gamut;
@@ -26,19 +27,21 @@ export interface AppStateWithActions extends AppState {
   clearLoadedPalette: () => void;
   closeLoginModal: () => void;
   openLoginModal: () => void;
+  requestColorScroll: (id: string) => void;
   requestPreviewScroll: () => void;
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
   setGamut: (gamut: Gamut) => void;
   setLoadedPalette: (id: string | null, name: string | null, url: string | null) => void;
-  toggleBottomBar: () => void;
+  toggleBottomBar: (toggle?: boolean) => void;
   toggleColorOptionsPanel: () => void;
   togglePaletteOptionsPanel: () => void;
   togglePreview: (toggle?: boolean) => void;
-  toggleSidebar: () => void;
+  toggleSidebar: (toggle?: boolean) => void;
 }
 
 export const initialState: AppState = {
+  colorScrollRequest: null,
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
   gamut: detectInitialGamut(),
@@ -75,6 +78,15 @@ export const useAppStore = create<AppStateWithActions>()(
         set({ showLoginModal: true });
       },
 
+      requestColorScroll: id => {
+        set(state => ({
+          colorScrollRequest: {
+            id,
+            nonce: (state.colorScrollRequest?.nonce ?? 0) + 1,
+          },
+        }));
+      },
+
       requestPreviewScroll: () => {
         set(state => ({ previewScrollNonce: state.previewScrollNonce + 1 }));
       },
@@ -99,8 +111,10 @@ export const useAppStore = create<AppStateWithActions>()(
         });
       },
 
-      toggleBottomBar: () => {
-        set(state => ({ showBottomBar: !state.showBottomBar }));
+      toggleBottomBar: force => {
+        set(state => ({
+          showBottomBar: typeof force === 'boolean' ? force : !state.showBottomBar,
+        }));
       },
 
       toggleColorOptionsPanel: () => {
@@ -117,8 +131,10 @@ export const useAppStore = create<AppStateWithActions>()(
         }));
       },
 
-      toggleSidebar: () => {
-        set(state => ({ showSidebar: !state.showSidebar }));
+      toggleSidebar: force => {
+        set(state => ({
+          showSidebar: typeof force === 'boolean' ? force : !state.showSidebar,
+        }));
       },
     }),
     {
