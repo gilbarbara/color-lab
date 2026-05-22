@@ -307,7 +307,7 @@ test.describe('Desktop', () => {
     });
 
     test('should have color box indicator', async () => {
-      await expect(page.getByLabel('Color Box').first()).toBeVisible();
+      await expect(page.getByLabel('Select Primary').first()).toBeVisible();
     });
   });
 });

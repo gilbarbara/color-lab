@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { flushSync } from 'react-dom';
 import { cn, Divider } from '@heroui/react';
 import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
@@ -28,8 +28,18 @@ export default function Sidebar() {
       'globalOptions',
       'updateGlobalOptions',
     );
-  const { showSidebar, toggleSidebar } = useApp('showSidebar', 'toggleSidebar');
+  const { colorScrollRequest, requestColorScroll, showSidebar, toggleSidebar } = useApp(
+    'colorScrollRequest',
+    'requestColorScroll',
+    'showSidebar',
+    'toggleSidebar',
+  );
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!colorScrollRequest) return;
+    scrollToSelector(colorScrollRequest.id, containerRef.current);
+  }, [colorScrollRequest]);
 
   const handleAddColor = () => {
     const lastColor = colors.at(-1);
@@ -44,7 +54,7 @@ export default function Sidebar() {
     });
     trackEvent('add-color');
 
-    if (newId) scrollToSelector(newId, containerRef.current);
+    if (newId) requestColorScroll(newId);
   };
 
   return (
@@ -67,7 +77,7 @@ export default function Sidebar() {
           aria-label="Toggle Sidebar"
           className="absolute top-2 right-2 z-10"
           isIconOnly
-          onPress={toggleSidebar}
+          onPress={() => toggleSidebar()}
           size="sm"
           variant="light"
         >

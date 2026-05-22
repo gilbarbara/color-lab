@@ -4,6 +4,7 @@ exports[`stores/appStore > initial state > has correct defaults 1`] = `
 {
   "clearLoadedPalette": [Function],
   "closeLoginModal": [Function],
+  "colorScrollRequest": null,
   "exportColorFormat": "oklch",
   "exportFormatType": "tailwind4",
   "gamut": "p3",
@@ -12,6 +13,7 @@ exports[`stores/appStore > initial state > has correct defaults 1`] = `
   "loadedPaletteName": "Color Palette",
   "openLoginModal": [Function],
   "previewScrollNonce": 0,
+  "requestColorScroll": [Function],
   "requestPreviewScroll": [Function],
   "setExportColorFormat": [Function],
   "setExportFormatType": [Function],

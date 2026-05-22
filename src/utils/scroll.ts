@@ -1,6 +1,10 @@
 import { animate } from 'framer-motion';
 
-export function scrollToSelector(id: string | undefined, container?: HTMLElement | null) {
+export function scrollToSelector(
+  id: string | undefined,
+  container?: HTMLElement | null,
+  offset = 0,
+) {
   if (!id) return;
 
   if (container) {
@@ -11,7 +15,7 @@ export function scrollToSelector(id: string | undefined, container?: HTMLElement
     const start = container.scrollTop;
     const delta = target.getBoundingClientRect().top - container.getBoundingClientRect().top;
 
-    animate(start, start + delta, {
+    animate(start, start + delta - offset, {
       duration: 0.4,
       ease: 'easeInOut',
       onUpdate: y => container.scrollTo(0, y),
