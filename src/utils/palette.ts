@@ -1,4 +1,4 @@
-import { uuid } from '@gilbarbara/helpers';
+import { objectKeys, uuid } from '@gilbarbara/helpers';
 
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
@@ -170,14 +170,14 @@ export function setColorOverride(
 
   const merged: Partial<ScaleOptions> = { ...currentColor.overrides, ...updates };
 
-  for (const key of Object.keys(merged) as Array<keyof ScaleOptions>) {
-    if (merged[key] === state.globalOptions[key as keyof GlobalScaleOptions]) {
+  for (const key of objectKeys(merged)) {
+    if (merged[key] === state.globalOptions[key]) {
       delete merged[key];
     }
   }
 
   return updateColor(state, index, {
-    overrides: Object.keys(merged).length ? merged : undefined,
+    overrides: objectKeys(merged).length ? merged : undefined,
   });
 }
 

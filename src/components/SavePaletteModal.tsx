@@ -4,7 +4,7 @@ import { Button } from '@heroui/react';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 
-import { Input } from '~/components/Field/Input';
+import { Input } from '~/components/Field';
 import Modal from '~/components/Modal';
 
 interface SavePaletteModalProps {

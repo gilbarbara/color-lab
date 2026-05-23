@@ -91,10 +91,18 @@ function generatePaletteTailwind4(
 
 /**
  * Normalize a color name for use in CSS variables/SCSS.
- * Converts to lowercase and replaces spaces with hyphens.
+ * Lowercases, collapses whitespace to hyphens, preserves Unicode letters and
+ * digits, strips characters that would break CSS parsing. Falls back to
+ * 'color' when no usable characters remain.
  */
 function normalizeColorName(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, '-');
+  const cleaned = name
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\p{L}\p{N}_-]+/gu, '')
+    .replace(/^-+|-+$/g, '');
+
+  return cleaned || 'color';
 }
 
 /**

@@ -20,7 +20,7 @@ type ColorBoxSpanProps = ColorBoxBaseProps &
 
 interface ColorBoxBaseProps {
   color: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'full';
 }
 
 export default function ColorBox(props: ColorBoxProps) {
@@ -34,6 +34,7 @@ export default function ColorBox(props: ColorBoxProps) {
     sm: 'size-8 rounded-small',
     md: 'size-12 rounded-medium',
     lg: 'size-16 rounded-large',
+    full: 'w-full rounded-large aspect-square',
   };
 
   const sharedClassName = cn('shrink-0', sizes[size], className);

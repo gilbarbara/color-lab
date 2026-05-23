@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { Button, Card, CardBody } from '@heroui/react';
 import { HeartIcon, TrashIcon } from '@phosphor-icons/react';
@@ -23,7 +23,7 @@ interface PaletteCardProps {
 export function PaletteCard(props: PaletteCardProps) {
   const { onDelete, onToggleFavorite, palette } = props;
   const [isDeleting, setIsDeleting] = useState(false);
-  const parsed = parsePaletteFromUrl(palette.url);
+  const parsed = useMemo(() => parsePaletteFromUrl(palette.url), [palette.url]);
   const colors = parsed?.state.colors.map(c => c.value) ?? [];
   const droppedKey = (parsed?.dropped ?? []).join(',');
 
@@ -114,12 +114,12 @@ export function PaletteCard(props: PaletteCardProps) {
         </div>
         <Link
           aria-label={`Load Palette Colors (${palette.name})`}
-          className="flex flex-wrap gap-2 rounded-lg cursor-pointer overflow-hidden"
+          className="grid grid-cols-5 gap-2 cursor-pointer overflow-hidden"
           onClick={handleClickLoad}
           to={palette.url}
         >
           {colors.map((color, index) => (
-            <ColorBox key={`${color}-${index}`} as="span" color={color} />
+            <ColorBox key={`${color}-${index}`} as="span" color={color} size="full" />
           ))}
         </Link>
       </CardBody>

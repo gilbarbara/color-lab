@@ -1,7 +1,7 @@
 import { mockAddToast } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
 
-import Palettes from '~/pages/Palettes/Palettes';
+import Palettes from '~/pages/Palettes';
 
 import type { SavedPalette } from '~/types';
 

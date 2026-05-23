@@ -111,6 +111,40 @@ describe('utils/export', () => {
     });
   });
 
+  describe('normalizeColorName (via generateCSS)', () => {
+    it('preserves Unicode letters (accents)', () => {
+      const result = generateCSS('Açaí', PLUM_SCALE, 'hex');
+
+      expect(result).toContain('--açaí-');
+    });
+
+    it('strips CSS-dangerous characters from variable names', () => {
+      const result = generateCSS('red; }', PLUM_SCALE, 'hex');
+      const varNames = [...result.matchAll(/--([^:]+):/g)].map(m => m[1]);
+
+      expect(varNames.every(n => !/[;<>{}]/.test(n))).toBe(true);
+      expect(varNames[0]).toBe('red-50');
+    });
+
+    it('collapses whitespace and trims edge hyphens', () => {
+      const result = generateCSS('  Bold   Red  ', PLUM_SCALE, 'hex');
+
+      expect(result).toContain('--bold-red-');
+    });
+
+    it('falls back to "color" when all characters are stripped', () => {
+      const result = generateCSS('!@#$', PLUM_SCALE, 'hex');
+
+      expect(result).toContain('--color-');
+    });
+
+    it('strips angle brackets from script-like names', () => {
+      const result = generateCSS('<script>alert(1)</script>', PLUM_SCALE, 'hex');
+
+      expect(result).not.toMatch(/[()<>]/);
+    });
+  });
+
   describe('generateSCSS', () => {
     it('generates SCSS variables', () => {
       const result = generateSCSS('Plum', PLUM_SCALE, 'hex');

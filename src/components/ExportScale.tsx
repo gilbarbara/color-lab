@@ -1,4 +1,4 @@
-import { ExportIcon } from '@phosphor-icons/react';
+import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
 
 import { trackEvent } from '~/utils/analytics';
 import { generateExport } from '~/utils/export';
@@ -31,6 +31,7 @@ export default function ExportScale(props: ExportScaleProps) {
               trackEvent('copy-export-scale', { format: formatType, colorFormat });
               onCopy(code);
             }}
+            startContent={<CopyIcon className="text-lg" />}
           >
             Copy
           </Button>

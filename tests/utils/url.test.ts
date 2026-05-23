@@ -1,5 +1,6 @@
 import { parseCSS } from 'colorizr';
 
+import { createColorEntry } from '~/test-fixtures';
 import { toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
@@ -11,14 +12,6 @@ import {
 } from '~/utils/url';
 
 import type { ColorEntry, PaletteState } from '~/types';
-
-function createColorEntry(
-  name: string,
-  value: string,
-  overrides?: ColorEntry['overrides'],
-): ColorEntry {
-  return { id: crypto.randomUUID(), name, value: toOklch(value), ...(overrides && { overrides }) };
-}
 
 /** Build a ColorEntry from a hex source (storage is always OKLCH). */
 function oklchEntry(name: string, hex: string, overrides?: ColorEntry['overrides']): ColorEntry {

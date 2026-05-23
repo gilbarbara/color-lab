@@ -14,9 +14,10 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const navigateBack = () => {
-      const returnUrl = sessionStorage.getItem('authReturnUrl') || '/';
+      const stored = sessionStorage.getItem('authReturnUrl');
+      const safe = stored && stored.startsWith('/') && !stored.startsWith('//') ? stored : '/';
 
-      navigate(returnUrl, { replace: true });
+      navigate(safe, { replace: true });
     };
 
     const handleCallback = async () => {

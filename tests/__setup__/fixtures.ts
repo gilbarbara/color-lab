@@ -1,8 +1,9 @@
 import { scale } from 'colorizr';
 
 import { toOklch } from '~/utils/color';
+import { createPalette } from '~/utils/palette';
 
-import type { ScaleSteps } from '~/types';
+import type { ColorEntry, OklchString, PaletteState, ScaleSteps } from '~/types';
 
 // Storage invariant: ColorEntry.value is always an OKLCH CSS string.
 // These constants are the literal formatCSS(parseCSS(<hex>, 'oklch'), { format: 'oklch' })
@@ -30,3 +31,31 @@ export const SLATE = toOklch('oklch(31.92% 0.072 251.17)'); // ex-#123456
 export const CRIMSON_SCALE: ScaleSteps = scale(CRIMSON);
 export const PLUM_SCALE: ScaleSteps = scale(PLUM);
 export const BLUE_SCALE: ScaleSteps = scale(BLUE);
+
+export function createColorEntry(
+  name: string,
+  value: string,
+  overrides?: ColorEntry['overrides'],
+): ColorEntry {
+  return {
+    id: crypto.randomUUID(),
+    name,
+    value: toOklch(value),
+    ...(overrides && { overrides }),
+  };
+}
+
+export function createTestPalette(colorCount = 1, baseColor: OklchString = CRIMSON): PaletteState {
+  const basePalette = createPalette(baseColor);
+  const names = ['Primary', 'Secondary', 'Tertiary', 'Accent'];
+
+  return {
+    ...basePalette,
+    colors: Array.from({ length: colorCount }, (_, index) =>
+      createColorEntry(
+        names[index] || `Color ${index + 1}`,
+        toOklch(`oklch(63.269% 0.25404 ${(19.902 + index * 36) % 360})`),
+      ),
+    ),
+  };
+}

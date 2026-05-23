@@ -118,7 +118,7 @@ export default function usePalette<K extends UsePaletteKey>(
   for (const key of keys) {
     (result as Record<string, unknown>)[key] = isComputedKey(key)
       ? computed[key]
-      : (slice as PaletteStore)[key as StoreKey];
+      : slice[key as StoreKey];
   }
 
   return result;

@@ -2,10 +2,10 @@ import { type JSX, type ReactNode } from 'react';
 import { cn } from '@heroui/react';
 import {
   CheckCircleIcon,
-  EmptyIcon,
   MagnifyingGlassIcon,
   ProhibitIcon,
   SmileySadIcon,
+  SwatchesIcon,
   WarningCircleIcon,
 } from '@phosphor-icons/react';
 
@@ -55,7 +55,7 @@ function getTemplate(type: FeedbackType, size: FeedbackSize): Template {
   switch (type) {
     case 'empty': {
       return {
-        icon: <EmptyIcon className={iconClass} />,
+        icon: <SwatchesIcon className={iconClass} />,
         title: 'Nothing here',
         description: 'There are no items to display.',
       };

@@ -13,6 +13,12 @@ export default function CheckboxToggle(props: CheckboxToggleProps) {
     ...rest,
   });
 
+  let content: ReactNode = isSelected ? 'Enabled' : 'Disabled';
+
+  if (children) {
+    content = children;
+  }
+
   return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label {...getBaseProps()}>
@@ -29,7 +35,7 @@ export default function CheckboxToggle(props: CheckboxToggleProps) {
         style={style}
         {...getLabelProps()}
       >
-        {children ? children : isSelected ? 'Enabled' : 'Disabled'}
+        {content}
       </Chip>
     </label>
   );

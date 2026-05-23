@@ -1,0 +1,118 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GamutToggle > Render > renders SRGB warning when P3 is not supported 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <button
+      aria-expanded="false"
+      aria-label="More information"
+      class="inline-flex shrink-0 text-base"
+      type="button"
+    >
+      <span
+        class="inline-flex items-center gap-2 text-warning"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`GamutToggle > Render > renders dropdown trigger when P3 is supported 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-label="Color gamut"
+      class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
+      data-react-aria-pressable="true"
+      data-slot="trigger"
+      id="react-aria-_r_0_"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="relative inline-flex items-center gap-2"
+      >
+        <svg
+          class="text-xl"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M208,36H48A28,28,0,0,0,20,64V176a28,28,0,0,0,28,28H208a28,28,0,0,0,28-28V64A28,28,0,0,0,208,36Zm4,140a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V64a4,4,0,0,1,4-4H208a4,4,0,0,1,4,4Zm-40,52a12,12,0,0,1-12,12H96a12,12,0,0,1,0-24h64A12,12,0,0,1,172,228Z"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`GamutToggle > Render > renders warning color when gamut is srgb 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-label="Color gamut"
+      class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-warning data-[hover=true]:bg-warning/20 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
+      data-react-aria-pressable="true"
+      data-slot="trigger"
+      id="react-aria-_r_5_"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="relative inline-flex items-center gap-2"
+      >
+        <svg
+          class="text-xl"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M208,36H48A28,28,0,0,0,20,64V176a28,28,0,0,0,28,28H208a28,28,0,0,0,28-28V64A28,28,0,0,0,208,36Zm4,140a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V64a4,4,0,0,1,4-4H208a4,4,0,0,1,4,4Zm-40,52a12,12,0,0,1-12,12H96a12,12,0,0,1,0-24h64A12,12,0,0,1,172,228Z"
+          />
+        </svg>
+        <svg
+          class="absolute text-[10px] top-1 left-1.25"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M148,200a20,20,0,1,1-20-20A20,20,0,0,1,148,200Zm-20-40a12,12,0,0,0,12-12V48a12,12,0,0,0-24,0V148A12,12,0,0,0,128,160Z"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;

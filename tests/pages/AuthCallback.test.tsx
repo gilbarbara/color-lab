@@ -61,6 +61,52 @@ describe('pages/AuthCallback', () => {
     });
   });
 
+  describe('returnUrl validation', () => {
+    afterEach(() => {
+      sessionStorage.removeItem('authReturnUrl');
+    });
+
+    it('uses returnUrl when same-origin path', async () => {
+      sessionStorage.setItem('authReturnUrl', '/p/red-ff0000');
+
+      renderWithRouter('/auth/callback');
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('/p/red-ff0000', { replace: true });
+      });
+    });
+
+    it('falls back to / when returnUrl is protocol-relative', async () => {
+      sessionStorage.setItem('authReturnUrl', '//evil.com');
+
+      renderWithRouter('/auth/callback');
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+      });
+    });
+
+    it('falls back to / when returnUrl is absolute', async () => {
+      sessionStorage.setItem('authReturnUrl', 'https://evil.com');
+
+      renderWithRouter('/auth/callback');
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+      });
+    });
+
+    it('falls back to / when returnUrl is empty', async () => {
+      sessionStorage.setItem('authReturnUrl', '');
+
+      renderWithRouter('/auth/callback');
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+      });
+    });
+  });
+
   describe('Magic Link flow', () => {
     it('verifies magic link and redirects on success', async () => {
       mockIsSignInWithEmailLink.mockReturnValue(true);

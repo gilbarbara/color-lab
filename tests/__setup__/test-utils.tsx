@@ -16,13 +16,28 @@ export interface MockAuthState {
   error?: string | null;
   isAuthenticated?: boolean;
   isLoading?: boolean;
-  user?: { displayName?: string; email?: string; photoURL?: string | null; uid?: string } | null;
+  overrides?: Partial<AuthContextType>;
+  provider?: AuthContextType['provider'];
+  user?: MockAuthUser | null;
+}
+
+export interface MockAuthUser {
+  displayName?: string;
+  email?: string;
+  photoURL?: string | null;
+  providerData?: AuthContextType['user'] extends infer U
+    ? U extends { providerData: infer P }
+      ? P
+      : never
+    : never;
+  uid?: string;
 }
 
 const defaultAuthState: MockAuthState = {
   error: null,
   isAuthenticated: false,
   isLoading: false,
+  provider: null,
   user: null,
 };
 
@@ -60,10 +75,11 @@ function MockAuthProvider(props: MockAuthProviderProps) {
       loginWithEmail: vi.fn(),
       loginWithOAuth: vi.fn(),
       logout: vi.fn(),
-      provider: null,
+      provider: mergedState.provider ?? null,
       sendMagicLink: vi.fn(),
       signupWithEmail: vi.fn(),
       user: mergedState.user as AuthContextType['user'],
+      ...mergedState.overrides,
     }),
     [mergedState],
   );
