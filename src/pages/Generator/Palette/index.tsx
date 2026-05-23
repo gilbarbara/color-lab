@@ -1,1 +1,42 @@
-export { default } from './Palette';
+import { cn } from '@heroui/react';
+
+import usePalette from '~/hooks/usePalette';
+import { getEffectiveOptions } from '~/utils/palette';
+
+import Footer from '~/components/Footer';
+import Preview from '~/components/Preview';
+import BottomBar from '~/pages/Generator/BottomBar';
+
+import Header from './Header';
+import Scale from './Scale';
+
+interface PaletteProps {
+  showBottomBar?: boolean;
+}
+
+export default function Palette({ showBottomBar = false }: PaletteProps) {
+  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
+
+  return (
+    <div
+      className={cn('@container w-full flex flex-col', {
+        'border-l border-default': !showBottomBar,
+      })}
+      data-testid="Palette"
+    >
+      <div className="flex-1 flex flex-col gap-8 p-4">
+        <Header />
+        <div className="flex flex-col items-start flex-1 gap-8">
+          {colors.map(colorEntry => {
+            const options = getEffectiveOptions(colorEntry, globalOptions);
+
+            return <Scale key={colorEntry.id} colorEntry={colorEntry} options={options} />;
+          })}
+          <Preview />
+        </div>
+      </div>
+      {showBottomBar && <BottomBar />}
+      <Footer hideBorder />
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
-import { ExportIcon } from '@phosphor-icons/react';
+import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor, scale } from 'colorizr';
 
 import { BREAKPOINTS } from '~/config/globals';
@@ -135,6 +135,7 @@ export default function ExportPalette() {
               });
               onCopy(allCode);
             }}
+            startContent={<CopyIcon className="text-lg" />}
           >
             Copy All ({selectedIndices.size})
           </Button>

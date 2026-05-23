@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => ({
         'src/components/Field/**/*',
         'src/config/hero.ts',
         'src/utils/firebase.ts',
+        'src/utils/scroll.ts',
       ],
     },
     exclude: ['node_modules/**', 'dist/**', 'e2e/**', 'cloud-functions/**'],

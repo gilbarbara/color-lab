@@ -1,25 +1,11 @@
 import { usePaletteStore } from '~/stores/paletteStore';
-import { BLUE, CRIMSON } from '~/test-fixtures';
+import { BLUE, createColorEntry, CRIMSON } from '~/test-fixtures';
 import { act, fireEvent, render, screen } from '~/test-utils';
-import { toOklch } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
 
 import ColorSelector from '~/pages/Generator/ColorList/ColorSelector';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
-
-function createColorEntry(
-  name: string,
-  value: string,
-  overrides?: ColorEntry['overrides'],
-): ColorEntry {
-  return {
-    id: crypto.randomUUID(),
-    name,
-    value: toOklch(value),
-    ...(overrides && { overrides }),
-  };
-}
 
 function createDefaultProps(overrides: Partial<Parameters<typeof ColorSelector>[0]> = {}) {
   const globalOptions: GlobalScaleOptions = getDefaultGlobalOptions(CRIMSON);

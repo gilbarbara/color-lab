@@ -67,7 +67,7 @@ export default function Header() {
         }}
         size="sm"
         startContent={<PlusIcon />}
-        to="/p"
+        to="/"
         variant="flat"
       >
         <span className="hidden xs:inline-flex">{isMedium ? 'New Palette' : 'New'}</span>
@@ -127,7 +127,7 @@ export default function Header() {
             aria-label="User Menu"
             as="button"
             className="transition-transform"
-            name={user?.displayName ?? user?.email ?? undefined}
+            name={user?.displayName ?? undefined}
             showFallback
             size="sm"
             src={imageUrl}
@@ -168,8 +168,12 @@ export default function Header() {
     >
       <div className="flex items-center w-full max-w-432 mx-auto px-4">
         <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">
-          <Link className="inline-flex items-start gap-1" to={generatorUrl}>
-            <img alt="Lab" className="h-8" src={isMedium ? '/brand/logo.svg' : '/brand/icon.svg'} />
+          <Link aria-label="Home" className="inline-flex items-start gap-1" to={generatorUrl}>
+            <img
+              alt="ColorMeUp"
+              className="h-8"
+              src={isMedium ? '/brand/logo.svg' : '/brand/icon.svg'}
+            />
             <span className="font-bold text-sm">LAB</span>
           </Link>
         </h1>

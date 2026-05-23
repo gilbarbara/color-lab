@@ -23,11 +23,11 @@ export default function ColorInput(props: ColorInputProps) {
     isEditingInput: false,
   });
 
-  const display = isEditingInput
-    ? editInput
-    : mode === 'oklch'
-      ? formatOklch(color)
-      : convertCSS(color, 'hex');
+  let display = mode === 'oklch' ? formatOklch(color) : convertCSS(color, 'hex');
+
+  if (isEditingInput) {
+    display = editInput;
+  }
 
   const handleFocus = () => {
     setState({ isEditingInput: true, editInput: display });

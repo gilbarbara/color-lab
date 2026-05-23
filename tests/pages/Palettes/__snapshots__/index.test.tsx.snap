@@ -29,7 +29,7 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M198.24,62.63l15.68-17.25a8,8,0,0,0-11.84-10.76L186.4,51.86A95.95,95.95,0,0,0,57.76,193.37L42.08,210.62a8,8,0,1,0,11.84,10.76L69.6,204.14A95.95,95.95,0,0,0,198.24,62.63ZM48,128A80,80,0,0,1,175.6,63.75l-107,117.73A79.63,79.63,0,0,1,48,128Zm80,80a79.55,79.55,0,0,1-47.6-15.75l107-117.73A79.95,79.95,0,0,1,128,208Z"
+            d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"
           />
         </svg>
       </div>
@@ -361,18 +361,18 @@ exports[`Palettes > Render > shows palette grid 1`] = `
           </div>
           <a
             aria-label="Load Palette Colors (Test Palette)"
-            class="flex flex-wrap gap-2 rounded-lg cursor-pointer overflow-hidden"
+            class="grid grid-cols-5 gap-2 cursor-pointer overflow-hidden"
             data-discover="true"
             href="/p/red-ff0000/blue-0000ff"
           >
             <span
               aria-label="Color Box"
-              class="shrink-0 size-12 rounded-medium"
+              class="shrink-0 w-full rounded-large aspect-square"
               style="background-color: oklch(0.628 0.258 29.23);"
             />
             <span
               aria-label="Color Box"
-              class="shrink-0 size-12 rounded-medium"
+              class="shrink-0 w-full rounded-large aspect-square"
               style="background-color: oklch(0.452 0.313 264.05);"
             />
           </a>
@@ -460,18 +460,18 @@ exports[`Palettes > Render > shows palette grid 1`] = `
           </div>
           <a
             aria-label="Load Palette Colors (Second)"
-            class="flex flex-wrap gap-2 rounded-lg cursor-pointer overflow-hidden"
+            class="grid grid-cols-5 gap-2 cursor-pointer overflow-hidden"
             data-discover="true"
             href="/p/red-ff0000/blue-0000ff"
           >
             <span
               aria-label="Color Box"
-              class="shrink-0 size-12 rounded-medium"
+              class="shrink-0 w-full rounded-large aspect-square"
               style="background-color: oklch(0.628 0.258 29.23);"
             />
             <span
               aria-label="Color Box"
-              class="shrink-0 size-12 rounded-medium"
+              class="shrink-0 w-full rounded-large aspect-square"
               style="background-color: oklch(0.452 0.313 264.05);"
             />
           </a>

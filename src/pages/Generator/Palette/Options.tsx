@@ -121,6 +121,7 @@ export default function PaletteOptions() {
           />
 
           <Select
+            aria-label="Variant options"
             classNames={{
               trigger: cn({
                 'bg-default-200 data-[hover=true]:bg-default-400': !!variant,
@@ -157,6 +158,7 @@ export default function PaletteOptions() {
             }
           />
           <Select
+            aria-label="Lock options"
             classNames={{
               trigger: cn({
                 'bg-default-200 data-[hover=true]:bg-default-400': !!lock,

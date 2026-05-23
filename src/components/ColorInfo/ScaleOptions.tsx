@@ -39,8 +39,7 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
   const overrides = colorEntry.overrides ?? {};
 
   const resolve = <K extends OptionKey>(key: K): GlobalScaleOptions[K] =>
-    (options[key] as GlobalScaleOptions[K] | undefined) ??
-    (globalOptions[key] as GlobalScaleOptions[K]);
+    (options[key] as GlobalScaleOptions[K] | undefined) ?? globalOptions[key];
 
   const computeStatus = (keys: ReadonlyArray<OptionKey>): RowStatus => {
     if (keys.some(k => overrides[k] !== undefined)) {

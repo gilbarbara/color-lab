@@ -30,6 +30,7 @@ export default function useSavedPalettes() {
   const {
     addPalette,
     error,
+    loadedUserId,
     palettes,
     removePalette,
     reset,
@@ -59,11 +60,15 @@ export default function useSavedPalettes() {
     return currentUrl !== updatePaletteIdInUrl(lastSavedUrl, null);
   }, [currentUrl, lastSavedUrl, paletteId]);
 
-  // Fetch palettes on mount when authenticated
+  // Fetch palettes on mount when authenticated; dedupe per uid
   useEffect(() => {
     if (!isAuthenticated || !user?.uid) {
       reset();
 
+      return;
+    }
+
+    if (loadedUserId === user.uid) {
       return;
     }
 
@@ -73,14 +78,14 @@ export default function useSavedPalettes() {
       try {
         const response = await listPalettes(user.uid);
 
-        setPalettes(response);
+        setPalettes(response, user.uid);
       } catch (error_) {
         setError(error_ instanceof Error ? error_.message : 'Failed to load palettes');
       }
     };
 
     fetchPalettes();
-  }, [isAuthenticated, user?.uid, reset, setError, setPalettes, setStatus]);
+  }, [isAuthenticated, user?.uid, loadedUserId, reset, setError, setPalettes, setStatus]);
 
   // Save a new palette
   const savePalette = useCallback(
@@ -143,13 +148,8 @@ export default function useSavedPalettes() {
         await deletePaletteService(id);
         removePalette(id);
 
-        // If we deleted the currently loaded palette, clear it and remove ID from URL
         if (paletteId === id) {
           clearPalette();
-
-          const cleanUrl = updatePaletteIdInUrl(currentUrl, null);
-
-          navigate(cleanUrl, { replace: true });
         }
 
         return true;
@@ -159,7 +159,7 @@ export default function useSavedPalettes() {
         return false;
       }
     },
-    [removePalette, paletteId, clearPalette, setError, currentUrl, navigate],
+    [removePalette, paletteId, clearPalette, setError],
   );
 
   // Toggle favorite status

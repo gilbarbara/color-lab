@@ -1,35 +1,15 @@
 import { usePaletteStore } from '~/stores/paletteStore';
-import { BLUE, CRIMSON } from '~/test-fixtures';
+import { createTestPalette } from '~/test-fixtures';
 import { mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
-import { createPalette } from '~/utils/palette';
 
 import ExportPalette from '~/components/ExportPalette';
-
-import type { ColorEntry, OklchString, PaletteState } from '~/types';
-
-function createColorEntry(
-  name: string,
-  value: OklchString,
-  overrides?: ColorEntry['overrides'],
-): ColorEntry {
-  return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
-}
-
-function createTestPalette(): PaletteState {
-  const basePalette = createPalette(CRIMSON);
-
-  return {
-    ...basePalette,
-    colors: [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', BLUE)],
-  };
-}
 
 describe('ExportPalette', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockClipboard.writeText.mockResolvedValue(undefined);
-    usePaletteStore.setState(createTestPalette());
+    usePaletteStore.setState(createTestPalette(2));
   });
 
   describe('Render', () => {

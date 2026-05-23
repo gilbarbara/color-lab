@@ -69,6 +69,7 @@ describe('hooks/useSavedPalettes', () => {
     });
     usePalettesStore.setState({
       error: null,
+      loadedUserId: null,
       palettes: [],
       status: 'idle',
     });
@@ -85,6 +86,7 @@ describe('hooks/useSavedPalettes', () => {
       });
 
       expect(usePalettesStore.getState().palettes).toEqual([mockPalette]);
+      expect(usePalettesStore.getState().loadedUserId).toBe('user-1');
     });
 
     it('sets error on fetch failure', async () => {
@@ -95,6 +97,31 @@ describe('hooks/useSavedPalettes', () => {
       await waitFor(() => {
         expect(usePalettesStore.getState().error).toBe('Network error');
       });
+    });
+
+    it('does not refetch when loadedUserId matches user.uid', async () => {
+      usePalettesStore.setState({ loadedUserId: 'user-1', palettes: [mockPalette] });
+
+      const { rerender } = renderHook(() => useSavedPalettes());
+
+      rerender();
+      await Promise.resolve();
+
+      expect(mockListPalettes).not.toHaveBeenCalled();
+      expect(usePalettesStore.getState().palettes).toEqual([mockPalette]);
+    });
+
+    it('refetches when loadedUserId differs from user.uid', async () => {
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
+      usePalettesStore.setState({ loadedUserId: 'user-other', palettes: [] });
+
+      renderHook(() => useSavedPalettes());
+
+      await waitFor(() => {
+        expect(mockListPalettes).toHaveBeenCalledWith('user-1');
+      });
+
+      expect(usePalettesStore.getState().loadedUserId).toBe('user-1');
     });
   });
 
@@ -255,6 +282,20 @@ describe('hooks/useSavedPalettes', () => {
       });
 
       expect(useAppStore.getState().paletteId).toBe(null);
+    });
+
+    it('does not navigate when deleting the current palette', async () => {
+      usePalettesStore.setState({ palettes: [mockPalette] });
+      useAppStore.setState({ paletteId: 'palette-1', paletteName: 'Test' });
+      mockDeletePalette.mockResolvedValueOnce(undefined);
+
+      const { result } = renderHook(() => useSavedPalettes());
+
+      await act(async () => {
+        await result.current.deletePalette('palette-1');
+      });
+
+      expect(mockNavigate).not.toHaveBeenCalled();
     });
 
     it('sets error on failure', async () => {

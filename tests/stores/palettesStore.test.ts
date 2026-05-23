@@ -22,6 +22,7 @@ describe('stores/palettesStore', () => {
   beforeEach(() => {
     usePalettesStore.setState({
       error: null,
+      loadedUserId: null,
       palettes: [],
       status: 'idle',
     });
@@ -32,6 +33,7 @@ describe('stores/palettesStore', () => {
       const state = usePalettesStore.getState();
 
       expect(state.error).toBe(null);
+      expect(state.loadedUserId).toBe(null);
       expect(state.palettes).toEqual([]);
       expect(state.status).toBe('idle');
     });
@@ -97,13 +99,21 @@ describe('stores/palettesStore', () => {
   });
 
   describe('setPalettes', () => {
-    it('sets palettes from array', () => {
-      usePalettesStore.getState().setPalettes([mockPalette, mockPalette2]);
+    it('sets palettes and loadedUserId', () => {
+      usePalettesStore.getState().setPalettes([mockPalette, mockPalette2], 'user-1');
 
       const state = usePalettesStore.getState();
 
       expect(state.palettes).toEqual([mockPalette, mockPalette2]);
+      expect(state.loadedUserId).toBe('user-1');
       expect(state.status).toBe('idle');
+    });
+
+    it('overwrites loadedUserId on subsequent calls', () => {
+      usePalettesStore.getState().setPalettes([mockPalette], 'user-1');
+      usePalettesStore.getState().setPalettes([mockPalette2], 'user-2');
+
+      expect(usePalettesStore.getState().loadedUserId).toBe('user-2');
     });
   });
 
@@ -141,6 +151,7 @@ describe('stores/palettesStore', () => {
     it('restores initial state', () => {
       usePalettesStore.setState({
         error: 'some error',
+        loadedUserId: 'user-1',
         palettes: [mockPalette],
         status: 'error',
       });
@@ -150,6 +161,7 @@ describe('stores/palettesStore', () => {
       const state = usePalettesStore.getState();
 
       expect(state.error).toBe(null);
+      expect(state.loadedUserId).toBe(null);
       expect(state.palettes).toEqual([]);
       expect(state.status).toBe('idle');
     });
