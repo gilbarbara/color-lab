@@ -1,5 +1,5 @@
 import type { SubmitEvent } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@heroui/react';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
@@ -8,6 +8,7 @@ import { Input } from '~/components/Field/Input';
 import Modal from '~/components/Modal';
 
 interface SavePaletteModalProps {
+  defaultName?: string;
   isOpen: boolean;
   isSaving: boolean;
   onClose: () => void;
@@ -15,12 +16,20 @@ interface SavePaletteModalProps {
 }
 
 export default function SavePaletteModal({
+  defaultName = '',
   isOpen,
   isSaving,
   onClose,
   onSave,
 }: SavePaletteModalProps) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState(defaultName);
+
+  // Re-seed when the modal opens with a fresh defaultName (user typed a draft, then clicked Save)
+  useEffect(() => {
+    if (isOpen) {
+      setName(defaultName);
+    }
+  }, [isOpen, defaultName]);
 
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();

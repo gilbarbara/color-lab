@@ -1,6 +1,6 @@
-import { type ChangeEvent, type KeyboardEvent, type SyntheticEvent } from 'react';
+import { type SyntheticEvent } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
-import { cn, Input, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
+import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
 import * as Sentry from '@sentry/react';
 import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
@@ -15,6 +15,7 @@ import Collapse from '~/components/Collapse';
 import ColorBox from '~/components/ColorBox';
 import ColorInput from '~/components/ColorInput';
 import ConfirmTooltip from '~/components/ConfirmTooltip';
+import EditableInput from '~/components/EditableInput';
 import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
@@ -38,7 +39,6 @@ interface ColorSelectorProps {
 }
 
 interface ColorSelectorState {
-  localName: string | null;
   mode: ColorMode;
 }
 
@@ -59,24 +59,12 @@ export default function ColorSelector(props: ColorSelectorProps) {
     'updateColor',
     'updateGlobalOptions',
   );
-  const [{ localName, mode }, setState] = useSetState<ColorSelectorState>({
+  const [{ mode }, setState] = useSetState<ColorSelectorState>({
     mode: 'oklch',
-    localName: null,
   });
   const { isOpen, onOpenChange } = useDisclosure();
 
   const color = colorEntry.value;
-
-  const isEditingName = localName !== null;
-  const displayName = localName ?? colorEntry.name;
-
-  const handleFocusName = () => {
-    setState({ localName: colorEntry.name });
-  };
-
-  const handleBlurName = () => {
-    setState({ localName: null });
-  };
 
   const handleChangeColor = useRafCallback((value: string) => {
     let branded;
@@ -101,16 +89,9 @@ export default function ColorSelector(props: ColorSelectorProps) {
     }
   });
 
-  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    setState({ localName: event.target.value });
-  };
-
-  const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && localName !== null) {
-      updateColor(index, { name: localName });
-      trackEvent('edit-color-name', { name: localName });
-      setState({ localName: null });
-    }
+  const handleCommitName = (value: string) => {
+    updateColor(index, { name: value });
+    trackEvent('edit-color-name', { name: value });
   };
 
   const handleClickMode = (value: ColorMode) => {
@@ -129,8 +110,6 @@ export default function ColorSelector(props: ColorSelectorProps) {
     handleChangeColor(randomColor);
   };
 
-  const isActive = activeColorId === colorEntry.id;
-
   const handleCaptureInactive = (event: SyntheticEvent) => {
     if (isActive) {
       return;
@@ -140,6 +119,8 @@ export default function ColorSelector(props: ColorSelectorProps) {
     event.preventDefault();
     setActiveColor(colorEntry.id);
   };
+
+  const isActive = activeColorId === colorEntry.id;
 
   return (
     <div
@@ -189,21 +170,17 @@ export default function ColorSelector(props: ColorSelectorProps) {
         </Popover>
         <div className="w-full space-y-2">
           <div className="flex items-center gap-1">
-            <Input
+            <EditableInput
               classNames={{
                 innerWrapper: 'pb-0',
                 inputWrapper: ' h-6 min-h-6',
                 input: 'text-base font-semibold text-foreground-800',
               }}
-              color={isEditingName && localName !== colorEntry.name ? 'warning' : undefined}
               disableAnimation
               name={`color-name-${index}`}
-              onBlur={handleBlurName}
-              onChange={handleChangeName}
-              onFocus={handleFocusName}
-              onKeyDown={handleKeyDownName}
+              onCommit={handleCommitName}
               size="sm"
-              value={displayName}
+              value={colorEntry.name}
               variant="underlined"
             />
             <ConfirmTooltip

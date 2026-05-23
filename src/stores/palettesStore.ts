@@ -15,7 +15,7 @@ interface PalettesActions {
 interface PalettesState {
   error: string | null;
   palettes: SavedPalette[];
-  status: 'idle' | 'loading' | 'error';
+  status: 'idle' | 'loading' | 'saving' | 'error';
 }
 
 const initialState: PalettesState = {

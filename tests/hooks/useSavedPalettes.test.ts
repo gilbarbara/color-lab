@@ -147,6 +147,31 @@ describe('hooks/useSavedPalettes', () => {
 
       expect(usePalettesStore.getState().error).toBe('Save failed');
     });
+
+    it('returns null and does not call the service when name is empty or whitespace', async () => {
+      const { result } = await renderUseSavedPalettes();
+
+      let saved: SavedPalette | null = null;
+
+      await act(async () => {
+        saved = await result.current.savePalette('   ');
+      });
+
+      expect(saved).toBe(null);
+      expect(mockCreatePalette).not.toHaveBeenCalled();
+    });
+
+    it('trims the name before calling the service', async () => {
+      mockCreatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Trimmed' });
+
+      const { result } = await renderUseSavedPalettes();
+
+      await act(async () => {
+        await result.current.savePalette('  Trimmed  ');
+      });
+
+      expect(mockCreatePalette).toHaveBeenCalledWith('user-1', 'Trimmed', expect.any(String));
+    });
   });
 
   describe('updateCurrentPalette', () => {
@@ -341,6 +366,31 @@ describe('hooks/useSavedPalettes', () => {
       expect(useAppStore.getState().paletteName).toBe('Renamed');
     });
 
+    it('returns false and does not call the service when name is empty or whitespace', async () => {
+      const { result } = await renderUseSavedPalettes();
+
+      let success = true;
+
+      await act(async () => {
+        success = await result.current.renamePalette('palette-1', '   ');
+      });
+
+      expect(success).toBe(false);
+      expect(mockUpdatePalette).not.toHaveBeenCalled();
+    });
+
+    it('trims the name before calling the service', async () => {
+      mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Trimmed' });
+
+      const { result } = await renderUseSavedPalettes();
+
+      await act(async () => {
+        await result.current.renamePalette('palette-1', '  Trimmed  ');
+      });
+
+      expect(mockUpdatePalette).toHaveBeenCalledWith('palette-1', { name: 'Trimmed' });
+    });
+
     it('sets error on failure', async () => {
       mockUpdatePalette.mockRejectedValueOnce(new Error('Rename failed'));
 
@@ -396,6 +446,116 @@ describe('hooks/useSavedPalettes', () => {
       await waitFor(() => {
         expect(mockListPalettes).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('isSaving', () => {
+    it('flips true during savePalette and back to false on success', async () => {
+      let resolveCreate: (value: SavedPalette) => void = () => {};
+
+      mockCreatePalette.mockReturnValueOnce(
+        new Promise<SavedPalette>(resolve => {
+          resolveCreate = resolve;
+        }),
+      );
+
+      const { result } = await renderUseSavedPalettes();
+
+      expect(result.current.isSaving).toBe(false);
+
+      let savePromise: Promise<SavedPalette | null> | undefined;
+
+      act(() => {
+        savePromise = result.current.savePalette('New Palette');
+      });
+
+      await waitFor(() => {
+        expect(result.current.isSaving).toBe(true);
+      });
+
+      await act(async () => {
+        resolveCreate({ ...mockPalette, id: 'new-id' });
+        await savePromise;
+      });
+
+      expect(result.current.isSaving).toBe(false);
+    });
+
+    it('flips true during updateCurrentPalette and back to false on success', async () => {
+      useAppStore.setState({
+        paletteId: 'palette-1',
+        paletteName: 'Test',
+        lastSavedUrl: '/p/old',
+      });
+
+      let resolveUpdate: (value: SavedPalette) => void = () => {};
+
+      mockUpdatePalette.mockReturnValueOnce(
+        new Promise<SavedPalette>(resolve => {
+          resolveUpdate = resolve;
+        }),
+      );
+
+      const { result } = await renderUseSavedPalettes();
+
+      let updatePromise: Promise<boolean> | undefined;
+
+      act(() => {
+        updatePromise = result.current.updateCurrentPalette();
+      });
+
+      await waitFor(() => {
+        expect(result.current.isSaving).toBe(true);
+      });
+
+      await act(async () => {
+        resolveUpdate({ ...mockPalette, updatedAt: '2024-01-03T00:00:00.000Z' });
+        await updatePromise;
+      });
+
+      expect(result.current.isSaving).toBe(false);
+    });
+
+    it('flips true during renamePalette and back to false on success', async () => {
+      let resolveRename: (value: SavedPalette) => void = () => {};
+
+      mockUpdatePalette.mockReturnValueOnce(
+        new Promise<SavedPalette>(resolve => {
+          resolveRename = resolve;
+        }),
+      );
+
+      const { result } = await renderUseSavedPalettes();
+
+      let renamePromise: Promise<boolean> | undefined;
+
+      act(() => {
+        renamePromise = result.current.renamePalette('palette-1', 'New Name');
+      });
+
+      await waitFor(() => {
+        expect(result.current.isSaving).toBe(true);
+      });
+
+      await act(async () => {
+        resolveRename({ ...mockPalette, name: 'New Name' });
+        await renamePromise;
+      });
+
+      expect(result.current.isSaving).toBe(false);
+    });
+
+    it('leaves status as error (not idle) on save failure', async () => {
+      mockCreatePalette.mockRejectedValueOnce(new Error('boom'));
+
+      const { result } = await renderUseSavedPalettes();
+
+      await act(async () => {
+        await result.current.savePalette('Test');
+      });
+
+      expect(result.current.isSaving).toBe(false);
+      expect(usePalettesStore.getState().status).toBe('error');
     });
   });
 });

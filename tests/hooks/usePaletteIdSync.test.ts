@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import { useAppStore } from '~/stores/appStore';
@@ -256,6 +256,56 @@ describe('hooks/usePaletteIdSync', () => {
       renderHook(() => usePaletteIdSync());
 
       expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-FF0044?f=1.8', { replace: true });
+    });
+  });
+
+  describe('clearPalette guard', () => {
+    it('does not clear when paletteId is set in store while location is unchanged (savePalette race)', () => {
+      // Simulates the savePalette flow: setPalette runs (paletteId → X) before
+      // navigate's router state commits. The effect re-runs with stale location
+      // (no ?id=X yet). The guard must not misread this as "user navigated away".
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
+
+      const { rerender } = renderHook(() => usePaletteIdSync());
+
+      // After mount: no paletteId, nothing happened.
+      expect(useAppStore.getState().paletteId).toBe(null);
+
+      // savePalette would now do: setPalette(X, name, url) synchronously.
+      act(() => {
+        useAppStore.setState({
+          paletteId: 'palette-123',
+          paletteName: 'Shim',
+          lastSavedUrl: '/p/Primary-FF0044?id=palette-123',
+        });
+      });
+
+      // Effect re-runs (paletteId is a dep) while location is still pre-navigate.
+      rerender();
+
+      expect(useAppStore.getState().paletteId).toBe('palette-123');
+      expect(useAppStore.getState().paletteName).toBe('Shim');
+    });
+
+    it('clears when SPA navigation moves to a fresh /p/* without id', () => {
+      mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=palette-123' };
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
+      usePalettesStore.setState({ palettes: [mockPalette] });
+      useAppStore.setState({
+        paletteId: 'palette-123',
+        paletteName: 'Loaded',
+        lastSavedUrl: '/p/Primary-FF0044?id=palette-123',
+      });
+
+      const { rerender } = renderHook(() => usePaletteIdSync());
+
+      // Now simulate user navigating to a different palette URL (no id).
+      mockLocation = { pathname: '/p/Secondary-00FF00', search: '' };
+      rerender();
+
+      expect(useAppStore.getState().paletteId).toBe(null);
+      expect(useAppStore.getState().paletteName).toBe('Color Palette');
     });
   });
 });

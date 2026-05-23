@@ -1,9 +1,8 @@
-import { type ChangeEvent, type KeyboardEvent, useEffect } from 'react';
 import { useBreakpoint, useSetState } from '@gilbarbara/hooks';
-import { addToast, Badge, Input } from '@heroui/react';
+import { addToast, Badge } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
-import { BREAKPOINTS } from '~/config/globals';
+import { BREAKPOINTS, DEFAULT_PALETTE_NAME } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import usePalette from '~/hooks/usePalette';
@@ -12,6 +11,7 @@ import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
+import EditableInput, { type CommitAction } from '~/components/EditableInput';
 import ExportPalette from '~/components/ExportPalette';
 import SavePaletteModal from '~/components/SavePaletteModal';
 import Tooltip from '~/components/Tooltip';
@@ -21,8 +21,6 @@ import Options from './Options';
 
 interface PaletteHeaderState {
   isSaveModalOpen: boolean;
-  isSaving: boolean;
-  name: string;
 }
 
 export default function PaletteHeader() {
@@ -35,6 +33,7 @@ export default function PaletteHeader() {
   const { hasCustomPaletteOptions } = usePalette('hasCustomPaletteOptions');
   const {
     hasUnsavedChanges,
+    isSaving,
     paletteId,
     paletteName,
     renamePalette,
@@ -43,29 +42,39 @@ export default function PaletteHeader() {
   } = useSavedPalettes();
   const { min } = useBreakpoint(BREAKPOINTS);
 
-  const [{ isSaveModalOpen, isSaving, name }, setState] = useSetState<PaletteHeaderState>({
+  const [{ isSaveModalOpen }, setState] = useSetState<PaletteHeaderState>({
     isSaveModalOpen: false,
-    isSaving: false,
-    name: paletteName,
   });
 
-  // Sync local name state when paletteName changes (e.g., new palette or palette loaded)
-  useEffect(() => {
-    setState({ name: paletteName });
-  }, [paletteName, setState]);
+  const saveAndAnnounce = async (name: string) => {
+    const palette = await savePalette(name);
 
-  const handleBlurName = () => {
-    if (paletteName && paletteName !== name) {
-      setState({
-        name: paletteName,
-      });
+    if (palette) {
+      trackEvent('save-palette');
+      addToast({ title: 'Palette saved', color: 'success' });
     }
+
+    return palette;
   };
 
-  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+  const handleCommitName = (value: string, _action: CommitAction): Promise<unknown> | undefined => {
+    const name = value.trim();
 
-    setState({ name: value });
+    if (!name) {
+      return undefined;
+    }
+
+    if (!isAuthenticated) {
+      openLoginModal();
+
+      return undefined;
+    }
+
+    if (paletteId) {
+      return renamePalette(paletteId, name);
+    }
+
+    return saveAndAnnounce(name);
   };
 
   const handleClickSave = async () => {
@@ -77,11 +86,7 @@ export default function PaletteHeader() {
 
     if (paletteId) {
       // Update existing palette
-      setState({ isSaving: true });
-
       const success = await updateCurrentPalette();
-
-      setState({ isSaving: false });
 
       if (success) {
         trackEvent('update-palette');
@@ -93,35 +98,11 @@ export default function PaletteHeader() {
     }
   };
 
-  const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      if (!isAuthenticated) {
-        openLoginModal();
-
-        return;
-      }
-
-      if (paletteId) {
-        renamePalette(paletteId, name);
-
-        return;
-      }
-
-      savePalette(name);
-    }
-  };
-
   const handleSaveNewPalette = async (value: string) => {
-    setState({ isSaving: true });
-
-    const palette = await savePalette(value);
-
-    setState({ isSaving: false });
+    const palette = await saveAndAnnounce(value);
 
     if (palette) {
-      trackEvent('save-palette');
-      setState({ isSaveModalOpen: false, name: palette.name });
-      addToast({ title: 'Palette saved', color: 'success' });
+      setState({ isSaveModalOpen: false });
     }
   };
 
@@ -130,20 +111,17 @@ export default function PaletteHeader() {
   return (
     <div data-testid="PaletteHeader">
       <div className="flex items-center justify-between">
-        <Input
+        <EditableInput
           classNames={{
             base: 'opacity-100',
             innerWrapper: 'pb-0',
             input: 'text-2xl font-semibold text-foreground-800',
           }}
-          color={paletteName !== name ? 'warning' : undefined}
           isDisabled={!isAuthenticated}
           name="palette-name"
-          onBlur={handleBlurName}
-          onChange={handleChangeName}
-          onKeyDown={handleKeyDownName}
+          onCommit={handleCommitName}
           size="sm"
-          value={name}
+          value={paletteName}
           variant="underlined"
         />
 
@@ -197,6 +175,7 @@ export default function PaletteHeader() {
         <Options />
       </Collapse>
       <SavePaletteModal
+        defaultName={paletteName !== DEFAULT_PALETTE_NAME ? paletteName : ''}
         isOpen={isSaveModalOpen}
         isSaving={isSaving}
         onClose={() => setState({ isSaveModalOpen: false })}
