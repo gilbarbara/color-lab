@@ -4,10 +4,13 @@ exports[`stores/appStore > initial state > has correct defaults 1`] = `
 {
   "clearPalette": [Function],
   "closeLoginModal": [Function],
+  "collapseAnimationCount": 0,
   "colorScrollRequest": null,
+  "decrementCollapseAnimation": [Function],
   "exportColorFormat": "oklch",
   "exportFormatType": "tailwind4",
   "gamut": "p3",
+  "incrementCollapseAnimation": [Function],
   "lastSavedUrl": null,
   "openLoginModal": [Function],
   "paletteId": null,

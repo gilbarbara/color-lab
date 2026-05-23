@@ -7,6 +7,7 @@ import { detectInitialGamut } from '~/utils/gamut';
 import type { ExportColorFormat, ExportFormatType, Gamut } from '~/types';
 
 interface AppState {
+  collapseAnimationCount: number;
   colorScrollRequest: { id: string; nonce: number } | null;
   exportColorFormat: ExportColorFormat;
   exportFormatType: ExportFormatType;
@@ -26,6 +27,8 @@ interface AppState {
 export interface AppStateWithActions extends AppState {
   clearPalette: () => void;
   closeLoginModal: () => void;
+  decrementCollapseAnimation: () => void;
+  incrementCollapseAnimation: () => void;
   openLoginModal: () => void;
   requestColorScroll: (id: string) => void;
   requestPreviewScroll: () => void;
@@ -41,6 +44,7 @@ export interface AppStateWithActions extends AppState {
 }
 
 export const initialState: AppState = {
+  collapseAnimationCount: 0,
   colorScrollRequest: null,
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
@@ -72,6 +76,18 @@ export const useAppStore = create<AppStateWithActions>()(
 
       closeLoginModal: () => {
         set({ showLoginModal: false });
+      },
+
+      decrementCollapseAnimation: () => {
+        set(state => ({
+          collapseAnimationCount: Math.max(0, state.collapseAnimationCount - 1),
+        }));
+      },
+
+      incrementCollapseAnimation: () => {
+        set(state => ({
+          collapseAnimationCount: state.collapseAnimationCount + 1,
+        }));
       },
 
       openLoginModal: () => {

@@ -1,10 +1,11 @@
-import { type SyntheticEvent } from 'react';
+import { type SyntheticEvent, useEffect, useRef } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
 import * as Sentry from '@sentry/react';
 import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
 
+import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
 import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
@@ -59,10 +60,39 @@ export default function ColorSelector(props: ColorSelectorProps) {
     'updateColor',
     'updateGlobalOptions',
   );
+  const { decrementCollapseAnimation, incrementCollapseAnimation } = useApp(
+    'decrementCollapseAnimation',
+    'incrementCollapseAnimation',
+  );
   const [{ mode }, setState] = useSetState<ColorSelectorState>({
     mode: 'oklch',
   });
   const { isOpen, onOpenChange } = useDisclosure();
+  const isAnimatingRef = useRef(false);
+
+  useEffect(
+    () => () => {
+      if (isAnimatingRef.current) {
+        isAnimatingRef.current = false;
+        decrementCollapseAnimation();
+      }
+    },
+    [decrementCollapseAnimation],
+  );
+
+  const handleCollapseStart = () => {
+    if (!isAnimatingRef.current) {
+      isAnimatingRef.current = true;
+      incrementCollapseAnimation();
+    }
+  };
+
+  const handleCollapseComplete = () => {
+    if (isAnimatingRef.current) {
+      isAnimatingRef.current = false;
+      decrementCollapseAnimation();
+    }
+  };
 
   const color = colorEntry.value;
 
@@ -208,7 +238,13 @@ export default function ColorSelector(props: ColorSelectorProps) {
         </div>
       </div>
 
-      <Collapse duration={0.4} ease="circInOut" isOpen={isActive}>
+      <Collapse
+        duration={0.4}
+        ease="circInOut"
+        isOpen={isActive}
+        onAnimationComplete={handleCollapseComplete}
+        onAnimationStart={handleCollapseStart}
+      >
         <div className="flex flex-col mt-3 gap-2">
           <ChannelSliders
             channels={{

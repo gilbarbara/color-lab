@@ -9,10 +9,19 @@ interface CollapseProps {
   ease?: Easing | Easing[];
   isOpen: boolean;
   onAnimationComplete?: (isOpen: boolean) => void;
+  onAnimationStart?: () => void;
 }
 
 export default function Collapse(props: CollapseProps) {
-  const { children, className, duration = 0.3, ease, isOpen, onAnimationComplete } = props;
+  const {
+    children,
+    className,
+    duration = 0.3,
+    ease,
+    isOpen,
+    onAnimationComplete,
+    onAnimationStart,
+  } = props;
   const [isAnimating, setIsAnimating] = useState(false);
   const isOpenRef = useRef<boolean>(false);
 
@@ -30,7 +39,10 @@ export default function Collapse(props: CollapseProps) {
             setIsAnimating(false);
             onAnimationComplete?.(isOpenRef.current);
           }}
-          onAnimationStart={() => setIsAnimating(true)}
+          onAnimationStart={() => {
+            setIsAnimating(true);
+            onAnimationStart?.();
+          }}
           transition={{ duration, ease }}
         >
           {children}
