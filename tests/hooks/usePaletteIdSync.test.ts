@@ -51,8 +51,8 @@ describe('hooks/usePaletteIdSync', () => {
     mockGetPalette.mockResolvedValue({ kind: 'not-found' });
     mockMigratePaletteUrl.mockResolvedValue(undefined);
     useAppStore.setState({
-      loadedPaletteId: null,
-      loadedPaletteName: 'Palette',
+      paletteId: null,
+      paletteName: 'Palette',
       lastSavedUrl: null,
     });
     usePalettesStore.setState({
@@ -65,11 +65,11 @@ describe('hooks/usePaletteIdSync', () => {
   describe('no ID in URL', () => {
     it('clears loaded palette when URL has no ID but one was loaded', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '' };
-      useAppStore.setState({ loadedPaletteId: 'palette-123' });
+      useAppStore.setState({ paletteId: 'palette-123' });
 
       renderHook(() => usePaletteIdSync());
 
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
     });
 
     it('does nothing when URL has no ID and no palette loaded', () => {
@@ -77,7 +77,7 @@ describe('hooks/usePaletteIdSync', () => {
 
       renderHook(() => usePaletteIdSync());
 
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
       expect(mockNavigate).not.toHaveBeenCalled();
     });
   });
@@ -102,7 +102,7 @@ describe('hooks/usePaletteIdSync', () => {
       renderHook(() => usePaletteIdSync());
 
       expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-FF0044', { replace: true });
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
     });
   });
 
@@ -115,8 +115,8 @@ describe('hooks/usePaletteIdSync', () => {
       renderHook(() => usePaletteIdSync());
 
       expect(mockGetPalette).not.toHaveBeenCalled();
-      expect(useAppStore.getState().loadedPaletteId).toBe('palette-123');
-      expect(useAppStore.getState().loadedPaletteName).toBe('Test Palette');
+      expect(useAppStore.getState().paletteId).toBe('palette-123');
+      expect(useAppStore.getState().paletteName).toBe('Test Palette');
       // Legacy hex URL is canonicalised to OKLCH before lastSavedUrl is set,
       // so comparisons in useSavedPalettes don't fire false "unsaved changes".
       expect(useAppStore.getState().lastSavedUrl).toMatch(/^\/p\/Primary-\d/);
@@ -165,8 +165,8 @@ describe('hooks/usePaletteIdSync', () => {
         expect(mockGetPalette).toHaveBeenCalledWith('palette-123');
       });
 
-      expect(useAppStore.getState().loadedPaletteId).toBe('palette-123');
-      expect(useAppStore.getState().loadedPaletteName).toBe('Test Palette');
+      expect(useAppStore.getState().paletteId).toBe('palette-123');
+      expect(useAppStore.getState().paletteName).toBe('Test Palette');
     });
 
     it('removes ID and clears state when API returns not-found', async () => {
@@ -184,7 +184,7 @@ describe('hooks/usePaletteIdSync', () => {
         expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-FF0044', { replace: true });
       });
 
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
     });
 
     it('removes ID and clears state when API returns palette with wrong userId', async () => {
@@ -205,7 +205,7 @@ describe('hooks/usePaletteIdSync', () => {
         expect(mockNavigate).toHaveBeenCalledWith('/p/Primary-FF0044', { replace: true });
       });
 
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
     });
 
     it('keeps ID, shows toast, and skips navigation on error', async () => {
@@ -226,7 +226,7 @@ describe('hooks/usePaletteIdSync', () => {
         }),
       );
       expect(mockNavigate).not.toHaveBeenCalled();
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
     });
   });
 
@@ -238,7 +238,7 @@ describe('hooks/usePaletteIdSync', () => {
 
       const { rerender } = renderHook(() => usePaletteIdSync());
 
-      expect(useAppStore.getState().loadedPaletteId).toBe('palette-123');
+      expect(useAppStore.getState().paletteId).toBe('palette-123');
 
       // Rerender without changing location
       rerender();

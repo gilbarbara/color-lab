@@ -34,8 +34,8 @@ export default function Header() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
   const { generatorUrl } = usePalette('generatorUrl');
-  const { clearLoadedPalette, closeLoginModal, openLoginModal } = useApp(
-    'clearLoadedPalette',
+  const { clearPalette, closeLoginModal, openLoginModal } = useApp(
+    'clearPalette',
     'closeLoginModal',
     'openLoginModal',
   );
@@ -62,7 +62,7 @@ export default function Header() {
         className="text-sm"
         isIconOnly={!isSmall}
         onPress={() => {
-          clearLoadedPalette();
+          clearPalette();
           trackEvent('new-palette');
         }}
         size="sm"

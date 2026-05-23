@@ -12,8 +12,8 @@ interface AppState {
   exportFormatType: ExportFormatType;
   gamut: Gamut;
   lastSavedUrl: string | null;
-  loadedPaletteId: string | null;
-  loadedPaletteName: string;
+  paletteId: string | null;
+  paletteName: string;
   previewScrollNonce: number;
   showBottomBar: boolean;
   showColorOptionsPanel: boolean;
@@ -24,7 +24,7 @@ interface AppState {
 }
 
 export interface AppStateWithActions extends AppState {
-  clearLoadedPalette: () => void;
+  clearPalette: () => void;
   closeLoginModal: () => void;
   openLoginModal: () => void;
   requestColorScroll: (id: string) => void;
@@ -32,7 +32,7 @@ export interface AppStateWithActions extends AppState {
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
   setGamut: (gamut: Gamut) => void;
-  setLoadedPalette: (id: string | null, name: string | null, url: string | null) => void;
+  setPalette: (id: string | null, name: string | null, url: string | null) => void;
   toggleBottomBar: (toggle?: boolean) => void;
   toggleColorOptionsPanel: () => void;
   togglePaletteOptionsPanel: () => void;
@@ -46,8 +46,8 @@ export const initialState: AppState = {
   exportFormatType: 'tailwind4',
   gamut: detectInitialGamut(),
   lastSavedUrl: null,
-  loadedPaletteId: null,
-  loadedPaletteName: DEFAULT_PALETTE_NAME,
+  paletteId: null,
+  paletteName: DEFAULT_PALETTE_NAME,
   previewScrollNonce: 0,
   showBottomBar: false,
   showColorOptionsPanel: false,
@@ -62,11 +62,11 @@ export const useAppStore = create<AppStateWithActions>()(
     set => ({
       ...initialState,
 
-      clearLoadedPalette: () => {
+      clearPalette: () => {
         set({
           lastSavedUrl: null,
-          loadedPaletteId: null,
-          loadedPaletteName: DEFAULT_PALETTE_NAME,
+          paletteId: null,
+          paletteName: DEFAULT_PALETTE_NAME,
         });
       },
 
@@ -103,11 +103,11 @@ export const useAppStore = create<AppStateWithActions>()(
         set({ gamut });
       },
 
-      setLoadedPalette: (id, name, url) => {
+      setPalette: (id, name, url) => {
         set({
           lastSavedUrl: url,
-          loadedPaletteId: id,
-          loadedPaletteName: name || DEFAULT_PALETTE_NAME,
+          paletteId: id,
+          paletteName: name || DEFAULT_PALETTE_NAME,
         });
       },
 
@@ -141,6 +141,7 @@ export const useAppStore = create<AppStateWithActions>()(
       name: 'color-lab',
       version: 1,
       storage: createJSONStorage(() => localStorage),
+      migrate: state => state,
       partialize: state => ({
         exportColorFormat: state.exportColorFormat,
         exportFormatType: state.exportFormatType,

@@ -42,8 +42,8 @@ describe('hooks/useUrlSync', () => {
 
     usePaletteStore.setState({ ...palette, activeColorId: palette.colors[0].id });
     useAppStore.setState({
-      loadedPaletteId: null,
-      loadedPaletteName: 'Palette',
+      paletteId: null,
+      paletteName: 'Palette',
       lastSavedUrl: null,
     });
   });
@@ -186,7 +186,7 @@ describe('hooks/useUrlSync', () => {
 
     it('preserves id query when canonicalising legacy URL', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=abc123' };
-      useAppStore.setState({ loadedPaletteId: 'abc123' });
+      useAppStore.setState({ paletteId: 'abc123' });
 
       renderHook(() => useUrlSync());
 
@@ -196,7 +196,7 @@ describe('hooks/useUrlSync', () => {
       });
     });
 
-    it('preserves id query when canonicalising before store has loadedPaletteId', () => {
+    it('preserves id query when canonicalising before store has paletteId', () => {
       mockLocation = { pathname: '/p/Primary-FF0044', search: '?id=abc123' };
 
       renderHook(() => useUrlSync());
