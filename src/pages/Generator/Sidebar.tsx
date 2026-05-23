@@ -4,6 +4,7 @@ import { cn, Divider } from '@heroui/react';
 import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import { OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import usePalette from '~/hooks/usePalette';
 import { trackEvent } from '~/utils/analytics';
@@ -28,7 +29,14 @@ export default function Sidebar() {
       'globalOptions',
       'updateGlobalOptions',
     );
-  const { colorScrollRequest, requestColorScroll, showSidebar, toggleSidebar } = useApp(
+  const {
+    collapseAnimationCount,
+    colorScrollRequest,
+    requestColorScroll,
+    showSidebar,
+    toggleSidebar,
+  } = useApp(
+    'collapseAnimationCount',
     'colorScrollRequest',
     'requestColorScroll',
     'showSidebar',
@@ -37,9 +45,16 @@ export default function Sidebar() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!colorScrollRequest) return;
-    scrollToSelector(colorScrollRequest.id, containerRef.current);
-  }, [colorScrollRequest]);
+    if (!colorScrollRequest || collapseAnimationCount > 0) {
+      return undefined;
+    }
+
+    const raf = requestAnimationFrame(() => {
+      scrollToSelector(colorScrollRequest.id, containerRef.current, OFFSET);
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [colorScrollRequest, collapseAnimationCount]);
 
   const handleAddColor = () => {
     const lastColor = colors.at(-1);

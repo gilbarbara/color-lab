@@ -33,7 +33,14 @@ export default function BottomBar() {
       'globalOptions',
       'updateGlobalOptions',
     );
-  const { colorScrollRequest, requestColorScroll, showBottomBar, toggleBottomBar } = useApp(
+  const {
+    collapseAnimationCount,
+    colorScrollRequest,
+    requestColorScroll,
+    showBottomBar,
+    toggleBottomBar,
+  } = useApp(
+    'collapseAnimationCount',
     'colorScrollRequest',
     'requestColorScroll',
     'showBottomBar',
@@ -45,9 +52,16 @@ export default function BottomBar() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!colorScrollRequest) return;
-    scrollToSelector(colorScrollRequest.id, containerRef.current, SCROLL_OFFSET);
-  }, [colorScrollRequest]);
+    if (!colorScrollRequest || collapseAnimationCount > 0) {
+      return undefined;
+    }
+
+    const raf = requestAnimationFrame(() => {
+      scrollToSelector(colorScrollRequest.id, containerRef.current, SCROLL_OFFSET);
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [colorScrollRequest, collapseAnimationCount]);
 
   useEffect(() => {
     document.body.style.overflow = showBottomBar ? 'hidden' : '';
