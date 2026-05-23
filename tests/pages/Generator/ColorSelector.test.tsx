@@ -98,6 +98,7 @@ describe('ColorSelector', () => {
 
       const input = screen.getByDisplayValue('Primary');
 
+      fireEvent.focus(input);
       fireEvent.change(input, { target: { value: 'New Name' } });
       fireEvent.keyDown(input, { key: 'Enter' });
 
@@ -106,17 +107,33 @@ describe('ColorSelector', () => {
       expect(storeColors[0].name).toBe('New Name');
     });
 
-    it('reverts name on blur without Enter', () => {
+    it('saves color name on blur', () => {
       renderActive();
 
       const input = screen.getByDisplayValue('Primary');
 
+      fireEvent.focus(input);
       fireEvent.change(input, { target: { value: 'New Name' } });
-
-      expect(screen.getByDisplayValue('New Name')).toBeInTheDocument();
-
       fireEvent.blur(input);
 
+      const storeColors = usePaletteStore.getState().colors;
+
+      expect(storeColors[0].name).toBe('New Name');
+    });
+
+    it('discards color name on Escape', () => {
+      renderActive();
+
+      const input = screen.getByDisplayValue('Primary');
+
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: 'New Name' } });
+      fireEvent.keyDown(input, { key: 'Escape' });
+      fireEvent.blur(input);
+
+      const storeColors = usePaletteStore.getState().colors;
+
+      expect(storeColors[0].name).toBe('Primary');
       expect(screen.getByDisplayValue('Primary')).toBeInTheDocument();
     });
 
@@ -232,9 +249,11 @@ describe('ColorSelector', () => {
 
       const { rerender } = render(<ColorSelector {...createDefaultProps({ colorEntry: entry })} />);
 
-      const input = screen.getByDisplayValue('Primary');
+      const input = screen.getByDisplayValue('Primary') as HTMLInputElement;
 
-      fireEvent.focus(input);
+      act(() => {
+        input.focus();
+      });
       fireEvent.change(input, { target: { value: 'Foo' } });
 
       expect(screen.getByDisplayValue('Foo')).toBeInTheDocument();
@@ -247,6 +266,7 @@ describe('ColorSelector', () => {
 
       rerender(<ColorSelector {...createDefaultProps({ colorEntry: renamed })} />);
 
+      // Draft is preserved while editing; external prop change does not override
       expect(screen.getByDisplayValue('Foo')).toBeInTheDocument();
     });
   });

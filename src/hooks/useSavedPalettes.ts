@@ -84,10 +84,14 @@ export default function useSavedPalettes() {
 
   // Save a new palette
   const savePalette = useCallback(
-    async (name: string): Promise<SavedPalette | null> => {
-      if (!user?.uid) {
+    async (rawName: string): Promise<SavedPalette | null> => {
+      const name = rawName.trim();
+
+      if (!name || !user?.uid) {
         return null;
       }
+
+      setStatus('saving');
 
       try {
         const palette = await createPalette(user.uid, name, currentUrl);
@@ -97,6 +101,8 @@ export default function useSavedPalettes() {
 
         navigate(palette.url, { replace: true });
 
+        setStatus('idle');
+
         return palette;
       } catch (error_) {
         setError(error_ instanceof Error ? error_.message : 'Failed to save palette');
@@ -104,7 +110,7 @@ export default function useSavedPalettes() {
         return null;
       }
     },
-    [user?.uid, currentUrl, addPalette, setPalette, setError, navigate],
+    [user?.uid, currentUrl, setPalette, addPalette, setError, setStatus, navigate],
   );
 
   // Update the currently loaded palette
@@ -113,11 +119,14 @@ export default function useSavedPalettes() {
       return false;
     }
 
+    setStatus('saving');
+
     try {
       const updated = await updatePaletteService(paletteId, { url: currentUrl });
 
       updatePaletteInStore(paletteId, { url: updated.url, updatedAt: updated.updatedAt });
       setPalette(paletteId, paletteName, updated.url);
+      setStatus('idle');
 
       return true;
     } catch (error_) {
@@ -125,7 +134,7 @@ export default function useSavedPalettes() {
 
       return false;
     }
-  }, [paletteId, paletteName, currentUrl, updatePaletteInStore, setPalette, setError]);
+  }, [paletteId, paletteName, currentUrl, updatePaletteInStore, setPalette, setError, setStatus]);
 
   // Delete a palette
   const deletePalette = useCallback(
@@ -179,7 +188,15 @@ export default function useSavedPalettes() {
 
   // Rename a palette
   const renamePalette = useCallback(
-    async (id: string, name: string): Promise<boolean> => {
+    async (id: string, rawName: string): Promise<boolean> => {
+      const name = rawName.trim();
+
+      if (!name) {
+        return false;
+      }
+
+      setStatus('saving');
+
       try {
         const updated = await updatePaletteService(id, { name });
 
@@ -190,6 +207,8 @@ export default function useSavedPalettes() {
           setPalette(id, name, lastSavedUrl);
         }
 
+        setStatus('idle');
+
         return true;
       } catch (error_) {
         setError(error_ instanceof Error ? error_.message : 'Failed to rename palette');
@@ -197,7 +216,7 @@ export default function useSavedPalettes() {
         return false;
       }
     },
-    [updatePaletteInStore, paletteId, lastSavedUrl, setPalette, setError],
+    [updatePaletteInStore, paletteId, lastSavedUrl, setPalette, setError, setStatus],
   );
 
   return {
@@ -206,6 +225,7 @@ export default function useSavedPalettes() {
     error,
     hasUnsavedChanges,
     isLoading: status === 'loading',
+    isSaving: status === 'saving',
     paletteId,
     paletteName,
     palettes,

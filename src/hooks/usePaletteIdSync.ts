@@ -24,6 +24,7 @@ export default function usePaletteIdSync() {
 
   const hasValidatedId = useRef(false);
   const lastPath = useRef<string | null>(null);
+  const lastSearch = useRef<string>('');
   const lastAuthState = useRef<boolean | null>(null);
 
   useEffect(() => {
@@ -51,20 +52,18 @@ export default function usePaletteIdSync() {
       return canonical;
     };
 
-    // Reset on path change
-    if (lastPath.current !== location.pathname) {
-      hasValidatedId.current = false;
-      lastPath.current = location.pathname;
-    }
-
-    // Reset on auth state change (e.g., logout)
+    // Detect what actually changed since the last run before mutating refs.
+    const pathChanged = lastPath.current !== location.pathname;
+    const searchChanged = lastSearch.current !== location.search;
     const authStateJustChanged =
       lastAuthState.current !== null && lastAuthState.current !== isAuthenticated;
 
-    if (authStateJustChanged) {
+    if (pathChanged || authStateJustChanged) {
       hasValidatedId.current = false;
     }
 
+    lastPath.current = location.pathname;
+    lastSearch.current = location.search;
     lastAuthState.current = isAuthenticated;
 
     // Wait for auth to settle
@@ -73,7 +72,12 @@ export default function usePaletteIdSync() {
     const urlPaletteId = getPaletteIdFromUrl(location.search);
 
     if (!urlPaletteId) {
-      if (paletteId) clearPalette();
+      // Only clear on genuine URL change. A re-run triggered by appStore.paletteId
+      // changing (e.g. savePalette flow) sees the stale location and would
+      // otherwise misread it as "user navigated away" and clear.
+      if ((pathChanged || searchChanged) && paletteId) {
+        clearPalette();
+      }
 
       return;
     }
