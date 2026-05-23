@@ -1,6 +1,20 @@
+import { useHead } from '@unhead/react';
+
 import Page from '~/components/Page';
 
 export default function Terms() {
+  useHead({
+    title: 'Terms of service — ColorMeUp LAB',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'Terms of service for ColorMeUp LAB — a free, open-source tool for creating and saving perceptual color palettes.',
+      },
+    ],
+    link: [{ rel: 'canonical', href: 'https://lab.colormeup.co/terms' }],
+  });
+
   return (
     <Page data-testid="Terms">
       <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>

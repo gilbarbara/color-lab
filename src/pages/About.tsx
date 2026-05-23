@@ -1,6 +1,20 @@
+import { useHead } from '@unhead/react';
+
 import Page from '~/components/Page';
 
 export default function About() {
+  useHead({
+    title: 'About — ColorMeUp LAB',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'Open-source design tool for creating perceptual color scales in OKLCH, with control over lightness, chroma, steps, and curves.',
+      },
+    ],
+    link: [{ rel: 'canonical', href: 'https://lab.colormeup.co/about' }],
+  });
+
   return (
     <Page data-testid="About">
       <h1 className="text-4xl font-bold mb-8">ColorMeUp LAB</h1>

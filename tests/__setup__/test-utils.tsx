@@ -2,6 +2,7 @@
 import { type ReactElement, type ReactNode, useMemo } from 'react';
 import { MemoryRouter } from 'react-router';
 import { render, type RenderOptions } from '@testing-library/react';
+import { createHead, UnheadProvider } from '@unhead/react/client';
 
 import AuthContext, { type AuthContextType } from '~/contexts/auth';
 import ThemeProvider from '~/providers/ThemeProvider';
@@ -32,12 +33,16 @@ interface MockAuthProviderProps {
 
 function createWrapper(authState?: MockAuthState, initialEntries?: string[]) {
   return function Wrapper({ children }: { children: ReactNode }) {
+    const head = useMemo(() => createHead(), []);
+
     return (
-      <MemoryRouter initialEntries={initialEntries}>
-        <ThemeProvider>
-          <MockAuthProvider authState={authState}>{children}</MockAuthProvider>
-        </ThemeProvider>
-      </MemoryRouter>
+      <UnheadProvider head={head}>
+        <MemoryRouter initialEntries={initialEntries}>
+          <ThemeProvider>
+            <MockAuthProvider authState={authState}>{children}</MockAuthProvider>
+          </ThemeProvider>
+        </MemoryRouter>
+      </UnheadProvider>
     );
   };
 }

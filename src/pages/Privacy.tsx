@@ -1,6 +1,20 @@
+import { useHead } from '@unhead/react';
+
 import Page from '~/components/Page';
 
 export default function Privacy() {
+  useHead({
+    title: 'Privacy policy — ColorMeUp LAB',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'How ColorMeUp LAB collects, uses, and protects your data. Firebase authentication, privacy-focused analytics, no advertising or profiling.',
+      },
+    ],
+    link: [{ rel: 'canonical', href: 'https://lab.colormeup.co/privacy' }],
+  });
+
   return (
     <Page data-testid="Privacy">
       <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>

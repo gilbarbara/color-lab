@@ -1,0 +1,36 @@
+{
+  "name": "ColorMeUp LAB",
+  "short_name": "LAB",
+  "description": "A design tool for creating and fine-tuning perceptual color scales.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#343434",
+  "theme_color": "#343434",
+  "icons": [
+    {
+      "src": "/brand/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/icon-maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}
