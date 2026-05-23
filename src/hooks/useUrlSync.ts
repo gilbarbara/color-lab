@@ -24,10 +24,10 @@ export default function useUrlSync() {
   useEffect(() => {
     const currentUrl = `${location.pathname}${location.search}`;
     const storeUrl = serializePaletteToUrl(usePaletteStore.getState());
-    const { loadedPaletteId } = useAppStore.getState();
+    const { paletteId } = useAppStore.getState();
     // URL is the source of truth for the id while syncing — store value
     // may not have caught up yet on initial palette load.
-    const urlId = getPaletteIdFromUrl(location.search) ?? loadedPaletteId;
+    const urlId = getPaletteIdFromUrl(location.search) ?? paletteId;
 
     // Skip if URL already matches store state
     if (updatePaletteIdInUrl(storeUrl, urlId) === currentUrl) {
@@ -110,9 +110,9 @@ export default function useUrlSync() {
       isPaused.current = false;
 
       const url = serializePaletteToUrl(usePaletteStore.getState());
-      const { loadedPaletteId } = useAppStore.getState();
+      const { paletteId } = useAppStore.getState();
 
-      navigate(updatePaletteIdInUrl(url, loadedPaletteId));
+      navigate(updatePaletteIdInUrl(url, paletteId));
     });
 
     observer.observe(document.body, {
@@ -136,9 +136,9 @@ export default function useUrlSync() {
         state.globalOptions !== previousState.globalOptions
       ) {
         const url = serializePaletteToUrl(state);
-        const { loadedPaletteId } = useAppStore.getState();
+        const { paletteId } = useAppStore.getState();
 
-        navigate(updatePaletteIdInUrl(url, loadedPaletteId));
+        navigate(updatePaletteIdInUrl(url, paletteId));
       }
     });
 

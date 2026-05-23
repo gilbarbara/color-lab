@@ -30,15 +30,15 @@ describe('stores/appStore', () => {
     });
   });
 
-  describe('clearLoadedPalette', () => {
+  describe('clearPalette', () => {
     it('clears all loaded palette fields', () => {
-      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
-      useAppStore.getState().clearLoadedPalette();
+      useAppStore.getState().setPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+      useAppStore.getState().clearPalette();
 
       const state = useAppStore.getState();
 
-      expect(state.loadedPaletteId).toBe(null);
-      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
+      expect(state.paletteId).toBe(null);
+      expect(state.paletteName).toBe(DEFAULT_PALETTE_NAME);
       expect(state.lastSavedUrl).toBe(null);
     });
   });
@@ -178,25 +178,25 @@ describe('stores/appStore', () => {
     });
   });
 
-  describe('setLoadedPalette', () => {
+  describe('setPalette', () => {
     it('sets all loaded palette fields', () => {
-      useAppStore.getState().setLoadedPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
+      useAppStore.getState().setPalette('palette-123', 'My Palette', '/p/Primary-FF0000');
 
       const state = useAppStore.getState();
 
-      expect(state.loadedPaletteId).toBe('palette-123');
-      expect(state.loadedPaletteName).toBe('My Palette');
+      expect(state.paletteId).toBe('palette-123');
+      expect(state.paletteName).toBe('My Palette');
       expect(state.lastSavedUrl).toBe('/p/Primary-FF0000');
     });
 
     it('can set fields to null', () => {
-      useAppStore.getState().setLoadedPalette('id', 'name', 'url');
-      useAppStore.getState().setLoadedPalette(null, null, null);
+      useAppStore.getState().setPalette('id', 'name', 'url');
+      useAppStore.getState().setPalette(null, null, null);
 
       const state = useAppStore.getState();
 
-      expect(state.loadedPaletteId).toBe(null);
-      expect(state.loadedPaletteName).toBe(DEFAULT_PALETTE_NAME);
+      expect(state.paletteId).toBe(null);
+      expect(state.paletteName).toBe(DEFAULT_PALETTE_NAME);
       expect(state.lastSavedUrl).toBe(null);
     });
   });
@@ -436,7 +436,6 @@ describe('stores/appStore', () => {
       useAppStore.getState().requestPreviewScroll();
       useAppStore.getState().requestColorScroll('color-a');
       useAppStore.getState().toggleBottomBar();
-      useAppStore.getState().setLoadedPalette('id', 'name', 'url');
 
       const persisted = readPersistedState();
       const keys = Object.keys(persisted?.state ?? {});
@@ -445,9 +444,18 @@ describe('stores/appStore', () => {
       expect(keys).not.toContain('previewScrollNonce');
       expect(keys).not.toContain('colorScrollRequest');
       expect(keys).not.toContain('showBottomBar');
-      expect(keys).not.toContain('loadedPaletteId');
-      expect(keys).not.toContain('loadedPaletteName');
-      expect(keys).not.toContain('lastSavedUrl');
+    });
+
+    it('does not persist paletteName, paletteId, or lastSavedUrl', () => {
+      useAppStore
+        .getState()
+        .setPalette('palette-123', 'My Palette', '/p/Primary-FF0000?id=palette-123');
+
+      const persisted = readPersistedState();
+
+      expect(persisted?.state).not.toHaveProperty('paletteName');
+      expect(persisted?.state).not.toHaveProperty('paletteId');
+      expect(persisted?.state).not.toHaveProperty('lastSavedUrl');
     });
 
     it('writes envelope with version 1 and only whitelisted keys', () => {

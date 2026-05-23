@@ -64,8 +64,8 @@ describe('hooks/useSavedPalettes', () => {
     usePaletteStore.setState(createPalette(CRIMSON));
     useAppStore.setState({
       lastSavedUrl: null,
-      loadedPaletteId: null,
-      loadedPaletteName: undefined,
+      paletteId: null,
+      paletteName: undefined,
     });
     usePalettesStore.setState({
       error: null,
@@ -115,7 +115,7 @@ describe('hooks/useSavedPalettes', () => {
       expect(saved).toBe(newPalette);
       expect(mockCreatePalette).toHaveBeenCalledWith('user-1', 'New Palette', expect.any(String));
       expect(usePalettesStore.getState().palettes[0]).toBe(newPalette);
-      expect(useAppStore.getState().loadedPaletteId).toBe('new-id');
+      expect(useAppStore.getState().paletteId).toBe('new-id');
     });
 
     it('returns null if no user', async () => {
@@ -152,8 +152,8 @@ describe('hooks/useSavedPalettes', () => {
   describe('updateCurrentPalette', () => {
     it('updates the loaded palette URL', async () => {
       useAppStore.setState({
-        loadedPaletteId: 'palette-1',
-        loadedPaletteName: 'Test Palette',
+        paletteId: 'palette-1',
+        paletteName: 'Test Palette',
         lastSavedUrl: '/p/old-url',
       });
 
@@ -187,7 +187,7 @@ describe('hooks/useSavedPalettes', () => {
     });
 
     it('sets error on failure', async () => {
-      useAppStore.setState({ loadedPaletteId: 'palette-1', loadedPaletteName: 'Test' });
+      useAppStore.setState({ paletteId: 'palette-1', paletteName: 'Test' });
       mockUpdatePalette.mockRejectedValueOnce(new Error('Update failed'));
 
       const { result } = renderHook(() => useSavedPalettes());
@@ -220,7 +220,7 @@ describe('hooks/useSavedPalettes', () => {
 
     it('clears loaded palette if deleting the current one', async () => {
       usePalettesStore.setState({ palettes: [mockPalette] });
-      useAppStore.setState({ loadedPaletteId: 'palette-1', loadedPaletteName: 'Test' });
+      useAppStore.setState({ paletteId: 'palette-1', paletteName: 'Test' });
       mockDeletePalette.mockResolvedValueOnce(undefined);
 
       const { result } = renderHook(() => useSavedPalettes());
@@ -229,7 +229,7 @@ describe('hooks/useSavedPalettes', () => {
         await result.current.deletePalette('palette-1');
       });
 
-      expect(useAppStore.getState().loadedPaletteId).toBe(null);
+      expect(useAppStore.getState().paletteId).toBe(null);
     });
 
     it('sets error on failure', async () => {
@@ -322,8 +322,8 @@ describe('hooks/useSavedPalettes', () => {
     it('updates loaded palette name if renaming the current one', async () => {
       mockListPalettes.mockResolvedValueOnce([mockPalette]);
       useAppStore.setState({
-        loadedPaletteId: 'palette-1',
-        loadedPaletteName: 'Test Palette',
+        paletteId: 'palette-1',
+        paletteName: 'Test Palette',
         lastSavedUrl: '/p/red-ff0000',
       });
       mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Renamed' });
@@ -338,7 +338,7 @@ describe('hooks/useSavedPalettes', () => {
         await result.current.renamePalette('palette-1', 'Renamed');
       });
 
-      expect(useAppStore.getState().loadedPaletteName).toBe('Renamed');
+      expect(useAppStore.getState().paletteName).toBe('Renamed');
     });
 
     it('sets error on failure', async () => {
@@ -368,7 +368,7 @@ describe('hooks/useSavedPalettes', () => {
         globalOptions: store.globalOptions,
       });
 
-      useAppStore.setState({ loadedPaletteId: 'palette-1', lastSavedUrl: currentUrl });
+      useAppStore.setState({ paletteId: 'palette-1', lastSavedUrl: currentUrl });
 
       const { result } = await renderUseSavedPalettes();
 
@@ -376,7 +376,7 @@ describe('hooks/useSavedPalettes', () => {
     });
 
     it('returns true when URL differs from lastSavedUrl', async () => {
-      useAppStore.setState({ loadedPaletteId: 'palette-1', lastSavedUrl: '/p/old-url' });
+      useAppStore.setState({ paletteId: 'palette-1', lastSavedUrl: '/p/old-url' });
 
       const { result } = await renderUseSavedPalettes();
 

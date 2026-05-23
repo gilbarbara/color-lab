@@ -35,8 +35,8 @@ export default function PaletteHeader() {
   const { hasCustomPaletteOptions } = usePalette('hasCustomPaletteOptions');
   const {
     hasUnsavedChanges,
-    loadedPaletteId,
-    loadedPaletteName,
+    paletteId,
+    paletteName,
     renamePalette,
     savePalette,
     updateCurrentPalette,
@@ -46,18 +46,18 @@ export default function PaletteHeader() {
   const [{ isSaveModalOpen, isSaving, name }, setState] = useSetState<PaletteHeaderState>({
     isSaveModalOpen: false,
     isSaving: false,
-    name: loadedPaletteName,
+    name: paletteName,
   });
 
-  // Sync local name state when loadedPaletteName changes (e.g., new palette or palette loaded)
+  // Sync local name state when paletteName changes (e.g., new palette or palette loaded)
   useEffect(() => {
-    setState({ name: loadedPaletteName });
-  }, [loadedPaletteName, setState]);
+    setState({ name: paletteName });
+  }, [paletteName, setState]);
 
   const handleBlurName = () => {
-    if (loadedPaletteName && loadedPaletteName !== name) {
+    if (paletteName && paletteName !== name) {
       setState({
-        name: loadedPaletteName,
+        name: paletteName,
       });
     }
   };
@@ -75,7 +75,7 @@ export default function PaletteHeader() {
       return;
     }
 
-    if (loadedPaletteId) {
+    if (paletteId) {
       // Update existing palette
       setState({ isSaving: true });
 
@@ -101,8 +101,8 @@ export default function PaletteHeader() {
         return;
       }
 
-      if (loadedPaletteId) {
-        renamePalette(loadedPaletteId, name);
+      if (paletteId) {
+        renamePalette(paletteId, name);
 
         return;
       }
@@ -136,7 +136,7 @@ export default function PaletteHeader() {
             innerWrapper: 'pb-0',
             input: 'text-2xl font-semibold text-foreground-800',
           }}
-          color={loadedPaletteName !== name ? 'warning' : undefined}
+          color={paletteName !== name ? 'warning' : undefined}
           isDisabled={!isAuthenticated}
           name="palette-name"
           onBlur={handleBlurName}
@@ -174,13 +174,13 @@ export default function PaletteHeader() {
           <ExportPalette />
           <Button
             color={hasUnsavedChanges ? 'warning' : 'primary'}
-            isDisabled={!!loadedPaletteId && !hasUnsavedChanges}
+            isDisabled={!!paletteId && !hasUnsavedChanges}
             isIconOnly={!isLarge}
             isLoading={isSaving}
             onPress={handleClickSave}
             size="menu"
             startContent={
-              loadedPaletteId ? (
+              paletteId ? (
                 <PencilSimpleLineIcon className="text-xl" />
               ) : (
                 <HeartIcon className="text-xl" />
@@ -188,7 +188,7 @@ export default function PaletteHeader() {
             }
             variant="flat"
           >
-            {isLarge && (loadedPaletteId ? 'Update' : 'Save')}
+            {isLarge && (paletteId ? 'Update' : 'Save')}
           </Button>
         </div>
       </div>

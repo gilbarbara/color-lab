@@ -10,18 +10,14 @@ import { usePalettesStore } from '~/stores/palettesStore';
 import { canonicalizeUrl, getPaletteIdFromUrl, updatePaletteIdInUrl } from '~/utils/url';
 
 /**
- * Validates palette ID from URL and manages loadedPalette state.
+ * Validates palette ID from URL and manages palette identity state.
  * Call once in Generator alongside useUrlSync.
  */
 export default function usePaletteIdSync() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, isLoading, user } = useAuth();
-  const { clearLoadedPalette, loadedPaletteId, setLoadedPalette } = useApp(
-    'clearLoadedPalette',
-    'loadedPaletteId',
-    'setLoadedPalette',
-  );
+  const { clearPalette, paletteId, setPalette } = useApp('clearPalette', 'paletteId', 'setPalette');
   const { palettes } = usePalettesStore();
 
   const updatePaletteInStore = usePalettesStore(state => state.updatePalette);
@@ -33,7 +29,7 @@ export default function usePaletteIdSync() {
   useEffect(() => {
     // Canonicalise the palette URL (legacy hex / 3-decimal OKLCH → current OKLCH),
     // fire-and-forget the Firestore migration when needed, and return the
-    // canonical url-with-id for setLoadedPalette. Migration write omits
+    // canonical url-with-id for setPalette. Migration write omits
     // `updatedAt` so we don't bump it for a non-user-initiated change.
     const canonicalizeAndMigrate = (id: string, urlWithId: string): string => {
       const canonical = canonicalizeUrl(urlWithId);
@@ -74,10 +70,10 @@ export default function usePaletteIdSync() {
     // Wait for auth to settle
     if (isLoading) return;
 
-    const paletteId = getPaletteIdFromUrl(location.search);
+    const urlPaletteId = getPaletteIdFromUrl(location.search);
 
-    if (!paletteId) {
-      if (loadedPaletteId) clearLoadedPalette();
+    if (!urlPaletteId) {
+      if (paletteId) clearPalette();
 
       return;
     }
@@ -91,30 +87,30 @@ export default function usePaletteIdSync() {
     if (!isAuthenticated || !user) {
       // Not logged in - remove ID from URL
       navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
-      clearLoadedPalette();
+      clearPalette();
 
       return;
     }
 
     // Check cache first (from My Palettes visit)
-    const cachedPalette = palettes.find(p => p.id === paletteId);
+    const cachedPalette = palettes.find(p => p.id === urlPaletteId);
 
     if (cachedPalette && cachedPalette.userId === user.uid) {
       const canonical = canonicalizeAndMigrate(cachedPalette.id, cachedPalette.url);
 
-      setLoadedPalette(cachedPalette.id, cachedPalette.name, canonical);
+      setPalette(cachedPalette.id, cachedPalette.name, canonical);
 
       return;
     }
 
     // Fall back to API call (direct URL access, refresh, shared URL)
     (async () => {
-      const result = await getPalette(paletteId);
+      const result = await getPalette(urlPaletteId);
 
       if (result.kind === 'success' && result.palette.userId === user.uid) {
         const canonical = canonicalizeAndMigrate(result.palette.id, result.palette.url);
 
-        setLoadedPalette(result.palette.id, result.palette.name, canonical);
+        setPalette(result.palette.id, result.palette.name, canonical);
 
         return;
       }
@@ -124,7 +120,7 @@ export default function usePaletteIdSync() {
           category: 'palette-load',
           message: 'getPalette error — toast shown',
           level: 'warning',
-          data: { paletteId },
+          data: { paletteId: urlPaletteId },
         });
 
         addToast({
@@ -139,18 +135,18 @@ export default function usePaletteIdSync() {
 
       // not-found OR success-but-wrong-user → strip ID
       navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
-      clearLoadedPalette();
+      clearPalette();
     })();
   }, [
-    clearLoadedPalette,
+    clearPalette,
     isAuthenticated,
     isLoading,
-    loadedPaletteId,
+    paletteId,
     location.pathname,
     location.search,
     navigate,
     palettes,
-    setLoadedPalette,
+    setPalette,
     updatePaletteInStore,
     user,
   ]);

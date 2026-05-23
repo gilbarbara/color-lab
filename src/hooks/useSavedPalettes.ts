@@ -20,14 +20,13 @@ export default function useSavedPalettes() {
   const { isAuthenticated, user } = useAuth();
 
   const paletteStore = usePaletteStore();
-  const { clearLoadedPalette, lastSavedUrl, loadedPaletteId, loadedPaletteName, setLoadedPalette } =
-    useApp(
-      'clearLoadedPalette',
-      'lastSavedUrl',
-      'loadedPaletteId',
-      'loadedPaletteName',
-      'setLoadedPalette',
-    );
+  const { clearPalette, lastSavedUrl, paletteId, paletteName, setPalette } = useApp(
+    'clearPalette',
+    'lastSavedUrl',
+    'paletteId',
+    'paletteName',
+    'setPalette',
+  );
   const {
     addPalette,
     error,
@@ -53,12 +52,12 @@ export default function useSavedPalettes() {
 
   // Check if there are unsaved changes (strip ID from lastSavedUrl for comparison)
   const hasUnsavedChanges = useMemo(() => {
-    if (!loadedPaletteId || !lastSavedUrl) {
+    if (!paletteId || !lastSavedUrl) {
       return false;
     }
 
     return currentUrl !== updatePaletteIdInUrl(lastSavedUrl, null);
-  }, [currentUrl, lastSavedUrl, loadedPaletteId]);
+  }, [currentUrl, lastSavedUrl, paletteId]);
 
   // Fetch palettes on mount when authenticated
   useEffect(() => {
@@ -94,7 +93,7 @@ export default function useSavedPalettes() {
         const palette = await createPalette(user.uid, name, currentUrl);
 
         addPalette(palette);
-        setLoadedPalette(palette.id, palette.name, palette.url);
+        setPalette(palette.id, palette.name, palette.url);
 
         navigate(palette.url, { replace: true });
 
@@ -105,20 +104,20 @@ export default function useSavedPalettes() {
         return null;
       }
     },
-    [user?.uid, currentUrl, addPalette, setLoadedPalette, setError, navigate],
+    [user?.uid, currentUrl, addPalette, setPalette, setError, navigate],
   );
 
   // Update the currently loaded palette
   const updateCurrentPalette = useCallback(async (): Promise<boolean> => {
-    if (!loadedPaletteId) {
+    if (!paletteId) {
       return false;
     }
 
     try {
-      const updated = await updatePaletteService(loadedPaletteId, { url: currentUrl });
+      const updated = await updatePaletteService(paletteId, { url: currentUrl });
 
-      updatePaletteInStore(loadedPaletteId, { url: updated.url, updatedAt: updated.updatedAt });
-      setLoadedPalette(loadedPaletteId, loadedPaletteName, updated.url);
+      updatePaletteInStore(paletteId, { url: updated.url, updatedAt: updated.updatedAt });
+      setPalette(paletteId, paletteName, updated.url);
 
       return true;
     } catch (error_) {
@@ -126,14 +125,7 @@ export default function useSavedPalettes() {
 
       return false;
     }
-  }, [
-    loadedPaletteId,
-    loadedPaletteName,
-    currentUrl,
-    updatePaletteInStore,
-    setLoadedPalette,
-    setError,
-  ]);
+  }, [paletteId, paletteName, currentUrl, updatePaletteInStore, setPalette, setError]);
 
   // Delete a palette
   const deletePalette = useCallback(
@@ -143,8 +135,8 @@ export default function useSavedPalettes() {
         removePalette(id);
 
         // If we deleted the currently loaded palette, clear it and remove ID from URL
-        if (loadedPaletteId === id) {
-          clearLoadedPalette();
+        if (paletteId === id) {
+          clearPalette();
 
           const cleanUrl = updatePaletteIdInUrl(currentUrl, null);
 
@@ -158,7 +150,7 @@ export default function useSavedPalettes() {
         return false;
       }
     },
-    [removePalette, loadedPaletteId, clearLoadedPalette, setError, currentUrl, navigate],
+    [removePalette, paletteId, clearPalette, setError, currentUrl, navigate],
   );
 
   // Toggle favorite status
@@ -194,8 +186,8 @@ export default function useSavedPalettes() {
         updatePaletteInStore(id, { name: updated.name });
 
         // Update loaded palette name if it's the current one
-        if (loadedPaletteId === id) {
-          setLoadedPalette(id, name, lastSavedUrl);
+        if (paletteId === id) {
+          setPalette(id, name, lastSavedUrl);
         }
 
         return true;
@@ -205,7 +197,7 @@ export default function useSavedPalettes() {
         return false;
       }
     },
-    [updatePaletteInStore, loadedPaletteId, lastSavedUrl, setLoadedPalette, setError],
+    [updatePaletteInStore, paletteId, lastSavedUrl, setPalette, setError],
   );
 
   return {
@@ -214,12 +206,12 @@ export default function useSavedPalettes() {
     error,
     hasUnsavedChanges,
     isLoading: status === 'loading',
-    loadedPaletteId,
-    loadedPaletteName,
+    paletteId,
+    paletteName,
     palettes,
 
     // Actions
-    clearLoadedPalette,
+    clearPalette,
     deletePalette,
     renamePalette,
     savePalette,
