@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /auth/
+Disallow: /palettes
+
+Sitemap: https://lab.colormeup.co/sitemap.xml

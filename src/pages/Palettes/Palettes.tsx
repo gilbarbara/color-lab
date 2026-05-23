@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import { addToast, Button, Spinner } from '@heroui/react';
 import { PlusIcon, SignInIcon } from '@phosphor-icons/react';
+import { useHead } from '@unhead/react';
 
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
@@ -13,6 +14,17 @@ import Page from '~/components/Page';
 import { PaletteCard } from '~/pages/Palettes/PaletteCard';
 
 export default function Palettes() {
+  useHead({
+    title: 'My palettes — ColorMeUp LAB',
+    meta: [
+      {
+        name: 'description',
+        content: 'View and manage your saved color palettes in ColorMeUp LAB.',
+      },
+    ],
+    link: [{ rel: 'canonical', href: 'https://lab.colormeup.co/palettes' }],
+  });
+
   const navigate = useNavigate();
   const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const { deletePalette, isLoading, palettes, toggleFavorite } = useSavedPalettes();

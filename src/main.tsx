@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import * as Sentry from '@sentry/react';
+import { createHead, UnheadProvider } from '@unhead/react/client';
 
 import AuthProvider from '~/providers/AuthProvider';
 import ThemeProvider from '~/providers/ThemeProvider';
@@ -49,20 +50,24 @@ if (import.meta.env.PROD) {
   });
 }
 
+const head = createHead();
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <ThemeProvider>
-        <Sentry.ErrorBoundary
-          fallback={({ error, eventId, resetError }) => (
-            <ErrorFallback error={error} eventId={eventId} resetError={resetError} />
-          )}
-        >
-          <AuthProvider>
-            <App />
-          </AuthProvider>
-        </Sentry.ErrorBoundary>
-      </ThemeProvider>
-    </BrowserRouter>
+    <UnheadProvider head={head}>
+      <BrowserRouter>
+        <ThemeProvider>
+          <Sentry.ErrorBoundary
+            fallback={({ error, eventId, resetError }) => (
+              <ErrorFallback error={error} eventId={eventId} resetError={resetError} />
+            )}
+          >
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </Sentry.ErrorBoundary>
+        </ThemeProvider>
+      </BrowserRouter>
+    </UnheadProvider>
   </StrictMode>,
 );
