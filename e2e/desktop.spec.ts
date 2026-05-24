@@ -1,9 +1,16 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
+import { collapseDuration } from './fixtures/constants';
+
 let page: Page;
 
-test.describe.configure({ mode: 'serial' });
-test.use({ ...devices['Desktop Chrome'] });
+test.use({
+  ...devices['Desktop Chrome'],
+  viewport: {
+    width: 1440,
+    height: 810,
+  },
+});
 
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage();
@@ -27,287 +34,287 @@ test.afterAll(async () => {
   await page.close();
 });
 
-test.describe('Desktop', () => {
-  test.describe('Page Load', () => {
-    test('should display all main elements on initial load', async () => {
-      // Header elements
-      await expect(page.getByRole('link', { name: /lab/i })).toBeVisible();
-      await expect(page.getByRole('button', { name: /new palette/i })).toBeVisible();
-      await expect(page.getByRole('button', { name: /toggle dark mode/i })).toBeVisible();
-      await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
+test('desktop', async () => {
+  await test.step('displays main elements on initial load', async () => {
+    // Header elements
+    await expect(page.getByRole('link', { name: /home/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /new palette/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /toggle dark mode/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
 
-      // Palette area
-      await expect(page.getByRole('button', { name: /export all/i })).toBeVisible();
-      await expect(page.getByRole('button', { name: /save/i })).toBeVisible();
+    // Palette area
+    await expect(page.getByRole('button', { name: /export all/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /save/i })).toBeVisible();
 
-      // Swatches
-      await expect(page.getByRole('button', { name: '50', exact: true })).toBeVisible();
-      await expect(page.getByRole('button', { name: '500', exact: true })).toBeVisible();
-      await expect(page.getByRole('button', { name: '950', exact: true })).toBeVisible();
-    });
-
-    test('should have correct page title', async () => {
-      await expect(page).toHaveTitle(/colormeup/i);
-    });
-
-    test('should encode palette state in URL', async () => {
-      await expect(page).toHaveURL(/Primary-73_0\.127_321/);
-    });
+    await expect(page).toHaveScreenshot('01-initial.png');
   });
 
-  test.describe('Theme', () => {
-    test('should toggle dark mode', async () => {
-      const toggleButton = page.getByRole('button', { name: /toggle dark mode/i });
-
-      // Toggle to dark mode
-      await toggleButton.click();
-
-      // Check that dark mode is applied
-      const html = page.locator('html');
-
-      await expect(html).toHaveClass(/dark/);
-
-      // Toggle back to light mode
-      await toggleButton.click();
-
-      await expect(html).not.toHaveClass(/dark/);
-    });
-
-    test('should persist theme preference', async () => {
-      await page.reload();
-      const toggleButton = page.getByRole('button', { name: /toggle dark mode/i });
-
-      // Toggle to dark mode
-      await toggleButton.click();
-
-      // Reload page
-      await page.reload();
-      await page.waitForLoadState('networkidle');
-
-      // Dark mode should persist
-      const html = page.locator('html');
-
-      await expect(html).toHaveClass(/dark/);
-    });
+  await test.step('has correct page title', async () => {
+    await expect(page).toHaveTitle(/colormeup/i);
   });
 
-  test.describe('Color Controls', () => {
-    test('should modify color via sliders and update URL', async () => {
-      const lightnessSlider = page.getByRole('slider', { name: 'Lightness' });
-
-      // Verify initial value
-      await expect(lightnessSlider).toHaveValue('0.73');
-
-      // Change lightness
-      await lightnessSlider.fill('0.5');
-      await expect(lightnessSlider).toHaveValue('0.5');
-
-      // URL should update
-      await expect(page).toHaveURL(/50/);
-    });
-
-    test('should modify chroma slider', async () => {
-      const chromaSlider = page.getByRole('slider', { name: 'Chroma' });
-
-      await chromaSlider.fill('0.2');
-
-      // Value may be clamped by gamut limits
-      const value = await chromaSlider.inputValue();
-
-      expect(parseFloat(value)).toBeGreaterThan(0);
-    });
-
-    test('should modify hue slider', async () => {
-      const hueSlider = page.getByRole('slider', { name: 'Hue' });
-
-      await hueSlider.fill('180');
-
-      await expect(page).toHaveURL(/180/);
-    });
-
-    test('should add a new color', async () => {
-      const addColorButton = page.getByRole('button', { name: 'Add Color' });
-      const removeButtons = page.getByRole('button', { name: 'Remove color' });
-
-      // Initially one color (remove button disabled)
-      await expect(removeButtons.first()).toBeDisabled();
-
-      // Add color
-      await addColorButton.click();
-
-      // Now two colors (remove buttons enabled)
-      await expect(removeButtons).toHaveCount(2);
-      await expect(removeButtons.first()).toBeEnabled();
-    });
-
-    test('should remove a color with confirmation', async () => {
-      const removeButtons = page.getByRole('button', { name: 'Remove color' });
-
-      await expect(removeButtons).toHaveCount(2);
-
-      // Click remove on second color - first click shows confirmation
-      const secondRemove = removeButtons.nth(1);
-
-      await secondRemove.click();
-
-      // Second click within 2 seconds confirms removal
-      await secondRemove.click();
-
-      // Back to one color
-      await expect(removeButtons).toHaveCount(1);
-
-      // Wait for Collapse re-open animation on the remaining color (~400ms).
-      // Without this, the next test clicks while the trigger button is clipped
-      // by the still-animating overflow:hidden container, missing the popover.
-      await page.waitForTimeout(500);
-    });
+  await test.step('encodes palette state in URL', async () => {
+    await expect(page).toHaveURL(/Primary-73_0\.127_321/);
   });
 
-  test.describe('Color Options Popover', () => {
-    test('should open color options popover', async () => {
-      await page.getByRole('button', { name: 'Change color options' }).click();
+  await test.step('toggles dark mode', async () => {
+    const toggleButton = page.getByRole('button', { name: /toggle dark mode/i });
 
-      // Verify popover content - look for title that includes color name
-      const popover = page.locator('[data-slot="content"]').last();
+    await toggleButton.click();
 
-      await expect(popover.getByText(/options for/i)).toBeVisible();
-      await expect(popover.getByText('Lightness Curve')).toBeVisible();
-      await expect(popover.getByText('Chroma Curve')).toBeVisible();
-    });
+    const html = page.locator('html');
 
-    test('should close popover with Escape', async () => {
-      const popover = page.locator('[data-slot="content"]').last();
+    await expect(html).toHaveClass(/dark/);
 
-      await expect(popover.getByText(/options for/i)).toBeVisible();
+    await expect(page).toHaveScreenshot('02-dark-mode.png');
 
-      await page.keyboard.press('Escape');
+    await toggleButton.click();
 
-      await expect(popover).not.toBeVisible();
-    });
-
-    test('should have reset buttons for each option', async () => {
-      await page.getByRole('button', { name: 'Change color options' }).click();
-
-      // Look for reset buttons (may be disabled by default)
-      const resetButtons = page.getByRole('button', { name: /reset.*to default/i });
-
-      await expect(resetButtons.first()).toBeVisible();
-    });
+    await expect(html).not.toHaveClass(/dark/);
   });
 
-  test.describe('Palette Options Panel', () => {
-    test('should open palette options panel', async () => {
-      await page.getByRole('button', { name: 'Palette Options' }).click();
+  await test.step('persists theme preference across reload', async () => {
+    await page.reload();
+    const toggleButton = page.getByRole('button', { name: /toggle dark mode/i });
 
-      // Verify panel content
-      await expect(page.getByText('Steps')).toBeVisible();
-      await expect(page.getByText('Saturation', { exact: true })).toBeVisible();
-      await expect(page.getByRole('switch', { name: /light scale/i })).toBeVisible();
-    });
+    await toggleButton.click();
 
-    test('should toggle light/dark scale', async () => {
-      const scaleSwitch = page.getByRole('switch', { name: /light scale/i });
+    await page.reload();
+    await page.waitForLoadState('networkidle');
 
-      await expect(scaleSwitch).toBeVisible();
-
-      // Toggle to dark scale
-      await scaleSwitch.click();
-
-      // Switch label should change to "Dark scale"
-      await expect(page.getByRole('switch', { name: /dark scale/i })).toBeVisible();
-
-      // Toggle back
-      await page.getByRole('switch', { name: /dark scale/i }).click();
-      await expect(page.getByRole('switch', { name: /light scale/i })).toBeVisible();
-    });
-
-    test('should have saturation controls', async () => {
-      await expect(
-        page.getByRole('switch', { name: /apply saturation to all colors/i }),
-      ).toBeVisible();
-    });
+    await expect(page.locator('html')).toHaveClass(/dark/);
   });
 
-  test.describe('Export Drawer', () => {
-    test('should open export drawer with format tabs', async () => {
-      await page.getByRole('button', { name: 'Export All' }).click();
+  await test.step('modifies color via lightness slider and updates URL', async () => {
+    const lightnessSlider = page.getByRole('slider', { name: 'Lightness' });
 
-      // Verify format tabs
-      await expect(page.getByRole('tab', { name: 'Tailwind 4' })).toBeVisible();
-      await expect(page.getByRole('tab', { name: 'Tailwind 3' })).toBeVisible();
-      await expect(page.getByRole('tab', { name: 'CSS', exact: true })).toBeVisible();
-      await expect(page.getByRole('tab', { name: 'SCSS', exact: true })).toBeVisible();
-      await expect(page.getByRole('tab', { name: /svg/i })).toBeVisible();
+    await expect(lightnessSlider).toHaveValue('0.73');
 
-      // Verify color format tabs
-      await expect(page.getByRole('tab', { name: 'OKLCH' })).toBeVisible();
-      await expect(page.getByRole('tab', { name: /hex/i })).toBeVisible();
-      await expect(page.getByRole('tab', { name: 'HSL' })).toBeVisible();
-      await expect(page.getByRole('tab', { name: 'RGB' })).toBeVisible();
-    });
+    await lightnessSlider.fill('0.5');
+    await expect(lightnessSlider).toHaveValue('0.5');
 
-    test('should switch between format tabs', async () => {
-      // Switch to CSS
-      await page.getByRole('tab', { name: 'CSS', exact: true }).click();
-      await expect(page.getByRole('tab', { name: 'CSS', exact: true })).toHaveAttribute(
-        'aria-selected',
-        'true',
-      );
-
-      // Switch to Hex
-      await page.getByRole('tab', { name: /hex/i }).click();
-      await expect(page.getByRole('tab', { name: /hex/i })).toHaveAttribute(
-        'aria-selected',
-        'true',
-      );
-    });
-
-    test('should have copy buttons', async () => {
-      await expect(page.getByRole('button', { name: /copy all/i })).toBeVisible();
-    });
-
-    test('should close modal', async () => {
-      // Close with button
-      await page.getByRole('button', { name: 'Close' }).click();
-
-      // Modal should be gone
-      await expect(page.getByRole('tab', { name: 'Tailwind 4' })).not.toBeVisible();
-    });
+    await expect(page).toHaveURL(/50/);
   });
 
-  test.describe('Swatch Interaction', () => {
-    test('should display all swatches', async () => {
-      const swatchLabels = [
-        '50',
-        '100',
-        '200',
-        '300',
-        '400',
-        '500',
-        '600',
-        '700',
-        '800',
-        '900',
-        '950',
-      ];
+  await test.step('modifies chroma slider', async () => {
+    const chromaSlider = page.getByRole('slider', { name: 'Chroma' });
 
-      for (const label of swatchLabels) {
-        await expect(page.getByRole('button', { name: label, exact: true }).first()).toBeVisible();
-      }
+    await chromaSlider.fill('0.2');
+
+    // Value may be clamped by gamut limits
+    const value = await chromaSlider.inputValue();
+
+    expect(parseFloat(value)).toBeGreaterThan(0);
+  });
+
+  await test.step('modifies hue slider', async () => {
+    const hueSlider = page.getByRole('slider', { name: 'Hue' });
+
+    await hueSlider.fill('180');
+
+    await expect(page).toHaveURL(/180/);
+  });
+
+  await test.step('adds a new color', async () => {
+    const addColorButton = page.getByRole('button', { name: 'Add Color' });
+    const removeButtons = page.getByRole('button', { name: 'Remove color' });
+
+    await expect(removeButtons.first()).toBeDisabled();
+
+    await addColorButton.click();
+
+    // Wait for Collapse to finish animating
+    await page.waitForTimeout(collapseDuration);
+
+    await expect(removeButtons).toHaveCount(2);
+    await expect(removeButtons.first()).toBeEnabled();
+
+    await expect(page).toHaveScreenshot('03-two-colors.png');
+  });
+
+  await test.step('opens Advanced Options', async () => {
+    await page.getByRole('button', { name: 'Advanced Options' }).click();
+
+    await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
+
+    // Wait for Collapse to finish animating
+    await page.waitForTimeout(collapseDuration);
+
+    await page.getByTestId('Sidebar').evaluate(el => {
+      el.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     });
 
-    test('should show toast when clicking swatch to copy', async () => {
-      // Click on swatch 500
-      await page.getByRole('button', { name: '500', exact: true }).first().click();
+    await expect(page).toHaveScreenshot('04-advanced-options.png');
+  });
 
-      // Toast should appear (may say "copied" or "failed to copy" in headless)
-      const toast = page.locator('[data-slot="toast"]').or(page.getByRole('alert'));
+  await test.step('change global Lightness Curve', async () => {
+    const lightnessCurveSlider = page.locator('input[name="lightnessCurve"]');
 
-      await expect(toast.first()).toBeVisible({ timeout: 2000 });
-    });
+    await expect(lightnessCurveSlider).toHaveValue('1.3');
 
-    test('should have color box indicator', async () => {
-      await expect(page.getByLabel('Select Primary').first()).toBeVisible();
-    });
+    await lightnessCurveSlider.fill('1.2');
+
+    await page.getByRole('button', { name: 'Advanced Options' }).click();
+
+    await expect(page.getByTestId('ScaleColorOptions')).not.toBeVisible();
+
+    await expect(page).toHaveScreenshot('05-post-advanced-color-options.png');
+  });
+
+  await test.step('opens color options popover', async () => {
+    await page.getByRole('button', { name: 'Change color options' }).click();
+
+    const popover = page.locator('[data-slot="content"]').last();
+
+    const lightnessCurveSlider = popover.locator('input[name="lightnessCurve"]');
+
+    await expect(lightnessCurveSlider).toHaveValue('1.2');
+    await lightnessCurveSlider.fill('1.3');
+
+    await expect(page).toHaveScreenshot('06-color-options-popover.png');
+  });
+
+  await test.step('closes color options popover with Escape', async () => {
+    const popover = page.locator('[data-slot="content"]').last();
+
+    await expect(popover.getByText(/options for/i)).toBeVisible();
+
+    await page.keyboard.press('Escape');
+
+    await expect(popover).not.toBeVisible();
+
+    await expect(page).toHaveScreenshot('07-color-options-popover-indicator.png');
+  });
+
+  await test.step('opens palette options panel', async () => {
+    await page.getByRole('button', { name: 'Palette Options' }).click();
+
+    await expect(page).toHaveScreenshot('08-palette-options.png');
+  });
+
+  await test.step('toggles light/dark scale', async () => {
+    const scaleSwitch = page.getByRole('switch', { name: /light scale/i });
+
+    await expect(scaleSwitch).toBeVisible();
+
+    await scaleSwitch.click();
+
+    await expect(page.getByRole('switch', { name: /dark scale/i })).toBeVisible();
+
+    await page.getByRole('switch', { name: /dark scale/i }).click();
+    await expect(page.getByRole('switch', { name: /light scale/i })).toBeVisible();
+  });
+
+  await test.step('enable lock 500 and close the palette options', async () => {
+    // Open the Lock select dropdown inside the Palette Options popover
+    await page.getByRole('button', { name: /^select lock/i }).click();
+
+    await page.getByRole('option', { name: '500', exact: true }).click();
+
+    // Selection updates the dropdown label to "500 Lock options"
+    await expect(page.getByRole('button', { name: /^500 lock options/i })).toBeVisible();
+
+    // Close the panel
+    await page.getByRole('button', { name: 'Palette Options' }).click();
+
+    await expect(page).toHaveScreenshot('09-post-palette-options.png');
+  });
+
+  await test.step('opens color info', async () => {
+    await page.getByRole('button', { name: 'View color info' }).first().click();
+
+    // Wait for modal content
+    await expect(page.getByRole('columnheader', { name: 'APCA LC' })).toBeVisible();
+
+    await expect(page).toHaveScreenshot('10-color-info.png');
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(page.getByRole('columnheader', { name: 'APCA LC' })).not.toBeVisible();
+  });
+
+  await test.step('opens contrast grid', async () => {
+    await page.getByRole('button', { name: 'View Contrast Grid' }).first().click();
+
+    await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).toBeVisible();
+
+    await expect(page).toHaveScreenshot('11-contrast-grid.png');
+
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
+  });
+
+  await test.step('select first color', async () => {
+    await page.getByRole('button', { name: 'Select Primary' }).click();
+
+    // Wait for Collapse animation to settle
+    await page.waitForTimeout(collapseDuration);
+
+    await expect(page).toHaveScreenshot('12-select-primary.png');
+  });
+
+  await test.step('opens export drawer with format tabs', async () => {
+    await page.getByRole('button', { name: 'Export All' }).click();
+
+    await expect(page.getByRole('tab', { name: 'Tailwind 4' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'Tailwind 3' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'CSS', exact: true })).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'SCSS', exact: true })).toBeVisible();
+    await expect(page.getByRole('tab', { name: /svg/i })).toBeVisible();
+
+    await expect(page.getByRole('tab', { name: 'OKLCH' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: /hex/i })).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'HSL' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: 'RGB' })).toBeVisible();
+
+    await expect(page).toHaveScreenshot('13-export-drawer.png');
+  });
+
+  await test.step('switches between format tabs', async () => {
+    await page.getByRole('tab', { name: 'CSS', exact: true }).click();
+    await expect(page.getByRole('tab', { name: 'CSS', exact: true })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+
+    await page.getByRole('tab', { name: /hex/i }).click();
+    await expect(page.getByRole('tab', { name: /hex/i })).toHaveAttribute('aria-selected', 'true');
+  });
+
+  await test.step('closes export drawer', async () => {
+    await page.getByRole('button', { name: 'Close' }).click();
+
+    await expect(page.getByRole('tab', { name: 'Tailwind 4' })).not.toBeVisible();
+  });
+
+  await test.step('shows toast when clicking swatch to copy', async () => {
+    await page.getByRole('button', { name: '500', exact: true }).first().click();
+
+    // Toast may say "copied" or "failed to copy" in headless
+    const toast = page.locator('[data-slot="toast"]').or(page.getByRole('alert'));
+
+    await expect(toast.first()).toBeVisible({ timeout: 2000 });
+  });
+
+  await test.step('removes a color with confirmation', async () => {
+    const removeButtons = page.getByRole('button', { name: 'Remove color' });
+
+    await expect(removeButtons).toHaveCount(2);
+
+    // First click shows confirmation; second click within 2s confirms
+    const secondRemove = removeButtons.nth(1);
+
+    await secondRemove.click();
+    await secondRemove.click();
+
+    await expect(removeButtons).toHaveCount(1);
+
+    // Wait for Collapse re-open animation on the remaining color (~400ms).
+    // Without this, the next step clicks while the trigger button is clipped
+    // by the still-animating overflow:hidden container, missing the popover.
+    await page.waitForTimeout(collapseDuration);
+
+    await expect(page).toHaveScreenshot('14-single-color.png');
   });
 });
