@@ -1,13 +1,18 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
+import { collapseDuration } from './fixtures/constants';
 import { FirebaseMockState, setupFirebaseMocks } from './fixtures/firebase-mock';
 
 let page: Page;
 let mockState: FirebaseMockState;
-let paletteName = `Test-${Date.now()}`;
 
-test.describe.configure({ mode: 'serial' });
-test.use({ ...devices['Desktop Chrome'] });
+test.use({
+  ...devices['Desktop Chrome'],
+  viewport: {
+    width: 1440,
+    height: 810,
+  },
+});
 
 test.beforeAll(async ({ browser }) => {
   mockState = new FirebaseMockState();
@@ -27,250 +32,264 @@ test.beforeAll(async ({ browser }) => {
     };
   });
 
-  await page.goto('/');
+  await page.goto('/p/Primary-73.0_0.12745_321');
 });
 
 test.afterAll(async () => {
   await page.close();
 });
 
-test.describe('User Journey', () => {
-  test.describe('Authentication', () => {
-    test('should login with credentials', async () => {
-      await page.getByRole('button', { name: 'Sign In' }).click();
+test('User Journey', async () => {
+  let paletteName = `Test-${Date.now()}`;
 
-      await page.getByRole('textbox', { name: 'Email*' }).fill('test@example.com');
-      await page.getByRole('textbox', { name: 'Password*' }).fill('password123');
+  await test.step('logs in with credentials', async () => {
+    await page.getByTestId('Header').getByRole('button', { name: 'Sign In' }).click();
 
-      await page.getByRole('button', { name: 'Login', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Email*' }).fill('test@example.com');
+    await page.getByRole('textbox', { name: 'Password*' }).fill('password123');
 
-      await expect(page.getByRole('button', { name: 'Sign In' })).not.toBeVisible({
-        timeout: 10000,
-      });
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
 
-      // Avatar shows user menu button
-      const avatar = page.getByLabel('User Menu');
-
-      await expect(avatar).toBeVisible();
+    await expect(
+      page.getByTestId('Header').getByRole('button', { name: 'Sign In' }),
+    ).not.toBeVisible({
+      timeout: 10000,
     });
 
-    test('should show user info in menu', async () => {
-      await page.getByLabel('User Menu').click();
+    const avatar = page.getByLabel('User Menu');
 
-      await expect(page.getByRole('menuitem', { name: /test@example.com/i })).toBeVisible();
+    await expect(avatar).toBeVisible();
 
-      await page.keyboard.press('Escape');
-    });
+    await expect(page).toHaveScreenshot('01-logged-in.png');
+  });
 
-    test('should logout user', async () => {
-      await page.getByRole('button', { name: 'User Menu' }).click();
-      await page.getByRole('menuitem', { name: 'Sign Out' }).click();
+  await test.step('shows user info in menu', async () => {
+    await page.getByLabel('User Menu').click();
 
-      await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('menuitem', { name: /test@example.com/i })).toBeVisible();
+
+    await page.keyboard.press('Escape');
+  });
+
+  await test.step('render empty palettes', async () => {
+    await page.getByRole('link', { name: 'My Palettes' }).click();
+    await page.waitForURL(/\/palettes/);
+
+    await expect(page).toHaveScreenshot('02-empty-palettes.png');
+
+    // Return to the generator so subsequent steps have Add Color etc.
+    await page.getByRole('link', { name: 'Home' }).click();
+    await page.waitForURL(/\/p\//);
+  });
+
+  await test.step('logs out user', async () => {
+    await page.getByRole('button', { name: 'User Menu' }).click();
+    await page.getByRole('menuitem', { name: 'Sign Out' }).click();
+
+    await expect(page.getByTestId('Header').getByRole('button', { name: 'Sign In' })).toBeVisible({
+      timeout: 10000,
     });
   });
 
-  test.describe('Palette Creation', () => {
-    test('should add 3 colors to palette', async () => {
-      const addButton = page.getByRole('button', { name: 'Add Color' });
+  await test.step('adds 3 colors to palette', async () => {
+    const addButton = page.getByRole('button', { name: 'Add Color' });
 
-      await addButton.click();
-      await addButton.click();
-      await addButton.click();
+    await addButton.click();
+    await page.waitForTimeout(collapseDuration);
+    await addButton.click();
+    await page.waitForTimeout(collapseDuration);
+    await addButton.click();
+    await page.waitForTimeout(collapseDuration);
 
-      await expect(page.getByLabel('Export scale')).toHaveCount(4);
-    });
+    await expect(page.getByLabel('Export scale')).toHaveCount(4);
 
-    test('should login with credentials', async () => {
-      await page.getByRole('button', { name: 'Save' }).click();
-
-      await page.getByRole('textbox', { name: 'Email*' }).fill('test@example.com');
-      await page.getByRole('textbox', { name: 'Password*' }).fill('password123');
-
-      await page.getByRole('button', { name: 'Login', exact: true }).click();
-
-      await expect(page.getByRole('button', { name: 'Sign In' })).not.toBeVisible({
-        timeout: 10000,
-      });
-
-      // Avatar shows user menu button
-      const avatar = page.getByLabel('User Menu');
-
-      await expect(avatar).toBeVisible();
-    });
+    await expect(page).toHaveScreenshot('03-unsaved-palette.png');
   });
 
-  test.describe('Palette Management', () => {
-    test('should save palette with name', async () => {
-      await page.getByRole('button', { name: 'Save' }).click();
+  await test.step('logs back in via Save flow', async () => {
+    await page.getByRole('button', { name: 'Save' }).click();
 
-      await expect(page.getByRole('textbox', { name: 'Name*' })).toBeVisible();
-      await page.getByRole('textbox', { name: 'Name*' }).fill(paletteName);
+    await page.getByRole('textbox', { name: 'Email*' }).fill('test@example.com');
+    await page.getByRole('textbox', { name: 'Password*' }).fill('password123');
 
-      await page.getByRole('button', { name: 'Save', exact: true }).last().click();
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
 
-      await expect(page.getByRole('textbox', { name: 'Name*' })).not.toBeVisible();
-
-      expect(mockState.palettes.length).toBe(1);
-      expect(mockState.palettes[0].name).toBe(paletteName);
+    await expect(
+      page.getByTestId('Header').getByRole('button', { name: 'Sign In' }),
+    ).not.toBeVisible({
+      timeout: 10000,
     });
 
-    test('should navigate to My Palettes', async () => {
-      await page.getByRole('link', { name: 'My Palettes' }).click();
-      await page.waitForURL(/\/palettes/);
-    });
+    const avatar = page.getByLabel('User Menu');
 
-    test('should show saved palette', async () => {
-      await expect(page.getByText(paletteName)).toBeVisible({ timeout: 10000 });
-    });
-
-    test('should favorite palette', async () => {
-      const favoriteButton = page.getByRole('button', {
-        name: `Favorite Palette (${paletteName})`,
-      });
-
-      await expect(favoriteButton).toBeVisible({ timeout: 5000 });
-      await favoriteButton.click();
-
-      // Wait for favorite state to update
-      await expect(favoriteButton).toHaveClass(/text-success/, { timeout: 5000 });
-
-      const buttonClass = await favoriteButton.getAttribute('class');
-
-      expect(buttonClass).toContain('text-success');
-      expect(mockState.palettes[0].isFavorite).toBe(true);
-    });
-
-    test('should persist favorite after refresh', async () => {
-      await page.reload();
-      await page.waitForLoadState('networkidle');
-
-      const unfavoriteButton = page.getByRole('button', {
-        name: `Unfavorite Palette (${paletteName})`,
-      });
-
-      await expect(unfavoriteButton).toBeVisible({ timeout: 10000 });
-
-      const buttonClass = await unfavoriteButton.getAttribute('class');
-
-      expect(buttonClass).toContain('text-success');
-    });
-
-    test('should load palette', async () => {
-      const loadLink = page.getByRole('link', { name: `Load Palette (${paletteName})` });
-
-      await expect(loadLink).toBeVisible({ timeout: 5000 });
-      await loadLink.click();
-      await page.waitForURL(/\/p\//);
-
-      const url = page.url();
-      const colorSegments = url.split('/p/')[1]?.split('/') ?? [];
-
-      expect(colorSegments.length).toBe(4);
-
-      // Verify palette ID is in URL
-      const urlObject = new URL(url);
-      const paletteId = urlObject.searchParams.get('id');
-
-      expect(paletteId).toBeTruthy();
-    });
-
-    test('should verify loaded palette has 4 colors', async () => {
-      await expect(page.getByLabel('Export scale')).toHaveCount(4);
-    });
-
-    test('should rename palette', async () => {
-      // HeroUI Input wraps the actual input element
-      const paletteHeader = page.locator('[data-testid="PaletteHeader"]');
-      const nameInput = paletteHeader.locator('input');
-
-      await expect(nameInput).toBeVisible();
-      await expect(nameInput).toHaveValue(paletteName);
-
-      // Clear and enter new name
-      const newName = `${paletteName}-renamed`;
-
-      await nameInput.clear();
-      await nameInput.fill(newName);
-      await nameInput.press('Enter');
-
-      // Verify mock state updated
-      expect(mockState.palettes[0].name).toBe(newName);
-
-      // Update variable for subsequent tests
-      paletteName = newName;
-    });
-
-    test('should rename colors and persist palette id', async () => {
-      // Store the initial palette ID
-      const initialUrl = page.url();
-      const initialUrlObject = new URL(initialUrl);
-      const paletteId = initialUrlObject.searchParams.get('id');
-
-      expect(paletteId).toBeTruthy();
-
-      // Rename colors to One, Two, Three, Four
-      const colorNames = ['One', 'Two', 'Three', 'Four'];
-
-      for (const [index, colorName] of colorNames.entries()) {
-        const input = page.locator(`input[name="color-name-${index}"]`);
-
-        await input.clear();
-        await input.fill(colorName);
-        await input.press('Enter');
-      }
-
-      // Verify Update button is active (not disabled)
-      const updateButton = page.getByRole('button', { name: 'Update' });
-
-      await expect(updateButton).toBeVisible();
-      await expect(updateButton).toBeEnabled();
-
-      // Click Update
-      await updateButton.click();
-
-      // Wait for save to complete (button becomes disabled when no unsaved changes)
-      await expect(updateButton).toBeDisabled({ timeout: 5000 });
-
-      // Navigate to My Palettes
-      await page.getByRole('link', { name: 'My Palettes' }).click();
-      await page.waitForURL(/\/palettes/);
-
-      // Load the palette again
-      const loadLink = page.getByRole('link', { name: `Load Palette (${paletteName})` });
-
-      await expect(loadLink).toBeVisible({ timeout: 5000 });
-      await loadLink.click();
-      await page.waitForURL(/\/p\//);
-
-      // Verify the palette ID persists
-      const newUrl = page.url();
-      const newUrlObject = new URL(newUrl);
-      const newPaletteId = newUrlObject.searchParams.get('id');
-
-      expect(newPaletteId).toBe(paletteId);
-    });
+    await expect(avatar).toBeVisible();
   });
 
-  test.describe('Cleanup', () => {
-    test('should delete the test palette', async () => {
-      await page.getByRole('link', { name: 'My Palettes' }).click();
-      await page.waitForURL(/\/palettes/);
+  await test.step('saves palette with name', async () => {
+    await page.getByRole('button', { name: 'Save' }).click();
 
-      const removeButton = page.getByRole('button', {
+    await expect(page.getByRole('textbox', { name: 'Name*' })).toBeVisible();
+    await page.getByRole('textbox', { name: 'Name*' }).fill(paletteName);
+
+    await page.getByRole('button', { name: 'Save', exact: true }).last().click();
+
+    await expect(page.getByRole('textbox', { name: 'Name*' })).not.toBeVisible();
+
+    expect(mockState.palettes.length).toBe(1);
+    expect(mockState.palettes[0].name).toBe(paletteName);
+
+    await expect(page).toHaveScreenshot('04-palette-saved.png');
+  });
+
+  await test.step('navigates to My Palettes', async () => {
+    await page.getByRole('link', { name: 'My Palettes' }).click();
+    await page.waitForURL(/\/palettes/);
+
+    await expect(page).toHaveScreenshot('05-my-palettes.png');
+  });
+
+  await test.step('shows saved palette', async () => {
+    await expect(page.getByText(paletteName)).toBeVisible({ timeout: 10000 });
+  });
+
+  await test.step('favorites palette', async () => {
+    const favoriteButton = page.getByRole('button', {
+      name: `Favorite Palette (${paletteName})`,
+    });
+
+    await expect(favoriteButton).toBeVisible({ timeout: 5000 });
+    await favoriteButton.click();
+
+    await expect(favoriteButton).toHaveClass(/text-success/, { timeout: 5000 });
+
+    const buttonClass = await favoriteButton.getAttribute('class');
+
+    expect(buttonClass).toContain('text-success');
+    expect(mockState.palettes[0].isFavorite).toBe(true);
+  });
+
+  await test.step('persists favorite after refresh', async () => {
+    await page.reload();
+    await page.waitForLoadState('networkidle');
+
+    const unfavoriteButton = page.getByRole('button', {
+      name: `Unfavorite Palette (${paletteName})`,
+    });
+
+    await expect(unfavoriteButton).toBeVisible({ timeout: 10000 });
+
+    const buttonClass = await unfavoriteButton.getAttribute('class');
+
+    expect(buttonClass).toContain('text-success');
+  });
+
+  await test.step('loads palette', async () => {
+    const loadLink = page.getByRole('link', { name: `Load Palette (${paletteName})` });
+
+    await expect(loadLink).toBeVisible({ timeout: 5000 });
+    await loadLink.click();
+    await page.waitForURL(/\/p\//);
+
+    const url = page.url();
+    const colorSegments = url.split('/p/')[1]?.split('/') ?? [];
+
+    expect(colorSegments.length).toBe(4);
+
+    const urlObject = new URL(url);
+    const paletteId = urlObject.searchParams.get('id');
+
+    expect(paletteId).toBeTruthy();
+
+    await expect(page).toHaveScreenshot('06-loaded-palette.png');
+  });
+
+  await test.step('verifies loaded palette has 4 colors', async () => {
+    await expect(page.getByLabel('Export scale')).toHaveCount(4);
+  });
+
+  await test.step('renames palette', async () => {
+    const paletteHeader = page.locator('[data-testid="PaletteHeader"]');
+    const nameInput = paletteHeader.locator('input');
+
+    await expect(nameInput).toBeVisible();
+    await expect(nameInput).toHaveValue(paletteName);
+
+    const newName = `${paletteName}-renamed`;
+
+    await nameInput.clear();
+    await nameInput.fill(newName);
+    await nameInput.press('Enter');
+
+    expect(mockState.palettes[0].name).toBe(newName);
+
+    paletteName = newName;
+  });
+
+  await test.step('renames colors and persists palette id', async () => {
+    const initialUrl = page.url();
+    const initialUrlObject = new URL(initialUrl);
+    const paletteId = initialUrlObject.searchParams.get('id');
+
+    expect(paletteId).toBeTruthy();
+
+    const colorNames = ['One', 'Two', 'Three', 'Four'];
+
+    for (const [index, colorName] of colorNames.entries()) {
+      const input = page.locator(`input[name="color-name-${index}"]`);
+
+      await input.clear();
+      await input.fill(colorName);
+      await input.press('Enter');
+    }
+
+    const updateButton = page.getByRole('button', { name: 'Update' });
+
+    await expect(updateButton).toBeVisible();
+    await expect(updateButton).toBeEnabled();
+
+    await updateButton.click();
+
+    // Button disables when no unsaved changes
+    await expect(updateButton).toBeDisabled({ timeout: 5000 });
+
+    await expect(page).toHaveScreenshot('07-updated-palettes.png');
+
+    await page.getByLabel('closeButton').click();
+
+    await page.getByRole('link', { name: 'My Palettes' }).click();
+    await page.waitForURL(/\/palettes/);
+
+    const loadLink = page.getByRole('link', { name: `Load Palette (${paletteName})` });
+
+    await expect(loadLink).toBeVisible({ timeout: 5000 });
+    await loadLink.click();
+    await page.waitForURL(/\/p\//);
+
+    const newUrl = page.url();
+    const newUrlObject = new URL(newUrl);
+    const newPaletteId = newUrlObject.searchParams.get('id');
+
+    expect(newPaletteId).toBe(paletteId);
+  });
+
+  await test.step('deletes the test palette', async () => {
+    await page.getByRole('link', { name: 'My Palettes' }).click();
+    await page.waitForURL(/\/palettes/);
+
+    await page
+      .getByRole('button', {
         name: `Remove Palette (${paletteName})`,
-      });
+      })
+      .click();
 
-      await expect(removeButton).toBeVisible({ timeout: 10000 });
-      await removeButton.click();
+    await page.getByRole('button', { name: 'Confirm' }).click();
 
-      await page.getByRole('button', { name: 'Confirm' }).click();
+    await expect(
+      page.getByRole('link', { name: `Load Palette (${paletteName})` }),
+    ).not.toBeVisible();
 
-      await expect(
-        page.getByRole('link', { name: `Load Palette (${paletteName})` }),
-      ).not.toBeVisible();
+    expect(mockState.palettes.length).toBe(0);
 
-      expect(mockState.palettes.length).toBe(0);
-    });
+    await expect(page).toHaveScreenshot('08-clean-palettes.png');
   });
 });
