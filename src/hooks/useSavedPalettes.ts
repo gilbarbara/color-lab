@@ -1,8 +1,11 @@
+'use client';
+
 import { useCallback, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
+import usePalette from '~/hooks/usePalette';
 import {
   createPalette,
   deletePalette as deletePaletteService,
@@ -10,16 +13,114 @@ import {
   updatePalette as updatePaletteService,
 } from '~/services/palettes';
 import { usePalettesStore } from '~/stores/palettesStore';
-import { usePaletteStore } from '~/stores/paletteStore';
-import { serializePaletteToUrl, updatePaletteIdInUrl } from '~/utils/url';
+import { updatePaletteIdInUrl } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
 
+/**
+ * Full saved-palette hook: list management plus save/update of the *current* palette.
+ * The save operations read the per-request palette store, so this must be used inside
+ * a PaletteStoreProvider (the generator routes). The `/palettes` list page should use
+ * {@link useSavedPalettesList} instead.
+ */
 export default function useSavedPalettes() {
-  const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth();
+  const router = useRouter();
+  const { user } = useAuth();
+  const list = useSavedPalettesList();
 
-  const paletteStore = usePaletteStore();
+  const { generatorUrl: currentUrl } = usePalette('generatorUrl');
+  const { lastSavedUrl, paletteId, paletteName, setPalette } = useApp(
+    'lastSavedUrl',
+    'paletteId',
+    'paletteName',
+    'setPalette',
+  );
+  const {
+    addPalette,
+    setError,
+    setStatus,
+    updatePalette: updatePaletteInStore,
+  } = usePalettesStore();
+
+  // Check if there are unsaved changes (strip ID from lastSavedUrl for comparison)
+  const hasUnsavedChanges = useMemo(() => {
+    if (!paletteId || !lastSavedUrl) {
+      return false;
+    }
+
+    return currentUrl !== updatePaletteIdInUrl(lastSavedUrl, null);
+  }, [currentUrl, lastSavedUrl, paletteId]);
+
+  // Save a new palette
+  const savePalette = useCallback(
+    async (rawName: string): Promise<SavedPalette | null> => {
+      const name = rawName.trim();
+
+      if (!name || !user?.uid) {
+        return null;
+      }
+
+      setStatus('saving');
+
+      try {
+        const palette = await createPalette(user.uid, name, currentUrl);
+
+        addPalette(palette);
+        setPalette(palette.id, palette.name, palette.url);
+
+        router.replace(palette.url);
+
+        setStatus('idle');
+
+        return palette;
+      } catch (error_) {
+        setError(error_ instanceof Error ? error_.message : 'Failed to save palette');
+
+        return null;
+      }
+    },
+    [user?.uid, currentUrl, setPalette, addPalette, setError, setStatus, router],
+  );
+
+  // Update the currently loaded palette
+  const updateCurrentPalette = useCallback(async (): Promise<boolean> => {
+    if (!paletteId) {
+      return false;
+    }
+
+    setStatus('saving');
+
+    try {
+      const updated = await updatePaletteService(paletteId, { url: currentUrl });
+
+      updatePaletteInStore(paletteId, { url: updated.url, updatedAt: updated.updatedAt });
+      setPalette(paletteId, paletteName, updated.url);
+      setStatus('idle');
+
+      return true;
+    } catch (error_) {
+      setError(error_ instanceof Error ? error_.message : 'Failed to update palette');
+
+      return false;
+    }
+  }, [paletteId, paletteName, currentUrl, updatePaletteInStore, setPalette, setError, setStatus]);
+
+  return {
+    ...list,
+    currentUrl,
+    hasUnsavedChanges,
+    savePalette,
+    updateCurrentPalette,
+  };
+}
+
+/**
+ * Saved-palette list management (fetch + CRUD on the user's saved list). Does NOT
+ * depend on the per-request palette store, so it is safe to use outside the
+ * PaletteStoreProvider (e.g. the `/palettes` page).
+ */
+export function useSavedPalettesList() {
+  const { isAuthenticated, user } = useAuth();
   const { clearPalette, lastSavedUrl, paletteId, paletteName, setPalette } = useApp(
     'clearPalette',
     'lastSavedUrl',
@@ -28,7 +129,6 @@ export default function useSavedPalettes() {
     'setPalette',
   );
   const {
-    addPalette,
     error,
     loadedUserId,
     palettes,
@@ -40,25 +140,6 @@ export default function useSavedPalettes() {
     status,
     updatePalette: updatePaletteInStore,
   } = usePalettesStore();
-
-  // Compute current URL from palette state
-  const currentUrl = useMemo(
-    () =>
-      serializePaletteToUrl({
-        colors: paletteStore.colors,
-        globalOptions: paletteStore.globalOptions,
-      }),
-    [paletteStore.colors, paletteStore.globalOptions],
-  );
-
-  // Check if there are unsaved changes (strip ID from lastSavedUrl for comparison)
-  const hasUnsavedChanges = useMemo(() => {
-    if (!paletteId || !lastSavedUrl) {
-      return false;
-    }
-
-    return currentUrl !== updatePaletteIdInUrl(lastSavedUrl, null);
-  }, [currentUrl, lastSavedUrl, paletteId]);
 
   // Fetch palettes on mount when authenticated; dedupe per uid
   useEffect(() => {
@@ -86,60 +167,6 @@ export default function useSavedPalettes() {
 
     fetchPalettes();
   }, [isAuthenticated, user?.uid, loadedUserId, reset, setError, setPalettes, setStatus]);
-
-  // Save a new palette
-  const savePalette = useCallback(
-    async (rawName: string): Promise<SavedPalette | null> => {
-      const name = rawName.trim();
-
-      if (!name || !user?.uid) {
-        return null;
-      }
-
-      setStatus('saving');
-
-      try {
-        const palette = await createPalette(user.uid, name, currentUrl);
-
-        addPalette(palette);
-        setPalette(palette.id, palette.name, palette.url);
-
-        navigate(palette.url, { replace: true });
-
-        setStatus('idle');
-
-        return palette;
-      } catch (error_) {
-        setError(error_ instanceof Error ? error_.message : 'Failed to save palette');
-
-        return null;
-      }
-    },
-    [user?.uid, currentUrl, setPalette, addPalette, setError, setStatus, navigate],
-  );
-
-  // Update the currently loaded palette
-  const updateCurrentPalette = useCallback(async (): Promise<boolean> => {
-    if (!paletteId) {
-      return false;
-    }
-
-    setStatus('saving');
-
-    try {
-      const updated = await updatePaletteService(paletteId, { url: currentUrl });
-
-      updatePaletteInStore(paletteId, { url: updated.url, updatedAt: updated.updatedAt });
-      setPalette(paletteId, paletteName, updated.url);
-      setStatus('idle');
-
-      return true;
-    } catch (error_) {
-      setError(error_ instanceof Error ? error_.message : 'Failed to update palette');
-
-      return false;
-    }
-  }, [paletteId, paletteName, currentUrl, updatePaletteInStore, setPalette, setError, setStatus]);
 
   // Delete a palette
   const deletePalette = useCallback(
@@ -220,22 +247,15 @@ export default function useSavedPalettes() {
   );
 
   return {
-    // State
-    currentUrl,
     error,
-    hasUnsavedChanges,
     isLoading: status === 'loading',
     isSaving: status === 'saving',
     paletteId,
     paletteName,
     palettes,
-
-    // Actions
     clearPalette,
     deletePalette,
     renamePalette,
-    savePalette,
     toggleFavorite,
-    updateCurrentPalette,
   };
 }

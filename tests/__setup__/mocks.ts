@@ -1,3 +1,89 @@
+import type { ReactNode } from 'react';
+
+import type { PaletteStore, PaletteStoreApi } from '~/stores/paletteStore';
+
+const navigationMocks = vi.hoisted(() => ({
+  pathname: '/',
+  searchParams: new URLSearchParams(),
+  router: {
+    push: vi.fn<(href: string) => void>(),
+    replace: vi.fn<(href: string) => void>(),
+    back: vi.fn<() => void>(),
+    forward: vi.fn<() => void>(),
+    refresh: vi.fn<() => void>(),
+    prefetch: vi.fn<(href: string) => void>(),
+  },
+}));
+
+const themeMocks = vi.hoisted(() => ({
+  resolvedTheme: 'light' as 'light' | 'dark' | 'system',
+  setTheme: vi.fn<(theme: string) => void>(),
+}));
+
+// Single shared palette store for all tests. The Next migration replaced the
+// global Zustand singleton with a context-scoped factory store (createPaletteStore)
+// read through ~/hooks/usePaletteStore. There is no module-level singleton to import
+// like useAppStore, so tests seed/read state through the `paletteStore` handle
+// exported below, while the mocked hook hands components the same instance. The
+// provider is reduced to a passthrough so no React context is required in tests.
+const paletteStoreHolder = vi.hoisted(() => ({ store: null as PaletteStoreApi | null }));
+
+vi.mock('~/providers/PaletteStoreProvider', () => ({
+  default: ({ children }: { children: ReactNode }) => children,
+}));
+
+vi.mock('~/hooks/usePaletteStore', async () => {
+  const { useStore } = await vi.importActual<typeof import('zustand')>('zustand');
+  const actual =
+    await vi.importActual<typeof import('~/stores/paletteStore')>('~/stores/paletteStore');
+
+  paletteStoreHolder.store ??= actual.createPaletteStore();
+  const { store } = paletteStoreHolder;
+
+  return {
+    default: function usePaletteStore<T>(selector: (state: PaletteStore) => T): T {
+      return useStore(store, selector);
+    },
+    usePaletteStoreApi: () => store,
+  };
+});
+
+vi.mock('next/navigation', () => ({
+  usePathname: () => navigationMocks.pathname,
+  useSearchParams: () => navigationMocks.searchParams,
+  useRouter: () => navigationMocks.router,
+}));
+
+export const mockRouter = navigationMocks.router;
+
+export function setMockRoute(url: string): void {
+  const [pathname, search] = url.split('?');
+
+  navigationMocks.pathname = pathname || '/';
+  navigationMocks.searchParams = new URLSearchParams(search ?? '');
+}
+
+// next-themes' ThemeProvider renders an inline FOUC-prevention <script> into its
+// output, which jsdom captures inside the rendered container and pollutes snapshots.
+// Replace it with a passthrough and expose the theme as controllable state so tests
+// can drive dark mode through the real useTheme hook.
+vi.mock('next-themes', () => ({
+  ThemeProvider: ({ children }: { children: ReactNode }) => children,
+  useTheme: () => ({
+    resolvedTheme: themeMocks.resolvedTheme,
+    theme: themeMocks.resolvedTheme,
+    setTheme: themeMocks.setTheme,
+    themes: ['light', 'dark', 'system'],
+    systemTheme: 'light',
+  }),
+}));
+
+export const mockSetTheme = themeMocks.setTheme;
+
+export function setMockTheme(theme: 'light' | 'dark' | 'system'): void {
+  themeMocks.resolvedTheme = theme;
+}
+
 export const mockAddToast = vi.fn<(...arguments_: unknown[]) => void>();
 
 vi.mock('@heroui/react', async importOriginal => {
@@ -36,9 +122,46 @@ Object.defineProperty(crypto, 'randomUUID', {
   writable: true,
 });
 
-beforeEach(() => {
+// Shared palette store handle for tests. The runtime store is a per-request factory
+// (createPaletteStore) read through ~/hooks/usePaletteStore, so there is no module-level
+// singleton to import like useAppStore. Tests seed/read state through this handle; the
+// mocked hook hands components the same instance via paletteStoreHolder. It is created
+// lazily (the mocked hook or the beforeEach below populate it) to avoid loading the store
+// module — and its @gilbarbara/helpers dependency — before nextUuid is initialized (TDZ).
+export function getPaletteStore(): PaletteStoreApi {
+  if (!paletteStoreHolder.store) {
+    throw new Error('palette store not initialized yet — import a palette hook or run a test');
+  }
+
+  return paletteStoreHolder.store;
+}
+
+beforeEach(async () => {
   uuidCounter = 0;
   mockIsP3Supported.mockReturnValue(true);
+  themeMocks.resolvedTheme = 'light';
+  themeMocks.setTheme.mockClear();
+
+  // Reset the shared store to a deterministic default before each test (test
+  // files seed further in their own beforeEach, which runs after this one).
+  // Lazy import: loading fixtures at module top would pull in @gilbarbara/helpers
+  // before nextUuid is initialized (TDZ).
+  const [{ createTestPalette }, { createPaletteStore }] = await Promise.all([
+    import('~/test-fixtures'),
+    import('~/stores/paletteStore'),
+  ]);
+
+  paletteStoreHolder.store ??= createPaletteStore();
+  const base = createTestPalette();
+
+  paletteStoreHolder.store.setState({
+    ...base,
+    activeColorId: base.colors[0].id,
+    previewColorId: base.colors[0].id,
+  });
+
+  // createTestPalette consumed mocked uuids; reset so each test starts fresh.
+  uuidCounter = 0;
 });
 
 export const mockClipboard: { writeText: ReturnType<typeof vi.fn> } = {

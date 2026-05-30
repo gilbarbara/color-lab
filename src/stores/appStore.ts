@@ -16,6 +16,10 @@ interface AppState {
   paletteId: string | null;
   paletteName: string;
   previewScrollNonce: number;
+  // In-memory only (never persisted): the full URL of the palette being worked on,
+  // so the Header logo can return to it during a session. Not a source of truth —
+  // it defers to the path and is gone on reload (the back button restores history).
+  sessionPalettePath: string | null;
   showBottomBar: boolean;
   showColorOptionsPanel: boolean;
   showLoginModal: boolean;
@@ -36,6 +40,7 @@ export interface AppStateWithActions extends AppState {
   setExportFormatType: (format: ExportFormatType) => void;
   setGamut: (gamut: Gamut) => void;
   setPalette: (id: string | null, name: string | null, url: string | null) => void;
+  setSessionPalettePath: (url: string | null) => void;
   toggleBottomBar: (toggle?: boolean) => void;
   toggleColorOptionsPanel: () => void;
   togglePaletteOptionsPanel: () => void;
@@ -53,6 +58,7 @@ export const initialState: AppState = {
   paletteId: null,
   paletteName: DEFAULT_PALETTE_NAME,
   previewScrollNonce: 0,
+  sessionPalettePath: null,
   showBottomBar: false,
   showColorOptionsPanel: false,
   showLoginModal: false,
@@ -127,6 +133,10 @@ export const useAppStore = create<AppStateWithActions>()(
         });
       },
 
+      setSessionPalettePath: url => {
+        set({ sessionPalettePath: url });
+      },
+
       toggleBottomBar: force => {
         set(state => ({
           showBottomBar: typeof force === 'boolean' ? force : !state.showBottomBar,
@@ -156,7 +166,13 @@ export const useAppStore = create<AppStateWithActions>()(
     {
       name: 'color-lab',
       version: 1,
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() =>
+        typeof window === 'undefined' ? (undefined as unknown as Storage) : localStorage,
+      ),
+      // Skip auto-hydration on both server and client. Manual rehydrate() runs
+      // post-mount via <AppStoreSync /> so initial render matches between
+      // server and client (universal defaults), then localStorage applies.
+      skipHydration: true,
       migrate: state => state,
       partialize: state => ({
         exportColorFormat: state.exportColorFormat,

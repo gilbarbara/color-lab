@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { usePathname } from 'next/navigation';
 
 import { trackPage } from '~/utils/analytics';
 
@@ -15,7 +17,7 @@ function normalizePathname(pathname: string): string | null {
 }
 
 export default function usePageTracking(): void {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const url = normalizePathname(pathname);

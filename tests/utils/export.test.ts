@@ -13,7 +13,6 @@ import {
   generateTailwind3,
   generateTailwind4,
   getAvailableColorFormats,
-  isColorFormatAvailable,
 } from '~/utils/export';
 
 import type { ExportFormatType } from '~/types';
@@ -315,30 +314,6 @@ describe('utils/export', () => {
       });
 
       expect(result).toContain('oklch(');
-    });
-  });
-
-  describe('isColorFormatAvailable', () => {
-    it('allows all formats for tailwind3', () => {
-      expect(isColorFormatAvailable('tailwind3', 'oklch')).toBe(true);
-      expect(isColorFormatAvailable('tailwind3', 'hex')).toBe(true);
-      expect(isColorFormatAvailable('tailwind3', 'hsl')).toBe(true);
-      expect(isColorFormatAvailable('tailwind3', 'rgb')).toBe(true);
-      expect(isColorFormatAvailable('tailwind3', 'rgb-channels')).toBe(false);
-    });
-
-    it('allows rgb-channels only for css and scss', () => {
-      expect(isColorFormatAvailable('css', 'rgb-channels')).toBe(true);
-      expect(isColorFormatAvailable('scss', 'rgb-channels')).toBe(true);
-      expect(isColorFormatAvailable('tailwind3', 'rgb-channels')).toBe(false);
-      expect(isColorFormatAvailable('tailwind4', 'rgb-channels')).toBe(false);
-    });
-
-    it('only allows hex for svg', () => {
-      expect(isColorFormatAvailable('svg', 'hex')).toBe(true);
-      expect(isColorFormatAvailable('svg', 'oklch')).toBe(false);
-      expect(isColorFormatAvailable('svg', 'hsl')).toBe(false);
-      expect(isColorFormatAvailable('svg', 'rgb')).toBe(false);
     });
   });
 

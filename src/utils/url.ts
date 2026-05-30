@@ -1,5 +1,5 @@
-import { objectEntries, uuid } from '@gilbarbara/helpers';
-import * as Sentry from '@sentry/react';
+import { objectEntries } from '@gilbarbara/helpers';
+import * as Sentry from '@sentry/nextjs';
 import { isHex, type ScaleVariant } from 'colorizr';
 
 import { formatOklch, formatOklchUrl, isInRangeOklch, toOklch } from '~/utils/color';
@@ -94,7 +94,10 @@ function encodeName(name: string): string {
  * Parse a single color segment (Name[-Value[-Options]]). Returns either a parsed
  * color, a dropped name (segment was invalid), or both undefined for empty input.
  */
-function parseColorSegment(segment: string): { color?: ColorEntry; dropped?: string } {
+function parseColorSegment(
+  segment: string,
+  index: number,
+): { color?: ColorEntry; dropped?: string } {
   const parts = segment.split('-');
 
   // Trim ALL trailing empty chunks (lenient — 'Primary-FF0044-', 'Primary---ff0044--')
@@ -110,9 +113,9 @@ function parseColorSegment(segment: string): { color?: ColorEntry; dropped?: str
   let optionsString: string | undefined;
   let optionsIndex = -1;
 
-  for (let index = 2; index < parts.length; index++) {
-    if (parts[index].includes(':')) {
-      optionsIndex = index;
+  for (let index_ = 2; index_ < parts.length; index_++) {
+    if (parts[index_].includes(':')) {
+      optionsIndex = index_;
       break;
     }
   }
@@ -135,7 +138,7 @@ function parseColorSegment(segment: string): { color?: ColorEntry; dropped?: str
     return { dropped: name };
   }
 
-  const color: ColorEntry = { id: uuid(), name, value };
+  const color: ColorEntry = { id: colorId(segment, index), name, value };
 
   if (optionsString !== undefined) {
     color.overrides = parseOptions(optionsString);
@@ -393,6 +396,27 @@ function urlToColorValue(urlValue: string): OklchString | null {
 }
 
 /**
+ * Reconstruct a `/p/{slug}?{query}` URL from Next.js route params,
+ * flattening array-valued search params back into repeated keys.
+ */
+export function buildUrl(slug: string[], searchParams: Record<string, string | string[]>): string {
+  const path = `/p/${slug.join('/')}`;
+  const flatParams = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    if (Array.isArray(value)) {
+      for (const v of value) flatParams.append(key, v);
+    } else {
+      flatParams.set(key, value);
+    }
+  }
+
+  const query = flatParams.toString();
+
+  return query ? `${path}?${query}` : path;
+}
+
+/**
  * Round-trip a palette URL through parse + serialize so the result is in the
  * current canonical form (OKLCH values, latest precision).
  *
@@ -413,6 +437,23 @@ export function canonicalizeUrl(url: string): string {
   }
 
   return updatePaletteIdInUrl(serializePaletteToUrl(parsed.state), id);
+}
+
+/**
+ * Stable ID derived from segment + index. Keeps SSR/CSR markup identical:
+ * `uuid()` would produce different IDs on each call, breaking React hydration
+ * when the server-rendered tree and the client-parsed tree diverge.
+ */
+export function colorId(segment: string, index: number): string {
+  let hash = 0;
+
+  const input = `${index}:${segment}`;
+
+  for (let index_ = 0; index_ < input.length; index_++) {
+    hash = (Math.imul(hash, 31) + (input.codePointAt(index_) ?? 0)) | 0;
+  }
+
+  return `c-${(hash >>> 0).toString(36)}`;
 }
 
 /**
@@ -456,8 +497,8 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
   const colors: ColorEntry[] = [];
   const dropped: string[] = [];
 
-  for (const segment of pathSegments) {
-    const { color, dropped: droppedName } = parseColorSegment(segment);
+  for (const [index, pathSegment] of pathSegments.entries()) {
+    const { color, dropped: droppedName } = parseColorSegment(pathSegment, index);
 
     if (color) colors.push(color);
     if (droppedName !== undefined) dropped.push(droppedName);

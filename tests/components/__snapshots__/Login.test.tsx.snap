@@ -52,6 +52,7 @@ exports[`Login > Render > renders modal when open 1`] = `
   </button>
   <div
     class="flex flex-1 flex-col overflow-y-auto p-4 gap-4"
+    data-testid="Login"
     id="_r_2_"
   >
     <div
@@ -87,13 +88,22 @@ exports[`Login > Render > renders modal when open 1`] = `
         tabindex="0"
         type="button"
       >
-        <img
-          alt="GitHub"
+        <span
           aria-hidden="true"
-          class="size-5"
+          class="contents"
           focusable="false"
-          src="/icons/github.svg"
-        />
+        >
+          <img
+            alt="GitHub"
+            class="size-5 block dark:hidden"
+            src="/icons/github.svg"
+          />
+          <img
+            alt="GitHub"
+            class="size-5 hidden dark:block"
+            src="/icons/github-dark.svg"
+          />
+        </span>
         Continue with GitHub
       </button>
       <div

@@ -1,7 +1,5 @@
-import { Link } from 'react-router';
 import { cn } from '@heroui/react';
-
-import useTheme from '~/hooks/useTheme';
+import Link from 'next/link';
 
 import Contact from '~/components/Contact';
 
@@ -10,8 +8,6 @@ interface FooterProps {
 }
 
 export default function Footer({ hideBorder = false }: FooterProps) {
-  const { isDarkMode } = useTheme();
-
   return (
     <footer
       className={cn(
@@ -24,11 +20,11 @@ export default function Footer({ hideBorder = false }: FooterProps) {
     >
       <Contact />
       <span className="text-foreground-500">·</span>
-      <Link to="/about">About</Link>
+      <Link href="/about">About</Link>
       <span className="text-foreground-500">·</span>
-      <Link to="/privacy">Privacy</Link>
+      <Link href="/privacy">Privacy</Link>
       <span className="text-foreground-500">·</span>
-      <Link to="/terms">Terms</Link>
+      <Link href="/terms">Terms</Link>
       <span className="text-foreground-500">·</span>
       <a
         className="inline-flex items-center gap-2"
@@ -36,11 +32,8 @@ export default function Footer({ hideBorder = false }: FooterProps) {
         rel="noopener noreferrer"
         target="_blank"
       >
-        <img
-          alt="GitHub"
-          className="size-3"
-          src={isDarkMode ? '/icons/github-dark.svg' : '/icons/github.svg'}
-        />
+        <img alt="GitHub" className="size-3 block dark:hidden" src="/icons/github.svg" />
+        <img alt="GitHub" className="size-3 hidden dark:block" src="/icons/github-dark.svg" />
         GitHub
       </a>
     </footer>

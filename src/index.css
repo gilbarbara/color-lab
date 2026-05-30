@@ -3,6 +3,15 @@
 @source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @source '../node_modules/@transience/color-picker/dist/**/*.{js,mjs,jsx,mts}';
 @custom-variant dark (&:is(.dark *));
+@custom-variant gamut-srgb (&:is([data-gamut='srgb'] *));
+@custom-variant p3-supported (&:is([data-p3-supported='true'] *));
+@custom-variant p3-unsupported (&:is([data-p3-supported='false'] *));
+@custom-variant sidebar-open (&:is([data-sidebar='open'] *));
+@custom-variant sidebar-closed (&:is([data-sidebar='closed'] *));
+@custom-variant preview-open (&:is([data-preview='open'] *));
+@custom-variant preview-closed (&:is([data-preview='closed'] *));
+@custom-variant color-options-open (&:is([data-color-options='open'] *));
+@custom-variant palette-options-open (&:is([data-palette-options='open'] *));
 
 @theme {
   --color-tooltip: #d5e2ec;
@@ -18,8 +27,84 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-.w-color-chrome {
-  > div:nth-child(3) {
-    padding-bottom: 8px !important;
+@utility button-menu-square {
+  @apply px-0 min-w-8 w-8;
+}
+
+/* Preview scope: rebinds canonical `--color-preview-*` token names to the
+   matching (theme × gamut) variant emitted by buildPreviewScope(). Dark mode
+   flip happens via `.dark`; gamut flip via `[data-gamut='srgb']` on html.
+   Server emits all four variants inline; CSS picks at paint, no JS branch. */
+@layer components {
+  .preview-scope {
+    --color-preview: var(--color-preview-light-oklch);
+    --color-preview-foreground: var(--color-preview-foreground-light-oklch);
+    --color-preview-50: var(--color-preview-50-light-oklch);
+    --color-preview-100: var(--color-preview-100-light-oklch);
+    --color-preview-200: var(--color-preview-200-light-oklch);
+    --color-preview-300: var(--color-preview-300-light-oklch);
+    --color-preview-400: var(--color-preview-400-light-oklch);
+    --color-preview-500: var(--color-preview-500-light-oklch);
+    --color-preview-600: var(--color-preview-600-light-oklch);
+    --color-preview-700: var(--color-preview-700-light-oklch);
+    --color-preview-800: var(--color-preview-800-light-oklch);
+    --color-preview-900: var(--color-preview-900-light-oklch);
   }
+
+  .dark .preview-scope {
+    --color-preview: var(--color-preview-dark-oklch);
+    --color-preview-foreground: var(--color-preview-foreground-dark-oklch);
+    --color-preview-50: var(--color-preview-50-dark-oklch);
+    --color-preview-100: var(--color-preview-100-dark-oklch);
+    --color-preview-200: var(--color-preview-200-dark-oklch);
+    --color-preview-300: var(--color-preview-300-dark-oklch);
+    --color-preview-400: var(--color-preview-400-dark-oklch);
+    --color-preview-500: var(--color-preview-500-dark-oklch);
+    --color-preview-600: var(--color-preview-600-dark-oklch);
+    --color-preview-700: var(--color-preview-700-dark-oklch);
+    --color-preview-800: var(--color-preview-800-dark-oklch);
+    --color-preview-900: var(--color-preview-900-dark-oklch);
+  }
+
+  [data-gamut='srgb'] .preview-scope {
+    --color-preview: var(--color-preview-light-hex);
+    --color-preview-foreground: var(--color-preview-foreground-light-hex);
+    --color-preview-50: var(--color-preview-50-light-hex);
+    --color-preview-100: var(--color-preview-100-light-hex);
+    --color-preview-200: var(--color-preview-200-light-hex);
+    --color-preview-300: var(--color-preview-300-light-hex);
+    --color-preview-400: var(--color-preview-400-light-hex);
+    --color-preview-500: var(--color-preview-500-light-hex);
+    --color-preview-600: var(--color-preview-600-light-hex);
+    --color-preview-700: var(--color-preview-700-light-hex);
+    --color-preview-800: var(--color-preview-800-light-hex);
+    --color-preview-900: var(--color-preview-900-light-hex);
+  }
+
+  .dark [data-gamut='srgb'] .preview-scope {
+    --color-preview: var(--color-preview-dark-hex);
+    --color-preview-foreground: var(--color-preview-foreground-dark-hex);
+    --color-preview-50: var(--color-preview-50-dark-hex);
+    --color-preview-100: var(--color-preview-100-dark-hex);
+    --color-preview-200: var(--color-preview-200-dark-hex);
+    --color-preview-300: var(--color-preview-300-dark-hex);
+    --color-preview-400: var(--color-preview-400-dark-hex);
+    --color-preview-500: var(--color-preview-500-dark-hex);
+    --color-preview-600: var(--color-preview-600-dark-hex);
+    --color-preview-700: var(--color-preview-700-dark-hex);
+    --color-preview-800: var(--color-preview-800-dark-hex);
+    --color-preview-900: var(--color-preview-900-dark-hex);
+  }
+}
+
+@utility preview-bg-dark {
+  @apply bg-[#181818] text-white;
+}
+
+@utility preview-bg-light {
+  @apply bg-[#f7f7f7] text-black;
+}
+
+@utility preview-bg-auto {
+  @apply bg-[#f7f7f7] text-black dark:bg-[#181818] dark:text-white;
 }

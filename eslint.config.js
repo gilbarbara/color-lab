@@ -18,4 +18,9 @@ export default [
       'testing-library/prefer-screen-queries': 'off',
     },
   },
+  {
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    }
+  }
 ];

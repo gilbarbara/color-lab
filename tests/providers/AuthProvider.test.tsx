@@ -34,8 +34,9 @@ vi.mock('firebase/auth', () => ({
   }),
 }));
 
-vi.mock('~/utils/firebase', () => ({
-  auth: {},
+vi.mock('~/utils/firebase', async importOriginal => ({
+  ...(await importOriginal<typeof import('~/utils/firebase')>()),
+  getFirebaseAuth: () => ({}),
 }));
 
 const mockFirebaseUser = {
@@ -214,8 +215,8 @@ describe('providers/AuthProvider', () => {
         expect(result.current.isLoading).toBe(false);
       });
 
-      act(() => {
-        result.current.loginWithOAuth('google');
+      await act(async () => {
+        await result.current.loginWithOAuth('google');
       });
 
       expect(mockSignInWithPopup).toHaveBeenCalledWith(expect.anything(), expect.any(Object));
@@ -230,8 +231,8 @@ describe('providers/AuthProvider', () => {
         expect(result.current.isLoading).toBe(false);
       });
 
-      act(() => {
-        result.current.loginWithOAuth('github');
+      await act(async () => {
+        await result.current.loginWithOAuth('github');
       });
 
       expect(mockSignInWithPopup).toHaveBeenCalledWith(expect.anything(), expect.any(Object));

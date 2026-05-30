@@ -1,5 +1,6 @@
 import { objectKeys, uuid } from '@gilbarbara/helpers';
 
+import { DEFAULT_COLOR_NAMES } from '~/config/globals';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
 import type {
@@ -27,37 +28,6 @@ export const PALETTE_OPTION_KEYS = [
   'steps',
   'variant',
 ] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
-
-/**
- * Get default global options with saturation computed from the given color.
- */
-export function getDefaultGlobalOptions(color: OklchString): GlobalScaleOptions {
-  return {
-    chromaCurve: 0,
-    lightnessCurve: 1.3,
-    lock: undefined,
-    maxLightness: 0.97,
-    minLightness: 0.26,
-    mode: 'light',
-    saturation: getChromaAsPercentage(color),
-    saturationOverride: false,
-    steps: 11,
-    variant: undefined,
-  };
-}
-
-const DEFAULT_COLOR_NAMES = [
-  'Primary',
-  'Secondary',
-  'Tertiary',
-  'Accent',
-  'Color 5',
-  'Color 6',
-  'Color 7',
-  'Color 8',
-  'Color 9',
-  'Color 10',
-];
 
 /**
  * Add a new color to the palette
@@ -101,6 +71,24 @@ export function createPalette(initialColor?: OklchString): PaletteState {
  */
 export function getDefaultColorName(index: number): string {
   return DEFAULT_COLOR_NAMES[index] ?? `Color ${index + 1}`;
+}
+
+/**
+ * Get default global options with saturation computed from the given color.
+ */
+export function getDefaultGlobalOptions(color: OklchString): GlobalScaleOptions {
+  return {
+    chromaCurve: 0,
+    lightnessCurve: 1.3,
+    lock: undefined,
+    maxLightness: 0.97,
+    minLightness: 0.26,
+    mode: 'light',
+    saturation: getChromaAsPercentage(color),
+    saturationOverride: false,
+    steps: 11,
+    variant: undefined,
+  };
 }
 
 /**

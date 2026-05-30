@@ -1,0 +1,110 @@
+import { useAppStore } from '~/stores/appStore';
+import { CRIMSON } from '~/test-fixtures';
+import { mockAddToast, mockClipboard } from '~/test-mocks';
+import { fireEvent, render, screen, waitFor } from '~/test-utils';
+
+import Swatch from '~/containers/Palette/Swatch';
+
+describe('Swatch', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    useAppStore.setState({ gamut: 'p3' });
+    mockClipboard.writeText.mockResolvedValue(undefined);
+  });
+
+  describe('Render', () => {
+    it('renders OKLCH background when gamut is p3', () => {
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      expect(screen.getByRole('button')).toMatchSnapshot();
+    });
+
+    it('renders hex background when gamut is srgb', () => {
+      useAppStore.setState({ gamut: 'srgb' });
+
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      expect(screen.getByRole('button')).toMatchSnapshot();
+    });
+
+    it('renders with lock icon', () => {
+      render(<Swatch color={CRIMSON} lock={500} step="500" />);
+
+      expect(screen.getByRole('button')).toMatchSnapshot();
+    });
+  });
+
+  describe('Behavior', () => {
+    it('copies color to clipboard on click', async () => {
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      fireEvent.click(screen.getByRole('button'));
+
+      await waitFor(() => {
+        expect(mockClipboard.writeText).toHaveBeenCalledWith(CRIMSON);
+      });
+
+      expect(mockAddToast).toHaveBeenCalledWith(
+        expect.objectContaining({
+          description: `${CRIMSON} copied`,
+        }),
+      );
+    });
+
+    it('copies color on Enter key', async () => {
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      const swatch = screen.getByRole('button');
+
+      fireEvent.keyDown(swatch, { key: 'Enter' });
+
+      await waitFor(() => {
+        expect(mockClipboard.writeText).toHaveBeenCalledWith(CRIMSON);
+      });
+    });
+
+    it('copies color on Space key', async () => {
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      const swatch = screen.getByRole('button');
+
+      fireEvent.keyDown(swatch, { key: ' ' });
+
+      await waitFor(() => {
+        expect(mockClipboard.writeText).toHaveBeenCalledWith(CRIMSON);
+      });
+    });
+
+    it('shows error toast when clipboard fails', async () => {
+      mockClipboard.writeText.mockRejectedValue(new Error('Clipboard error'));
+
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      const swatch = screen.getByRole('button');
+
+      fireEvent.click(swatch);
+
+      await waitFor(() => {
+        expect(mockAddToast).toHaveBeenCalledWith(
+          expect.objectContaining({
+            description: `Failed to copy ${CRIMSON} to your clipboard`,
+            color: 'danger',
+          }),
+        );
+      });
+    });
+
+    it('shows lock icon when step matches lock value', () => {
+      render(<Swatch color={CRIMSON} lock={500} step="500" />);
+
+      expect(screen.getByRole('button').querySelector('svg')).toBeInTheDocument();
+    });
+
+    it('does not show lock icon when step does not match', () => {
+      render(<Swatch color={CRIMSON} lock={600} step="500" />);
+
+      // Only the step text should be present, no lock icon
+      expect(screen.getByText('500')).toBeInTheDocument();
+    });
+  });
+});

@@ -1,21 +1,16 @@
 import { act, renderHook } from '@testing-library/react';
 
 import usePalette from '~/hooks/usePalette';
-import { usePaletteStore } from '~/stores/paletteStore';
 import { BLUE, CRIMSON, GREEN } from '~/test-fixtures';
+import { getPaletteStore } from '~/test-mocks';
 import { getChromaAsPercentage } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
-
-vi.mock('react-router', () => ({
-  useLocation: () => ({ pathname: '/', search: '' }),
-  useNavigate: () => vi.fn(),
-}));
 
 describe('hooks/usePalette', () => {
   beforeEach(() => {
     const palette = createPalette(CRIMSON);
 
-    usePaletteStore.setState({ ...palette, activeColorId: palette.colors[0].id });
+    getPaletteStore().setState({ ...palette, activeColorId: palette.colors[0].id });
   });
 
   describe('computed values', () => {
@@ -339,17 +334,17 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().updateColor(0, { name: 'Renamed' });
+        getPaletteStore().getState().updateColor(0, { name: 'Renamed' });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().updateGlobalOptions({ lightnessCurve: 1.5 });
+        getPaletteStore().getState().updateGlobalOptions({ lightnessCurve: 1.5 });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().setActiveColor(usePaletteStore.getState().colors[0].id);
+        getPaletteStore().getState().setActiveColor(getPaletteStore().getState().colors[0].id);
       });
       expect(renderCount).toBe(1);
 
@@ -369,12 +364,12 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().setPreviewColor(usePaletteStore.getState().colors[0].id);
+        getPaletteStore().getState().setPreviewColor(getPaletteStore().getState().colors[0].id);
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().updateColor(0, { value: GREEN });
+        getPaletteStore().getState().updateColor(0, { value: GREEN });
       });
       expect(renderCount).toBe(2);
       expect(result.current.generatorUrl).not.toBe(initialUrl);
@@ -391,15 +386,15 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().updateGlobalOptions({ lightnessCurve: 2 });
+        getPaletteStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().addColor(GREEN);
+        getPaletteStore().getState().addColor(GREEN);
       });
       expect(renderCount).toBe(2);
-      expect(result.current.activeColorId).toBe(usePaletteStore.getState().colors[1].id);
+      expect(result.current.activeColorId).toBe(getPaletteStore().getState().colors[1].id);
     });
 
     it('baseSaturation consumer ignores globalOptions changes', () => {
@@ -415,12 +410,12 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().updateGlobalOptions({ lightnessCurve: 2 });
+        getPaletteStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        usePaletteStore.getState().updateColor(0, { value: GREEN });
+        getPaletteStore().getState().updateColor(0, { value: GREEN });
       });
       expect(renderCount).toBe(2);
       expect(result.current.baseSaturation).not.toBe(initial);
@@ -432,7 +427,7 @@ describe('hooks/usePalette', () => {
       const previous = result.current;
 
       act(() => {
-        usePaletteStore.getState().setActiveColor(usePaletteStore.getState().colors[0].id);
+        getPaletteStore().getState().setActiveColor(getPaletteStore().getState().colors[0].id);
       });
 
       expect(result.current).toBe(previous);

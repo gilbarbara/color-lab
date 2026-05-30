@@ -5,5 +5,7 @@ export function detectInitialGamut(): Gamut {
 }
 
 export function isP3Supported(): boolean {
+  if (typeof window === 'undefined') return false;
+
   return window.matchMedia('(color-gamut: p3)').matches;
 }

@@ -1,0 +1,56 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
+import { withSentryConfig } from '@sentry/nextjs';
+import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
+
+const packageJSON = JSON.parse(readFileSync('./package.json', 'utf8'));
+const ROOT = path.resolve(import.meta.dirname);
+
+// NEXT_PUBLIC_FIREBASE_* are inlined into the client bundle at build time, so
+// they must be present for `next build` (in Dokploy, as Build Args — not just
+// runtime Environment). Firebase init is now lazy/client-side, so a missing key
+// no longer fails the build on its own; assert here to fail loudly instead of
+// shipping a bundle whose Firebase config is empty.
+const REQUIRED_FIREBASE_ENV = [
+  'NEXT_PUBLIC_FIREBASE_API_KEY',
+  'NEXT_PUBLIC_FIREBASE_APP_ID',
+  'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
+  'NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID',
+  'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
+  'NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET',
+];
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
+  outputFileTracingRoot: ROOT,
+  env: {
+    NEXT_PUBLIC_APP_VERSION: packageJSON.version,
+  },
+};
+
+const sentryConfig = withSentryConfig(nextConfig, {
+  silent: !process.env.CI,
+  // Source map upload requires SENTRY_AUTH_TOKEN in env. Without it, build
+  // succeeds but maps are not uploaded.
+  org: 'colormeup',
+  project: 'color-lab',
+  widenClientFileUpload: true,
+  hideSourceMaps: true,
+  disableLogger: true,
+});
+
+export default phase => {
+  if (phase === PHASE_PRODUCTION_BUILD) {
+    const missing = REQUIRED_FIREBASE_ENV.filter(key => !process.env[key]);
+
+    if (missing.length) {
+      throw new Error(
+        `Missing required Firebase build env: ${missing.join(', ')}. In Dokploy these must be set as Build Args (not just Environment).`,
+      );
+    }
+  }
+
+  return sentryConfig;
+};

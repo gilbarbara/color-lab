@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useCallback, useEffect, useMemo } from 'react';
-import * as Sentry from '@sentry/react';
+import * as Sentry from '@sentry/nextjs';
 import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
@@ -17,7 +17,7 @@ import type { AuthError, User } from 'firebase/auth';
 
 import AuthContext, { type AppUser, type OAuthProvider } from '~/contexts/auth';
 import { useAuthStore } from '~/stores/authStore';
-import { auth } from '~/utils/firebase';
+import { getAuthErrorMessage, getFirebaseAuth } from '~/utils/firebase';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -55,7 +55,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     setStatus('loading');
 
-    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+    const unsubscribe = onAuthStateChanged(getFirebaseAuth(), firebaseUser => {
       if (firebaseUser) {
         setUser(toAppUser(firebaseUser));
         setProvider(localStorage.getItem(PROVIDER_STORAGE_KEY) as OAuthProvider | null);
@@ -76,10 +76,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setStatus('loading');
 
       try {
-        await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(getFirebaseAuth(), email, password);
       } catch (error_) {
         setStatus('unauthenticated');
-        setError(error_ instanceof Error ? error_.message : 'Login failed');
+        setError(getAuthErrorMessage(error_, 'Login failed'));
         throw error_;
       }
     },
@@ -93,7 +93,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setStatus('loading');
 
       try {
-        const { user: newUser } = await createUserWithEmailAndPassword(auth, email, password);
+        const { user: newUser } = await createUserWithEmailAndPassword(
+          getFirebaseAuth(),
+          email,
+          password,
+        );
 
         if (name) {
           await updateProfile(newUser, { displayName: name });
@@ -101,7 +105,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         }
       } catch (error_) {
         setStatus('unauthenticated');
-        setError(error_ instanceof Error ? error_.message : 'Signup failed');
+        setError(getAuthErrorMessage(error_, 'Signup failed'));
         throw error_;
       }
     },
@@ -117,7 +121,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       localStorage.setItem(PROVIDER_STORAGE_KEY, oauthProvider);
 
       try {
-        const result = await signInWithPopup(auth, authProvider);
+        const result = await signInWithPopup(getFirebaseAuth(), authProvider);
 
         // If there's a pending credential from a prior linking attempt, link it now
         const credential = useAuthStore.getState().pendingCredential;
@@ -154,7 +158,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         }
 
         localStorage.removeItem(PROVIDER_STORAGE_KEY);
-        setError(error_ instanceof Error ? error_.message : 'OAuth login failed');
+        setError(getAuthErrorMessage(error_, 'OAuth login failed'));
       }
     },
     [setError, setPendingCredential],
@@ -173,9 +177,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
         sessionStorage.setItem('authReturnUrl', window.location.pathname + window.location.search);
         localStorage.setItem('emailForSignIn', email);
-        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+        await sendSignInLinkToEmail(getFirebaseAuth(), email, actionCodeSettings);
       } catch (error_) {
-        setError(error_ instanceof Error ? error_.message : 'Failed to send magic link');
+        setError(getAuthErrorMessage(error_, 'Failed to send magic link'));
         throw error_;
       }
     },
@@ -185,7 +189,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // Logout
   const logout = useCallback(async () => {
     try {
-      await signOut(auth);
+      await signOut(getFirebaseAuth());
     } finally {
       localStorage.removeItem(PROVIDER_STORAGE_KEY);
       setUser(null);

@@ -33,7 +33,7 @@ Technical reference for the multi-color palette system.
 
 ### Color Values
 
-OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`. Legacy URLs are also canonicalised in the address bar on load — `useUrlSync` calls `navigate(canonicalUrl, { replace: true })` so shared legacy links converge to the OKLCH form for everyone (no back-button pollution).
+OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`. Legacy URLs are also canonicalised in the address bar on load — `useUrlSync` calls `router.replace(canonicalUrl)` (`next/navigation`) so shared legacy links converge to the OKLCH form for everyone (no back-button pollution).
 
 | Format | URL Example | Parsed Value | Direction |
 |--------|-------------|--------------|-----------|
@@ -182,7 +182,7 @@ interface PaletteState {
                                           ▼
                                  ┌────────────────────────────┐
                                  │    Components              │
-                                 │  ColorSelector, Scale, ... │
+                                 │  ColorItem, Scale, ... │
                                  └────────────────────────────┘
 ```
 

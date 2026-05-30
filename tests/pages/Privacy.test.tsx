@@ -1,6 +1,6 @@
 import { render, screen } from '~/test-utils';
 
-import Privacy from '~/pages/Privacy';
+import Privacy from '../../app/privacy/Privacy';
 
 describe('pages/Privacy', () => {
   it('renders correctly', () => {

@@ -1,9 +1,10 @@
 import { scale } from 'colorizr';
 
+import { DEFAULT_COLOR_NAMES } from '~/config/globals';
 import { toOklch } from '~/utils/color';
 import { createPalette } from '~/utils/palette';
 
-import type { ColorEntry, OklchString, PaletteState, ScaleSteps } from '~/types';
+import type { ColorEntry, PaletteState, ScaleSteps } from '~/types';
 
 // Storage invariant: ColorEntry.value is always an OKLCH CSS string.
 // These constants are the literal formatCSS(parseCSS(<hex>, 'oklch'), { format: 'oklch' })
@@ -21,12 +22,17 @@ export const BLUE = toOklch('oklch(70.2% 0.183 240)');
 export const VIOLET = toOklch('oklch(70.2% 0.163 270)');
 export const PLUM = toOklch('oklch(70.2% 0.196 300)');
 
-export const DARK_BLUE = toOklch('oklch(45.2% 0.313 264.05)');
 export const CRIMSON = toOklch('oklch(63.27% 0.254 19.9)');
+export const CRIMSON_DARK = toOklch('oklch(8% 0.254 19.9)');
+export const CRIMSON_LIGHT = toOklch('oklch(94% 0.254 19.9)');
+export const DARK_BLUE = toOklch('oklch(45.2% 0.313 264.05)');
 
 export const WHITE = toOklch('oklch(100% 0 none)'); // ex-#FFFFFF
+export const BLACK = toOklch('oklch(0% 0 none)'); // ex-#000000
 export const GRAY = toOklch('oklch(59.99% 0 none)'); // ex-#808080
-export const SLATE = toOklch('oklch(31.92% 0.072 251.17)'); // ex-#123456
+export const SLATE = toOklch('oklch(31.92% 0.072 251.17)');
+
+export const PALETTE = [RED, ORANGE, YELLOW, CHARTREUSE, GREEN, CYAN, AZURE, BLUE, VIOLET, PLUM];
 
 export const CRIMSON_SCALE: ScaleSteps = scale(CRIMSON);
 export const PLUM_SCALE: ScaleSteps = scale(PLUM);
@@ -45,17 +51,11 @@ export function createColorEntry(
   };
 }
 
-export function createTestPalette(colorCount = 1, baseColor: OklchString = CRIMSON): PaletteState {
-  const basePalette = createPalette(baseColor);
-  const names = ['Primary', 'Secondary', 'Tertiary', 'Accent'];
-
+export function createTestPalette(colorCount: number = 1): PaletteState {
   return {
-    ...basePalette,
+    ...createPalette(PALETTE[0]),
     colors: Array.from({ length: colorCount }, (_, index) =>
-      createColorEntry(
-        names[index] || `Color ${index + 1}`,
-        toOklch(`oklch(63.269% 0.25404 ${(19.902 + index * 36) % 360})`),
-      ),
+      createColorEntry(DEFAULT_COLOR_NAMES[index] || `Color ${index + 1}`, PALETTE[index]),
     ),
   };
 }

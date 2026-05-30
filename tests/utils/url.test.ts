@@ -4,6 +4,7 @@ import { createColorEntry } from '~/test-fixtures';
 import { toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/palette';
 import {
+  buildUrl,
   canonicalizeUrl,
   getPaletteIdFromUrl,
   parsePaletteFromUrl,
@@ -644,6 +645,26 @@ describe('utils/url', () => {
       const url = '/p/Primary-FF0044/-BADVALUE';
 
       expect(canonicalizeUrl(url)).toBe(url);
+    });
+  });
+
+  describe('buildUrl', () => {
+    it('builds the path without a query when there are no params', () => {
+      expect(buildUrl(['Primary-FF0044'], {})).toBe('/p/Primary-FF0044');
+    });
+
+    it('joins multi-segment slugs', () => {
+      expect(buildUrl(['Primary-FF0044', 'Accent-00AAFF'], {})).toBe(
+        '/p/Primary-FF0044/Accent-00AAFF',
+      );
+    });
+
+    it('appends a single-valued param', () => {
+      expect(buildUrl(['Primary-FF0044'], { name: 'Brand' })).toBe('/p/Primary-FF0044?name=Brand');
+    });
+
+    it('appends array-valued params as repeated keys', () => {
+      expect(buildUrl(['Primary-FF0044'], { c: ['1', '2'] })).toBe('/p/Primary-FF0044?c=1&c=2');
     });
   });
 });

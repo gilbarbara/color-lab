@@ -33,6 +33,10 @@ test.beforeAll(async ({ browser }) => {
   });
 
   await page.goto('/p/Primary-73.0_0.12745_321');
+  // Wait for Firebase auth to finish restoring the (logged-out) session before driving the
+  // flow. The Sign In button renders a spinner while auth is loading; clicking during that
+  // window races the loading->ready re-render and React Aria drops the press.
+  await page.waitForLoadState('networkidle');
 });
 
 test.afterAll(async () => {
@@ -78,7 +82,7 @@ test('User Journey', async () => {
     await expect(page).toHaveScreenshot('02-empty-palettes.png');
 
     // Return to the generator so subsequent steps have Add Color etc.
-    await page.getByRole('link', { name: 'Home' }).click();
+    await page.getByRole('link', { name: /colormeup/i }).click();
     await page.waitForURL(/\/p\//);
   });
 
@@ -208,8 +212,7 @@ test('User Journey', async () => {
   });
 
   await test.step('renames palette', async () => {
-    const paletteHeader = page.locator('[data-testid="PaletteHeader"]');
-    const nameInput = paletteHeader.locator('input');
+    const nameInput = page.locator('input[name="palette-name"]');
 
     await expect(nameInput).toBeVisible();
     await expect(nameInput).toHaveValue(paletteName);

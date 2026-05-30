@@ -1,7 +1,8 @@
 import { useAuthStore } from '~/stores/authStore';
+import { mockRouter } from '~/test-mocks';
 import { render, screen, waitFor } from '~/test-utils';
 
-import AuthCallback from '~/pages/AuthCallback';
+import AuthCallback from '../../app/auth/AuthCallback';
 
 const mockIsSignInWithEmailLink = vi.fn();
 const mockSignInWithEmailLink = vi.fn();
@@ -13,19 +14,8 @@ vi.mock('firebase/auth', () => ({
 }));
 
 vi.mock('~/utils/firebase', () => ({
-  auth: {},
+  getFirebaseAuth: () => ({}),
 }));
-
-const mockNavigate = vi.fn();
-
-vi.mock('react-router', async importOriginal => {
-  const actual = await importOriginal<typeof import('react-router')>();
-
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
-});
 
 function renderWithRouter(initialPath: string) {
   return render(<AuthCallback />, { initialEntries: [initialPath] });
@@ -56,7 +46,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
     });
   });
@@ -72,7 +62,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/p/red-ff0000', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/p/red-ff0000');
       });
     });
 
@@ -82,7 +72,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
     });
 
@@ -92,7 +82,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
     });
 
@@ -102,7 +92,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
     });
   });
@@ -128,10 +118,9 @@ describe('pages/AuthCallback', () => {
       });
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
 
-      // Email should be cleared from localStorage
       expect(localStorage.getItem('emailForSignIn')).toBeNull();
     });
 
@@ -143,7 +132,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
 
       expect(useAuthStore.getState().error).toBe('Invalid or expired link');
@@ -156,7 +145,7 @@ describe('pages/AuthCallback', () => {
       renderWithRouter('/auth/callback');
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true });
+        expect(mockRouter.replace).toHaveBeenCalledWith('/');
       });
 
       expect(useAuthStore.getState().error).toBe('Please enter your email to complete sign-in');

@@ -1,6 +1,6 @@
 import { DELTA_E_JND, deltaE } from 'colorizr';
 
-import { BLUE, CRIMSON, GRAY, GREEN, PLUM, RED, WHITE } from '~/test-fixtures';
+import { BLACK, BLUE, CRIMSON, GRAY, GREEN, PLUM, RED, WHITE } from '~/test-fixtures';
 import {
   formatOklch,
   formatOklchUrl,
@@ -56,6 +56,7 @@ describe('utils/color', () => {
 
   describe('getChromaAsPercentage', () => {
     it('returns 0 for achromatic colors', () => {
+      expect(getChromaAsPercentage(BLACK)).toBe(0);
       expect(getChromaAsPercentage(GRAY)).toBe(0);
       expect(getChromaAsPercentage(WHITE)).toBe(0);
     });

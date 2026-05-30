@@ -25,7 +25,7 @@ Built for designers and developers who need precise control over lightness, chro
 
 ## Tech Stack
 
-- React 19 with Vite and TypeScript
+- React 19 + Next.js 16 (App Router) with TypeScript
 - Zustand for state management
 - Tailwind CSS 4 with HeroUI v2 components
 - Firebase for authentication and storage

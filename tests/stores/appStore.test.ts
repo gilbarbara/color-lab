@@ -201,6 +201,18 @@ describe('stores/appStore', () => {
     });
   });
 
+  describe('setSessionPalettePath', () => {
+    it('stores and clears the session palette path', () => {
+      useAppStore.getState().setSessionPalettePath('/p/Primary-FF0000?id=p1');
+
+      expect(useAppStore.getState().sessionPalettePath).toBe('/p/Primary-FF0000?id=p1');
+
+      useAppStore.getState().setSessionPalettePath(null);
+
+      expect(useAppStore.getState().sessionPalettePath).toBe(null);
+    });
+  });
+
   describe('toggleBottomBar', () => {
     it('toggles showBottomBar from false to true', () => {
       expect(useAppStore.getState().showBottomBar).toBe(false);
@@ -444,6 +456,14 @@ describe('stores/appStore', () => {
       expect(keys).not.toContain('previewScrollNonce');
       expect(keys).not.toContain('colorScrollRequest');
       expect(keys).not.toContain('showBottomBar');
+    });
+
+    it('does not persist sessionPalettePath', () => {
+      useAppStore.getState().setSessionPalettePath('/p/Primary-FF0000?id=palette-123');
+
+      const persisted = readPersistedState();
+
+      expect(persisted?.state).not.toHaveProperty('sessionPalettePath');
     });
 
     it('does not persist paletteName, paletteId, or lastSavedUrl', () => {

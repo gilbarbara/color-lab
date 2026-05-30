@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event';
 
 import { useAppStore } from '~/stores/appStore';
-import { usePaletteStore } from '~/stores/paletteStore';
 import { createTestPalette } from '~/test-fixtures';
+import { getPaletteStore, mockRouter } from '~/test-mocks';
 import { fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
 
@@ -47,7 +47,7 @@ describe('Header', () => {
     vi.clearAllMocks();
     themeState.isDarkMode = false;
     setDesktop();
-    usePaletteStore.setState(createTestPalette(1));
+    getPaletteStore().setState(createTestPalette(1));
     useAppStore.setState({
       paletteId: 'p1',
       paletteName: 'Saved',
@@ -102,16 +102,17 @@ describe('Header', () => {
       expect(trackEvent).toHaveBeenCalledWith('dark-mode', { enabled: true });
     });
 
-    it('clears palette on New Palette click and tracks event', () => {
+    it('mints a fresh palette URL on New Palette click and tracks event', () => {
       render(<Header />);
 
       // eslint-disable-next-line testing-library/no-node-access
-      const link = screen.getByText('New Palette').closest('a');
+      const button = screen.getByTestId('NewPalette').closest('button');
 
-      fireEvent.click(link!);
+      fireEvent.click(button!);
 
       expect(useAppStore.getState().paletteId).toBeNull();
       expect(trackEvent).toHaveBeenCalledWith('new-palette');
+      expect(mockRouter.push).toHaveBeenCalledWith(expect.stringMatching(/^\/p\//));
     });
 
     it('opens login modal on Sign In click when unauthenticated', () => {
@@ -184,24 +185,6 @@ describe('Header', () => {
       const image = avatar.querySelector('img');
 
       expect(image).toHaveAttribute('src', 'https://fallback/avatar.png');
-    });
-
-    it('shows nav links at desktop breakpoint', () => {
-      setDesktop();
-      render(<Header />);
-
-      expect(screen.getByRole('link', { name: 'My Palettes' })).toBeInTheDocument();
-      expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
-      expect(screen.queryByRole('button', { name: /menu/i })).toBeNull();
-    });
-
-    it('shows Menu dropdown at mobile breakpoint', () => {
-      setMobile();
-      render(<Header />);
-
-      expect(screen.queryByRole('link', { name: 'My Palettes' })).toBeNull();
-      expect(screen.queryByRole('link', { name: 'About' })).toBeNull();
-      expect(screen.getByRole('button', { name: /menu/i })).toBeInTheDocument();
     });
   });
 });

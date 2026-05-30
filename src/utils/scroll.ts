@@ -4,6 +4,7 @@ export function scrollToSelector(
   id: string | undefined,
   container?: HTMLElement | null,
   offset = 0,
+  instant = false,
 ) {
   if (!id) return;
 
@@ -14,8 +15,15 @@ export function scrollToSelector(
 
     const start = container.scrollTop;
     const delta = target.getBoundingClientRect().top - container.getBoundingClientRect().top;
+    const end = start + delta - offset;
 
-    animate(start, start + delta - offset, {
+    if (instant) {
+      container.scrollTo(0, end);
+
+      return;
+    }
+
+    animate(start, end, {
       duration: 0.4,
       ease: 'easeInOut',
       onUpdate: y => container.scrollTo(0, y),
@@ -26,5 +34,5 @@ export function scrollToSelector(
 
   const element = document.getElementById(id);
 
-  element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  element?.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
 }

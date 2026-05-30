@@ -29,7 +29,7 @@ vi.mock('firebase/firestore/lite', () => ({
 }));
 
 vi.mock('~/utils/firebase', () => ({
-  db: {},
+  getFirebaseDb: () => ({}),
 }));
 
 function mockSnapshot(id: string, data: Record<string, unknown>) {

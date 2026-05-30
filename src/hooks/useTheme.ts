@@ -1,13 +1,29 @@
-import { useContext } from 'react';
+'use client';
 
-import ThemeContext, { type ThemeContextType } from '~/contexts/theme';
+import { useEffect, useState } from 'react';
+import { useTheme as useNextTheme } from 'next-themes';
+
+export interface ThemeContextType {
+  isDarkMode: boolean;
+  isMounted: boolean;
+  toggleDarkMode: () => void;
+}
 
 export default function useTheme(): ThemeContextType {
-  const context = useContext(ThemeContext);
+  const { resolvedTheme, setTheme } = useNextTheme();
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  return context;
+  const isDarkMode = isMounted && resolvedTheme === 'dark';
+
+  const toggleDarkMode = () => {
+    if (!isMounted) return;
+
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+  };
+
+  return { isDarkMode, isMounted, toggleDarkMode };
 }

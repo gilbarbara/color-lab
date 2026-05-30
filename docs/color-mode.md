@@ -22,7 +22,7 @@ HSL/RGB/HEX are **input affordances and display surfaces**, not storage formats.
 
 | Axis | Scope | Drives | Persisted in URL? |
 |------|-------|--------|-------------------|
-| **Input mode** | per ColorSelector (UI ephemeral) | Sliders + text input format | No |
+| **Input mode** | per ColorItem (UI ephemeral) | Sliders + text input format | No |
 | **Gamut mode** | global, app-wide | Swatch rendering, tooltip, clipboard copy | No (session-only; see open questions) |
 | **URL format** | global, fixed | URL path serialization | N/A — always OKLCH |
 
@@ -32,7 +32,7 @@ Each axis is independent. None reads from another. Conflating them is the root c
 
 ## 1. Input mode
 
-**Location:** `ColorSelector` (sidebar), one toggle per color.
+**Location:** `ColorItem` (sidebar), one toggle per color.
 
 **Values:** `OKLCH` | `HSL` | `RGB`
 
@@ -80,7 +80,7 @@ A gamut warning icon (triangle, in the input row) appears when the current OKLCH
 
 **Default:** Matches detected capability. P3-capable display → `p3`. sRGB-only display → `srgb`.
 
-**Toggle UI** (`src/pages/Generator/Palette/GamutToggle.tsx`):
+**Toggle UI** (`src/containers/Palette/GamutToggle.tsx`):
 - Capability `p3` — `MonitorIcon` button opens a `Dropdown` with `P3` and `SRGB` items (each with a one-line description). Active mode reflected via warning color + exclamation overlay when `srgb`.
 - Capability `srgb` — Inline warning badge `SRGB gamut` with `WarningIcon` and a clickable tooltip explaining the device limitation. No interactive toggle (locked).
 
@@ -120,20 +120,20 @@ In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex
 
 ## Where input mode lives
 
-Input mode is **ephemeral local state inside `ColorSelector`** (`useSetState`). It is not on `ColorEntry`, not in `appStore`, not in the URL.
+Input mode is **ephemeral local state inside `ColorItem`** (`useSetState`). It is not on `ColorEntry`, not in `appStore`, not in the URL.
 
 Consequences:
 - Discarded on unmount (collapsing the sidebar, navigating away).
-- Each `ColorSelector` instance has its own mode. Two colors can have different active slider sets simultaneously.
+- Each `ColorItem` instance has its own mode. Two colors can have different active slider sets simultaneously.
 - A shared link always opens with the default mode (`oklch`).
-- No reader outside `ColorSelector` and its direct children may consume it. Anything else is a violation.
+- No reader outside `ColorItem` and its direct children may consume it. Anything else is a violation.
 
 ---
 
 ## Migration notes
 
-- `src/pages/Generator/Palette/Swatch.tsx` — now reads `appStore.gamut` and derives `displayColor`. No `mode` prop.
-- `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to *accept* legacy HEX and 0–1 OKLCH URLs and convert to OKLCH on load (one-way back-compat). `useUrlSync` rewrites the address bar to the canonical OKLCH form on hydration (`navigate(canonical, { replace: true })`) so shared legacy links self-heal.
+- `src/containers/Palette/Swatch.tsx` — now reads `appStore.gamut` and derives `displayColor`. No `mode` prop.
+- `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to *accept* legacy HEX and 0–1 OKLCH URLs and convert to OKLCH on load (one-way back-compat). `useUrlSync` rewrites the address bar to the canonical OKLCH form on hydration via `next/navigation` (`router.replace(canonicalUrl)`) so shared legacy links self-heal.
 
 ---
 
@@ -143,7 +143,7 @@ These are deferred to follow-up PRs. Doc will be updated when answered.
 
 1. **Should Gamut mode persist?** Today: re-detected on every load. Possible future: URL param (`?g=srgb`) so shared links respect sender's view. Capability is per-device, so localStorage is a poor fit.
 2. **Gamut warning threshold.** Strict (any out-of-sRGB) or perceptual (deltaE > N)? Color Info modal currently flags any out-of-gamut. Inline surface may want to be quieter — flag only clearly visible clipping (deltaE > 2 or > 5).
-3. **Other consumers of `appStore.gamut`.** Currently only `Swatch` responds. Future candidates: ColorSelector input row, slider chroma cap, scale generation chroma cap, export-format default. Each is opt-in.
+3. **Other consumers of `appStore.gamut`.** Currently only `Swatch` responds. Future candidates: ColorItem input row, slider chroma cap, scale generation chroma cap, export-format default. Each is opt-in.
 
 ---
 
