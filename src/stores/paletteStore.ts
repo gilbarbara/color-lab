@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { createStore } from 'zustand/vanilla';
 
 import {
   addColor as addColorFn,
@@ -14,128 +14,163 @@ import {
 
 import type { PaletteActions, PaletteState } from '~/types';
 
+interface PaletteInitialState {
+  activeColorId?: string | null;
+  colors: PaletteState['colors'];
+  globalOptions: PaletteState['globalOptions'];
+  previewColorId?: string | null;
+}
+
+export type PaletteStoreApi = ReturnType<typeof createPaletteStore>;
+
 export interface PaletteStore extends PaletteActions, PaletteState {
   activeColorId: string | null;
   previewColorId: string | null;
 }
 
-const initialPalette = createPalette();
+function buildInitialState(
+  input?: PaletteInitialState,
+): Pick<PaletteStore, 'activeColorId' | 'colors' | 'globalOptions' | 'previewColorId'> {
+  if (input && input.colors.length > 0) {
+    const firstId = input.colors[0].id;
 
-export const usePaletteStore = create<PaletteStore>(set => ({
-  ...initialPalette,
-  activeColorId: initialPalette.colors[0]?.id ?? null,
-  previewColorId: initialPalette.colors[0]?.id ?? null,
+    return {
+      colors: input.colors,
+      globalOptions: input.globalOptions,
+      activeColorId: input.activeColorId ?? firstId,
+      previewColorId: input.previewColorId ?? firstId,
+    };
+  }
 
-  addColor: (value, name) => {
-    let newId: string | null = null;
+  const fallback = createPalette();
+  const fallbackId = fallback.colors[0]?.id ?? null;
 
-    set(state => {
-      const next = addColorFn(
-        { colors: state.colors, globalOptions: state.globalOptions },
-        value,
-        name,
-      );
+  return {
+    colors: fallback.colors,
+    globalOptions: fallback.globalOptions,
+    activeColorId: fallbackId,
+    previewColorId: fallbackId,
+  };
+}
 
-      if (next.colors === state.colors) {
-        return state;
-      }
+export function createPaletteStore(initialState?: PaletteInitialState) {
+  return createStore<PaletteStore>()(set => ({
+    ...buildInitialState(initialState),
 
-      const newColor = next.colors[next.colors.length - 1];
+    addColor: (value, name) => {
+      let newId: string | null = null;
 
-      newId = newColor?.id ?? null;
+      set(state => {
+        const next = addColorFn(
+          { colors: state.colors, globalOptions: state.globalOptions },
+          value,
+          name,
+        );
 
-      return { ...next, activeColorId: newColor?.id ?? state.activeColorId };
-    });
+        if (next.colors === state.colors) {
+          return state;
+        }
 
-    return newId;
-  },
+        const newColor = next.colors[next.colors.length - 1];
 
-  clearColorOverrides: index =>
-    set(state =>
-      clearColorOverridesFn({ colors: state.colors, globalOptions: state.globalOptions }, index),
-    ),
+        newId = newColor?.id ?? null;
 
-  removeColor: index =>
-    set(state => {
-      const removed = state.colors[index];
-      const next = removeColorFn(
-        { colors: state.colors, globalOptions: state.globalOptions },
-        index,
-      );
+        return { ...next, activeColorId: newColor?.id ?? state.activeColorId };
+      });
 
-      if (next.colors === state.colors) {
-        return state;
-      }
+      return newId;
+    },
 
-      let { activeColorId, previewColorId } = state;
-
-      if (removed && removed.id === activeColorId) {
-        const neighbor = state.colors[index + 1] ?? state.colors[index - 1];
-
-        activeColorId = neighbor?.id ?? null;
-      }
-
-      if (removed && removed.id === previewColorId) {
-        const neighbor = state.colors[index + 1] ?? state.colors[index - 1];
-
-        previewColorId = neighbor?.id ?? null;
-      }
-
-      return { ...next, activeColorId, previewColorId };
-    }),
-
-  resetGlobalOptions: () =>
-    set(state =>
-      resetGlobalOptionsFn({ colors: state.colors, globalOptions: state.globalOptions }),
-    ),
-
-  resetPalette: () =>
-    set(() => {
-      const fresh = resetPaletteFn();
-
-      const nextId = fresh.colors[0]?.id ?? null;
-
-      return {
-        ...fresh,
-        activeColorId: nextId,
-        previewColorId: nextId,
-      };
-    }),
-
-  setActiveColor: id =>
-    set(state => {
-      if (id === state.activeColorId || !state.colors.some(c => c.id === id)) {
-        return state;
-      }
-
-      return { activeColorId: id };
-    }),
-
-  setPreviewColor: id =>
-    set(state => {
-      if (id === state.previewColorId || !state.colors.some(c => c.id === id)) {
-        return state;
-      }
-
-      return { previewColorId: id };
-    }),
-
-  updateColor: (index, updates) =>
-    set(state =>
-      updateColorFn({ colors: state.colors, globalOptions: state.globalOptions }, index, updates),
-    ),
-
-  setColorOverride: (index, updates) =>
-    set(state =>
-      setColorOverrideFn(
-        { colors: state.colors, globalOptions: state.globalOptions },
-        index,
-        updates,
+    clearColorOverrides: index =>
+      set(state =>
+        clearColorOverridesFn({ colors: state.colors, globalOptions: state.globalOptions }, index),
       ),
-    ),
 
-  updateGlobalOptions: updates =>
-    set(state =>
-      updateGlobalOptionsFn({ colors: state.colors, globalOptions: state.globalOptions }, updates),
-    ),
-}));
+    removeColor: index =>
+      set(state => {
+        const removed = state.colors[index];
+        const next = removeColorFn(
+          { colors: state.colors, globalOptions: state.globalOptions },
+          index,
+        );
+
+        if (next.colors === state.colors) {
+          return state;
+        }
+
+        let { activeColorId, previewColorId } = state;
+
+        if (removed && removed.id === activeColorId) {
+          const neighbor = state.colors[index + 1] ?? state.colors[index - 1];
+
+          activeColorId = neighbor?.id ?? null;
+        }
+
+        if (removed && removed.id === previewColorId) {
+          const neighbor = state.colors[index + 1] ?? state.colors[index - 1];
+
+          previewColorId = neighbor?.id ?? null;
+        }
+
+        return { ...next, activeColorId, previewColorId };
+      }),
+
+    resetGlobalOptions: () =>
+      set(state =>
+        resetGlobalOptionsFn({ colors: state.colors, globalOptions: state.globalOptions }),
+      ),
+
+    resetPalette: () =>
+      set(() => {
+        const fresh = resetPaletteFn();
+
+        const nextId = fresh.colors[0]?.id ?? null;
+
+        return {
+          ...fresh,
+          activeColorId: nextId,
+          previewColorId: nextId,
+        };
+      }),
+
+    setActiveColor: id =>
+      set(state => {
+        if (id === state.activeColorId || !state.colors.some(c => c.id === id)) {
+          return state;
+        }
+
+        return { activeColorId: id };
+      }),
+
+    setPreviewColor: id =>
+      set(state => {
+        if (id === state.previewColorId || !state.colors.some(c => c.id === id)) {
+          return state;
+        }
+
+        return { previewColorId: id };
+      }),
+
+    updateColor: (index, updates) =>
+      set(state =>
+        updateColorFn({ colors: state.colors, globalOptions: state.globalOptions }, index, updates),
+      ),
+
+    setColorOverride: (index, updates) =>
+      set(state =>
+        setColorOverrideFn(
+          { colors: state.colors, globalOptions: state.globalOptions },
+          index,
+          updates,
+        ),
+      ),
+
+    updateGlobalOptions: updates =>
+      set(state =>
+        updateGlobalOptionsFn(
+          { colors: state.colors, globalOptions: state.globalOptions },
+          updates,
+        ),
+      ),
+  }));
+}

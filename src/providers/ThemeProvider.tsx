@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
-import { useEffect, useMemo, useState } from 'react';
-import { useHref, useNavigate } from 'react-router';
-import { HeroUIProvider, type HeroUIProviderProps, ToastProvider } from '@heroui/react';
+'use client';
 
-import ThemeContext from '~/contexts/theme';
+import type { ReactNode } from 'react';
+import { HeroUIProvider, type HeroUIProviderProps, ToastProvider } from '@heroui/react';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { useRouter } from 'next/navigation';
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -11,43 +11,17 @@ interface ThemeProviderProps {
 }
 
 export default function ThemeProvider({ children, heroUIProps }: ThemeProviderProps) {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check local storage for saved preference
-    const saved = localStorage.getItem('darkMode');
-    // Check system preference if no saved preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    return saved ? saved === 'true' : prefersDark;
-  });
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Update document class when dark mode changes
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-
-    // Save preference to local storage
-    localStorage.setItem('darkMode', isDarkMode.toString());
-  }, [isDarkMode]);
-
-  const toggleDarkMode = (): void => {
-    setIsDarkMode(previous => !previous);
-  };
-
-  const contextValue = useMemo(() => ({ isDarkMode, toggleDarkMode }), [isDarkMode]);
+  const router = useRouter();
 
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <HeroUIProvider {...heroUIProps} navigate={navigate} useHref={useHref}>
+    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
+      <HeroUIProvider {...heroUIProps} navigate={href => router.push(href)} useHref={href => href}>
         <ToastProvider
           placement="bottom-center"
           toastProps={{ shouldShowTimeoutProgress: true, variant: 'solid' }}
         />
         {children}
       </HeroUIProvider>
-    </ThemeContext.Provider>
+    </NextThemesProvider>
   );
 }

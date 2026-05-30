@@ -1,18 +1,4 @@
-import {
-  AZURE,
-  BLUE,
-  CHARTREUSE,
-  CRIMSON,
-  CYAN,
-  GREEN,
-  ORANGE,
-  PLUM,
-  RED,
-  SLATE,
-  VIOLET,
-  WHITE,
-  YELLOW,
-} from '~/test-fixtures';
+import { createColorEntry, createTestPalette, CRIMSON, GREEN, SLATE, WHITE } from '~/test-fixtures';
 import {
   addColor,
   clearColorOverrides,
@@ -29,31 +15,7 @@ import {
   updateGlobalOptions,
 } from '~/utils/palette';
 
-import type { ColorEntry, OklchString, PaletteState } from '~/types';
-
-function createColorEntry(
-  name: string,
-  value: OklchString,
-  overrides?: ColorEntry['overrides'],
-): ColorEntry {
-  return { id: crypto.randomUUID(), name, value, ...(overrides && { overrides }) };
-}
-
-function createTestPalette(colorCount = 1): PaletteState {
-  // Spread distinct hues so each color is unique and visibly different.
-  const palette = [RED, ORANGE, YELLOW, CHARTREUSE, GREEN, CYAN, AZURE, BLUE, VIOLET, PLUM];
-
-  const colors = Array.from({ length: colorCount }, (_, index) => ({
-    id: crypto.randomUUID(),
-    name: getDefaultColorName(index),
-    value: palette[index],
-  }));
-
-  return {
-    colors,
-    globalOptions: getDefaultGlobalOptions(colors[0].value),
-  };
-}
+import type { PaletteState } from '~/types';
 
 describe('utils/palette', () => {
   describe('createPalette', () => {

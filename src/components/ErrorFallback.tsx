@@ -54,7 +54,7 @@ export default function ErrorFallback({
             Reference: <code className="font-mono">{eventId}</code>
           </p>
         )}
-        {import.meta.env.DEV && (
+        {process.env.NODE_ENV !== 'production' && (
           <pre
             className="mt-4 max-h-64 overflow-auto rounded-md bg-default-100 p-3 text-left text-xs whitespace-pre-wrap"
             data-testid="ErrorFallback-details"

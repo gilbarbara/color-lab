@@ -13,34 +13,40 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
       class="flex shrink-0"
     >
       <a
-        aria-label="Home"
-        class="inline-flex items-start gap-1"
-        data-discover="true"
-        href="/p/Primary-63.27_0.254_19.9"
+        class="inline-flex"
+        href="/"
       >
-        <img
-          alt="ColorMeUp"
-          class="h-8"
-          src="/brand/logo.svg"
-        />
         <span
-          class="font-bold text-sm"
+          class="inline-flex items-start gap-1"
         >
-          LAB
+          <picture>
+            <source
+              media="(min-width: 640px)"
+              srcset="/brand/logo.svg"
+            />
+            <img
+              alt="ColorMeUp"
+              class="h-8 grayscale"
+              src="/brand/icon.svg"
+            />
+          </picture>
+          <span
+            class="font-bold text-sm"
+          >
+            LAB
+          </span>
         </span>
       </a>
     </h1>
     <div
       class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
-      <a
-        aria-current="page"
-        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm active"
-        data-discover="true"
+      <button
+        aria-label="New Palette"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm max-xs:button-menu-square"
         data-react-aria-pressable="true"
-        href="/"
-        role="button"
         tabindex="0"
+        type="button"
       >
         <svg
           aria-hidden="true"
@@ -56,25 +62,62 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
           />
         </svg>
         <span
-          class="hidden xs:inline-flex"
+          class="hidden xs:inline-flex items-center gap-1"
+          data-testid="NewPalette"
         >
-          New Palette
+          New
+          <span
+            class="hidden sm:inline-flex"
+          >
+            Palette
+          </span>
         </span>
-      </a>
-      <a
-        class="text-sm text-foreground-500"
-        data-discover="true"
-        href="/palettes"
+      </button>
+      <div
+        class="hidden sm:contents"
       >
-        My Palettes
-      </a>
-      <a
-        class="text-sm text-foreground-500"
-        data-discover="true"
-        href="/about"
+        <a
+          class="text-sm text-foreground-500"
+          href="/palettes"
+        >
+          My Palettes
+        </a>
+        <a
+          class="text-sm text-foreground-500"
+          href="/about"
+        >
+          About
+        </a>
+      </div>
+      <div
+        class="contents sm:hidden"
       >
-        About
-      </a>
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
+          data-react-aria-pressable="true"
+          data-slot="trigger"
+          id="react-aria-_r_3_"
+          tabindex="0"
+          type="button"
+        >
+          Menu
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
     <div
       class="flex items-center gap-2 ml-auto"
@@ -87,7 +130,19 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
         type="button"
       >
         <svg
-          class="size-6"
+          class="size-6 hidden dark:block"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"
+          />
+        </svg>
+        <svg
+          class="size-6 block dark:hidden"
           fill="currentColor"
           height="1em"
           viewBox="0 0 256 256"
@@ -106,7 +161,7 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
         class="flex relative justify-center items-center box-border overflow-hidden align-middle outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 w-8 h-8 text-tiny bg-default text-default-foreground rounded-full z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased transition-transform"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_0_"
+        id="react-aria-_r_6_"
         tabindex="0"
         type="button"
       >
@@ -132,7 +187,7 @@ exports[`Header > Render > renders dark mode sun icon when isDarkMode is true 1`
   type="button"
 >
   <svg
-    class="size-6"
+    class="size-6 hidden dark:block"
     fill="currentColor"
     height="1em"
     viewBox="0 0 256 256"
@@ -141,6 +196,18 @@ exports[`Header > Render > renders dark mode sun icon when isDarkMode is true 1`
   >
     <path
       d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"
+    />
+  </svg>
+  <svg
+    class="size-6 block dark:hidden"
+    fill="currentColor"
+    height="1em"
+    viewBox="0 0 256 256"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"
     />
   </svg>
 </button>
@@ -159,34 +226,40 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
       class="flex shrink-0"
     >
       <a
-        aria-label="Home"
-        class="inline-flex items-start gap-1"
-        data-discover="true"
-        href="/p/Primary-63.27_0.254_19.9"
+        class="inline-flex"
+        href="/"
       >
-        <img
-          alt="ColorMeUp"
-          class="h-8"
-          src="/brand/icon.svg"
-        />
         <span
-          class="font-bold text-sm"
+          class="inline-flex items-start gap-1"
         >
-          LAB
+          <picture>
+            <source
+              media="(min-width: 640px)"
+              srcset="/brand/logo.svg"
+            />
+            <img
+              alt="ColorMeUp"
+              class="h-8 grayscale"
+              src="/brand/icon.svg"
+            />
+          </picture>
+          <span
+            class="font-bold text-sm"
+          >
+            LAB
+          </span>
         </span>
       </a>
     </h1>
     <div
       class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
-      <a
-        aria-current="page"
-        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 min-w-8 w-8 h-8 data-[hover=true]:opacity-hover text-sm active"
-        data-discover="true"
+      <button
+        aria-label="New Palette"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm max-xs:button-menu-square"
         data-react-aria-pressable="true"
-        href="/"
-        role="button"
         tabindex="0"
+        type="button"
       >
         <svg
           aria-hidden="true"
@@ -202,36 +275,62 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
           />
         </svg>
         <span
-          class="hidden xs:inline-flex"
+          class="hidden xs:inline-flex items-center gap-1"
+          data-testid="NewPalette"
         >
           New
+          <span
+            class="hidden sm:inline-flex"
+          >
+            Palette
+          </span>
         </span>
-      </a>
-      <button
-        aria-expanded="false"
-        aria-haspopup="true"
-        class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
-        data-react-aria-pressable="true"
-        data-slot="trigger"
-        id="react-aria-_r_3_"
-        tabindex="0"
-        type="button"
-      >
-        Menu
-        <svg
-          aria-hidden="true"
-          fill="currentColor"
-          focusable="false"
-          height="1em"
-          viewBox="0 0 256 256"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
-          />
-        </svg>
       </button>
+      <div
+        class="hidden sm:contents"
+      >
+        <a
+          class="text-sm text-foreground-500"
+          href="/palettes"
+        >
+          My Palettes
+        </a>
+        <a
+          class="text-sm text-foreground-500"
+          href="/about"
+        >
+          About
+        </a>
+      </div>
+      <div
+        class="contents sm:hidden"
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
+          data-react-aria-pressable="true"
+          data-slot="trigger"
+          id="react-aria-_r_9_"
+          tabindex="0"
+          type="button"
+        >
+          Menu
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
     <div
       class="flex items-center gap-2 ml-auto"
@@ -244,7 +343,19 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
         type="button"
       >
         <svg
-          class="size-6"
+          class="size-6 hidden dark:block"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"
+          />
+        </svg>
+        <svg
+          class="size-6 block dark:hidden"
           fill="currentColor"
           height="1em"
           viewBox="0 0 256 256"
@@ -258,7 +369,7 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
       </button>
       <button
         aria-label="Sign In"
-        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-10 w-10 h-10"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
         data-react-aria-pressable="true"
         tabindex="0"
         type="button"
@@ -296,34 +407,40 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
       class="flex shrink-0"
     >
       <a
-        aria-label="Home"
-        class="inline-flex items-start gap-1"
-        data-discover="true"
-        href="/p/Primary-63.27_0.254_19.9"
+        class="inline-flex"
+        href="/"
       >
-        <img
-          alt="ColorMeUp"
-          class="h-8"
-          src="/brand/logo.svg"
-        />
         <span
-          class="font-bold text-sm"
+          class="inline-flex items-start gap-1"
         >
-          LAB
+          <picture>
+            <source
+              media="(min-width: 640px)"
+              srcset="/brand/logo.svg"
+            />
+            <img
+              alt="ColorMeUp"
+              class="h-8 grayscale"
+              src="/brand/icon.svg"
+            />
+          </picture>
+          <span
+            class="font-bold text-sm"
+          >
+            LAB
+          </span>
         </span>
       </a>
     </h1>
     <div
       class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
-      <a
-        aria-current="page"
-        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm active"
-        data-discover="true"
+      <button
+        aria-label="New Palette"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover text-sm max-xs:button-menu-square"
         data-react-aria-pressable="true"
-        href="/"
-        role="button"
         tabindex="0"
+        type="button"
       >
         <svg
           aria-hidden="true"
@@ -339,25 +456,62 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
           />
         </svg>
         <span
-          class="hidden xs:inline-flex"
+          class="hidden xs:inline-flex items-center gap-1"
+          data-testid="NewPalette"
         >
-          New Palette
+          New
+          <span
+            class="hidden sm:inline-flex"
+          >
+            Palette
+          </span>
         </span>
-      </a>
-      <a
-        class="text-sm text-foreground-500"
-        data-discover="true"
-        href="/palettes"
+      </button>
+      <div
+        class="hidden sm:contents"
       >
-        My Palettes
-      </a>
-      <a
-        class="text-sm text-foreground-500"
-        data-discover="true"
-        href="/about"
+        <a
+          class="text-sm text-foreground-500"
+          href="/palettes"
+        >
+          My Palettes
+        </a>
+        <a
+          class="text-sm text-foreground-500"
+          href="/about"
+        >
+          About
+        </a>
+      </div>
+      <div
+        class="contents sm:hidden"
       >
-        About
-      </a>
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
+          data-react-aria-pressable="true"
+          data-slot="trigger"
+          id="react-aria-_r_0_"
+          tabindex="0"
+          type="button"
+        >
+          Menu
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
     <div
       class="flex items-center gap-2 ml-auto"
@@ -370,7 +524,19 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
         type="button"
       >
         <svg
-          class="size-6"
+          class="size-6 hidden dark:block"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"
+          />
+        </svg>
+        <svg
+          class="size-6 block dark:hidden"
           fill="currentColor"
           height="1em"
           viewBox="0 0 256 256"
@@ -384,7 +550,7 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
       </button>
       <button
         aria-label="Sign In"
-        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-medium px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-10 w-10 h-10"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
         data-react-aria-pressable="true"
         tabindex="0"
         type="button"

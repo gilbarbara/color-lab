@@ -6,6 +6,18 @@ export const APCA_LIGHTNESS_CONTRAST = (
 
 export const BREAKPOINTS = { xs: 0, sm: 360, md: 768, lg: 1024, xl: 1280 };
 
+export const DEFAULT_COLOR_NAMES = [
+  'Primary',
+  'Secondary',
+  'Tertiary',
+  'Accent',
+  'Color 5',
+  'Color 6',
+  'Color 7',
+  'Color 8',
+  'Color 9',
+  'Color 10',
+];
 export const DEFAULT_PALETTE_NAME = 'Color Palette';
 
 export const HEADER_HEIGHT = 64;

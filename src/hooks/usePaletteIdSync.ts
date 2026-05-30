@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router';
 import { addToast } from '@heroui/react';
-import * as Sentry from '@sentry/react';
+import * as Sentry from '@sentry/nextjs';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
@@ -14,8 +16,9 @@ import { canonicalizeUrl, getPaletteIdFromUrl, updatePaletteIdInUrl } from '~/ut
  * Call once in Generator alongside useUrlSync.
  */
 export default function usePaletteIdSync() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const { isAuthenticated, isLoading, user } = useAuth();
   const { clearPalette, paletteId, setPalette } = useApp('clearPalette', 'paletteId', 'setPalette');
   const { palettes } = usePalettesStore();
@@ -52,9 +55,12 @@ export default function usePaletteIdSync() {
       return canonical;
     };
 
+    const searchString = searchParams.toString();
+    const search = searchString ? `?${searchString}` : '';
+
     // Detect what actually changed since the last run before mutating refs.
-    const pathChanged = lastPath.current !== location.pathname;
-    const searchChanged = lastSearch.current !== location.search;
+    const pathChanged = lastPath.current !== pathname;
+    const searchChanged = lastSearch.current !== search;
     const authStateJustChanged =
       lastAuthState.current !== null && lastAuthState.current !== isAuthenticated;
 
@@ -62,14 +68,14 @@ export default function usePaletteIdSync() {
       hasValidatedId.current = false;
     }
 
-    lastPath.current = location.pathname;
-    lastSearch.current = location.search;
+    lastPath.current = pathname;
+    lastSearch.current = search;
     lastAuthState.current = isAuthenticated;
 
     // Wait for auth to settle
     if (isLoading) return;
 
-    const urlPaletteId = getPaletteIdFromUrl(location.search);
+    const urlPaletteId = getPaletteIdFromUrl(search);
 
     if (!urlPaletteId) {
       // Only clear on genuine URL change. A re-run triggered by appStore.paletteId
@@ -86,11 +92,11 @@ export default function usePaletteIdSync() {
 
     hasValidatedId.current = true;
 
-    const currentUrl = `${location.pathname}${location.search}`;
+    const currentUrl = `${pathname}${search}`;
 
     if (!isAuthenticated || !user) {
       // Not logged in - remove ID from URL
-      navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
+      router.replace(updatePaletteIdInUrl(currentUrl, null));
       clearPalette();
 
       return;
@@ -138,7 +144,7 @@ export default function usePaletteIdSync() {
       }
 
       // not-found OR success-but-wrong-user → strip ID
-      navigate(updatePaletteIdInUrl(currentUrl, null), { replace: true });
+      router.replace(updatePaletteIdInUrl(currentUrl, null));
       clearPalette();
     })();
   }, [
@@ -146,9 +152,9 @@ export default function usePaletteIdSync() {
     isAuthenticated,
     isLoading,
     paletteId,
-    location.pathname,
-    location.search,
-    navigate,
+    pathname,
+    searchParams,
+    router,
     palettes,
     setPalette,
     updatePaletteInStore,

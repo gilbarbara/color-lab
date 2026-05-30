@@ -1,11 +1,11 @@
-/* eslint-disable import-x/export, react-refresh/only-export-components */
+/* eslint-disable import-x/export */
 import { type ReactElement, type ReactNode, useMemo } from 'react';
-import { MemoryRouter } from 'react-router';
 import { render, type RenderOptions } from '@testing-library/react';
-import { createHead, UnheadProvider } from '@unhead/react/client';
 
 import AuthContext, { type AuthContextType } from '~/contexts/auth';
 import ThemeProvider from '~/providers/ThemeProvider';
+
+import { setMockRoute } from './mocks';
 
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   authState?: MockAuthState;
@@ -47,17 +47,17 @@ interface MockAuthProviderProps {
 }
 
 function createWrapper(authState?: MockAuthState, initialEntries?: string[]) {
-  return function Wrapper({ children }: { children: ReactNode }) {
-    const head = useMemo(() => createHead(), []);
+  if (initialEntries && initialEntries.length > 0) {
+    setMockRoute(initialEntries[0]);
+  } else {
+    setMockRoute('/');
+  }
 
+  return function Wrapper({ children }: { children: ReactNode }) {
     return (
-      <UnheadProvider head={head}>
-        <MemoryRouter initialEntries={initialEntries}>
-          <ThemeProvider>
-            <MockAuthProvider authState={authState}>{children}</MockAuthProvider>
-          </ThemeProvider>
-        </MemoryRouter>
-      </UnheadProvider>
+      <ThemeProvider>
+        <MockAuthProvider authState={authState}>{children}</MockAuthProvider>
+      </ThemeProvider>
     );
   };
 }

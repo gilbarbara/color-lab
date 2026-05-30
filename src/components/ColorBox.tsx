@@ -1,8 +1,7 @@
-import { type HTMLAttributes, type Ref } from 'react';
+import { type CSSProperties, type HTMLAttributes, type Ref } from 'react';
 import { cn } from '@heroui/react';
 import { convertCSS } from 'colorizr';
 
-import useApp from '~/hooks/useApp';
 import { formatOklch } from '~/utils/color';
 
 type ColorBoxButtonProps = ColorBoxBaseProps &
@@ -26,9 +25,15 @@ interface ColorBoxBaseProps {
 export default function ColorBox(props: ColorBoxProps) {
   const { as: Component = 'button', className, color, size = 'md', ...rest } = props;
 
-  const { gamut } = useApp('gamut');
-
-  const displayColor = gamut === 'srgb' ? convertCSS(color, 'hex') : formatOklch(color);
+  // Emit both gamut formats as CSS custom properties. The Tailwind classes
+  // `bg-(--gamut-bg-oklch)` (default) and `gamut-srgb:bg-(--gamut-bg-hex)`
+  // resolve var() at this element where the properties are actually set —
+  // a chained `:root { --gamut-bg: var(--gamut-bg-oklch) }` would resolve at
+  // :root (where the per-element vars aren't defined) and yield empty.
+  const gamutStyle = {
+    '--gamut-bg-oklch': formatOklch(color),
+    '--gamut-bg-hex': convertCSS(color, 'hex'),
+  } as CSSProperties;
 
   const sizes = {
     sm: 'size-8 rounded-small',
@@ -37,18 +42,17 @@ export default function ColorBox(props: ColorBoxProps) {
     full: 'w-full rounded-large aspect-square',
   };
 
-  const sharedClassName = cn('shrink-0', sizes[size], className);
+  const sharedClassName = cn(
+    'shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)',
+    sizes[size],
+    className,
+  );
 
   if (Component === 'span') {
     const { 'aria-label': ariaLabel = 'Color Box', as: _, ...spanRest } = rest as ColorBoxSpanProps;
 
     return (
-      <span
-        aria-label={ariaLabel}
-        className={sharedClassName}
-        style={{ backgroundColor: displayColor }}
-        {...spanRest}
-      />
+      <span aria-label={ariaLabel} className={sharedClassName} style={gamutStyle} {...spanRest} />
     );
   }
 
@@ -66,7 +70,7 @@ export default function ColorBox(props: ColorBoxProps) {
       data-color={color}
       data-testid="ColorBox"
       onClick={onClick}
-      style={{ backgroundColor: displayColor }}
+      style={gamutStyle}
       type="button"
       {...buttonRest}
     />

@@ -102,22 +102,4 @@ describe('stores/authStore', () => {
       expect(useAuthStore.getState().error).toBeNull();
     });
   });
-
-  describe('reset', () => {
-    it('returns state to initial values', () => {
-      useAuthStore.setState({
-        user: mockUser,
-        status: 'authenticated',
-        error: 'Some error',
-      });
-
-      useAuthStore.getState().reset();
-
-      const state = useAuthStore.getState();
-
-      expect(state.user).toBeNull();
-      expect(state.status).toBe('idle');
-      expect(state.error).toBeNull();
-    });
-  });
 });

@@ -5,7 +5,6 @@ import { Button, Tab, Tabs } from '@heroui/react';
 
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
-import useTheme from '~/hooks/useTheme';
 import { useAuthStore } from '~/stores/authStore';
 import { trackEvent } from '~/utils/analytics';
 
@@ -33,7 +32,6 @@ export default function Login() {
     signupWithEmail,
   } = useAuth();
   const { closeLoginModal, showLoginModal } = useApp('closeLoginModal', 'showLoginModal');
-  const { isDarkMode } = useTheme();
 
   const [{ email, magicLinkSent, name, password, tab }, setState] = useSetState<State>({
     email: '',
@@ -110,7 +108,7 @@ export default function Login() {
   return (
     <Modal isOpen={showLoginModal} onClose={handleClose} size="sm">
       <ModalContent>
-        <ModalBody>
+        <ModalBody data-testid="Login">
           <div className="flex items-center justify-center py-4">
             <h2 className="text-5xl font-bold">Sign in</h2>
           </div>
@@ -129,11 +127,14 @@ export default function Login() {
               fullWidth
               onPress={() => handleOAuth('github')}
               startContent={
-                <img
-                  alt="GitHub"
-                  className="size-5"
-                  src={isDarkMode ? '/icons/github-dark.svg' : '/icons/github.svg'}
-                />
+                <span className="contents">
+                  <img alt="GitHub" className="size-5 block dark:hidden" src="/icons/github.svg" />
+                  <img
+                    alt="GitHub"
+                    className="size-5 hidden dark:block"
+                    src="/icons/github-dark.svg"
+                  />
+                </span>
               }
               variant="bordered"
             >

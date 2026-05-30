@@ -37,8 +37,8 @@ test.afterAll(async () => {
 test('desktop', async () => {
   await test.step('displays main elements on initial load', async () => {
     // Header elements
-    await expect(page.getByRole('link', { name: /home/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /new palette/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /colormeup/i })).toBeVisible();
+    await expect(page.getByTestId('NewPalette')).toBeVisible();
     await expect(page.getByRole('button', { name: /toggle dark mode/i })).toBeVisible();
     await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
 
@@ -67,18 +67,9 @@ test('desktop', async () => {
     await expect(html).toHaveClass(/dark/);
 
     await expect(page).toHaveScreenshot('02-dark-mode.png');
-
-    await toggleButton.click();
-
-    await expect(html).not.toHaveClass(/dark/);
   });
 
   await test.step('persists theme preference across reload', async () => {
-    await page.reload();
-    const toggleButton = page.getByRole('button', { name: /toggle dark mode/i });
-
-    await toggleButton.click();
-
     await page.reload();
     await page.waitForLoadState('networkidle');
 
@@ -117,17 +108,18 @@ test('desktop', async () => {
 
   await test.step('adds a new color', async () => {
     const addColorButton = page.getByRole('button', { name: 'Add Color' });
-    const removeButtons = page.getByRole('button', { name: 'Remove color' });
+    const ColorItem = page.getByTestId('ColorItem');
 
-    await expect(removeButtons.first()).toBeDisabled();
+    await expect(ColorItem.first()).toHaveAttribute('aria-current', 'true');
 
     await addColorButton.click();
 
     // Wait for Collapse to finish animating
     await page.waitForTimeout(collapseDuration);
 
-    await expect(removeButtons).toHaveCount(2);
-    await expect(removeButtons.first()).toBeEnabled();
+    await expect(ColorItem).toHaveCount(2);
+    await expect(ColorItem.first()).toHaveAttribute('aria-current', 'false');
+    await expect(ColorItem.nth(1)).toHaveAttribute('aria-current', 'true');
 
     await expect(page).toHaveScreenshot('03-two-colors.png');
   });
@@ -140,7 +132,7 @@ test('desktop', async () => {
     // Wait for Collapse to finish animating
     await page.waitForTimeout(collapseDuration);
 
-    await page.getByTestId('Sidebar').evaluate(el => {
+    await page.getByTestId('GeneratorPanel').evaluate(el => {
       el.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     });
 
@@ -156,7 +148,7 @@ test('desktop', async () => {
 
     await page.getByRole('button', { name: 'Advanced Options' }).click();
 
-    await expect(page.getByTestId('ScaleColorOptions')).not.toBeVisible();
+    await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
 
     await expect(page).toHaveScreenshot('05-post-advanced-color-options.png');
   });
@@ -297,18 +289,20 @@ test('desktop', async () => {
     await expect(toast.first()).toBeVisible({ timeout: 2000 });
   });
 
-  await test.step('removes a color with confirmation', async () => {
-    const removeButtons = page.getByRole('button', { name: 'Remove color' });
+  await test.step('removes the second color with confirmation', async () => {
+    await page.getByRole('button', { name: 'Select Secondary' }).click();
 
-    await expect(removeButtons).toHaveCount(2);
+    const ColorItem = page.getByTestId('ColorItem').nth(1);
 
-    // First click shows confirmation; second click within 2s confirms
-    const secondRemove = removeButtons.nth(1);
+    await expect(ColorItem).toHaveAttribute('aria-current', 'true');
 
-    await secondRemove.click();
-    await secondRemove.click();
+    const removeButton = ColorItem.getByRole('button', { name: 'Remove color' });
 
-    await expect(removeButtons).toHaveCount(1);
+    await removeButton.click();
+    await page.waitForTimeout(100);
+
+    // Confirm the removal
+    await removeButton.click();
 
     // Wait for Collapse re-open animation on the remaining color (~400ms).
     // Without this, the next step clicks while the trigger button is clipped

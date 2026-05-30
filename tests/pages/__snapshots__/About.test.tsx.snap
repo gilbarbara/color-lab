@@ -125,7 +125,6 @@ exports[`pages/About > renders correctly 1`] = `
       ·
     </span>
     <a
-      data-discover="true"
       href="/about"
     >
       About
@@ -136,7 +135,6 @@ exports[`pages/About > renders correctly 1`] = `
       ·
     </span>
     <a
-      data-discover="true"
       href="/privacy"
     >
       Privacy
@@ -147,7 +145,6 @@ exports[`pages/About > renders correctly 1`] = `
       ·
     </span>
     <a
-      data-discover="true"
       href="/terms"
     >
       Terms
@@ -165,8 +162,13 @@ exports[`pages/About > renders correctly 1`] = `
     >
       <img
         alt="GitHub"
-        class="size-3"
+        class="size-3 block dark:hidden"
         src="/icons/github.svg"
+      />
+      <img
+        alt="GitHub"
+        class="size-3 hidden dark:block"
+        src="/icons/github-dark.svg"
       />
       GitHub
     </a>

@@ -300,26 +300,6 @@ export function getAvailableColorFormats(formatType: ExportFormatType): ExportCo
 }
 
 /**
- * Check if a color format is available for the given format type.
- * RGB channels is only available for CSS and SCSS.
- */
-export function isColorFormatAvailable(
-  formatType: ExportFormatType,
-  colorFormat: ExportColorFormat,
-): boolean {
-  if (colorFormat === 'rgb-channels') {
-    return formatType === 'css' || formatType === 'scss';
-  }
-
-  // SVG only supports hex (it converts internally anyway)
-  if (formatType === 'svg') {
-    return colorFormat === 'hex';
-  }
-
-  return true;
-}
-
-/**
  * Format type display labels.
  */
 export const formatTypeLabels: Record<ExportFormatType, string> = {

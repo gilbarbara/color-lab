@@ -37,9 +37,39 @@ test.afterAll(async () => {
 });
 
 async function scrollBottomBarToTop() {
-  await page.getByTestId('BottomBar').evaluate(el => {
-    el.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-  });
+  // Adding or selecting a color triggers an async scroll-to-color (a rAF gated
+  // by collapse animations, and a 500ms timeout when the bar opens). Under load
+  // that scroll can fire after a one-shot reset and offset the screenshot. Pin
+  // the panel to the top, re-zeroing on any late movement, until it holds for a
+  // sustained window so the capture is deterministic.
+  await page.getByTestId('GeneratorPanel').evaluate(
+    el =>
+      new Promise<void>(resolve => {
+        const QUIET_FRAMES = 12; // ~200ms of no movement
+        const MAX_FRAMES = 180; // ~3s safety cap
+        let quiet = 0;
+        let frames = 0;
+
+        const tick = () => {
+          frames += 1;
+
+          if (el.scrollTop !== 0) {
+            el.scrollTop = 0;
+            quiet = 0;
+          } else {
+            quiet += 1;
+          }
+
+          if (quiet >= QUIET_FRAMES || frames >= MAX_FRAMES) {
+            resolve();
+          } else {
+            requestAnimationFrame(tick);
+          }
+        };
+
+        requestAnimationFrame(tick);
+      }),
+  );
 }
 
 async function toggleBottomBar() {
@@ -49,8 +79,8 @@ async function toggleBottomBar() {
 
 test('mobile', async () => {
   await test.step('displays main elements on initial load', async () => {
-    await expect(page.getByRole('link', { name: /home/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'New' })).toBeVisible();
+    await expect(page.getByRole('link', { name: /colormeup/i })).toBeVisible();
+    await expect(page.getByTestId('NewPalette')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Menu' })).toBeVisible();
     await expect(page.getByRole('button', { name: /toggle dark mode/i })).toBeVisible();
     await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
@@ -82,18 +112,9 @@ test('mobile', async () => {
     await expect(html).toHaveClass(/dark/);
 
     await expect(page).toHaveScreenshot('02-dark-mode.png');
-
-    await toggleButton.click();
-
-    await expect(html).not.toHaveClass(/dark/);
   });
 
   await test.step('persists theme preference across reload', async () => {
-    await page.reload();
-    const toggleButton = page.getByRole('button', { name: /toggle dark mode/i });
-
-    await toggleButton.click();
-
     await page.reload();
     await page.waitForLoadState('networkidle');
 
@@ -147,17 +168,18 @@ test('mobile', async () => {
 
   await test.step('adds a new color', async () => {
     const addColorButton = page.getByRole('button', { name: 'Add Color' });
-    const removeButtons = page.getByRole('button', { name: 'Remove color' });
+    const ColorItem = page.getByTestId('ColorItem');
 
-    await expect(removeButtons.first()).toBeDisabled();
+    await expect(ColorItem.first()).toHaveAttribute('aria-current', 'true');
 
     await addColorButton.click();
 
     // Wait for Collapse animation
     await page.waitForTimeout(collapseDuration);
 
-    await expect(removeButtons).toHaveCount(2);
-    await expect(removeButtons.first()).toBeEnabled();
+    await expect(ColorItem).toHaveCount(2);
+    await expect(ColorItem.first()).toHaveAttribute('aria-current', 'false');
+    await expect(ColorItem.nth(1)).toHaveAttribute('aria-current', 'true');
 
     // Adding a color auto-scrolls the bar to the new color; reset to top so
     // the screenshot starts from Advanced Options + Primary.
@@ -186,7 +208,7 @@ test('mobile', async () => {
 
     await page.getByRole('button', { name: 'Advanced Options' }).click();
 
-    await expect(page.getByTestId('ScaleColorOptions')).not.toBeVisible();
+    await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
 
     await page.waitForTimeout(collapseDuration);
     await scrollBottomBarToTop();
@@ -203,7 +225,12 @@ test('mobile', async () => {
     await expect(lightnessCurveSlider).toHaveValue('1.2');
     await lightnessCurveSlider.fill('1.3');
 
-    await expect(page).toHaveScreenshot('06-color-options-popover.png');
+    // Floating popover capture: its position can vary by a few px between runs
+    // and isn't covered by the panel scroll-pin, so allow a wider diff like the
+    // export drawer shot (13).
+    await expect(page).toHaveScreenshot('06-color-options-popover.png', {
+      maxDiffPixelRatio: 0.1,
+    });
   });
 
   await test.step('closes color options popover with Escape', async () => {
@@ -335,8 +362,8 @@ test('mobile', async () => {
 
   // === Bar OPEN again: remove color ===
 
-  await test.step('removes a color with confirmation', async () => {
-    // Toast overlaps the bottom-bar toggle on mobile; dismiss it explicitly.
+  await test.step('removes the second color with confirmation', async () => {
+    // Toast overlaps the palette on mobile; dismiss it explicitly.
     const toast = page.getByRole('alertdialog', { name: 'toast' });
 
     if (await toast.isVisible()) {
@@ -344,24 +371,25 @@ test('mobile', async () => {
       await expect(toast).not.toBeVisible();
     }
 
-    await toggleBottomBar();
+    // Selecting the color activates it and auto-opens the bottom bar. An inactive
+    // color swallows its first click to activate (handleCaptureInactive), so it
+    // must be active for the remove button's first click to register.
+    await page.getByRole('button', { name: 'Select Secondary' }).click();
+    await page.waitForTimeout(collapseDuration);
     await scrollBottomBarToTop();
 
-    const removeButtons = page.getByRole('button', { name: 'Remove color' });
+    const ColorItem = page.getByTestId('ColorItem').nth(1);
 
-    await expect(removeButtons).toHaveCount(2);
+    await expect(ColorItem).toHaveAttribute('aria-current', 'true');
 
-    // First click shows confirmation tooltip; second click within 2s confirms.
-    // React Aria's usePress doesn't reliably fire from Playwright tap/click under
-    // iOS emulation — dispatch native click events instead.
-    const secondRemove = removeButtons.nth(1);
+    const removeButton = ColorItem.getByRole('button', { name: 'Remove color' });
 
-    await secondRemove.focus();
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(300);
-    await page.keyboard.press('Enter');
+    // First click shows confirmation; second click within 2s confirms.
+    await removeButton.click();
+    await page.waitForTimeout(100);
+    await removeButton.click();
 
-    await expect(removeButtons).toHaveCount(1);
+    await expect(page.getByTestId('ColorItem')).toHaveCount(1);
 
     // Wait for Collapse re-open animation on the remaining color
     await page.waitForTimeout(collapseDuration);

@@ -15,7 +15,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   loginWithEmail: (email: string, password: string) => Promise<void>;
-  loginWithOAuth: (provider: OAuthProvider) => void;
+  loginWithOAuth: (provider: OAuthProvider) => Promise<void>;
   logout: () => Promise<void>;
   provider: OAuthProvider | null;
   sendMagicLink: (email: string) => Promise<void>;

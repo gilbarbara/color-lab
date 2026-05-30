@@ -1,87 +1,66 @@
-import { Link, NavLink, type NavLinkRenderProps } from 'react-router';
-import { useBreakpoint } from '@gilbarbara/hooks';
-import {
-  Avatar,
-  Button,
-  cn,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from '@heroui/react';
-import {
-  CaretDownIcon,
-  MoonIcon,
-  PlusIcon,
-  SignInIcon,
-  SignOutIcon,
-  SunIcon,
-  UserIcon,
-} from '@phosphor-icons/react';
+'use client';
 
-import { BREAKPOINTS } from '~/config/globals';
+import { Button, cn, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
+import { CaretDownIcon, MoonIcon, PlusIcon, SunIcon } from '@phosphor-icons/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import useApp from '~/hooks/useApp';
-import useAuth from '~/hooks/useAuth';
-import usePalette from '~/hooks/usePalette';
 import useTheme from '~/hooks/useTheme';
 import { trackEvent } from '~/utils/analytics';
+import { createPalette } from '~/utils/palette';
+import { serializePaletteToUrl } from '~/utils/url';
+
+import Logo from '~/components/Logo';
+import NavLink, { type NavLinkRenderProps } from '~/components/NavLink';
+import UserMenu from '~/components/UserMenu';
 
 function navLinkClassName({ isActive }: NavLinkRenderProps) {
   return cn('text-sm text-foreground-500', { 'text-foreground': isActive });
 }
 
 export default function Header() {
+  const router = useRouter();
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const { isAuthenticated, isLoading, logout, provider, user } = useAuth();
-  const { generatorUrl } = usePalette('generatorUrl');
-  const { clearPalette, closeLoginModal, openLoginModal } = useApp(
-    'clearPalette',
-    'closeLoginModal',
-    'openLoginModal',
-  );
-  const { min } = useBreakpoint(BREAKPOINTS);
+  const { clearPalette, sessionPalettePath } = useApp('clearPalette', 'sessionPalettePath');
 
   const handleClickDarkMode = () => {
     trackEvent('dark-mode', { enabled: !isDarkMode });
     toggleDarkMode();
   };
 
-  const isMedium = min('md');
-  const isSmall = min('sm');
-
-  const providerIdMap: Record<string, string> = { google: 'google.com', github: 'github.com' };
-
-  const providerPhoto =
-    provider && user?.providerData.find(p => p.providerId === providerIdMap[provider])?.photoURL;
-  const imageUrl = providerPhoto ?? user?.photoURL ?? undefined;
+  const handleNewPalette = () => {
+    clearPalette();
+    trackEvent('new-palette');
+    // Mint a fresh palette and make its URL the source of truth; the generator route
+    // hydrates the store from it. Works from any route, no reliance on `/`.
+    router.push(serializePaletteToUrl(createPalette()));
+  };
 
   const renderNavigation = () => (
     <div className="flex items-center gap-2 md:gap-4 ml-4 md:ml-8">
       <Button
-        as={NavLink}
-        className="text-sm"
-        isIconOnly={!isSmall}
-        onPress={() => {
-          clearPalette();
-          trackEvent('new-palette');
-        }}
+        aria-label="New Palette"
+        className="text-sm max-xs:button-menu-square"
+        onPress={handleNewPalette}
         size="sm"
         startContent={<PlusIcon />}
-        to="/"
         variant="flat"
       >
-        <span className="hidden xs:inline-flex">{isMedium ? 'New Palette' : 'New'}</span>
+        <span className="hidden xs:inline-flex items-center gap-1" data-testid="NewPalette">
+          New
+          <span className="hidden sm:inline-flex">Palette</span>
+        </span>
       </Button>
-      {isMedium ? (
-        <>
-          <NavLink className={navLinkClassName} to="/palettes">
-            My Palettes
-          </NavLink>
-          <NavLink className={navLinkClassName} to="/about">
-            About
-          </NavLink>
-        </>
-      ) : (
+      <div className="hidden sm:contents">
+        <NavLink className={navLinkClassName} to="/palettes">
+          My Palettes
+        </NavLink>
+        <NavLink className={navLinkClassName} to="/about">
+          About
+        </NavLink>
+      </div>
+      <div className="contents sm:hidden">
         <Dropdown placement="bottom">
           <DropdownTrigger>
             <Button
@@ -102,64 +81,9 @@ export default function Header() {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-      )}
+      </div>
     </div>
   );
-
-  const renderUserMenu = () => {
-    if (!isAuthenticated) {
-      return (
-        <Button
-          aria-label="Sign In"
-          isIconOnly
-          isLoading={isLoading}
-          onPress={openLoginModal}
-          startContent={!isLoading && <SignInIcon className="h-5 w-5" />}
-          variant="light"
-        />
-      );
-    }
-
-    return (
-      <Dropdown placement="bottom-end">
-        <DropdownTrigger>
-          <Avatar
-            aria-label="User Menu"
-            as="button"
-            className="transition-transform"
-            name={user?.displayName ?? undefined}
-            showFallback
-            size="sm"
-            src={imageUrl}
-          />
-        </DropdownTrigger>
-        <DropdownMenu aria-label="User menu">
-          <DropdownItem
-            key="profile"
-            className="h-14 gap-2"
-            isReadOnly
-            startContent={<UserIcon className="size-4" />}
-            textValue="Profile"
-          >
-            <p className="font-semibold">{user?.displayName || 'User'}</p>
-            <p className="text-sm text-default-500">{user?.email}</p>
-          </DropdownItem>
-          <DropdownItem
-            key="logout"
-            color="danger"
-            onPress={() => {
-              trackEvent('logout');
-              closeLoginModal();
-              logout();
-            }}
-            startContent={<SignOutIcon className="size-4" />}
-          >
-            Sign Out
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-    );
-  };
 
   return (
     <header
@@ -168,13 +92,8 @@ export default function Header() {
     >
       <div className="flex items-center w-full max-w-432 mx-auto px-4">
         <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">
-          <Link aria-label="Home" className="inline-flex items-start gap-1" to={generatorUrl}>
-            <img
-              alt="ColorMeUp"
-              className="h-8"
-              src={isMedium ? '/brand/logo.svg' : '/brand/icon.svg'}
-            />
-            <span className="font-bold text-sm">LAB</span>
+          <Link className="inline-flex" href={sessionPalettePath ?? '/'}>
+            <Logo />
           </Link>
         </h1>
 
@@ -187,9 +106,10 @@ export default function Header() {
             onPress={handleClickDarkMode}
             variant="light"
           >
-            {isDarkMode ? <SunIcon className="size-6" /> : <MoonIcon className="size-6" />}
+            <SunIcon className="size-6 hidden dark:block" />
+            <MoonIcon className="size-6 block dark:hidden" />
           </Button>
-          {renderUserMenu()}
+          <UserMenu />
         </div>
       </div>
     </header>

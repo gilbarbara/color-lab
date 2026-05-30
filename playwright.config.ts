@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = 'http://localhost:3000';
+const baseURL = process.env.CI ? 'http://localhost:3000' : 'https://color-lab.localhost';
 
 export default defineConfig({
   testDir: './e2e',
@@ -9,10 +9,12 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+  // Each spec is a single long flow (~30s); give it headroom so slower CI runs
+  // don't time out mid-flow. actionTimeout/expect keep individual failures fast.
+  timeout: 60000,
   snapshotDir: './e2e/__snapshots__',
   snapshotPathTemplate: '{testDir}/__snapshots__/{testName}/{arg}{ext}',
   expect: {
-    timeout: 10000, // 10s for assertions
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.025,
     },
@@ -25,14 +27,17 @@ export default defineConfig({
   ],
   use: {
     baseURL,
+    // Fail fast on wrong locators instead of hanging until the per-test timeout.
+    actionTimeout: 10000,
     trace: 'on-first-retry',
     launchOptions: {
       slowMo: process.env.SLO_MO ? Number(process.env.SLO_MO) : 0,
     },
   },
   webServer: {
-    command: 'pnpm dev:e2e',
+    command: process.env.CI ? 'pnpm start' : 'pnpm dev',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
+    ignoreHTTPSErrors: !process.env.CI,
   },
 });

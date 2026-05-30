@@ -9,9 +9,11 @@ lerna-debug.log*
 
 node_modules
 dist
-dist-ssr
+standalone
 .vite
+.next
 *.local
+next-env.d.ts
 
 # Test and cache
 coverage

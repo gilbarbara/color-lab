@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
-import { type PaletteStore, usePaletteStore } from '~/stores/paletteStore';
+import usePaletteStore from '~/hooks/usePaletteStore';
+import { type PaletteStore } from '~/stores/paletteStore';
 import { getChromaAsPercentage } from '~/utils/color';
 import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/palette';
 import { serializePaletteToUrl } from '~/utils/url';

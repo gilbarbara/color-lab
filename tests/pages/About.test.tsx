@@ -1,6 +1,6 @@
 import { render, screen } from '~/test-utils';
 
-import About from '~/pages/About';
+import About from '../../app/about/About';
 
 describe('pages/About', () => {
   it('renders correctly', () => {

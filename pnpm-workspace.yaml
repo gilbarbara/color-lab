@@ -1,7 +1,11 @@
+overrides:
+  '@react-types/shared': 3.35.0
 allowBuilds:
   '@firebase/util': true
   '@heroui/shared-utils': true
+  '@sentry/cli': true
   protobufjs: true
+  sharp: true
   unrs-resolver: true
 publicHoistPattern:
   - '*@heroui/*'

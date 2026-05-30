@@ -12,7 +12,6 @@ interface AuthState {
 }
 
 interface AuthStateWithActions extends AuthState {
-  reset: () => void;
   setError: (error: string | null) => void;
   setPendingCredential: (credential: AuthCredential | null) => void;
   setProvider: (provider: OAuthProvider | null) => void;
@@ -47,6 +46,4 @@ export const useAuthStore = create<AuthStateWithActions>(set => ({
   setStatus: (status): void => set({ status }),
 
   setError: (error): void => set({ error }),
-
-  reset: (): void => set(initialState),
 }));

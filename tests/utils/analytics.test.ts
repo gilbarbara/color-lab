@@ -2,7 +2,7 @@ import { trackEvent, trackPage } from '~/utils/analytics';
 
 const mockCaptureException = vi.fn();
 
-vi.mock('@sentry/react', () => ({
+vi.mock('@sentry/nextjs', () => ({
   captureException: (...arguments_: unknown[]) => mockCaptureException(...arguments_),
 }));
 

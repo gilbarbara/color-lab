@@ -3,18 +3,12 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
-import { usePaletteStore } from '~/stores/paletteStore';
 import { CRIMSON } from '~/test-fixtures';
+import { getPaletteStore, mockRouter } from '~/test-mocks';
 import { createPalette } from '~/utils/palette';
 import { serializePaletteToUrl } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
-
-const mockNavigate = vi.fn();
-
-vi.mock('react-router', () => ({
-  useNavigate: () => mockNavigate,
-}));
 
 const mockUser = { uid: 'user-1', email: 'test@example.com', displayName: 'Test', photoURL: null };
 
@@ -61,7 +55,7 @@ describe('hooks/useSavedPalettes', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockListPalettes.mockResolvedValue([]);
-    usePaletteStore.setState(createPalette(CRIMSON));
+    getPaletteStore().setState(createPalette(CRIMSON));
     useAppStore.setState({
       lastSavedUrl: null,
       paletteId: null,
@@ -295,7 +289,8 @@ describe('hooks/useSavedPalettes', () => {
         await result.current.deletePalette('palette-1');
       });
 
-      expect(mockNavigate).not.toHaveBeenCalled();
+      expect(mockRouter.push).not.toHaveBeenCalled();
+      expect(mockRouter.replace).not.toHaveBeenCalled();
     });
 
     it('sets error on failure', async () => {
@@ -453,7 +448,7 @@ describe('hooks/useSavedPalettes', () => {
     });
 
     it('returns false when URL matches lastSavedUrl', async () => {
-      const store = usePaletteStore.getState();
+      const store = getPaletteStore().getState();
       const currentUrl = serializePaletteToUrl({
         colors: store.colors,
         globalOptions: store.globalOptions,
