@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Button,
   Dropdown,
@@ -14,7 +15,7 @@ import {
   DownloadSimpleIcon,
 } from '@phosphor-icons/react';
 
-export default function PreviewToolbar() {
+function PreviewToolbar() {
   return (
     <section
       className="flex flex-wrap items-center justify-between gap-3"
@@ -68,3 +69,5 @@ export default function PreviewToolbar() {
     </section>
   );
 }
+
+export default memo(PreviewToolbar);
