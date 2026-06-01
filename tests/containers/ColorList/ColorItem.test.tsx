@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/nextjs';
 
 import { BLUE, createColorEntry, CRIMSON, GREEN } from '~/test-fixtures';
-import { getPaletteStore } from '~/test-mocks';
+import { getGeneratorStore } from '~/test-mocks';
 import { act, fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor, toOklch } from '~/utils/color';
-import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
+import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
 import ColorItem from '~/containers/ColorList/ColorItem';
 
@@ -53,7 +53,7 @@ function setupStore(colors: ColorEntry[], activeIndex: number | null = 0) {
 
   palette.colors = colors;
 
-  getPaletteStore().setState({
+  getGeneratorStore().setState({
     ...palette,
     activeColorId: activeIndex === null ? null : (colors[activeIndex]?.id ?? null),
   });
@@ -109,7 +109,7 @@ describe('ColorItem', () => {
       fireEvent.change(input, { target: { value: 'New Name' } });
       fireEvent.keyDown(input, { key: 'Enter' });
 
-      const storeColors = getPaletteStore().getState().colors;
+      const storeColors = getGeneratorStore().getState().colors;
 
       expect(storeColors[0].name).toBe('New Name');
     });
@@ -123,7 +123,7 @@ describe('ColorItem', () => {
       fireEvent.change(input, { target: { value: 'New Name' } });
       fireEvent.blur(input);
 
-      const storeColors = getPaletteStore().getState().colors;
+      const storeColors = getGeneratorStore().getState().colors;
 
       expect(storeColors[0].name).toBe('New Name');
     });
@@ -138,7 +138,7 @@ describe('ColorItem', () => {
       fireEvent.keyDown(input, { key: 'Escape' });
       fireEvent.blur(input);
 
-      const storeColors = getPaletteStore().getState().colors;
+      const storeColors = getGeneratorStore().getState().colors;
 
       expect(storeColors[0].name).toBe('Primary');
       expect(screen.getByDisplayValue('Primary')).toBeInTheDocument();
@@ -148,11 +148,11 @@ describe('ColorItem', () => {
       renderActive();
 
       const removeButton = screen.getByRole('button', { name: /remove color/i });
-      const initialCount = getPaletteStore().getState().colors.length;
+      const initialCount = getGeneratorStore().getState().colors.length;
 
       fireEvent.click(removeButton);
 
-      expect(getPaletteStore().getState().colors).toHaveLength(initialCount);
+      expect(getGeneratorStore().getState().colors).toHaveLength(initialCount);
     });
 
     it('removes color on second click within 2 seconds', () => {
@@ -166,11 +166,11 @@ describe('ColorItem', () => {
 
       fireEvent.click(removeButton);
 
-      expect(getPaletteStore().getState().colors).toHaveLength(2);
+      expect(getGeneratorStore().getState().colors).toHaveLength(2);
 
       fireEvent.click(removeButton);
 
-      expect(getPaletteStore().getState().colors).toHaveLength(1);
+      expect(getGeneratorStore().getState().colors).toHaveLength(1);
     });
 
     it('resets remove confirmation after 2 seconds', () => {
@@ -190,11 +190,11 @@ describe('ColorItem', () => {
 
       fireEvent.click(removeButton);
 
-      expect(getPaletteStore().getState().colors).toHaveLength(2);
+      expect(getGeneratorStore().getState().colors).toHaveLength(2);
 
       fireEvent.click(removeButton);
 
-      expect(getPaletteStore().getState().colors).toHaveLength(1);
+      expect(getGeneratorStore().getState().colors).toHaveLength(1);
     });
 
     it('disables remove when isOnlyColor is true', () => {
@@ -222,11 +222,11 @@ describe('ColorItem', () => {
 
       render(<ColorItem {...createDefaultProps({ colorEntry: colors[1], index: 1 })} />);
 
-      expect(getPaletteStore().getState().activeColorId).toBe(colors[0].id);
+      expect(getGeneratorStore().getState().activeColorId).toBe(colors[0].id);
 
       fireEvent.click(screen.getByTestId('ColorItem'));
 
-      expect(getPaletteStore().getState().activeColorId).toBe(colors[1].id);
+      expect(getGeneratorStore().getState().activeColorId).toBe(colors[1].id);
     });
 
     it('reflects external name change when prop updates with same id (URL sync)', () => {
@@ -287,7 +287,7 @@ describe('ColorItem', () => {
       });
 
       const expected = toOklch('#00ff00');
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors[0].value).toBe(expected);
       expect(state.globalOptions.saturation).toBe(getChromaAsPercentage(expected));
@@ -300,7 +300,7 @@ describe('ColorItem', () => {
 
       render(<ColorItem {...createDefaultProps({ colorEntry: colors[1], index: 1 })} />);
 
-      const initialSaturation = getPaletteStore().getState().globalOptions.saturation;
+      const initialSaturation = getGeneratorStore().getState().globalOptions.saturation;
 
       fireEvent.change(screen.getByLabelText('Color value'), { target: { value: '00ff00' } });
 
@@ -308,7 +308,7 @@ describe('ColorItem', () => {
         vi.advanceTimersByTime(16);
       });
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors[1].value).toBe(toOklch('#00ff00'));
       expect(state.globalOptions.saturation).toBe(initialSaturation);
@@ -317,7 +317,7 @@ describe('ColorItem', () => {
     it('captures invalid color values via Sentry without mutating the store', () => {
       renderActive();
 
-      const originalValue = getPaletteStore().getState().colors[0].value;
+      const originalValue = getGeneratorStore().getState().colors[0].value;
 
       // Arm the throw only for the next toOklch call (the handler's), after all
       // setup calls (createColorEntry / getDefaultGlobalOptions) have run.
@@ -337,7 +337,7 @@ describe('ColorItem', () => {
           tags: { source: 'ColorItem', call: 'handleChangeColor' },
         }),
       );
-      expect(getPaletteStore().getState().colors[0].value).toBe(originalValue);
+      expect(getGeneratorStore().getState().colors[0].value).toBe(originalValue);
     });
 
     it('sets a random color and tracks the event', () => {
@@ -352,11 +352,11 @@ describe('ColorItem', () => {
       });
 
       expect(trackEvent).toHaveBeenCalledWith('random-color');
-      expect(getPaletteStore().getState().colors[0].value).toBe(GREEN);
+      expect(getGeneratorStore().getState().colors[0].value).toBe(GREEN);
     });
 
     it('sets the preview color and tracks the event', () => {
-      const spy = vi.spyOn(getPaletteStore().getState(), 'setPreviewColor');
+      const spy = vi.spyOn(getGeneratorStore().getState(), 'setPreviewColor');
 
       renderActive();
 

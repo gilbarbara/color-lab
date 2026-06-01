@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import useApp from '~/hooks/useApp';
 import useTheme from '~/hooks/useTheme';
 import { trackEvent } from '~/utils/analytics';
-import { createPalette } from '~/utils/palette';
+import { createPalette } from '~/utils/generator';
 import { serializePaletteToUrl } from '~/utils/url';
 
 import Logo from '~/components/Logo';

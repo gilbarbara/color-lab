@@ -4,25 +4,25 @@ import type { ReactNode } from 'react';
 import { createContext, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import { createPaletteStore, type PaletteStoreApi } from '~/stores/paletteStore';
+import { createGeneratorStore, type GeneratorStoreApi } from '~/stores/generatorStore';
 import { parsePaletteFromUrl } from '~/utils/url';
 
-import type { PaletteState } from '~/types';
+import type { GeneratorState } from '~/types';
 
-export const PaletteStoreContext = createContext<PaletteStoreApi | null>(null);
+export const GeneratorStoreContext = createContext<GeneratorStoreApi | null>(null);
 
-interface PaletteStoreProviderProps {
+interface GeneratorStoreProviderProps {
   children: ReactNode;
-  fallbackPalette: PaletteState;
+  fallbackPalette: GeneratorState;
 }
 
-export default function PaletteStoreProvider({
+export default function GeneratorStoreProvider({
   children,
   fallbackPalette,
-}: PaletteStoreProviderProps) {
+}: GeneratorStoreProviderProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const storeRef = useRef<PaletteStoreApi | null>(null);
+  const storeRef = useRef<GeneratorStoreApi | null>(null);
 
   if (storeRef.current === null) {
     // Self-initialize so server and client first render match without a "mutate
@@ -33,10 +33,12 @@ export default function PaletteStoreProvider({
     const url = `${pathname}${search ? `?${search}` : ''}`;
     const parsed = pathname.startsWith('/p/') ? parsePaletteFromUrl(url) : null;
 
-    storeRef.current = createPaletteStore(parsed?.state ?? fallbackPalette);
+    storeRef.current = createGeneratorStore(parsed?.state ?? fallbackPalette);
   }
 
   return (
-    <PaletteStoreContext.Provider value={storeRef.current}>{children}</PaletteStoreContext.Provider>
+    <GeneratorStoreContext.Provider value={storeRef.current}>
+      {children}
+    </GeneratorStoreContext.Provider>
   );
 }

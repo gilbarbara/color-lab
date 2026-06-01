@@ -5,7 +5,7 @@ import { type ColorMode, ModeSelector } from '@transience/color-picker';
 import { readableColor } from 'colorizr';
 
 import { BREAKPOINTS } from '~/config/globals';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
@@ -25,7 +25,7 @@ interface ColorActionsProps {
 
 export default function ColorActions(props: ColorActionsProps) {
   const { colorEntry, index, mode, onClickMode, onClickRandom } = props;
-  const { clearColorOverrides, globalOptions, setColorOverride } = usePalette(
+  const { clearColorOverrides, globalOptions, setColorOverride } = useGenerator(
     'clearColorOverrides',
     'globalOptions',
     'setColorOverride',

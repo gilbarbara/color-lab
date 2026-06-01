@@ -6,11 +6,11 @@ import { CaretUpIcon, PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react'
 
 import { BREAKPOINTS, OFFSET, SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { trackEvent } from '~/utils/analytics';
 import { getRandomColor, rotateOklchHue } from '~/utils/color';
-import { MAX_COLORS } from '~/utils/palette';
+import { MAX_COLORS } from '~/utils/generator';
 import { scrollToSelector } from '~/utils/scroll';
 
 import AppIntro from '~/components/AppIntro';
@@ -33,7 +33,7 @@ import ColorOptions from './ColorOptions';
  */
 export default function Panel() {
   const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
-    usePalette(
+    useGenerator(
       'addColor',
       'baseSaturation',
       'colors',

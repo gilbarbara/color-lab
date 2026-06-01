@@ -129,10 +129,10 @@ interface GlobalScaleOptions extends ScaleOptions {
 }
 ```
 
-### PaletteState
+### GeneratorState
 
 ```typescript
-interface PaletteState {
+interface GeneratorState {
   colors: ColorEntry[];             // 1-10 colors
   globalOptions: GlobalScaleOptions;
 }
@@ -142,7 +142,7 @@ interface PaletteState {
 
 ## State Flow
 
-`paletteStore` is the hub. URL and components are both bidirectional satellites.
+`generatorStore` is the hub. URL and components are both bidirectional satellites.
 
 ```
                           ┌──────────────────┐
@@ -157,11 +157,11 @@ interface PaletteState {
                           └────────┬─────────┘
                                    │
               pure functions       │
-              from palette.ts ────►│
+              from generator.ts ────►│
               (addColor,           │
                removeColor,        ▼
                updateColor, ...) ┌──────────────────────┐
-                                 │    paletteStore      │
+                                 │    generatorStore      │
                                  │  (Zustand, hub)      │
                                  │  - colors            │
                                  │  - globalOptions     │
@@ -171,7 +171,7 @@ interface PaletteState {
                                   read ↑↓ act
                                           │
                                  ┌────────▼─────────┐
-                                 │   usePalette()   │  thin wrapper +
+                                 │   useGenerator()   │  thin wrapper +
                                  │                  │  derived values:
                                  │                  │  - baseSaturation
                                  │                  │  - defaultOptions
@@ -186,23 +186,23 @@ interface PaletteState {
                                  └────────────────────────────┘
 ```
 
-Components never read `paletteStore` directly — always via `usePalette`.
+Components never read `generatorStore` directly — always via `useGenerator`.
 
 ### Active color tracking
 
-`activeColorId: string | null` lives on the store (`src/stores/paletteStore.ts`). It marks which `ColorEntry` is currently focused in the sidebar — drives highlight, scroll-into-view, and the active-slider panel.
+`activeColorId: string | null` lives on the store (`../src/stores/generatorStore.ts`). It marks which `ColorEntry` is currently focused in the sidebar — drives highlight, scroll-into-view, and the active-slider panel.
 
-- Initial value: first color's `id` (`paletteStore.ts:25`)
+- Initial value: first color's `id` (`generatorStore.ts:25`)
 - Set explicitly by `setActiveColor(id)` action
 - Auto-updated by `addColor` (new color becomes active) and `removeColor` (falls back to a neighbor)
-- Surfaced through `usePalette()` for component consumption
+- Surfaced through `useGenerator()` for component consumption
 - **Not persisted in URL** — ephemeral UI state, reset on reload
 
 ---
 
 ## Key Functions
 
-### `src/utils/palette.ts`
+### `../src/utils/generator.ts`
 
 | Function | Purpose |
 |----------|---------|
@@ -225,7 +225,7 @@ Also exports the constant `MAX_COLORS = 10`.
 
 | Function | Purpose |
 |----------|---------|
-| `serializePaletteToUrl(state)` | `PaletteState` → URL path + query (OKLCH-only output) |
+| `serializePaletteToUrl(state)` | `GeneratorState` → URL path + query (OKLCH-only output) |
 | `parsePaletteFromUrl(url)` | URL string → `ParsedPalette \| null` (accepts hex on parse for back-compat) |
 | `getPaletteIdFromUrl(search)` | Extract `id` from query string |
 | `updatePaletteIdInUrl(url, id)` | Add or remove `id` query param |
@@ -249,7 +249,7 @@ The `saturation` value is initialized from the first color's chroma (converted t
 ## Constraints
 
 - **Min colors**: 1 (cannot remove last color)
-- **Max colors**: 10 (`MAX_COLORS` in `src/utils/palette.ts`)
+- **Max colors**: 10 (`MAX_COLORS` in `../src/utils/generator.ts`)
 - **Steps range**: Determined by colorizr (typically 3-21)
 - **Lightness range**: 0-1 (minLightness < maxLightness)
 - **Color IDs**: UUIDs assigned by `addColor` / `createPalette`. Not user-facing, not in URLs.

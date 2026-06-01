@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import {
   createPalette,
   deletePalette as deletePaletteService,
@@ -19,8 +19,8 @@ import type { SavedPalette } from '~/types';
 
 /**
  * Full saved-palette hook: list management plus save/update of the *current* palette.
- * The save operations read the per-request palette store, so this must be used inside
- * a PaletteStoreProvider (the generator routes). The `/palettes` list page should use
+ * The save operations read the per-request generator store, so this must be used inside
+ * a GeneratorStoreProvider (the generator routes). The `/palettes` list page should use
  * {@link useSavedPalettesList} instead.
  */
 export default function useSavedPalettes() {
@@ -28,7 +28,7 @@ export default function useSavedPalettes() {
   const { user } = useAuth();
   const list = useSavedPalettesList();
 
-  const { generatorUrl: currentUrl } = usePalette('generatorUrl');
+  const { generatorUrl: currentUrl } = useGenerator('generatorUrl');
   const { lastSavedUrl, paletteId, paletteName, setPalette } = useApp(
     'lastSavedUrl',
     'paletteId',
@@ -116,8 +116,8 @@ export default function useSavedPalettes() {
 
 /**
  * Saved-palette list management (fetch + CRUD on the user's saved list). Does NOT
- * depend on the per-request palette store, so it is safe to use outside the
- * PaletteStoreProvider (e.g. the `/palettes` page).
+ * depend on the per-request generator store, so it is safe to use outside the
+ * GeneratorStoreProvider (e.g. the `/palettes` page).
  */
 export function useSavedPalettesList() {
   const { isAuthenticated, user } = useAuth();

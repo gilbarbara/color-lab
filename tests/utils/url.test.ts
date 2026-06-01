@@ -2,7 +2,7 @@ import { parseCSS } from 'colorizr';
 
 import { createColorEntry } from '~/test-fixtures';
 import { toOklch } from '~/utils/color';
-import { getDefaultGlobalOptions } from '~/utils/palette';
+import { getDefaultGlobalOptions } from '~/utils/generator';
 import {
   buildUrl,
   canonicalizeUrl,
@@ -12,7 +12,7 @@ import {
   updatePaletteIdInUrl,
 } from '~/utils/url';
 
-import type { ColorEntry, PaletteState } from '~/types';
+import type { ColorEntry, GeneratorState } from '~/types';
 
 /** Build a ColorEntry from a hex source (storage is always OKLCH). */
 function oklchEntry(name: string, hex: string, overrides?: ColorEntry['overrides']): ColorEntry {
@@ -251,7 +251,7 @@ describe('utils/url', () => {
     });
 
     it('round-trips OKLCH: serialize then parse returns equivalent state', () => {
-      const original: PaletteState = {
+      const original: GeneratorState = {
         colors: [
           createColorEntry('Primary', 'oklch(0.64 0.142 329)', { maxLightness: 0.95 }),
           createColorEntry('Color Two', 'oklch(0.7 0.2 120)'),
@@ -379,7 +379,7 @@ describe('utils/url', () => {
       const cases = ['Foo/Bar', 'Foo?Bar', 'Foo#Bar', 'C++', '100%', 'A B', 'Forest-Green'];
 
       for (const name of cases) {
-        const state: PaletteState = {
+        const state: GeneratorState = {
           colors: [oklchEntry(name, hex)],
           globalOptions: getDefaultGlobalOptions(toOklch(hex)),
         };
@@ -432,7 +432,7 @@ describe('utils/url', () => {
 
   describe('serializePaletteToUrl', () => {
     it('serializes single color with default options', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -441,7 +441,7 @@ describe('utils/url', () => {
     });
 
     it('serializes multiple colors', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex), oklchEntry('Secondary', hexAlt)],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -452,7 +452,7 @@ describe('utils/url', () => {
     });
 
     it('serializes oklch color value', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
         globalOptions: getDefaultGlobalOptions(toOklch('oklch(0.64 0.142 329)')),
       };
@@ -461,7 +461,7 @@ describe('utils/url', () => {
     });
 
     it('serializes color with per-color overrides', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex, { maxLightness: 0.95, mode: 'dark' })],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -470,7 +470,7 @@ describe('utils/url', () => {
     });
 
     it('serializes non-default global options as query params', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...getDefaultGlobalOptions(toOklch(hex)), lightnessCurve: 1.8, steps: 15 },
       };
@@ -479,7 +479,7 @@ describe('utils/url', () => {
     });
 
     it('encodes color names with spaces', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Color One', hex)],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -488,7 +488,7 @@ describe('utils/url', () => {
     });
 
     it('serializes full example with all options', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [
           oklchEntry('Primary', hex, { maxLightness: 0.95 }),
           oklchEntry('Secondary', hexAlt),
@@ -502,7 +502,7 @@ describe('utils/url', () => {
     });
 
     it('omits overrides that match global options', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex, { steps: 11 })], // 11 is default
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -512,7 +512,7 @@ describe('utils/url', () => {
 
     it('does not serialize saturation when it matches the color default', () => {
       const defaults = getDefaultGlobalOptions(toOklch(hex));
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: defaults,
       };
@@ -522,7 +522,7 @@ describe('utils/url', () => {
 
     it('serializes saturation when it differs from color default', () => {
       const defaults = getDefaultGlobalOptions(toOklch(hex));
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, saturation: 25 },
       };
@@ -532,7 +532,7 @@ describe('utils/url', () => {
 
     it('does not serialize saturationOverride when false (default)', () => {
       const defaults = getDefaultGlobalOptions(toOklch(hex));
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, saturationOverride: false },
       };
@@ -542,7 +542,7 @@ describe('utils/url', () => {
 
     it('serializes saturationOverride when true', () => {
       const defaults = getDefaultGlobalOptions(toOklch(hex));
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, saturationOverride: true },
       };
@@ -551,7 +551,7 @@ describe('utils/url', () => {
     });
 
     it('serializes lock option in per-color overrides', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex, { lock: 500 })],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -560,7 +560,7 @@ describe('utils/url', () => {
     });
 
     it('serializes variant option in per-color overrides', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex, { variant: 'vibrant' })],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };
@@ -570,7 +570,7 @@ describe('utils/url', () => {
 
     it('serializes variant option in global options', () => {
       const defaults = getDefaultGlobalOptions(toOklch(hex));
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: { ...defaults, variant: 'neutral' },
       };
@@ -628,7 +628,7 @@ describe('utils/url', () => {
     });
 
     it('is idempotent on already-canonical URL', () => {
-      const state: PaletteState = {
+      const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
         globalOptions: getDefaultGlobalOptions(toOklch(hex)),
       };

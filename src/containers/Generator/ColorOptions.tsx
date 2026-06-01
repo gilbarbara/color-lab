@@ -2,9 +2,9 @@ import { Badge, Divider } from '@heroui/react';
 import { SlidersHorizontalIcon } from '@phosphor-icons/react';
 
 import useApp from '~/hooks/useApp';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
-import { CURVE_OPTION_KEYS } from '~/utils/palette';
+import { CURVE_OPTION_KEYS } from '~/utils/generator';
 
 import Button from '~/components/Button';
 import CollapsePanel from '~/components/CollapsePanel';
@@ -24,7 +24,7 @@ export default function ColorOptions(props: ColorOptionsProps) {
     'showColorOptionsPanel',
     'toggleColorOptionsPanel',
   );
-  const { hasCustomCurves } = usePalette('hasCustomCurves');
+  const { hasCustomCurves } = useGenerator('hasCustomCurves');
 
   const handleClickReset = () => {
     updateGlobalOptions(

@@ -5,7 +5,7 @@ import { convertCSS, readableColor, scale } from 'colorizr';
 
 import { BREAKPOINTS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
 
@@ -69,7 +69,7 @@ function ScaleItem(props: ScaleItemProps) {
 }
 
 export default function ExportPalette() {
-  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
+  const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(
     () => new Set(colors.map((_, index) => index)),
   );

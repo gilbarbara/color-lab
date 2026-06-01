@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import { useSavedPalettesList } from '~/hooks/useSavedPalettes';
-import { createPalette } from '~/utils/palette';
+import { createPalette } from '~/utils/generator';
 import { serializePaletteToUrl } from '~/utils/url';
 
 import Feedback from '~/components/Feedback';
@@ -22,7 +22,7 @@ export default function Palettes() {
   const { deletePalette, isLoading, palettes, toggleFavorite } = useSavedPalettesList();
   const { openLoginModal, sessionPalettePath } = useApp('openLoginModal', 'sessionPalettePath');
 
-  // No live palette store on this route — return to the session's working palette if
+  // No live generator store on this route — return to the session's working palette if
   // there is one, otherwise mint a fresh one. URL stays the source of truth.
   const createPaletteUrl = () => sessionPalettePath ?? serializePaletteToUrl(createPalette());
 

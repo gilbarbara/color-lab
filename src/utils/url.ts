@@ -3,19 +3,19 @@ import * as Sentry from '@sentry/nextjs';
 import { isHex, type ScaleVariant } from 'colorizr';
 
 import { formatOklch, formatOklchUrl, isInRangeOklch, toOklch } from '~/utils/color';
-import { getDefaultGlobalOptions } from '~/utils/palette';
+import { getDefaultGlobalOptions } from '~/utils/generator';
 
 import type {
   ColorEntry,
+  GeneratorState,
   GlobalScaleOptions,
   OklchString,
-  PaletteState,
   ScaleOptions,
 } from '~/types';
 
 export interface ParsedPalette {
   dropped: string[];
-  state: PaletteState;
+  state: GeneratorState;
 }
 
 // Option key mappings (short keys for URL)
@@ -536,7 +536,7 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
  *   /p/Primary-FF0044-x:0.95,m:d/Secondary-698CE0
  *   /p/Primary-FF0044?f=1.8&s=15
  */
-export function serializePaletteToUrl(state: PaletteState): string {
+export function serializePaletteToUrl(state: GeneratorState): string {
   // Compute defaults based on first color (for correct saturation comparison)
   const defaults = getDefaultGlobalOptions(state.colors[0].value);
 

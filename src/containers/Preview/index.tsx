@@ -7,7 +7,7 @@ import { animate } from 'framer-motion';
 
 import { SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import { buildPreviewScope } from '~/utils/preview-tokens';
 
 import CollapsePanel from '~/components/CollapsePanel';
@@ -22,19 +22,17 @@ interface PreviewState {
   themeOverrides: Record<string, PreviewThemeMode>;
 }
 
-function effectivePreviewTheme(color: string, forced?: 'light' | 'dark'): 'light' | 'dark' | null {
-  if (forced) return forced;
-
+function autoBgUtility(color: string): string {
   const { l } = parseCSS(color, 'oklch');
 
-  if (l >= 0.9) return 'dark';
-  if (l <= 0.3) return 'light';
+  if (l >= 0.9) return 'preview-bg-dark dark';
+  if (l <= 0.3) return 'preview-bg-light light';
 
-  return null; // mid-range → follow the global app theme
+  return 'preview-bg-auto';
 }
 
 export default function Preview() {
-  const { colors, previewColorId, setPreviewColor } = usePalette(
+  const { colors, previewColorId, setPreviewColor } = useGenerator(
     'colors',
     'previewColorId',
     'setPreviewColor',
@@ -95,8 +93,7 @@ export default function Preview() {
 
   const mode = themeOverrides[activeColor.id] ?? 'auto';
   const forced = mode === 'light' || mode === 'dark' ? mode : undefined;
-  const effectiveTheme = effectivePreviewTheme(activeColor.value, forced);
-  const bgUtility = effectiveTheme ? `preview-bg-${effectiveTheme}` : 'preview-bg-auto';
+  const bgUtility = forced ? `preview-bg-${forced} ${forced}` : autoBgUtility(activeColor.value);
   const scope = buildPreviewScope(activeColor.value, forced);
 
   return (
@@ -106,7 +103,6 @@ export default function Preview() {
         'w-full flex flex-col rounded-lg p-4 transition-background duration-500',
         'preview-scope preview-closed:bg-transparent',
         bgUtility,
-        effectiveTheme, // HeroUI theme scope for chrome; null is ignored by cn()
       )}
       data-testid="Preview"
       style={{

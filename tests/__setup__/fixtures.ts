@@ -2,9 +2,9 @@ import { scale } from 'colorizr';
 
 import { DEFAULT_COLOR_NAMES } from '~/config/globals';
 import { toOklch } from '~/utils/color';
-import { createPalette } from '~/utils/palette';
+import { createPalette } from '~/utils/generator';
 
-import type { ColorEntry, PaletteState, ScaleSteps } from '~/types';
+import type { ColorEntry, GeneratorState, ScaleSteps } from '~/types';
 
 // Storage invariant: ColorEntry.value is always an OKLCH CSS string.
 // These constants are the literal formatCSS(parseCSS(<hex>, 'oklch'), { format: 'oklch' })
@@ -51,7 +51,7 @@ export function createColorEntry(
   };
 }
 
-export function createTestPalette(colorCount: number = 1): PaletteState {
+export function createTestPalette(colorCount: number = 1): GeneratorState {
   return {
     ...createPalette(PALETTE[0]),
     colors: Array.from({ length: colorCount }, (_, index) =>

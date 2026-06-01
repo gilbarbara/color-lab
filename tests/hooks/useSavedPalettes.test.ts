@@ -4,8 +4,8 @@ import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
 import { CRIMSON } from '~/test-fixtures';
-import { getPaletteStore, mockRouter } from '~/test-mocks';
-import { createPalette } from '~/utils/palette';
+import { getGeneratorStore, mockRouter } from '~/test-mocks';
+import { createPalette } from '~/utils/generator';
 import { serializePaletteToUrl } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
@@ -55,7 +55,7 @@ describe('hooks/useSavedPalettes', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockListPalettes.mockResolvedValue([]);
-    getPaletteStore().setState(createPalette(CRIMSON));
+    getGeneratorStore().setState(createPalette(CRIMSON));
     useAppStore.setState({
       lastSavedUrl: null,
       paletteId: null,
@@ -448,7 +448,7 @@ describe('hooks/useSavedPalettes', () => {
     });
 
     it('returns false when URL matches lastSavedUrl', async () => {
-      const store = getPaletteStore().getState();
+      const store = getGeneratorStore().getState();
       const currentUrl = serializePaletteToUrl({
         colors: store.colors,
         globalOptions: store.globalOptions,

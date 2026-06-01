@@ -1,33 +1,33 @@
 import { act, renderHook } from '@testing-library/react';
 
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import { BLUE, CRIMSON, GREEN } from '~/test-fixtures';
-import { getPaletteStore } from '~/test-mocks';
+import { getGeneratorStore } from '~/test-mocks';
 import { getChromaAsPercentage } from '~/utils/color';
-import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
+import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
-describe('hooks/usePalette', () => {
+describe('hooks/useGenerator', () => {
   beforeEach(() => {
     const palette = createPalette(CRIMSON);
 
-    getPaletteStore().setState({ ...palette, activeColorId: palette.colors[0].id });
+    getGeneratorStore().setState({ ...palette, activeColorId: palette.colors[0].id });
   });
 
   describe('computed values', () => {
     it('returns baseSaturation from first color', () => {
-      const { result } = renderHook(() => usePalette('baseSaturation'));
+      const { result } = renderHook(() => useGenerator('baseSaturation'));
 
       expect(result.current.baseSaturation).toBe(getChromaAsPercentage(CRIMSON));
     });
 
     it('returns defaultOptions from first color', () => {
-      const { result } = renderHook(() => usePalette('defaultOptions'));
+      const { result } = renderHook(() => useGenerator('defaultOptions'));
 
       expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions(CRIMSON));
     });
 
     it('updates baseSaturation when first color changes', () => {
-      const { result } = renderHook(() => usePalette('baseSaturation', 'updateColor'));
+      const { result } = renderHook(() => useGenerator('baseSaturation', 'updateColor'));
 
       const initialSaturation = result.current.baseSaturation;
 
@@ -40,7 +40,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('updates defaultOptions when first color changes', () => {
-      const { result } = renderHook(() => usePalette('defaultOptions', 'updateColor'));
+      const { result } = renderHook(() => useGenerator('defaultOptions', 'updateColor'));
 
       act(() => {
         result.current.updateColor(0, { value: BLUE });
@@ -52,7 +52,7 @@ describe('hooks/usePalette', () => {
 
   describe('actions', () => {
     it('addColor updates state', () => {
-      const { result } = renderHook(() => usePalette('addColor', 'colors'));
+      const { result } = renderHook(() => useGenerator('addColor', 'colors'));
 
       act(() => {
         result.current.addColor(GREEN);
@@ -63,7 +63,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('addColor with custom name', () => {
-      const { result } = renderHook(() => usePalette('addColor', 'colors'));
+      const { result } = renderHook(() => useGenerator('addColor', 'colors'));
 
       act(() => {
         result.current.addColor(GREEN, 'Custom');
@@ -73,7 +73,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('removeColor updates state', () => {
-      const { result } = renderHook(() => usePalette('addColor', 'colors', 'removeColor'));
+      const { result } = renderHook(() => useGenerator('addColor', 'colors', 'removeColor'));
 
       act(() => {
         result.current.addColor(GREEN);
@@ -90,7 +90,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('updateColor updates state', () => {
-      const { result } = renderHook(() => usePalette('colors', 'updateColor'));
+      const { result } = renderHook(() => useGenerator('colors', 'updateColor'));
 
       act(() => {
         result.current.updateColor(0, { name: 'New Name' });
@@ -100,7 +100,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('setColorOverride updates state', () => {
-      const { result } = renderHook(() => usePalette('colors', 'setColorOverride'));
+      const { result } = renderHook(() => useGenerator('colors', 'setColorOverride'));
 
       act(() => {
         result.current.setColorOverride(0, { maxLightness: 0.9 });
@@ -111,7 +111,7 @@ describe('hooks/usePalette', () => {
 
     it('clearColorOverrides updates state', () => {
       const { result } = renderHook(() =>
-        usePalette('clearColorOverrides', 'colors', 'setColorOverride'),
+        useGenerator('clearColorOverrides', 'colors', 'setColorOverride'),
       );
 
       act(() => {
@@ -128,7 +128,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('updateGlobalOptions updates state', () => {
-      const { result } = renderHook(() => usePalette('globalOptions', 'updateGlobalOptions'));
+      const { result } = renderHook(() => useGenerator('globalOptions', 'updateGlobalOptions'));
 
       act(() => {
         result.current.updateGlobalOptions({ lightnessCurve: 2.0 });
@@ -139,7 +139,7 @@ describe('hooks/usePalette', () => {
 
     it('resetGlobalOptions resets to defaults', () => {
       const { result } = renderHook(() =>
-        usePalette('globalOptions', 'resetGlobalOptions', 'updateGlobalOptions'),
+        useGenerator('globalOptions', 'resetGlobalOptions', 'updateGlobalOptions'),
       );
 
       act(() => {
@@ -160,7 +160,7 @@ describe('hooks/usePalette', () => {
 
     it('resetPalette creates new palette', () => {
       const { result } = renderHook(() =>
-        usePalette('addColor', 'colors', 'globalOptions', 'resetPalette', 'updateGlobalOptions'),
+        useGenerator('addColor', 'colors', 'globalOptions', 'resetPalette', 'updateGlobalOptions'),
       );
 
       act(() => {
@@ -184,14 +184,14 @@ describe('hooks/usePalette', () => {
 
   describe('activeColor', () => {
     it('initializes activeColorId to first color id', () => {
-      const { result } = renderHook(() => usePalette('activeColorId', 'colors'));
+      const { result } = renderHook(() => useGenerator('activeColorId', 'colors'));
 
       expect(result.current.activeColorId).toBe(result.current.colors[0].id);
     });
 
     it('setActiveColor with valid id updates active', () => {
       const { result } = renderHook(() =>
-        usePalette('activeColorId', 'addColor', 'colors', 'setActiveColor'),
+        useGenerator('activeColorId', 'addColor', 'colors', 'setActiveColor'),
       );
 
       act(() => {
@@ -208,7 +208,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('setActiveColor with unknown id is a no-op', () => {
-      const { result } = renderHook(() => usePalette('activeColorId', 'setActiveColor'));
+      const { result } = renderHook(() => useGenerator('activeColorId', 'setActiveColor'));
       const initialActive = result.current.activeColorId;
 
       act(() => {
@@ -219,7 +219,7 @@ describe('hooks/usePalette', () => {
     });
 
     it('addColor activates the new color', () => {
-      const { result } = renderHook(() => usePalette('activeColorId', 'addColor', 'colors'));
+      const { result } = renderHook(() => useGenerator('activeColorId', 'addColor', 'colors'));
 
       act(() => {
         result.current.addColor(GREEN);
@@ -230,7 +230,7 @@ describe('hooks/usePalette', () => {
 
     it('removeColor of active picks next neighbor', () => {
       const { result } = renderHook(() =>
-        usePalette('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
+        useGenerator('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
       );
 
       act(() => {
@@ -256,7 +256,7 @@ describe('hooks/usePalette', () => {
 
     it('removeColor of last (active) falls back to previous', () => {
       const { result } = renderHook(() =>
-        usePalette('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
+        useGenerator('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
       );
 
       act(() => {
@@ -279,7 +279,7 @@ describe('hooks/usePalette', () => {
 
     it('removeColor of non-active leaves active unchanged', () => {
       const { result } = renderHook(() =>
-        usePalette('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
+        useGenerator('activeColorId', 'addColor', 'colors', 'removeColor', 'setActiveColor'),
       );
 
       act(() => {
@@ -301,7 +301,7 @@ describe('hooks/usePalette', () => {
 
     it('resetPalette sets active to new first color', () => {
       const { result } = renderHook(() =>
-        usePalette('activeColorId', 'addColor', 'colors', 'resetPalette', 'setActiveColor'),
+        useGenerator('activeColorId', 'addColor', 'colors', 'resetPalette', 'setActiveColor'),
       );
 
       act(() => {
@@ -326,7 +326,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => {
         renderCount++;
 
-        return usePalette('addColor');
+        return useGenerator('addColor');
       });
 
       const initialAddColor = result.current.addColor;
@@ -334,17 +334,17 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().updateColor(0, { name: 'Renamed' });
+        getGeneratorStore().getState().updateColor(0, { name: 'Renamed' });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().updateGlobalOptions({ lightnessCurve: 1.5 });
+        getGeneratorStore().getState().updateGlobalOptions({ lightnessCurve: 1.5 });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().setActiveColor(getPaletteStore().getState().colors[0].id);
+        getGeneratorStore().getState().setActiveColor(getGeneratorStore().getState().colors[0].id);
       });
       expect(renderCount).toBe(1);
 
@@ -356,7 +356,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => {
         renderCount++;
 
-        return usePalette('generatorUrl');
+        return useGenerator('generatorUrl');
       });
 
       const initialUrl = result.current.generatorUrl;
@@ -364,12 +364,12 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().setPreviewColor(getPaletteStore().getState().colors[0].id);
+        getGeneratorStore().getState().setPreviewColor(getGeneratorStore().getState().colors[0].id);
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().updateColor(0, { value: GREEN });
+        getGeneratorStore().getState().updateColor(0, { value: GREEN });
       });
       expect(renderCount).toBe(2);
       expect(result.current.generatorUrl).not.toBe(initialUrl);
@@ -380,21 +380,21 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => {
         renderCount++;
 
-        return usePalette('activeColorId');
+        return useGenerator('activeColorId');
       });
 
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
+        getGeneratorStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().addColor(GREEN);
+        getGeneratorStore().getState().addColor(GREEN);
       });
       expect(renderCount).toBe(2);
-      expect(result.current.activeColorId).toBe(getPaletteStore().getState().colors[1].id);
+      expect(result.current.activeColorId).toBe(getGeneratorStore().getState().colors[1].id);
     });
 
     it('baseSaturation consumer ignores globalOptions changes', () => {
@@ -402,7 +402,7 @@ describe('hooks/usePalette', () => {
       const { result } = renderHook(() => {
         renderCount++;
 
-        return usePalette('baseSaturation');
+        return useGenerator('baseSaturation');
       });
 
       const initial = result.current.baseSaturation;
@@ -410,24 +410,24 @@ describe('hooks/usePalette', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
+        getGeneratorStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
       });
       expect(renderCount).toBe(1);
 
       act(() => {
-        getPaletteStore().getState().updateColor(0, { value: GREEN });
+        getGeneratorStore().getState().updateColor(0, { value: GREEN });
       });
       expect(renderCount).toBe(2);
       expect(result.current.baseSaturation).not.toBe(initial);
     });
 
     it('returned object stays shallow-stable across unrelated mutations', () => {
-      const { result } = renderHook(() => usePalette('colors', 'globalOptions'));
+      const { result } = renderHook(() => useGenerator('colors', 'globalOptions'));
 
       const previous = result.current;
 
       act(() => {
-        getPaletteStore().getState().setActiveColor(getPaletteStore().getState().colors[0].id);
+        getGeneratorStore().getState().setActiveColor(getGeneratorStore().getState().colors[0].id);
       });
 
       expect(result.current).toBe(previous);

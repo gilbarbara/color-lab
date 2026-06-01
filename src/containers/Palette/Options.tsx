@@ -3,11 +3,11 @@ import { cn, Select, SelectItem, type SharedSelection, Slider } from '@heroui/re
 import { EraserIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys } from 'colorizr';
 
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import useRafCallback from '~/hooks/useRafCallback';
 import useSliderInteraction from '~/hooks/useSliderInteraction';
 import { trackEvent } from '~/utils/analytics';
-import { PALETTE_OPTION_KEYS } from '~/utils/palette';
+import { PALETTE_OPTION_KEYS } from '~/utils/generator';
 
 import Button from '~/components/Button';
 import SliderLabel from '~/components/SliderLabel';
@@ -18,7 +18,7 @@ import TooltipClickable from '~/components/TooltipClickable';
 import type { ScaleOptions } from '~/types';
 
 export default function PaletteOptions() {
-  const { defaultOptions, globalOptions, updateGlobalOptions } = usePalette(
+  const { defaultOptions, globalOptions, updateGlobalOptions } = useGenerator(
     'defaultOptions',
     'globalOptions',
     'updateGlobalOptions',
