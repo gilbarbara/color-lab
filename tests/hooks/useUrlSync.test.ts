@@ -1,12 +1,12 @@
 import { act, renderHook } from '@testing-library/react';
 
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import useUrlSync from '~/hooks/useUrlSync';
 import { useAppStore } from '~/stores/appStore';
 import { CRIMSON } from '~/test-fixtures';
-import { getPaletteStore, mockRouter, setMockRoute } from '~/test-mocks';
+import { getGeneratorStore, mockRouter, setMockRoute } from '~/test-mocks';
 import { toOklch } from '~/utils/color';
-import { createPalette, getDefaultGlobalOptions } from '~/utils/palette';
+import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
 async function flushObserver() {
   await act(async () => {
@@ -32,7 +32,7 @@ describe('hooks/useUrlSync', () => {
 
     const palette = createPalette();
 
-    getPaletteStore().setState({ ...palette, activeColorId: palette.colors[0].id });
+    getGeneratorStore().setState({ ...palette, activeColorId: palette.colors[0].id });
     useAppStore.setState({
       paletteId: null,
       paletteName: 'Palette',
@@ -46,7 +46,7 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors).toHaveLength(1);
       expect(state.colors[0].name).toBe('Primary');
@@ -58,7 +58,7 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors).toHaveLength(2);
       expect(state.colors[0].name).toBe('Primary');
@@ -72,7 +72,7 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.globalOptions.lightnessCurve).toBe(1.8);
       expect(state.globalOptions.steps).toBe(15);
@@ -83,7 +83,7 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors[0].overrides).toEqual({ maxLightness: 0.9, mode: 'dark' });
     });
@@ -93,7 +93,7 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors).toHaveLength(1);
       expect(state.colors[0].name).toBe('Primary');
@@ -101,18 +101,18 @@ describe('hooks/useUrlSync', () => {
     });
 
     it('resets activeColorId to first color when URL hydrates with new ids', () => {
-      getPaletteStore().setState({ activeColorId: 'stale-id-from-prior-session' });
+      getGeneratorStore().setState({ activeColorId: 'stale-id-from-prior-session' });
       setMockRoute('/p/Primary-FF0044/Secondary-00FF00');
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.activeColorId).toBe(state.colors[0].id);
     });
 
     it('preserves existing color ids when URL parse triggers state update', () => {
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         colors: [
           { id: 'fixed-id-1', name: 'Primary', value: toOklch('#FF0044') },
           { id: 'fixed-id-2', name: 'Secondary', value: toOklch('#00FF00') },
@@ -124,7 +124,7 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      const state = getPaletteStore().getState();
+      const state = getGeneratorStore().getState();
 
       expect(state.colors[0].id).toBe('fixed-id-1');
       expect(state.colors[1].id).toBe('fixed-id-2');
@@ -160,7 +160,7 @@ describe('hooks/useUrlSync', () => {
 
       expect(mockRouter.replace).toHaveBeenCalledTimes(1);
       expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9');
-      expect(getPaletteStore().getState().colors[0].value).toBe(CRIMSON);
+      expect(getGeneratorStore().getState().colors[0].value).toBe(CRIMSON);
     });
 
     it('rewrites legacy 0-1 OKLCH URL to percentage form with replace', () => {
@@ -204,7 +204,7 @@ describe('hooks/useUrlSync', () => {
       setMockRoute('/p/Primary-0.64_0.142_329');
 
       renderHook(() => useUrlSync());
-      const { result } = renderHook(() => usePalette('addColor'));
+      const { result } = renderHook(() => useGenerator('addColor'));
 
       mockRouter.push.mockClear();
       mockRouter.replace.mockClear();
@@ -232,7 +232,7 @@ describe('hooks/useUrlSync', () => {
       setMockRoute('/p/Primary-63.27_0.254_19.9');
 
       renderHook(() => useUrlSync());
-      const { result } = renderHook(() => usePalette('addColor'));
+      const { result } = renderHook(() => useGenerator('addColor'));
 
       act(() => {
         result.current.addColor(toOklch('oklch(0.7 0.15 180)'));
@@ -265,7 +265,7 @@ describe('hooks/useUrlSync', () => {
       await flushObserver();
 
       act(() => {
-        getPaletteStore().setState(state => ({
+        getGeneratorStore().setState(state => ({
           globalOptions: { ...state.globalOptions, steps: 12 },
         }));
       });
@@ -285,12 +285,12 @@ describe('hooks/useUrlSync', () => {
       await flushObserver();
 
       act(() => {
-        getPaletteStore().setState(state => ({
+        getGeneratorStore().setState(state => ({
           globalOptions: { ...state.globalOptions, steps: 12 },
         }));
       });
       act(() => {
-        getPaletteStore().setState(state => ({
+        getGeneratorStore().setState(state => ({
           globalOptions: { ...state.globalOptions, steps: 15 },
         }));
       });
@@ -319,7 +319,7 @@ describe('hooks/useUrlSync', () => {
       mockRouter.push.mockClear();
 
       act(() => {
-        getPaletteStore().setState(state => ({
+        getGeneratorStore().setState(state => ({
           globalOptions: { ...state.globalOptions, steps: 20 },
         }));
       });

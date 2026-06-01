@@ -1,8 +1,8 @@
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette, CRIMSON } from '~/test-fixtures';
-import { getPaletteStore } from '~/test-mocks';
+import { getGeneratorStore } from '~/test-mocks';
 import { fireEvent, render, screen, within } from '~/test-utils';
-import { MAX_COLORS } from '~/utils/palette';
+import { MAX_COLORS } from '~/utils/generator';
 
 import Panel from '~/containers/Generator/Panel';
 
@@ -24,7 +24,7 @@ vi.mock('~/hooks/useScrollToColor', () => ({
 describe('Panel', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    getPaletteStore().setState(createTestPalette(2));
+    getGeneratorStore().setState(createTestPalette(2));
     useAppStore.setState({ showBottomBar: false, showSidebar: true });
   });
 
@@ -82,7 +82,7 @@ describe('Panel', () => {
     });
 
     it('displays a color box per color in the handle', () => {
-      getPaletteStore().setState(createTestPalette(3));
+      getGeneratorStore().setState(createTestPalette(3));
       render(<Panel />);
 
       const handle = screen.getByTestId('GeneratorPanel-Handle');
@@ -91,7 +91,7 @@ describe('Panel', () => {
     });
 
     it('toggle the bottom bar when clicking a color box', () => {
-      getPaletteStore().setState(createTestPalette(3));
+      getGeneratorStore().setState(createTestPalette(3));
       render(<Panel />);
 
       const handle = screen.getByTestId('GeneratorPanel-Handle');
@@ -125,7 +125,7 @@ describe('Panel', () => {
     });
 
     it('toggles Advanced Color Options', async () => {
-      const spy = vi.spyOn(getPaletteStore().getState(), 'updateGlobalOptions');
+      const spy = vi.spyOn(getGeneratorStore().getState(), 'updateGlobalOptions');
 
       render(<Panel />);
 
@@ -143,15 +143,15 @@ describe('Panel', () => {
     it('Add Color button adds a new color', () => {
       render(<Panel />);
 
-      const initialColors = getPaletteStore().getState().colors.length;
+      const initialColors = getGeneratorStore().getState().colors.length;
 
       fireEvent.click(screen.getByRole('button', { name: /add color/i }));
 
-      expect(getPaletteStore().getState().colors).toHaveLength(initialColors + 1);
+      expect(getGeneratorStore().getState().colors).toHaveLength(initialColors + 1);
     });
 
     it('Add Color is disabled at MAX_COLORS', () => {
-      getPaletteStore().setState(createTestPalette(MAX_COLORS));
+      getGeneratorStore().setState(createTestPalette(MAX_COLORS));
       render(<Panel />);
 
       expect(screen.getByRole('button', { name: /add color/i })).toBeDisabled();

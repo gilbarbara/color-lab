@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { addToast } from '@heroui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { usePaletteStoreApi } from '~/hooks/usePaletteStore';
+import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { useAppStore } from '~/stores/appStore';
 import {
   getPaletteIdFromUrl,
@@ -13,29 +13,29 @@ import {
   updatePaletteIdInUrl,
 } from '~/utils/url';
 
-import type { PaletteState } from '~/types';
+import type { GeneratorState } from '~/types';
 
 /**
  * Compose the canonical palette URL for `state`, carrying the saved-palette id.
  */
-function buildPaletteUrl(state: PaletteState, id: string | null): string {
+function buildPaletteUrl(state: GeneratorState, id: string | null): string {
   return updatePaletteIdInUrl(serializePaletteToUrl(state), id);
 }
 
 /**
- * Syncs palette store with URL. Call once in Generator.
+ * Syncs generator store with URL. Call once in Generator.
  */
 export default function useUrlSync() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const paletteStoreApi = usePaletteStoreApi();
+  const generatorStoreApi = useGeneratorStoreApi();
   const lastDroppedUrl = useRef<string | null>(null);
 
   // User-driven commit: push a new history entry for the current palette and
   // mirror it into appStore so the Header logo can return to it this session.
   const commitPaletteUrl = useCallback(
-    (state: PaletteState) => {
+    (state: GeneratorState) => {
       const fullUrl = buildPaletteUrl(state, useAppStore.getState().paletteId);
 
       router.push(fullUrl);
@@ -50,7 +50,7 @@ export default function useUrlSync() {
     const searchString = searchParams.toString();
     const search = searchString ? `?${searchString}` : '';
     const currentUrl = `${pathname}${search}`;
-    const storeUrl = serializePaletteToUrl(paletteStoreApi.getState());
+    const storeUrl = serializePaletteToUrl(generatorStoreApi.getState());
     const { paletteId } = useAppStore.getState();
     // URL is the source of truth for the id while syncing — store value
     // may not have caught up yet on initial palette load.
@@ -70,7 +70,7 @@ export default function useUrlSync() {
         const storeUrlWithoutId = updatePaletteIdInUrl(storeUrl, null);
 
         if (storeUrlWithoutId !== urlWithoutId) {
-          paletteStoreApi.setState(state => {
+          generatorStoreApi.setState(state => {
             const colors = urlState.colors.map((c, index) =>
               state.colors[index] ? { ...c, id: state.colors[index].id } : c,
             );
@@ -108,8 +108,8 @@ export default function useUrlSync() {
     // palette the store was already seeded with (server-side via fallbackPalette,
     // identical on both render passes) in the URL. Generating a fresh palette here
     // would overwrite the server-rendered one and cause a color flash on load.
-    router.replace(serializePaletteToUrl(paletteStoreApi.getState()));
-  }, [pathname, searchParams, router, paletteStoreApi]);
+    router.replace(serializePaletteToUrl(generatorStoreApi.getState()));
+  }, [pathname, searchParams, router, generatorStoreApi]);
 
   const isPaused = useRef(false);
 
@@ -134,7 +134,7 @@ export default function useUrlSync() {
 
       isPaused.current = false;
 
-      commitPaletteUrl(paletteStoreApi.getState());
+      commitPaletteUrl(generatorStoreApi.getState());
     });
 
     observer.observe(document.body, {
@@ -144,7 +144,7 @@ export default function useUrlSync() {
     });
 
     return () => observer.disconnect();
-  }, [commitPaletteUrl, paletteStoreApi]);
+  }, [commitPaletteUrl, generatorStoreApi]);
 
   // Store changes → URL (skips when slider is being dragged). Also mirror the current
   // palette URL into the in-memory appStore so the Header logo can return to it within
@@ -153,9 +153,9 @@ export default function useUrlSync() {
     const { paletteId, setSessionPalettePath } = useAppStore.getState();
 
     // Seed for the palette the provider already created (no store change fires for it).
-    setSessionPalettePath(buildPaletteUrl(paletteStoreApi.getState(), paletteId));
+    setSessionPalettePath(buildPaletteUrl(generatorStoreApi.getState(), paletteId));
 
-    const unsubscribe = paletteStoreApi.subscribe((state, previousState) => {
+    const unsubscribe = generatorStoreApi.subscribe((state, previousState) => {
       if (isPaused.current) {
         return;
       }
@@ -169,5 +169,5 @@ export default function useUrlSync() {
     });
 
     return unsubscribe;
-  }, [commitPaletteUrl, paletteStoreApi]);
+  }, [commitPaletteUrl, generatorStoreApi]);
 }

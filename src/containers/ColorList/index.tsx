@@ -1,9 +1,9 @@
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 
 import ColorItem from './ColorItem';
 
 export default function ColorList() {
-  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
+  const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
 
   return (
     <div className="p-4" data-testid="ColorList">

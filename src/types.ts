@@ -30,17 +30,7 @@ export interface ExportOptions {
   formatType: ExportFormatType;
 }
 
-export interface GlobalScaleOptions extends ScaleOptions {
-  chromaCurve: number;
-  lightnessCurve: number;
-  maxLightness: number;
-  minLightness: number;
-  saturation: number;
-  saturationOverride: boolean;
-  steps: number;
-}
-
-export interface PaletteActions {
+export interface GeneratorActions {
   addColor: (value: OklchString, name?: string) => string | null;
   clearColorOverrides: (index: number) => void;
   removeColor: (index: number) => void;
@@ -53,8 +43,8 @@ export interface PaletteActions {
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
 
-// Top-level palette state
-export interface PaletteState {
+// Top-level generator state
+export interface GeneratorState {
   /**
    * List of colors in the palette
    * Each color can have its own overrides for scale options
@@ -65,6 +55,16 @@ export interface PaletteState {
    * Global scale options that apply to all colors unless overridden
    */
   globalOptions: GlobalScaleOptions;
+}
+
+export interface GlobalScaleOptions extends ScaleOptions {
+  chromaCurve: number;
+  lightnessCurve: number;
+  maxLightness: number;
+  minLightness: number;
+  saturation: number;
+  saturationOverride: boolean;
+  steps: number;
 }
 
 export interface SavedPalette {

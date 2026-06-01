@@ -1,11 +1,11 @@
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
-import { getPaletteStore } from '~/test-mocks';
+import { getGeneratorStore } from '~/test-mocks';
 import { fireEvent, render, screen, within } from '~/test-utils';
 
 import Preview from '~/containers/Preview';
 
-import type { PaletteState } from '~/types';
+import type { GeneratorState } from '~/types';
 
 function getToggleButton(): HTMLButtonElement {
   const section = screen.getByTestId('Preview');
@@ -18,11 +18,11 @@ function getToggleButton(): HTMLButtonElement {
   return button as HTMLButtonElement;
 }
 
-function setupPalette(colors: number): PaletteState {
+function setupPalette(colors: number): GeneratorState {
   const palette = createTestPalette(colors);
   const firstId = palette.colors[0]?.id ?? null;
 
-  getPaletteStore().setState({
+  getGeneratorStore().setState({
     ...palette,
     activeColorId: firstId,
     previewColorId: firstId,
@@ -88,9 +88,9 @@ describe('Preview', () => {
 
       fireEvent.click(secondaryButton);
 
-      const secondaryId = getPaletteStore().getState().colors[1].id;
+      const secondaryId = getGeneratorStore().getState().colors[1].id;
 
-      expect(getPaletteStore().getState().previewColorId).toBe(secondaryId);
+      expect(getGeneratorStore().getState().previewColorId).toBe(secondaryId);
       expect(screen.getByRole('button', { name: 'Use Secondary as primary' })).toHaveAttribute(
         'aria-pressed',
         'true',
@@ -116,7 +116,7 @@ describe('Preview', () => {
     });
 
     it('falls back to first color when previewColorId is stale', () => {
-      getPaletteStore().setState({ previewColorId: 'nonexistent-id' });
+      getGeneratorStore().setState({ previewColorId: 'nonexistent-id' });
 
       render(<Preview />);
 

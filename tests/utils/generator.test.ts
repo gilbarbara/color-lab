@@ -13,11 +13,11 @@ import {
   setColorOverride,
   updateColor,
   updateGlobalOptions,
-} from '~/utils/palette';
+} from '~/utils/generator';
 
-import type { PaletteState } from '~/types';
+import type { GeneratorState } from '~/types';
 
-describe('utils/palette', () => {
+describe('utils/generator', () => {
   describe('createPalette', () => {
     it('creates palette with random color when no arg provided', () => {
       const palette = createPalette();
@@ -146,7 +146,7 @@ describe('utils/palette', () => {
     });
 
     it('preserves other fields when updating', () => {
-      const initial: PaletteState = {
+      const initial: GeneratorState = {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
@@ -165,7 +165,7 @@ describe('utils/palette', () => {
     });
 
     it('merges with existing overrides', () => {
-      const initial: PaletteState = {
+      const initial: GeneratorState = {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
@@ -175,7 +175,7 @@ describe('utils/palette', () => {
     });
 
     it('strips key when update matches current global', () => {
-      const initial: PaletteState = {
+      const initial: GeneratorState = {
         colors: [createColorEntry('Primary', CRIMSON, { maxLightness: 0.5 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
@@ -186,7 +186,7 @@ describe('utils/palette', () => {
     });
 
     it('strips matching keys but keeps differing ones', () => {
-      const initial: PaletteState = {
+      const initial: GeneratorState = {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9, maxLightness: 0.5 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
@@ -204,7 +204,7 @@ describe('utils/palette', () => {
 
   describe('clearColorOverrides', () => {
     it('removes overrides', () => {
-      const initial: PaletteState = {
+      const initial: GeneratorState = {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
@@ -242,7 +242,7 @@ describe('utils/palette', () => {
 
   describe('resetGlobalOptions', () => {
     it('resets to defaults while keeping colors', () => {
-      const initial: PaletteState = {
+      const initial: GeneratorState = {
         colors: [createColorEntry('Custom', SLATE)],
         globalOptions: { ...getDefaultGlobalOptions(SLATE), lightnessCurve: 2.5, steps: 20 },
       };

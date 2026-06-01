@@ -5,9 +5,9 @@ import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
 import type {
   ColorEntry,
+  GeneratorState,
   GlobalScaleOptions,
   OklchString,
-  PaletteState,
   ScaleOptions,
 } from '~/types';
 
@@ -33,7 +33,7 @@ export const PALETTE_OPTION_KEYS = [
  * Add a new color to the palette
  * Returns unchanged state if at MAX_COLORS
  */
-export function addColor(state: PaletteState, value: OklchString, name?: string): PaletteState {
+export function addColor(state: GeneratorState, value: OklchString, name?: string): GeneratorState {
   if (state.colors.length >= MAX_COLORS) {
     return state;
   }
@@ -50,14 +50,14 @@ export function addColor(state: PaletteState, value: OklchString, name?: string)
 /**
  * Clear all overrides for a specific color
  */
-export function clearColorOverrides(state: PaletteState, index: number): PaletteState {
+export function clearColorOverrides(state: GeneratorState, index: number): GeneratorState {
   return updateColor(state, index, { overrides: undefined });
 }
 
 /**
  * Create a fresh palette with optional initial color
  */
-export function createPalette(initialColor?: OklchString): PaletteState {
+export function createPalette(initialColor?: OklchString): GeneratorState {
   const color = initialColor ?? getRandomColor();
 
   return {
@@ -112,7 +112,7 @@ export function getEffectiveOptions(
  * Remove a color from the palette by index
  * Returns unchanged state if trying to remove the last color (min 1 required)
  */
-export function removeColor(state: PaletteState, index: number): PaletteState {
+export function removeColor(state: GeneratorState, index: number): GeneratorState {
   if (state.colors.length <= 1 || index < 0 || index >= state.colors.length) {
     return state;
   }
@@ -126,7 +126,7 @@ export function removeColor(state: PaletteState, index: number): PaletteState {
 /**
  * Reset global options only (keeps colors)
  */
-export function resetGlobalOptions(state: PaletteState): PaletteState {
+export function resetGlobalOptions(state: GeneratorState): GeneratorState {
   return {
     ...state,
     globalOptions: getDefaultGlobalOptions(state.colors[0].value),
@@ -136,7 +136,7 @@ export function resetGlobalOptions(state: PaletteState): PaletteState {
 /**
  * Reset entire palette (new random color, defaults)
  */
-export function resetPalette(): PaletteState {
+export function resetPalette(): GeneratorState {
   return createPalette();
 }
 
@@ -146,10 +146,10 @@ export function resetPalette(): PaletteState {
  * differences. Clears overrides entirely when no key remains.
  */
 export function setColorOverride(
-  state: PaletteState,
+  state: GeneratorState,
   index: number,
   updates: Partial<ScaleOptions>,
-): PaletteState {
+): GeneratorState {
   const currentColor = state.colors[index];
 
   if (!currentColor) {
@@ -173,10 +173,10 @@ export function setColorOverride(
  * Update a color entry by index
  */
 export function updateColor(
-  state: PaletteState,
+  state: GeneratorState,
   index: number,
   updates: Partial<ColorEntry>,
-): PaletteState {
+): GeneratorState {
   if (index < 0 || index >= state.colors.length) {
     return state;
   }
@@ -191,9 +191,9 @@ export function updateColor(
  * Update global options
  */
 export function updateGlobalOptions(
-  state: PaletteState,
+  state: GeneratorState,
   updates: Partial<GlobalScaleOptions>,
-): PaletteState {
+): GeneratorState {
   return {
     ...state,
     globalOptions: { ...state.globalOptions, ...updates },

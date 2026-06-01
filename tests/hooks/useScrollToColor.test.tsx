@@ -2,9 +2,9 @@ import { act, renderHook } from '@testing-library/react';
 
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { initialState as appInitial, useAppStore } from '~/stores/appStore';
-import { getPaletteStore } from '~/test-mocks';
+import { getGeneratorStore } from '~/test-mocks';
 
-const paletteInitial = getPaletteStore().getState();
+const paletteInitial = getGeneratorStore().getState();
 const COLOR_ID = paletteInitial.colors[0].id;
 
 const breakpointMock = vi.hoisted(() => ({
@@ -35,7 +35,7 @@ describe('hooks/useScrollToColor', () => {
     vi.useFakeTimers();
     breakpointMock.max.mockReset();
     useAppStore.setState(appInitial);
-    getPaletteStore().setState(paletteInitial);
+    getGeneratorStore().setState(paletteInitial);
   });
 
   afterEach(() => {
@@ -53,7 +53,7 @@ describe('hooks/useScrollToColor', () => {
         result.current(COLOR_ID);
       });
 
-      expect(getPaletteStore().getState().activeColorId).toBe(COLOR_ID);
+      expect(getGeneratorStore().getState().activeColorId).toBe(COLOR_ID);
       expect(useAppStore.getState().colorScrollRequest).toEqual({ id: COLOR_ID, nonce: 1 });
       expect(useAppStore.getState().showSidebar).toBe(true);
     });
@@ -138,14 +138,14 @@ describe('hooks/useScrollToColor', () => {
 
     it('skips setActiveColor when activate is false', () => {
       useAppStore.setState({ showSidebar: true });
-      getPaletteStore().setState({ activeColorId: 'previous' });
+      getGeneratorStore().setState({ activeColorId: 'previous' });
       const { result } = renderHook(() => useScrollToColor());
 
       act(() => {
         result.current(COLOR_ID, { activate: false });
       });
 
-      expect(getPaletteStore().getState().activeColorId).toBe('previous');
+      expect(getGeneratorStore().getState().activeColorId).toBe('previous');
       expect(useAppStore.getState().colorScrollRequest).toEqual({ id: COLOR_ID, nonce: 1 });
     });
 
@@ -157,7 +157,7 @@ describe('hooks/useScrollToColor', () => {
         result.current(COLOR_ID);
       });
 
-      expect(getPaletteStore().getState().activeColorId).toBe(COLOR_ID);
+      expect(getGeneratorStore().getState().activeColorId).toBe(COLOR_ID);
     });
   });
 });

@@ -22,7 +22,7 @@ export default defineConfig({
         'src/containers/Generator/index.tsx',
         'src/containers/Palette/index.tsx',
         'src/config/hero.ts',
-        'src/hooks/usePaletteStore.ts',
+        'src/hooks/useGeneratorStore.ts',
         'src/utils/firebase.ts',
       ],
     },

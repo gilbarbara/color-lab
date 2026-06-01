@@ -27,21 +27,21 @@ React 19 + Next.js 16 (App Router) app for generating color palettes using the [
 
 Zustand stores:
 
-- **appStore** (`src/stores/appStore.ts`): Global UI state (export format, gamut, panel visibility, `sessionPalettePath` — in-memory, not persisted) — localStorage-guarded for SSR
+- **appStore** (`src/stores/appStore.ts`): Global UI state (export format, gamut, panel visibility, saved-palette `paletteId`/`paletteName`, `sessionPalettePath`) — localStorage-guarded for SSR
 - **authStore** (`src/stores/authStore.ts`): Authentication state (user, status, error)
+- **generatorStore** (`src/stores/generatorStore.ts`): Colors array + global scale options. **Not a global singleton** — a per-request store factory (`createGeneratorStore(initialState?)`) provided via Context, consumed via `useGeneratorStoreApi()` / `useGenerator()`. Seeded from the URL — see [URL State](#url-state--the-url-is-the-single-source-of-truth).
 - **palettesStore** (`src/stores/palettesStore.ts`): Saved-palettes list state
-- **paletteStore** (`src/stores/paletteStore.ts`): Colors array + global scale options — **not a global singleton.** It is a per-request Zustand vanilla-store factory (`createPaletteStore(initialState?)`) provided via React Context by `src/providers/PaletteStoreProvider.tsx`, **mounted only on the generator routes via `app/(generator)/layout.tsx`** (not the global shell), self-initializing from the URL (`parsePaletteFromUrl`) so SSR and the first client render match. Consumed via `usePaletteStoreApi()` (`src/hooks/usePaletteStore.ts`) and `usePalette()`.
 
 ### Hooks
 
 - **useAuth** (`src/hooks/useAuth.ts`): Authentication context consumer (user, login/logout methods)
-- **usePalette** (`src/hooks/usePalette.ts`): Primary hook for palette state + actions + computed values (baseSaturation, defaultOptions)
-- **usePaletteStore** (`src/hooks/usePaletteStore.ts`): Consumes the per-request paletteStore from `PaletteStoreContext`
+- **useGenerator** (`src/hooks/useGenerator.ts`): Primary hook for palette state + actions + computed values (baseSaturation, defaultOptions)
+- **useGeneratorStore** (`src/hooks/useGeneratorStore.ts`): Consumes the per-request generatorStore from `GeneratorStoreContext`
 - **useTheme** (`src/hooks/useTheme.ts`): Dark mode via `next-themes` (`resolvedTheme`/`setTheme`) with an `isMounted` hydration guard
-- **useUrlSync** (`src/hooks/useUrlSync.ts`): Bidirectional URL ↔ store sync, called once in Generator; drives the URL via `next/navigation` `router.replace`/`router.push` and mirrors the current palette URL into `appStore.sessionPalettePath` (logo restore)
-- **usePaletteIdSync** (`src/hooks/usePaletteIdSync.ts`): Syncs saved-palette `id` ↔ URL query
-- **useSavedPalettesList** (`src/hooks/useSavedPalettes.ts`): Store-free saved-list CRUD (fetch/delete/favorite/rename) — used by `/palettes`, outside the palette provider
-- **useSavedPalettes** (`src/hooks/useSavedPalettes.ts`): Composes the list + save/`currentUrl` of the *current* palette (reads the palette store; generator routes only)
+- **useUrlSync** (`src/hooks/useUrlSync.ts`): Bidirectional URL ↔ generator-store sync, called once in Generator — see [URL State](#url-state--the-url-is-the-single-source-of-truth)
+- **usePaletteIdSync** (`src/hooks/usePaletteIdSync.ts`): Validates the saved-palette `?id=` and manages palette identity — see [URL State](#url-state--the-url-is-the-single-source-of-truth)
+- **useSavedPalettesList** (`src/hooks/useSavedPalettes.ts`): Store-free saved-list CRUD (fetch/delete/favorite/rename) — used by `/palettes`, outside the generator provider
+- **useSavedPalettes** (`src/hooks/useSavedPalettes.ts`): Composes the list + save/`currentUrl` of the *current* palette (reads the generator store; generator routes only)
 - **useApp** (`src/hooks/useApp.ts`): appStore accessor
 
 ### Authentication
@@ -58,12 +58,26 @@ A Cloud Function (`cloud-functions/src/index.js`) runs `beforeUserCreated` to se
 
 ### URL State — the URL is the single source of truth
 
-The palette lives in the URL; the store follows the URL, never a competing persisted copy.
+The palette lives in the URL; the store follows the URL, never a competing persisted copy. **Read before touching palette/navigation behavior.**
 
-- Shareable form: `/p/{name}-{value}[-{overrides}]/...?{globalOpts}&id={savedId}` — colors in the **path** (`value` = OKLCH `L_C_H`); global scale options + saved-palette `id` in the **query** (single-letter keys). Encoding/decoding: `src/utils/url.ts`.
-- `/` and `/p/*` are `force-dynamic` (SSR per request) and the only routes that mount `PaletteStoreProvider` (`app/(generator)/layout.tsx`). Static pages must stay out of that tree — the provider calls `useSearchParams`, which would force them to client-render.
-- **New Palette** mints a fresh palette and pushes its `/p/...` URL (`createPalette()` → `serializePaletteToUrl` → `router.push`); it is not a link to `/`.
-- **Logo restore** is an in-memory convenience: `appStore.sessionPalettePath` (written by `useUrlSync`, not persisted). Gone on reload → logo falls back to `/`; the durable restore is the browser **back button** (history = URL = truth).
+**URL shape.** Shareable form `/p/{name}-{value}[-{overrides}]/...?{globalOpts}&id={savedId}` — colors in the **path** (`value` = OKLCH `L_C_H`, or legacy hex `RRGGBB`); global scale options + saved-palette `id` in the **query** (single-letter keys). All encode/decode lives in `src/utils/url.ts` (`parsePaletteFromUrl`, `serializePaletteToUrl`, `getPaletteIdFromUrl`, `updatePaletteIdInUrl`, `canonicalizeUrl`) — that file is the authority for keys/format; don't re-derive them.
+
+**Routes.** `/` and `/p/*` are `force-dynamic` (SSR per request) and the only routes that mount `GeneratorStoreProvider` (`app/(generator)/layout.tsx`). Static pages must stay out of that tree — the provider calls `useSearchParams`, which would force them to client-render.
+
+**Store seeding** (`GeneratorStoreProvider.tsx`). One-time `useRef` store created on first render: on `/p/*` it parses the URL (`parsePaletteFromUrl`); elsewhere (or if the URL is unparseable) it reuses the server-generated `fallbackPalette` prop from `app/(generator)/layout.tsx`. Both server and first client render run the same branch on the same input, so SSR and hydration match.
+
+**Runtime sync** (`useUrlSync.ts`, called once in Generator) — three effects:
+1. **URL → store** (on nav / back-forward / address-bar). Guard: returns early if the URL already equals the serialized store (`:61`). Otherwise applies the URL state, **preserving existing color `id`s by index** to avoid needless re-renders. Invalid/dropped colors → toast + `router.replace` to the cleaned URL; legacy hex/0–1-OKLCH forms → `router.replace` to canonical; root or unparseable `/p/` → `router.replace` with the already-seeded store (no flash).
+2. **Interaction pause.** A `MutationObserver` on `data-interacting="true"` (set by ColorPicker/ChannelSliders) pauses URL writes mid-gesture and flushes once on release, so dragging doesn't churn history.
+3. **store → URL.** A store subscription fires only when `colors` or `globalOptions` change (ignores `activeColorId`/`previewColorId`) → `commitPaletteUrl` → `router.push`.
+
+**`push` vs `replace`.** `push` = user intent worth a history entry (New Palette, color/option edits via `commitPaletteUrl`). `replace` = silent system correction that must NOT pollute history (drop invalid colors, canonicalize legacy form, strip an unauthorized/missing `id`, reflect the seeded store at root). Every router call passes `ROUTER_NAVIGATION_OPTIONS = { scroll: false }` (`src/config/globals.tsx`) so URL changes never jump scroll.
+
+**New Palette** mints a fresh palette and `router.push`es its `/p/...` URL (`createPalette()` → `serializePaletteToUrl`); it is not a link to `/`.
+
+**Saved-palette identity** (`usePaletteIdSync.ts`, called once alongside `useUrlSync`). Owns the `?id=` query only (colors are `useUrlSync`'s job). Auth-gated: validates the id against the `palettesStore` cache then the API, canonicalizes + fire-and-forget-migrates the stored URL in Firestore, and writes `appStore` `paletteId`/`paletteName` via `setPalette`. Strips the id with `router.replace` when unauthenticated, not-found, or owned by another user.
+
+**Logo restore** — `appStore.sessionPalettePath` is an in-memory convenience (written by `useUrlSync`, not persisted) so the Header logo can return to the palette being worked on. Reload falls back to `/`.
 
 ### Provider / Component Structure
 
@@ -71,16 +85,18 @@ Provider tree is composed in `app/providers.tsx` (rendered by `app/layout.tsx`):
 
 ```
 ThemeProvider (src/providers/ThemeProvider.tsx)
-│   └── NextThemesProvider → HeroUIProvider (navigate=router.push) → ToastProvider
-└── AuthProvider
-    └── AppShell
-        ├── AppStoreSync (appStore ↔ localStorage)
-        ├── Header (global: logo, dark mode toggle, Login/Avatar)
-        ├── main → Sentry.ErrorBoundary → {route page}
-        └── Login (when unauthenticated)
+└── NextThemesProvider
+    └── HeroUIProvider (navigate=router.push)
+        ├── ToastProvider (self-closing; not a wrapper)
+        └── AuthProvider
+            └── AppShell
+                ├── AppStoreSync (appStore ↔ localStorage)
+                ├── Header (global: logo, dark mode toggle, Login/Avatar)
+                ├── main → Sentry.ErrorBoundary → {route page}
+                └── Login (when unauthenticated)
 ```
 
-`app/(generator)/layout.tsx` wraps only `/` and `/p/*` in `PaletteStoreProvider` (per-request store, seeded from the URL) — keeping the search-param dependency out of the statically-prerendered pages.
+`app/(generator)/layout.tsx` wraps only `/` and `/p/*` in `GeneratorStoreProvider` (per-request store, seeded from the URL — see [URL State](#url-state--the-url-is-the-single-source-of-truth)).
 
 Routes (Next.js App Router under `app/`):
 
@@ -93,7 +109,7 @@ Routes (Next.js App Router under `app/`):
 /og/*                    app/og/[...slug]/route.tsx   → dynamic OG image (next/og)
 ```
 
-The Generator UI lives in `src/containers/Generator/` (`index.tsx`, `Panel.tsx`, `ColorOptions.tsx`) and the palette UI in `src/containers/Palette/` (`Header`, `Scale`, `Swatch`, `Options`, `GamutToggle`). `ColorList`/`ColorItem` (SRGB | OKLCH) live in `src/containers/ColorList/`. The old Vite `Sidebar.tsx`/`BottomBar.tsx` are gone — responsive layout is handled by `Panel.tsx`.
+The Generator UI lives in `src/containers/Generator/` (`index.tsx`, `Panel.tsx`, `ColorOptions.tsx`) and the palette UI in `src/containers/Palette/` (`Header`, `Scale`, `Swatch`, `Options`, `GamutToggle`). `ColorList`/`ColorItem` (SRGB | OKLCH) live in `src/containers/ColorList/`. Responsive layout is handled by `Panel.tsx`.
 
 ### Key Types
 
@@ -108,7 +124,7 @@ The Generator UI lives in `src/containers/Generator/` (`index.tsx`, `Panel.tsx`,
 - `src/utils/color.ts`: Color helpers (chroma percentage, random color)
 - `src/utils/gamut.ts`: P3 capability detection (`isP3Supported`), SSR `window` guard
 - `src/utils/export.ts`: Generate CSS/SCSS/Tailwind/SVG exports
-- `src/utils/palette.ts`: Pure functions for palette CRUD operations (used by store)
+- `src/utils/generator.ts`: Pure functions for palette CRUD operations (used by store)
 - `src/utils/url.ts`: URL encoding/decoding for shareable palettes
 
 ## Key Dependencies
@@ -129,9 +145,9 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 **Path aliases (tsconfig):**
 
 - `~/test-utils` → `tests/__setup__/test-utils.tsx`
-  - custom render wrapping `ThemeProvider` + `MockAuthProvider`. `next/navigation` is mocked in `~/test-mocks` (no router in the wrapper); `PaletteStoreProvider` is mocked to a passthrough. Supports `initialEntries` (seeds the mocked route via `setMockRoute`) and `authState` for auth context overrides.
+  - custom render wrapping `ThemeProvider` + `MockAuthProvider`. `next/navigation` is mocked in `~/test-mocks` (no router in the wrapper); `GeneratorStoreProvider` is mocked to a passthrough. Supports `initialEntries` (seeds the mocked route via `setMockRoute`) and `authState` for auth context overrides.
 - `~/test-mocks` → `tests/__setup__/mocks.ts`
-  - mocks `next/navigation`, `next-themes`, `@heroui/react`, and `~/utils/gamut`. Exports: `mockRouter`, `setMockRoute(url)`, `mockSetTheme`, `setMockTheme(theme)`, `mockAddToast`, `mockIsP3Supported`, `getPaletteStore()`, `mockClipboard`.
+  - mocks `next/navigation`, `next-themes`, `@heroui/react`, and `~/utils/gamut`. Exports: `mockRouter`, `setMockRoute(url)`, `mockSetTheme`, `setMockTheme(theme)`, `mockAddToast`, `mockIsP3Supported`, `getGeneratorStore()`, `mockClipboard`.
 
 **Patterns:**
 
@@ -154,7 +170,7 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 - `mockRouter` / `setMockRoute(url)` - `next/navigation` router + route seeding
 - `mockSetTheme` / `setMockTheme(theme)` - `next-themes` theme control
 - `mockIsP3Supported` - gamut capability toggle (`~/utils/gamut`)
-- `getPaletteStore()` - handle to the shared per-test palette store
+- `getGeneratorStore()` - handle to the shared per-test generator store
 
 ## Browser Testing
 
@@ -172,7 +188,11 @@ agent-browser open --init-script scripts/spoof-p3-gamut.js https://color-lab.loc
 
 Test account credentials are available in the shell as `$COLOR_LAB_EMAIL` and `$COLOR_LAB_PASSWORD` — use these for any flow that needs auth (rename, save, persistence, etc.).
 
-HeroUI's primary Button uses React Aria's `usePress`, which does not fire reliably from `agent-browser` clicks. To submit a form (login, save modal), focus an input inside the form and press Enter so the form's `onSubmit` handler runs. Clicking the submit button directly is unreliable.
+**Driving controls with agent-browser:**
+
+- Buttons respond to a normal `click`. Run `wait --load networkidle` first so the click doesn't race a re-render.
+- For a button inside a modal, run `scrollintoview @ref` before `click @ref`.
+- To submit a modal form: `scrollintoview` + `click` the submit button, or focus an input and press Enter.
 
 ## Stack
 
@@ -199,4 +219,4 @@ Hosted on Dokploy at `lab.colormeup.co` as a **Dockerized Next.js standalone ser
 
 - `next build` produces `.next/standalone`; the runner stage copies `public/`, `.next/standalone`, and `.next/static`.
 - The 6 `NEXT_PUBLIC_FIREBASE_*` are inlined into the client bundle at **build time**, so they must be passed as Docker build args (Dokploy) / present for `next build` — not just at runtime.
-- Server-rendered routes (`/p/*`, `/og/*`) require the Node server — this is no longer a static SPA, so there is no NGINX/`try_files`/`./dist` involved.
+- Server-rendered routes (`/p/*`, `/og/*`) require the Node server.

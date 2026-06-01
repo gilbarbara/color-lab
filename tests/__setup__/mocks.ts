@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import type { PaletteStore, PaletteStoreApi } from '~/stores/paletteStore';
+import type { GeneratorStore, GeneratorStoreApi } from '~/stores/generatorStore';
 
 const navigationMocks = vi.hoisted(() => ({
   pathname: '/',
@@ -20,31 +20,31 @@ const themeMocks = vi.hoisted(() => ({
   setTheme: vi.fn<(theme: string) => void>(),
 }));
 
-// Single shared palette store for all tests. The Next migration replaced the
-// global Zustand singleton with a context-scoped factory store (createPaletteStore)
-// read through ~/hooks/usePaletteStore. There is no module-level singleton to import
-// like useAppStore, so tests seed/read state through the `paletteStore` handle
+// Single shared generator store for all tests. The Next migration replaced the
+// global Zustand singleton with a context-scoped factory store (createGeneratorStore)
+// read through ~/hooks/useGeneratorStore. There is no module-level singleton to import
+// like useAppStore, so tests seed/read state through the `generatorStore` handle
 // exported below, while the mocked hook hands components the same instance. The
 // provider is reduced to a passthrough so no React context is required in tests.
-const paletteStoreHolder = vi.hoisted(() => ({ store: null as PaletteStoreApi | null }));
+const generatorStoreHolder = vi.hoisted(() => ({ store: null as GeneratorStoreApi | null }));
 
-vi.mock('~/providers/PaletteStoreProvider', () => ({
+vi.mock('~/providers/GeneratorStoreProvider', () => ({
   default: ({ children }: { children: ReactNode }) => children,
 }));
 
-vi.mock('~/hooks/usePaletteStore', async () => {
+vi.mock('~/hooks/useGeneratorStore', async () => {
   const { useStore } = await vi.importActual<typeof import('zustand')>('zustand');
   const actual =
-    await vi.importActual<typeof import('~/stores/paletteStore')>('~/stores/paletteStore');
+    await vi.importActual<typeof import('~/stores/generatorStore')>('~/stores/generatorStore');
 
-  paletteStoreHolder.store ??= actual.createPaletteStore();
-  const { store } = paletteStoreHolder;
+  generatorStoreHolder.store ??= actual.createGeneratorStore();
+  const { store } = generatorStoreHolder;
 
   return {
-    default: function usePaletteStore<T>(selector: (state: PaletteStore) => T): T {
+    default: function useGeneratorStore<T>(selector: (state: GeneratorStore) => T): T {
       return useStore(store, selector);
     },
-    usePaletteStoreApi: () => store,
+    useGeneratorStoreApi: () => store,
   };
 });
 
@@ -122,18 +122,18 @@ Object.defineProperty(crypto, 'randomUUID', {
   writable: true,
 });
 
-// Shared palette store handle for tests. The runtime store is a per-request factory
-// (createPaletteStore) read through ~/hooks/usePaletteStore, so there is no module-level
+// Shared generator store handle for tests. The runtime store is a per-request factory
+// (createGeneratorStore) read through ~/hooks/useGeneratorStore, so there is no module-level
 // singleton to import like useAppStore. Tests seed/read state through this handle; the
-// mocked hook hands components the same instance via paletteStoreHolder. It is created
+// mocked hook hands components the same instance via generatorStoreHolder. It is created
 // lazily (the mocked hook or the beforeEach below populate it) to avoid loading the store
 // module — and its @gilbarbara/helpers dependency — before nextUuid is initialized (TDZ).
-export function getPaletteStore(): PaletteStoreApi {
-  if (!paletteStoreHolder.store) {
-    throw new Error('palette store not initialized yet — import a palette hook or run a test');
+export function getGeneratorStore(): GeneratorStoreApi {
+  if (!generatorStoreHolder.store) {
+    throw new Error('generator store not initialized yet — import a generator hook or run a test');
   }
 
-  return paletteStoreHolder.store;
+  return generatorStoreHolder.store;
 }
 
 beforeEach(async () => {
@@ -146,15 +146,15 @@ beforeEach(async () => {
   // files seed further in their own beforeEach, which runs after this one).
   // Lazy import: loading fixtures at module top would pull in @gilbarbara/helpers
   // before nextUuid is initialized (TDZ).
-  const [{ createTestPalette }, { createPaletteStore }] = await Promise.all([
+  const [{ createTestPalette }, { createGeneratorStore }] = await Promise.all([
     import('~/test-fixtures'),
-    import('~/stores/paletteStore'),
+    import('~/stores/generatorStore'),
   ]);
 
-  paletteStoreHolder.store ??= createPaletteStore();
+  generatorStoreHolder.store ??= createGeneratorStore();
   const base = createTestPalette();
 
-  paletteStoreHolder.store.setState({
+  generatorStoreHolder.store.setState({
     ...base,
     activeColorId: base.colors[0].id,
     previewColorId: base.colors[0].id,

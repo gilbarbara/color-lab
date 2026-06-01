@@ -10,27 +10,27 @@ import {
   setColorOverride as setColorOverrideFn,
   updateColor as updateColorFn,
   updateGlobalOptions as updateGlobalOptionsFn,
-} from '~/utils/palette';
+} from '~/utils/generator';
 
-import type { PaletteActions, PaletteState } from '~/types';
+import type { GeneratorActions, GeneratorState } from '~/types';
 
-interface PaletteInitialState {
+interface GeneratorInitialState {
   activeColorId?: string | null;
-  colors: PaletteState['colors'];
-  globalOptions: PaletteState['globalOptions'];
+  colors: GeneratorState['colors'];
+  globalOptions: GeneratorState['globalOptions'];
   previewColorId?: string | null;
 }
 
-export type PaletteStoreApi = ReturnType<typeof createPaletteStore>;
+export type GeneratorStoreApi = ReturnType<typeof createGeneratorStore>;
 
-export interface PaletteStore extends PaletteActions, PaletteState {
+export interface GeneratorStore extends GeneratorActions, GeneratorState {
   activeColorId: string | null;
   previewColorId: string | null;
 }
 
 function buildInitialState(
-  input?: PaletteInitialState,
-): Pick<PaletteStore, 'activeColorId' | 'colors' | 'globalOptions' | 'previewColorId'> {
+  input?: GeneratorInitialState,
+): Pick<GeneratorStore, 'activeColorId' | 'colors' | 'globalOptions' | 'previewColorId'> {
   if (input && input.colors.length > 0) {
     const firstId = input.colors[0].id;
 
@@ -53,8 +53,8 @@ function buildInitialState(
   };
 }
 
-export function createPaletteStore(initialState?: PaletteInitialState) {
-  return createStore<PaletteStore>()(set => ({
+export function createGeneratorStore(initialState?: GeneratorInitialState) {
+  return createStore<GeneratorStore>()(set => ({
     ...buildInitialState(initialState),
 
     addColor: (value, name) => {

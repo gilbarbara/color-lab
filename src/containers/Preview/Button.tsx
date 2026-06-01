@@ -1,7 +1,7 @@
 import { EyeIcon } from '@phosphor-icons/react';
 
 import useApp from '~/hooks/useApp';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 
 import Button, { type ButtonProps } from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
@@ -13,7 +13,7 @@ interface PreviewButtonProps {
 
 export default function PreviewButton(props: PreviewButtonProps) {
   const { id, variant = 'flat' } = props;
-  const { setActiveColor, setPreviewColor } = usePalette('setActiveColor', 'setPreviewColor');
+  const { setActiveColor, setPreviewColor } = useGenerator('setActiveColor', 'setPreviewColor');
   const { requestPreviewScroll, togglePreview } = useApp('requestPreviewScroll', 'togglePreview');
 
   return (

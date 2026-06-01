@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import PaletteStoreProvider from '~/providers/PaletteStoreProvider';
-import { createPalette } from '~/utils/palette';
+import GeneratorStoreProvider from '~/providers/GeneratorStoreProvider';
+import { createPalette } from '~/utils/generator';
 
 export default function GeneratorLayout({ children }: { children: ReactNode }) {
   // Generate the fallback palette once on the server so the client reuses the same
@@ -11,5 +11,7 @@ export default function GeneratorLayout({ children }: { children: ReactNode }) {
   // never mount the provider, so they prerender without `useSearchParams`.
   const fallbackPalette = createPalette();
 
-  return <PaletteStoreProvider fallbackPalette={fallbackPalette}>{children}</PaletteStoreProvider>;
+  return (
+    <GeneratorStoreProvider fallbackPalette={fallbackPalette}>{children}</GeneratorStoreProvider>
+  );
 }

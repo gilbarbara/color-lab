@@ -1,6 +1,6 @@
 import { createColorEntry, CRIMSON } from '~/test-fixtures';
 import { render, screen } from '~/test-utils';
-import { getDefaultGlobalOptions } from '~/utils/palette';
+import { getDefaultGlobalOptions } from '~/utils/generator';
 
 import Scale from '~/containers/Palette/Scale';
 

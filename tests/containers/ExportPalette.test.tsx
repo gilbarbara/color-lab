@@ -1,5 +1,5 @@
 import { createTestPalette } from '~/test-fixtures';
-import { getPaletteStore, mockClipboard } from '~/test-mocks';
+import { getGeneratorStore, mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
 
 import ExportPalette from '~/containers/ExportPalette';
@@ -8,7 +8,7 @@ describe('ExportPalette', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockClipboard.writeText.mockResolvedValue(undefined);
-    getPaletteStore().setState(createTestPalette(2));
+    getGeneratorStore().setState(createTestPalette(2));
   });
 
   describe('Render', () => {

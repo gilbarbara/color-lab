@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
-import { getPaletteStore, mockRouter } from '~/test-mocks';
+import { getGeneratorStore, mockRouter } from '~/test-mocks';
 import { fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
 
@@ -47,7 +47,7 @@ describe('Header', () => {
     vi.clearAllMocks();
     themeState.isDarkMode = false;
     setDesktop();
-    getPaletteStore().setState(createTestPalette(1));
+    getGeneratorStore().setState(createTestPalette(1));
     useAppStore.setState({
       paletteId: 'p1',
       paletteName: 'Saved',

@@ -1,6 +1,6 @@
 import { round } from '@gilbarbara/helpers';
 
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 
 import type { ColorEntry, GlobalScaleOptions, ScaleOptions as ScaleOptionsType } from '~/types';
 
@@ -35,7 +35,7 @@ function statusClass(status: RowStatus): string {
 }
 
 export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps) {
-  const { defaultOptions, globalOptions } = usePalette('defaultOptions', 'globalOptions');
+  const { defaultOptions, globalOptions } = useGenerator('defaultOptions', 'globalOptions');
   const overrides = colorEntry.overrides ?? {};
 
   const resolve = <K extends OptionKey>(key: K): GlobalScaleOptions[K] =>

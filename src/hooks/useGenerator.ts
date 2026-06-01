@@ -1,18 +1,18 @@
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
-import usePaletteStore from '~/hooks/usePaletteStore';
-import { type PaletteStore } from '~/stores/paletteStore';
+import useGeneratorStore from '~/hooks/useGeneratorStore';
+import { type GeneratorStore } from '~/stores/generatorStore';
 import { getChromaAsPercentage } from '~/utils/color';
-import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/palette';
+import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/generator';
 import { serializePaletteToUrl } from '~/utils/url';
 
 import type { GlobalScaleOptions } from '~/types';
 
 type ComputedKey = keyof ComputedPaletteValues;
 
-type PaletteAggregate = ComputedPaletteValues & PaletteStore;
-type StoreKey = keyof PaletteStore;
+type PaletteAggregate = ComputedPaletteValues & GeneratorStore;
+type StoreKey = keyof GeneratorStore;
 type UsePaletteKey = keyof PaletteAggregate;
 interface ComputedPaletteValues {
   baseSaturation: number;
@@ -37,13 +37,13 @@ function isComputedKey(key: UsePaletteKey): key is ComputedKey {
 }
 
 /**
- * Keyed selector hook for the palette store.
+ * Keyed selector hook for the generator store.
  *
  * Pass the keys you need (store fields, actions, or computed values).
  * The hook subscribes only to the underlying store slice required to satisfy
  * those keys, so unrelated state changes do not trigger re-renders.
  */
-export default function usePalette<K extends UsePaletteKey>(
+export default function useGenerator<K extends UsePaletteKey>(
   ...keys: K[]
 ): Pick<PaletteAggregate, K> {
   const storeKeys = new Set<StoreKey>();
@@ -58,9 +58,9 @@ export default function usePalette<K extends UsePaletteKey>(
     }
   }
 
-  const slice = usePaletteStore(
+  const slice = useGeneratorStore(
     useShallow(state => {
-      const out = {} as Partial<PaletteStore>;
+      const out = {} as Partial<GeneratorStore>;
 
       storeKeys.forEach(k => {
         (out as Record<string, unknown>)[k] = state[k];

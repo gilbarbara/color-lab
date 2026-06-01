@@ -6,7 +6,7 @@ import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/re
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { trackEvent } from '~/utils/analytics';
 
@@ -32,7 +32,7 @@ export default function PaletteHeader() {
     'showPaletteOptionsPanel',
     'togglePaletteOptionsPanel',
   );
-  const { hasCustomPaletteOptions } = usePalette('hasCustomPaletteOptions');
+  const { hasCustomPaletteOptions } = useGenerator('hasCustomPaletteOptions');
   const {
     hasUnsavedChanges,
     isSaving,

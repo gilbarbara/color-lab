@@ -1,5 +1,5 @@
-import usePalette from '~/hooks/usePalette';
-import { getEffectiveOptions } from '~/utils/palette';
+import useGenerator from '~/hooks/useGenerator';
+import { getEffectiveOptions } from '~/utils/generator';
 
 import Footer from '~/components/Footer';
 import Preview from '~/containers/Preview';
@@ -8,7 +8,7 @@ import Header from './Header';
 import Scale from './Scale';
 
 export default function Palette() {
-  const { colors, globalOptions } = usePalette('colors', 'globalOptions');
+  const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
 
   return (
     <div

@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/nextjs';
 import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-picker';
 
 import useApp from '~/hooks/useApp';
-import usePalette from '~/hooks/usePalette';
+import useGenerator from '~/hooks/useGenerator';
 import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor, toOklch } from '~/utils/color';
@@ -52,7 +52,7 @@ export default function ColorItem(props: ColorItemProps) {
     setActiveColor,
     updateColor,
     updateGlobalOptions,
-  } = usePalette(
+  } = useGenerator(
     'activeColorId',
     'baseSaturation',
     'removeColor',

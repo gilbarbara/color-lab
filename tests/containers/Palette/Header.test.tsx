@@ -1,6 +1,6 @@
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
-import { getPaletteStore, mockAddToast } from '~/test-mocks';
+import { getGeneratorStore, mockAddToast } from '~/test-mocks';
 import { act, fireEvent, render, screen, waitFor, within } from '~/test-utils';
 
 import Header from '~/containers/Palette/Header';
@@ -42,7 +42,7 @@ describe('PaletteHeader', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     resetSavedPalettesState();
-    getPaletteStore().setState(createTestPalette(1));
+    getGeneratorStore().setState(createTestPalette(1));
     useAppStore.setState({ showPaletteOptionsPanel: false, showLoginModal: false, gamut: 'p3' });
   });
 
@@ -78,7 +78,7 @@ describe('PaletteHeader', () => {
     it('renders custom palette options badge when options differ from default', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: { ...base.globalOptions, variant: 'vibrant' },
       });

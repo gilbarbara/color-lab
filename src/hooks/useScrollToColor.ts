@@ -4,7 +4,7 @@ import { useBreakpoint } from '@gilbarbara/hooks';
 import { BREAKPOINTS } from '~/config/globals';
 
 import useApp from './useApp';
-import usePalette from './usePalette';
+import useGenerator from './useGenerator';
 
 const OPEN_ANIMATION_MS = 500;
 
@@ -15,7 +15,7 @@ interface ScrollToColorOptions {
 export default function useScrollToColor() {
   const { max } = useBreakpoint(BREAKPOINTS);
   const isSmallScreen = max('md');
-  const { setActiveColor } = usePalette('setActiveColor');
+  const { setActiveColor } = useGenerator('setActiveColor');
   const { requestColorScroll, showBottomBar, showSidebar, toggleBottomBar, toggleSidebar } = useApp(
     'requestColorScroll',
     'showBottomBar',

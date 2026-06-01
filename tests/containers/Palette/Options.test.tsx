@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
-import { getPaletteStore } from '~/test-mocks';
+import { getGeneratorStore } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
 
 import Options from '~/containers/Palette/Options';
@@ -15,7 +15,7 @@ describe('Options', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     useAppStore.setState({ gamut: 'p3' });
-    getPaletteStore().setState(createTestPalette(1));
+    getGeneratorStore().setState(createTestPalette(1));
   });
 
   describe('Render', () => {
@@ -28,7 +28,7 @@ describe('Options', () => {
     it('renders with saturationOverride enabled', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: { ...base.globalOptions, saturationOverride: true, saturation: 50 },
       });
@@ -40,7 +40,7 @@ describe('Options', () => {
     it('renders with variant and lock selected', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: { ...base.globalOptions, variant: 'vibrant', lock: 500 },
       });
@@ -52,7 +52,7 @@ describe('Options', () => {
     it('renders dark mode label', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: { ...base.globalOptions, mode: 'dark' },
       });
@@ -70,7 +70,7 @@ describe('Options', () => {
 
       fireEvent.click(modeSwitch);
 
-      expect(getPaletteStore().getState().globalOptions.mode).toBe('dark');
+      expect(getGeneratorStore().getState().globalOptions.mode).toBe('dark');
     });
 
     it('toggles saturationOverride via Switch', () => {
@@ -82,7 +82,7 @@ describe('Options', () => {
 
       fireEvent.click(overrideSwitch);
 
-      expect(getPaletteStore().getState().globalOptions.saturationOverride).toBe(true);
+      expect(getGeneratorStore().getState().globalOptions.saturationOverride).toBe(true);
     });
 
     it('disables saturation slider when saturationOverride is off', () => {
@@ -94,7 +94,7 @@ describe('Options', () => {
     it('enables saturation slider when saturationOverride is on', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: { ...base.globalOptions, saturationOverride: true },
       });
@@ -110,7 +110,7 @@ describe('Options', () => {
 
       fireEvent.change(stepsSlider, { target: { value: '7' } });
 
-      expect(getPaletteStore().getState().globalOptions.steps).toBe(7);
+      expect(getGeneratorStore().getState().globalOptions.steps).toBe(7);
     });
 
     it('selects a variant via the listbox', async () => {
@@ -127,7 +127,7 @@ describe('Options', () => {
 
       await user.click(option);
 
-      expect(getPaletteStore().getState().globalOptions.variant).toBe('vibrant');
+      expect(getGeneratorStore().getState().globalOptions.variant).toBe('vibrant');
     });
 
     it('selects a lock step via the listbox', async () => {
@@ -144,13 +144,13 @@ describe('Options', () => {
 
       await user.click(option);
 
-      expect(getPaletteStore().getState().globalOptions.lock).toBe(500);
+      expect(getGeneratorStore().getState().globalOptions.lock).toBe(500);
     });
 
     it('disables variant select trigger when saturationOverride is on', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: { ...base.globalOptions, saturationOverride: true },
       });
@@ -164,7 +164,7 @@ describe('Options', () => {
     it('resets palette options to defaults', () => {
       const base = createTestPalette(1);
 
-      getPaletteStore().setState({
+      getGeneratorStore().setState({
         ...base,
         globalOptions: {
           ...base.globalOptions,
@@ -177,7 +177,7 @@ describe('Options', () => {
 
       fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
 
-      const { globalOptions } = getPaletteStore().getState();
+      const { globalOptions } = getGeneratorStore().getState();
 
       expect(globalOptions.steps).toBe(base.globalOptions.steps);
       expect(globalOptions.variant).toBe(base.globalOptions.variant);

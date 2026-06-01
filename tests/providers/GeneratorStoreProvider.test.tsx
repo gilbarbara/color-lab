@@ -1,35 +1,35 @@
 import { useContext } from 'react';
 import { render } from '@testing-library/react';
 
-import PaletteStoreProvider, { PaletteStoreContext } from '~/providers/PaletteStoreProvider';
-import { type PaletteStoreApi } from '~/stores/paletteStore';
+import GeneratorStoreProvider, { GeneratorStoreContext } from '~/providers/GeneratorStoreProvider';
+import { type GeneratorStoreApi } from '~/stores/generatorStore';
 import { createTestPalette } from '~/test-fixtures';
 import { setMockRoute } from '~/test-mocks';
 import { parsePaletteFromUrl, serializePaletteToUrl } from '~/utils/url';
 
-// The global setup mocks PaletteStoreProvider to a passthrough; this suite needs
+// The global setup mocks GeneratorStoreProvider to a passthrough; this suite needs
 // the real one to exercise its URL-vs-fallback initialization.
-vi.unmock('~/providers/PaletteStoreProvider');
+vi.unmock('~/providers/GeneratorStoreProvider');
 
-let captured: PaletteStoreApi | null = null;
+let captured: GeneratorStoreApi | null = null;
 
 function Probe() {
-  // Read the store straight from context: usePalette/usePaletteStore are mocked
+  // Read the store straight from context: useGenerator/useGeneratorStore are mocked
   // to a singleton in the global setup and would bypass the provider's store.
-  captured = useContext(PaletteStoreContext);
+  captured = useContext(GeneratorStoreContext);
 
   return null;
 }
 
 function renderProvider(fallbackPalette = createTestPalette(1)) {
   return render(
-    <PaletteStoreProvider fallbackPalette={fallbackPalette}>
+    <GeneratorStoreProvider fallbackPalette={fallbackPalette}>
       <Probe />
-    </PaletteStoreProvider>,
+    </GeneratorStoreProvider>,
   );
 }
 
-describe('PaletteStoreProvider', () => {
+describe('GeneratorStoreProvider', () => {
   beforeEach(() => {
     captured = null;
     setMockRoute('/');
@@ -61,9 +61,9 @@ describe('PaletteStoreProvider', () => {
     const first = captured;
 
     rerender(
-      <PaletteStoreProvider fallbackPalette={createTestPalette(1)}>
+      <GeneratorStoreProvider fallbackPalette={createTestPalette(1)}>
         <Probe />
-      </PaletteStoreProvider>,
+      </GeneratorStoreProvider>,
     );
 
     expect(captured).toBe(first);

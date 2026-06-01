@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { CRIMSON } from '~/test-fixtures';
 import { act, fireEvent, render, screen, within } from '~/test-utils';
-import { getDefaultGlobalOptions } from '~/utils/palette';
+import { getDefaultGlobalOptions } from '~/utils/generator';
 
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 
