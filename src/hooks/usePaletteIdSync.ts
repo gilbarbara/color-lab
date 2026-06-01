@@ -5,6 +5,7 @@ import { addToast } from '@heroui/react';
 import * as Sentry from '@sentry/nextjs';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import { getPalette, migratePaletteUrl } from '~/services/palettes';
@@ -96,7 +97,7 @@ export default function usePaletteIdSync() {
 
     if (!isAuthenticated || !user) {
       // Not logged in - remove ID from URL
-      router.replace(updatePaletteIdInUrl(currentUrl, null));
+      router.replace(updatePaletteIdInUrl(currentUrl, null), ROUTER_NAVIGATION_OPTIONS);
       clearPalette();
 
       return;
@@ -144,7 +145,7 @@ export default function usePaletteIdSync() {
       }
 
       // not-found OR success-but-wrong-user → strip ID
-      router.replace(updatePaletteIdInUrl(currentUrl, null));
+      router.replace(updatePaletteIdInUrl(currentUrl, null), ROUTER_NAVIGATION_OPTIONS);
       clearPalette();
     })();
   }, [

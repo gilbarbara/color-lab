@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { addToast } from '@heroui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { useAppStore } from '~/stores/appStore';
 import {
@@ -38,7 +39,7 @@ export default function useUrlSync() {
     (state: GeneratorState) => {
       const fullUrl = buildPaletteUrl(state, useAppStore.getState().paletteId);
 
-      router.push(fullUrl);
+      router.push(fullUrl, ROUTER_NAVIGATION_OPTIONS);
       useAppStore.getState().setSessionPalettePath(fullUrl);
     },
     [router],
@@ -89,14 +90,14 @@ export default function useUrlSync() {
             color: 'warning',
           });
 
-          router.replace(buildPaletteUrl(urlState, urlId));
+          router.replace(buildPaletteUrl(urlState, urlId), ROUTER_NAVIGATION_OPTIONS);
         } else if (dropped.length === 0) {
           // Canonicalise legacy URL forms (hex, 0-1 OKLCH) to the current OKLCH form.
           // replace: true keeps the legacy URL out of the back-button history.
           const canonicalUrl = buildPaletteUrl(urlState, urlId);
 
           if (canonicalUrl !== currentUrl) {
-            router.replace(canonicalUrl);
+            router.replace(canonicalUrl, ROUTER_NAVIGATION_OPTIONS);
           }
         }
 
@@ -108,7 +109,7 @@ export default function useUrlSync() {
     // palette the store was already seeded with (server-side via fallbackPalette,
     // identical on both render passes) in the URL. Generating a fresh palette here
     // would overwrite the server-rendered one and cause a color flash on load.
-    router.replace(serializePaletteToUrl(generatorStoreApi.getState()));
+    router.replace(serializePaletteToUrl(generatorStoreApi.getState()), ROUTER_NAVIGATION_OPTIONS);
   }, [pathname, searchParams, router, generatorStoreApi]);
 
   const isPaused = useRef(false);

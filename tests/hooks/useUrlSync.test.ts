@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useGenerator from '~/hooks/useGenerator';
 import useUrlSync from '~/hooks/useUrlSync';
 import { useAppStore } from '~/stores/appStore';
@@ -141,6 +142,7 @@ describe('hooks/useUrlSync', () => {
 
       expect(mockRouter.replace).toHaveBeenCalledWith(
         expect.stringMatching(/^\/p\/Primary-[\d._]+$/),
+        ROUTER_NAVIGATION_OPTIONS,
       );
     });
 
@@ -159,7 +161,10 @@ describe('hooks/useUrlSync', () => {
       renderHook(() => useUrlSync());
 
       expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9');
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/Primary-63.27_0.254_19.9',
+        ROUTER_NAVIGATION_OPTIONS,
+      );
       expect(getGeneratorStore().getState().colors[0].value).toBe(CRIMSON);
     });
 
@@ -169,7 +174,10 @@ describe('hooks/useUrlSync', () => {
       renderHook(() => useUrlSync());
 
       expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-64_0.142_329');
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/Primary-64_0.142_329',
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     });
 
     it('preserves id query when canonicalising legacy URL', () => {
@@ -179,7 +187,10 @@ describe('hooks/useUrlSync', () => {
       renderHook(() => useUrlSync());
 
       expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9?id=abc123');
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/Primary-63.27_0.254_19.9?id=abc123',
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     });
 
     it('preserves id query when canonicalising before store has paletteId', () => {
@@ -188,7 +199,10 @@ describe('hooks/useUrlSync', () => {
       renderHook(() => useUrlSync());
 
       expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-63.27_0.254_19.9?id=abc123');
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/Primary-63.27_0.254_19.9?id=abc123',
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     });
 
     it('does not navigate when canonical URL with id matches before store sync', () => {
@@ -215,6 +229,7 @@ describe('hooks/useUrlSync', () => {
 
       expect(mockRouter.push).toHaveBeenCalledWith(
         expect.stringContaining('/p/Primary-64_0.142_329/Secondary-'),
+        ROUTER_NAVIGATION_OPTIONS,
       );
     });
   });
@@ -301,7 +316,10 @@ describe('hooks/useUrlSync', () => {
       await flushObserver();
 
       expect(mockRouter.push).toHaveBeenCalledTimes(1);
-      expect(mockRouter.push).toHaveBeenCalledWith(expect.stringContaining('i=15'));
+      expect(mockRouter.push).toHaveBeenCalledWith(
+        expect.stringContaining('i=15'),
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     });
 
     it('resumes normal sync after release', async () => {
@@ -325,7 +343,10 @@ describe('hooks/useUrlSync', () => {
       });
 
       expect(mockRouter.push).toHaveBeenCalledTimes(1);
-      expect(mockRouter.push).toHaveBeenCalledWith(expect.stringContaining('i=20'));
+      expect(mockRouter.push).toHaveBeenCalledWith(
+        expect.stringContaining('i=20'),
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     });
   });
 });
