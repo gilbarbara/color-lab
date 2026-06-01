@@ -64,6 +64,8 @@ export default function Panel() {
   const contentRef = useRef<HTMLDivElement>(null);
   const dragStartY = useRef<number | null>(null);
   const hasMountedRef = useRef(false);
+  // Last colorScrollRequest.nonce we actually scrolled to — see the scroll effect.
+  const servicedNonceRef = useRef<number | null>(null);
 
   // useBreakpoint is post-mount safe: it returns defaults on first render
   // (SSR + first client render match), then updates after mount. We only read
@@ -86,33 +88,34 @@ export default function Panel() {
       return undefined;
     }
 
+    // This effect also re-runs on collapseAnimationCount / isMobile changes — the gate
+    // that defers scrolling until expand/collapse animations settle. Those re-runs must
+    // not replay an already-serviced request: every ColorItem activation cycles
+    // collapseAnimationCount (Collapse open/close), which would otherwise re-fire the
+    // last request. Only act on a nonce we haven't scrolled to yet.
+    if (colorScrollRequest.nonce === servicedNonceRef.current) {
+      return undefined;
+    }
+
+    const { id, nonce } = colorScrollRequest;
     const offset = isMobile ? SCROLL_OFFSET : OFFSET;
 
     if (isRemountRestore) {
-      scrollToSelector(colorScrollRequest.id, containerRef.current, offset, true);
+      servicedNonceRef.current = nonce;
+      scrollToSelector(id, containerRef.current, offset, true);
 
       return undefined;
     }
 
+    // Mark serviced inside the frame, not before: if a dep change cancels this rAF
+    // first, the re-run must reschedule rather than skip a never-performed scroll.
     const raf = requestAnimationFrame(() => {
-      scrollToSelector(colorScrollRequest.id, containerRef.current, offset);
+      scrollToSelector(id, containerRef.current, offset);
+      servicedNonceRef.current = nonce;
     });
 
     return () => cancelAnimationFrame(raf);
   }, [colorScrollRequest, collapseAnimationCount, isMobile]);
-
-  // Lock body scroll only when the mobile drawer is open.
-  useEffect(() => {
-    if (!isMobile || !showBottomBar) {
-      return undefined;
-    }
-
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobile, showBottomBar]);
 
   // `inert` keeps the collapsed sidebar / closed drawer out of the tab order and
   // a11y tree. It has no CSS form and depends on the breakpoint, which is only

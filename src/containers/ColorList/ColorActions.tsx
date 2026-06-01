@@ -5,6 +5,7 @@ import { type ColorMode, ModeSelector } from '@transience/color-picker';
 import { readableColor } from 'colorizr';
 
 import { BREAKPOINTS } from '~/config/globals';
+import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 
@@ -30,6 +31,7 @@ export default function ColorActions(props: ColorActionsProps) {
     'globalOptions',
     'setColorOverride',
   );
+  const { toggleBottomBar } = useApp('toggleBottomBar');
   const { isOpen, onOpenChange } = useDisclosure();
   const { min } = useBreakpoint(BREAKPOINTS);
 
@@ -68,7 +70,11 @@ export default function ColorActions(props: ColorActionsProps) {
         <ModeSelector mode={mode} onClick={onClickMode} />
 
         <div className="flex items-center gap-1">
-          <PreviewButton id={colorEntry.id} variant="light" />
+          <PreviewButton
+            id={colorEntry.id}
+            onPreview={() => toggleBottomBar(false)}
+            variant="light"
+          />
           <Button
             aria-label="Random color"
             isIconOnly

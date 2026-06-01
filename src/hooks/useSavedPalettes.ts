@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import useGenerator from '~/hooks/useGenerator';
@@ -68,7 +69,7 @@ export default function useSavedPalettes() {
         addPalette(palette);
         setPalette(palette.id, palette.name, palette.url);
 
-        router.replace(palette.url);
+        router.replace(palette.url, ROUTER_NAVIGATION_OPTIONS);
 
         setStatus('idle');
 

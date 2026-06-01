@@ -39,7 +39,7 @@ export default function ColorOptions(props: ColorOptionsProps) {
       <div className="px-4 py-2 text-sm/3">
         <Button
           className="text-foreground-600"
-          onClick={toggleColorOptionsPanel}
+          onPress={toggleColorOptionsPanel}
           size="menu"
           startContent={
             <Badge color="warning" content="" isDot isInvisible={!hasCustomCurves} size="sm">

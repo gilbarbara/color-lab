@@ -1,5 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
@@ -93,7 +94,10 @@ describe('hooks/usePaletteIdSync', () => {
 
       renderHook(() => usePaletteIdSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-FF0044');
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/Primary-FF0044',
+        ROUTER_NAVIGATION_OPTIONS,
+      );
       expect(useAppStore.getState().paletteId).toBe(null);
     });
   });
@@ -171,7 +175,10 @@ describe('hooks/usePaletteIdSync', () => {
       });
 
       await waitFor(() => {
-        expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-FF0044');
+        expect(mockRouter.replace).toHaveBeenCalledWith(
+          '/p/Primary-FF0044',
+          ROUTER_NAVIGATION_OPTIONS,
+        );
       });
 
       expect(useAppStore.getState().paletteId).toBe(null);
@@ -192,7 +199,10 @@ describe('hooks/usePaletteIdSync', () => {
       });
 
       await waitFor(() => {
-        expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-FF0044');
+        expect(mockRouter.replace).toHaveBeenCalledWith(
+          '/p/Primary-FF0044',
+          ROUTER_NAVIGATION_OPTIONS,
+        );
       });
 
       expect(useAppStore.getState().paletteId).toBe(null);
@@ -243,7 +253,10 @@ describe('hooks/usePaletteIdSync', () => {
 
       renderHook(() => usePaletteIdSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledWith('/p/Primary-FF0044?f=1.8');
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/Primary-FF0044?f=1.8',
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     });
   });
 

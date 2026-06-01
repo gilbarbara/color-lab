@@ -1,10 +1,16 @@
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette, CRIMSON } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
-import { fireEvent, render, screen, within } from '~/test-utils';
+import { act, fireEvent, render, screen, within } from '~/test-utils';
 import { MAX_COLORS } from '~/utils/generator';
 
 import Panel from '~/containers/Generator/Panel';
+
+const mockScrollToSelector = vi.fn();
+
+vi.mock('~/utils/scroll', () => ({
+  scrollToSelector: (...args: unknown[]) => mockScrollToSelector(...args),
+}));
 
 vi.mock('~/utils/color', async importOriginal => {
   const actual = await importOriginal<typeof import('~/utils/color')>();
@@ -155,6 +161,48 @@ describe('Panel', () => {
       render(<Panel />);
 
       expect(screen.getByRole('button', { name: /add color/i })).toBeDisabled();
+    });
+  });
+
+  describe('ColorScroll', () => {
+    beforeEach(() => {
+      // Run the scroll effect's rAF synchronously so a regression (replaying the
+      // request on the settle re-run) would surface as an extra scrollToSelector call.
+      vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
+        cb(0);
+
+        return 0;
+      });
+      vi.stubGlobal('cancelAnimationFrame', () => {});
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+      useAppStore.setState({ collapseAnimationCount: 0, colorScrollRequest: null });
+    });
+
+    it('services a pending scroll request once and ignores later collapse cycles', () => {
+      const [first] = getGeneratorStore().getState().colors;
+
+      useAppStore.setState({
+        collapseAnimationCount: 0,
+        colorScrollRequest: { id: first.id, nonce: 1 },
+      });
+
+      render(<Panel />);
+
+      expect(mockScrollToSelector).toHaveBeenCalledTimes(1);
+
+      // A ColorItem activation cycles collapseAnimationCount (Collapse open/close).
+      // The already-serviced request must not scroll again.
+      act(() => {
+        useAppStore.getState().incrementCollapseAnimation();
+      });
+      act(() => {
+        useAppStore.getState().decrementCollapseAnimation();
+      });
+
+      expect(mockScrollToSelector).toHaveBeenCalledTimes(1);
     });
   });
 });

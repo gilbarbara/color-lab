@@ -8,11 +8,12 @@ import Tooltip from '~/components/Tooltip';
 
 interface PreviewButtonProps {
   id: string;
+  onPreview?: () => void;
   variant?: ButtonProps['variant'];
 }
 
 export default function PreviewButton(props: PreviewButtonProps) {
-  const { id, variant = 'flat' } = props;
+  const { id, onPreview, variant = 'flat' } = props;
   const { setActiveColor, setPreviewColor } = useGenerator('setActiveColor', 'setPreviewColor');
   const { requestPreviewScroll, togglePreview } = useApp('requestPreviewScroll', 'togglePreview');
 
@@ -25,6 +26,7 @@ export default function PreviewButton(props: PreviewButtonProps) {
           setActiveColor(id);
           setPreviewColor(id);
           togglePreview(true);
+          onPreview?.();
           requestPreviewScroll();
         }}
         size="menu"

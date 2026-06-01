@@ -27,3 +27,5 @@ export const SCROLL_OFFSET = HEADER_HEIGHT + OFFSET;
 export const MODAL_GAP = 24;
 export const MODAL_BODY_PADDING = 32;
 export const MODAL_MIN_WIDTH = 480;
+
+export const ROUTER_NAVIGATION_OPTIONS = { scroll: false } as const;
