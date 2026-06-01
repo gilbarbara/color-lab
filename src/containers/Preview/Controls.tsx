@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import {
   Avatar,
   Checkbox,
@@ -13,7 +13,7 @@ import { UserIcon } from '@phosphor-icons/react';
 
 import Button from '~/components/Button';
 
-export default function PreviewControls() {
+function PreviewControls() {
   const [progress, setProgress] = useState(33);
 
   return (
@@ -170,3 +170,5 @@ export default function PreviewControls() {
     </section>
   );
 }
+
+export default memo(PreviewControls);

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { scale } from 'colorizr';
 
 import useScrollToColor from '~/hooks/useScrollToColor';
@@ -19,7 +19,23 @@ interface ScaleProps {
   options: ScaleOptions;
 }
 
-export default function Scale(props: ScaleProps) {
+// `colorEntry` keeps its reference across store updates that don't touch it
+// (see `updateColor`), so only the edited color re-renders. `options` is rebuilt
+// every render from globalOptions, so compare it by value across its flat keys.
+function arePropsEqual(previous: ScaleProps, next: ScaleProps): boolean {
+  if (previous.colorEntry !== next.colorEntry) {
+    return false;
+  }
+
+  const previousKeys = Object.keys(previous.options) as Array<keyof ScaleOptions>;
+
+  return (
+    previousKeys.length === Object.keys(next.options).length &&
+    previousKeys.every(key => previous.options[key] === next.options[key])
+  );
+}
+
+function Scale(props: ScaleProps) {
   const { colorEntry, options } = props;
   const scrollToColor = useScrollToColor();
 
@@ -55,3 +71,5 @@ export default function Scale(props: ScaleProps) {
     </div>
   );
 }
+
+export default memo(Scale, arePropsEqual);

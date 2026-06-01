@@ -1,4 +1,4 @@
-import { type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
+import { type CSSProperties, type KeyboardEvent, memo, type ReactNode } from 'react';
 import { addToast, cn } from '@heroui/react';
 import { LockSimpleIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor } from 'colorizr';
@@ -16,7 +16,7 @@ interface SwatchProps {
   step: string;
 }
 
-export default function Swatch(props: SwatchProps) {
+function Swatch(props: SwatchProps) {
   const { className, color, lock, step } = props;
   // Store gamut drives clipboard text and tooltip content (post-mount user
   // preference). The painted background uses CSS vars instead — see below.
@@ -92,3 +92,5 @@ export default function Swatch(props: SwatchProps) {
     </Tooltip>
   );
 }
+
+export default memo(Swatch);

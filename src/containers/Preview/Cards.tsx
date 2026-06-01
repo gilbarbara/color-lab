@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import { Button, Card, CardBody, CardHeader } from '@heroui/react';
 import { RocketLaunchIcon, VinylRecordIcon } from '@phosphor-icons/react';
 
 const BAR_HEIGHTS = [55, 80, 40, 95, 70, 60];
 const BAR_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
-export default function PreviewCards() {
+function PreviewCards() {
   return (
     <section
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
@@ -67,3 +68,5 @@ export default function PreviewCards() {
     </section>
   );
 }
+
+export default memo(PreviewCards);

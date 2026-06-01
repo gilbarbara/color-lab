@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useEffect, useRef } from 'react';
+import { memo, type SyntheticEvent, useEffect, useRef } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
 import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
@@ -43,7 +43,7 @@ interface ColorItemState {
   mode: ColorMode;
 }
 
-export default function ColorItem(props: ColorItemProps) {
+function ColorItem(props: ColorItemProps) {
   const { colorEntry, globalOptions, index, isOnlyColor } = props;
   const {
     activeColorId,
@@ -303,3 +303,5 @@ export default function ColorItem(props: ColorItemProps) {
     </div>
   );
 }
+
+export default memo(ColorItem);
