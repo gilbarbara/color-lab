@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
+import { FirebaseError } from 'firebase/app';
 import {
   addDoc,
   collection,
@@ -16,7 +17,7 @@ import type { DocumentSnapshot } from 'firebase/firestore/lite';
 
 import { PALETTES_COLLECTION } from '~/config/firebase';
 import { getFirebaseDb } from '~/utils/firebase';
-import { updatePaletteIdInUrl } from '~/utils/url';
+import { decoratePaletteUrl } from '~/utils/url';
 
 import type { GetPaletteResult, SavedPalette } from '~/types';
 
@@ -42,8 +43,14 @@ function palettesRef() {
   return collection(getFirebaseDb(), PALETTES_COLLECTION);
 }
 
-function withIdInUrl(palette: SavedPalette): SavedPalette {
-  return { ...palette, url: updatePaletteIdInUrl(palette.url, palette.id) };
+// Decorate the structural (stored) url with the record's identity — `id` and
+// `name` — at read-time. Both are derived from the authoritative record fields,
+// never persisted. `decoratePaletteUrl` keeps the id terminal and drops the name
+// when it is the default.
+function withDisplayUrl(palette: SavedPalette): SavedPalette {
+  const url = decoratePaletteUrl(palette.url, { id: palette.id, name: palette.name });
+
+  return { ...palette, url };
 }
 
 export async function createPalette(userId: string, name: string, url: string) {
@@ -68,7 +75,7 @@ export async function createPalette(userId: string, name: string, url: string) {
     userId,
   };
 
-  return withIdInUrl(palette);
+  return withDisplayUrl(palette);
 }
 
 export async function deletePalette(id: string) {
@@ -81,8 +88,23 @@ export async function getPalette(id: string): Promise<GetPaletteResult> {
 
     if (!snapshot.exists()) return { kind: 'not-found' };
 
-    return { kind: 'success', palette: withIdInUrl(documentToSavedPalette(snapshot)) };
+    return { kind: 'success', palette: withDisplayUrl(documentToSavedPalette(snapshot)) };
   } catch (error) {
+    // The read rule (`resource.data.userId == auth.uid`) refuses deleted,
+    // non-existent, and other-user docs all as `permission-denied`. It's an
+    // expected, common outcome (stale link / shared link), not a failure to
+    // capture — but breadcrumb it so a spike (= a bad rules deploy) stays visible.
+    if (error instanceof FirebaseError && error.code === 'permission-denied') {
+      Sentry.addBreadcrumb({
+        category: 'palette-load',
+        message: 'getPalette permission-denied',
+        level: 'warning',
+        data: { id },
+      });
+
+      return { kind: 'forbidden' };
+    }
+
     Sentry.captureException(error, {
       tags: { firestore: 'getPalette' },
       extra: { id },
@@ -96,7 +118,7 @@ export async function listPalettes(userId: string): Promise<SavedPalette[]> {
   const q = query(palettesRef(), where('userId', '==', userId), orderBy('updatedAt', 'desc'));
   const snapshot = await getDocs(q);
 
-  return snapshot.docs.map(d => withIdInUrl(documentToSavedPalette(d)));
+  return snapshot.docs.map(d => withDisplayUrl(documentToSavedPalette(d)));
 }
 
 /**
@@ -120,5 +142,5 @@ export async function updatePalette(
 
   const snapshot = await getDoc(documentRef);
 
-  return withIdInUrl(documentToSavedPalette(snapshot));
+  return withDisplayUrl(documentToSavedPalette(snapshot));
 }

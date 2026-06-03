@@ -8,10 +8,10 @@ import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { useAppStore } from '~/stores/appStore';
 import {
+  decoratePaletteUrl,
   getPaletteIdFromUrl,
   parsePaletteFromUrl,
   serializePaletteToUrl,
-  updatePaletteIdInUrl,
 } from '~/utils/url';
 
 import type { GeneratorState } from '~/types';
@@ -20,7 +20,7 @@ import type { GeneratorState } from '~/types';
  * Compose the canonical palette URL for `state`, carrying the saved-palette id.
  */
 function buildPaletteUrl(state: GeneratorState, id: string | null): string {
-  return updatePaletteIdInUrl(serializePaletteToUrl(state), id);
+  return decoratePaletteUrl(serializePaletteToUrl(state), { id });
 }
 
 /**
@@ -33,13 +33,15 @@ export default function useUrlSync() {
   const generatorStoreApi = useGeneratorStoreApi();
   const lastDroppedUrl = useRef<string | null>(null);
 
-  // User-driven commit: push a new history entry for the current palette and
-  // mirror it into appStore so the Header logo can return to it this session.
+  // Commit the current palette to the URL and mirror it into appStore so the
+  // Header logo can return to it this session. `method` selects history behavior:
+  // 'push' for structural edits (each palette is a distinct entry), 'replace' for
+  // name-only changes (metadata — not worth a back-button entry).
   const commitPaletteUrl = useCallback(
-    (state: GeneratorState) => {
+    (state: GeneratorState, method: 'push' | 'replace' = 'push') => {
       const fullUrl = buildPaletteUrl(state, useAppStore.getState().paletteId);
 
-      router.push(fullUrl, ROUTER_NAVIGATION_OPTIONS);
+      router[method](fullUrl, ROUTER_NAVIGATION_OPTIONS);
       useAppStore.getState().setSessionPalettePath(fullUrl);
     },
     [router],
@@ -58,7 +60,7 @@ export default function useUrlSync() {
     const urlId = getPaletteIdFromUrl(search) ?? paletteId;
 
     // Skip if URL already matches store state
-    if (updatePaletteIdInUrl(storeUrl, urlId) === currentUrl) {
+    if (decoratePaletteUrl(storeUrl, { id: urlId }) === currentUrl) {
       return;
     }
 
@@ -67,8 +69,8 @@ export default function useUrlSync() {
 
       if (parsed) {
         const { dropped, state: urlState } = parsed;
-        const urlWithoutId = updatePaletteIdInUrl(currentUrl, null);
-        const storeUrlWithoutId = updatePaletteIdInUrl(storeUrl, null);
+        const urlWithoutId = decoratePaletteUrl(currentUrl, { id: null });
+        const storeUrlWithoutId = decoratePaletteUrl(storeUrl, { id: null });
 
         if (storeUrlWithoutId !== urlWithoutId) {
           generatorStoreApi.setState(state => {
@@ -161,11 +163,14 @@ export default function useUrlSync() {
         return;
       }
 
-      if (
+      const structuralChanged =
         state.colors !== previousState.colors ||
-        state.globalOptions !== previousState.globalOptions
-      ) {
-        commitPaletteUrl(state);
+        state.globalOptions !== previousState.globalOptions;
+
+      if (structuralChanged) {
+        commitPaletteUrl(state, 'push');
+      } else if (state.name !== previousState.name) {
+        commitPaletteUrl(state, 'replace');
       }
     });
 

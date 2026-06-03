@@ -1,6 +1,6 @@
 import { objectKeys, uuid } from '@gilbarbara/helpers';
 
-import { DEFAULT_COLOR_NAMES } from '~/config/globals';
+import { DEFAULT_COLOR_NAMES, DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
 
 import type {
@@ -63,6 +63,7 @@ export function createPalette(initialColor?: OklchString): GeneratorState {
   return {
     colors: [{ id: uuid(), name: 'Primary', value: color }],
     globalOptions: getDefaultGlobalOptions(color),
+    name: DEFAULT_PALETTE_NAME,
   };
 }
 

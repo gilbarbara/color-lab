@@ -21,7 +21,7 @@ exports[`PaletteCard > Render > renders correctly 1`] = `
           <a
             aria-label="Load Palette (Test Palette)"
             class="flex hover:underline"
-            href="/p/red-ff0000/blue-0000ff"
+            href="/p/red-ff0000/blue-0000ff?name=Test+Palette&id=palette-1"
           >
             Test Palette
           </a>
@@ -83,7 +83,7 @@ exports[`PaletteCard > Render > renders correctly 1`] = `
     <a
       aria-label="Load Palette Colors (Test Palette)"
       class="grid grid-cols-5 gap-2 cursor-pointer overflow-hidden"
-      href="/p/red-ff0000/blue-0000ff"
+      href="/p/red-ff0000/blue-0000ff?name=Test+Palette&id=palette-1"
     >
       <span
         aria-label="Color Box"
@@ -121,7 +121,7 @@ exports[`PaletteCard > Render > renders filled heart for favorited palette 1`] =
           <a
             aria-label="Load Palette (Test Palette)"
             class="flex hover:underline"
-            href="/p/red-ff0000/blue-0000ff"
+            href="/p/red-ff0000/blue-0000ff?name=Test+Palette&id=palette-1"
           >
             Test Palette
           </a>
@@ -183,7 +183,7 @@ exports[`PaletteCard > Render > renders filled heart for favorited palette 1`] =
     <a
       aria-label="Load Palette Colors (Test Palette)"
       class="grid grid-cols-5 gap-2 cursor-pointer overflow-hidden"
-      href="/p/red-ff0000/blue-0000ff"
+      href="/p/red-ff0000/blue-0000ff?name=Test+Palette&id=palette-1"
     >
       <span
         aria-label="Color Box"

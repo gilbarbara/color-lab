@@ -7,6 +7,7 @@ import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import useGenerator from '~/hooks/useGenerator';
+import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import {
   createPalette,
   deletePalette as deletePaletteService,
@@ -14,7 +15,7 @@ import {
   updatePalette as updatePaletteService,
 } from '~/services/palettes';
 import { usePalettesStore } from '~/stores/palettesStore';
-import { updatePaletteIdInUrl } from '~/utils/url';
+import { stripPaletteIdentity } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
 
@@ -29,7 +30,8 @@ export default function useSavedPalettes() {
   const { user } = useAuth();
   const list = useSavedPalettesList();
 
-  const { generatorUrl: currentUrl } = useGenerator('generatorUrl');
+  const { generatorUrl: currentUrl, name } = useGenerator('generatorUrl', 'name');
+  const generatorStoreApi = useGeneratorStoreApi();
   const { lastSavedUrl, paletteId, paletteName, setPalette } = useApp(
     'lastSavedUrl',
     'paletteId',
@@ -43,32 +45,42 @@ export default function useSavedPalettes() {
     updatePalette: updatePaletteInStore,
   } = usePalettesStore();
 
-  // Check if there are unsaved changes (strip ID from lastSavedUrl for comparison)
+  // Unsaved when the structural URL (name- and id-free on both sides) diverges,
+  // or when the working name differs from the saved record name (paletteName).
   const hasUnsavedChanges = useMemo(() => {
     if (!paletteId || !lastSavedUrl) {
       return false;
     }
 
-    return currentUrl !== updatePaletteIdInUrl(lastSavedUrl, null);
-  }, [currentUrl, lastSavedUrl, paletteId]);
+    const savedStructural = stripPaletteIdentity(lastSavedUrl);
+
+    return currentUrl !== savedStructural || name !== paletteName;
+  }, [currentUrl, lastSavedUrl, name, paletteId, paletteName]);
 
   // Save a new palette
   const savePalette = useCallback(
     async (rawName: string): Promise<SavedPalette | null> => {
-      const name = rawName.trim();
+      const trimmedName = rawName.trim();
 
-      if (!name || !user?.uid) {
+      if (!trimmedName || !user?.uid) {
         return null;
       }
 
       setStatus('saving');
 
       try {
-        const palette = await createPalette(user.uid, name, currentUrl);
+        const palette = await createPalette(user.uid, trimmedName, currentUrl);
 
         addPalette(palette);
         setPalette(palette.id, palette.name, palette.url);
+        // Sync the working store name to the saved record name (the modal name
+        // may differ from the store's current name).
+        generatorStoreApi.getState().setName(palette.name);
 
+        // Write the new id to the address bar (nothing else does after save).
+        // The service url already carries `?name=` + `?id=`, which matches the
+        // store's serialized form, so useUrlSync's guard short-circuits and
+        // leaves the id alone.
         router.replace(palette.url, ROUTER_NAVIGATION_OPTIONS);
 
         setStatus('idle');
@@ -80,7 +92,7 @@ export default function useSavedPalettes() {
         return null;
       }
     },
-    [user?.uid, currentUrl, setPalette, addPalette, setError, setStatus, router],
+    [user?.uid, currentUrl, generatorStoreApi, setPalette, addPalette, setError, setStatus, router],
   );
 
   // Update the currently loaded palette
@@ -92,10 +104,16 @@ export default function useSavedPalettes() {
     setStatus('saving');
 
     try {
-      const updated = await updatePaletteService(paletteId, { url: currentUrl });
+      // Persist the working name alongside the url (read live to avoid a stale closure).
+      const nextName = generatorStoreApi.getState().name;
+      const updated = await updatePaletteService(paletteId, { url: currentUrl, name: nextName });
 
-      updatePaletteInStore(paletteId, { url: updated.url, updatedAt: updated.updatedAt });
-      setPalette(paletteId, paletteName, updated.url);
+      updatePaletteInStore(paletteId, {
+        name: updated.name,
+        url: updated.url,
+        updatedAt: updated.updatedAt,
+      });
+      setPalette(paletteId, updated.name, updated.url);
       setStatus('idle');
 
       return true;
@@ -104,7 +122,15 @@ export default function useSavedPalettes() {
 
       return false;
     }
-  }, [paletteId, paletteName, currentUrl, updatePaletteInStore, setPalette, setError, setStatus]);
+  }, [
+    paletteId,
+    currentUrl,
+    generatorStoreApi,
+    updatePaletteInStore,
+    setPalette,
+    setError,
+    setStatus,
+  ]);
 
   return {
     ...list,
@@ -122,12 +148,10 @@ export default function useSavedPalettes() {
  */
 export function useSavedPalettesList() {
   const { isAuthenticated, user } = useAuth();
-  const { clearPalette, lastSavedUrl, paletteId, paletteName, setPalette } = useApp(
+  const { clearPalette, paletteId, paletteName } = useApp(
     'clearPalette',
-    'lastSavedUrl',
     'paletteId',
     'paletteName',
-    'setPalette',
   );
   const {
     error,
@@ -214,39 +238,6 @@ export function useSavedPalettesList() {
     [palettes, updatePaletteInStore, setError],
   );
 
-  // Rename a palette
-  const renamePalette = useCallback(
-    async (id: string, rawName: string): Promise<boolean> => {
-      const name = rawName.trim();
-
-      if (!name) {
-        return false;
-      }
-
-      setStatus('saving');
-
-      try {
-        const updated = await updatePaletteService(id, { name });
-
-        updatePaletteInStore(id, { name: updated.name });
-
-        // Update loaded palette name if it's the current one
-        if (paletteId === id) {
-          setPalette(id, name, lastSavedUrl);
-        }
-
-        setStatus('idle');
-
-        return true;
-      } catch (error_) {
-        setError(error_ instanceof Error ? error_.message : 'Failed to rename palette');
-
-        return false;
-      }
-    },
-    [updatePaletteInStore, paletteId, lastSavedUrl, setPalette, setError, setStatus],
-  );
-
   return {
     error,
     isLoading: status === 'loading',
@@ -256,7 +247,6 @@ export function useSavedPalettesList() {
     palettes,
     clearPalette,
     deletePalette,
-    renamePalette,
     toggleFavorite,
   };
 }

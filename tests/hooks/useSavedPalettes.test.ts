@@ -1,5 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
@@ -59,7 +60,7 @@ describe('hooks/useSavedPalettes', () => {
     useAppStore.setState({
       lastSavedUrl: null,
       paletteId: null,
-      paletteName: undefined,
+      paletteName: DEFAULT_PALETTE_NAME,
     });
     usePalettesStore.setState({
       error: null,
@@ -137,6 +138,28 @@ describe('hooks/useSavedPalettes', () => {
       expect(mockCreatePalette).toHaveBeenCalledWith('user-1', 'New Palette', expect.any(String));
       expect(usePalettesStore.getState().palettes[0]).toBe(newPalette);
       expect(useAppStore.getState().paletteId).toBe('new-id');
+    });
+
+    it('navigates to the decorated service url (name before id)', async () => {
+      // The service decorates the url with ?name= and ?id=; save must land there
+      // so useUrlSync's guard matches the store and leaves the id in the address bar.
+      mockCreatePalette.mockResolvedValueOnce({
+        ...mockPalette,
+        id: 'new-id',
+        name: 'Sunset',
+        url: '/p/red-ff0000?name=Sunset&id=new-id',
+      });
+
+      const { result } = renderHook(() => useSavedPalettes());
+
+      await act(async () => {
+        await result.current.savePalette('Sunset');
+      });
+
+      expect(mockRouter.replace).toHaveBeenCalledWith(
+        '/p/red-ff0000?name=Sunset&id=new-id',
+        expect.anything(),
+      );
     });
 
     it('returns null if no user', async () => {
@@ -217,7 +240,36 @@ describe('hooks/useSavedPalettes', () => {
       });
 
       expect(success).toBe(true);
-      expect(mockUpdatePalette).toHaveBeenCalledWith('palette-1', { url: expect.any(String) });
+      expect(mockUpdatePalette).toHaveBeenCalledWith('palette-1', {
+        name: expect.any(String),
+        url: expect.any(String),
+      });
+    });
+
+    it('persists the current generator name and syncs it into appStore', async () => {
+      useAppStore.setState({
+        paletteId: 'palette-1',
+        paletteName: 'Old',
+        lastSavedUrl: '/p/old-url',
+      });
+
+      act(() => {
+        getGeneratorStore().getState().setName('Fresh Name');
+      });
+
+      mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Fresh Name' });
+
+      const { result } = renderHook(() => useSavedPalettes());
+
+      await act(async () => {
+        await result.current.updateCurrentPalette();
+      });
+
+      expect(mockUpdatePalette).toHaveBeenCalledWith('palette-1', {
+        name: 'Fresh Name',
+        url: expect.any(String),
+      });
+      expect(useAppStore.getState().paletteName).toBe('Fresh Name');
     });
 
     it('returns false if no loaded palette', async () => {
@@ -358,88 +410,6 @@ describe('hooks/useSavedPalettes', () => {
     });
   });
 
-  describe('renamePalette', () => {
-    it('updates palette name', async () => {
-      mockListPalettes.mockResolvedValueOnce([mockPalette]);
-      mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Renamed' });
-
-      const { result } = renderHook(() => useSavedPalettes());
-
-      await waitFor(() => {
-        expect(usePalettesStore.getState().palettes).toHaveLength(1);
-      });
-
-      let success = false;
-
-      await act(async () => {
-        success = await result.current.renamePalette('palette-1', 'Renamed');
-      });
-
-      expect(success).toBe(true);
-      expect(mockUpdatePalette).toHaveBeenCalledWith('palette-1', { name: 'Renamed' });
-      expect(usePalettesStore.getState().palettes[0].name).toBe('Renamed');
-    });
-
-    it('updates loaded palette name if renaming the current one', async () => {
-      mockListPalettes.mockResolvedValueOnce([mockPalette]);
-      useAppStore.setState({
-        paletteId: 'palette-1',
-        paletteName: 'Test Palette',
-        lastSavedUrl: '/p/red-ff0000',
-      });
-      mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Renamed' });
-
-      const { result } = renderHook(() => useSavedPalettes());
-
-      await waitFor(() => {
-        expect(usePalettesStore.getState().palettes).toHaveLength(1);
-      });
-
-      await act(async () => {
-        await result.current.renamePalette('palette-1', 'Renamed');
-      });
-
-      expect(useAppStore.getState().paletteName).toBe('Renamed');
-    });
-
-    it('returns false and does not call the service when name is empty or whitespace', async () => {
-      const { result } = await renderUseSavedPalettes();
-
-      let success = true;
-
-      await act(async () => {
-        success = await result.current.renamePalette('palette-1', '   ');
-      });
-
-      expect(success).toBe(false);
-      expect(mockUpdatePalette).not.toHaveBeenCalled();
-    });
-
-    it('trims the name before calling the service', async () => {
-      mockUpdatePalette.mockResolvedValueOnce({ ...mockPalette, name: 'Trimmed' });
-
-      const { result } = await renderUseSavedPalettes();
-
-      await act(async () => {
-        await result.current.renamePalette('palette-1', '  Trimmed  ');
-      });
-
-      expect(mockUpdatePalette).toHaveBeenCalledWith('palette-1', { name: 'Trimmed' });
-    });
-
-    it('sets error on failure', async () => {
-      mockUpdatePalette.mockRejectedValueOnce(new Error('Rename failed'));
-
-      const { result } = renderHook(() => useSavedPalettes());
-
-      await act(async () => {
-        await result.current.renamePalette('palette-1', 'New Name');
-      });
-
-      expect(usePalettesStore.getState().error).toBe('Rename failed');
-    });
-  });
-
   describe('hasUnsavedChanges', () => {
     it('returns false when no loaded palette', async () => {
       const { result } = await renderUseSavedPalettes();
@@ -463,6 +433,28 @@ describe('hooks/useSavedPalettes', () => {
 
     it('returns true when URL differs from lastSavedUrl', async () => {
       useAppStore.setState({ paletteId: 'palette-1', lastSavedUrl: '/p/old-url' });
+
+      const { result } = await renderUseSavedPalettes();
+
+      expect(result.current.hasUnsavedChanges).toBe(true);
+    });
+
+    it('returns true when only the name differs from the saved record name', async () => {
+      const store = getGeneratorStore().getState();
+      const currentUrl = serializePaletteToUrl({
+        colors: store.colors,
+        globalOptions: store.globalOptions,
+      });
+
+      useAppStore.setState({
+        paletteId: 'palette-1',
+        lastSavedUrl: currentUrl,
+        paletteName: 'Saved Name',
+      });
+
+      act(() => {
+        getGeneratorStore().getState().setName('Edited Name');
+      });
 
       const { result } = await renderUseSavedPalettes();
 
@@ -547,35 +539,6 @@ describe('hooks/useSavedPalettes', () => {
       await act(async () => {
         resolveUpdate({ ...mockPalette, updatedAt: '2024-01-03T00:00:00.000Z' });
         await updatePromise;
-      });
-
-      expect(result.current.isSaving).toBe(false);
-    });
-
-    it('flips true during renamePalette and back to false on success', async () => {
-      let resolveRename: (value: SavedPalette) => void = () => {};
-
-      mockUpdatePalette.mockReturnValueOnce(
-        new Promise<SavedPalette>(resolve => {
-          resolveRename = resolve;
-        }),
-      );
-
-      const { result } = await renderUseSavedPalettes();
-
-      let renamePromise: Promise<boolean> | undefined;
-
-      act(() => {
-        renamePromise = result.current.renamePalette('palette-1', 'New Name');
-      });
-
-      await waitFor(() => {
-        expect(result.current.isSaving).toBe(true);
-      });
-
-      await act(async () => {
-        resolveRename({ ...mockPalette, name: 'New Name' });
-        await renamePromise;
       });
 
       expect(result.current.isSaving).toBe(false);

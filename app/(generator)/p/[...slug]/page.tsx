@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { getPaletteMeta } from '~/utils/metadata';
 import { buildUrl, canonicalizeUrl, parsePaletteFromUrl } from '~/utils/url';
 
@@ -26,10 +27,14 @@ export async function generateMetadata({
     };
   }
 
-  const { description, title } = getPaletteMeta(parsed.state.colors);
+  const { name } = parsed.state;
+  const { description, title } = getPaletteMeta(parsed.state.colors, name);
   const fullTitle = `${title} — ColorMeUp LAB`;
   const canonical = canonicalizeUrl(url);
-  const ogImage = `/og/${slug.join('/')}`;
+  const ogImage =
+    name && name !== DEFAULT_PALETTE_NAME
+      ? `/og/${slug.join('/')}?name=${encodeURIComponent(name)}`
+      : `/og/${slug.join('/')}`;
 
   return {
     title,

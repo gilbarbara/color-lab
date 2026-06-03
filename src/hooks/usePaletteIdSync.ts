@@ -8,9 +8,15 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
+import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { getPalette, migratePaletteUrl } from '~/services/palettes';
 import { usePalettesStore } from '~/stores/palettesStore';
-import { canonicalizeUrl, getPaletteIdFromUrl, updatePaletteIdInUrl } from '~/utils/url';
+import {
+  canonicalizeUrl,
+  decoratePaletteUrl,
+  getPaletteIdFromUrl,
+  stripPaletteIdentity,
+} from '~/utils/url';
 
 /**
  * Validates palette ID from URL and manages palette identity state.
@@ -23,6 +29,7 @@ export default function usePaletteIdSync() {
   const { isAuthenticated, isLoading, user } = useAuth();
   const { clearPalette, paletteId, setPalette } = useApp('clearPalette', 'paletteId', 'setPalette');
   const { palettes } = usePalettesStore();
+  const generatorStoreApi = useGeneratorStoreApi();
 
   const updatePaletteInStore = usePalettesStore(state => state.updatePalette);
 
@@ -38,11 +45,13 @@ export default function usePaletteIdSync() {
     // `updatedAt` so we don't bump it for a non-user-initiated change.
     const canonicalizeAndMigrate = (id: string, urlWithId: string): string => {
       const canonical = canonicalizeUrl(urlWithId);
-      const canonicalNoId = updatePaletteIdInUrl(canonical, null);
-      const originalNoId = updatePaletteIdInUrl(urlWithId, null);
+      // Firestore stores the structural url (no id, no name); the store cache keeps
+      // the decorated url so consumers (e.g. PaletteCard links) stay self-describing.
+      const canonicalStructural = stripPaletteIdentity(canonical);
+      const originalStructural = stripPaletteIdentity(urlWithId);
 
-      if (canonicalNoId !== originalNoId) {
-        migratePaletteUrl(id, canonicalNoId).catch(error => {
+      if (canonicalStructural !== originalStructural) {
+        migratePaletteUrl(id, canonicalStructural).catch(error => {
           Sentry.addBreadcrumb({
             category: 'palette-load',
             message: 'migratePaletteUrl failed',
@@ -50,7 +59,7 @@ export default function usePaletteIdSync() {
             data: { paletteId: id, error: String(error) },
           });
         });
-        updatePaletteInStore(id, { url: canonicalNoId });
+        updatePaletteInStore(id, { url: canonical });
       }
 
       return canonical;
@@ -97,7 +106,7 @@ export default function usePaletteIdSync() {
 
     if (!isAuthenticated || !user) {
       // Not logged in - remove ID from URL
-      router.replace(updatePaletteIdInUrl(currentUrl, null), ROUTER_NAVIGATION_OPTIONS);
+      router.replace(decoratePaletteUrl(currentUrl, { id: null }), ROUTER_NAVIGATION_OPTIONS);
       clearPalette();
 
       return;
@@ -110,6 +119,9 @@ export default function usePaletteIdSync() {
       const canonical = canonicalizeAndMigrate(cachedPalette.id, cachedPalette.url);
 
       setPalette(cachedPalette.id, cachedPalette.name, canonical);
+      // Record name is authoritative — seed it into the working store. The URL
+      // reflects it via useUrlSync's name-only `replace` (no extra history entry).
+      generatorStoreApi.getState().setName(cachedPalette.name);
 
       return;
     }
@@ -122,6 +134,7 @@ export default function usePaletteIdSync() {
         const canonical = canonicalizeAndMigrate(result.palette.id, result.palette.url);
 
         setPalette(result.palette.id, result.palette.name, canonical);
+        generatorStoreApi.getState().setName(result.palette.name);
 
         return;
       }
@@ -144,12 +157,15 @@ export default function usePaletteIdSync() {
         return;
       }
 
-      // not-found OR success-but-wrong-user → strip ID
-      router.replace(updatePaletteIdInUrl(currentUrl, null), ROUTER_NAVIGATION_OPTIONS);
+      // not-found / forbidden (deleted, not-owned, denied) → this isn't a saved
+      // palette we can load, so drop the whole saved identity (name + id) and keep
+      // only the colors. Silent: a denied/stale link is not an error worth a toast.
+      router.replace(stripPaletteIdentity(currentUrl), ROUTER_NAVIGATION_OPTIONS);
       clearPalette();
     })();
   }, [
     clearPalette,
+    generatorStoreApi,
     isAuthenticated,
     isLoading,
     paletteId,

@@ -40,7 +40,7 @@ Zustand stores:
 - **useTheme** (`src/hooks/useTheme.ts`): Dark mode via `next-themes` (`resolvedTheme`/`setTheme`) with an `isMounted` hydration guard
 - **useUrlSync** (`src/hooks/useUrlSync.ts`): Bidirectional URL ↔ generator-store sync, called once in Generator — see [URL State](#url-state--the-url-is-the-single-source-of-truth)
 - **usePaletteIdSync** (`src/hooks/usePaletteIdSync.ts`): Validates the saved-palette `?id=` and manages palette identity — see [URL State](#url-state--the-url-is-the-single-source-of-truth)
-- **useSavedPalettesList** (`src/hooks/useSavedPalettes.ts`): Store-free saved-list CRUD (fetch/delete/favorite/rename) — used by `/palettes`, outside the generator provider
+- **useSavedPalettesList** (`src/hooks/useSavedPalettes.ts`): Store-free saved-list CRUD (fetch/delete/favorite) — used by `/palettes`, outside the generator provider
 - **useSavedPalettes** (`src/hooks/useSavedPalettes.ts`): Composes the list + save/`currentUrl` of the *current* palette (reads the generator store; generator routes only)
 - **useApp** (`src/hooks/useApp.ts`): appStore accessor
 
@@ -186,7 +186,7 @@ agent-browser open --init-script scripts/spoof-p3-gamut.js https://color-lab.loc
 
 ### Logged-in flows
 
-Test account credentials are available in the shell as `$COLOR_LAB_EMAIL` and `$COLOR_LAB_PASSWORD` — use these for any flow that needs auth (rename, save, persistence, etc.).
+Test account credentials are available in the shell as `$COLOR_LAB_EMAIL` and `$COLOR_LAB_PASSWORD` — use these for any flow that needs auth (save, persistence, etc.).
 
 **Driving controls with agent-browser:**
 

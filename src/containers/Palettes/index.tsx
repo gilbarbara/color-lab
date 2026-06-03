@@ -52,7 +52,11 @@ export default function Palettes() {
   if (!isAuthenticated) {
     content = (
       <Feedback description="Sign in to view your saved palettes" type={null}>
-        <Button color="primary" onPress={openLoginModal} startContent={<SignInIcon />}>
+        <Button
+          color="primary"
+          onPress={openLoginModal}
+          startContent={<SignInIcon className="text-lg" />}
+        >
           Sign In
         </Button>
       </Feedback>

@@ -77,6 +77,7 @@ export const useAppStore = create<AppStateWithActions>()(
           lastSavedUrl: null,
           paletteId: null,
           paletteName: DEFAULT_PALETTE_NAME,
+          sessionPalettePath: null,
         });
       },
 

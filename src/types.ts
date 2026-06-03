@@ -10,6 +10,10 @@ export type Gamut = 'p3' | 'srgb';
 export type GetPaletteResult =
   | { kind: 'success'; palette: SavedPalette }
   | { kind: 'not-found' }
+  // permission-denied: deleted, not-owned, or otherwise denied read. We only know
+  // the read was refused, not that the doc is gone — so this stays distinct from
+  // 'not-found' rather than fabricating it.
+  | { kind: 'forbidden' }
   | { error: unknown; kind: 'error' };
 
 export type OklchString = string & { readonly __brand: 'OklchString' };
@@ -38,6 +42,7 @@ export interface GeneratorActions {
   resetPalette: () => void;
   setActiveColor: (id: string) => void;
   setColorOverride: (index: number, updates: Partial<ScaleOptions>) => void;
+  setName: (name: string) => void;
   setPreviewColor: (id: string) => void;
   updateColor: (index: number, updates: Partial<ColorEntry>) => void;
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
@@ -55,6 +60,14 @@ export interface GeneratorState {
    * Global scale options that apply to all colors unless overridden
    */
   globalOptions: GlobalScaleOptions;
+  /**
+   * Display name of the palette. Optional on the structural state (the
+   * colors/globalOptions slice has none); the store always carries one
+   * (see GeneratorStore). Defaults to DEFAULT_PALETTE_NAME, URL-seeded
+   * (`?name=`, omitted when default) and synced via useUrlSync. For a saved
+   * palette the record name is authoritative and seeded over the URL value.
+   */
+  name?: string;
 }
 
 export interface GlobalScaleOptions extends ScaleOptions {

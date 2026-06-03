@@ -5,7 +5,6 @@ import { act, fireEvent, render, screen, waitFor, within } from '~/test-utils';
 
 import Header from '~/containers/Palette/Header';
 
-const mockRenamePalette = vi.fn();
 const mockSavePalette = vi.fn();
 const mockUpdateCurrentPalette = vi.fn();
 
@@ -13,16 +12,12 @@ const savedPalettesState: {
   hasUnsavedChanges: boolean;
   isSaving: boolean;
   paletteId: string | undefined;
-  paletteName: string;
-  renamePalette: typeof mockRenamePalette;
   savePalette: typeof mockSavePalette;
   updateCurrentPalette: typeof mockUpdateCurrentPalette;
 } = {
   hasUnsavedChanges: false,
   isSaving: false,
   paletteId: undefined,
-  paletteName: 'Color Palette',
-  renamePalette: mockRenamePalette,
   savePalette: mockSavePalette,
   updateCurrentPalette: mockUpdateCurrentPalette,
 };
@@ -35,7 +30,6 @@ function resetSavedPalettesState() {
   savedPalettesState.hasUnsavedChanges = false;
   savedPalettesState.isSaving = false;
   savedPalettesState.paletteId = undefined;
-  savedPalettesState.paletteName = 'Color Palette';
 }
 
 describe('PaletteHeader', () => {
@@ -61,8 +55,8 @@ describe('PaletteHeader', () => {
 
     it('renders with saved palette and unsaved changes', () => {
       savedPalettesState.paletteId = 'p1';
-      savedPalettesState.paletteName = 'My Palette';
       savedPalettesState.hasUnsavedChanges = true;
+      act(() => getGeneratorStore().getState().setName('My Palette'));
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
 
       expect(screen.getByTestId('PaletteHeader')).toMatchSnapshot();
@@ -106,11 +100,10 @@ describe('PaletteHeader', () => {
       expect(mockSavePalette).not.toHaveBeenCalled();
     });
 
-    it('disables palette name input when unauthenticated', () => {
-      savedPalettesState.paletteName = 'Color Palette';
+    it('allows editing the palette name when unauthenticated', () => {
       render(<Header />);
 
-      expect(screen.getByDisplayValue('Color Palette')).toBeDisabled();
+      expect(screen.getByDisplayValue('Color Palette')).toBeEnabled();
     });
 
     it('opens save modal when authenticated user without paletteId clicks Save', async () => {
@@ -125,7 +118,6 @@ describe('PaletteHeader', () => {
 
     it('calls updateCurrentPalette when authenticated with paletteId and unsaved changes', async () => {
       savedPalettesState.paletteId = 'p1';
-      savedPalettesState.paletteName = 'My Palette';
       savedPalettesState.hasUnsavedChanges = true;
       mockUpdateCurrentPalette.mockResolvedValue(true);
 
@@ -147,7 +139,6 @@ describe('PaletteHeader', () => {
 
     it('disables Save button when paletteId set and no unsaved changes', () => {
       savedPalettesState.paletteId = 'p1';
-      savedPalettesState.paletteName = 'My Palette';
       savedPalettesState.hasUnsavedChanges = false;
 
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
@@ -155,10 +146,7 @@ describe('PaletteHeader', () => {
       expect(screen.getByRole('button', { name: /update/i })).toBeDisabled();
     });
 
-    it('calls savePalette when authenticated user commits name with no paletteId', async () => {
-      savedPalettesState.paletteName = 'Color Palette';
-      mockSavePalette.mockResolvedValue({ id: 'p1', name: 'New Name' });
-
+    it('updates the generator name on commit without saving (no paletteId)', async () => {
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
 
       const input = screen.getByDisplayValue('Color Palette') as HTMLInputElement;
@@ -168,14 +156,14 @@ describe('PaletteHeader', () => {
       fireEvent.blur(input);
 
       await waitFor(() => {
-        expect(mockSavePalette).toHaveBeenCalledWith('New Name');
+        expect(getGeneratorStore().getState().name).toBe('New Name');
       });
+      expect(mockSavePalette).not.toHaveBeenCalled();
     });
 
-    it('calls renamePalette when authenticated user commits name with paletteId', async () => {
+    it('updates the generator name on commit for a saved palette (no separate rename)', async () => {
       savedPalettesState.paletteId = 'p1';
-      savedPalettesState.paletteName = 'My Palette';
-      mockRenamePalette.mockResolvedValue(true);
+      act(() => getGeneratorStore().getState().setName('My Palette'));
 
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
 
@@ -186,16 +174,17 @@ describe('PaletteHeader', () => {
       fireEvent.blur(input);
 
       await waitFor(() => {
-        expect(mockRenamePalette).toHaveBeenCalledWith('p1', 'Renamed');
+        expect(getGeneratorStore().getState().name).toBe('Renamed');
       });
+      expect(mockSavePalette).not.toHaveBeenCalled();
     });
 
-    it('does not call save/rename when name is whitespace', async () => {
-      savedPalettesState.paletteName = 'Color Palette';
+    it('keeps the current name and does not save on a whitespace commit', async () => {
+      act(() => getGeneratorStore().getState().setName('My Palette'));
 
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
 
-      const input = screen.getByDisplayValue('Color Palette') as HTMLInputElement;
+      const input = screen.getByDisplayValue('My Palette') as HTMLInputElement;
 
       act(() => input.focus());
       fireEvent.change(input, { target: { value: '   ' } });
@@ -205,7 +194,8 @@ describe('PaletteHeader', () => {
       await Promise.resolve();
 
       expect(mockSavePalette).not.toHaveBeenCalled();
-      expect(mockRenamePalette).not.toHaveBeenCalled();
+      expect(getGeneratorStore().getState().name).toBe('My Palette');
+      expect(input.value).toBe('My Palette');
     });
 
     it('saves a new palette via the save modal and shows success toast', async () => {

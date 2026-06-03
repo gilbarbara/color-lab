@@ -99,7 +99,7 @@ export default function Popconfirm(props: PopconfirmProps) {
   return (
     <Popover
       classNames={{
-        content: 'p-4 w-64',
+        content: 'p-4 w-xs',
       }}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
