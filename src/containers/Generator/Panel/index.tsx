@@ -2,7 +2,7 @@ import { type KeyboardEvent, type MouseEvent, type TouchEvent, useEffect, useRef
 import { flushSync } from 'react-dom';
 import { useBreakpoint, useIsomorphicLayoutEffect } from '@gilbarbara/hooks';
 import { cn, Divider } from '@heroui/react';
-import { CaretUpIcon, PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
+import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS, OFFSET, SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
@@ -15,12 +15,12 @@ import { scrollToSelector } from '~/utils/scroll';
 
 import AppIntro from '~/components/AppIntro';
 import Button from '~/components/Button';
-import ColorBox from '~/components/ColorBox';
 import Tooltip from '~/components/Tooltip';
+import ColorList from '~/containers/ColorList';
 
-import ColorList from '../ColorList';
+import ColorOptions from '../ColorOptions';
 
-import ColorOptions from './ColorOptions';
+import BottomBar from './BottomBar';
 
 /**
  * Unified palette panel. Renders shared content (ColorOptions, ColorList,
@@ -209,48 +209,15 @@ export default function Panel() {
       </Tooltip>
 
       {/* Draggable handle with color circles — mobile only */}
-      <div
-        aria-label="Toggle Bottom Bar"
-        className="md:hidden sticky top-0 h-16 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
-        data-testid="GeneratorPanel-Handle"
-        onClick={() => toggleBottomBar()}
+      <BottomBar
+        colors={colors}
+        onClick={handleClickColorBox}
         onKeyDown={handleKeyDown}
         onTouchEnd={handleTouchEnd}
         onTouchStart={handleTouchStart}
-        role="button"
-        tabIndex={0}
-      >
-        {!showBottomBar && (
-          <div className="h-1 w-8 absolute top-0 left-1/2 -translate-x-1/2 z-30 bg-foreground rounded-full" />
-        )}
-        <div
-          className={cn('flex items-center', {
-            'gap-2': colors.length < 7,
-            'gap-1': colors.length < 8,
-          })}
-        >
-          {colors.map(color => (
-            <ColorBox
-              key={color.id}
-              className={cn('first:ms-0', {
-                '-ms-1': colors.length > 8,
-                '-ms-2': colors.length > 9,
-              })}
-              color={color.value}
-              data-id={color.id}
-              onClick={handleClickColorBox}
-              size="sm"
-            />
-          ))}
-        </div>
-        <span className="p-2 -mr-2 rounded-full">
-          <CaretUpIcon
-            className={cn('transition-transform text-base', {
-              'rotate-180': showBottomBar,
-            })}
-          />
-        </span>
-      </div>
+        showBottomBar={showBottomBar}
+        toggleBottomBar={toggleBottomBar}
+      />
 
       {/* Shared content — rendered once */}
       <div
