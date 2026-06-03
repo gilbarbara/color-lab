@@ -91,7 +91,9 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
         clearColorOverridesFn({ colors: state.colors, globalOptions: state.globalOptions }, index),
       ),
 
-    removeColor: index =>
+    removeColor: index => {
+      let nextActiveId: string | null = null;
+
       set(state => {
         const removed = state.colors[index];
         const next = removeColorFn(
@@ -117,8 +119,13 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
           previewColorId = neighbor?.id ?? null;
         }
 
+        nextActiveId = activeColorId;
+
         return { ...next, activeColorId, previewColorId };
-      }),
+      });
+
+      return nextActiveId;
+    },
 
     resetGlobalOptions: () =>
       set(state =>
