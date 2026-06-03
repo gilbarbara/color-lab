@@ -9,7 +9,7 @@ import Panel from '~/containers/Generator/Panel';
 const mockScrollToSelector = vi.fn();
 
 vi.mock('~/utils/scroll', () => ({
-  scrollToSelector: (...args: unknown[]) => mockScrollToSelector(...args),
+  scrollToSelector: (...arguments_: unknown[]) => mockScrollToSelector(...arguments_),
 }));
 
 vi.mock('~/utils/color', async importOriginal => {
@@ -168,8 +168,8 @@ describe('Panel', () => {
     beforeEach(() => {
       // Run the scroll effect's rAF synchronously so a regression (replaying the
       // request on the settle re-run) would surface as an extra scrollToSelector call.
-      vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
-        cb(0);
+      vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+        callback(0);
 
         return 0;
       });
@@ -178,7 +178,12 @@ describe('Panel', () => {
 
     afterEach(() => {
       vi.unstubAllGlobals();
-      useAppStore.setState({ collapseAnimationCount: 0, colorScrollRequest: null });
+      // This describe-local afterEach runs before RTL's auto-cleanup afterEach, so the
+      // test's Panel is still mounted and subscribed to appStore. Wrap the reset in act()
+      // so the resulting re-render isn't flagged as an update outside act().
+      act(() => {
+        useAppStore.setState({ collapseAnimationCount: 0, colorScrollRequest: null });
+      });
     });
 
     it('services a pending scroll request once and ignores later collapse cycles', () => {

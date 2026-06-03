@@ -103,6 +103,9 @@ export default function ConfirmTooltip(props: ConfirmTooltipProps) {
 
   return (
     <Tooltip
+      classNames={{
+        base: 'before:right-2!',
+      }}
       color={needsConfirm ? confirmColor : 'tooltip'}
       content={needsConfirm ? confirmMessage : message}
       delay={delay}

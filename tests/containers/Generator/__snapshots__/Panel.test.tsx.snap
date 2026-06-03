@@ -37,11 +37,11 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
       class="h-1 w-8 absolute top-0 left-1/2 -translate-x-1/2 z-30 bg-foreground rounded-full"
     />
     <div
-      class="flex items-center gap-1"
+      class="w-full flex items-center"
     >
       <button
         aria-label="Color Box"
-        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 cursor-pointer"
+        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 ms-2 cursor-pointer"
         data-color="oklch(70.2% 0.236 30)"
         data-id="test-uuid-2"
         data-testid="ColorBox"
@@ -50,7 +50,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
       />
       <button
         aria-label="Color Box"
-        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 cursor-pointer"
+        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 ms-2 cursor-pointer"
         data-color="oklch(70.2% 0.183 60)"
         data-id="test-uuid-3"
         data-testid="ColorBox"
@@ -59,7 +59,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
       />
     </div>
     <span
-      class="p-2 -mr-2 rounded-full"
+      class="p-2 -mr-2 shrink-0"
     >
       <svg
         class="transition-transform text-base"
@@ -1297,11 +1297,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
       class="h-1 w-8 absolute top-0 left-1/2 -translate-x-1/2 z-30 bg-foreground rounded-full"
     />
     <div
-      class="flex items-center gap-1"
+      class="w-full flex items-center"
     >
       <button
         aria-label="Color Box"
-        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 cursor-pointer"
+        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 ms-2 cursor-pointer"
         data-color="oklch(70.2% 0.236 30)"
         data-id="test-uuid-2"
         data-testid="ColorBox"
@@ -1310,7 +1310,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
       />
       <button
         aria-label="Color Box"
-        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 cursor-pointer"
+        class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small first:ms-0 ms-2 cursor-pointer"
         data-color="oklch(70.2% 0.183 60)"
         data-id="test-uuid-3"
         data-testid="ColorBox"
@@ -1319,7 +1319,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
       />
     </div>
     <span
-      class="p-2 -mr-2 rounded-full"
+      class="p-2 -mr-2 shrink-0"
     >
       <svg
         class="transition-transform text-base"
