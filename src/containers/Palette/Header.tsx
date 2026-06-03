@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { useSetState } from '@gilbarbara/hooks';
-import { addToast, Badge } from '@heroui/react';
+import { addToast, Badge, cn } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
@@ -21,7 +20,6 @@ import GamutToggle from './GamutToggle';
 import Options from './Options';
 
 interface PaletteHeaderState {
-  isMounted: boolean;
   isSaveModalOpen: boolean;
 }
 
@@ -32,28 +30,20 @@ export default function PaletteHeader() {
     'showPaletteOptionsPanel',
     'togglePaletteOptionsPanel',
   );
-  const { hasCustomPaletteOptions } = useGenerator('hasCustomPaletteOptions');
-  const {
-    hasUnsavedChanges,
-    isSaving,
-    paletteId,
-    paletteName,
-    renamePalette,
-    savePalette,
-    updateCurrentPalette,
-  } = useSavedPalettes();
+  const { hasCustomPaletteOptions, name, setName } = useGenerator(
+    'hasCustomPaletteOptions',
+    'name',
+    'setName',
+  );
+  const { hasUnsavedChanges, isSaving, paletteId, savePalette, updateCurrentPalette } =
+    useSavedPalettes();
 
-  const [{ isMounted, isSaveModalOpen }, setState] = useSetState<PaletteHeaderState>({
-    isMounted: false,
+  const [{ isSaveModalOpen }, setState] = useSetState<PaletteHeaderState>({
     isSaveModalOpen: false,
   });
 
-  useEffect(() => {
-    setState({ isMounted: true });
-  }, [setState]);
-
-  const saveAndAnnounce = async (name: string) => {
-    const palette = await savePalette(name);
+  const saveAndAnnounce = async (nameToSave: string) => {
+    const palette = await savePalette(nameToSave);
 
     if (palette) {
       trackEvent('save-palette');
@@ -63,24 +53,16 @@ export default function PaletteHeader() {
     return palette;
   };
 
-  const handleCommitName = (value: string, _action: CommitAction): Promise<unknown> | undefined => {
-    const name = value.trim();
+  // Naming is decoupled from saving: committing the name just updates the store,
+  // which useUrlSync reflects into the URL `?name=`. Available to everyone.
+  const handleCommitName = (value: string, _action: CommitAction) => {
+    const trimmed = value.trim();
 
-    if (!name) {
-      return undefined;
+    if (!trimmed) {
+      return; // empty not allowed — input reverts to the current name
     }
 
-    if (!isAuthenticated) {
-      openLoginModal();
-
-      return undefined;
-    }
-
-    if (paletteId) {
-      return renamePalette(paletteId, name);
-    }
-
-    return saveAndAnnounce(name);
+    setName(trimmed);
   };
 
   const handleClickSave = async () => {
@@ -112,6 +94,10 @@ export default function PaletteHeader() {
     }
   };
 
+  const iconClass = cn('text-xl shrink-0', {
+    'animate-bounce': isSaving,
+  });
+
   return (
     <div data-testid="PaletteHeader">
       <div className="flex items-center justify-between">
@@ -122,11 +108,10 @@ export default function PaletteHeader() {
             innerWrapper: 'pb-0',
             input: 'text-2xl font-semibold text-foreground-800',
           }}
-          isDisabled={!isAuthenticated && !!isMounted}
           name="palette-name"
           onCommit={handleCommitName}
           size="sm"
-          value={paletteName}
+          value={name}
           variant="underlined"
         />
 
@@ -159,15 +144,15 @@ export default function PaletteHeader() {
             aria-label={paletteId ? 'Update palette' : 'Save palette'}
             className="max-lg:button-menu-square"
             color={hasUnsavedChanges ? 'warning' : 'primary'}
-            isDisabled={!!paletteId && !hasUnsavedChanges}
-            isLoading={isSaving}
+            isDisabled={isSaving || (!!paletteId && !hasUnsavedChanges)}
+            // isLoading={isSaving}
             onPress={handleClickSave}
             size="menu"
             startContent={
               paletteId ? (
-                <PencilSimpleLineIcon className="text-xl shrink-0" />
+                <PencilSimpleLineIcon className={iconClass} />
               ) : (
-                <HeartIcon className="text-xl shrink-0" />
+                <HeartIcon className={iconClass} />
               )
             }
             variant="flat"
@@ -184,7 +169,7 @@ export default function PaletteHeader() {
         <Options />
       </CollapsePanel>
       <SavePaletteModal
-        defaultName={paletteName !== DEFAULT_PALETTE_NAME ? paletteName : ''}
+        defaultName={name !== DEFAULT_PALETTE_NAME ? name : ''}
         isOpen={isSaveModalOpen}
         isSaving={isSaving}
         onClose={() => setState({ isSaveModalOpen: false })}

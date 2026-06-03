@@ -1805,8 +1805,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
     class="flex items-center justify-between"
   >
     <div
-      class="group flex flex-col data-[hidden=true]:hidden w-full pointer-events-none relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_8px)] opacity-100 is-filled"
-      data-disabled="true"
+      class="group flex flex-col data-[hidden=true]:hidden w-full relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_8px)] opacity-100 is-filled"
       data-filled="true"
       data-filled-within="true"
       data-has-value="true"
@@ -1817,7 +1816,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
         data-slot="main-wrapper"
       >
         <div
-          class="w-full inline-flex tap-highlight-transparent flex-row items-center gap-3 !px-1 !pb-0 !gap-0 relative box-border shadow-[0_1px_0px_0_rgba(0,0,0,0.05)] border-default-200 !rounded-none hover:border-default-300 after:content-[''] after:w-0 after:origin-center after:bg-default-foreground after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[2px] group-data-[focus=true]:after:w-full h-8 min-h-8 px-2 rounded-small pointer-events-none transition-background motion-reduce:transition-none !duration-150 after:transition-width motion-reduce:after:transition-none is-filled"
+          class="w-full inline-flex tap-highlight-transparent flex-row items-center gap-3 !px-1 !pb-0 !gap-0 relative box-border shadow-[0_1px_0px_0_rgba(0,0,0,0.05)] border-default-200 !rounded-none hover:border-default-300 after:content-[''] after:w-0 after:origin-center after:bg-default-foreground after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[2px] group-data-[focus=true]:after:w-full h-8 min-h-8 px-2 rounded-small transition-background motion-reduce:transition-none !duration-150 after:transition-width motion-reduce:after:transition-none is-filled"
           data-slot="input-wrapper"
           style="cursor: text;"
         >
@@ -1831,9 +1830,9 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
               data-filled="true"
               data-filled-within="true"
               data-slot="input"
-              disabled=""
               id="react-aria-_r_0_"
               name="palette-name"
+              tabindex="0"
               title=""
               type="text"
               value="Color Palette"

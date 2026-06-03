@@ -26,7 +26,7 @@ const mockPalette: SavedPalette = {
   updatedAt: '2024-01-02T00:00:00.000Z',
   userId: 'user-1',
   name: 'Test Palette',
-  url: '/p/red-ff0000/blue-0000ff',
+  url: '/p/red-ff0000/blue-0000ff?name=Test+Palette&id=palette-1',
   isFavorite: false,
 };
 

@@ -223,7 +223,20 @@ test('User Journey', async () => {
     await nameInput.fill(newName);
     await nameInput.press('Enter');
 
+    // Naming is decoupled from saving: committing the name updates the store/URL but
+    // does not persist. Click Update to write the new name to the saved record.
+    const updateButton = page.getByRole('button', { name: 'Update' });
+
+    await expect(updateButton).toBeEnabled();
+    await updateButton.click();
+    await expect(updateButton).toBeDisabled({ timeout: 5000 });
+
     expect(mockState.palettes[0].name).toBe(newName);
+
+    // Dismiss the "Palette updated" toast so it doesn't stack with the one from the
+    // next step's update (which would break its single-toast closeButton click).
+    await page.getByLabel('closeButton').click();
+    await expect(page.getByLabel('closeButton')).toHaveCount(0);
 
     paletteName = newName;
   });

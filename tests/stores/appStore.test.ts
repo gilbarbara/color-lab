@@ -40,6 +40,7 @@ describe('stores/appStore', () => {
       expect(state.paletteId).toBe(null);
       expect(state.paletteName).toBe(DEFAULT_PALETTE_NAME);
       expect(state.lastSavedUrl).toBe(null);
+      expect(state.sessionPalettePath).toBe(null);
     });
   });
 

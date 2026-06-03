@@ -1,15 +1,17 @@
 import { parseCSS } from 'colorizr';
 
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { createColorEntry } from '~/test-fixtures';
 import { toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/generator';
 import {
   buildUrl,
   canonicalizeUrl,
+  decoratePaletteUrl,
   getPaletteIdFromUrl,
   parsePaletteFromUrl,
   serializePaletteToUrl,
-  updatePaletteIdInUrl,
+  stripPaletteIdentity,
 } from '~/utils/url';
 
 import type { ColorEntry, GeneratorState } from '~/types';
@@ -579,37 +581,165 @@ describe('utils/url', () => {
     });
   });
 
-  describe('updatePaletteIdInUrl', () => {
-    it('adds ID to URL without query params', () => {
-      expect(updatePaletteIdInUrl('/p/Primary-FF0044', 'abc123')).toBe(
-        '/p/Primary-FF0044?id=abc123',
+  describe('decoratePaletteUrl', () => {
+    describe('id', () => {
+      it('adds ID to URL without query params', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044', { id: 'abc123' })).toBe(
+          '/p/Primary-FF0044?id=abc123',
+        );
+      });
+
+      it('adds ID to URL with existing query params (at end)', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?f=1.8', { id: 'abc123' })).toBe(
+          '/p/Primary-FF0044?f=1.8&id=abc123',
+        );
+      });
+
+      it('removes ID when null', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?f=1.8&id=abc123', { id: null })).toBe(
+          '/p/Primary-FF0044?f=1.8',
+        );
+      });
+
+      it('removes ID and leaves empty query when only param', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?id=abc123', { id: null })).toBe(
+          '/p/Primary-FF0044',
+        );
+      });
+
+      it('replaces existing ID (moves to end)', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?id=old&f=1.8', { id: 'new' })).toBe(
+          '/p/Primary-FF0044?f=1.8&id=new',
+        );
+      });
+
+      it('handles URL with no query string when removing', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044', { id: null })).toBe('/p/Primary-FF0044');
+      });
+
+      it('keeps an existing name when only the id is set (undefined name)', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?name=My+Palette', { id: 'abc' })).toBe(
+          '/p/Primary-FF0044?name=My+Palette&id=abc',
+        );
+      });
+
+      it('keeps an existing name when the id is removed', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?name=My+Palette&id=abc', { id: null })).toBe(
+          '/p/Primary-FF0044?name=My+Palette',
+        );
+      });
+    });
+
+    describe('name', () => {
+      it('adds a name before an existing id', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?id=abc', { name: 'My Palette' })).toBe(
+          '/p/Primary-FF0044?name=My+Palette&id=abc',
+        );
+      });
+
+      it('strips the name when null, keeping id last', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?name=My+Palette&id=abc', { name: null })).toBe(
+          '/p/Primary-FF0044?id=abc',
+        );
+      });
+
+      it('omits a default name', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044', { name: DEFAULT_PALETTE_NAME })).toBe(
+          '/p/Primary-FF0044',
+        );
+      });
+
+      it('keeps an existing id when only the name is set (undefined id)', () => {
+        expect(decoratePaletteUrl('/p/Primary-FF0044?id=abc', { name: 'My Palette' })).toBe(
+          '/p/Primary-FF0044?name=My+Palette&id=abc',
+        );
+      });
+
+      it('is idempotent', () => {
+        const once = decoratePaletteUrl('/p/Primary-FF0044?f=1.8', { name: 'My Palette' });
+
+        expect(decoratePaletteUrl(once, { name: 'My Palette' })).toBe(once);
+      });
+    });
+
+    it('sets name and id together, id terminal', () => {
+      expect(decoratePaletteUrl('/p/Primary-FF0044?f=1.8', { id: 'abc', name: 'My Palette' })).toBe(
+        '/p/Primary-FF0044?f=1.8&name=My+Palette&id=abc',
       );
     });
 
-    it('adds ID to URL with existing query params (at end)', () => {
-      expect(updatePaletteIdInUrl('/p/Primary-FF0044?f=1.8', 'abc123')).toBe(
-        '/p/Primary-FF0044?f=1.8&id=abc123',
-      );
-    });
-
-    it('removes ID when null', () => {
-      expect(updatePaletteIdInUrl('/p/Primary-FF0044?f=1.8&id=abc123', null)).toBe(
+    it('strips both with stripPaletteIdentity', () => {
+      expect(stripPaletteIdentity('/p/Primary-FF0044?f=1.8&name=My+Palette&id=abc')).toBe(
         '/p/Primary-FF0044?f=1.8',
       );
     });
+  });
 
-    it('removes ID and leaves empty query when only param', () => {
-      expect(updatePaletteIdInUrl('/p/Primary-FF0044?id=abc123', null)).toBe('/p/Primary-FF0044');
+  describe('palette name in URL', () => {
+    const baseOptions = getDefaultGlobalOptions(toOklch(hex));
+
+    it('serializes a non-default name as ?name=', () => {
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: baseOptions,
+        name: 'My Palette',
+      };
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}?name=My+Palette`);
     });
 
-    it('replaces existing ID (moves to end)', () => {
-      expect(updatePaletteIdInUrl('/p/Primary-FF0044?id=old&f=1.8', 'new')).toBe(
-        '/p/Primary-FF0044?f=1.8&id=new',
+    it('omits the name when it is the default', () => {
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: baseOptions,
+        name: DEFAULT_PALETTE_NAME,
+      };
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}`);
+    });
+
+    it('omits the name when undefined (structural slice)', () => {
+      expect(
+        serializePaletteToUrl({ colors: [oklchEntry('Primary', hex)], globalOptions: baseOptions }),
+      ).toBe(`/p/Primary-${urlFor(hex)}`);
+    });
+
+    it('orders name after global options and before id', () => {
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: { ...baseOptions, lightnessCurve: 1.8 },
+        name: 'My Palette',
+      };
+
+      expect(decoratePaletteUrl(serializePaletteToUrl(state), { id: 'abc123' })).toBe(
+        `/p/Primary-${urlFor(hex)}?f=1.8&name=My+Palette&id=abc123`,
       );
     });
 
-    it('handles URL with no query string when removing', () => {
-      expect(updatePaletteIdInUrl('/p/Primary-FF0044', null)).toBe('/p/Primary-FF0044');
+    it('parses ?name= into state.name', () => {
+      expect(parsePaletteFromUrl('/p/Primary-FF0044?name=My+Palette')?.state.name).toBe(
+        'My Palette',
+      );
+    });
+
+    it('defaults the name when ?name= is absent', () => {
+      expect(parsePaletteFromUrl('/p/Primary-FF0044')?.state.name).toBe(DEFAULT_PALETTE_NAME);
+    });
+
+    it('defaults the name when ?name= is empty', () => {
+      expect(parsePaletteFromUrl('/p/Primary-FF0044?name=')?.state.name).toBe(DEFAULT_PALETTE_NAME);
+    });
+
+    it('round-trips a name with spaces and special characters', () => {
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: baseOptions,
+        name: 'Sunset & Sky 50%',
+      };
+
+      expect(parsePaletteFromUrl(serializePaletteToUrl(state))?.state.name).toBe(
+        'Sunset & Sky 50%',
+      );
     });
   });
 

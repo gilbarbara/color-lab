@@ -587,6 +587,7 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
         >
           <svg
             aria-hidden="true"
+            class="text-lg"
             fill="currentColor"
             focusable="false"
             height="1em"

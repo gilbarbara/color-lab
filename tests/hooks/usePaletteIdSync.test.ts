@@ -4,7 +4,7 @@ import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';
-import { mockAddToast, mockRouter, setMockRoute } from '~/test-mocks';
+import { getGeneratorStore, mockAddToast, mockRouter, setMockRoute } from '~/test-mocks';
 
 import type { SavedPalette } from '~/types';
 
@@ -116,6 +116,25 @@ describe('hooks/usePaletteIdSync', () => {
       expect(useAppStore.getState().lastSavedUrl).toMatch(/^\/p\/Primary-\d/);
       expect(useAppStore.getState().lastSavedUrl).toContain('?id=palette-123');
       expect(mockMigratePaletteUrl).toHaveBeenCalledWith('palette-123', expect.any(String));
+      expect(getGeneratorStore().getState().name).toBe('Test Palette');
+    });
+
+    it('migrates a structural url (no id, no name) even when the decorated url carries both', () => {
+      // Decorated url as produced by the service: legacy colors + ?name= + ?id=.
+      const decoratedUrl = '/p/Primary-FF0044?name=Test+Palette&id=palette-123';
+
+      setMockRoute(decoratedUrl);
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
+      usePalettesStore.setState({ palettes: [{ ...mockPalette, url: decoratedUrl }] });
+
+      renderHook(() => usePaletteIdSync());
+
+      expect(mockMigratePaletteUrl).toHaveBeenCalledTimes(1);
+
+      const [, migratedUrl] = mockMigratePaletteUrl.mock.calls[0];
+
+      expect(migratedUrl).not.toContain('name=');
+      expect(migratedUrl).not.toContain('id=');
     });
 
     it('does not migrate or rewrite a palette already in canonical OKLCH form', () => {
@@ -161,6 +180,7 @@ describe('hooks/usePaletteIdSync', () => {
 
       expect(useAppStore.getState().paletteId).toBe('palette-123');
       expect(useAppStore.getState().paletteName).toBe('Test Palette');
+      expect(getGeneratorStore().getState().name).toBe('Test Palette');
     });
 
     it('removes ID and clears state when API returns not-found', async () => {
@@ -226,6 +246,30 @@ describe('hooks/usePaletteIdSync', () => {
         }),
       );
       expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(useAppStore.getState().paletteId).toBe(null);
+    });
+
+    it('strips name + id and clears state silently when API returns forbidden', async () => {
+      setMockRoute('/p/Primary-FF0044?name=Gone&id=palette-123');
+      mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
+      mockGetPalette.mockResolvedValue({ kind: 'forbidden' });
+
+      renderHook(() => usePaletteIdSync());
+
+      await waitFor(() => {
+        expect(mockGetPalette).toHaveBeenCalledWith('palette-123');
+      });
+
+      // Both name and id go (not just id) — nothing from the inaccessible palette
+      // lingers — and a denied read is not surfaced as a connection error.
+      await waitFor(() => {
+        expect(mockRouter.replace).toHaveBeenCalledWith(
+          '/p/Primary-FF0044',
+          ROUTER_NAVIGATION_OPTIONS,
+        );
+      });
+
+      expect(mockAddToast).not.toHaveBeenCalled();
       expect(useAppStore.getState().paletteId).toBe(null);
     });
   });

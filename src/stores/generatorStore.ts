@@ -1,5 +1,6 @@
 import { createStore } from 'zustand/vanilla';
 
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import {
   addColor as addColorFn,
   clearColorOverrides as clearColorOverridesFn,
@@ -18,6 +19,7 @@ interface GeneratorInitialState {
   activeColorId?: string | null;
   colors: GeneratorState['colors'];
   globalOptions: GeneratorState['globalOptions'];
+  name?: string;
   previewColorId?: string | null;
 }
 
@@ -25,12 +27,13 @@ export type GeneratorStoreApi = ReturnType<typeof createGeneratorStore>;
 
 export interface GeneratorStore extends GeneratorActions, GeneratorState {
   activeColorId: string | null;
+  name: string;
   previewColorId: string | null;
 }
 
 function buildInitialState(
   input?: GeneratorInitialState,
-): Pick<GeneratorStore, 'activeColorId' | 'colors' | 'globalOptions' | 'previewColorId'> {
+): Pick<GeneratorStore, 'activeColorId' | 'colors' | 'globalOptions' | 'name' | 'previewColorId'> {
   if (input && input.colors.length > 0) {
     const firstId = input.colors[0].id;
 
@@ -38,6 +41,7 @@ function buildInitialState(
       colors: input.colors,
       globalOptions: input.globalOptions,
       activeColorId: input.activeColorId ?? firstId,
+      name: input.name ?? DEFAULT_PALETTE_NAME,
       previewColorId: input.previewColorId ?? firstId,
     };
   }
@@ -49,6 +53,7 @@ function buildInitialState(
     colors: fallback.colors,
     globalOptions: fallback.globalOptions,
     activeColorId: fallbackId,
+    name: fallback.name ?? DEFAULT_PALETTE_NAME,
     previewColorId: fallbackId,
   };
 }
@@ -140,6 +145,13 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
         }
 
         return { activeColorId: id };
+      }),
+
+    setName: name =>
+      set(state => {
+        const next = name || DEFAULT_PALETTE_NAME;
+
+        return next === state.name ? state : { name: next };
       }),
 
     setPreviewColor: id =>

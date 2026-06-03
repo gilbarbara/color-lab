@@ -1,3 +1,5 @@
+import { FirebaseError } from 'firebase/app';
+
 import {
   createPalette,
   deletePalette,
@@ -68,7 +70,7 @@ describe('services/palettes', () => {
         updatedAt: 'SERVER_TIMESTAMP',
       });
       expect(mockGetDocument).not.toHaveBeenCalled();
-      expect(result.url).toBe('/p/red-ff0000?id=new-id');
+      expect(result.url).toBe('/p/red-ff0000?name=My+Palette&id=new-id');
       expect(result.name).toBe('My Palette');
       expect(result.userId).toBe('user-1');
       expect(result.isFavorite).toBe(false);
@@ -102,7 +104,7 @@ describe('services/palettes', () => {
 
       if (result.kind === 'success') {
         // eslint-disable-next-line vitest/no-conditional-expect
-        expect(result.palette.url).toBe('/p/red-ff0000?id=palette-1');
+        expect(result.palette.url).toBe('/p/red-ff0000?name=My+Palette&id=palette-1');
       }
     });
 
@@ -132,6 +134,19 @@ describe('services/palettes', () => {
         expect(result.error).toBe(networkError);
       }
     });
+
+    it('returns forbidden kind on permission-denied (deleted / not-owned palette)', async () => {
+      // The read rule denies deleted/non-owned docs as `permission-denied`. That's
+      // a refused read, not proof the doc is gone, so it maps to `forbidden` — never
+      // a fabricated `not-found` — and stays distinct from a transient `error`.
+      mockGetDocument.mockRejectedValueOnce(
+        new FirebaseError('permission-denied', 'Missing or insufficient permissions.'),
+      );
+
+      const result = await getPalette('deleted-palette');
+
+      expect(result).toEqual({ kind: 'forbidden' });
+    });
   });
 
   describe('listPalettes', () => {
@@ -150,7 +165,7 @@ describe('services/palettes', () => {
       const result = await listPalettes('user-1');
 
       expect(result).toHaveLength(1);
-      expect(result[0].url).toBe('/p/red-ff0000?id=p1');
+      expect(result[0].url).toBe('/p/red-ff0000?name=Palette+1&id=p1');
     });
   });
 
@@ -172,7 +187,7 @@ describe('services/palettes', () => {
         name: 'Updated',
         updatedAt: 'SERVER_TIMESTAMP',
       });
-      expect(result.url).toBe('/p/red-ff0000?id=palette-1');
+      expect(result.url).toBe('/p/red-ff0000?name=Updated&id=palette-1');
     });
 
     it('handles isFavorite update', async () => {

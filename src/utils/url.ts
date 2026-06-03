@@ -2,6 +2,7 @@ import { objectEntries } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/nextjs';
 import { isHex, type ScaleVariant } from 'colorizr';
 
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { formatOklch, formatOklchUrl, isInRangeOklch, toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/generator';
 
@@ -12,6 +13,13 @@ import type {
   OklchString,
   ScaleOptions,
 } from '~/types';
+
+interface PaletteIdentity {
+  /** undefined = keep existing, null = remove, string = set. */
+  id?: string | null;
+  /** undefined = keep existing, null = remove, string = set; DEFAULT_PALETTE_NAME is dropped like null. */
+  name?: string | null;
+}
 
 export interface ParsedPalette {
   dropped: string[];
@@ -436,7 +444,7 @@ export function canonicalizeUrl(url: string): string {
     return url;
   }
 
-  return updatePaletteIdInUrl(serializePaletteToUrl(parsed.state), id);
+  return decoratePaletteUrl(serializePaletteToUrl(parsed.state), { id });
 }
 
 /**
@@ -454,6 +462,36 @@ export function colorId(segment: string, index: number): string {
   }
 
   return `c-${(hash >>> 0).toString(36)}`;
+}
+
+/**
+ * Decorate a structural palette URL with identity (`name` + `id`). Canonical
+ * order: name before id, id terminal. Tri-state per field — `undefined` keeps the
+ * current param, `null` removes it, a string sets it. Single source for the
+ * ordering + default-name-omission rule that the rest of the app composes on.
+ */
+export function decoratePaletteUrl(url: string, identity: PaletteIdentity): string {
+  const [path, queryString] = url.split('?');
+  const params = new URLSearchParams(queryString ?? '');
+
+  const name = identity.name === undefined ? params.get('name') : identity.name;
+  const id = identity.id === undefined ? params.get('id') : identity.id;
+
+  // Drop both, then re-append name-then-id so the id stays terminal.
+  params.delete('name');
+  params.delete('id');
+
+  if (name && name !== DEFAULT_PALETTE_NAME) {
+    params.append('name', name);
+  }
+
+  if (id) {
+    params.append('id', id);
+  }
+
+  const newQuery = params.toString();
+
+  return newQuery ? `${path}?${newQuery}` : path;
 }
 
 /**
@@ -521,6 +559,7 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
         ...defaults,
         ...globalOverrides,
       },
+      name: searchParams.get('name') || DEFAULT_PALETTE_NAME,
     },
     dropped,
   };
@@ -555,26 +594,18 @@ export function serializePaletteToUrl(state: GeneratorState): string {
 
   const path = `/p/${colorParts.join('/')}`;
   const query = serializeGlobalOptions(state.globalOptions, defaults);
+  const base = query ? `${path}?${query}` : path;
 
-  return query ? `${path}?${query}` : path;
+  // Decorate with the palette name (omitted when default) via the single-source
+  // helper; no `id` exists yet, so it is left untouched.
+  return decoratePaletteUrl(base, { name: state.name ?? null });
 }
 
 /**
- * Add or remove palette ID from URL
- * ID is always placed at the end of query params
+ * Strip both the palette `id` and `name` from a URL, leaving the structural form
+ * (colors + global options). This is the shape persisted in Firestore — identity
+ * lives in the record fields and is decorated back onto the URL at read-time.
  */
-export function updatePaletteIdInUrl(url: string, id: string | null): string {
-  const [path, queryString] = url.split('?');
-  const params = new URLSearchParams(queryString ?? '');
-
-  // Remove existing id first to ensure it goes at the end
-  params.delete('id');
-
-  if (id) {
-    params.append('id', id);
-  }
-
-  const newQuery = params.toString();
-
-  return newQuery ? `${path}?${newQuery}` : path;
+export function stripPaletteIdentity(url: string): string {
+  return decoratePaletteUrl(url, { id: null, name: null });
 }
