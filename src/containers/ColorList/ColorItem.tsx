@@ -1,4 +1,5 @@
 import { memo, type SyntheticEvent, useEffect, useRef } from 'react';
+import { flushSync } from 'react-dom';
 import { useSetState } from '@gilbarbara/hooks';
 import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { TrashIcon } from '@phosphor-icons/react';
@@ -60,9 +61,10 @@ function ColorItem(props: ColorItemProps) {
     'updateColor',
     'updateGlobalOptions',
   );
-  const { decrementCollapseAnimation, incrementCollapseAnimation } = useApp(
+  const { decrementCollapseAnimation, incrementCollapseAnimation, requestColorScroll } = useApp(
     'decrementCollapseAnimation',
     'incrementCollapseAnimation',
+    'requestColorScroll',
   );
   const [{ mode }, setState] = useSetState<ColorItemState>({
     mode: 'oklch',
@@ -221,7 +223,14 @@ function ColorItem(props: ColorItemProps) {
               message="Remove color"
               onConfirm={() => {
                 trackEvent('remove-color');
-                removeColor(index);
+
+                let nextActiveId: string | null = null;
+
+                flushSync(() => {
+                  nextActiveId = removeColor(index);
+                });
+
+                if (nextActiveId) requestColorScroll(nextActiveId);
               }}
             >
               <Button

@@ -247,11 +247,14 @@ describe('hooks/useGenerator', () => {
 
       expect(result.current.activeColorId).toBe(middleId);
 
+      let returnedId: string | null = null;
+
       act(() => {
-        result.current.removeColor(1);
+        returnedId = result.current.removeColor(1);
       });
 
       expect(result.current.activeColorId).toBe(lastId);
+      expect(returnedId).toBe(lastId);
     });
 
     it('removeColor of last (active) falls back to previous', () => {
@@ -270,11 +273,14 @@ describe('hooks/useGenerator', () => {
         result.current.setActiveColor(lastId);
       });
 
+      let returnedId: string | null = null;
+
       act(() => {
-        result.current.removeColor(1);
+        returnedId = result.current.removeColor(1);
       });
 
       expect(result.current.activeColorId).toBe(firstId);
+      expect(returnedId).toBe(firstId);
     });
 
     it('removeColor of non-active leaves active unchanged', () => {
@@ -292,11 +298,14 @@ describe('hooks/useGenerator', () => {
         result.current.setActiveColor(firstId);
       });
 
+      let returnedId: string | null = null;
+
       act(() => {
-        result.current.removeColor(1);
+        returnedId = result.current.removeColor(1);
       });
 
       expect(result.current.activeColorId).toBe(firstId);
+      expect(returnedId).toBe(firstId);
     });
 
     it('resetPalette sets active to new first color', () => {

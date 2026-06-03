@@ -37,7 +37,7 @@ export interface ExportOptions {
 export interface GeneratorActions {
   addColor: (value: OklchString, name?: string) => string | null;
   clearColorOverrides: (index: number) => void;
-  removeColor: (index: number) => void;
+  removeColor: (index: number) => string | null;
   resetGlobalOptions: () => void;
   resetPalette: () => void;
   setActiveColor: (id: string) => void;
