@@ -1,29 +1,15 @@
-import Generator from '~/containers/Generator';
+import { redirect } from 'next/navigation';
+
+import { createPalette } from '~/utils/generator';
+import { serializePaletteToUrl } from '~/utils/url';
 
 export const dynamic = 'force-dynamic';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lab.colormeup.co';
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'ColorMeUp LAB',
-  url: SITE_URL,
-  description:
-    'A design tool for creating and fine-tuning perceptual color scales. Precise control over lightness, chroma, and scale behavior in OKLCH.',
-  applicationCategory: 'DesignApplication',
-  operatingSystem: 'Web',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-};
-
-const jsonLdHtml = JSON.stringify(jsonLd);
-
+// `/` has no content of its own. Generate a random palette and redirect to its URL on the
+// server (307 — temporary, since the target changes each visit) before any HTML renders.
+// The browser lands directly on `/p/Primary-…` as a single clean SSR render → no client
+// flip, no duplicated head tags. Bare `/p` stays a real 200 page (the indexable anchor);
+// every palette URL canonicals back to it.
 export default function HomePage() {
-  return (
-    <>
-      {/* eslint-disable-next-line react/no-danger */}
-      <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
-      <Generator />
-    </>
-  );
+  redirect(serializePaletteToUrl(createPalette()));
 }

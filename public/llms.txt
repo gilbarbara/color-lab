@@ -1,0 +1,17 @@
+# ColorMeUp LAB
+
+> Generate perceptually uniform OKLCH color scales with multiple colors and contrast checks. Export to Tailwind, CSS, SCSS & SVG. Free and open-source.
+
+ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps are perceptually uniform rather than converted from hex or HSL. It previews colors in wide-gamut P3, supports multiple base colors per palette, checks contrast, and exports to Tailwind, CSS, SCSS, SVG, and other formats. Every feature is free — there is no paywall. The palette lives in the URL, so any palette is shareable by link.
+
+## Pages
+
+- [Color palette generator](https://lab.colormeup.co/): The main tool — create and fine-tune OKLCH color scales with control over lightness range, lightness curve, and chroma curve.
+- [About](https://lab.colormeup.co/about): What the tool is, how it works, and the OKLCH approach.
+
+## Key facts
+
+- Color space: OKLCH (perceptually uniform), with wide-gamut P3 preview.
+- Pricing: free and open-source, no account required to use the generator.
+- Outputs: Tailwind, CSS, SCSS, SVG, and more.
+- Built with the [colorizr](https://github.com/gilbarbara/colorizr) library.

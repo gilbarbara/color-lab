@@ -5,16 +5,15 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 
-import Providers from './providers';
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_TITLE,
+  SITE_URL,
+} from '~/config/metadata';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lab.colormeup.co';
-const SITE_NAME = 'ColorMeUp LAB';
-const SITE_TITLE = 'ColorMeUp LAB — OKLCH Color Scale Generator';
-const SITE_DESCRIPTION =
-  'Create and fine-tune perceptual color scales with precise control over lightness, chroma, and scale behavior in OKLCH. Perfect for design systems, Tailwind, CSS, and UI projects.';
-const SITE_SHORT_DESCRIPTION =
-  'Create, fine-tune, and export perceptually uniform color scales in OKLCH for design systems, Tailwind, CSS, and UI projects.';
-const SITE_OG_IMAGE = '/og-image-v2.png';
+import Providers from './providers';
 
 const inter = Inter({
   axes: ['opsz'],
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: SITE_NAME,
     title: SITE_TITLE,
-    description: SITE_SHORT_DESCRIPTION,
+    description: SITE_DESCRIPTION,
     url: '/',
     images: [
       {
@@ -54,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: SITE_TITLE,
-    description: 'A design tool for creating and fine-tuning perceptual color scales.',
+    description: SITE_DESCRIPTION,
     images: [SITE_OG_IMAGE],
   },
 };

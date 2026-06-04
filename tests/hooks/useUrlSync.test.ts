@@ -135,8 +135,19 @@ describe('hooks/useUrlSync', () => {
   });
 
   describe('URL navigation', () => {
-    it('navigates to URL on initial mount when no palette in URL', () => {
-      setMockRoute('/');
+    it('does not navigate on bare entry with no palette in the URL', () => {
+      // `/` and bare `/p` are the indexable anchors — `/` server-redirects visitors to a
+      // palette URL, so the hook must not client-flip here (that's what duplicated tags).
+      setMockRoute('/p');
+
+      renderHook(() => useUrlSync());
+
+      expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(mockRouter.push).not.toHaveBeenCalled();
+    });
+
+    it('rewrites an unparseable /p/ URL to the seeded palette', () => {
+      setMockRoute('/p/InvalidColor');
 
       renderHook(() => useUrlSync());
 
