@@ -8,36 +8,31 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
   <div
     class="flex items-center w-full max-w-432 mx-auto px-4"
   >
-    <h1
-      aria-label="ColorMeUp LAB"
-      class="flex shrink-0"
+    <a
+      class="inline-flex shrink-0"
+      href="/"
     >
-      <a
-        class="inline-flex"
-        href="/"
+      <span
+        class="inline-flex items-start gap-1"
       >
+        <picture>
+          <source
+            media="(min-width: 640px)"
+            srcset="/brand/logo.svg"
+          />
+          <img
+            alt="ColorMeUp"
+            class="h-8 grayscale"
+            src="/brand/icon.svg"
+          />
+        </picture>
         <span
-          class="inline-flex items-start gap-1"
+          class="font-bold text-sm"
         >
-          <picture>
-            <source
-              media="(min-width: 640px)"
-              srcset="/brand/logo.svg"
-            />
-            <img
-              alt="ColorMeUp"
-              class="h-8 grayscale"
-              src="/brand/icon.svg"
-            />
-          </picture>
-          <span
-            class="font-bold text-sm"
-          >
-            LAB
-          </span>
+          LAB
         </span>
-      </a>
-    </h1>
+      </span>
+    </a>
     <div
       class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
@@ -221,36 +216,31 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
   <div
     class="flex items-center w-full max-w-432 mx-auto px-4"
   >
-    <h1
-      aria-label="ColorMeUp LAB"
-      class="flex shrink-0"
+    <a
+      class="inline-flex shrink-0"
+      href="/"
     >
-      <a
-        class="inline-flex"
-        href="/"
+      <span
+        class="inline-flex items-start gap-1"
       >
+        <picture>
+          <source
+            media="(min-width: 640px)"
+            srcset="/brand/logo.svg"
+          />
+          <img
+            alt="ColorMeUp"
+            class="h-8 grayscale"
+            src="/brand/icon.svg"
+          />
+        </picture>
         <span
-          class="inline-flex items-start gap-1"
+          class="font-bold text-sm"
         >
-          <picture>
-            <source
-              media="(min-width: 640px)"
-              srcset="/brand/logo.svg"
-            />
-            <img
-              alt="ColorMeUp"
-              class="h-8 grayscale"
-              src="/brand/icon.svg"
-            />
-          </picture>
-          <span
-            class="font-bold text-sm"
-          >
-            LAB
-          </span>
+          LAB
         </span>
-      </a>
-    </h1>
+      </span>
+    </a>
     <div
       class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >
@@ -402,36 +392,31 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
   <div
     class="flex items-center w-full max-w-432 mx-auto px-4"
   >
-    <h1
-      aria-label="ColorMeUp LAB"
-      class="flex shrink-0"
+    <a
+      class="inline-flex shrink-0"
+      href="/"
     >
-      <a
-        class="inline-flex"
-        href="/"
+      <span
+        class="inline-flex items-start gap-1"
       >
+        <picture>
+          <source
+            media="(min-width: 640px)"
+            srcset="/brand/logo.svg"
+          />
+          <img
+            alt="ColorMeUp"
+            class="h-8 grayscale"
+            src="/brand/icon.svg"
+          />
+        </picture>
         <span
-          class="inline-flex items-start gap-1"
+          class="font-bold text-sm"
         >
-          <picture>
-            <source
-              media="(min-width: 640px)"
-              srcset="/brand/logo.svg"
-            />
-            <img
-              alt="ColorMeUp"
-              class="h-8 grayscale"
-              src="/brand/icon.svg"
-            />
-          </picture>
-          <span
-            class="font-bold text-sm"
-          >
-            LAB
-          </span>
+          LAB
         </span>
-      </a>
-    </h1>
+      </span>
+    </a>
     <div
       class="flex items-center gap-2 md:gap-4 ml-4 md:ml-8"
     >

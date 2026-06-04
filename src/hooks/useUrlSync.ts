@@ -105,13 +105,17 @@ export default function useUrlSync() {
 
         return;
       }
+
+      // Unparseable `/p/…` → reflect the seeded palette in the URL (same segment cleanup).
+      router.replace(
+        serializePaletteToUrl(generatorStoreApi.getState()),
+        ROUTER_NAVIGATION_OPTIONS,
+      );
     }
 
-    // No palette in the URL (root, or an unparseable /p/ URL) → reflect the
-    // palette the store was already seeded with (server-side via fallbackPalette,
-    // identical on both render passes) in the URL. Generating a fresh palette here
-    // would overwrite the server-rendered one and cause a color flash on load.
-    router.replace(serializePaletteToUrl(generatorStoreApi.getState()), ROUTER_NAVIGATION_OPTIONS);
+    // Bare `/p` is the 200 indexable anchor — it stays put (no client flip). `/`
+    // server-redirects real visitors straight to `/p/Primary-{random}`, so bare `/p` is
+    // only hit directly or by crawlers, where a stable single-title page is what we want.
   }, [pathname, searchParams, router, generatorStoreApi]);
 
   const isPaused = useRef(false);

@@ -24,7 +24,7 @@ function AppShell({ children }: { children: ReactNode }) {
 
   usePageTracking();
 
-  const routeKey = pathname === '/' || pathname.startsWith('/p/') ? 'generator' : pathname;
+  const routeKey = pathname === '/p' || pathname.startsWith('/p/') ? 'generator' : pathname;
 
   return (
     <div className="flex flex-col items-stretch min-h-screen">

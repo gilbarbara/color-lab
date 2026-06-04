@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import Page from '~/components/Page';
 
 export default function About() {
@@ -88,7 +90,13 @@ export default function About() {
           also be used directly in code, independently of either UI.
         </p>
       </div>
-      <p>That's it. Use it, tweak your scales, and explore a bit.</p>
+      <p>
+        That's it. Jump into the{' '}
+        <Link className="underline" href="/">
+          generator
+        </Link>
+        , tweak your scales, and explore a bit.
+      </p>
       <p>If you find it useful, starring the repos is appreciated.</p>
     </Page>
   );

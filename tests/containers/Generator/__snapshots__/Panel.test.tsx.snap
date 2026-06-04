@@ -89,11 +89,11 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
         <div
           class="p-4"
         >
-          <h2
+          <h1
             class="text-2xl font-bold mb-2"
           >
             Color Scale Generator
-          </h2>
+          </h1>
           <p>
             Perceptual, wide-gamut color palettes for UI.
           </p>
@@ -1346,11 +1346,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
         <div
           class="p-4"
         >
-          <h2
+          <h1
             class="text-2xl font-bold mb-2"
           >
             Color Scale Generator
-          </h2>
+          </h1>
           <p>
             Perceptual, wide-gamut color palettes for UI.
           </p>

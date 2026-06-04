@@ -91,11 +91,9 @@ export default function Header() {
       data-testid="Header"
     >
       <div className="flex items-center w-full max-w-432 mx-auto px-4">
-        <h1 aria-label="ColorMeUp LAB" className="flex shrink-0">
-          <Link className="inline-flex" href={sessionPalettePath ?? '/'}>
-            <Logo />
-          </Link>
-        </h1>
+        <Link className="inline-flex shrink-0" href={sessionPalettePath ?? '/'}>
+          <Logo />
+        </Link>
 
         {renderNavigation()}
 

@@ -11,7 +11,7 @@ function normalizePathname(pathname: string): string | null {
   if (pathname === '/palettes') return '/palettes';
   if (pathname === '/privacy') return '/privacy';
   if (pathname === '/terms') return '/terms';
-  if (pathname.startsWith('/p/')) return '/generator';
+  if (pathname === '/p' || pathname.startsWith('/p/')) return '/generator';
 
   return null;
 }

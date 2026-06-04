@@ -4,7 +4,7 @@ export default function AppIntro() {
   return (
     <div data-testid="AppIntro">
       <div className="p-4">
-        <h2 className="text-2xl font-bold mb-2">Color Scale Generator</h2>
+        <h1 className="text-2xl font-bold mb-2">Color Scale Generator</h1>
         <p>Perceptual, wide-gamut color palettes for UI.</p>
         <p>Exports to Tailwind CSS and other formats.</p>
       </div>

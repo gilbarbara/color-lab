@@ -99,7 +99,15 @@ exports[`pages/About > renders correctly 1`] = `
       </p>
     </div>
     <p>
-      That's it. Use it, tweak your scales, and explore a bit.
+      That's it. Jump into the
+       
+      <a
+        class="underline"
+        href="/"
+      >
+        generator
+      </a>
+      , tweak your scales, and explore a bit.
     </p>
     <p>
       If you find it useful, starring the repos is appreciated.
