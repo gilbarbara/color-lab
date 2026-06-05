@@ -312,7 +312,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Variant options"
+                  aria-label="Variant"
                   aria-labelledby="react-aria-_r_2q_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -472,7 +472,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Lock options"
+                  aria-label="Lock"
                   aria-labelledby="react-aria-_r_34_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -525,8 +525,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
             class="w-full"
           >
             <div
-              aria-label="Steps"
-              aria-labelledby="react-aria-_r_35_ react-aria-_r_36_"
+              aria-labelledby="react-aria-_r_36_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
@@ -541,7 +540,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_36_"
+                  id="react-aria-_r_36_"
                 >
                   Steps
                   <button
@@ -653,8 +652,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
             class="w-full"
           >
             <div
-              aria-label="Saturation"
-              aria-labelledby="react-aria-_r_3f_ react-aria-_r_3g_"
+              aria-labelledby="react-aria-_r_3g_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
@@ -669,7 +667,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_3g_"
+                  id="react-aria-_r_3g_"
                 >
                   Saturation
                   <button
@@ -1211,7 +1209,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Variant options"
+                  aria-label="Variant"
                   aria-labelledby="react-aria-_r_8q_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 data-[hover=true]:bg-default-400"
                   data-react-aria-pressable="true"
@@ -1371,7 +1369,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Lock options"
+                  aria-label="Lock"
                   aria-labelledby="react-aria-_r_94_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -1424,8 +1422,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
             class="w-full"
           >
             <div
-              aria-label="Steps"
-              aria-labelledby="react-aria-_r_95_ react-aria-_r_96_"
+              aria-labelledby="react-aria-_r_96_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
@@ -1440,7 +1437,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_96_"
+                  id="react-aria-_r_96_"
                 >
                   Steps
                   <button
@@ -1552,8 +1549,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
             class="w-full"
           >
             <div
-              aria-label="Saturation"
-              aria-labelledby="react-aria-_r_9f_ react-aria-_r_9g_"
+              aria-labelledby="react-aria-_r_9g_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
@@ -1568,7 +1564,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_9g_"
+                  id="react-aria-_r_9g_"
                 >
                   Saturation
                   <button
@@ -2109,7 +2105,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Variant options"
+                  aria-label="Variant"
                   aria-labelledby="react-aria-_r_q_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -2269,7 +2265,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Lock options"
+                  aria-label="Lock"
                   aria-labelledby="react-aria-_r_14_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -2322,8 +2318,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
             class="w-full"
           >
             <div
-              aria-label="Steps"
-              aria-labelledby="react-aria-_r_15_ react-aria-_r_16_"
+              aria-labelledby="react-aria-_r_16_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
@@ -2338,7 +2333,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_16_"
+                  id="react-aria-_r_16_"
                 >
                   Steps
                   <button
@@ -2450,8 +2445,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
             class="w-full"
           >
             <div
-              aria-label="Saturation"
-              aria-labelledby="react-aria-_r_1f_ react-aria-_r_1g_"
+              aria-labelledby="react-aria-_r_1g_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
@@ -2466,7 +2460,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_1g_"
+                  id="react-aria-_r_1g_"
                 >
                   Saturation
                   <button
@@ -3006,7 +3000,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Variant options"
+                  aria-label="Variant"
                   aria-labelledby="react-aria-_r_6q_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -3166,7 +3160,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Lock options"
+                  aria-label="Lock"
                   aria-labelledby="react-aria-_r_74_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -3219,8 +3213,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
             class="w-full"
           >
             <div
-              aria-label="Steps"
-              aria-labelledby="react-aria-_r_75_ react-aria-_r_76_"
+              aria-labelledby="react-aria-_r_76_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
@@ -3235,7 +3228,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_76_"
+                  id="react-aria-_r_76_"
                 >
                   Steps
                   <button
@@ -3347,8 +3340,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
             class="w-full"
           >
             <div
-              aria-label="Saturation"
-              aria-labelledby="react-aria-_r_7f_ react-aria-_r_7g_"
+              aria-labelledby="react-aria-_r_7g_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
@@ -3363,7 +3355,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_7g_"
+                  id="react-aria-_r_7g_"
                 >
                   Saturation
                   <button
@@ -3904,7 +3896,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Variant options"
+                  aria-label="Variant"
                   aria-labelledby="react-aria-_r_4q_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -4064,7 +4056,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 <button
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-label="Lock options"
+                  aria-label="Lock"
                   aria-labelledby="react-aria-_r_54_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
@@ -4117,8 +4109,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
             class="w-full"
           >
             <div
-              aria-label="Steps"
-              aria-labelledby="react-aria-_r_55_ react-aria-_r_56_"
+              aria-labelledby="react-aria-_r_56_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
@@ -4133,7 +4124,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_56_"
+                  id="react-aria-_r_56_"
                 >
                   Steps
                   <button
@@ -4245,8 +4236,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
             class="w-full"
           >
             <div
-              aria-label="Saturation"
-              aria-labelledby="react-aria-_r_5f_ react-aria-_r_5g_"
+              aria-labelledby="react-aria-_r_5g_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
@@ -4261,7 +4251,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  for="react-aria-_r_5g_"
+                  id="react-aria-_r_5g_"
                 >
                   Saturation
                   <button

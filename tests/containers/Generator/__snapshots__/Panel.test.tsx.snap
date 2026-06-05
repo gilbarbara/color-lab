@@ -159,8 +159,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
               data-testid="ScaleColorOptions"
             >
               <div
-                aria-label="Lightness Range"
-                aria-labelledby="react-aria-_r_2_ react-aria-_r_3_"
+                aria-labelledby="react-aria-_r_3_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
@@ -175,7 +174,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    for="react-aria-_r_3_"
+                    id="react-aria-_r_3_"
                   >
                     Lightness Range
                     <button
@@ -341,8 +340,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                 </div>
               </div>
               <div
-                aria-label="Lightness Curve"
-                aria-labelledby="react-aria-_r_f_ react-aria-_r_g_"
+                aria-labelledby="react-aria-_r_g_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
@@ -357,7 +355,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    for="react-aria-_r_g_"
+                    id="react-aria-_r_g_"
                   >
                     Lightness Curve
                     <button
@@ -485,8 +483,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                 </div>
               </div>
               <div
-                aria-label="Chroma Curve"
-                aria-labelledby="react-aria-_r_p_ react-aria-_r_q_"
+                aria-labelledby="react-aria-_r_q_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
@@ -501,7 +498,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    for="react-aria-_r_q_"
+                    id="react-aria-_r_q_"
                   >
                     Chroma Curve
                     <button
@@ -1419,8 +1416,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
               data-testid="ScaleColorOptions"
             >
               <div
-                aria-label="Lightness Range"
-                aria-labelledby="react-aria-_r_2f_ react-aria-_r_2g_"
+                aria-labelledby="react-aria-_r_2g_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
@@ -1435,7 +1431,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    for="react-aria-_r_2g_"
+                    id="react-aria-_r_2g_"
                   >
                     Lightness Range
                     <button
@@ -1601,8 +1597,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                 </div>
               </div>
               <div
-                aria-label="Lightness Curve"
-                aria-labelledby="react-aria-_r_2s_ react-aria-_r_2t_"
+                aria-labelledby="react-aria-_r_2t_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
@@ -1617,7 +1612,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    for="react-aria-_r_2t_"
+                    id="react-aria-_r_2t_"
                   >
                     Lightness Curve
                     <button
@@ -1745,8 +1740,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                 </div>
               </div>
               <div
-                aria-label="Chroma Curve"
-                aria-labelledby="react-aria-_r_36_ react-aria-_r_37_"
+                aria-labelledby="react-aria-_r_37_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
@@ -1761,7 +1755,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    for="react-aria-_r_37_"
+                    id="react-aria-_r_37_"
                   >
                     Chroma Curve
                     <button

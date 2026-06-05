@@ -100,7 +100,6 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
       {description && <div className="text-sm">{description}</div>}
 
       <Slider
-        aria-label="Lightness Range"
         color="foreground"
         label="Lightness Range"
         maxValue={1}
@@ -143,7 +142,6 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
       />
 
       <Slider
-        aria-label="Lightness Curve"
         color="foreground"
         label="Lightness Curve"
         maxValue={5}
@@ -178,7 +176,6 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
       />
 
       <Slider
-        aria-label="Chroma Curve"
         color="foreground"
         label="Chroma Curve"
         maxValue={1}

@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
 import { CRIMSON } from '~/test-fixtures';
-import { act, fireEvent, render, screen, within } from '~/test-utils';
+import { act, fireEvent, render, screen } from '~/test-utils';
 import { getDefaultGlobalOptions } from '~/utils/generator';
 
 import ScaleColorOptions from '~/components/ScaleColorOptions';
@@ -91,8 +91,7 @@ describe('ScaleColorOptions', () => {
 
       render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
 
-      const group = screen.getByRole('group', { name: 'Lightness Curve' });
-      const slider = within(group).getByRole('slider');
+      const slider = screen.getByRole('slider', { name: 'Lightness Curve' });
 
       act(() => slider.focus());
       await user.keyboard('{ArrowRight}');
@@ -109,8 +108,7 @@ describe('ScaleColorOptions', () => {
 
       render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
 
-      const group = screen.getByRole('group', { name: 'Chroma Curve' });
-      const slider = within(group).getByRole('slider');
+      const slider = screen.getByRole('slider', { name: 'Chroma Curve' });
 
       act(() => slider.focus());
       await user.keyboard('{ArrowRight}');
@@ -127,8 +125,7 @@ describe('ScaleColorOptions', () => {
 
       render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
 
-      const group = screen.getByRole('group', { name: 'Lightness Range' });
-      const sliders = within(group).getAllByRole('slider');
+      const sliders = screen.getAllByRole('slider', { name: 'Lightness Range' });
 
       act(() => sliders[1].focus());
       await user.keyboard('{ArrowLeft}');
