@@ -151,7 +151,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
           </svg>
           <span
             aria-hidden="true"
-            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
             data-invisible="true"
             focusable="false"
           />
@@ -1047,7 +1047,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
           </svg>
           <span
             aria-hidden="true"
-            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
             data-invisible="false"
             focusable="false"
           />
@@ -1944,7 +1944,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
           </svg>
           <span
             aria-hidden="true"
-            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
             data-invisible="true"
             focusable="false"
           />
@@ -2840,7 +2840,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
           </svg>
           <span
             aria-hidden="true"
-            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
             data-invisible="true"
             focusable="false"
           />
@@ -3735,7 +3735,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
           </svg>
           <span
             aria-hidden="true"
-            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 px-1 text-tiny transition-transform-opacity !ease-soft-spring !duration-300 border-2 border-background bg-warning text-warning-foreground w-3 h-3 min-w-3 min-h-3 top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2"
+            class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
             data-invisible="true"
             focusable="false"
           />

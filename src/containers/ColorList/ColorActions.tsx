@@ -1,5 +1,5 @@
 import { useBreakpoint, useMemoDeepCompare } from '@gilbarbara/hooks';
-import { Badge, cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
+import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 import { type ColorMode, ModeSelector } from '@transience/color-picker';
 import { readableColor } from 'colorizr';
@@ -9,6 +9,7 @@ import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 
+import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
@@ -109,13 +110,7 @@ export default function ColorActions(props: ColorActionsProps) {
               >
                 <Tooltip content="Color options" delay={250} placement="bottom-end">
                   <span className="size-8 inline-flex items-center justify-center">
-                    <Badge
-                      color="warning"
-                      content=""
-                      isDot
-                      isInvisible={!colorEntry.overrides}
-                      size="sm"
-                    >
+                    <Badge content="" isInvisible={!colorEntry.overrides}>
                       <SlidersHorizontalIcon className="text-base" />
                     </Badge>
                   </span>
