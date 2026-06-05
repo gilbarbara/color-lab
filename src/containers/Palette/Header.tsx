@@ -1,5 +1,5 @@
 import { useSetState } from '@gilbarbara/hooks';
-import { addToast, Badge, cn } from '@heroui/react';
+import { addToast, cn } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
@@ -9,6 +9,7 @@ import useGenerator from '~/hooks/useGenerator';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { trackEvent } from '~/utils/analytics';
 
+import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import CollapsePanel from '~/components/CollapsePanel';
 import EditableInput, { type CommitAction } from '~/components/EditableInput';
@@ -124,13 +125,7 @@ export default function PaletteHeader() {
               onPress={togglePaletteOptionsPanel}
               size="menu"
               startContent={
-                <Badge
-                  color="warning"
-                  content=""
-                  isDot
-                  isInvisible={!hasCustomPaletteOptions}
-                  size="sm"
-                >
+                <Badge content="" isInvisible={!hasCustomPaletteOptions}>
                   <PaletteIcon className="text-xl" weight="bold" />
                 </Badge>
               }

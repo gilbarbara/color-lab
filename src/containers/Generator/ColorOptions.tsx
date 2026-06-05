@@ -1,4 +1,4 @@
-import { Badge, Divider } from '@heroui/react';
+import { Divider } from '@heroui/react';
 import { SlidersHorizontalIcon } from '@phosphor-icons/react';
 
 import useApp from '~/hooks/useApp';
@@ -6,6 +6,7 @@ import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 import { CURVE_OPTION_KEYS } from '~/utils/generator';
 
+import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import CollapsePanel from '~/components/CollapsePanel';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
@@ -42,7 +43,7 @@ export default function ColorOptions(props: ColorOptionsProps) {
           onPress={toggleColorOptionsPanel}
           size="menu"
           startContent={
-            <Badge color="warning" content="" isDot isInvisible={!hasCustomCurves} size="sm">
+            <Badge content="" isInvisible={!hasCustomCurves}>
               <SlidersHorizontalIcon className="text-lg" />
             </Badge>
           }

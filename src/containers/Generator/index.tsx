@@ -17,7 +17,7 @@ export default function Generator() {
 
   return (
     <div
-      className="flex flex-col md:flex-row flex-1 w-full max-w-432 mx-auto md:pb-18"
+      className="flex flex-col md:flex-row flex-1 w-full max-w-432 mx-auto pb-18 md:pb-0"
       data-testid="Generator"
     >
       <div className="contents md:hidden">
