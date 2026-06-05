@@ -172,6 +172,10 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 - `mockIsP3Supported` - gamut capability toggle (`~/utils/gamut`)
 - `getGeneratorStore()` - handle to the shared per-test generator store
 
+### E2E Testing
+
+The snapshots are generated locally on macOS, not on the Linux CI runner, and the differences are expected and handled by `maxDiffPixelRatio` config.
+
 ## Browser Testing
 
 **ALWAYS use `agent-browser`** for any browser work — screenshots, navigation, interaction, manual verification.

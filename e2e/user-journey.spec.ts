@@ -1,5 +1,6 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
+import { waitForScrollEnd } from './__setup__/utils';
 import { collapseDuration } from './fixtures/constants';
 import { FirebaseMockState, setupFirebaseMocks } from './fixtures/firebase-mock';
 
@@ -106,6 +107,10 @@ test('User Journey', async () => {
     await page.waitForTimeout(collapseDuration);
 
     await expect(page.getByLabel('Export scale')).toHaveCount(4);
+
+    await page.evaluate(() => window.scrollTo(0, 0));
+
+    await waitForScrollEnd(page);
 
     await expect(page).toHaveScreenshot('03-unsaved-palette.png');
   });
