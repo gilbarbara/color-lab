@@ -121,7 +121,7 @@ export default function PaletteOptions() {
           />
 
           <Select
-            aria-label="Variant options"
+            aria-label="Variant"
             classNames={{
               trigger: cn({
                 'bg-default-200 data-[hover=true]:bg-default-400': !!variant,
@@ -159,7 +159,7 @@ export default function PaletteOptions() {
             }
           />
           <Select
-            aria-label="Lock options"
+            aria-label="Lock"
             classNames={{
               trigger: cn({
                 'bg-default-200 data-[hover=true]:bg-default-400': !!lock,
@@ -185,7 +185,6 @@ export default function PaletteOptions() {
       >
         <div className="w-full">
           <Slider
-            aria-label="Steps"
             color="foreground"
             label="Steps"
             maxValue={20}
@@ -220,7 +219,6 @@ export default function PaletteOptions() {
 
         <div className="w-full">
           <Slider
-            aria-label="Saturation"
             color="foreground"
             isDisabled={!saturationOverride}
             label="Saturation"

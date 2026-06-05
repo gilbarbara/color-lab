@@ -10,13 +10,12 @@ interface SliderLabelProps extends DOMAttributes<HTMLLabelElement> {
   children?: ReactNode;
   description?: ReactNode;
   disableReset: boolean;
-  id?: string;
   isDisabled?: boolean;
   onReset: () => void;
 }
 
 export default function SliderLabel(props: SliderLabelProps) {
-  const { children, description, disableReset, id, isDisabled = false, onReset, ...rest } = props;
+  const { children, description, disableReset, isDisabled = false, onReset, ...rest } = props;
 
   const handleClickReset = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -29,7 +28,8 @@ export default function SliderLabel(props: SliderLabelProps) {
   };
 
   return (
-    <label {...rest} className="flex gap-2 items-center" htmlFor={id}>
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control
+    <label {...rest} className="flex gap-2 items-center">
       {children}
       {!!description && (
         <TooltipClickable

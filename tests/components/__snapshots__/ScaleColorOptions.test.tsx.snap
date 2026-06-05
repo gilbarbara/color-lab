@@ -6,8 +6,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
   data-testid="ScaleColorOptions"
 >
   <div
-    aria-label="Lightness Range"
-    aria-labelledby="react-aria-_r_0_ react-aria-_r_1_"
+    aria-labelledby="react-aria-_r_1_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -22,7 +21,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_1_"
+        id="react-aria-_r_1_"
       >
         Lightness Range
         <button
@@ -188,8 +187,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
     </div>
   </div>
   <div
-    aria-label="Lightness Curve"
-    aria-labelledby="react-aria-_r_d_ react-aria-_r_e_"
+    aria-labelledby="react-aria-_r_e_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -204,7 +202,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_e_"
+        id="react-aria-_r_e_"
       >
         Lightness Curve
         <button
@@ -332,8 +330,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
     </div>
   </div>
   <div
-    aria-label="Chroma Curve"
-    aria-labelledby="react-aria-_r_n_ react-aria-_r_o_"
+    aria-labelledby="react-aria-_r_o_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -348,7 +345,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_o_"
+        id="react-aria-_r_o_"
       >
         Chroma Curve
         <button
@@ -508,8 +505,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
   data-testid="ScaleColorOptions"
 >
   <div
-    aria-label="Lightness Range"
-    aria-labelledby="react-aria-_r_22_ react-aria-_r_23_"
+    aria-labelledby="react-aria-_r_23_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -524,7 +520,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_23_"
+        id="react-aria-_r_23_"
       >
         Lightness Range
         <button
@@ -689,8 +685,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
     </div>
   </div>
   <div
-    aria-label="Lightness Curve"
-    aria-labelledby="react-aria-_r_2f_ react-aria-_r_2g_"
+    aria-labelledby="react-aria-_r_2g_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -705,7 +700,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_2g_"
+        id="react-aria-_r_2g_"
       >
         Lightness Curve
         <button
@@ -832,8 +827,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
     </div>
   </div>
   <div
-    aria-label="Chroma Curve"
-    aria-labelledby="react-aria-_r_2p_ react-aria-_r_2q_"
+    aria-labelledby="react-aria-_r_2q_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -848,7 +842,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_2q_"
+        id="react-aria-_r_2q_"
       >
         Chroma Curve
         <button
@@ -1019,8 +1013,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
     </p>
   </div>
   <div
-    aria-label="Lightness Range"
-    aria-labelledby="react-aria-_r_11_ react-aria-_r_12_"
+    aria-labelledby="react-aria-_r_12_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -1035,7 +1028,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_12_"
+        id="react-aria-_r_12_"
       >
         Lightness Range
         <button
@@ -1201,8 +1194,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
     </div>
   </div>
   <div
-    aria-label="Lightness Curve"
-    aria-labelledby="react-aria-_r_1e_ react-aria-_r_1f_"
+    aria-labelledby="react-aria-_r_1f_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -1217,7 +1209,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_1f_"
+        id="react-aria-_r_1f_"
       >
         Lightness Curve
         <button
@@ -1345,8 +1337,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
     </div>
   </div>
   <div
-    aria-label="Chroma Curve"
-    aria-labelledby="react-aria-_r_1o_ react-aria-_r_1p_"
+    aria-labelledby="react-aria-_r_1p_"
     class="flex flex-col w-full gap-1"
     data-hover="false"
     data-orientation="horizontal"
@@ -1361,7 +1352,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
       <label
         class="flex gap-2 items-center"
         data-slot="label"
-        for="react-aria-_r_1p_"
+        id="react-aria-_r_1p_"
       >
         Chroma Curve
         <button

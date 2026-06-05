@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
-import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
+import { fireEvent, render, screen, waitFor } from '~/test-utils';
 
 import Options from '~/containers/Palette/Options';
 
@@ -105,8 +105,7 @@ describe('Options', () => {
 
     it('updates steps via slider input change', () => {
       render(<Options />);
-      const stepsGroup = screen.getByRole('group', { name: 'Steps' });
-      const stepsSlider = within(stepsGroup).getByRole('slider');
+      const stepsSlider = screen.getByRole('slider', { name: 'Steps' });
 
       fireEvent.change(stepsSlider, { target: { value: '7' } });
 
@@ -156,7 +155,7 @@ describe('Options', () => {
       });
       render(<Options />);
 
-      const trigger = screen.getByRole('button', { name: 'Select variant Variant options' });
+      const trigger = screen.getByRole('button', { name: 'Select variant Variant' });
 
       expect(trigger).toHaveAttribute('data-disabled', 'true');
     });
