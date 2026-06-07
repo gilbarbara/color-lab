@@ -2,8 +2,8 @@
 
 exports[`ColorInfo > Render > renders correctly 1`] = `
 <section
-  aria-describedby="_r_b_"
-  aria-labelledby="_r_a_"
+  aria-describedby="_r_9_"
+  aria-labelledby="_r_8_"
   aria-modal="true"
   class="flex flex-col relative z-50 box-border bg-content1 outline-solid outline-transparent mx-1 my-1 sm:mx-6 sm:my-16 max-w-md rounded-large shadow-small max-h-[calc(100%_-_8rem)] 5xl w-full"
   data-dismissable="true"
@@ -11,7 +11,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
   data-placement="center"
   data-test-id="Modal"
   data-testid="ColorInfo"
-  id="_r_9_"
+  id="_r_7_"
   role="dialog"
   style="max-width: min(clamp(480px, 1156px, 1280px), calc(100% - 4rem));"
   tabindex="-1"
@@ -21,7 +21,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
   >
     <button
       aria-label="Dismiss"
-      id="react-aria-_r_h_"
+      id="react-aria-_r_f_"
       style="width: 1px; height: 1px;"
       tabindex="-1"
     />
@@ -56,7 +56,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
   <header
     class="flex flex-initial p-4 text-lg/3 gap-1 font-normal"
     data-testid="ColorInfo-Header"
-    id="_r_a_"
+    id="_r_8_"
   >
     <span>
       Color info
@@ -76,7 +76,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
   />
   <div
     class="flex-1 p-4 gap-4 overflow-hidden flex flex-col min-h-0"
-    id="_r_b_"
+    id="_r_9_"
   >
     <div
       class="flex flex-col lg:flex-row gap-6 flex-1 min-h-0"
@@ -2180,7 +2180,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
   >
     <button
       aria-label="Dismiss"
-      id="react-aria-_r_3l_"
+      id="react-aria-_r_1h_"
       style="width: 1px; height: 1px;"
       tabindex="-1"
     />

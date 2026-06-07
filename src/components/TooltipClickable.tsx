@@ -1,4 +1,11 @@
-import { type FocusEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
+import {
+  type FocusEvent,
+  type MouseEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { cn } from '@heroui/react';
 import { InfoIcon } from '@phosphor-icons/react';
 
@@ -6,8 +13,9 @@ import Tooltip, { type TooltipProps } from '~/components/Tooltip';
 
 type OpenSource = 'click' | 'hover' | 'focus';
 
-interface TooltipClickableProps extends TooltipProps {
+interface TooltipClickableProps extends Omit<TooltipProps, 'children'> {
   'aria-label'?: string;
+  children?: ReactNode;
   className?: string;
 }
 

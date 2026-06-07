@@ -6,9 +6,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import { type TooltipProps } from '@heroui/react';
 
-import Tooltip from './Tooltip';
+import Tooltip, { type TooltipProps } from './Tooltip';
 
 export interface ConfirmTooltipProps {
   /**
@@ -103,9 +102,6 @@ export default function ConfirmTooltip(props: ConfirmTooltipProps) {
 
   return (
     <Tooltip
-      classNames={{
-        base: 'before:right-2!',
-      }}
       color={needsConfirm ? confirmColor : 'tooltip'}
       content={needsConfirm ? confirmMessage : message}
       delay={delay}
