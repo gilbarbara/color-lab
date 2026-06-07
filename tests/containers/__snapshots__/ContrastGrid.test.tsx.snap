@@ -962,7 +962,7 @@ exports[`ContrastGrid > Render > render correctly > header 1`] = `
 <header
   class="flex flex-initial p-4 text-lg/3 gap-1 font-normal"
   data-testid="ContrastGrid-Header"
-  id="_r_a_"
+  id="_r_8_"
 >
   <span>
     Contrast grid

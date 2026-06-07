@@ -159,12 +159,12 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
               data-testid="ScaleColorOptions"
             >
               <div
-                aria-labelledby="react-aria-_r_3_"
+                aria-labelledby="react-aria-_r_2_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_2_"
+                id="react-aria-_r_1_"
                 role="group"
               >
                 <div
@@ -174,7 +174,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    id="react-aria-_r_3_"
+                    id="react-aria-_r_2_"
                   >
                     Lightness Range
                     <button
@@ -218,7 +218,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                     aria-live="off"
                     class="flex gap-2 text-small"
                     data-slot="value"
-                    for="react-aria-_r_3_-0 react-aria-_r_3_-1"
+                    for="react-aria-_r_2_-0 react-aria-_r_2_-1"
                   >
                     <span
                       class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -293,10 +293,10 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_3_"
+                          aria-labelledby="react-aria-_r_2_"
                           aria-orientation="horizontal"
                           aria-valuetext="0.26"
-                          id="react-aria-_r_3_-0"
+                          id="react-aria-_r_2_-0"
                           max="0.97"
                           min="0"
                           name="lightness"
@@ -322,10 +322,10 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_3_"
+                          aria-labelledby="react-aria-_r_2_"
                           aria-orientation="horizontal"
                           aria-valuetext="0.97"
-                          id="react-aria-_r_3_-1"
+                          id="react-aria-_r_2_-1"
                           max="1"
                           min="0.26"
                           name="lightness"
@@ -340,12 +340,12 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                 </div>
               </div>
               <div
-                aria-labelledby="react-aria-_r_g_"
+                aria-labelledby="react-aria-_r_d_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_f_"
+                id="react-aria-_r_c_"
                 role="group"
               >
                 <div
@@ -355,7 +355,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    id="react-aria-_r_g_"
+                    id="react-aria-_r_d_"
                   >
                     Lightness Curve
                     <button
@@ -399,7 +399,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                     aria-live="off"
                     class="text-small"
                     data-slot="value"
-                    for="react-aria-_r_g_-0"
+                    for="react-aria-_r_d_-0"
                   >
                     <span
                       class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -465,10 +465,10 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_g_"
+                          aria-labelledby="react-aria-_r_d_"
                           aria-orientation="horizontal"
                           aria-valuetext="1.3"
-                          id="react-aria-_r_g_-0"
+                          id="react-aria-_r_d_-0"
                           max="5"
                           min="0.1"
                           name="lightnessCurve"
@@ -483,12 +483,12 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                 </div>
               </div>
               <div
-                aria-labelledby="react-aria-_r_q_"
+                aria-labelledby="react-aria-_r_l_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_p_"
+                id="react-aria-_r_k_"
                 role="group"
               >
                 <div
@@ -498,7 +498,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    id="react-aria-_r_q_"
+                    id="react-aria-_r_l_"
                   >
                     Chroma Curve
                     <button
@@ -542,7 +542,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                     aria-live="off"
                     class="text-small"
                     data-slot="value"
-                    for="react-aria-_r_q_-0"
+                    for="react-aria-_r_l_-0"
                   >
                     <span
                       class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -608,10 +608,10 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_q_"
+                          aria-labelledby="react-aria-_r_l_"
                           aria-orientation="horizontal"
                           aria-valuetext="0"
-                          id="react-aria-_r_q_-0"
+                          id="react-aria-_r_l_-0"
                           max="1"
                           min="0"
                           name="chromaCurve"
@@ -725,7 +725,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_15_"
+                          id="react-aria-_r_u_"
                           name="color-name-0"
                           tabindex="0"
                           title=""
@@ -784,7 +784,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_1c_"
+                        id="react-aria-_r_14_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -1149,7 +1149,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_21_"
+                          id="react-aria-_r_1j_"
                           name="color-name-1"
                           tabindex="0"
                           title=""
@@ -1209,7 +1209,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_28_"
+                        id="react-aria-_r_1p_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -1416,12 +1416,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
               data-testid="ScaleColorOptions"
             >
               <div
-                aria-labelledby="react-aria-_r_2g_"
+                aria-labelledby="react-aria-_r_20_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_2f_"
+                id="react-aria-_r_1v_"
                 role="group"
               >
                 <div
@@ -1431,7 +1431,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    id="react-aria-_r_2g_"
+                    id="react-aria-_r_20_"
                   >
                     Lightness Range
                     <button
@@ -1475,7 +1475,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     aria-live="off"
                     class="flex gap-2 text-small"
                     data-slot="value"
-                    for="react-aria-_r_2g_-0 react-aria-_r_2g_-1"
+                    for="react-aria-_r_20_-0 react-aria-_r_20_-1"
                   >
                     <span
                       class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1550,10 +1550,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_2g_"
+                          aria-labelledby="react-aria-_r_20_"
                           aria-orientation="horizontal"
                           aria-valuetext="0.26"
-                          id="react-aria-_r_2g_-0"
+                          id="react-aria-_r_20_-0"
                           max="0.97"
                           min="0"
                           name="lightness"
@@ -1579,10 +1579,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_2g_"
+                          aria-labelledby="react-aria-_r_20_"
                           aria-orientation="horizontal"
                           aria-valuetext="0.97"
-                          id="react-aria-_r_2g_-1"
+                          id="react-aria-_r_20_-1"
                           max="1"
                           min="0.26"
                           name="lightness"
@@ -1597,12 +1597,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                 </div>
               </div>
               <div
-                aria-labelledby="react-aria-_r_2t_"
+                aria-labelledby="react-aria-_r_2b_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_2s_"
+                id="react-aria-_r_2a_"
                 role="group"
               >
                 <div
@@ -1612,7 +1612,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    id="react-aria-_r_2t_"
+                    id="react-aria-_r_2b_"
                   >
                     Lightness Curve
                     <button
@@ -1656,7 +1656,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     aria-live="off"
                     class="text-small"
                     data-slot="value"
-                    for="react-aria-_r_2t_-0"
+                    for="react-aria-_r_2b_-0"
                   >
                     <span
                       class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1722,10 +1722,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_2t_"
+                          aria-labelledby="react-aria-_r_2b_"
                           aria-orientation="horizontal"
                           aria-valuetext="1.3"
-                          id="react-aria-_r_2t_-0"
+                          id="react-aria-_r_2b_-0"
                           max="5"
                           min="0.1"
                           name="lightnessCurve"
@@ -1740,12 +1740,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                 </div>
               </div>
               <div
-                aria-labelledby="react-aria-_r_37_"
+                aria-labelledby="react-aria-_r_2j_"
                 class="flex flex-col w-full gap-1"
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_36_"
+                id="react-aria-_r_2i_"
                 role="group"
               >
                 <div
@@ -1755,7 +1755,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   <label
                     class="flex gap-2 items-center"
                     data-slot="label"
-                    id="react-aria-_r_37_"
+                    id="react-aria-_r_2j_"
                   >
                     Chroma Curve
                     <button
@@ -1799,7 +1799,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     aria-live="off"
                     class="text-small"
                     data-slot="value"
-                    for="react-aria-_r_37_-0"
+                    for="react-aria-_r_2j_-0"
                   >
                     <span
                       class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1865,10 +1865,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_37_"
+                          aria-labelledby="react-aria-_r_2j_"
                           aria-orientation="horizontal"
                           aria-valuetext="0"
-                          id="react-aria-_r_37_-0"
+                          id="react-aria-_r_2j_-0"
                           max="1"
                           min="0"
                           name="chromaCurve"
@@ -1982,7 +1982,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_3i_"
+                          id="react-aria-_r_2s_"
                           name="color-name-0"
                           tabindex="0"
                           title=""
@@ -2041,7 +2041,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_3p_"
+                        id="react-aria-_r_32_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -2406,7 +2406,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_4e_"
+                          id="react-aria-_r_3h_"
                           name="color-name-1"
                           tabindex="0"
                           title=""
@@ -2466,7 +2466,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_4l_"
+                        id="react-aria-_r_3n_"
                         tabindex="0"
                         title=""
                         type="text"

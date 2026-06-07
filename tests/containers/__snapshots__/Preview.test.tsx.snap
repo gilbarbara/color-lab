@@ -108,9 +108,9 @@ exports[`Preview > Render > renders collapsed 1`] = `
               aria-label="Section"
               aria-orientation="horizontal"
               class="relative flex p-1 h-fit gap-2 items-center flex-nowrap overflow-x-scroll scrollbar-hide bg-default-100 rounded-medium"
-              data-collection="react-aria-_r_6_"
+              data-collection="react-aria-_r_3_"
               data-slot="tabList"
-              id="react-aria-_r_7_"
+              id="react-aria-_r_4_"
               role="tablist"
             >
               <span
@@ -120,12 +120,12 @@ exports[`Preview > Render > renders collapsed 1`] = `
               <button
                 aria-selected="true"
                 class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 text-tiny rounded-small"
-                data-collection="react-aria-_r_6_"
+                data-collection="react-aria-_r_3_"
                 data-key="overview"
                 data-react-aria-pressable="true"
                 data-selected="true"
                 data-slot="tab"
-                id="react-aria-_r_7_-tab-overview"
+                id="react-aria-_r_4_-tab-overview"
                 role="tab"
                 tabindex="0"
                 type="button"
@@ -140,11 +140,11 @@ exports[`Preview > Render > renders collapsed 1`] = `
               <button
                 aria-selected="false"
                 class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 text-tiny rounded-small"
-                data-collection="react-aria-_r_6_"
+                data-collection="react-aria-_r_3_"
                 data-key="sales"
                 data-react-aria-pressable="true"
                 data-slot="tab"
-                id="react-aria-_r_7_-tab-sales"
+                id="react-aria-_r_4_-tab-sales"
                 role="tab"
                 tabindex="-1"
                 type="button"
@@ -159,11 +159,11 @@ exports[`Preview > Render > renders collapsed 1`] = `
               <button
                 aria-selected="false"
                 class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 text-tiny rounded-small"
-                data-collection="react-aria-_r_6_"
+                data-collection="react-aria-_r_3_"
                 data-key="expenses"
                 data-react-aria-pressable="true"
                 data-slot="tab"
-                id="react-aria-_r_7_-tab-expenses"
+                id="react-aria-_r_4_-tab-expenses"
                 role="tab"
                 tabindex="-1"
                 type="button"
@@ -206,7 +206,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
               class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 text-tiny gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
               data-react-aria-pressable="true"
               data-slot="trigger"
-              id="react-aria-_r_f_"
+              id="react-aria-_r_c_"
               tabindex="0"
               type="button"
             >
@@ -352,7 +352,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
               >
                 <input
                   aria-label="Switch"
-                  aria-labelledby="_r_i_"
+                  aria-labelledby="_r_f_"
                   checked=""
                   class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                   data-react-aria-pressable="true"
@@ -371,7 +371,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                 </span>
                 <span
                   class="relative text-foreground select-none ms-2 text-medium"
-                  id="_r_i_"
+                  id="_r_f_"
                 >
                   Switch
                 </span>
@@ -382,7 +382,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
               >
                 <input
                   aria-label="Check"
-                  aria-labelledby="_r_j_"
+                  aria-labelledby="_r_g_"
                   checked=""
                   class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                   data-react-aria-pressable="true"
@@ -416,7 +416,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                 </span>
                 <span
                   class="relative text-foreground select-none text-medium transition-colors-opacity before:transition-width motion-reduce:transition-none"
-                  id="_r_j_"
+                  id="_r_g_"
                 >
                   Check
                 </span>
@@ -425,7 +425,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                 aria-label="Choice"
                 aria-orientation="horizontal"
                 class="relative flex flex-col gap-2"
-                id="react-aria-_r_k_"
+                id="react-aria-_r_h_"
                 role="radiogroup"
               >
                 <div
@@ -437,11 +437,11 @@ exports[`Preview > Render > renders collapsed 1`] = `
                     class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none"
                   >
                     <input
-                      aria-describedby="_r_r_ react-aria-_r_n_"
-                      aria-labelledby="_r_q_"
+                      aria-describedby="_r_o_ react-aria-_r_k_"
+                      aria-labelledby="_r_n_"
                       class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                       data-react-aria-pressable="true"
-                      name="react-aria-_r_p_"
+                      name="react-aria-_r_m_"
                       tabindex="-1"
                       title=""
                       type="radio"
@@ -460,7 +460,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                     >
                       <span
                         class="relative text-foreground select-none text-medium transition-colors motion-reduce:transition-none"
-                        id="_r_q_"
+                        id="_r_n_"
                       >
                         One
                       </span>
@@ -471,12 +471,12 @@ exports[`Preview > Render > renders collapsed 1`] = `
                     data-selected="true"
                   >
                     <input
-                      aria-describedby="_r_t_ react-aria-_r_n_"
-                      aria-labelledby="_r_s_"
+                      aria-describedby="_r_q_ react-aria-_r_k_"
+                      aria-labelledby="_r_p_"
                       checked=""
                       class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                       data-react-aria-pressable="true"
-                      name="react-aria-_r_p_"
+                      name="react-aria-_r_m_"
                       tabindex="0"
                       title=""
                       type="radio"
@@ -495,7 +495,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                     >
                       <span
                         class="relative text-foreground select-none text-medium transition-colors motion-reduce:transition-none"
-                        id="_r_s_"
+                        id="_r_p_"
                       >
                         Two
                       </span>
@@ -554,7 +554,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                 aria-valuenow="33"
                 aria-valuetext="33%"
                 class="flex flex-col justify-center gap-1 max-w-fit items-center"
-                id="react-aria-_r_u_"
+                id="react-aria-_r_r_"
                 role="progressbar"
               >
                 <div
@@ -602,7 +602,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
                 data-hover="false"
                 data-orientation="horizontal"
                 data-slot="base"
-                id="react-aria-_r_11_"
+                id="react-aria-_r_u_"
                 role="group"
               >
                 <div
@@ -638,10 +638,10 @@ exports[`Preview > Render > renders collapsed 1`] = `
                         <input
                           aria-describedby=""
                           aria-details=""
-                          aria-labelledby="react-aria-_r_11_"
+                          aria-labelledby="react-aria-_r_u_"
                           aria-orientation="horizontal"
                           aria-valuetext="33"
-                          id="react-aria-_r_11_-0"
+                          id="react-aria-_r_u_-0"
                           max="100"
                           min="0"
                           step="1"
@@ -1105,7 +1105,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
       >
         <input
           aria-label="Switch"
-          aria-labelledby="_r_1p_"
+          aria-labelledby="_r_1j_"
           checked=""
           class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
           data-react-aria-pressable="true"
@@ -1124,7 +1124,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
         </span>
         <span
           class="relative text-foreground select-none ms-2 text-medium"
-          id="_r_1p_"
+          id="_r_1j_"
         >
           Switch
         </span>
@@ -1135,7 +1135,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
       >
         <input
           aria-label="Check"
-          aria-labelledby="_r_1q_"
+          aria-labelledby="_r_1k_"
           checked=""
           class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
           data-react-aria-pressable="true"
@@ -1169,7 +1169,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
         </span>
         <span
           class="relative text-foreground select-none text-medium transition-colors-opacity before:transition-width motion-reduce:transition-none"
-          id="_r_1q_"
+          id="_r_1k_"
         >
           Check
         </span>
@@ -1178,7 +1178,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
         aria-label="Choice"
         aria-orientation="horizontal"
         class="relative flex flex-col gap-2"
-        id="react-aria-_r_1r_"
+        id="react-aria-_r_1l_"
         role="radiogroup"
       >
         <div
@@ -1190,11 +1190,11 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
             class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none"
           >
             <input
-              aria-describedby="_r_22_ react-aria-_r_1u_"
-              aria-labelledby="_r_21_"
+              aria-describedby="_r_1s_ react-aria-_r_1o_"
+              aria-labelledby="_r_1r_"
               class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
               data-react-aria-pressable="true"
-              name="react-aria-_r_20_"
+              name="react-aria-_r_1q_"
               tabindex="-1"
               title=""
               type="radio"
@@ -1213,7 +1213,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
             >
               <span
                 class="relative text-foreground select-none text-medium transition-colors motion-reduce:transition-none"
-                id="_r_21_"
+                id="_r_1r_"
               >
                 One
               </span>
@@ -1224,12 +1224,12 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
             data-selected="true"
           >
             <input
-              aria-describedby="_r_24_ react-aria-_r_1u_"
-              aria-labelledby="_r_23_"
+              aria-describedby="_r_1u_ react-aria-_r_1o_"
+              aria-labelledby="_r_1t_"
               checked=""
               class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
               data-react-aria-pressable="true"
-              name="react-aria-_r_20_"
+              name="react-aria-_r_1q_"
               tabindex="0"
               title=""
               type="radio"
@@ -1248,7 +1248,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
             >
               <span
                 class="relative text-foreground select-none text-medium transition-colors motion-reduce:transition-none"
-                id="_r_23_"
+                id="_r_1t_"
               >
                 Two
               </span>
@@ -1307,7 +1307,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
         aria-valuenow="33"
         aria-valuetext="33%"
         class="flex flex-col justify-center gap-1 max-w-fit items-center"
-        id="react-aria-_r_25_"
+        id="react-aria-_r_1v_"
         role="progressbar"
       >
         <div
@@ -1355,7 +1355,7 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
         data-hover="false"
         data-orientation="horizontal"
         data-slot="base"
-        id="react-aria-_r_28_"
+        id="react-aria-_r_22_"
         role="group"
       >
         <div
@@ -1391,10 +1391,10 @@ exports[`Preview > Render > renders expanded > controls 1`] = `
                 <input
                   aria-describedby=""
                   aria-details=""
-                  aria-labelledby="react-aria-_r_28_"
+                  aria-labelledby="react-aria-_r_22_"
                   aria-orientation="horizontal"
                   aria-valuetext="33"
-                  id="react-aria-_r_28_-0"
+                  id="react-aria-_r_22_-0"
                   max="100"
                   min="0"
                   step="1"
@@ -1480,9 +1480,9 @@ exports[`Preview > Render > renders expanded > toolbar 1`] = `
       aria-label="Section"
       aria-orientation="horizontal"
       class="relative flex p-1 h-fit gap-2 items-center flex-nowrap overflow-x-scroll scrollbar-hide bg-default-100 rounded-medium"
-      data-collection="react-aria-_r_1d_"
+      data-collection="react-aria-_r_17_"
       data-slot="tabList"
-      id="react-aria-_r_1e_"
+      id="react-aria-_r_18_"
       role="tablist"
     >
       <span
@@ -1492,12 +1492,12 @@ exports[`Preview > Render > renders expanded > toolbar 1`] = `
       <button
         aria-selected="true"
         class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 text-tiny rounded-small"
-        data-collection="react-aria-_r_1d_"
+        data-collection="react-aria-_r_17_"
         data-key="overview"
         data-react-aria-pressable="true"
         data-selected="true"
         data-slot="tab"
-        id="react-aria-_r_1e_-tab-overview"
+        id="react-aria-_r_18_-tab-overview"
         role="tab"
         tabindex="0"
         type="button"
@@ -1512,11 +1512,11 @@ exports[`Preview > Render > renders expanded > toolbar 1`] = `
       <button
         aria-selected="false"
         class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 text-tiny rounded-small"
-        data-collection="react-aria-_r_1d_"
+        data-collection="react-aria-_r_17_"
         data-key="sales"
         data-react-aria-pressable="true"
         data-slot="tab"
-        id="react-aria-_r_1e_-tab-sales"
+        id="react-aria-_r_18_-tab-sales"
         role="tab"
         tabindex="-1"
         type="button"
@@ -1531,11 +1531,11 @@ exports[`Preview > Render > renders expanded > toolbar 1`] = `
       <button
         aria-selected="false"
         class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 text-tiny rounded-small"
-        data-collection="react-aria-_r_1d_"
+        data-collection="react-aria-_r_17_"
         data-key="expenses"
         data-react-aria-pressable="true"
         data-slot="tab"
-        id="react-aria-_r_1e_-tab-expenses"
+        id="react-aria-_r_18_-tab-expenses"
         role="tab"
         tabindex="-1"
         type="button"
@@ -1578,7 +1578,7 @@ exports[`Preview > Render > renders expanded > toolbar 1`] = `
       class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 text-tiny gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
       data-react-aria-pressable="true"
       data-slot="trigger"
-      id="react-aria-_r_1m_"
+      id="react-aria-_r_1g_"
       tabindex="0"
       type="button"
     >

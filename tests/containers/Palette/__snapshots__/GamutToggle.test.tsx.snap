@@ -46,7 +46,7 @@ exports[`GamutToggle > Render > renders SRGB warning when P3 is not supported 1`
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_g_"
+        id="react-aria-_r_b_"
         tabindex="0"
         type="button"
       >
@@ -135,7 +135,7 @@ exports[`GamutToggle > Render > renders dropdown trigger when P3 is supported 1`
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_2_"
+        id="react-aria-_r_1_"
         tabindex="0"
         type="button"
       >
@@ -224,7 +224,7 @@ exports[`GamutToggle > Render > renders warning color when gamut is srgb 1`] = `
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_9_"
+        id="react-aria-_r_6_"
         tabindex="0"
         type="button"
       >

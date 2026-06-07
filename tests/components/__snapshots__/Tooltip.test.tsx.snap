@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tooltip > Render > renders only the trigger when closed 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <button
+      type="button"
+    >
+      Trigger
+    </button>
+  </div>
+</div>
+`;
