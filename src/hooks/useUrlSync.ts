@@ -2,9 +2,8 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 import { addToast } from '@heroui/react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { useAppStore } from '~/stores/appStore';
 import {
@@ -29,22 +28,31 @@ function buildPaletteUrl(state: GeneratorState, id: string | null): string {
 export default function useUrlSync() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const generatorStoreApi = useGeneratorStoreApi();
   const lastDroppedUrl = useRef<string | null>(null);
+  // True while the hydrate effect is writing URL → store, so the store → URL
+  // subscription skips that change. Without it, applying the URL on back/forward
+  // (popstate) re-commits the same URL, and that extra pushState clobbers the
+  // forward-history entry — breaking the Forward button.
+  const applyingFromUrl = useRef(false);
 
   // Commit the current palette to the URL and mirror it into appStore so the
   // Header logo can return to it this session. `method` selects history behavior:
-  // 'push' for structural edits (each palette is a distinct entry), 'replace' for
-  // name-only changes (metadata — not worth a back-button entry).
+  // 'pushState' for structural edits (each palette is a distinct entry),
+  // 'replaceState' for name-only changes (metadata — not worth a back-button entry).
   const commitPaletteUrl = useCallback(
     (state: GeneratorState, method: 'push' | 'replace' = 'push') => {
       const fullUrl = buildPaletteUrl(state, useAppStore.getState().paletteId);
 
-      router[method](fullUrl, ROUTER_NAVIGATION_OPTIONS);
+      // History API, not router.push: a palette edit is a client-only URL update, but on
+      // these force-dynamic routes router navigation does a server round-trip that
+      // re-renders the generator subtree — closing an open popover and desyncing the
+      // controlled slider mid-edit. pushState/replaceState integrate with the Next Router
+      // (usePathname/useSearchParams update, back/forward works) without that round-trip.
+      window.history[method === 'push' ? 'pushState' : 'replaceState'](null, '', fullUrl);
       useAppStore.getState().setSessionPalettePath(fullUrl);
     },
-    [router],
+    [],
   );
 
   // Hydrate store from URL
@@ -73,6 +81,7 @@ export default function useUrlSync() {
         const storeUrlWithoutId = decoratePaletteUrl(storeUrl, { id: null });
 
         if (storeUrlWithoutId !== urlWithoutId) {
+          applyingFromUrl.current = true;
           generatorStoreApi.setState(state => {
             const colors = urlState.colors.map((c, index) =>
               state.colors[index] ? { ...c, id: state.colors[index].id } : c,
@@ -83,6 +92,7 @@ export default function useUrlSync() {
 
             return { ...urlState, colors, activeColorId };
           });
+          applyingFromUrl.current = false;
         }
 
         if (dropped.length > 0 && lastDroppedUrl.current !== currentUrl) {
@@ -92,14 +102,14 @@ export default function useUrlSync() {
             color: 'warning',
           });
 
-          router.replace(buildPaletteUrl(urlState, urlId), ROUTER_NAVIGATION_OPTIONS);
+          window.history.replaceState(null, '', buildPaletteUrl(urlState, urlId));
         } else if (dropped.length === 0) {
           // Canonicalise legacy URL forms (hex, 0-1 OKLCH) to the current OKLCH form.
-          // replace: true keeps the legacy URL out of the back-button history.
+          // replaceState keeps the legacy URL out of the back-button history.
           const canonicalUrl = buildPaletteUrl(urlState, urlId);
 
           if (canonicalUrl !== currentUrl) {
-            router.replace(canonicalUrl, ROUTER_NAVIGATION_OPTIONS);
+            window.history.replaceState(null, '', canonicalUrl);
           }
         }
 
@@ -107,16 +117,13 @@ export default function useUrlSync() {
       }
 
       // Unparseable `/p/…` → reflect the seeded palette in the URL (same segment cleanup).
-      router.replace(
-        serializePaletteToUrl(generatorStoreApi.getState()),
-        ROUTER_NAVIGATION_OPTIONS,
-      );
+      window.history.replaceState(null, '', serializePaletteToUrl(generatorStoreApi.getState()));
     }
 
     // Bare `/p` is the 200 indexable anchor — it stays put (no client flip). `/`
     // server-redirects real visitors straight to `/p/Primary-{random}`, so bare `/p` is
     // only hit directly or by crawlers, where a stable single-title page is what we want.
-  }, [pathname, searchParams, router, generatorStoreApi]);
+  }, [pathname, searchParams, generatorStoreApi]);
 
   const isPaused = useRef(false);
 
@@ -163,7 +170,7 @@ export default function useUrlSync() {
     setSessionPalettePath(buildPaletteUrl(generatorStoreApi.getState(), paletteId));
 
     const unsubscribe = generatorStoreApi.subscribe((state, previousState) => {
-      if (isPaused.current) {
+      if (isPaused.current || applyingFromUrl.current) {
         return;
       }
 
