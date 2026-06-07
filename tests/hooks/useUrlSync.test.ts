@@ -1,11 +1,10 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useGenerator from '~/hooks/useGenerator';
 import useUrlSync from '~/hooks/useUrlSync';
 import { useAppStore } from '~/stores/appStore';
 import { CRIMSON } from '~/test-fixtures';
-import { getGeneratorStore, mockRouter, setMockRoute } from '~/test-mocks';
+import { getGeneratorStore, mockAddToast, setMockRoute } from '~/test-mocks';
 import { toOklch } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
@@ -27,8 +26,15 @@ vi.mock('~/services/palettes', () => ({
 }));
 
 describe('hooks/useUrlSync', () => {
+  let historyPush: ReturnType<typeof vi.spyOn>;
+  let historyReplace: ReturnType<typeof vi.spyOn>;
+
   beforeEach(() => {
     vi.clearAllMocks();
+    // commitPaletteUrl writes the URL via the History API (see useUrlSync). Stub the
+    // native methods so we can assert commits without mutating jsdom's location.
+    historyPush = vi.spyOn(window.history, 'pushState').mockImplementation(() => {});
+    historyReplace = vi.spyOn(window.history, 'replaceState').mockImplementation(() => {});
     setMockRoute('/');
 
     const palette = createPalette();
@@ -39,6 +45,11 @@ describe('hooks/useUrlSync', () => {
       paletteName: 'Palette',
       lastSavedUrl: null,
     });
+  });
+
+  afterEach(() => {
+    historyPush.mockRestore();
+    historyReplace.mockRestore();
   });
 
   describe('initialization', () => {
@@ -142,8 +153,8 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.replace).not.toHaveBeenCalled();
-      expect(mockRouter.push).not.toHaveBeenCalled();
+      expect(historyReplace).not.toHaveBeenCalled();
+      expect(historyPush).not.toHaveBeenCalled();
     });
 
     it('rewrites an unparseable /p/ URL to the seeded palette', () => {
@@ -151,9 +162,10 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledWith(
+      expect(historyReplace).toHaveBeenCalledWith(
+        null,
+        '',
         expect.stringMatching(/^\/p\/Primary-[\d._]+$/),
-        ROUTER_NAVIGATION_OPTIONS,
       );
     });
 
@@ -162,8 +174,8 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.push).not.toHaveBeenCalled();
-      expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(historyPush).not.toHaveBeenCalled();
+      expect(historyReplace).not.toHaveBeenCalled();
     });
 
     it('rewrites legacy hex URL to canonical OKLCH form with replace', () => {
@@ -171,11 +183,8 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith(
-        '/p/Primary-63.27_0.254_19.9',
-        ROUTER_NAVIGATION_OPTIONS,
-      );
+      expect(historyReplace).toHaveBeenCalledTimes(1);
+      expect(historyReplace).toHaveBeenCalledWith(null, '', '/p/Primary-63.27_0.254_19.9');
       expect(getGeneratorStore().getState().colors[0].value).toBe(CRIMSON);
     });
 
@@ -184,11 +193,8 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith(
-        '/p/Primary-64_0.142_329',
-        ROUTER_NAVIGATION_OPTIONS,
-      );
+      expect(historyReplace).toHaveBeenCalledTimes(1);
+      expect(historyReplace).toHaveBeenCalledWith(null, '', '/p/Primary-64_0.142_329');
     });
 
     it('preserves id query when canonicalising legacy URL', () => {
@@ -197,10 +203,11 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith(
+      expect(historyReplace).toHaveBeenCalledTimes(1);
+      expect(historyReplace).toHaveBeenCalledWith(
+        null,
+        '',
         '/p/Primary-63.27_0.254_19.9?id=abc123',
-        ROUTER_NAVIGATION_OPTIONS,
       );
     });
 
@@ -209,10 +216,11 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.replace).toHaveBeenCalledTimes(1);
-      expect(mockRouter.replace).toHaveBeenCalledWith(
+      expect(historyReplace).toHaveBeenCalledTimes(1);
+      expect(historyReplace).toHaveBeenCalledWith(
+        null,
+        '',
         '/p/Primary-63.27_0.254_19.9?id=abc123',
-        ROUTER_NAVIGATION_OPTIONS,
       );
     });
 
@@ -221,27 +229,64 @@ describe('hooks/useUrlSync', () => {
 
       renderHook(() => useUrlSync());
 
-      expect(mockRouter.push).not.toHaveBeenCalled();
-      expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(historyPush).not.toHaveBeenCalled();
+      expect(historyReplace).not.toHaveBeenCalled();
     });
 
-    it('navigates when state changes', () => {
+    it('drops invalid colors with a toast and rewrites to the cleaned URL', () => {
+      // Mixed URL: one valid color, one unparseable. parsePaletteFromUrl keeps the valid
+      // color and reports the bad slot via `dropped` (a full failure would return null and
+      // hit the unparseable path instead).
+      setMockRoute('/p/Primary-FF0044/Broken-ZZZZZZ');
+
+      renderHook(() => useUrlSync());
+
+      expect(getGeneratorStore().getState().colors).toHaveLength(1);
+      expect(mockAddToast).toHaveBeenCalledWith({
+        title: 'Dropped invalid color: Broken',
+        color: 'warning',
+      });
+      expect(historyReplace).toHaveBeenCalledTimes(1);
+      expect(historyReplace).toHaveBeenCalledWith(null, '', '/p/Primary-63.27_0.254_19.9');
+    });
+
+    it('commits to the URL when state changes', () => {
       setMockRoute('/p/Primary-0.64_0.142_329');
 
       renderHook(() => useUrlSync());
       const { result } = renderHook(() => useGenerator('addColor'));
 
-      mockRouter.push.mockClear();
-      mockRouter.replace.mockClear();
+      historyPush.mockClear();
 
       act(() => {
         result.current.addColor(toOklch('oklch(0.7 0.15 180)'));
       });
 
-      expect(mockRouter.push).toHaveBeenCalledWith(
+      expect(historyPush).toHaveBeenCalledWith(
+        null,
+        '',
         expect.stringContaining('/p/Primary-64_0.142_329/Secondary-'),
-        ROUTER_NAVIGATION_OPTIONS,
       );
+    });
+
+    it('does not re-commit when applying URL state (back/forward)', () => {
+      // A back/forward fires popstate → Next updates the route → the hydrate effect writes
+      // URL → store. The store → URL subscription must NOT push again: that extra entry
+      // would clobber the forward-history entry and break the Forward button.
+      setMockRoute('/p/Primary-FF0044/Secondary-00FF00');
+
+      const { rerender } = renderHook(() => useUrlSync());
+
+      historyPush.mockClear();
+
+      // rerender() re-runs the hydrate effect with the new route (it flushes effects in act).
+      setMockRoute('/p/Primary-FF0044');
+      rerender();
+
+      // Store followed the URL (2 → 1 colors)…
+      expect(getGeneratorStore().getState().colors).toHaveLength(1);
+      // …but no push was issued for that URL-driven change.
+      expect(historyPush).not.toHaveBeenCalled();
     });
   });
 
@@ -284,8 +329,8 @@ describe('hooks/useUrlSync', () => {
       setMockRoute('/p/Primary-FF0044');
 
       renderHook(() => useUrlSync());
-      mockRouter.push.mockClear();
-      mockRouter.replace.mockClear();
+      historyPush.mockClear();
+      historyReplace.mockClear();
 
       interactingEl.setAttribute('data-interacting', 'true');
       await flushObserver();
@@ -296,16 +341,16 @@ describe('hooks/useUrlSync', () => {
         }));
       });
 
-      expect(mockRouter.push).not.toHaveBeenCalled();
-      expect(mockRouter.replace).not.toHaveBeenCalled();
+      expect(historyPush).not.toHaveBeenCalled();
+      expect(historyReplace).not.toHaveBeenCalled();
     });
 
     it('flushes once on release with latest state', async () => {
       setMockRoute('/p/Primary-FF0044');
 
       renderHook(() => useUrlSync());
-      mockRouter.push.mockClear();
-      mockRouter.replace.mockClear();
+      historyPush.mockClear();
+      historyReplace.mockClear();
 
       interactingEl.setAttribute('data-interacting', 'true');
       await flushObserver();
@@ -321,31 +366,28 @@ describe('hooks/useUrlSync', () => {
         }));
       });
 
-      expect(mockRouter.push).not.toHaveBeenCalled();
+      expect(historyPush).not.toHaveBeenCalled();
 
       interactingEl.removeAttribute('data-interacting');
       await flushObserver();
 
-      expect(mockRouter.push).toHaveBeenCalledTimes(1);
-      expect(mockRouter.push).toHaveBeenCalledWith(
-        expect.stringContaining('i=15'),
-        ROUTER_NAVIGATION_OPTIONS,
-      );
+      expect(historyPush).toHaveBeenCalledTimes(1);
+      expect(historyPush).toHaveBeenCalledWith(null, '', expect.stringContaining('i=15'));
     });
 
     it('resumes normal sync after release', async () => {
       setMockRoute('/p/Primary-FF0044');
 
       renderHook(() => useUrlSync());
-      mockRouter.push.mockClear();
-      mockRouter.replace.mockClear();
+      historyPush.mockClear();
+      historyReplace.mockClear();
 
       interactingEl.setAttribute('data-interacting', 'true');
       await flushObserver();
       interactingEl.removeAttribute('data-interacting');
       await flushObserver();
 
-      mockRouter.push.mockClear();
+      historyPush.mockClear();
 
       act(() => {
         getGeneratorStore().setState(state => ({
@@ -353,11 +395,8 @@ describe('hooks/useUrlSync', () => {
         }));
       });
 
-      expect(mockRouter.push).toHaveBeenCalledTimes(1);
-      expect(mockRouter.push).toHaveBeenCalledWith(
-        expect.stringContaining('i=20'),
-        ROUTER_NAVIGATION_OPTIONS,
-      );
+      expect(historyPush).toHaveBeenCalledTimes(1);
+      expect(historyPush).toHaveBeenCalledWith(null, '', expect.stringContaining('i=20'));
     });
   });
 });
