@@ -34,8 +34,12 @@ const sentryConfig = withSentryConfig(nextConfig, {
   silent: !process.env.CI,
   // Source map upload requires SENTRY_AUTH_TOKEN in env. Without it, build
   // succeeds but maps are not uploaded.
-  org: 'colormeup',
+  org: 'kollectiv',
   project: 'color-lab',
+  // Pin the release to the app version so it matches the runtime release in
+  // sentry.*.config.ts (`v${APP_VERSION}`). Without this the plugin names the
+  // release by git SHA, minting a fresh, event-less release on every build.
+  release: { name: `v${packageJSON.version}` },
   widenClientFileUpload: true,
   hideSourceMaps: true,
   disableLogger: true,
