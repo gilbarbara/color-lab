@@ -7,17 +7,11 @@ import { ImageResponse } from 'next/og';
 import { parsePaletteFromUrl } from '~/utils/url';
 
 export const runtime = 'nodejs';
+// Read only `params` (never the Request) below, so the route is static-eligible and Next
+// caches it instead of re-rendering (Satori + resvg) on every social unfurl.
+export const dynamic = 'force-static';
 
 const size = { width: 1200, height: 630 };
-
-// OG output is deterministic per palette URL, so let browsers and social scrapers cache it
-// instead of re-rendering (Satori + resvg) on every unfurl.
-const imageOptions = {
-  ...size,
-  headers: {
-    'Cache-Control': 'public, max-age=31536000, immutable',
-  },
-};
 
 const logoDataUrl = `data:image/svg+xml;base64,${readFileSync(
   join(process.cwd(), 'public/brand/logo.svg'),
@@ -35,13 +29,21 @@ function toHexSafe(value: string): string {
   }
 }
 
-export async function GET({ url: requestUrl }: Request, { params }: RouteContext) {
+export async function GET(_request: Request, { params }: RouteContext) {
   const { slug } = await params;
-  const { searchParams } = new URL(requestUrl);
-  const url = `/p/${slug.join('/')}`;
-  const parsed = parsePaletteFromUrl(url);
 
-  const paletteName = searchParams.get('name');
+  // Optional name is a trailing `~/<name>` path pair (see the /p page's generateMetadata).
+  // Reading it from params instead of the query is what keeps this route static-cacheable.
+  let segments = slug;
+  let paletteName: string | null = null;
+  const sep = slug.length - 2;
+
+  if (sep >= 0 && slug[sep] === '~') {
+    paletteName = slug[slug.length - 1];
+    segments = slug.slice(0, sep);
+  }
+
+  const parsed = parsePaletteFromUrl(`/p/${segments.join('/')}`);
 
   const logo = (
     <div
@@ -73,7 +75,7 @@ export async function GET({ url: requestUrl }: Request, { params }: RouteContext
       >
         {logo}
       </div>,
-      imageOptions,
+      size,
     );
   }
 

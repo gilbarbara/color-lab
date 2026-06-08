@@ -64,9 +64,11 @@ export async function generateMetadata({
   const { name } = parsed.state;
   const { description, title } = getPaletteMeta(parsed.state.colors, name);
   const fullTitle = `${title} — ColorMeUp LAB`;
+  // Carry the optional palette name in the path (not a query param) so the OG route never
+  // reads the Request and can stay statically cacheable.
   const ogImage =
     name && name !== DEFAULT_PALETTE_NAME
-      ? `/og/${slug.join('/')}?name=${encodeURIComponent(name)}`
+      ? `/og/${slug.join('/')}/~/${encodeURIComponent(name)}`
       : `/og/${slug.join('/')}`;
 
   return {
