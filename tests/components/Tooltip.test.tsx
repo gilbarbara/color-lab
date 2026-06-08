@@ -6,6 +6,20 @@ const content = 'Tooltip body';
 // Mirrors CLOSE_DELAY in src/components/Tooltip.tsx (the hoverable grace period).
 const CLOSE_DELAY = 150;
 
+// jsdom doesn't model `:focus-visible` accurately and may throw on the selector.
+// Globally short-circuit `:focus-visible` matches to a controllable flag; tests
+// that need the keyboard-focus path flip it via stubFocusVisible.
+const originalMatches = Element.prototype.matches;
+let focusVisibleResult = false;
+
+Element.prototype.matches = function matches(selector: string) {
+  if (selector === ':focus-visible') {
+    return focusVisibleResult;
+  }
+
+  return originalMatches.call(this, selector);
+};
+
 function setHoverCapable(matches: boolean) {
   vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
     matches,
@@ -19,11 +33,16 @@ function setHoverCapable(matches: boolean) {
   }));
 }
 
+function stubFocusVisible(value: boolean) {
+  focusVisibleResult = value;
+}
+
 describe('Tooltip', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useRealTimers();
     setHoverCapable(true);
+    focusVisibleResult = false;
   });
 
   describe('Render', () => {
@@ -160,7 +179,9 @@ describe('Tooltip', () => {
       expect(screen.queryByText(content)).not.toBeInTheDocument();
     });
 
-    it('opens on focus and closes on blur', async () => {
+    it('opens on keyboard focus (focus-visible) and closes on blur', async () => {
+      stubFocusVisible(true);
+
       render(
         <Tooltip content={content}>
           <button type="button">Trigger</button>
@@ -178,6 +199,28 @@ describe('Tooltip', () => {
       await waitFor(() => {
         expect(screen.queryByText(content)).not.toBeInTheDocument();
       });
+    });
+
+    it('stays closed on non-focus-visible focus (mouse/programmatic restore)', async () => {
+      // Regression: an overlay (e.g. a Select) restoring focus to the trigger on
+      // close fires onFocus without :focus-visible — the tooltip must not reopen.
+      stubFocusVisible(false);
+
+      render(
+        <Tooltip content={content}>
+          <button type="button">Trigger</button>
+        </Tooltip>,
+      );
+
+      fireEvent.focus(screen.getByRole('button'));
+
+      await act(async () => {
+        await new Promise(resolve => {
+          setTimeout(resolve, 50);
+        });
+      });
+
+      expect(screen.queryByText(content)).not.toBeInTheDocument();
     });
 
     it('preserves the child’s own handlers (chain)', () => {

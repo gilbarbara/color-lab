@@ -325,7 +325,14 @@ export default function Tooltip(props: TooltipProps) {
       clearTimeout(openTimer.current);
       closeTimer.current = setTimeout(() => setUncontrolledOpen(false), CLOSE_DELAY);
     });
-    triggerProps.onFocus = chain(child.props.onFocus, () => setUncontrolledOpen(true));
+    // Open on keyboard focus only. Mouse/programmatic focus restoration (e.g. an
+    // overlay returning focus to its trigger on close) is not :focus-visible, and
+    // must not pop the tooltip back open (WCAG 1.4.13 was for hover/focus intent).
+    triggerProps.onFocus = chain(child.props.onFocus, (event: FocusEvent) => {
+      if (event.currentTarget.matches(':focus-visible')) {
+        setUncontrolledOpen(true);
+      }
+    });
     triggerProps.onBlur = chain(child.props.onBlur, () => setUncontrolledOpen(false));
   }
 
