@@ -10,6 +10,15 @@ export const runtime = 'nodejs';
 
 const size = { width: 1200, height: 630 };
 
+// OG output is deterministic per palette URL, so let browsers and social scrapers cache it
+// instead of re-rendering (Satori + resvg) on every unfurl.
+const imageOptions = {
+  ...size,
+  headers: {
+    'Cache-Control': 'public, max-age=31536000, immutable',
+  },
+};
+
 const logoDataUrl = `data:image/svg+xml;base64,${readFileSync(
   join(process.cwd(), 'public/brand/logo.svg'),
 ).toString('base64')}`;
@@ -64,7 +73,7 @@ export async function GET({ url: requestUrl }: Request, { params }: RouteContext
       >
         {logo}
       </div>,
-      size,
+      imageOptions,
     );
   }
 
