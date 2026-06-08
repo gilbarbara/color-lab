@@ -22,7 +22,9 @@ function PreviewCards() {
           </p>
         </CardHeader>
         <CardBody>
-          <Button className="self-start bg-(--color-preview-200)">Get started</Button>
+          <Button className="self-start bg-(--color-preview-200) text-(--color-preview-900)">
+            Get started
+          </Button>
         </CardBody>
       </Card>
 
@@ -56,7 +58,9 @@ function PreviewCards() {
       <Card className="bg-(--color-preview-50) md:max-lg:col-span-full mx-auto w-full md:max-lg:max-w-lg">
         <CardBody className="items-center justify-center">
           <VinylRecordIcon className="text-(--color-preview)" size={128} weight="fill" />
-          <p className="mt-2 mb-3 text-2xl text-center font-bold">New album is out</p>
+          <p className="mt-2 mb-3 text-2xl text-center font-bold text-(--color-preview-900)">
+            New album is out
+          </p>
           <Button
             className="bg-(--color-preview) text-(--color-preview-foreground)"
             color="primary"
