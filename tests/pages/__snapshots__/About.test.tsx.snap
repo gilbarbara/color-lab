@@ -6,7 +6,7 @@ exports[`pages/About > renders correctly 1`] = `
   data-testid="About"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8"
   >
     <h1
       class="text-4xl font-bold mb-8"
@@ -30,6 +30,18 @@ exports[`pages/About > renders correctly 1`] = `
           OKLCH
         </strong>
          color space, which makes it easier to reason about lightness and chroma independently and to generate scales that behave consistently across steps and different displays. This is especially important for UI work, where uneven jumps quickly become noticeable.
+      </p>
+      <p>
+        See
+         
+        <a
+          class="underline"
+          href="/oklch-vs-hsl"
+        >
+          OKLCH vs HSL
+        </a>
+         
+        for a side-by-side look at why.
       </p>
     </div>
     <h2
@@ -97,89 +109,20 @@ exports[`pages/About > renders correctly 1`] = `
         </a>
         , a shared library that handles perceptual color logic and scale generation. colorizr can also be used directly in code, independently of either UI.
       </p>
-    </div>
-    <p>
-      That's it. Jump into the
-       
-      <a
-        class="underline"
-        href="/"
+      <p>
+        That's it. Jump into the generator, tweak your scales, and explore a bit. If you find it useful, starring the repos is appreciated.
+      </p>
+      <p
+        class="mt-4"
       >
-        generator
-      </a>
-      , tweak your scales, and explore a bit.
-    </p>
-    <p>
-      If you find it useful, starring the repos is appreciated.
-    </p>
+        <a
+          class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+          href="/"
+        >
+          Create your palette
+        </a>
+      </p>
+    </div>
   </div>
-  <footer
-    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 text-foreground-500 border-t border-default"
-    data-testid="Footer"
-  >
-    <div
-      data-testid="Contact"
-    >
-      <button
-        class="text-base"
-        type="button"
-      >
-        Feedback
-      </button>
-    </div>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/about"
-    >
-      About
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/privacy"
-    >
-      Privacy
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/terms"
-    >
-      Terms
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      class="inline-flex items-center gap-2"
-      href="https://github.com/gilbarbara/color-lab"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="GitHub"
-        class="size-3 block dark:hidden"
-        src="/icons/github.svg"
-      />
-      <img
-        alt="GitHub"
-        class="size-3 hidden dark:block"
-        src="/icons/github-dark.svg"
-      />
-      GitHub
-    </a>
-  </footer>
 </div>
 `;

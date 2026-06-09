@@ -28,6 +28,10 @@ const themeMocks = vi.hoisted(() => ({
 // provider is reduced to a passthrough so no React context is required in tests.
 const generatorStoreHolder = vi.hoisted(() => ({ store: null as GeneratorStoreApi | null }));
 
+vi.mock('~/components/Footer', () => ({
+  default: () => null,
+}));
+
 vi.mock('~/providers/GeneratorStoreProvider', () => ({
   default: ({ children }: { children: ReactNode }) => children,
 }));

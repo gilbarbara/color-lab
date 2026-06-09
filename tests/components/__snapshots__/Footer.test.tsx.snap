@@ -1,0 +1,95 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Footer > renders correctly 1`] = `
+<footer
+  class="w-full text-foreground-600 border-t border-default"
+  data-testid="Footer"
+>
+  <div
+    class="flex flex-col md:flex-row items-center justify-center gap-2 flex-wrap p-4"
+  >
+    <div
+      class="flex items-center justify-center gap-2"
+    >
+      <a
+        href="/about"
+      >
+        About
+      </a>
+      <span
+        aria-hidden="true"
+      >
+        ·
+      </span>
+      <a
+        href="/oklch-vs-hsl"
+      >
+        OKLCH vs HSL
+      </a>
+      <span
+        aria-hidden="true"
+      >
+        ·
+      </span>
+      <a
+        href="/privacy"
+      >
+        Privacy
+      </a>
+      <span
+        aria-hidden="true"
+      >
+        ·
+      </span>
+      <a
+        href="/terms"
+      >
+        Terms
+      </a>
+    </div>
+    <span
+      aria-hidden="true"
+      class="hidden md:inline"
+    >
+      ·
+    </span>
+    <div
+      class="flex items-center justify-center gap-2"
+    >
+      <div
+        data-testid="Contact"
+      >
+        <button
+          class="text-base"
+          type="button"
+        >
+          Feedback
+        </button>
+      </div>
+      <span
+        aria-hidden="true"
+      >
+        ·
+      </span>
+      <a
+        class="inline-flex items-center gap-2"
+        href="https://github.com/gilbarbara/color-lab"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="GitHub"
+          class="size-3 block dark:hidden"
+          src="/icons/github.svg"
+        />
+        <img
+          alt="GitHub"
+          class="size-3 hidden dark:block"
+          src="/icons/github-dark.svg"
+        />
+        GitHub
+      </a>
+    </div>
+  </div>
+</footer>
+`;
