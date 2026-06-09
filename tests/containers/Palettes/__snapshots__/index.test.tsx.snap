@@ -6,7 +6,7 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -74,74 +74,6 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
       </div>
     </div>
   </div>
-  <footer
-    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 text-foreground-500 border-t border-default"
-    data-testid="Footer"
-  >
-    <div
-      data-testid="Contact"
-    >
-      <button
-        class="text-base"
-        type="button"
-      >
-        Feedback
-      </button>
-    </div>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/about"
-    >
-      About
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/privacy"
-    >
-      Privacy
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/terms"
-    >
-      Terms
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      class="inline-flex items-center gap-2"
-      href="https://github.com/gilbarbara/color-lab"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="GitHub"
-        class="size-3 block dark:hidden"
-        src="/icons/github.svg"
-      />
-      <img
-        alt="GitHub"
-        class="size-3 hidden dark:block"
-        src="/icons/github-dark.svg"
-      />
-      GitHub
-    </a>
-  </footer>
 </div>
 `;
 
@@ -151,7 +83,7 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -196,74 +128,6 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
       </div>
     </div>
   </div>
-  <footer
-    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 text-foreground-500 border-t border-default"
-    data-testid="Footer"
-  >
-    <div
-      data-testid="Contact"
-    >
-      <button
-        class="text-base"
-        type="button"
-      >
-        Feedback
-      </button>
-    </div>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/about"
-    >
-      About
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/privacy"
-    >
-      Privacy
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/terms"
-    >
-      Terms
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      class="inline-flex items-center gap-2"
-      href="https://github.com/gilbarbara/color-lab"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="GitHub"
-        class="size-3 block dark:hidden"
-        src="/icons/github.svg"
-      />
-      <img
-        alt="GitHub"
-        class="size-3 hidden dark:block"
-        src="/icons/github-dark.svg"
-      />
-      GitHub
-    </a>
-  </footer>
 </div>
 `;
 
@@ -273,7 +137,7 @@ exports[`Palettes > Render > shows palette grid 1`] = `
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -479,74 +343,6 @@ exports[`Palettes > Render > shows palette grid 1`] = `
       </div>
     </div>
   </div>
-  <footer
-    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 text-foreground-500 border-t border-default"
-    data-testid="Footer"
-  >
-    <div
-      data-testid="Contact"
-    >
-      <button
-        class="text-base"
-        type="button"
-      >
-        Feedback
-      </button>
-    </div>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/about"
-    >
-      About
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/privacy"
-    >
-      Privacy
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/terms"
-    >
-      Terms
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      class="inline-flex items-center gap-2"
-      href="https://github.com/gilbarbara/color-lab"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="GitHub"
-        class="size-3 block dark:hidden"
-        src="/icons/github.svg"
-      />
-      <img
-        alt="GitHub"
-        class="size-3 hidden dark:block"
-        src="/icons/github-dark.svg"
-      />
-      GitHub
-    </a>
-  </footer>
 </div>
 `;
 
@@ -556,7 +352,7 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 pt-8 md:pt-16 px-4 md:px-8 pb-16 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -604,73 +400,5 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
       </div>
     </div>
   </div>
-  <footer
-    class="w-full flex items-center justify-center gap-2 flex-wrap p-4 text-foreground-500 border-t border-default"
-    data-testid="Footer"
-  >
-    <div
-      data-testid="Contact"
-    >
-      <button
-        class="text-base"
-        type="button"
-      >
-        Feedback
-      </button>
-    </div>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/about"
-    >
-      About
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/privacy"
-    >
-      Privacy
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      href="/terms"
-    >
-      Terms
-    </a>
-    <span
-      class="text-foreground-500"
-    >
-      ·
-    </span>
-    <a
-      class="inline-flex items-center gap-2"
-      href="https://github.com/gilbarbara/color-lab"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="GitHub"
-        class="size-3 block dark:hidden"
-        src="/icons/github.svg"
-      />
-      <img
-        alt="GitHub"
-        class="size-3 hidden dark:block"
-        src="/icons/github-dark.svg"
-      />
-      GitHub
-    </a>
-  </footer>
 </div>
 `;
