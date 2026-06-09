@@ -36,11 +36,11 @@ export async function GET(_request: Request, { params }: RouteContext) {
   // Reading it from params instead of the query is what keeps this route static-cacheable.
   let segments = slug;
   let paletteName: string | null = null;
-  const sep = slug.length - 2;
+  const separator = slug.length - 2;
 
-  if (sep >= 0 && slug[sep] === '~') {
+  if (separator >= 0 && slug[separator] === '~') {
     paletteName = slug[slug.length - 1];
-    segments = slug.slice(0, sep);
+    segments = slug.slice(0, separator);
   }
 
   const parsed = parsePaletteFromUrl(`/p/${segments.join('/')}`);
