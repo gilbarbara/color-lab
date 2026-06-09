@@ -1,8 +1,56 @@
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
+import { SITE_NAME, SITE_OG_IMAGE } from '~/config/metadata';
 import { createColorEntry, CRIMSON, ORANGE } from '~/test-fixtures';
-import { getPaletteMeta } from '~/utils/metadata';
+import { buildStaticMetadata, getPaletteMeta } from '~/utils/metadata';
 
 describe('utils/metadata', () => {
+  describe('buildStaticMetadata', () => {
+    it('builds a full metadata block with brand-suffixed og/twitter titles', () => {
+      expect(
+        buildStaticMetadata({ title: 'About', description: 'About us.', path: '/about' }),
+      ).toStrictEqual({
+        title: 'About',
+        description: 'About us.',
+        alternates: { canonical: '/about' },
+        openGraph: {
+          type: 'website',
+          siteName: SITE_NAME,
+          title: `About — ${SITE_NAME}`,
+          description: 'About us.',
+          url: '/about',
+          images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: `About — ${SITE_NAME}` }],
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: `About — ${SITE_NAME}`,
+          description: 'About us.',
+          images: [SITE_OG_IMAGE],
+        },
+      });
+    });
+
+    it('omits robots when not provided', () => {
+      const meta = buildStaticMetadata({
+        title: 'About',
+        description: 'About us.',
+        path: '/about',
+      });
+
+      expect(meta).not.toHaveProperty('robots');
+    });
+
+    it('includes robots when provided', () => {
+      const meta = buildStaticMetadata({
+        title: 'Palettes',
+        description: 'Saved palettes.',
+        path: '/palettes',
+        robots: { index: false },
+      });
+
+      expect(meta.robots).toStrictEqual({ index: false });
+    });
+  });
+
   describe('getPaletteMeta', () => {
     it('joins names and pluralizes for multiple colors', () => {
       const colors = [createColorEntry('Primary', CRIMSON), createColorEntry('Accent', ORANGE)];
