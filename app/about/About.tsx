@@ -23,6 +23,13 @@ export default function About() {
           consistently across steps and different displays. This is especially important for UI
           work, where uneven jumps quickly become noticeable.
         </p>
+        <p>
+          See{' '}
+          <Link className="underline" href="/oklch-vs-hsl">
+            OKLCH vs HSL
+          </Link>{' '}
+          for a side-by-side look at why.
+        </p>
       </div>
 
       <h2 className="text-2xl font-bold mb-4">Accessible and open by design</h2>
@@ -89,15 +96,19 @@ export default function About() {
           , a shared library that handles perceptual color logic and scale generation. colorizr can
           also be used directly in code, independently of either UI.
         </p>
+        <p>
+          That's it. Jump into the generator, tweak your scales, and explore a bit. If you find it
+          useful, starring the repos is appreciated.
+        </p>
+        <p className="mt-4">
+          <Link
+            className="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+            href="/"
+          >
+            Create your palette
+          </Link>
+        </p>
       </div>
-      <p>
-        That's it. Jump into the{' '}
-        <Link className="underline" href="/">
-          generator
-        </Link>
-        , tweak your scales, and explore a bit.
-      </p>
-      <p>If you find it useful, starring the repos is appreciated.</p>
     </Page>
   );
 }
