@@ -29,6 +29,38 @@ describe('utils/metadata', () => {
       });
     });
 
+    it('defaults the og/twitter image to the brand image', () => {
+      const meta = buildStaticMetadata({
+        title: 'About',
+        description: 'About us.',
+        path: '/about',
+      });
+
+      expect(meta.openGraph?.images).toStrictEqual([
+        { url: SITE_OG_IMAGE, width: 1200, height: 630, alt: `About — ${SITE_NAME}` },
+      ]);
+      expect(meta.twitter?.images).toStrictEqual([SITE_OG_IMAGE]);
+    });
+
+    it('uses a custom ogImage in both og and twitter images when provided', () => {
+      const meta = buildStaticMetadata({
+        title: 'OKLCH vs HSL',
+        description: 'Perceptual color.',
+        path: '/oklch-vs-hsl',
+        ogImage: '/og-oklch-vs-hsl.png',
+      });
+
+      expect(meta.openGraph?.images).toStrictEqual([
+        {
+          url: '/og-oklch-vs-hsl.png',
+          width: 1200,
+          height: 630,
+          alt: `OKLCH vs HSL — ${SITE_NAME}`,
+        },
+      ]);
+      expect(meta.twitter?.images).toStrictEqual(['/og-oklch-vs-hsl.png']);
+    });
+
     it('omits robots when not provided', () => {
       const meta = buildStaticMetadata({
         title: 'About',

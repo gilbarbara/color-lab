@@ -7,6 +7,8 @@ import type { ColorEntry } from '~/types';
 
 interface StaticMetaInput {
   description: string;
+  /** OG/Twitter image path; defaults to the brand image. */
+  ogImage?: string;
   /** Canonical path, e.g. `/about`. */
   path: string;
   robots?: Metadata['robots'];
@@ -22,6 +24,7 @@ interface StaticMetaInput {
  */
 export function buildStaticMetadata({
   description,
+  ogImage = SITE_OG_IMAGE,
   path,
   robots,
   title,
@@ -39,13 +42,13 @@ export function buildStaticMetadata({
       title: fullTitle,
       description,
       url: path,
-      images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: fullTitle }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: fullTitle }],
     },
     twitter: {
       card: 'summary_large_image',
       title: fullTitle,
       description,
-      images: [SITE_OG_IMAGE],
+      images: [ogImage],
     },
   };
 }
