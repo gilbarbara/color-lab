@@ -23,6 +23,7 @@ coverage
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/captures/
 
 # Editor directories and files
 .vscode/*
