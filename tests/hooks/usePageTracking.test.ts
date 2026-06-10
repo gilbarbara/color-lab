@@ -34,4 +34,27 @@ describe('hooks/usePageTracking', () => {
 
     expect(trackPage).not.toHaveBeenCalled();
   });
+
+  it('tracks the generator once across palette path changes', () => {
+    setMockRoute('/p/Primary-71_0.2_143');
+    const { rerender } = renderHook(() => usePageTracking());
+
+    setMockRoute('/p/Primary-72_0.2_143');
+    rerender();
+
+    expect(trackPage).toHaveBeenCalledTimes(1);
+    expect(trackPage).toHaveBeenCalledWith('/generator');
+  });
+
+  it('tracks again when the normalized page changes', () => {
+    setMockRoute('/p/Primary-71_0.2_143');
+    const { rerender } = renderHook(() => usePageTracking());
+
+    setMockRoute('/about');
+    rerender();
+
+    expect(trackPage).toHaveBeenCalledTimes(2);
+    expect(trackPage).toHaveBeenNthCalledWith(1, '/generator');
+    expect(trackPage).toHaveBeenNthCalledWith(2, '/about');
+  });
 });

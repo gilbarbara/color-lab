@@ -19,11 +19,11 @@ function normalizePathname(pathname: string): string | null {
 export default function usePageTracking(): void {
   const pathname = usePathname();
 
-  useEffect(() => {
-    const url = normalizePathname(pathname);
+  const url = normalizePathname(pathname);
 
+  useEffect(() => {
     if (url) {
       trackPage(url);
     }
-  }, [pathname]);
+  }, [url]);
 }
