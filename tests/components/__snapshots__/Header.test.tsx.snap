@@ -57,14 +57,14 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
           />
         </svg>
         <span
-          class="hidden xs:inline-flex items-center gap-1"
+          class="hidden xs:inline-flex items-center"
           data-testid="NewPalette"
         >
           New
           <span
             class="hidden sm:inline-flex"
           >
-            Palette
+             Palette
           </span>
         </span>
       </button>
@@ -265,14 +265,14 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
           />
         </svg>
         <span
-          class="hidden xs:inline-flex items-center gap-1"
+          class="hidden xs:inline-flex items-center"
           data-testid="NewPalette"
         >
           New
           <span
             class="hidden sm:inline-flex"
           >
-            Palette
+             Palette
           </span>
         </span>
       </button>
@@ -441,14 +441,14 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
           />
         </svg>
         <span
-          class="hidden xs:inline-flex items-center gap-1"
+          class="hidden xs:inline-flex items-center"
           data-testid="NewPalette"
         >
           New
           <span
             class="hidden sm:inline-flex"
           >
-            Palette
+             Palette
           </span>
         </span>
       </button>

@@ -47,9 +47,9 @@ export default function Header() {
         startContent={<PlusIcon />}
         variant="flat"
       >
-        <span className="hidden xs:inline-flex items-center gap-1" data-testid="NewPalette">
+        <span className="hidden xs:inline-flex items-center" data-testid="NewPalette">
           New
-          <span className="hidden sm:inline-flex">Palette</span>
+          <span className="hidden sm:inline-flex">&nbsp;Palette</span>
         </span>
       </Button>
       <div className="hidden sm:contents">
