@@ -1,6 +1,6 @@
-import { getAuthErrorMessage } from '~/utils/firebase';
+import { getAuthErrorMessage } from '~/utils/auth-errors';
 
-describe('utils/firebase', () => {
+describe('utils/auth-errors', () => {
   describe('getAuthErrorMessage', () => {
     it('maps a known Firebase error code to a friendly message', () => {
       const error = Object.assign(new Error('Firebase: Error (auth/invalid-credential).'), {

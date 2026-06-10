@@ -1,6 +1,7 @@
 import { useSetState } from '@gilbarbara/hooks';
 import { addToast, cn } from '@heroui/react';
 import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
+import { useSearchParams } from 'next/navigation';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import useApp from '~/hooks/useApp';
@@ -8,6 +9,7 @@ import useAuth from '~/hooks/useAuth';
 import useGenerator from '~/hooks/useGenerator';
 import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { trackEvent } from '~/utils/analytics';
+import { getPaletteIdFromUrl } from '~/utils/url';
 
 import Badge from '~/components/Badge';
 import Button from '~/components/Button';
@@ -26,11 +28,12 @@ interface PaletteHeaderState {
 
 export default function PaletteHeader() {
   const { isAuthenticated } = useAuth();
-  const { openLoginModal, showPaletteOptionsPanel, togglePaletteOptionsPanel } = useApp(
-    'openLoginModal',
-    'showPaletteOptionsPanel',
-    'togglePaletteOptionsPanel',
-  );
+  const {
+    openLoginModal,
+    paletteId: appPaletteId,
+    showPaletteOptionsPanel,
+    togglePaletteOptionsPanel,
+  } = useApp('openLoginModal', 'showPaletteOptionsPanel', 'togglePaletteOptionsPanel', 'paletteId');
   const { hasCustomPaletteOptions, name, setName } = useGenerator(
     'hasCustomPaletteOptions',
     'name',
@@ -42,6 +45,16 @@ export default function PaletteHeader() {
   const [{ isSaveModalOpen }, setState] = useSetState<PaletteHeaderState>({
     isSaveModalOpen: false,
   });
+
+  // The URL carries an unvalidated saved-palette `id`, but the record's name
+  // resolves only after auth settles and usePaletteIdSync validates it (setting
+  // appStore.paletteId). Until then show "Loading…" in the name field — unless the
+  // URL already carries the name (`?name=`), which parsePaletteFromUrl has already
+  // seeded into the store. An invalid id is stripped by usePaletteIdSync, so this
+  // self-resolves either way.
+  const searchParams = useSearchParams();
+  const urlPaletteId = getPaletteIdFromUrl(searchParams.toString());
+  const isLoadingSavedPalette = !!urlPaletteId && !searchParams.get('name') && !appPaletteId;
 
   const saveAndAnnounce = async (nameToSave: string) => {
     const palette = await savePalette(nameToSave);
@@ -107,12 +120,15 @@ export default function PaletteHeader() {
           classNames={{
             base: 'opacity-100',
             innerWrapper: 'pb-0',
-            input: 'text-2xl font-semibold text-foreground-800',
+            input: cn('text-2xl font-semibold', {
+              'group-data-[has-value=true]:text-foreground-500': isLoadingSavedPalette,
+            }),
           }}
+          isDisabled={isLoadingSavedPalette}
           name="palette-name"
           onCommit={handleCommitName}
           size="sm"
-          value={name}
+          value={isLoadingSavedPalette ? 'Loading…' : name}
           variant="underlined"
         />
 
@@ -140,7 +156,6 @@ export default function PaletteHeader() {
             className="max-lg:button-menu-square"
             color={hasUnsavedChanges ? 'warning' : 'primary'}
             isDisabled={isSaving || (!!paletteId && !hasUnsavedChanges)}
-            // isLoading={isSaving}
             onPress={handleClickSave}
             size="menu"
             startContent={
@@ -150,7 +165,7 @@ export default function PaletteHeader() {
                 <HeartIcon className={iconClass} />
               )
             }
-            variant="flat"
+            variant="faded"
           >
             <span className="hidden lg:inline">{paletteId ? 'Update' : 'Save'}</span>
           </Button>

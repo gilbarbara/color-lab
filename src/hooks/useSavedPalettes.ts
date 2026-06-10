@@ -8,13 +8,8 @@ import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import useGenerator from '~/hooks/useGenerator';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
-import {
-  createPalette,
-  deletePalette as deletePaletteService,
-  listPalettes,
-  updatePalette as updatePaletteService,
-} from '~/services/palettes';
 import { usePalettesStore } from '~/stores/palettesStore';
+import { loadPalettesService } from '~/utils/load-palettes';
 import { stripPaletteIdentity } from '~/utils/url';
 
 import type { SavedPalette } from '~/types';
@@ -69,6 +64,8 @@ export default function useSavedPalettes() {
       setStatus('saving');
 
       try {
+        // Firestore service is dynamic-imported to keep it off the first-load path.
+        const { createPalette } = await loadPalettesService();
         const palette = await createPalette(user.uid, trimmedName, currentUrl);
 
         addPalette(palette);
@@ -106,6 +103,7 @@ export default function useSavedPalettes() {
     try {
       // Persist the working name alongside the url (read live to avoid a stale closure).
       const nextName = generatorStoreApi.getState().name;
+      const { updatePalette: updatePaletteService } = await loadPalettesService();
       const updated = await updatePaletteService(paletteId, { url: currentUrl, name: nextName });
 
       updatePaletteInStore(paletteId, {
@@ -182,6 +180,7 @@ export function useSavedPalettesList() {
       setStatus('loading');
 
       try {
+        const { listPalettes } = await loadPalettesService();
         const response = await listPalettes(user.uid);
 
         setPalettes(response, user.uid);
@@ -197,6 +196,8 @@ export function useSavedPalettesList() {
   const deletePalette = useCallback(
     async (id: string): Promise<boolean> => {
       try {
+        const { deletePalette: deletePaletteService } = await loadPalettesService();
+
         await deletePaletteService(id);
         removePalette(id);
 
@@ -224,6 +225,7 @@ export function useSavedPalettesList() {
       }
 
       try {
+        const { updatePalette: updatePaletteService } = await loadPalettesService();
         const updated = await updatePaletteService(id, { isFavorite: !palette.isFavorite });
 
         updatePaletteInStore(id, { isFavorite: updated.isFavorite });

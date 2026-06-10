@@ -9,8 +9,8 @@ import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
-import { getPalette, migratePaletteUrl } from '~/services/palettes';
 import { usePalettesStore } from '~/stores/palettesStore';
+import { loadPalettesService } from '~/utils/load-palettes';
 import {
   canonicalizeUrl,
   decoratePaletteUrl,
@@ -51,14 +51,17 @@ export default function usePaletteIdSync() {
       const originalStructural = stripPaletteIdentity(urlWithId);
 
       if (canonicalStructural !== originalStructural) {
-        migratePaletteUrl(id, canonicalStructural).catch(error => {
-          Sentry.addBreadcrumb({
-            category: 'palette-load',
-            message: 'migratePaletteUrl failed',
-            level: 'warning',
-            data: { paletteId: id, error: String(error) },
+        // Firestore is dynamic-imported to keep it off the generator's first-load path.
+        loadPalettesService()
+          .then(({ migratePaletteUrl }) => migratePaletteUrl(id, canonicalStructural))
+          .catch(error => {
+            Sentry.addBreadcrumb({
+              category: 'palette-load',
+              message: 'migratePaletteUrl failed',
+              level: 'warning',
+              data: { paletteId: id, error: String(error) },
+            });
           });
-        });
         updatePaletteInStore(id, { url: canonical });
       }
 
@@ -128,6 +131,7 @@ export default function usePaletteIdSync() {
 
     // Fall back to API call (direct URL access, refresh, shared URL)
     (async () => {
+      const { getPalette } = await loadPalettesService();
       const result = await getPalette(urlPaletteId);
 
       if (result.kind === 'success' && result.palette.userId === user.uid) {

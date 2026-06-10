@@ -100,12 +100,14 @@ describe('providers/AuthProvider', () => {
     it('sets unauthenticated when no session exists', async () => {
       const { result } = renderHook(() => useAuth(), { wrapper });
 
+      // Firebase auth is dynamic-imported after mount, so wait for the settled
+      // (no-longer-loading) state rather than the transient false-while-loading.
       await waitFor(() => {
-        expect(result.current.isAuthenticated).toBe(false);
+        expect(result.current.isLoading).toBe(false);
       });
 
+      expect(result.current.isAuthenticated).toBe(false);
       expect(result.current.user).toBeNull();
-      expect(result.current.isLoading).toBe(false);
     });
   });
 

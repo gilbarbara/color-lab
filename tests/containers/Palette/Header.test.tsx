@@ -37,7 +37,12 @@ describe('PaletteHeader', () => {
     vi.clearAllMocks();
     resetSavedPalettesState();
     getGeneratorStore().setState(createTestPalette(1));
-    useAppStore.setState({ showPaletteOptionsPanel: false, showLoginModal: false, gamut: 'p3' });
+    useAppStore.setState({
+      gamut: 'p3',
+      paletteId: null,
+      showLoginModal: false,
+      showPaletteOptionsPanel: false,
+    });
   });
 
   describe('Render', () => {
@@ -79,6 +84,48 @@ describe('PaletteHeader', () => {
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
 
       expect(screen.getByTestId('PaletteHeader')).toMatchSnapshot();
+    });
+  });
+
+  describe('Loading a saved palette from the URL', () => {
+    it('shows "Loading…" and disables the name field for an unvalidated id (no ?name=)', () => {
+      render(<Header />, {
+        authState: { isAuthenticated: true, user: { uid: 'u1' } },
+        initialEntries: ['/p/Primary-FF0044?id=abc123'],
+      });
+
+      expect(screen.getByDisplayValue('Loading…')).toBeDisabled();
+    });
+
+    it('shows the URL name instead of "Loading…" when ?name= is present', () => {
+      act(() => getGeneratorStore().getState().setName('Sunset'));
+
+      render(<Header />, {
+        authState: { isAuthenticated: true, user: { uid: 'u1' } },
+        initialEntries: ['/p/Primary-FF0044?name=Sunset&id=abc123'],
+      });
+
+      expect(screen.queryByDisplayValue('Loading…')).not.toBeInTheDocument();
+      expect(screen.getByDisplayValue('Sunset')).toBeEnabled();
+    });
+
+    it('shows the resolved name once the id is validated (appStore.paletteId set)', () => {
+      useAppStore.setState({ paletteId: 'abc123' });
+      act(() => getGeneratorStore().getState().setName('My Palette'));
+
+      render(<Header />, {
+        authState: { isAuthenticated: true, user: { uid: 'u1' } },
+        initialEntries: ['/p/Primary-FF0044?id=abc123'],
+      });
+
+      expect(screen.queryByDisplayValue('Loading…')).not.toBeInTheDocument();
+      expect(screen.getByDisplayValue('My Palette')).toBeEnabled();
+    });
+
+    it('does not show "Loading…" when the URL has no saved-palette id', () => {
+      render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
+
+      expect(screen.queryByDisplayValue('Loading…')).not.toBeInTheDocument();
     });
   });
 

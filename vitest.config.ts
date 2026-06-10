@@ -23,7 +23,7 @@ export default defineConfig({
         'src/containers/Palette/index.tsx',
         'src/config/hero.ts',
         'src/hooks/useGeneratorStore.ts',
-        'src/utils/firebase.ts',
+        'src/utils/firebase*.ts',
       ],
     },
     exclude: ['node_modules/**', '.next/**', 'e2e/**', 'cloud-functions/**'],

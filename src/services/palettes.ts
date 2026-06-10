@@ -16,7 +16,7 @@ import {
 import type { DocumentSnapshot } from 'firebase/firestore/lite';
 
 import { PALETTES_COLLECTION } from '~/config/firebase';
-import { getFirebaseDb } from '~/utils/firebase';
+import { getFirebaseDb } from '~/utils/firebase-db';
 import { decoratePaletteUrl } from '~/utils/url';
 
 import type { GetPaletteResult, SavedPalette } from '~/types';
