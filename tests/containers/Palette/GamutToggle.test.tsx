@@ -24,14 +24,6 @@ describe('GamutToggle', () => {
 
       expect(container).toMatchSnapshot();
     });
-
-    it('renders SRGB warning when P3 is not supported', () => {
-      mockIsP3Supported.mockReturnValue(false);
-      useAppStore.setState({ gamut: 'srgb' });
-      const { container } = render(<GamutToggle />);
-
-      expect(container).toMatchSnapshot();
-    });
   });
 
   describe('Behavior', () => {
@@ -57,6 +49,16 @@ describe('GamutToggle', () => {
       fireEvent.click(p3Item);
 
       expect(useAppStore.getState().gamut).toBe('p3');
+    });
+
+    it('surfaces the P3 detection note in the menu', async () => {
+      render(<GamutToggle />);
+
+      fireEvent.click(screen.getByRole('button', { name: 'Color gamut' }));
+
+      await expect(
+        screen.findByText(/verify p3 support on your display/i),
+      ).resolves.toBeInTheDocument();
     });
   });
 });
