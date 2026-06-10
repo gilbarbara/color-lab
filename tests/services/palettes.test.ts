@@ -30,7 +30,7 @@ vi.mock('firebase/firestore/lite', () => ({
   where: vi.fn(),
 }));
 
-vi.mock('~/utils/firebase', () => ({
+vi.mock('~/utils/firebase-db', () => ({
   getFirebaseDb: () => ({}),
 }));
 

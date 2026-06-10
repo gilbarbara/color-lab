@@ -103,7 +103,7 @@ describe('hooks/usePaletteIdSync', () => {
   });
 
   describe('authenticated user - cache hit', () => {
-    it('loads palette from cache when found with matching userId, canonicalising legacy URL', () => {
+    it('loads palette from cache when found with matching userId, canonicalising legacy URL', async () => {
       setMockRoute('/p/Primary-FF0044?id=palette-123');
       mockAuthState = { isAuthenticated: true, isLoading: false, user: { uid: 'user-1' } };
       usePalettesStore.setState({ palettes: [mockPalette] });
@@ -115,11 +115,14 @@ describe('hooks/usePaletteIdSync', () => {
       expect(useAppStore.getState().paletteName).toBe('Test Palette');
       expect(useAppStore.getState().lastSavedUrl).toMatch(/^\/p\/Primary-\d/);
       expect(useAppStore.getState().lastSavedUrl).toContain('?id=palette-123');
-      expect(mockMigratePaletteUrl).toHaveBeenCalledWith('palette-123', expect.any(String));
       expect(getGeneratorStore().getState().name).toBe('Test Palette');
+      // migratePaletteUrl runs through the dynamic-imported service (fire-and-forget).
+      await waitFor(() => {
+        expect(mockMigratePaletteUrl).toHaveBeenCalledWith('palette-123', expect.any(String));
+      });
     });
 
-    it('migrates a structural url (no id, no name) even when the decorated url carries both', () => {
+    it('migrates a structural url (no id, no name) even when the decorated url carries both', async () => {
       // Decorated url as produced by the service: legacy colors + ?name= + ?id=.
       const decoratedUrl = '/p/Primary-FF0044?name=Test+Palette&id=palette-123';
 
@@ -129,7 +132,9 @@ describe('hooks/usePaletteIdSync', () => {
 
       renderHook(() => usePaletteIdSync());
 
-      expect(mockMigratePaletteUrl).toHaveBeenCalledTimes(1);
+      await waitFor(() => {
+        expect(mockMigratePaletteUrl).toHaveBeenCalledTimes(1);
+      });
 
       const [, migratedUrl] = mockMigratePaletteUrl.mock.calls[0];
 
