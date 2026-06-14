@@ -242,7 +242,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
           </dl>
         </section>
         <section
-          data-testid="ColorInfo-ChromaChart"
+          data-testid="ColorInfo-ChromaDistributionChart"
         >
           <p
             class="text-foreground-500 text-xs uppercase tracking-wide mb-3"
@@ -257,7 +257,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 50, chroma 0.015"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.97 0.0155 270);"
               type="button"
             />
@@ -265,7 +265,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 100, chroma 0.028"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.94603 0.02811 270);"
               type="button"
             />
@@ -273,7 +273,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 200, chroma 0.052"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.9022 0.05169 270);"
               type="button"
             />
@@ -281,7 +281,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 300, chroma 0.083"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.84544 0.08324 270);"
               type="button"
             />
@@ -289,7 +289,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 400, chroma 0.122"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.77823 0.12212 270);"
               type="button"
             />
@@ -297,7 +297,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 500, chroma 0.163"
               aria-pressed="true"
               class="w-full rounded-t-sm transition-opacity cursor-pointer ring-1 ring-current/50"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.702 0.163 270);"
               type="button"
             />
@@ -305,7 +305,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 600, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.6571 0.163 270);"
               type="button"
             />
@@ -313,7 +313,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 700, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.575 0.163 270);"
               type="button"
             />
@@ -321,7 +321,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 800, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.46869 0.163 270);"
               type="button"
             />
@@ -329,7 +329,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 900, chroma 0.163"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.3428 0.163 270);"
               type="button"
             />
@@ -337,7 +337,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               aria-label="Step 950, chroma 0.132"
               aria-pressed="false"
               class="w-full rounded-t-sm transition-opacity cursor-pointer hover:opacity-100"
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               style="background-color: oklch(0.2 0.13168 270);"
               type="button"
             />

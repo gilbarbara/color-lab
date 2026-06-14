@@ -14,14 +14,18 @@ const MIN_BAR_HEIGHT = 4;
 const CHART_HEIGHT = 192;
 const MAX_BAR_WIDTH = 32;
 
-export default function ChromaChart({ onSelect, selectedStep, steps }: ChromaChartProps) {
+export default function ChromaDistributionChart({
+  onSelect,
+  selectedStep,
+  steps,
+}: ChromaChartProps) {
   const entries = Object.entries(steps);
   const chromas = entries.map(([, color]) => parseCSS(color, 'oklch').c);
   const maxChroma = Math.max(...chromas, 0.001);
   const columns = entries.length;
 
   return (
-    <section data-testid="ColorInfo-ChromaChart">
+    <section data-testid="ColorInfo-ChromaDistributionChart">
       <p className={`${SECTION_LABEL} mb-3`}>Chroma distribution</p>
       <div
         className="grid items-end gap-1 justify-center"
@@ -43,7 +47,7 @@ export default function ChromaChart({ onSelect, selectedStep, steps }: ChromaCha
               className={`w-full rounded-t-sm transition-opacity cursor-pointer ${
                 isSelected ? 'ring-1 ring-current/50' : 'hover:opacity-100'
               }`}
-              data-testid="ColorInfo-ChromaChart-Bar"
+              data-testid="ColorInfo-ChromaDistributionChart-Bar"
               onClick={() => onSelect(step)}
               style={{
                 backgroundColor: color,

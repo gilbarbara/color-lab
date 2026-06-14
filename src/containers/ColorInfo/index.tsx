@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
 import { Divider, useDisclosure } from '@heroui/react';
-import { InfoIcon } from '@phosphor-icons/react';
+import { ListMagnifyingGlassIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS, MODAL_BODY_PADDING, MODAL_GAP } from '~/config/globals';
 import { trackEvent } from '~/utils/analytics';
@@ -13,7 +13,7 @@ import Tooltip from '~/components/Tooltip';
 
 import type { ColorEntry, ScaleOptions, ScaleSteps } from '~/types';
 
-import ChromaChart from './ChromaChart';
+import ChromaDistributionChart from './ChromaDistributionChart';
 import Definition from './Definition';
 import ScaleOptionsSection from './ScaleOptions';
 import Table from './Table';
@@ -62,7 +62,7 @@ export default function ColorInfo(props: ColorInfoProps) {
           size="menu"
           variant="flat"
         >
-          <InfoIcon className="text-lg" />
+          <ListMagnifyingGlassIcon className="text-lg" />
         </Button>
       </Tooltip>
 
@@ -87,7 +87,11 @@ export default function ColorInfo(props: ColorInfoProps) {
             <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
               <div className="lg:basis-2/5 flex flex-col gap-6 min-w-0">
                 <ScaleOptionsSection colorEntry={colorEntry} options={options} />
-                <ChromaChart onSelect={setSelectedStep} selectedStep={activeStep} steps={steps} />
+                <ChromaDistributionChart
+                  onSelect={setSelectedStep}
+                  selectedStep={activeStep}
+                  steps={steps}
+                />
                 <Definition color={activeColor} step={activeStep} />
               </div>
               <div className="lg:basis-3/5 min-w-0 min-h-0 flex flex-col">
