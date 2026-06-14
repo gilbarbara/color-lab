@@ -1,4 +1,5 @@
 import {
+  type CSSProperties,
   type FocusEvent,
   type MouseEvent,
   type ReactNode,
@@ -17,6 +18,7 @@ interface TooltipClickableProps extends Omit<TooltipProps, 'children'> {
   'aria-label'?: string;
   children?: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }
 
 export default function TooltipClickable(props: TooltipClickableProps) {
@@ -29,6 +31,7 @@ export default function TooltipClickable(props: TooltipClickableProps) {
     delay = 250,
     isDisabled,
     placement = 'bottom-start',
+    style,
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -141,6 +144,7 @@ export default function TooltipClickable(props: TooltipClickableProps) {
         onFocus={handleFocus}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        style={style}
         type="button"
       >
         {children}
