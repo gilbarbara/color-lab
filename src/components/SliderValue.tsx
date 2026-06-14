@@ -14,14 +14,14 @@ export default function SliderValue(props: SliderValueProps) {
     return <output {...rest}>{children}</output>;
   }
 
-  const [primary, secondary] = children.split('–').map(d => parseFloat(d.trim()));
+  const [primary, secondary] = children.split('–').map(value => parseFloat(value.trim()));
 
   if (secondary !== undefined) {
     return (
       <output {...rest} className="flex gap-2 text-small">
         <Chip
           as="span"
-          className="w-12 max-w-none text-center"
+          className="h-5 w-12 max-w-none text-center"
           color={primary === defaultPrimary ? 'default' : 'primary'}
           size="sm"
         >
@@ -29,7 +29,7 @@ export default function SliderValue(props: SliderValueProps) {
         </Chip>
         <Chip
           as="span"
-          className="w-12 max-w-none text-center"
+          className="h-5 w-12 max-w-none text-center"
           color={secondary === defaultSecondary ? 'default' : 'primary'}
           size="sm"
         >
@@ -43,7 +43,7 @@ export default function SliderValue(props: SliderValueProps) {
     <output {...rest}>
       <Chip
         as="span"
-        className="w-12 max-w-none text-center"
+        className="h-5 w-12 max-w-none text-center"
         color={primary === defaultPrimary ? 'default' : 'primary'}
         size="sm"
       >

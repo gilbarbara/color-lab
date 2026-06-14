@@ -119,6 +119,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
               minLightness === defaultOptions.minLightness &&
               maxLightness === defaultOptions.maxLightness
             }
+            isHeading
             onReset={() =>
               onUpdate({
                 minLightness: defaultOptions.minLightness,
@@ -159,6 +160,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
               </>
             }
             disableReset={lightnessCurve === defaultOptions.lightnessCurve}
+            isHeading
             onReset={() =>
               onUpdate({
                 lightnessCurve: defaultOptions.lightnessCurve,
@@ -200,6 +202,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
               </>
             }
             disableReset={chromaCurve === defaultOptions.chromaCurve}
+            isHeading
             onReset={() =>
               onUpdate({
                 chromaCurve: defaultOptions.chromaCurve,

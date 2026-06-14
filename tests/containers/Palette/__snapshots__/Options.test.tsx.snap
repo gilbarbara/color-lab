@@ -321,7 +321,11 @@ exports[`Options > Render > renders default state 1`] = `
                 data-slot="label"
                 id="react-aria-_r_j_"
               >
-                Steps
+                <span
+                  class="text-base/5"
+                >
+                  Steps
+                </span>
                 <button
                   aria-expanded="false"
                   aria-label="Description for Steps"
@@ -342,7 +346,7 @@ exports[`Options > Render > renders default state 1`] = `
                 </button>
                 <button
                   aria-label="Reset Steps to default"
-                  class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                  class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                   disabled=""
                   type="button"
                 >
@@ -366,7 +370,7 @@ exports[`Options > Render > renders default state 1`] = `
                 for="react-aria-_r_j_-0"
               >
                 <span
-                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                 >
                   <span
                     class="flex-1 text-inherit font-normal px-1"
@@ -448,10 +452,14 @@ exports[`Options > Render > renders default state 1`] = `
                 data-slot="label"
                 id="react-aria-_r_r_"
               >
-                Saturation
+                <span
+                  class="text-base/5"
+                >
+                  Saturation
+                </span>
                 <button
                   aria-label="Reset Saturation to default"
-                  class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                  class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                   disabled=""
                   type="button"
                 >
@@ -475,7 +483,7 @@ exports[`Options > Render > renders default state 1`] = `
                 for="react-aria-_r_r_-0"
               >
                 <span
-                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                 >
                   <span
                     class="flex-1 text-inherit font-normal px-1"
@@ -996,7 +1004,11 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 data-slot="label"
                 id="react-aria-_r_1s_"
               >
-                Steps
+                <span
+                  class="text-base/5"
+                >
+                  Steps
+                </span>
                 <button
                   aria-expanded="false"
                   aria-label="Description for Steps"
@@ -1017,7 +1029,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 </button>
                 <button
                   aria-label="Reset Steps to default"
-                  class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                  class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                   disabled=""
                   type="button"
                 >
@@ -1041,7 +1053,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 for="react-aria-_r_1s_-0"
               >
                 <span
-                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                 >
                   <span
                     class="flex-1 text-inherit font-normal px-1"
@@ -1123,10 +1135,14 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 data-slot="label"
                 id="react-aria-_r_24_"
               >
-                Saturation
+                <span
+                  class="text-base/5"
+                >
+                  Saturation
+                </span>
                 <button
                   aria-label="Reset Saturation to default"
-                  class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                  class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                   type="button"
                 >
                   <svg
@@ -1149,7 +1165,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 for="react-aria-_r_24_-0"
               >
                 <span
-                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-primary text-primary-foreground w-12 max-w-none text-center"
+                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
                 >
                   <span
                     class="flex-1 text-inherit font-normal px-1"
@@ -1672,7 +1688,11 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 data-slot="label"
                 id="react-aria-_r_35_"
               >
-                Steps
+                <span
+                  class="text-base/5"
+                >
+                  Steps
+                </span>
                 <button
                   aria-expanded="false"
                   aria-label="Description for Steps"
@@ -1693,7 +1713,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 </button>
                 <button
                   aria-label="Reset Steps to default"
-                  class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                  class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                   disabled=""
                   type="button"
                 >
@@ -1717,7 +1737,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 for="react-aria-_r_35_-0"
               >
                 <span
-                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                 >
                   <span
                     class="flex-1 text-inherit font-normal px-1"
@@ -1799,10 +1819,14 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 data-slot="label"
                 id="react-aria-_r_3d_"
               >
-                Saturation
+                <span
+                  class="text-base/5"
+                >
+                  Saturation
+                </span>
                 <button
                   aria-label="Reset Saturation to default"
-                  class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                  class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                   disabled=""
                   type="button"
                 >
@@ -1826,7 +1850,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 for="react-aria-_r_3d_-0"
               >
                 <span
-                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                  class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                 >
                   <span
                     class="flex-1 text-inherit font-normal px-1"

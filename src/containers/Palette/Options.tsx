@@ -206,6 +206,7 @@ export default function PaletteOptions() {
                 }
                 disableReset={steps === defaultOptions.steps}
                 onReset={() => updateGlobalOptions({ steps: defaultOptions.steps })}
+                size="lg"
               />
             )}
             renderValue={renderProps => (
@@ -239,6 +240,7 @@ export default function PaletteOptions() {
                     saturation: defaultOptions.saturation,
                   })
                 }
+                size="lg"
               />
             )}
             renderValue={renderProps => (
@@ -289,7 +291,6 @@ export default function PaletteOptions() {
                 </p>
               </>
             }
-            placement="bottom"
           />
         </div>
         <div>
