@@ -5,9 +5,10 @@ import useGeneratorStore from '~/hooks/useGeneratorStore';
 import { type GeneratorStore } from '~/stores/generatorStore';
 import { getChromaAsPercentage } from '~/utils/color';
 import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/generator';
+import { isSameOptionValue } from '~/utils/scale-options';
 import { serializePaletteToUrl } from '~/utils/url';
 
-import type { GlobalScaleOptions } from '~/types';
+import type { DefaultScaleOptions } from '~/types';
 
 type ComputedKey = keyof ComputedPaletteValues;
 
@@ -16,7 +17,7 @@ type StoreKey = keyof GeneratorStore;
 type UsePaletteKey = keyof PaletteAggregate;
 interface ComputedPaletteValues {
   baseSaturation: number;
-  defaultOptions: GlobalScaleOptions;
+  defaultOptions: DefaultScaleOptions;
   generatorUrl: string;
   hasCustomCurves: boolean;
   hasCustomPaletteOptions: boolean;
@@ -93,7 +94,7 @@ export default function useGenerator<K extends UsePaletteKey>(
   const hasCustomCurves = useMemo(
     () =>
       globalOptions && defaultOptions
-        ? CURVE_OPTION_KEYS.some(key => globalOptions[key] !== defaultOptions[key])
+        ? CURVE_OPTION_KEYS.some(key => !isSameOptionValue(globalOptions[key], defaultOptions[key]))
         : (undefined as never),
     [globalOptions, defaultOptions],
   );
@@ -101,7 +102,9 @@ export default function useGenerator<K extends UsePaletteKey>(
   const hasCustomPaletteOptions = useMemo(
     () =>
       globalOptions && defaultOptions
-        ? PALETTE_OPTION_KEYS.some(key => globalOptions[key] !== defaultOptions[key])
+        ? PALETTE_OPTION_KEYS.some(
+            key => !isSameOptionValue(globalOptions[key], defaultOptions[key]),
+          )
         : (undefined as never),
     [globalOptions, defaultOptions],
   );

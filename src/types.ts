@@ -1,4 +1,4 @@
-import type { ScaleOptions as ScaleOptionsBase } from 'colorizr';
+import type { ScaleChromaPeak, ScaleOptions as ScaleOptionsBase, ScaleRange } from 'colorizr';
 
 export type ExportColorFormat = 'oklch' | 'hex' | 'hsl' | 'rgb' | 'rgb-channels';
 
@@ -18,7 +18,12 @@ export type GetPaletteResult =
 
 export type OklchString = string & { readonly __brand: 'OklchString' };
 
-export type ScaleOptions = Omit<ScaleOptionsBase, 'format'>;
+// All three curve options share the same shape contract: a scalar (Simple mode) or
+// an object (Split / movable peak). hueShift's scalar x means symmetric drift
+// (≡ { low: -x, high: x }); chroma/lightness scalars mean both ends equal.
+export type ScaleOptions = Omit<ScaleOptionsBase, 'format' | 'hueShift'> & {
+  hueShift?: number | ScaleRange;
+};
 
 export type ScaleSteps = Record<string, string>;
 
@@ -27,6 +32,19 @@ export interface ColorEntry {
   name: string;
   overrides?: Partial<ScaleOptions>;
   value: OklchString;
+}
+
+/**
+ * The options a freshly-defaulted palette uses. Curves are always their scalar
+ * shape — `getDefaultGlobalOptions` only ever produces scalars;
+ * the store widens to the object modes in `GlobalScaleOptions` once the user
+ * switches a curve. Typing the default narrowly keeps "the default" from being
+ * a range/peak.
+ */
+export interface DefaultScaleOptions extends GlobalScaleOptions {
+  chromaCurve: number;
+  hueShift: number;
+  lightnessCurve: number;
 }
 
 export interface ExportOptions {
@@ -71,8 +89,11 @@ export interface GeneratorState {
 }
 
 export interface GlobalScaleOptions extends ScaleOptions {
-  chromaCurve: number;
-  lightnessCurve: number;
+  chromaCurve: number | ScaleChromaPeak | ScaleRange;
+  // Required (the global panel always has a value); shape carries the UI mode
+  // (scalar = Simple, range = Split), like the other curves.
+  hueShift: number | ScaleRange;
+  lightnessCurve: number | ScaleRange;
   maxLightness: number;
   minLightness: number;
   saturation: number;

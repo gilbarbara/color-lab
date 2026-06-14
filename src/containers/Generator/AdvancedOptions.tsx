@@ -11,21 +11,21 @@ import Button from '~/components/Button';
 import CollapsePanel from '~/components/CollapsePanel';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 
-import type { GlobalScaleOptions } from '~/types';
+import type { DefaultScaleOptions, GlobalScaleOptions } from '~/types';
 
-interface ColorOptionsProps {
-  defaultOptions: GlobalScaleOptions;
+interface AdvancedOptionsProps {
+  defaultOptions: DefaultScaleOptions;
   globalOptions: GlobalScaleOptions;
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
 
-export default function ColorOptions(props: ColorOptionsProps) {
+export default function AdvancedOptions(props: AdvancedOptionsProps) {
   const { defaultOptions, globalOptions, updateGlobalOptions } = props;
   const { showColorOptionsPanel, toggleColorOptionsPanel } = useApp(
     'showColorOptionsPanel',
     'toggleColorOptionsPanel',
   );
-  const { hasCustomCurves } = useGenerator('hasCustomCurves');
+  const { colors, hasCustomCurves } = useGenerator('colors', 'hasCustomCurves');
 
   const handleClickReset = () => {
     updateGlobalOptions(
@@ -63,6 +63,7 @@ export default function ColorOptions(props: ColorOptionsProps) {
             onReset={handleClickReset}
             onUpdate={updateGlobalOptions}
             options={globalOptions}
+            seedColor={colors[0].value}
           />
         </div>
       </CollapsePanel>

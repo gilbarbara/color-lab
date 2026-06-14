@@ -96,146 +96,130 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
             class="grid grid-cols-2 gap-x-6"
           >
             <div
-              class="flex items-center justify-between py-2 border-t border-default-100"
+              class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
             >
               <dt
-                class="text-sm flex items-center gap-2"
+                class="text-sm text-foreground-600 leading-tight"
               >
-                <span>
-                  Steps
-                </span>
+                Steps
               </dt>
               <dd
-                class="text-sm text-right"
+                class="flex items-center text-sm text-right gap-1"
               >
-                <span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    11
-                  </span>
+                <span
+                  class="text-foreground"
+                >
+                  11
                 </span>
               </dd>
             </div>
             <div
-              class="flex items-center justify-between py-2 border-t border-default-100"
+              class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
             >
               <dt
-                class="text-sm flex items-center gap-2"
+                class="text-sm text-foreground-600 leading-tight"
               >
-                <span>
-                  Lightness range
-                </span>
+                Lightness range
               </dt>
               <dd
-                class="text-sm text-right"
+                class="flex items-center text-sm text-right gap-1"
               >
-                <span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    0.26
-                  </span>
+                <span
+                  class="text-foreground"
+                >
+                  0.26
                 </span>
-                <span>
-                  <span
-                    class="text-foreground-500"
+                <span
+                  class="text-foreground"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                     ~ 
-                  </span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    0.97
-                  </span>
+                    <path
+                      d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="text-foreground"
+                >
+                  0.97
                 </span>
               </dd>
             </div>
             <div
-              class="flex items-center justify-between py-2 border-t border-default-100"
+              class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
             >
               <dt
-                class="text-sm flex items-center gap-2"
+                class="text-sm text-foreground-600 leading-tight"
               >
-                <span>
-                  Lightness curve
-                </span>
+                Lightness curve
               </dt>
               <dd
-                class="text-sm text-right"
+                class="flex items-center text-sm text-right gap-1"
               >
-                <span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    1.3
-                  </span>
+                <span
+                  class="text-foreground"
+                >
+                  1.3
                 </span>
               </dd>
             </div>
             <div
-              class="flex items-center justify-between py-2 border-t border-default-100"
+              class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
             >
               <dt
-                class="text-sm flex items-center gap-2"
+                class="text-sm text-foreground-600 leading-tight"
               >
-                <span>
-                  Chroma curve
-                </span>
+                Chroma curve
               </dt>
               <dd
-                class="text-sm text-right"
+                class="flex items-center text-sm text-right gap-1"
               >
-                <span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    0
-                  </span>
+                <span
+                  class="text-foreground"
+                >
+                  0
                 </span>
               </dd>
             </div>
             <div
-              class="flex items-center justify-between py-2 border-t border-default-100"
+              class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
             >
               <dt
-                class="text-sm flex items-center gap-2"
+                class="text-sm text-foreground-600 leading-tight"
               >
-                <span>
-                  Mode
-                </span>
+                Mode
               </dt>
               <dd
-                class="text-sm text-right"
+                class="flex items-center text-sm text-right gap-1"
               >
-                <span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    light
-                  </span>
+                <span
+                  class="text-foreground"
+                >
+                  light
                 </span>
               </dd>
             </div>
             <div
-              class="flex items-center justify-between py-2 border-t border-default-100"
+              class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
             >
               <dt
-                class="text-sm flex items-center gap-2"
+                class="text-sm text-foreground-600 leading-tight"
               >
-                <span>
-                  Lock
-                </span>
+                Lock
               </dt>
               <dd
-                class="text-sm text-right"
+                class="flex items-center text-sm text-right gap-1"
               >
-                <span>
-                  <span
-                    class="text-foreground-500"
-                  >
-                    500
-                  </span>
+                <span
+                  class="text-foreground"
+                >
+                  500
                 </span>
               </dd>
             </div>

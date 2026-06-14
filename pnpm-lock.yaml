@@ -7,6 +7,9 @@ settings:
 overrides:
   '@react-types/shared': 3.35.0
 
+patchedDependencies:
+  '@react-stately/slider@3.7.5': 2df54214531a333d90ec43fc35ee64b0fa7d2d93430d7f10266c08dd90576828
+
 importers:
 
   .:
@@ -30,11 +33,11 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       '@transience/color-picker':
-        specifier: ^0.4.0
-        version: 0.4.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.1)
+        specifier: ^0.4.2
+        version: 0.4.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.1)
       colorizr:
-        specifier: ^5.0.1
-        version: 5.0.1
+        specifier: ^5.1.1
+        version: 5.1.1
       firebase:
         specifier: ^12.15.0
         version: 12.15.0
@@ -2918,8 +2921,8 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
-  '@transience/color-picker@0.4.0':
-    resolution: {integrity: sha512-xM+juGs45sp1+7pWXc+p2LVklo6C82I2LW/empoE+UWPKNN5wKXJ/e7hjCKMVic7rzurIOquF/v9tpNULXEtBA==}
+  '@transience/color-picker@0.4.2':
+    resolution: {integrity: sha512-Vy4Q5y2YSfed2bCzf2NnQuarSWwxLv3Yg2GNQSKiEo79pguXb4rKdsPsqg1Fm8FFyenfgCfE+QL0aZ779TAh4Q==}
     peerDependencies:
       react: 16.8 - 19
       react-dom: 16.8 - 19
@@ -3493,8 +3496,11 @@ packages:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
     engines: {node: '>=12.5.0'}
 
-  colorizr@5.0.1:
-    resolution: {integrity: sha512-HWGEFgGcCvqgKnnwNNUqPdSoN190SxHZFZeHNUcEuAOZbX7gVQjE9GZYl+ZrbgH5Tpjb97os3mjbULz7GijvUQ==}
+  colorizr@5.1.0:
+    resolution: {integrity: sha512-kpLGT1r/NNn0wpTf0g0RkN0pH3fESd3xVux/VQDv6JgS80rhZrh7aU548a1VIuOitHJUT+scGEnsuiqAlPTa2A==}
+
+  colorizr@5.1.1:
+    resolution: {integrity: sha512-NK+aBGNcsFOfPMFzhbqYg07Cm/qNSUi90Wrddq6JyuTI88xSOt7aP5BTkPTrZPE4asXmxnTqo+lTGywtZ5ucvQ==}
 
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -7116,7 +7122,7 @@ snapshots:
       '@react-aria/interactions': 3.27.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/slider': 3.8.5(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/visually-hidden': 3.8.31(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-stately/slider': 3.7.5(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-stately/slider': 3.7.5(patch_hash=2df54214531a333d90ec43fc35ee64b0fa7d2d93430d7f10266c08dd90576828)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
     transitivePeerDependencies:
@@ -8613,7 +8619,7 @@ snapshots:
       react-dom: 19.2.7(react@19.2.7)
       react-stately: 3.47.0(react@19.2.7)
 
-  '@react-stately/slider@3.7.5(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@react-stately/slider@3.7.5(patch_hash=2df54214531a333d90ec43fc35ee64b0fa7d2d93430d7f10266c08dd90576828)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@react-stately/utils': 3.12.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-types/shared': 3.35.0(react@19.2.7)
@@ -9398,10 +9404,10 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.4.1
 
-  '@transience/color-picker@0.4.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.1)':
+  '@transience/color-picker@0.4.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.1)':
     dependencies:
       clsx: 2.1.1
-      colorizr: 5.0.1
+      colorizr: 5.1.0
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
       tailwind-merge: 3.6.0
@@ -10001,7 +10007,9 @@ snapshots:
       color-convert: 2.0.1
       color-string: 1.9.1
 
-  colorizr@5.0.1: {}
+  colorizr@5.1.0: {}
+
+  colorizr@5.1.1: {}
 
   commander@2.20.3: {}
 

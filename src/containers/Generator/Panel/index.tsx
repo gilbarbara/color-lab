@@ -18,7 +18,7 @@ import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
 import ColorList from '~/containers/ColorList';
 
-import ColorOptions from '../ColorOptions';
+import AdvancedOptions from '../AdvancedOptions';
 
 import BottomBar from './BottomBar';
 
@@ -236,7 +236,7 @@ export default function Panel() {
         <div className="hidden md:block">
           <AppIntro />
         </div>
-        <ColorOptions
+        <AdvancedOptions
           defaultOptions={defaultOptions}
           globalOptions={globalOptions}
           updateGlobalOptions={updateGlobalOptions}

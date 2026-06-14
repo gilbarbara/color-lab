@@ -1,10 +1,12 @@
-import { objectEntries } from '@gilbarbara/helpers';
+import { objectEntries, round } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/nextjs';
-import { isHex, type ScaleVariant } from 'colorizr';
+import { isHex, type ScaleChromaPeak, type ScaleRange, type ScaleVariant } from 'colorizr';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
+import { HUE_SHIFT_LIMIT } from '~/config/scale';
 import { formatOklch, formatOklchUrl, isInRangeOklch, toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/generator';
+import { isCurvePeak, isSameOptionValue } from '~/utils/scale-options';
 
 import type {
   ColorEntry,
@@ -29,6 +31,7 @@ export interface ParsedPalette {
 // Option key mappings (short keys for URL)
 const OPTION_KEYS = {
   chromaCurve: 'c',
+  hueShift: 'h',
   lightnessCurve: 'f',
   lock: 'k',
   maxLightness: 'x',
@@ -65,6 +68,13 @@ const VALID_VARIANTS = [
   'subtle',
   'vibrant',
 ] as const satisfies readonly ScaleVariant[];
+
+// Curve options accept three shapes in both query and path forms:
+//   scalar  NUMBER          (legacy / simple)
+//   range   NUMBER_NUMBER   (low_high)
+//   peak    pNUMBER_NUMBER  (amount_peak — chromaCurve only)
+// `_` only ever appears inside a value, so the `,`/`:`/`-` option delimiters are unaffected.
+type CurveOptionKey = 'chromaCurve' | 'hueShift' | 'lightnessCurve';
 
 /**
  * Convert OKLCH color value to URL format: '64_0.142_329' (L%_C_H, rounded)
@@ -165,6 +175,12 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
     const fullKey = OPTION_KEYS_REVERSE[shortKey];
 
     if (!fullKey) {
+      continue;
+    }
+
+    if (isCurveOptionKey(fullKey)) {
+      Object.assign(result, curveOptionEntry(fullKey, value));
+
       continue;
     }
 
@@ -274,35 +290,12 @@ function parseOptions(optString: string): Partial<ScaleOptions> {
       continue;
     }
 
-    // Parse value based on option type
-    switch (fullKey) {
-      case 'mode': {
-        const mode = parseMode(value);
-
-        if (mode) result.mode = mode;
-
-        break;
-      }
-      case 'variant': {
-        const variant = parseVariant(value);
-
-        if (variant) result.variant = variant;
-
-        break;
-      }
-      case 'lock': {
-        result.lock = parseLock(value);
-
-        break;
-      }
-      default: {
-        const numberValue = Number.parseFloat(value);
-
-        if (!Number.isNaN(numberValue)) {
-          (result as Record<string, number>)[fullKey] = numberValue;
-        }
-      }
-    }
+    Object.assign(
+      result,
+      isCurveOptionKey(fullKey)
+        ? curveOptionEntry(fullKey, value)
+        : scalarOptionEntry(fullKey, value),
+    );
   }
 
   return result;
@@ -310,6 +303,138 @@ function parseOptions(optString: string): Partial<ScaleOptions> {
 
 function parseVariant(raw: string): ScaleVariant | undefined {
   return (VALID_VARIANTS as readonly string[]).includes(raw) ? (raw as ScaleVariant) : undefined;
+}
+
+const CURVE_OPTION_KEYS_SET = new Set<keyof typeof OPTION_KEYS>([
+  'chromaCurve',
+  'hueShift',
+  'lightnessCurve',
+]);
+
+/** Parsed curve option as a fragment to merge, or `{}` when the value is invalid. */
+function curveOptionEntry(key: CurveOptionKey, raw: string): Record<string, unknown> {
+  const parsed = parseCurveOptionValue(key, raw);
+
+  return parsed === undefined ? {} : { [key]: parsed };
+}
+
+function inRange(value: number, min: number, max: number): boolean {
+  return Number.isFinite(value) && value >= min && value <= max;
+}
+
+function isCurveOptionKey(key: keyof typeof OPTION_KEYS): key is CurveOptionKey {
+  return CURVE_OPTION_KEYS_SET.has(key);
+}
+
+/** Validate a scalar/range endpoint for a curve key. */
+function isValidCurveValue(key: CurveOptionKey, value: number): boolean {
+  if (key === 'chromaCurve') {
+    return inRange(value, 0, 1);
+  }
+
+  if (key === 'hueShift') {
+    return inRange(value, -HUE_SHIFT_LIMIT, HUE_SHIFT_LIMIT);
+  }
+
+  // lightnessCurve
+  return Number.isFinite(value) && value > 0;
+}
+
+/**
+ * Parse a curve option value. Returns undefined to drop silently — scale()
+ * throws on out-of-range input, so anything invalid must never reach the store.
+ */
+function parseCurveOptionValue(
+  key: CurveOptionKey,
+  raw: string,
+): number | ScaleRange | ScaleChromaPeak | undefined {
+  // peak form: pAMOUNT_PEAK (chromaCurve only)
+  if (raw.startsWith('p')) {
+    if (key !== 'chromaCurve') {
+      return undefined;
+    }
+
+    const parts = raw.slice(1).split('_');
+
+    if (parts.length !== 2) {
+      return undefined;
+    }
+
+    const [amount, peak] = parts.map(Number.parseFloat);
+
+    if (!inRange(amount, 0, 1) || !Number.isFinite(peak) || peak <= 0 || peak >= 1) {
+      return undefined;
+    }
+
+    return { amount, peak };
+  }
+
+  // range form: LOW_HIGH
+  if (raw.includes('_')) {
+    const parts = raw.split('_');
+
+    if (parts.length !== 2) {
+      return undefined;
+    }
+
+    const [low, high] = parts.map(Number.parseFloat);
+
+    if (!isValidCurveValue(key, low) || !isValidCurveValue(key, high)) {
+      return undefined;
+    }
+
+    return { high, low };
+  }
+
+  // scalar form (Simple mode) — kept as-is for all curves; hueShift scalar x
+  // means symmetric drift (≡ { low: -x, high: x }), resolved at render time.
+  const value = Number.parseFloat(raw);
+
+  if (!isValidCurveValue(key, value)) {
+    return undefined;
+  }
+
+  return value;
+}
+
+/** Non-curve per-color option (mode/variant/lock or a plain number) as a fragment to merge. */
+function scalarOptionEntry(
+  key: Exclude<keyof typeof OPTION_KEYS, CurveOptionKey>,
+  value: string,
+): Partial<ScaleOptions> {
+  switch (key) {
+    case 'mode': {
+      const mode = parseMode(value);
+
+      return mode ? { mode } : {};
+    }
+    case 'variant': {
+      const variant = parseVariant(value);
+
+      return variant ? { variant } : {};
+    }
+    case 'lock': {
+      return { lock: parseLock(value) };
+    }
+    default: {
+      const numberValue = Number.parseFloat(value);
+
+      return Number.isNaN(numberValue) ? {} : { [key]: numberValue };
+    }
+  }
+}
+
+/** Serialize a curve option value to URL form, rounding to drop slider float junk. */
+function serializeCurveOptionValue(value: number | ScaleRange | ScaleChromaPeak): string {
+  if (typeof value === 'number') {
+    return String(round(value, 4));
+  }
+
+  if (isCurvePeak(value)) {
+    return `p${round(value.amount, 4)}_${round(value.peak ?? 0.5, 4)}`;
+  }
+
+  return `${round(value.low, 4)}_${round(value.high, 4)}`;
 }
 
 /**
@@ -323,10 +448,12 @@ function serializeGlobalOptions(options: GlobalScaleOptions, defaults: GlobalSca
     const value = options[key as keyof GlobalScaleOptions];
     const defaultValue = defaults[key];
 
-    if (value !== undefined && value !== defaultValue) {
+    if (value !== undefined && !isSameOptionValue(value, defaultValue)) {
       let serialized: string;
 
-      if (key === 'mode' && typeof value === 'string') {
+      if (isCurveOptionKey(key)) {
+        serialized = serializeCurveOptionValue(value as number | ScaleRange | ScaleChromaPeak);
+      } else if (key === 'mode' && typeof value === 'string') {
         serialized = MODE_SHORT[value as ScaleMode] ?? value;
       } else if (key === 'saturationOverride') {
         // Only serialize when true (default is false)
@@ -360,11 +487,16 @@ function serializeOptions(
     const value = options[key as keyof ScaleOptions];
     const defaultValue = defaults[key];
 
-    if (value !== undefined && value !== defaultValue) {
-      const serialized =
-        key === 'mode' && typeof value === 'string'
-          ? (MODE_SHORT[value as ScaleMode] ?? value)
-          : String(value);
+    if (value !== undefined && !isSameOptionValue(value, defaultValue)) {
+      let serialized: string;
+
+      if (isCurveOptionKey(key)) {
+        serialized = serializeCurveOptionValue(value as number | ScaleRange | ScaleChromaPeak);
+      } else if (key === 'mode' && typeof value === 'string') {
+        serialized = MODE_SHORT[value as ScaleMode] ?? value;
+      } else {
+        serialized = String(value);
+      }
 
       parts.push(`${shortKey}:${serialized}`);
     }

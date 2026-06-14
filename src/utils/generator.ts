@@ -1,10 +1,21 @@
 import { objectKeys, uuid } from '@gilbarbara/helpers';
 
 import { DEFAULT_COLOR_NAMES, DEFAULT_PALETTE_NAME } from '~/config/globals';
+import {
+  CHROMA_CURVE_DEFAULT,
+  HUE_SHIFT_DEFAULT,
+  LIGHTNESS_CURVE_DEFAULT,
+  LIGHTNESS_RANGE_MAX_DEFAULT,
+  LIGHTNESS_RANGE_MIN_DEFAULT,
+  MODE_DEFAULT,
+  STEPS_DEFAULT,
+} from '~/config/scale';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
+import { isSameOptionValue } from '~/utils/scale-options';
 
 import type {
   ColorEntry,
+  DefaultScaleOptions,
   GeneratorState,
   GlobalScaleOptions,
   OklchString,
@@ -18,6 +29,7 @@ export const CURVE_OPTION_KEYS = [
   'maxLightness',
   'lightnessCurve',
   'chromaCurve',
+  'hueShift',
 ] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
 
 export const PALETTE_OPTION_KEYS = [
@@ -77,17 +89,18 @@ export function getDefaultColorName(index: number): string {
 /**
  * Get default global options with saturation computed from the given color.
  */
-export function getDefaultGlobalOptions(color: OklchString): GlobalScaleOptions {
+export function getDefaultGlobalOptions(color: OklchString): DefaultScaleOptions {
   return {
-    chromaCurve: 0,
-    lightnessCurve: 1.3,
+    chromaCurve: CHROMA_CURVE_DEFAULT,
+    hueShift: HUE_SHIFT_DEFAULT,
+    lightnessCurve: LIGHTNESS_CURVE_DEFAULT,
     lock: undefined,
-    maxLightness: 0.97,
-    minLightness: 0.26,
-    mode: 'light',
+    maxLightness: LIGHTNESS_RANGE_MAX_DEFAULT,
+    minLightness: LIGHTNESS_RANGE_MIN_DEFAULT,
+    mode: MODE_DEFAULT,
     saturation: getChromaAsPercentage(color),
     saturationOverride: false,
-    steps: 11,
+    steps: STEPS_DEFAULT,
     variant: undefined,
   };
 }
@@ -160,7 +173,7 @@ export function setColorOverride(
   const merged: Partial<ScaleOptions> = { ...currentColor.overrides, ...updates };
 
   for (const key of objectKeys(merged)) {
-    if (merged[key] === state.globalOptions[key]) {
+    if (isSameOptionValue(merged[key], state.globalOptions[key])) {
       delete merged[key];
     }
   }

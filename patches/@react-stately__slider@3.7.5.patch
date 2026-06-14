@@ -1,0 +1,27 @@
+diff --git a/dist/useSliderState.main.js b/dist/useSliderState.main.js
+--- a/dist/useSliderState.main.js
++++ b/dist/useSliderState.main.js
+@@ -28,4 +28,4 @@
+     let pageSize = (0, $1NNdE$react.useMemo)(()=>{
+-        let calcPageSize = (maxValue - minValue) / 10;
++        let calcPageSize = step * 10 < (maxValue - minValue) ? step * 10 : (maxValue - minValue) / 10;
+         calcPageSize = (0, $1NNdE$reactstatelyutils.snapValueToStep)(calcPageSize, 0, calcPageSize + step, step);
+         return Math.max(calcPageSize, step);
+diff --git a/dist/useSliderState.mjs b/dist/useSliderState.mjs
+--- a/dist/useSliderState.mjs
++++ b/dist/useSliderState.mjs
+@@ -22,4 +22,4 @@
+     let pageSize = (0, $BT4Uh$useMemo)(()=>{
+-        let calcPageSize = (maxValue - minValue) / 10;
++        let calcPageSize = step * 10 < (maxValue - minValue) ? step * 10 : (maxValue - minValue) / 10;
+         calcPageSize = (0, $BT4Uh$snapValueToStep)(calcPageSize, 0, calcPageSize + step, step);
+         return Math.max(calcPageSize, step);
+diff --git a/dist/useSliderState.module.js b/dist/useSliderState.module.js
+--- a/dist/useSliderState.module.js
++++ b/dist/useSliderState.module.js
+@@ -22,4 +22,4 @@
+     let pageSize = (0, $BT4Uh$useMemo)(()=>{
+-        let calcPageSize = (maxValue - minValue) / 10;
++        let calcPageSize = step * 10 < (maxValue - minValue) ? step * 10 : (maxValue - minValue) / 10;
+         calcPageSize = (0, $BT4Uh$snapValueToStep)(calcPageSize, 0, calcPageSize + step, step);
+         return Math.max(calcPageSize, step);

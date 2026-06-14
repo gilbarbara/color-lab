@@ -124,6 +124,7 @@ export default function ColorActions(props: ColorActionsProps) {
                 onReset={handleResetOptions}
                 onUpdate={handleUpdateOptions}
                 options={{ ...globalOptions, ...colorEntry.overrides }}
+                seedColor={colorEntry.value}
                 title={`Options for ${colorEntry.name}`}
                 useLightTheme={useLightTheme}
               />
