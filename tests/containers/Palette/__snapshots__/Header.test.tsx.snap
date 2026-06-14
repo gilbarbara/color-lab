@@ -507,7 +507,11 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   data-slot="label"
                   id="react-aria-_r_2n_"
                 >
-                  Steps
+                  <span
+                    class="text-base/5"
+                  >
+                    Steps
+                  </span>
                   <button
                     aria-expanded="false"
                     aria-label="Description for Steps"
@@ -528,7 +532,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   </button>
                   <button
                     aria-label="Reset Steps to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -552,7 +556,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   for="react-aria-_r_2n_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -634,10 +638,14 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   data-slot="label"
                   id="react-aria-_r_2v_"
                 >
-                  Saturation
+                  <span
+                    class="text-base/5"
+                  >
+                    Saturation
+                  </span>
                   <button
                     aria-label="Reset Saturation to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -661,7 +669,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   for="react-aria-_r_2v_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -1369,7 +1377,11 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   data-slot="label"
                   id="react-aria-_r_7v_"
                 >
-                  Steps
+                  <span
+                    class="text-base/5"
+                  >
+                    Steps
+                  </span>
                   <button
                     aria-expanded="false"
                     aria-label="Description for Steps"
@@ -1390,7 +1402,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   </button>
                   <button
                     aria-label="Reset Steps to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -1414,7 +1426,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   for="react-aria-_r_7v_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -1496,10 +1508,14 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   data-slot="label"
                   id="react-aria-_r_87_"
                 >
-                  Saturation
+                  <span
+                    class="text-base/5"
+                  >
+                    Saturation
+                  </span>
                   <button
                     aria-label="Reset Saturation to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -1523,7 +1539,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   for="react-aria-_r_87_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -2230,7 +2246,11 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                   data-slot="label"
                   id="react-aria-_r_v_"
                 >
-                  Steps
+                  <span
+                    class="text-base/5"
+                  >
+                    Steps
+                  </span>
                   <button
                     aria-expanded="false"
                     aria-label="Description for Steps"
@@ -2251,7 +2271,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                   </button>
                   <button
                     aria-label="Reset Steps to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -2275,7 +2295,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                   for="react-aria-_r_v_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -2357,10 +2377,14 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                   data-slot="label"
                   id="react-aria-_r_17_"
                 >
-                  Saturation
+                  <span
+                    class="text-base/5"
+                  >
+                    Saturation
+                  </span>
                   <button
                     aria-label="Reset Saturation to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -2384,7 +2408,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
                   for="react-aria-_r_17_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -3090,7 +3114,11 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   data-slot="label"
                   id="react-aria-_r_67_"
                 >
-                  Steps
+                  <span
+                    class="text-base/5"
+                  >
+                    Steps
+                  </span>
                   <button
                     aria-expanded="false"
                     aria-label="Description for Steps"
@@ -3111,7 +3139,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   </button>
                   <button
                     aria-label="Reset Steps to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -3135,7 +3163,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   for="react-aria-_r_67_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -3217,10 +3245,14 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   data-slot="label"
                   id="react-aria-_r_6f_"
                 >
-                  Saturation
+                  <span
+                    class="text-base/5"
+                  >
+                    Saturation
+                  </span>
                   <button
                     aria-label="Reset Saturation to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -3244,7 +3276,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   for="react-aria-_r_6f_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -3951,7 +3983,11 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   data-slot="label"
                   id="react-aria-_r_4f_"
                 >
-                  Steps
+                  <span
+                    class="text-base/5"
+                  >
+                    Steps
+                  </span>
                   <button
                     aria-expanded="false"
                     aria-label="Description for Steps"
@@ -3972,7 +4008,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   </button>
                   <button
                     aria-label="Reset Steps to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -3996,7 +4032,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   for="react-aria-_r_4f_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"
@@ -4078,10 +4114,14 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   data-slot="label"
                   id="react-aria-_r_4n_"
                 >
-                  Saturation
+                  <span
+                    class="text-base/5"
+                  >
+                    Saturation
+                  </span>
                   <button
                     aria-label="Reset Saturation to default"
-                    class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+                    class="text-lg transition-colors text-secondary disabled:text-foreground-500"
                     disabled=""
                     type="button"
                   >
@@ -4105,7 +4145,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   for="react-aria-_r_4n_-0"
                 >
                   <span
-                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+                    class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
                   >
                     <span
                       class="flex-1 text-inherit font-normal px-1"

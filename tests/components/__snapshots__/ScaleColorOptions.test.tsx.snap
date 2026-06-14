@@ -23,7 +23,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         data-slot="label"
         id="react-aria-_r_1_"
       >
-        Lightness Range
+        <span
+          class="text-base/5"
+        >
+          Lightness Range
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Lightness Range"
@@ -44,7 +48,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         </button>
         <button
           aria-label="Reset Lightness Range to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           disabled=""
           type="button"
         >
@@ -68,7 +72,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         for="react-aria-_r_1_-0 react-aria-_r_1_-1"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -77,7 +81,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
           </span>
         </span>
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -204,7 +208,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         data-slot="label"
         id="react-aria-_r_c_"
       >
-        Lightness Curve
+        <span
+          class="text-base/5"
+        >
+          Lightness Curve
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Lightness Curve"
@@ -225,7 +233,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         </button>
         <button
           aria-label="Reset Lightness Curve to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           disabled=""
           type="button"
         >
@@ -249,7 +257,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         for="react-aria-_r_c_-0"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -347,7 +355,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         data-slot="label"
         id="react-aria-_r_k_"
       >
-        Chroma Curve
+        <span
+          class="text-base/5"
+        >
+          Chroma Curve
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Chroma Curve"
@@ -368,7 +380,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         </button>
         <button
           aria-label="Reset Chroma Curve to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           disabled=""
           type="button"
         >
@@ -392,7 +404,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         for="react-aria-_r_k_-0"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -522,7 +534,11 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         data-slot="label"
         id="react-aria-_r_1n_"
       >
-        Lightness Range
+        <span
+          class="text-base/5"
+        >
+          Lightness Range
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Lightness Range"
@@ -543,7 +559,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         </button>
         <button
           aria-label="Reset Lightness Range to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           type="button"
         >
           <svg
@@ -566,7 +582,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         for="react-aria-_r_1n_-0 react-aria-_r_1n_-1"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-primary text-primary-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -575,7 +591,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
           </span>
         </span>
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-primary text-primary-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -702,7 +718,11 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         data-slot="label"
         id="react-aria-_r_22_"
       >
-        Lightness Curve
+        <span
+          class="text-base/5"
+        >
+          Lightness Curve
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Lightness Curve"
@@ -723,7 +743,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         </button>
         <button
           aria-label="Reset Lightness Curve to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           type="button"
         >
           <svg
@@ -746,7 +766,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         for="react-aria-_r_22_-0"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-primary text-primary-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -844,7 +864,11 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         data-slot="label"
         id="react-aria-_r_2a_"
       >
-        Chroma Curve
+        <span
+          class="text-base/5"
+        >
+          Chroma Curve
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Chroma Curve"
@@ -865,7 +889,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         </button>
         <button
           aria-label="Reset Chroma Curve to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           type="button"
         >
           <svg
@@ -888,7 +912,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         for="react-aria-_r_2a_-0"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-primary text-primary-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -1030,7 +1054,11 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         data-slot="label"
         id="react-aria-_r_s_"
       >
-        Lightness Range
+        <span
+          class="text-base/5"
+        >
+          Lightness Range
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Lightness Range"
@@ -1051,7 +1079,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         </button>
         <button
           aria-label="Reset Lightness Range to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           disabled=""
           type="button"
         >
@@ -1075,7 +1103,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         for="react-aria-_r_s_-0 react-aria-_r_s_-1"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -1084,7 +1112,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
           </span>
         </span>
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -1211,7 +1239,11 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         data-slot="label"
         id="react-aria-_r_17_"
       >
-        Lightness Curve
+        <span
+          class="text-base/5"
+        >
+          Lightness Curve
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Lightness Curve"
@@ -1232,7 +1264,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         </button>
         <button
           aria-label="Reset Lightness Curve to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           disabled=""
           type="button"
         >
@@ -1256,7 +1288,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         for="react-aria-_r_17_-0"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
@@ -1354,7 +1386,11 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         data-slot="label"
         id="react-aria-_r_1f_"
       >
-        Chroma Curve
+        <span
+          class="text-base/5"
+        >
+          Chroma Curve
+        </span>
         <button
           aria-expanded="false"
           aria-label="Description for Chroma Curve"
@@ -1375,7 +1411,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         </button>
         <button
           aria-label="Reset Chroma Curve to default"
-          class="text-lg transition-opacity opacity-80 hover:opacity-100 disabled:opacity-60"
+          class="text-lg transition-colors text-secondary disabled:text-foreground-500"
           disabled=""
           type="button"
         >
@@ -1399,7 +1435,7 @@ exports[`ScaleColorOptions > Render > renders with title, description, isChromat
         for="react-aria-_r_1f_-0"
       >
         <span
-          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
+          class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
         >
           <span
             class="flex-1 text-inherit font-normal px-1"
