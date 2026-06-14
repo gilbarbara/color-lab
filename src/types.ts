@@ -1,5 +1,10 @@
 import type { ScaleChromaPeak, ScaleOptions as ScaleOptionsBase, ScaleRange } from 'colorizr';
 
+export type EffectiveScaleOptions = SetOptional<
+  Required<ScaleOptions>,
+  'lock' | 'saturation' | 'variant'
+>;
+
 export type ExportColorFormat = 'oklch' | 'hex' | 'hsl' | 'rgb' | 'rgb-channels';
 
 // Export types
@@ -21,11 +26,11 @@ export type OklchString = string & { readonly __brand: 'OklchString' };
 // All three curve options share the same shape contract: a scalar (Simple mode) or
 // an object (Split / movable peak). hueShift's scalar x means symmetric drift
 // (≡ { low: -x, high: x }); chroma/lightness scalars mean both ends equal.
-export type ScaleOptions = Omit<ScaleOptionsBase, 'format' | 'hueShift'> & {
-  hueShift?: number | ScaleRange;
-};
+export type ScaleOptions = Omit<ScaleOptionsBase, 'format'>;
 
 export type ScaleSteps = Record<string, string>;
+
+export type SetOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export interface ColorEntry {
   id: string;
@@ -59,9 +64,11 @@ export interface GeneratorActions {
   resetGlobalOptions: () => void;
   resetPalette: () => void;
   setActiveColor: (id: string) => void;
+  setAllCharts: (open: boolean) => void;
   setColorOverride: (index: number, updates: Partial<ScaleOptions>) => void;
   setName: (name: string) => void;
   setPreviewColor: (id: string) => void;
+  toggleChart: (id: string) => void;
   updateColor: (index: number, updates: Partial<ColorEntry>) => void;
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
@@ -96,6 +103,7 @@ export interface GlobalScaleOptions extends ScaleOptions {
   lightnessCurve: number | ScaleRange;
   maxLightness: number;
   minLightness: number;
+  mode: NonNullable<ScaleOptionsBase['mode']>;
   saturation: number;
   saturationOverride: boolean;
   steps: number;

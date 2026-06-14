@@ -1,0 +1,187 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ColorCharts/LightnessChart > renders correctly 1`] = `
+<div
+  data-overlay-container="true"
+>
+  <div>
+    <div
+      class="w-full h-32 flex gap-3"
+    >
+      <div
+        class="relative w-9 shrink-0"
+      >
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 95%;"
+        >
+          0
+        </span>
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 50%;"
+        >
+          50
+        </span>
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 5%;"
+        >
+          100
+        </span>
+      </div>
+      <div
+        class="relative flex-1 overflow-visible"
+      >
+        <svg
+          aria-hidden="true"
+          class="block size-full overflow-visible"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+        >
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="95"
+            y2="95"
+          />
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="50"
+            y2="50"
+          />
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="5"
+            y2="5"
+          />
+          <polyline
+            class="text-foreground-400"
+            fill="none"
+            points="0,7.700000000000003 100,71.6"
+            stroke="currentColor"
+            stroke-dasharray="3 3"
+            stroke-width="1.5"
+            vector-effect="non-scaling-stroke"
+          />
+          <polyline
+            class="text-secondary"
+            fill="none"
+            points="0,7.700000000000003 10,10.902199999999997 20,15.585800000000006 30,21.05870000000001 40,27.116599999999995 50,33.65150000000001 60,40.5923 70,47.8913 80,55.509800000000006 90,63.42079999999999 100,71.6"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            vector-effect="non-scaling-stroke"
+          />
+        </svg>
+        <button
+          aria-expanded="false"
+          aria-label="Step 50: lightness 97%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 0%; top: 7.700000000000003%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 100: lightness 93%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 10%; top: 10.902199999999997%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 200: lightness 88%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 20%; top: 15.585800000000006%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 300: lightness 82%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 30%; top: 21.05870000000001%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 400: lightness 75%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 40%; top: 27.116599999999995%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 500: lightness 68%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 50%; top: 33.65150000000001%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 600: lightness 60%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 60%; top: 40.5923%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 700: lightness 52%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 70%; top: 47.8913%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 800: lightness 44%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 80%; top: 55.509800000000006%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 900: lightness 35%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 90%; top: 63.42079999999999%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 950: lightness 26%"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 100%; top: 71.6%;"
+          type="button"
+        />
+      </div>
+    </div>
+    <div
+      class="flex items-center justify-center gap-2 text-sm mt-1"
+    >
+      <div
+        class="text-secondary"
+      >
+        ▬ lightness
+      </div>
+      <div
+        class="text-foreground-400"
+      >
+        ┄ even
+      </div>
+    </div>
+  </div>
+</div>
+`;

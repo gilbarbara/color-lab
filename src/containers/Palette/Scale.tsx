@@ -1,22 +1,26 @@
 import { memo, useMemo } from 'react';
 import { scale } from 'colorizr';
 
+import useGenerator from '~/hooks/useGenerator';
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { formatOklch } from '~/utils/color';
 
+import Collapse from '~/components/Collapse';
 import ColorBox from '~/components/ColorBox';
+import ColorCharts from '~/containers/ColorCharts';
+import ColorChartsButton from '~/containers/ColorCharts/Button';
 import ColorInfo from '~/containers/ColorInfo';
 import ContrastGrid from '~/containers/ContrastGrid';
 import ExportScale from '~/containers/ExportScale';
 import PreviewButton from '~/containers/Preview/Button';
 
-import type { ColorEntry, ScaleOptions } from '~/types';
+import type { ColorEntry, EffectiveScaleOptions, ScaleOptions } from '~/types';
 
 import Swatch from './Swatch';
 
 interface ScaleProps {
   colorEntry: ColorEntry;
-  options: ScaleOptions;
+  options: EffectiveScaleOptions;
 }
 
 // `colorEntry` keeps its reference across store updates that don't touch it
@@ -38,6 +42,8 @@ function arePropsEqual(previous: ScaleProps, next: ScaleProps): boolean {
 function Scale(props: ScaleProps) {
   const { colorEntry, options } = props;
   const scrollToColor = useScrollToColor();
+  const { chartColorIds } = useGenerator('chartColorIds');
+  const showGraphs = chartColorIds.has(colorEntry.id);
 
   const steps = useMemo(() => scale(colorEntry.value, options), [colorEntry.value, options]);
 
@@ -58,6 +64,7 @@ function Scale(props: ScaleProps) {
         </div>
         <div className="flex items-center gap-2">
           <PreviewButton id={colorEntry.id} />
+          <ColorChartsButton id={colorEntry.id} />
           <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />
           <ContrastGrid colorEntry={colorEntry} steps={steps} />
           <ExportScale name={colorEntry.name} steps={steps} />
@@ -68,6 +75,9 @@ function Scale(props: ScaleProps) {
           <Swatch key={step} color={color} lock={options.lock} step={step} />
         ))}
       </div>
+      <Collapse isOpen={showGraphs}>
+        <ColorCharts colorEntry={colorEntry} options={options} steps={steps} />
+      </Collapse>
     </div>
   );
 }
