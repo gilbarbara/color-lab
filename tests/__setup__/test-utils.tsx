@@ -1,4 +1,3 @@
-/* eslint-disable import-x/export */
 import { type ReactElement, type ReactNode, useMemo } from 'react';
 import { render, type RenderOptions } from '@testing-library/react';
 

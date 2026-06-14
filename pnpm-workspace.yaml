@@ -10,3 +10,5 @@ allowBuilds:
 publicHoistPattern:
   - '*@heroui/*'
   - '*@transience/color-picker/*'
+minimumReleaseAgeExclude:
+  - '@gilbarbara/*'
