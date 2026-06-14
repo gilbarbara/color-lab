@@ -27,13 +27,19 @@ export type GeneratorStoreApi = ReturnType<typeof createGeneratorStore>;
 
 export interface GeneratorStore extends GeneratorActions, GeneratorState {
   activeColorId: string | null;
+  // Transient per-session view state: ids of colors whose scale charts are open.
+  // Not part of GeneratorState — not serialized to the URL, resets on reload.
+  chartColorIds: Set<string>;
   name: string;
   previewColorId: string | null;
 }
 
 function buildInitialState(
   input?: GeneratorInitialState,
-): Pick<GeneratorStore, 'activeColorId' | 'colors' | 'globalOptions' | 'name' | 'previewColorId'> {
+): Pick<
+  GeneratorStore,
+  'activeColorId' | 'chartColorIds' | 'colors' | 'globalOptions' | 'name' | 'previewColorId'
+> {
   if (input && input.colors.length > 0) {
     const firstId = input.colors[0].id;
 
@@ -41,6 +47,7 @@ function buildInitialState(
       colors: input.colors,
       globalOptions: input.globalOptions,
       activeColorId: input.activeColorId ?? firstId,
+      chartColorIds: new Set(),
       name: input.name ?? DEFAULT_PALETTE_NAME,
       previewColorId: input.previewColorId ?? firstId,
     };
@@ -53,6 +60,7 @@ function buildInitialState(
     colors: fallback.colors,
     globalOptions: fallback.globalOptions,
     activeColorId: fallbackId,
+    chartColorIds: new Set(),
     name: fallback.name ?? DEFAULT_PALETTE_NAME,
     previewColorId: fallbackId,
   };
@@ -121,7 +129,14 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
 
         nextActiveId = activeColorId;
 
-        return { ...next, activeColorId, previewColorId };
+        let { chartColorIds } = state;
+
+        if (removed && chartColorIds.has(removed.id)) {
+          chartColorIds = new Set(chartColorIds);
+          chartColorIds.delete(removed.id);
+        }
+
+        return { ...next, activeColorId, chartColorIds, previewColorId };
       });
 
       return nextActiveId;
@@ -152,6 +167,24 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
         }
 
         return { activeColorId: id };
+      }),
+
+    setAllCharts: open =>
+      set(state => ({
+        chartColorIds: open ? new Set(state.colors.map(c => c.id)) : new Set(),
+      })),
+
+    toggleChart: id =>
+      set(state => {
+        const chartColorIds = new Set(state.chartColorIds);
+
+        if (chartColorIds.has(id)) {
+          chartColorIds.delete(id);
+        } else {
+          chartColorIds.add(id);
+        }
+
+        return { chartColorIds };
       }),
 
     setName: name =>

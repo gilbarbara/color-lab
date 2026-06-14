@@ -1,0 +1,204 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ColorCharts/ChromaChart > renders correctly 1`] = `
+<div
+  data-overlay-container="true"
+>
+  <div>
+    <div
+      class="w-full h-32 flex gap-3"
+    >
+      <div
+        class="relative w-9 shrink-0"
+      >
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 95%;"
+        >
+          0.00
+        </span>
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 62.114878690441394%;"
+        >
+          0.10
+        </span>
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 29.229757380882777%;"
+        >
+          0.20
+        </span>
+      </div>
+      <div
+        class="relative flex-1 overflow-visible"
+      >
+        <svg
+          aria-hidden="true"
+          class="block size-full overflow-visible"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+        >
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="95"
+            y2="95"
+          />
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="62.114878690441394"
+            y2="62.114878690441394"
+          />
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="29.229757380882777"
+            y2="29.229757380882777"
+          />
+          <polyline
+            class="text-foreground-400"
+            fill="none"
+            points="0,88.69263373282666 10,80.81664717918737 20,68.43211049400759 30,52.472961122478814 40,32.61692487576731 50,8.14710610932475 60,5 70,17.075416544869917 80,29.67699503069277 90,42.761984799766154 100,56.290923706518555"
+            stroke="currentColor"
+            stroke-dasharray="3 3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            vector-effect="non-scaling-stroke"
+          />
+          <polyline
+            class="text-success-400"
+            fill="none"
+            points="0,11.471791873721122 10,11.471791873721122 20,11.471791873721122 30,11.471791873721122 40,11.471791873721122 50,11.471791873721122 60,11.471791873721122 70,11.471791873721122 80,11.471791873721122 90,11.471791873721122 100,11.471791873721122"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            vector-effect="non-scaling-stroke"
+          />
+          <polyline
+            class="text-warning-500"
+            fill="none"
+            points="0,88.69263373282666 10,80.81664717918737 20,68.43211049400759 30,52.47624963460976 40,32.61692487576731 50,11.452060800935389 60,11.452060800935389 70,17.07212803273896 80,29.67699503069277 90,42.761984799766154 100,56.290923706518555"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            vector-effect="non-scaling-stroke"
+          />
+        </svg>
+        <button
+          aria-expanded="false"
+          aria-label="Step 50: chroma 0.019"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 0%; top: 88.69263373282666%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 100: chroma 0.043"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 10%; top: 80.81664717918737%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 200: chroma 0.081"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 20%; top: 68.43211049400759%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 300: chroma 0.129"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 30%; top: 52.47624963460976%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 400: chroma 0.190"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 40%; top: 32.61692487576731%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 500: chroma 0.254"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 50%; top: 11.452060800935389%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 600: chroma 0.254"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 60%; top: 11.452060800935389%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 700: chroma 0.237"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 70%; top: 17.07212803273896%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 800: chroma 0.199"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 80%; top: 29.67699503069277%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 900: chroma 0.159"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 90%; top: 42.761984799766154%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 950: chroma 0.118"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 100%; top: 56.290923706518555%;"
+          type="button"
+        />
+      </div>
+    </div>
+    <div
+      class="flex items-center justify-center gap-2 text-sm mt-1"
+    >
+      <div
+        class="text-foreground-400"
+      >
+        ┄ gamut ceiling
+      </div>
+      <div
+        class="text-success-600 "
+      >
+        ▬ chroma
+      </div>
+      <div
+        class="text-warning-600 "
+      >
+        ▬ output
+      </div>
+    </div>
+  </div>
+</div>
+`;

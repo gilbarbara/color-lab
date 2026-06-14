@@ -16,6 +16,7 @@ import { isSameOptionValue } from '~/utils/scale-options';
 import type {
   ColorEntry,
   DefaultScaleOptions,
+  EffectiveScaleOptions,
   GeneratorState,
   GlobalScaleOptions,
   OklchString,
@@ -112,7 +113,7 @@ export function getDefaultGlobalOptions(color: OklchString): DefaultScaleOptions
 export function getEffectiveOptions(
   color: ColorEntry,
   globalOptions: GlobalScaleOptions,
-): ScaleOptions {
+): EffectiveScaleOptions {
   const { saturation, saturationOverride, ...rest } = globalOptions;
 
   return {

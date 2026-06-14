@@ -1,0 +1,190 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ColorCharts/HueChart > renders correctly 1`] = `
+<div
+  data-overlay-container="true"
+>
+  <div>
+    <div
+      class="w-full h-32 flex gap-3"
+    >
+      <div
+        class="relative w-9 shrink-0"
+      >
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 5%;"
+        >
+          26
+          °
+        </span>
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 50%;"
+        >
+          20
+          °
+        </span>
+        <span
+          class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+          style="top: 95%;"
+        >
+          14
+          °
+        </span>
+      </div>
+      <div
+        class="relative flex-1 overflow-visible"
+      >
+        <svg
+          aria-hidden="true"
+          class="block size-full overflow-visible"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+        >
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="5"
+            y2="5"
+          />
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="50"
+            y2="50"
+          />
+          <line
+            class="text-foreground/10"
+            stroke="currentColor"
+            stroke-width="1"
+            vector-effect="non-scaling-stroke"
+            x1="0"
+            x2="100"
+            y1="95"
+            y2="95"
+          />
+          <polyline
+            class="text-foreground-400"
+            fill="none"
+            points="0,50 100,50"
+            stroke="currentColor"
+            stroke-dasharray="3 3"
+            stroke-width="1.5"
+            vector-effect="non-scaling-stroke"
+          />
+          <polyline
+            class="text-danger"
+            fill="none"
+            points="0,50 10,50 20,50 30,50 40,50 50,50 60,50 70,50 80,50 90,50 100,50"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            vector-effect="non-scaling-stroke"
+          />
+        </svg>
+        <button
+          aria-expanded="false"
+          aria-label="Step 50: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 0%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 100: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 10%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 200: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 20%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 300: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 30%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 400: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 40%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 500: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 50%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 600: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 60%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 700: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 70%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 800: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 80%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 900: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 90%; top: 50%;"
+          type="button"
+        />
+        <button
+          aria-expanded="false"
+          aria-label="Step 950: hue 20°"
+          class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+          style="left: 100%; top: 50%;"
+          type="button"
+        />
+      </div>
+    </div>
+    <div
+      class="flex items-center justify-center gap-2 text-sm mt-1"
+    >
+      <div
+        class="text-danger"
+      >
+        ▬ hue
+      </div>
+      <div
+        class="text-foreground-400"
+      >
+        ┄ base
+      </div>
+    </div>
+  </div>
+</div>
+`;

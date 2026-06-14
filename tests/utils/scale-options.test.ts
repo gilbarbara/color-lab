@@ -17,7 +17,7 @@ import {
 describe('utils/scale-options', () => {
   describe('getChromaCurveMode', () => {
     it.each([
-      // The parabola family (scalar + movable peak) shares the Simple tab.
+      // The parabola family (scalar + movable peak) shares the Uniform tab.
       [0, 'scalar'],
       [0.5, 'scalar'],
       [{ amount: 0.6, peak: 0.3 }, 'scalar'],
