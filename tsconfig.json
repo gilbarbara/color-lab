@@ -1,7 +1,6 @@
 {
   "extends": "@gilbarbara/tsconfig",
   "compilerOptions": {
-    "baseUrl": ".",
     "erasableSyntaxOnly": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "moduleDetection": "force",
@@ -9,10 +8,10 @@
     "noEmit": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "~/*": ["src/*"],
-      "~/test-utils": ["tests/__setup__/test-utils.tsx"],
-      "~/test-mocks": ["tests/__setup__/mocks.ts"],
-      "~/test-fixtures": ["tests/__setup__/fixtures.ts"]
+      "~/*": ["./src/*"],
+      "~/test-utils": ["./tests/__setup__/test-utils.tsx"],
+      "~/test-mocks": ["./tests/__setup__/mocks.ts"],
+      "~/test-fixtures": ["./tests/__setup__/fixtures.ts"]
     },
     "plugins": [{ "name": "next" }],
     "rootDir": ".",

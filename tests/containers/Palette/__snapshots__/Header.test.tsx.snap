@@ -33,7 +33,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
               data-filled="true"
               data-filled-within="true"
               data-slot="input"
-              id="react-aria-_r_1k_"
+              id="react-aria-_r_1o_"
               name="palette-name"
               tabindex="0"
               title=""
@@ -54,7 +54,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_1p_"
+        id="react-aria-_r_1t_"
         tabindex="0"
         type="button"
       >
@@ -278,7 +278,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Variant"
-                  aria-labelledby="react-aria-_r_28_  variant-select"
+                  aria-labelledby="react-aria-_r_2c_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -294,7 +294,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_28_"
+                      id="react-aria-_r_2c_"
                     >
                       Select variant
                     </span>
@@ -438,7 +438,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Lock"
-                  aria-labelledby="react-aria-_r_2h_  lock-select"
+                  aria-labelledby="react-aria-_r_2l_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -454,7 +454,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_2h_"
+                      id="react-aria-_r_2l_"
                     >
                       Select lock
                     </span>
@@ -490,12 +490,12 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_2j_"
+              aria-labelledby="react-aria-_r_2n_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_2i_"
+              id="react-aria-_r_2m_"
               role="group"
             >
               <div
@@ -505,7 +505,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_2j_"
+                  id="react-aria-_r_2n_"
                 >
                   Steps
                   <button
@@ -549,7 +549,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_2j_-0"
+                  for="react-aria-_r_2n_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -595,10 +595,10 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_2j_"
+                        aria-labelledby="react-aria-_r_2n_"
                         aria-orientation="horizontal"
                         aria-valuetext="11"
-                        id="react-aria-_r_2j_-0"
+                        id="react-aria-_r_2n_-0"
                         max="20"
                         min="3"
                         name="steps"
@@ -617,12 +617,12 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_2r_"
+              aria-labelledby="react-aria-_r_2v_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_2q_"
+              id="react-aria-_r_2u_"
               role="group"
             >
               <div
@@ -632,7 +632,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_2r_"
+                  id="react-aria-_r_2v_"
                 >
                   Saturation
                   <button
@@ -658,7 +658,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_2r_-0"
+                  for="react-aria-_r_2v_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -704,11 +704,11 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_2r_"
+                        aria-labelledby="react-aria-_r_2v_"
                         aria-orientation="horizontal"
                         aria-valuetext="97.9"
                         disabled=""
-                        id="react-aria-_r_2r_-0"
+                        id="react-aria-_r_2v_-0"
                         max="100"
                         min="0"
                         name="saturation"
@@ -729,7 +729,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
               >
                 <input
-                  aria-labelledby="_r_31_"
+                  aria-labelledby="_r_35_"
                   class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                   data-react-aria-pressable="true"
                   name="saturationOverride"
@@ -748,7 +748,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
                 </span>
                 <span
                   class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                  id="_r_31_"
+                  id="_r_35_"
                 >
                   <span>
                     Apply saturation to all colors
@@ -787,7 +787,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
             >
               <input
                 aria-label="Light scale"
-                aria-labelledby="_r_33_"
+                aria-labelledby="_r_39_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="mode"
@@ -806,7 +806,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
               </span>
               <span
                 class="relative text-foreground select-none ms-2 text-small"
-                id="_r_33_"
+                id="_r_39_"
               >
                 Light scale
               </span>
@@ -894,7 +894,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
               data-filled="true"
               data-filled-within="true"
               data-slot="input"
-              id="react-aria-_r_6g_"
+              id="react-aria-_r_70_"
               name="palette-name"
               tabindex="0"
               title=""
@@ -915,7 +915,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_6l_"
+        id="react-aria-_r_75_"
         tabindex="0"
         type="button"
       >
@@ -1140,7 +1140,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Variant"
-                  aria-labelledby="react-aria-_r_74_  variant-select"
+                  aria-labelledby="react-aria-_r_7k_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 data-[hover=true]:bg-default-400"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -1156,7 +1156,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_74_"
+                      id="react-aria-_r_7k_"
                     >
                       Vibrant
                     </span>
@@ -1300,7 +1300,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Lock"
-                  aria-labelledby="react-aria-_r_7d_  lock-select"
+                  aria-labelledby="react-aria-_r_7t_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -1316,7 +1316,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_7d_"
+                      id="react-aria-_r_7t_"
                     >
                       Select lock
                     </span>
@@ -1352,12 +1352,12 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_7f_"
+              aria-labelledby="react-aria-_r_7v_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_7e_"
+              id="react-aria-_r_7u_"
               role="group"
             >
               <div
@@ -1367,7 +1367,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_7f_"
+                  id="react-aria-_r_7v_"
                 >
                   Steps
                   <button
@@ -1411,7 +1411,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_7f_-0"
+                  for="react-aria-_r_7v_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1457,10 +1457,10 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_7f_"
+                        aria-labelledby="react-aria-_r_7v_"
                         aria-orientation="horizontal"
                         aria-valuetext="11"
-                        id="react-aria-_r_7f_-0"
+                        id="react-aria-_r_7v_-0"
                         max="20"
                         min="3"
                         name="steps"
@@ -1479,12 +1479,12 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_7n_"
+              aria-labelledby="react-aria-_r_87_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_7m_"
+              id="react-aria-_r_86_"
               role="group"
             >
               <div
@@ -1494,7 +1494,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_7n_"
+                  id="react-aria-_r_87_"
                 >
                   Saturation
                   <button
@@ -1520,7 +1520,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_7n_-0"
+                  for="react-aria-_r_87_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1566,11 +1566,11 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_7n_"
+                        aria-labelledby="react-aria-_r_87_"
                         aria-orientation="horizontal"
                         aria-valuetext="97.9"
                         disabled=""
-                        id="react-aria-_r_7n_-0"
+                        id="react-aria-_r_87_-0"
                         max="100"
                         min="0"
                         name="saturation"
@@ -1591,7 +1591,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
               >
                 <input
-                  aria-labelledby="_r_7t_"
+                  aria-labelledby="_r_8d_"
                   class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                   data-react-aria-pressable="true"
                   name="saturationOverride"
@@ -1610,7 +1610,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
                 </span>
                 <span
                   class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                  id="_r_7t_"
+                  id="_r_8d_"
                 >
                   <span>
                     Apply saturation to all colors
@@ -1649,7 +1649,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
             >
               <input
                 aria-label="Light scale"
-                aria-labelledby="_r_7v_"
+                aria-labelledby="_r_8h_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="mode"
@@ -1668,7 +1668,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
               </span>
               <span
                 class="relative text-foreground select-none ms-2 text-small"
-                id="_r_7v_"
+                id="_r_8h_"
               >
                 Light scale
               </span>
@@ -2510,7 +2510,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
             >
               <input
                 aria-label="Light scale"
-                aria-labelledby="_r_1f_"
+                aria-labelledby="_r_1h_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="mode"
@@ -2529,7 +2529,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
               </span>
               <span
                 class="relative text-foreground select-none ms-2 text-small"
-                id="_r_1f_"
+                id="_r_1h_"
               >
                 Light scale
               </span>
@@ -2617,7 +2617,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
               data-filled="true"
               data-filled-within="true"
               data-slot="input"
-              id="react-aria-_r_4s_"
+              id="react-aria-_r_58_"
               name="palette-name"
               tabindex="0"
               title=""
@@ -2638,7 +2638,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_51_"
+        id="react-aria-_r_5d_"
         tabindex="0"
         type="button"
       >
@@ -2861,7 +2861,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Variant"
-                  aria-labelledby="react-aria-_r_5g_  variant-select"
+                  aria-labelledby="react-aria-_r_5s_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -2877,7 +2877,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_5g_"
+                      id="react-aria-_r_5s_"
                     >
                       Select variant
                     </span>
@@ -3021,7 +3021,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Lock"
-                  aria-labelledby="react-aria-_r_5p_  lock-select"
+                  aria-labelledby="react-aria-_r_65_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -3037,7 +3037,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_5p_"
+                      id="react-aria-_r_65_"
                     >
                       Select lock
                     </span>
@@ -3073,12 +3073,12 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_5r_"
+              aria-labelledby="react-aria-_r_67_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_5q_"
+              id="react-aria-_r_66_"
               role="group"
             >
               <div
@@ -3088,7 +3088,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_5r_"
+                  id="react-aria-_r_67_"
                 >
                   Steps
                   <button
@@ -3132,7 +3132,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_5r_-0"
+                  for="react-aria-_r_67_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -3178,10 +3178,10 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_5r_"
+                        aria-labelledby="react-aria-_r_67_"
                         aria-orientation="horizontal"
                         aria-valuetext="11"
-                        id="react-aria-_r_5r_-0"
+                        id="react-aria-_r_67_-0"
                         max="20"
                         min="3"
                         name="steps"
@@ -3200,12 +3200,12 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_63_"
+              aria-labelledby="react-aria-_r_6f_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_62_"
+              id="react-aria-_r_6e_"
               role="group"
             >
               <div
@@ -3215,7 +3215,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_63_"
+                  id="react-aria-_r_6f_"
                 >
                   Saturation
                   <button
@@ -3241,7 +3241,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_63_-0"
+                  for="react-aria-_r_6f_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -3287,11 +3287,11 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_63_"
+                        aria-labelledby="react-aria-_r_6f_"
                         aria-orientation="horizontal"
                         aria-valuetext="97.9"
                         disabled=""
-                        id="react-aria-_r_63_-0"
+                        id="react-aria-_r_6f_-0"
                         max="100"
                         min="0"
                         name="saturation"
@@ -3312,7 +3312,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
               >
                 <input
-                  aria-labelledby="_r_69_"
+                  aria-labelledby="_r_6l_"
                   class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                   data-react-aria-pressable="true"
                   name="saturationOverride"
@@ -3331,7 +3331,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
                 </span>
                 <span
                   class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                  id="_r_69_"
+                  id="_r_6l_"
                 >
                   <span>
                     Apply saturation to all colors
@@ -3370,7 +3370,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
             >
               <input
                 aria-label="Light scale"
-                aria-labelledby="_r_6b_"
+                aria-labelledby="_r_6p_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="mode"
@@ -3389,7 +3389,7 @@ exports[`PaletteHeader > Render > renders with options panel open 1`] = `
               </span>
               <span
                 class="relative text-foreground select-none ms-2 text-small"
-                id="_r_6b_"
+                id="_r_6p_"
               >
                 Light scale
               </span>
@@ -3477,7 +3477,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
               data-filled="true"
               data-filled-within="true"
               data-slot="input"
-              id="react-aria-_r_38_"
+              id="react-aria-_r_3g_"
               name="palette-name"
               tabindex="0"
               title=""
@@ -3498,7 +3498,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
         class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
         data-react-aria-pressable="true"
         data-slot="trigger"
-        id="react-aria-_r_3d_"
+        id="react-aria-_r_3l_"
         tabindex="0"
         type="button"
       >
@@ -3722,7 +3722,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Variant"
-                  aria-labelledby="react-aria-_r_3s_  variant-select"
+                  aria-labelledby="react-aria-_r_44_  variant-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -3738,7 +3738,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_3s_"
+                      id="react-aria-_r_44_"
                     >
                       Select variant
                     </span>
@@ -3882,7 +3882,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   aria-expanded="false"
                   aria-haspopup="listbox"
                   aria-label="Lock"
-                  aria-labelledby="react-aria-_r_45_  lock-select"
+                  aria-labelledby="react-aria-_r_4d_  lock-select"
                   class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                   data-react-aria-pressable="true"
                   data-slot="trigger"
@@ -3898,7 +3898,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                     <span
                       class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                       data-slot="value"
-                      id="react-aria-_r_45_"
+                      id="react-aria-_r_4d_"
                     >
                       Select lock
                     </span>
@@ -3934,12 +3934,12 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_47_"
+              aria-labelledby="react-aria-_r_4f_"
               class="flex flex-col w-full gap-1"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_46_"
+              id="react-aria-_r_4e_"
               role="group"
             >
               <div
@@ -3949,7 +3949,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_47_"
+                  id="react-aria-_r_4f_"
                 >
                   Steps
                   <button
@@ -3993,7 +3993,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_47_-0"
+                  for="react-aria-_r_4f_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -4039,10 +4039,10 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_47_"
+                        aria-labelledby="react-aria-_r_4f_"
                         aria-orientation="horizontal"
                         aria-valuetext="11"
-                        id="react-aria-_r_47_-0"
+                        id="react-aria-_r_4f_-0"
                         max="20"
                         min="3"
                         name="steps"
@@ -4061,12 +4061,12 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
             class="w-full"
           >
             <div
-              aria-labelledby="react-aria-_r_4f_"
+              aria-labelledby="react-aria-_r_4n_"
               class="flex flex-col w-full gap-1 opacity-disabled"
               data-hover="false"
               data-orientation="horizontal"
               data-slot="base"
-              id="react-aria-_r_4e_"
+              id="react-aria-_r_4m_"
               role="group"
             >
               <div
@@ -4076,7 +4076,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 <label
                   class="flex gap-2 items-center"
                   data-slot="label"
-                  id="react-aria-_r_4f_"
+                  id="react-aria-_r_4n_"
                 >
                   Saturation
                   <button
@@ -4102,7 +4102,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                   aria-live="off"
                   class="text-small"
                   data-slot="value"
-                  for="react-aria-_r_4f_-0"
+                  for="react-aria-_r_4n_-0"
                 >
                   <span
                     class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -4148,11 +4148,11 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                       <input
                         aria-describedby=""
                         aria-details=""
-                        aria-labelledby="react-aria-_r_4f_"
+                        aria-labelledby="react-aria-_r_4n_"
                         aria-orientation="horizontal"
                         aria-valuetext="97.9"
                         disabled=""
-                        id="react-aria-_r_4f_-0"
+                        id="react-aria-_r_4n_-0"
                         max="100"
                         min="0"
                         name="saturation"
@@ -4173,7 +4173,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
               >
                 <input
-                  aria-labelledby="_r_4l_"
+                  aria-labelledby="_r_4t_"
                   class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                   data-react-aria-pressable="true"
                   name="saturationOverride"
@@ -4192,7 +4192,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
                 </span>
                 <span
                   class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                  id="_r_4l_"
+                  id="_r_4t_"
                 >
                   <span>
                     Apply saturation to all colors
@@ -4231,7 +4231,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
             >
               <input
                 aria-label="Light scale"
-                aria-labelledby="_r_4n_"
+                aria-labelledby="_r_51_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="mode"
@@ -4250,7 +4250,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
               </span>
               <span
                 class="relative text-foreground select-none ms-2 text-small"
-                id="_r_4n_"
+                id="_r_51_"
               >
                 Light scale
               </span>

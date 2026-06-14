@@ -12,13 +12,13 @@ const CLOSE_DELAY = 150;
 const originalMatches = Element.prototype.matches;
 let focusVisibleResult = false;
 
-Element.prototype.matches = function matches(selector: string) {
+Element.prototype.matches = function matches(this: Element, selector: string) {
   if (selector === ':focus-visible') {
     return focusVisibleResult;
   }
 
   return originalMatches.call(this, selector);
-};
+} as typeof originalMatches;
 
 function setHoverCapable(matches: boolean) {
   vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({

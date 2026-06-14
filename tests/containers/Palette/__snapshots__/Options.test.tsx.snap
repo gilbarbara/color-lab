@@ -601,7 +601,7 @@ exports[`Options > Render > renders default state 1`] = `
           >
             <input
               aria-label="Light scale"
-              aria-labelledby="_r_13_"
+              aria-labelledby="_r_15_"
               class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
               data-react-aria-pressable="true"
               name="mode"
@@ -620,7 +620,7 @@ exports[`Options > Render > renders default state 1`] = `
             </span>
             <span
               class="relative text-foreground select-none ms-2 text-small"
-              id="_r_13_"
+              id="_r_15_"
             >
               Light scale
             </span>
@@ -766,7 +766,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Variant"
-                aria-labelledby="react-aria-_r_1d_  variant-select"
+                aria-labelledby="react-aria-_r_1h_  variant-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small pointer-events-none bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                 data-disabled="true"
                 data-react-aria-pressable="true"
@@ -783,7 +783,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_1d_"
+                    id="react-aria-_r_1h_"
                   >
                     Select variant
                   </span>
@@ -927,7 +927,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Lock"
-                aria-labelledby="react-aria-_r_1m_  lock-select"
+                aria-labelledby="react-aria-_r_1q_  lock-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
@@ -943,7 +943,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_1m_"
+                    id="react-aria-_r_1q_"
                   >
                     Select lock
                   </span>
@@ -979,12 +979,12 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_1o_"
+            aria-labelledby="react-aria-_r_1s_"
             class="flex flex-col w-full gap-1"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_1n_"
+            id="react-aria-_r_1r_"
             role="group"
           >
             <div
@@ -994,7 +994,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_1o_"
+                id="react-aria-_r_1s_"
               >
                 Steps
                 <button
@@ -1038,7 +1038,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_1o_-0"
+                for="react-aria-_r_1s_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1084,10 +1084,10 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_1o_"
+                      aria-labelledby="react-aria-_r_1s_"
                       aria-orientation="horizontal"
                       aria-valuetext="11"
-                      id="react-aria-_r_1o_-0"
+                      id="react-aria-_r_1s_-0"
                       max="20"
                       min="3"
                       name="steps"
@@ -1106,12 +1106,12 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_20_"
+            aria-labelledby="react-aria-_r_24_"
             class="flex flex-col w-full gap-1"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_1v_"
+            id="react-aria-_r_23_"
             role="group"
           >
             <div
@@ -1121,7 +1121,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_20_"
+                id="react-aria-_r_24_"
               >
                 Saturation
                 <button
@@ -1146,7 +1146,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_20_-0"
+                for="react-aria-_r_24_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-primary text-primary-foreground w-12 max-w-none text-center"
@@ -1192,10 +1192,10 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_20_"
+                      aria-labelledby="react-aria-_r_24_"
                       aria-orientation="horizontal"
                       aria-valuetext="50"
-                      id="react-aria-_r_20_-0"
+                      id="react-aria-_r_24_-0"
                       max="100"
                       min="0"
                       name="saturation"
@@ -1217,7 +1217,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               data-selected="true"
             >
               <input
-                aria-labelledby="_r_26_"
+                aria-labelledby="_r_2a_"
                 checked=""
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
@@ -1237,7 +1237,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               </span>
               <span
                 class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                id="_r_26_"
+                id="_r_2a_"
               >
                 <span>
                   Apply saturation to all colors
@@ -1276,7 +1276,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
           >
             <input
               aria-label="Light scale"
-              aria-labelledby="_r_28_"
+              aria-labelledby="_r_2e_"
               class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
               data-react-aria-pressable="true"
               name="mode"
@@ -1295,7 +1295,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
             </span>
             <span
               class="relative text-foreground select-none ms-2 text-small"
-              id="_r_28_"
+              id="_r_2e_"
             >
               Light scale
             </span>
@@ -1442,7 +1442,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Variant"
-                aria-labelledby="react-aria-_r_2i_  variant-select"
+                aria-labelledby="react-aria-_r_2q_  variant-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 data-[hover=true]:bg-default-400"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
@@ -1458,7 +1458,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_2i_"
+                    id="react-aria-_r_2q_"
                   >
                     Vibrant
                   </span>
@@ -1603,7 +1603,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Lock"
-                aria-labelledby="react-aria-_r_2r_  lock-select"
+                aria-labelledby="react-aria-_r_33_  lock-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 data-[hover=true]:bg-default-400"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
@@ -1619,7 +1619,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_2r_"
+                    id="react-aria-_r_33_"
                   >
                     500
                   </span>
@@ -1655,12 +1655,12 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_2t_"
+            aria-labelledby="react-aria-_r_35_"
             class="flex flex-col w-full gap-1"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_2s_"
+            id="react-aria-_r_34_"
             role="group"
           >
             <div
@@ -1670,7 +1670,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_2t_"
+                id="react-aria-_r_35_"
               >
                 Steps
                 <button
@@ -1714,7 +1714,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_2t_-0"
+                for="react-aria-_r_35_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1760,10 +1760,10 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_2t_"
+                      aria-labelledby="react-aria-_r_35_"
                       aria-orientation="horizontal"
                       aria-valuetext="11"
-                      id="react-aria-_r_2t_-0"
+                      id="react-aria-_r_35_-0"
                       max="20"
                       min="3"
                       name="steps"
@@ -1782,12 +1782,12 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_35_"
+            aria-labelledby="react-aria-_r_3d_"
             class="flex flex-col w-full gap-1 opacity-disabled"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_34_"
+            id="react-aria-_r_3c_"
             role="group"
           >
             <div
@@ -1797,7 +1797,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_35_"
+                id="react-aria-_r_3d_"
               >
                 Saturation
                 <button
@@ -1823,7 +1823,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_35_-0"
+                for="react-aria-_r_3d_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 h-6 text-tiny rounded-full bg-default text-default-foreground w-12 max-w-none text-center"
@@ -1869,11 +1869,11 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_35_"
+                      aria-labelledby="react-aria-_r_3d_"
                       aria-orientation="horizontal"
                       aria-valuetext="97.9"
                       disabled=""
-                      id="react-aria-_r_35_-0"
+                      id="react-aria-_r_3d_-0"
                       max="100"
                       min="0"
                       name="saturation"
@@ -1894,7 +1894,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
             >
               <input
-                aria-labelledby="_r_3b_"
+                aria-labelledby="_r_3j_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="saturationOverride"
@@ -1913,7 +1913,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               </span>
               <span
                 class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                id="_r_3b_"
+                id="_r_3j_"
               >
                 <span>
                   Apply saturation to all colors
@@ -1952,7 +1952,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
           >
             <input
               aria-label="Light scale"
-              aria-labelledby="_r_3d_"
+              aria-labelledby="_r_3n_"
               class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
               data-react-aria-pressable="true"
               name="mode"
@@ -1971,7 +1971,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
             </span>
             <span
               class="relative text-foreground select-none ms-2 text-small"
-              id="_r_3d_"
+              id="_r_3n_"
             >
               Light scale
             </span>
