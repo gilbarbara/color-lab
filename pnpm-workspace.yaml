@@ -1,5 +1,9 @@
 overrides:
   '@react-types/shared': 3.35.0
+# PageUp/PageDown stepped by (max-min)/10, so the jump varied wildly per slider
+# (10x, 18, or nothing). Patch makes calcPageSize use step*10 for a consistent jump.
+patchedDependencies:
+  '@react-stately/slider@3.7.5': patches/@react-stately__slider@3.7.5.patch
 allowBuilds:
   '@firebase/util': true
   '@heroui/shared-utils': true
@@ -12,3 +16,5 @@ publicHoistPattern:
   - '*@transience/color-picker/*'
 minimumReleaseAgeExclude:
   - '@gilbarbara/*'
+  - '@transience/*'
+  - colorizr

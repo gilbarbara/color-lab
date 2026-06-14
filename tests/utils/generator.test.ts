@@ -3,6 +3,7 @@ import {
   addColor,
   clearColorOverrides,
   createPalette,
+  CURVE_OPTION_KEYS,
   getDefaultColorName,
   getDefaultGlobalOptions,
   getEffectiveOptions,
@@ -18,6 +19,18 @@ import {
 import type { GeneratorState } from '~/types';
 
 describe('utils/generator', () => {
+  describe('getDefaultGlobalOptions', () => {
+    it('defaults hueShift to a zero scalar (Simple mode)', () => {
+      expect(getDefaultGlobalOptions(CRIMSON).hueShift).toBe(0);
+    });
+  });
+
+  describe('CURVE_OPTION_KEYS', () => {
+    it('includes hueShift', () => {
+      expect(CURVE_OPTION_KEYS).toContain('hueShift');
+    });
+  });
+
   describe('createPalette', () => {
     it('creates palette with random color when no arg provided', () => {
       const palette = createPalette();
@@ -199,6 +212,26 @@ describe('utils/generator', () => {
       const initial = createTestPalette(1);
 
       expect(setColorOverride(initial, 5, { steps: 9 })).toBe(initial);
+    });
+
+    it('strips a deep-equal object override', () => {
+      const initial: GeneratorState = {
+        colors: [createColorEntry('Primary', CRIMSON)],
+        globalOptions: { ...getDefaultGlobalOptions(CRIMSON), hueShift: { low: -15, high: 20 } },
+      };
+      const result = setColorOverride(initial, 0, { hueShift: { low: -15, high: 20 } });
+
+      expect(result.colors[0].overrides).toBeUndefined();
+    });
+
+    it('keeps a { low, high } override against a scalar global (shape differs)', () => {
+      const initial: GeneratorState = {
+        colors: [createColorEntry('Primary', CRIMSON)],
+        globalOptions: { ...getDefaultGlobalOptions(CRIMSON), lightnessCurve: 1.3 },
+      };
+      const result = setColorOverride(initial, 0, { lightnessCurve: { low: 1.3, high: 1.3 } });
+
+      expect(result.colors[0].overrides).toEqual({ lightnessCurve: { low: 1.3, high: 1.3 } });
     });
   });
 

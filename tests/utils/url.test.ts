@@ -797,4 +797,133 @@ describe('utils/url', () => {
       expect(buildUrl(['Primary-FF0044'], { c: ['1', '2'] })).toBe('/p/Primary-FF0044?c=1&c=2');
     });
   });
+
+  describe('curve option shapes', () => {
+    const base = toOklch('oklch(0.64 0.142 329)');
+
+    function globalRoundTrip(overrides: Partial<GeneratorState['globalOptions']>) {
+      const state: GeneratorState = {
+        colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
+        globalOptions: { ...getDefaultGlobalOptions(base), ...overrides },
+      };
+
+      return parsePaletteFromUrl(serializePaletteToUrl(state))!.state.globalOptions;
+    }
+
+    describe('query (global options)', () => {
+      it('round-trips a lightnessCurve range', () => {
+        expect(globalRoundTrip({ lightnessCurve: { low: 1.5, high: 1 } }).lightnessCurve).toEqual({
+          low: 1.5,
+          high: 1,
+        });
+      });
+
+      it('round-trips a chromaCurve peak', () => {
+        expect(globalRoundTrip({ chromaCurve: { amount: 0.6, peak: 0.35 } }).chromaCurve).toEqual({
+          amount: 0.6,
+          peak: 0.35,
+        });
+      });
+
+      it('round-trips a chromaCurve endpoints range', () => {
+        expect(globalRoundTrip({ chromaCurve: { low: 0.2, high: 0.85 } }).chromaCurve).toEqual({
+          low: 0.2,
+          high: 0.85,
+        });
+      });
+
+      it('round-trips a hueShift range with negatives', () => {
+        expect(globalRoundTrip({ hueShift: { low: -15, high: 20 } }).hueShift).toEqual({
+          low: -15,
+          high: 20,
+        });
+      });
+
+      it('persists a { x, x } shape distinct from the scalar default', () => {
+        const scalar = getDefaultGlobalOptions(base).lightnessCurve as number;
+        const url = serializePaletteToUrl({
+          colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
+          globalOptions: {
+            ...getDefaultGlobalOptions(base),
+            lightnessCurve: { low: scalar, high: scalar },
+          },
+        });
+
+        expect(url).toContain(`f=${scalar}_${scalar}`);
+        expect(parsePaletteFromUrl(url)!.state.globalOptions.lightnessCurve).toEqual({
+          low: scalar,
+          high: scalar,
+        });
+      });
+
+      it('keeps a hand-written scalar hueShift as a scalar (Simple mode)', () => {
+        const result = parsePaletteFromUrl('/p/Primary-FF0044?h=15');
+
+        expect(result!.state.globalOptions.hueShift).toBe(15);
+      });
+
+      it.each([
+        ['c=p1.2_0.5', 'chromaCurve'],
+        ['c=p0.6_0', 'chromaCurve'],
+        ['c=p0.6_1', 'chromaCurve'],
+        ['c=0.2_1.5', 'chromaCurve'],
+        ['f=0_1', 'lightnessCurve'],
+        ['h=-200_10', 'hueShift'],
+        ['c=p0.6', 'chromaCurve'],
+        ['h=1_2_3', 'hueShift'],
+      ])('drops invalid %s and keeps the default', query => {
+        const result = parsePaletteFromUrl(`/p/Primary-FF0044?${query}`);
+        const defaults = getDefaultGlobalOptions(result!.state.colors[0].value);
+
+        expect(result!.state.globalOptions).toEqual(defaults);
+      });
+
+      it('legacy scalar chromaCurve/lightnessCurve still parse', () => {
+        const result = parsePaletteFromUrl('/p/Primary-FF0044?c=0.5&f=1.8');
+
+        expect(result!.state.globalOptions.chromaCurve).toBe(0.5);
+        expect(result!.state.globalOptions.lightnessCurve).toBe(1.8);
+      });
+    });
+
+    describe('per-color path overrides', () => {
+      it('round-trips a peak override', () => {
+        const result = parsePaletteFromUrl('/p/Primary-FF0044-c:p0.6_0.35');
+
+        expect(result!.state.colors[0].overrides).toEqual({
+          chromaCurve: { amount: 0.6, peak: 0.35 },
+        });
+      });
+
+      it('round-trips a hueShift override with negative low and high', () => {
+        const result = parsePaletteFromUrl('/p/Primary-FF0044-h:-15_-20');
+
+        expect(result!.state.colors[0].overrides).toEqual({ hueShift: { low: -15, high: -20 } });
+      });
+
+      it('serializes an endpoints override into the path chunk', () => {
+        const state: GeneratorState = {
+          colors: [
+            createColorEntry('Primary', 'oklch(0.64 0.142 329)', {
+              chromaCurve: { low: 0.2, high: 0.85 },
+            }),
+          ],
+          globalOptions: getDefaultGlobalOptions(base),
+        };
+        const url = serializePaletteToUrl(state);
+
+        expect(url).toContain('c:0.2_0.85');
+        expect(parsePaletteFromUrl(url)!.state.colors[0].overrides).toEqual({
+          chromaCurve: { low: 0.2, high: 0.85 },
+        });
+      });
+    });
+
+    it('canonicalizeUrl preserves curve shapes', () => {
+      // Keys serialize in OPTION_KEYS order: c, h, f.
+      const url = '/p/Primary-64_0.142_329?c=p0.6_0.35&h=-15_20&f=1.5_1';
+
+      expect(canonicalizeUrl(url)).toBe(url);
+    });
+  });
 });

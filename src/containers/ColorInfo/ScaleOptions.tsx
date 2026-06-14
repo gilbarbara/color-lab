@@ -1,6 +1,10 @@
+import { Fragment, type ReactNode } from 'react';
 import { round } from '@gilbarbara/helpers';
+import { ArrowsOutLineHorizontalIcon, AtIcon, MinusIcon } from '@phosphor-icons/react';
 
+import { CHROMA_PEAK_DEFAULT } from '~/config/scale';
 import useGenerator from '~/hooks/useGenerator';
+import { isCurvePeak, isSameOptionValue } from '~/utils/scale-options';
 
 import type { ColorEntry, GlobalScaleOptions, ScaleOptions as ScaleOptionsType } from '~/types';
 
@@ -12,7 +16,7 @@ type RowStatus = 'custom' | 'default' | 'override';
 interface Row {
   label: string;
   parts: RowPart[];
-  separator?: string;
+  separator?: ReactNode;
 }
 
 interface RowPart {
@@ -26,12 +30,50 @@ interface ScaleOptionsProps {
   options: ScaleOptionsType;
 }
 
-function statusClass(status: RowStatus): string {
-  if (status === 'override' || status === 'custom') {
-    return 'text-warning font-bold';
+/**
+ * Builds a row for a shape-varying option, resolving per-color `options` over `globalOptions`.
+ * Scalar → one value; chroma peak → `amount @ position`; low/high → the two sides of the midpoint
+ * anchor, joined by a dot (a split, not a range or a directional sweep).
+ */
+function optionRow<K extends 'chromaCurve' | 'hueShift' | 'lightnessCurve'>(
+  label: string,
+  key: K,
+  options: ScaleOptionsType,
+  globalOptions: GlobalScaleOptions,
+  unit = '',
+): Row {
+  const value = (options[key] as GlobalScaleOptions[K] | undefined) ?? globalOptions[key];
+  const part = (text: string): RowPart => ({ keys: [key], value: text });
+  const format = (value_: number): string => `${round(value_, 2)}${unit}`;
+
+  if (typeof value === 'number') {
+    return { label, parts: [part(format(value))] };
   }
 
-  return 'text-foreground-500';
+  if (isCurvePeak(value)) {
+    return {
+      label,
+      parts: [
+        part(format(value.amount)),
+        part(round(value.peak ?? CHROMA_PEAK_DEFAULT, 2).toString()),
+      ],
+      separator: <AtIcon />,
+    };
+  }
+
+  return {
+    label,
+    parts: [part(format(value.low)), part(format(value.high))],
+    separator: <ArrowsOutLineHorizontalIcon />,
+  };
+}
+
+function statusClass(status: RowStatus): string {
+  if (status === 'override' || status === 'custom') {
+    return 'text-secondary-600';
+  }
+
+  return 'text-foreground';
 }
 
 export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps) {
@@ -46,7 +88,7 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
       return 'override';
     }
 
-    if (keys.some(k => globalOptions[k] !== defaultOptions[k])) {
+    if (keys.some(k => !isSameOptionValue(globalOptions[k], defaultOptions[k]))) {
       return 'custom';
     }
 
@@ -70,17 +112,19 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
         { keys: ['minLightness'], value: round(resolve('minLightness'), 3).toString() },
         { keys: ['maxLightness'], value: round(resolve('maxLightness'), 3).toString() },
       ],
-      separator: ' ~ ',
+      separator: <MinusIcon />,
     },
-    {
-      label: 'Lightness curve',
-      parts: [{ keys: ['lightnessCurve'], value: round(resolve('lightnessCurve'), 2).toString() }],
-    },
-    {
-      label: 'Chroma curve',
-      parts: [{ keys: ['chromaCurve'], value: round(resolve('chromaCurve'), 2).toString() }],
-    },
+    optionRow('Lightness curve', 'lightnessCurve', options, globalOptions),
+    optionRow('Chroma curve', 'chromaCurve', options, globalOptions),
   ];
+
+  const hueShift = resolve('hueShift');
+  const hueShiftActive =
+    typeof hueShift === 'number' ? hueShift !== 0 : hueShift.low !== 0 || hueShift.high !== 0;
+
+  if (hueShiftActive || overrides.hueShift !== undefined) {
+    rows.push(optionRow('Hue shift', 'hueShift', options, globalOptions, '°'));
+  }
 
   if (showSaturation) {
     rows.push({
@@ -114,22 +158,20 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
         {rows.map(row => (
           <div
             key={row.label}
-            className="flex items-center justify-between py-2 border-t border-default-100"
+            className="flex items-center justify-between gap-1 py-2 border-t border-default-100"
           >
-            <dt className="text-sm flex items-center gap-2">
-              <span>{row.label}</span>
-            </dt>
-            <dd className="text-sm text-right">
+            <dt className="text-sm text-foreground-600 leading-tight">{row.label}</dt>
+            <dd className="flex items-center text-sm text-right gap-1">
               {row.parts.map((part, index) => {
                 const status = part.status ?? computeStatus(part.keys);
 
                 return (
-                  <span key={part.keys.join('-')}>
-                    {index > 0 && (
-                      <span className="text-foreground-500">{row.separator ?? ' '}</span>
-                    )}
+                  // Parts are a fixed, never-reordered positional list, so the index is a stable key.
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Fragment key={`${part.keys.join('-')}-${index}`}>
+                    {index > 0 && <span className="text-foreground">{row.separator}</span>}
                     <span className={statusClass(status)}>{part.value}</span>
-                  </span>
+                  </Fragment>
                 );
               })}
             </dd>

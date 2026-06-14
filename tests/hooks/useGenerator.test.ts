@@ -48,6 +48,35 @@ describe('hooks/useGenerator', () => {
 
       expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions(BLUE));
     });
+
+    it('hasCustomCurves is false at defaults (object hueShift compared deeply)', () => {
+      const { result } = renderHook(() => useGenerator('hasCustomCurves'));
+
+      expect(result.current.hasCustomCurves).toBe(false);
+    });
+
+    it('hasCustomCurves is true for a { low, high } lightnessCurve even when values equal the scalar default', () => {
+      const { result } = renderHook(() => useGenerator('hasCustomCurves', 'updateGlobalOptions'));
+      const scalar = getDefaultGlobalOptions(CRIMSON).lightnessCurve;
+
+      act(() => {
+        result.current.updateGlobalOptions({
+          lightnessCurve: { low: scalar as number, high: scalar as number },
+        });
+      });
+
+      expect(result.current.hasCustomCurves).toBe(true);
+    });
+
+    it('hasCustomCurves is true for a non-zero hueShift', () => {
+      const { result } = renderHook(() => useGenerator('hasCustomCurves', 'updateGlobalOptions'));
+
+      act(() => {
+        result.current.updateGlobalOptions({ hueShift: { low: -15, high: 20 } });
+      });
+
+      expect(result.current.hasCustomCurves).toBe(true);
+    });
   });
 
   describe('actions', () => {
