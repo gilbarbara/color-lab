@@ -31,7 +31,7 @@ const stepCount = Object.keys(steps).length;
 
 function getBarForStep(step: string): HTMLElement {
   const bar = screen
-    .getAllByTestId('ColorInfo-ChromaChart-Bar')
+    .getAllByTestId('ColorInfo-ChromaDistributionChart-Bar')
     .find(el => el.getAttribute('aria-label')?.startsWith(`Step ${step},`));
 
   if (!bar) {
