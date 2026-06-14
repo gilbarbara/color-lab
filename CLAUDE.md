@@ -1,7 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Commands
 Dev server URL: **https://color-lab.localhost** (via [portless](https://github.com/vercel-labs/portless) proxy — not `localhost:3000`).
 
@@ -29,7 +27,7 @@ Zustand stores:
 
 - **appStore** (`src/stores/appStore.ts`): Global UI state (export format, gamut, panel visibility, saved-palette `paletteId`/`paletteName`, `sessionPalettePath`) — localStorage-guarded for SSR
 - **authStore** (`src/stores/authStore.ts`): Authentication state (user, status, error)
-- **generatorStore** (`src/stores/generatorStore.ts`): Colors array + global scale options. **Not a global singleton** — a per-request store factory (`createGeneratorStore(initialState?)`) provided via Context, consumed via `useGeneratorStoreApi()` / `useGenerator()`. Seeded from the URL — see [URL State](#url-state--the-url-is-the-single-source-of-truth).
+- **generatorStore** (`src/stores/generatorStore.ts`): Colors array + global scale options + transient per-session chart view-state (`toggleChart`/`setAllCharts`; `resetAdvancedOptions` resets curves). **Not a global singleton** — a per-request store factory (`createGeneratorStore(initialState?)`) provided via Context, consumed via `useGeneratorStoreApi()` / `useGenerator()`. Seeded from the URL — see [URL State](#url-state--the-url-is-the-single-source-of-truth).
 - **palettesStore** (`src/stores/palettesStore.ts`): Saved-palettes list state
 
 ### Hooks
@@ -58,26 +56,12 @@ A Cloud Function (`cloud-functions/src/index.js`) runs `beforeUserCreated` to se
 
 ### URL State — the URL is the single source of truth
 
-The palette lives in the URL; the store follows the URL, never a competing persisted copy. **Read before touching palette/navigation behavior.**
+The palette lives in the URL; the store follows it, never a competing persisted copy. **Read `docs/palette.md` (Runtime Sync &amp; Identity) before touching palette/navigation behavior** — it is the authority for store seeding, the `useUrlSync` / `usePaletteIdSync` lifecycle, and the history/router split.
 
-**URL shape.** Shareable form `/p/{name}-{value}[-{overrides}]/...?{globalOpts}&id={savedId}` — colors in the **path** (`value` = OKLCH `L_C_H`, or legacy hex `RRGGBB`); global scale options + saved-palette `id` in the **query** (single-letter keys). All encode/decode lives in `src/utils/url.ts` (`parsePaletteFromUrl`, `serializePaletteToUrl`, `getPaletteIdFromUrl`, `updatePaletteIdInUrl`, `canonicalizeUrl`) — that file is the authority for keys/format; don't re-derive them.
-
-**Routes.** `/` and `/p/*` are `force-dynamic` (SSR per request) and the only routes that mount `GeneratorStoreProvider` (`app/(generator)/layout.tsx`). Static pages must stay out of that tree — the provider calls `useSearchParams`, which would force them to client-render.
-
-**Store seeding** (`GeneratorStoreProvider.tsx`). One-time `useRef` store created on first render: on `/p/*` it parses the URL (`parsePaletteFromUrl`); elsewhere (or if the URL is unparseable) it reuses the server-generated `fallbackPalette` prop from `app/(generator)/layout.tsx`. Both server and first client render run the same branch on the same input, so SSR and hydration match.
-
-**Runtime sync** (`useUrlSync.ts`, called once in Generator) — three effects:
-1. **URL → store** (on nav / back-forward / address-bar). Guard: returns early if the URL already equals the serialized store (`:61`). Otherwise applies the URL state, **preserving existing color `id`s by index** to avoid needless re-renders. Invalid/dropped colors → toast + `router.replace` to the cleaned URL; legacy hex/0–1-OKLCH forms → `router.replace` to canonical; root or unparseable `/p/` → `router.replace` with the already-seeded store (no flash).
-2. **Interaction pause.** A `MutationObserver` on `data-interacting="true"` (set by ColorPicker/ChannelSliders) pauses URL writes mid-gesture and flushes once on release, so dragging doesn't churn history.
-3. **store → URL.** A store subscription fires only when `colors` or `globalOptions` change (ignores `activeColorId`/`previewColorId`) → `commitPaletteUrl` → `router.push`.
-
-**`push` vs `replace`.** `push` = user intent worth a history entry (New Palette, color/option edits via `commitPaletteUrl`). `replace` = silent system correction that must NOT pollute history (drop invalid colors, canonicalize legacy form, strip an unauthorized/missing `id`, reflect the seeded store at root). Every router call passes `ROUTER_NAVIGATION_OPTIONS = { scroll: false }` (`src/config/globals.tsx`) so URL changes never jump scroll.
-
-**New Palette** mints a fresh palette and `router.push`es its `/p/...` URL (`createPalette()` → `serializePaletteToUrl`); it is not a link to `/`.
-
-**Saved-palette identity** (`usePaletteIdSync.ts`, called once alongside `useUrlSync`). Owns the `?id=` query only (colors are `useUrlSync`'s job). Auth-gated: validates the id against the `palettesStore` cache then the API, canonicalizes + fire-and-forget-migrates the stored URL in Firestore, and writes `appStore` `paletteId`/`paletteName` via `setPalette`. Strips the id with `router.replace` when unauthenticated, not-found, or owned by another user.
-
-**Logo restore** — `appStore.sessionPalettePath` is an in-memory convenience (written by `useUrlSync`, not persisted) so the Header logo can return to the palette being worked on. Reload falls back to `/`.
+- **URL shape**: `/p/{name}-{value}[-{overrides}]/...?{globalOpts}&id={savedId}` — colors (OKLCH `L_C_H`) in the path, global options + `id` in the query. All encode/decode lives in `src/utils/url.ts`; that file + `docs/palette.md` are the authority for keys/format — don't re-derive them.
+- **Routes**: `/` and `/p/*` are `force-dynamic` and the only routes that mount `GeneratorStoreProvider` (`app/(generator)/layout.tsx`). Static pages must stay out of that subtree (the provider calls `useSearchParams`).
+- **Sync hooks**, called once in Generator: `useUrlSync` (URL ↔ store) and `usePaletteIdSync` (saved-palette `?id=`).
+- **In-place palette edits commit via `window.history.pushState`/`replaceState` (`useUrlSync`), NOT `router.*`** — router navigation does a server round-trip on these force-dynamic routes that desyncs mid-edit UI; do not change these to router calls. New Palette (`Header.tsx`) uses `router.push` (genuine navigation); identity strips use `router.replace`.
 
 ### Provider / Component Structure
 
@@ -102,19 +86,27 @@ Routes (Next.js App Router under `app/`):
 
 ```
 /                        app/(generator)/page.tsx              → Generator (force-dynamic)
-/p/*                     app/(generator)/p/[...slug]/page.tsx  → Generator, palette in URL (force-dynamic)
+/p/*                     app/(generator)/p/[[...slug]]/page.tsx → Generator, palette in URL (force-dynamic)
 /palettes                app/palettes/page.tsx        → Palettes (saved list)
 /about /privacy /terms   app/{about,privacy,terms}/page.tsx
 /auth/callback           app/auth/callback/page.tsx   → AuthCallback (OAuth/magic link)
 /og/*                    app/og/[...slug]/route.tsx   → dynamic OG image (next/og)
 ```
 
-The Generator UI lives in `src/containers/Generator/` (`index.tsx`, `Panel.tsx`, `ColorOptions.tsx`) and the palette UI in `src/containers/Palette/` (`Header`, `Scale`, `Swatch`, `Options`, `GamutToggle`). `ColorList`/`ColorItem` (SRGB | OKLCH) live in `src/containers/ColorList/`. Responsive layout is handled by `Panel.tsx`.
+The Generator UI lives in `src/containers/Generator/` (`index.tsx`, `Panel/` (`index.tsx` + `BottomBar.tsx`), `AdvancedOptions.tsx`, `ScrollLock.tsx`) and the palette UI in `src/containers/Palette/` (`Header`, `Scale`, `Swatch`, `Options`, `GamutToggle`). `ColorList`/`ColorItem` (SRGB | OKLCH) live in `src/containers/ColorList/`. Responsive layout is handled by `Panel/index.tsx`.
+
+Additional UI surfaces:
+
+- `src/components/ScaleColorOptions/`: Scale curve editors (`ChromaCurve`, `HueShift`, `LightnessCurve`, `LightnessRange`); rendered in `ColorList/ColorActions` inside a `Collapse`.
+- `src/containers/ColorCharts/`: Per-color chroma/lightness/hue distribution charts; open state in `generatorStore` (`toggleChart`/`setAllCharts`).
+- `src/components/ColorPresets.tsx`: Applies `DESIGN_SYSTEM_PRESETS` from `src/config/presets.ts`.
+- `src/containers/Preview/Typography.tsx`: Typography tab in Preview.
+- `src/components/CollapsibleMenu.tsx`: CSS-only responsive collapse (inline at `xsm`+, dropdown below 400px).
 
 ### Key Types
 
 - **ColorEntry**: `{ id, name, value, overrides? }`
-- **GlobalScaleOptions**: `{ steps, saturation, saturationOverride, chromaCurve, lightnessCurve, minLightness, maxLightness }`
+- **GlobalScaleOptions**: `{ steps, saturation, saturationOverride, mode, chromaCurve, lightnessCurve, hueShift, minLightness, maxLightness }`. `chromaCurve`/`lightnessCurve`/`hueShift` are scalar **or** object: scalar = Simple mode, `{ low, high }` = Range, `chromaCurve` also accepts a movable peak. See `src/types.ts` (`GlobalScaleOptions`, `DefaultScaleOptions`, `EffectiveScaleOptions`).
 
 ### Core Utilities
 
@@ -125,7 +117,9 @@ The Generator UI lives in `src/containers/Generator/` (`index.tsx`, `Panel.tsx`,
 - `src/utils/gamut.ts`: P3 capability detection (`isP3Supported`), SSR `window` guard
 - `src/utils/export.ts`: Generate CSS/SCSS/Tailwind/SVG exports
 - `src/utils/generator.ts`: Pure functions for palette CRUD operations (used by store)
+- `src/utils/scale-options.ts`: Curve normalization + Simple/Split mode helpers (`isSameOptionValue`, `isCurvePeak`, `getChromaFraction`); shared by URL, store, and curve editors
 - `src/utils/url.ts`: URL encoding/decoding for shareable palettes
+- `src/config/presets.ts`: `DESIGN_SYSTEM_PRESETS` (tailwind/material/bootstrap/opencolor) lightness/chroma/hueShift configs applied by `ColorPresets`
 
 ## Key Dependencies
 
@@ -147,7 +141,7 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 - `~/test-utils` → `tests/__setup__/test-utils.tsx`
   - custom render wrapping `ThemeProvider` + `MockAuthProvider`. `next/navigation` is mocked in `~/test-mocks` (no router in the wrapper); `GeneratorStoreProvider` is mocked to a passthrough. Supports `initialEntries` (seeds the mocked route via `setMockRoute`) and `authState` for auth context overrides.
 - `~/test-mocks` → `tests/__setup__/mocks.ts`
-  - mocks `next/navigation`, `next-themes`, `@heroui/react`, and `~/utils/gamut`. Exports: `mockRouter`, `setMockRoute(url)`, `mockSetTheme`, `setMockTheme(theme)`, `mockAddToast`, `mockIsP3Supported`, `getGeneratorStore()`, `mockClipboard`.
+  - mocks `next/navigation`, `next-themes`, and `~/utils/gamut`. Exports: `mockRouter`, `setMockRoute(url)`, `mockSetTheme`, `setMockTheme(theme)`, `mockAddToast`, `mockIsP3Supported`, `getGeneratorStore()`, `mockClipboard`.
 
 **Patterns:**
 
@@ -182,10 +176,9 @@ The snapshots are generated locally on macOS, not on the Linux CI runner, and th
 
 Before first browser command: invoke `agent-browser` skill via Skill tool. Skill has workflow patterns + ref/selector usage CLI flags don't show.
 
-P3 wide-gamut UI. Headless Chrome defaults to SRGB and clips colors — load `scripts/spoof-p3-gamut.js` via `--init-script` when verifying visuals:
-
 ```bash
-agent-browser open --init-script scripts/spoof-p3-gamut.js https://color-lab.localhost
+agent-browser open https://color-lab.localhost
+agent-browser set viewport 1440 900   # default 1280x633 is cramped; 1440 matches the e2e layout
 ```
 
 ### Logged-in flows
@@ -195,8 +188,13 @@ Test account credentials are available in the shell as `$COLOR_LAB_EMAIL` and `$
 **Driving controls with agent-browser:**
 
 - Buttons respond to a normal `click`. Run `wait --load networkidle` first so the click doesn't race a re-render.
-- For a button inside a modal, run `scrollintoview @ref` before `click @ref`.
-- To submit a modal form: `scrollintoview` + `click` the submit button, or focus an input and press Enter.
+- To submit the Login modal form: `scrollintoview` + `click` the submit button, or focus an input and press Enter.
+- After any state-changing action (click/fill/nav/scroll/tab), `wait` on a concrete signal (`@ref`, `--text`, `--url`, `--load networkidle`) before the next dependent command; re-`snapshot` before reusing refs. Batch only independent read-only commands.
+- Prefer `click @ref` over `find role … click` — `find` clicks covered points silently. After scrolling, scroll up to clear the sticky header before clicking near the top.
+- For "click again to confirm" controls (e.g. Remove color), send both clicks in one command with no `snapshot`/`screenshot` between them.
+- Use normal-viewport `screenshot`; `--full` distorts the responsive/collapsed-sidebar layout.
+- Wrap `eval` return values in `JSON.stringify(...)`.
+- Wrap commands in `timeout 30`; recover a frozen page by re-`open`ing the palette URL (state lives in the URL).
 
 ## Stack
 

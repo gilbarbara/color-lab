@@ -33,7 +33,7 @@ Technical reference for the multi-color palette system.
 
 ### Color Values
 
-OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`. Legacy URLs are also canonicalised in the address bar on load — `useUrlSync` calls `router.replace(canonicalUrl)` (`next/navigation`) so shared legacy links converge to the OKLCH form for everyone (no back-button pollution).
+OKLCH is the only format **emitted** by the encoder. Hex is **accepted on parse** for back-compat with shared/saved legacy URLs — converted to OKLCH on load via `urlToColorValue` in `src/utils/url.ts`. Legacy URLs are also canonicalised in the address bar on load — `useUrlSync` calls `window.history.replaceState(null, '', canonicalUrl)` so shared legacy links converge to the OKLCH form for everyone (no back-button pollution). See [Runtime Sync &amp; Identity](#runtime-sync--identity).
 
 | Format | URL Example | Parsed Value | Direction |
 |--------|-------------|--------------|-----------|
@@ -200,6 +200,46 @@ Components never read `generatorStore` directly — always via `useGenerator`.
 
 ---
 
+## Runtime Sync & Identity
+
+How the URL and store stay in sync at runtime. Written from `../src/hooks/useUrlSync.ts`, `../src/hooks/usePaletteIdSync.ts`, and `../src/providers/GeneratorStoreProvider.tsx` — the source is the authority; line refs are anchors, not contracts.
+
+### Routing constraint
+
+`/` and `/p/*` are `force-dynamic` (SSR per request) and the only routes that mount `GeneratorStoreProvider` (`../app/(generator)/layout.tsx`). The provider calls `useSearchParams`, which would force any page in its subtree to client-render — so static pages (`/about`, `/privacy`, …) must stay out of that tree.
+
+### Store seeding
+
+`GeneratorStoreProvider` creates the per-request store once via `useRef`. On `/p/*` it parses the URL (`parsePaletteFromUrl`); elsewhere (or when the URL is unparseable) it reuses the server-generated `fallbackPalette` prop (created once in the generator layout). Both server and first client render run the same branch on the same input, so SSR and hydration match — generating a random palette independently on each side is what previously caused hydration mismatches.
+
+### `useUrlSync` — three effects
+
+Called once in Generator. The store follows the URL; there is no competing persisted copy.
+
+1. **URL → store (hydrate).** Runs on nav / back-forward / address-bar change. Guard: returns early if `decoratePaletteUrl(storeUrl, { id }) === currentUrl`. Otherwise applies URL state, **preserving existing color `id`s by index** to avoid needless re-renders. Dropped colors → toast + `history.replaceState` to the cleaned URL; legacy hex / 0–1-OKLCH forms → `history.replaceState` to canonical; unparseable `/p/…` → `replaceState` reflecting the already-seeded store. An `applyingFromUrl` ref marks this write so effect 3 skips it — without it, applying the URL on `popstate` re-commits the same URL and the extra `pushState` clobbers the forward-history entry, breaking the Forward button.
+2. **Interaction pause.** A `MutationObserver` watches `data-interacting="true"` (set by ColorPicker / ChannelSliders). While set, URL writes pause; on release it flushes once. Keeps a drag from churning history.
+3. **store → URL (commit).** A store subscription fires on `colors`/`globalOptions` change → commit with `push`; on `name`-only change → commit with `replace` (metadata isn't worth a history entry). Skips when paused or `applyingFromUrl`. Also seeds `appStore.sessionPalettePath` for the palette the provider created (no store change fires for it).
+
+### History API, not router
+
+Palette commits use `window.history.pushState`/`replaceState`, **not** `router.push`/`router.replace`. On these force-dynamic routes, router navigation does a server round-trip that re-renders the generator subtree — closing an open popover and desyncing a controlled slider mid-edit. `pushState`/`replaceState` integrate with the Next router (`usePathname`/`useSearchParams` update, back/forward works) without that round-trip. Do not change these to router calls.
+
+`router.replace` (+ `ROUTER_NAVIGATION_OPTIONS`, `{ scroll: false }`) is used **only** for saved-palette identity strips (below) — a genuine navigation correction, not a palette edit.
+
+### Saved-palette identity (`usePaletteIdSync`)
+
+Called once alongside `useUrlSync`; owns the `?id=` query only (colors are `useUrlSync`'s job). Auth-gated:
+
+- Validates the id against the `palettesStore` cache first, then the API.
+- On a match owned by the user: canonicalizes the stored URL and fire-and-forget-migrates it in Firestore when the structural form changed (migration write omits `updatedAt`), then `setPalette` writes `appStore` `paletteId`/`paletteName` and seeds the working store's name.
+- Strips the id with `router.replace` when unauthenticated, or not-found / forbidden / not-owned, and clears `appStore`.
+
+### Logo restore
+
+`appStore.sessionPalettePath` is an in-memory convenience (written by `useUrlSync`, not persisted) so the Header logo can return to the palette being worked on. Not a source of truth; reload falls back to `/`.
+
+---
+
 ## Key Functions
 
 ### `../src/utils/generator.ts`
@@ -225,10 +265,14 @@ Also exports the constant `MAX_COLORS = 10`.
 
 | Function | Purpose |
 |----------|---------|
-| `serializePaletteToUrl(state)` | `GeneratorState` → URL path + query (OKLCH-only output) |
+| `serializePaletteToUrl(state)` | `GeneratorState` → structural URL path + global-options query (OKLCH-only output) |
 | `parsePaletteFromUrl(url)` | URL string → `ParsedPalette \| null` (accepts hex on parse for back-compat) |
-| `getPaletteIdFromUrl(search)` | Extract `id` from query string |
-| `updatePaletteIdInUrl(url, id)` | Add or remove `id` query param |
+| `getPaletteIdFromUrl(search)` | Extract `id` from query string (`null` if absent) |
+| `decoratePaletteUrl(url, { name?, id? })` | Add/keep/remove `name` + `id` query params; tri-state per field (`undefined` keeps, `null` removes, string sets). Single source for ordering (name before id, id terminal) |
+| `stripPaletteIdentity(url)` | Remove both `name` and `id` — `decoratePaletteUrl(url, { id: null, name: null })` |
+| `canonicalizeUrl(url)` | Round-trip parse + serialize to current OKLCH form; returns input unchanged if parse fails or any color dropped; preserves `id` |
+| `buildUrl(slug, searchParams)` | Reconstruct `/p/{slug}?{query}` from Next route params (flattens array-valued params) |
+| `colorId(segment, index)` | Stable hash-based color id from segment + index (SSR/CSR parity; avoids `uuid()` hydration drift) |
 
 Also exports type `ParsedPalette = { state: PaletteState; dropped: string[] }` — `dropped` lists named slots whose segments failed to parse.
 
