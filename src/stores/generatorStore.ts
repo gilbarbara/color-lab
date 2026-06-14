@@ -6,6 +6,7 @@ import {
   clearColorOverrides as clearColorOverridesFn,
   createPalette,
   removeColor as removeColorFn,
+  resetAdvancedOptions as resetAdvancedOptionsFn,
   resetGlobalOptions as resetGlobalOptionsFn,
   resetPalette as resetPaletteFn,
   setColorOverride as setColorOverrideFn,
@@ -141,6 +142,11 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
 
       return nextActiveId;
     },
+
+    resetAdvancedOptions: () =>
+      set(state =>
+        resetAdvancedOptionsFn({ colors: state.colors, globalOptions: state.globalOptions }),
+      ),
 
     resetGlobalOptions: () =>
       set(state =>

@@ -4,7 +4,6 @@ import { SlidersHorizontalIcon } from '@phosphor-icons/react';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
-import { CURVE_OPTION_KEYS } from '~/utils/generator';
 
 import Badge from '~/components/Badge';
 import Button from '~/components/Button';
@@ -25,13 +24,14 @@ export default function AdvancedOptions(props: AdvancedOptionsProps) {
     'showColorOptionsPanel',
     'toggleColorOptionsPanel',
   );
-  const { colors, hasCustomCurves } = useGenerator('colors', 'hasCustomCurves');
+  const { colors, hasCustomCurves, resetAdvancedOptions } = useGenerator(
+    'colors',
+    'hasCustomCurves',
+    'resetAdvancedOptions',
+  );
 
   const handleClickReset = () => {
-    updateGlobalOptions(
-      Object.fromEntries(CURVE_OPTION_KEYS.map(key => [key, defaultOptions[key]])),
-    );
-
+    resetAdvancedOptions();
     trackEvent('reset-color-options');
   };
 

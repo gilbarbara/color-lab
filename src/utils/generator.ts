@@ -139,6 +139,19 @@ export function removeColor(state: GeneratorState, index: number): GeneratorStat
 }
 
 /**
+ * Reset only the advanced (curve) options to their seed-derived defaults,
+ * leaving palette options (saturation, steps, mode, …) untouched.
+ */
+export function resetAdvancedOptions(state: GeneratorState): GeneratorState {
+  const defaults = getDefaultGlobalOptions(state.colors[0].value);
+
+  return updateGlobalOptions(
+    state,
+    Object.fromEntries(CURVE_OPTION_KEYS.map(key => [key, defaults[key]])),
+  );
+}
+
+/**
  * Reset global options only (keeps colors)
  */
 export function resetGlobalOptions(state: GeneratorState): GeneratorState {

@@ -131,7 +131,7 @@ describe('Panel', () => {
     });
 
     it('toggles Advanced Color Options', async () => {
-      const spy = vi.spyOn(getGeneratorStore().getState(), 'updateGlobalOptions');
+      const spy = vi.spyOn(getGeneratorStore().getState(), 'resetAdvancedOptions');
 
       render(<Panel />);
 
