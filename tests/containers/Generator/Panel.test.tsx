@@ -141,6 +141,11 @@ describe('Panel', () => {
 
       expect(spy).not.toHaveBeenCalledOnce();
 
+      // Reset is disabled until the curves differ from defaults.
+      act(() => {
+        getGeneratorStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
+      });
+
       fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
 
       expect(spy).toHaveBeenCalledOnce();

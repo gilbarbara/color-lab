@@ -18,11 +18,13 @@ import TooltipClickable from '~/components/TooltipClickable';
 import type { ScaleOptions } from '~/types';
 
 export default function PaletteOptions() {
-  const { defaultOptions, globalOptions, updateGlobalOptions } = useGenerator(
-    'defaultOptions',
-    'globalOptions',
-    'updateGlobalOptions',
-  );
+  const { defaultOptions, globalOptions, hasCustomPaletteOptions, updateGlobalOptions } =
+    useGenerator(
+      'defaultOptions',
+      'globalOptions',
+      'hasCustomPaletteOptions',
+      'updateGlobalOptions',
+    );
   const { end, ref: interactionRef, start } = useSliderInteraction();
   const scheduleUpdateGlobalOptions = useRafCallback(updateGlobalOptions);
 
@@ -286,6 +288,7 @@ export default function PaletteOptions() {
         </div>
         <div>
           <Button
+            isDisabled={!hasCustomPaletteOptions}
             onPress={handleClickReset}
             size="sm"
             startContent={<EraserIcon className="text-base" />}
