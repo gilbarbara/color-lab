@@ -1,12 +1,32 @@
 /* eslint-disable no-restricted-globals */
 import { devices, expect, type Page, test } from '@playwright/test';
 
+import {
+  hasColor,
+  hasExactParams,
+  hasNoQuery,
+  hasParams,
+  lacksColor,
+  lacksParams,
+} from './__setup__/utils';
 import { collapseDuration } from './fixtures/constants';
 
+let screenshotCount = 0;
+
+function getScreenshotName(name: string) {
+  screenshotCount += 1;
+
+  return `${screenshotCount.toString().padStart(3, '0')}-${name}`;
+}
+
+// HeroUI sliders must be driven by keyboard (focus + Arrow/Page/Home/End), not fill():
+// fill() fires react-aria's onChange but never onChangeEnd, so the interaction never
+// releases and useUrlSync stays paused, suppressing later URL writes.
 let page: Page;
 
 test.use({
   ...devices['Desktop Chrome'],
+  permissions: ['clipboard-read', 'clipboard-write'],
   viewport: {
     width: 1440,
     height: 810,
@@ -28,11 +48,8 @@ test.beforeAll(async ({ browser }) => {
     };
   });
 
-  // Record the real history back-stack the app commits, mirroring history semantics:
-  // pushState appends an entry, replaceState rewrites the current one (e.g. rename). The
-  // back/forward step at the end replays this exact sequence — a URL being different on
-  // back isn't enough; it must match the URL the app actually produced. Survives Next's own
-  // history patch, which delegates to the pushState we install here first.
+  // Record the history back-stack the app commits (pushState appends, replaceState rewrites)
+  // so the back/forward step can replay the exact sequence. Survives Next's own history patch.
   await page.addInitScript(() => {
     const w = window as unknown as { __historyStack: string[] };
 
@@ -42,7 +59,7 @@ test.beforeAll(async ({ browser }) => {
       const original = history[name].bind(history);
 
       history[name] = (data: unknown, unused: string, url?: string | URL | null) => {
-        const result = original(data, unused, url);
+        original(data, unused, url);
         const full = location.pathname + location.search;
 
         if (name === 'pushState') {
@@ -50,8 +67,6 @@ test.beforeAll(async ({ browser }) => {
         } else {
           w.__historyStack[w.__historyStack.length - 1] = full;
         }
-
-        return result;
       };
     });
   });
@@ -65,17 +80,17 @@ test.afterAll(async () => {
 
 test('desktop', async () => {
   await test.step('displays main elements on initial load', async () => {
-    // Header elements
     await expect(page.getByRole('link', { name: /colormeup/i })).toBeVisible();
-    await expect(page.getByTestId('NewPalette')).toBeVisible();
-    await expect(page.getByRole('button', { name: /toggle dark mode/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
 
-    // Palette area
-    await expect(page.getByRole('button', { name: /export all/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /save/i })).toBeVisible();
+    // check for the default data attributes in the HTML
+    await expect(page.locator('html')).toHaveAttribute('data-sidebar', 'open');
+    await expect(page.locator('html')).toHaveAttribute('data-preview', 'open');
+    await expect(page.locator('html')).toHaveAttribute('data-palette-options', 'closed');
+    await expect(page.locator('html')).toHaveAttribute('data-color-options', 'closed');
+    await expect(page.locator('html')).toHaveAttribute('data-gamut', 'p3');
+    await expect(page.locator('html')).toHaveAttribute('data-p3-supported', 'true');
 
-    await expect(page).toHaveScreenshot('01-initial.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('initial.png'));
   });
 
   await test.step('has correct page title', async () => {
@@ -83,7 +98,7 @@ test('desktop', async () => {
   });
 
   await test.step('encodes palette state in URL', async () => {
-    await expect(page).toHaveURL(/Primary-73_0\.127_321/);
+    await expect(page).toHaveURL(hasColor('Primary', '73_0.127_321'));
   });
 
   await test.step('toggles dark mode', async () => {
@@ -95,7 +110,7 @@ test('desktop', async () => {
 
     await expect(html).toHaveClass(/dark/);
 
-    await expect(page).toHaveScreenshot('02-dark-mode.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('dark-mode.png'));
   });
 
   await test.step('persists theme preference across reload', async () => {
@@ -113,18 +128,27 @@ test('desktop', async () => {
     await lightnessSlider.fill('0.5');
     await expect(lightnessSlider).toHaveValue('0.5');
 
-    await expect(page).toHaveURL(/50/);
+    await expect(page).toHaveURL(hasColor('Primary', '50'));
+    await expect(page).toHaveScreenshot(getScreenshotName('update-primary-lightness.png'));
   });
 
-  await test.step('modifies chroma slider', async () => {
+  await test.step('modifies chroma slider and updates URL', async () => {
     const chromaSlider = page.getByRole('slider', { exact: true, name: 'Chroma' });
 
     await chromaSlider.fill('0.2');
 
-    // Value may be clamped by gamut limits
+    // Gamut may clamp the value, so assert the URL numerically against the value the
+    // slider actually settled on rather than the requested one.
     const value = await chromaSlider.inputValue();
 
     expect(parseFloat(value)).toBeGreaterThan(0);
+    await expect(page).toHaveURL(url => {
+      const c = url.pathname.match(/Primary-[\d.]+_([\d.]+)_/)?.[1];
+
+      return c !== undefined && Math.abs(parseFloat(c) - parseFloat(value)) < 0.02;
+    });
+
+    await expect(page).toHaveScreenshot(getScreenshotName('update-primary-chroma.png'));
   });
 
   await test.step('modifies hue slider', async () => {
@@ -133,6 +157,8 @@ test('desktop', async () => {
     await hueSlider.fill('180');
 
     await expect(page).toHaveURL(/180/);
+
+    await expect(page).toHaveScreenshot(getScreenshotName('update-primary-hue.png'));
   });
 
   await test.step('opens export scale drawer', async () => {
@@ -141,7 +167,7 @@ test('desktop', async () => {
     await expect(page.getByRole('tab', { name: 'Tailwind 4' })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'OKLCH' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('03-export-scale.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('export-scale.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
     await expect(page.getByRole('tab', { name: 'Tailwind 4' })).not.toBeVisible();
@@ -155,81 +181,252 @@ test('desktop', async () => {
 
     await addColorButton.click();
 
-    // Wait for Collapse to finish animating
     await page.waitForTimeout(collapseDuration);
 
     await expect(ColorItem).toHaveCount(2);
     await expect(ColorItem.first()).toHaveAttribute('aria-current', 'false');
     await expect(ColorItem.nth(1)).toHaveAttribute('aria-current', 'true');
 
-    await expect(page).toHaveScreenshot('04-two-colors.png');
+    await expect(page).toHaveURL(hasColor('Secondary'));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('add-secondary-color.png'));
+  });
+
+  await test.step('apply the "Tailwind" preset', async () => {
+    await page.getByRole('button', { name: 'Apply a preset' }).click();
+
+    await page.getByRole('menuitemradio', { name: 'Tailwind' }).click();
+
+    // A preset writes its full curve set to the query, dropping any value at its default.
+    await expect(page).toHaveURL(
+      hasExactParams({ c: '0.75_0.83', f: '1.35_1', x: '0.99', n: '0.28' }),
+    );
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preset-tailwind.png'));
+  });
+
+  await test.step('apply the "Material" preset', async () => {
+    await page.getByRole('button', { name: 'Tailwind' }).click();
+
+    await page.getByRole('menuitemradio', { name: 'Material' }).click();
+
+    await expect(page).toHaveURL(
+      hasExactParams({ c: '0.5_0.8', h: '1_-5', f: '0.9_1.2', x: '0.95', n: '0.48' }),
+    );
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preset-material.png'));
+  });
+
+  await test.step('apply the "Bootstrap" preset', async () => {
+    await page.getByRole('button', { name: 'Material' }).click();
+
+    await page.getByRole('menuitemradio', { name: 'Bootstrap' }).click();
+
+    await expect(page).toHaveURL(
+      hasExactParams({ c: '0.73_0.7', h: '9_2', f: '0.9_1.05', x: '0.93', n: '0.24' }),
+    );
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preset-bootstrap.png'));
+  });
+
+  await test.step('apply the "Open Color" preset', async () => {
+    await page.getByRole('button', { name: 'Bootstrap' }).click();
+
+    await page.getByRole('menuitemradio', { name: 'Open Color' }).click();
+
+    await expect(page).toHaveURL(hasExactParams({ c: '0.78_0.75', f: '1.15_1.4', n: '0.48' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preset-opencolor.png'));
+  });
+
+  await test.step('reset preset', async () => {
+    await page.getByRole('button', { name: 'Reset preset' }).click();
+
+    await expect(page.getByRole('button', { name: 'Apply a preset' })).toBeVisible();
+
+    // Reset clears all five curve params; nothing else is set yet, so the query empties.
+    await expect(page).toHaveURL(hasNoQuery());
   });
 
   await test.step('opens Advanced Options', async () => {
     await page.getByRole('button', { name: 'Advanced Options' }).click();
-
-    await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
-
-    // Wait for Collapse to finish animating
     await page.waitForTimeout(collapseDuration);
 
+    await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('data-color-options', 'open');
+
     await page.getByTestId('GeneratorPanel').evaluate(el => {
-      el.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      el.scrollTo({ top: 0, behavior: 'instant' });
     });
 
-    await expect(page).toHaveScreenshot('05-advanced-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('advanced-options.png'));
   });
 
-  await test.step('change global Lightness Curve', async () => {
+  await test.step('change global simple curves', async () => {
     const lightnessCurveSlider = page.locator('input[name="lightnessCurve"]');
 
     await expect(lightnessCurveSlider).toHaveValue('1.3');
 
-    // Drive HeroUI sliders by keyboard, not fill(): fill() fires react-aria's
-    // onChange (which sets data-interacting) but never onChangeEnd, so the
-    // interaction never releases and useUrlSync stays paused — suppressing all
-    // later URL writes (e.g. the rename below). ArrowDown steps 1.3 → 1.2.
     await lightnessCurveSlider.focus();
-    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('PageDown');
+
+    await expect(page).toHaveURL(hasParams({ f: '1.2' }));
     await expect(lightnessCurveSlider).toHaveValue('1.2');
 
+    // Chroma Curve
+    const chromaCurveSlider = page.locator('input[name="chromaAmount"]');
+
+    await expect(chromaCurveSlider).toHaveValue('0');
+
+    await chromaCurveSlider.focus();
+    await page.keyboard.press('PageUp');
+    await expect(page).toHaveURL(hasParams({ c: '0.1' }));
+    await expect(chromaCurveSlider).toHaveValue('0.1');
+
+    await page.keyboard.press('PageUp');
+    await expect(page).toHaveURL(hasParams({ c: '0.2' }));
+    await expect(chromaCurveSlider).toHaveValue('0.2');
+
+    await page.keyboard.press('PageUp');
+    await expect(page).toHaveURL(hasParams({ c: '0.3' }));
+    await expect(chromaCurveSlider).toHaveValue('0.3');
+
+    // Chroma Curve Peak
+    const chromaCurvePeakSlider = page.locator('input[name="chromaPeak"]');
+
+    await expect(chromaCurvePeakSlider).toHaveValue('0.5');
+
+    await chromaCurvePeakSlider.focus();
+
+    await page.keyboard.press('PageUp');
+    await expect(page).toHaveURL(hasParams({ c: 'p0.3_0.6' }));
+
+    await expect(chromaCurvePeakSlider).toHaveValue('0.6');
+
+    // Hue Shift
+    const hueShiftSlider = page.locator('input[name="hueShift"]');
+
+    await expect(hueShiftSlider).toHaveValue('0');
+
+    await hueShiftSlider.focus();
+    await page.keyboard.press('PageUp');
+
+    await expect(page).toHaveURL(hasParams({ h: '10' }));
+    await expect(hueShiftSlider).toHaveValue('10');
+
+    await expect(page).toHaveScreenshot(getScreenshotName('advanced-color-simple-options.png'));
+  });
+
+  await test.step('change global range curves', async () => {
+    // Switching Simple → Split seeds both endpoints from the current scalar; nudging
+    // High splits them. The mid-assertion forces the controlled re-render so the next
+    // keypress isn't dropped.
+    await page
+      .getByRole('tablist', { name: 'Lightness curve mode' })
+      .getByRole('tab', { name: 'Split' })
+      .click();
+
+    await expect(page).toHaveURL(hasParams({ f: '1.2_1.2' }));
+
+    const lightnessHigh = page.locator('input[name="lightnessCurveHigh"]');
+
+    await lightnessHigh.focus();
+    await page.keyboard.press('PageUp');
+    await expect(lightnessHigh).toHaveValue('1.3');
+    await page.keyboard.press('PageUp');
+    await expect(lightnessHigh).toHaveValue('1.4');
+    await expect(page).toHaveURL(hasParams({ f: '1.2_1.4' }));
+
+    // Chroma Split endpoints reseed from the input color's gamut fraction, so pin both
+    // ends with Home/End rather than depend on the seed.
+    await page
+      .getByRole('tablist', { name: 'Chroma curve mode' })
+      .getByRole('tab', { name: 'Split' })
+      .click();
+
+    const chromaLow = page.locator('input[name="chromaLow"]');
+    const chromaHigh = page.locator('input[name="chromaHigh"]');
+
+    await chromaLow.focus();
+    await page.keyboard.press('Home');
+    await expect(chromaLow).toHaveValue('0');
+
+    await chromaHigh.focus();
+    await page.keyboard.press('End');
+    await expect(chromaHigh).toHaveValue('1');
+    await expect(page).toHaveURL(hasParams({ c: '0_1' }));
+
+    // Scalar hue shift expands to a symmetric pair on Split, so the endpoints are already set.
+    await page
+      .getByRole('tablist', { name: 'Hue shift mode' })
+      .getByRole('tab', { name: 'Split' })
+      .click();
+
+    await expect(page.locator('input[name="hueShiftLow"]')).toHaveValue('-10');
+    await expect(page.locator('input[name="hueShiftHigh"]')).toHaveValue('10');
+    await expect(page).toHaveURL(hasParams({ h: '-10_10' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('advanced-color-split-options.png'));
+  });
+
+  await test.step('close Advance Options', async () => {
     await page.getByRole('button', { name: 'Advanced Options' }).click();
 
     await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
+    await expect(page.locator('html')).toHaveAttribute('data-color-options', 'closed');
 
-    await expect(page).toHaveScreenshot('06-post-advanced-color-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('post-advanced-color-options.png'));
   });
 
-  await test.step('opens color options popover', async () => {
-    await page.getByRole('button', { name: 'Change color options' }).click();
+  await test.step('show and update color options', async () => {
+    const colorItem = page.getByTestId('ColorItem').nth(1);
 
-    const popover = page.locator('[data-slot="content"]').last();
+    await colorItem.getByRole('button', { name: 'Change color options' }).click();
+    await page.waitForTimeout(collapseDuration);
 
-    const lightnessCurveSlider = popover.locator('input[name="lightnessCurve"]');
+    const colorItemOffset = await colorItem.evaluate(el => (el as HTMLElement).offsetTop);
 
-    await expect(lightnessCurveSlider).toHaveValue('1.2');
+    await page.getByTestId('GeneratorPanel').evaluate((el, scrollTop) => {
+      el.scrollTo({ top: scrollTop, behavior: 'instant' });
+    }, colorItemOffset);
 
-    // Keyboard, not fill() — see the global Lightness Curve step. ArrowUp steps 1.2 → 1.3.
-    await lightnessCurveSlider.focus();
-    await page.keyboard.press('ArrowUp');
+    // The color inherits the global Split curves; switching its Lightness Curve back to
+    // Simple writes a per-color override seeded from the range midpoint.
+    await colorItem
+      .getByRole('tablist', { name: 'Lightness curve mode' })
+      .getByRole('tab', { name: 'Simple' })
+      .click();
+
+    const lightnessCurveSlider = colorItem.locator('input[name="lightnessCurve"]');
+
     await expect(lightnessCurveSlider).toHaveValue('1.3');
 
-    await expect(page).toHaveScreenshot('07-color-options.png');
+    await lightnessCurveSlider.focus();
+    await page.keyboard.press('PageDown');
+
+    await expect(lightnessCurveSlider).toHaveValue('1.2');
+    await expect(page).toHaveURL(/-f:1\.2/);
+
+    await expect(page).toHaveScreenshot(getScreenshotName('color-options.png'));
   });
 
-  await test.step('closes color options popover with Escape', async () => {
-    const popover = page.locator('[data-slot="content"]').last();
+  await test.step('closes color options', async () => {
+    const colorItem = page.getByTestId('ColorItem').nth(1);
 
-    await expect(popover.getByText(/options for/i)).toBeVisible();
+    await colorItem.getByRole('button', { name: 'Change color options' }).click();
 
-    await page.keyboard.press('Escape');
+    await expect(colorItem.locator('input[name="lightnessCurve"]')).not.toBeVisible();
 
-    await expect(popover).not.toBeVisible();
-
-    await expect(page).toHaveScreenshot('08-post-color-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('post-color-options.png'));
   });
 
-  await test.step('renames the palette', async () => {
+  await test.step('close sidebar and rename palette', async () => {
+    await page.getByRole('button', { name: 'Toggle Sidebar' }).click();
+
+    await expect(page.locator('html')).toHaveAttribute('data-sidebar', 'closed');
+
+    await page.evaluate(() => window.scrollTo(0, 0));
+
     const nameInput = page.locator('input[name="palette-name"]');
 
     await nameInput.clear();
@@ -237,49 +434,123 @@ test('desktop', async () => {
     await nameInput.press('Enter');
 
     await expect(nameInput).toHaveValue('My Palette');
-    await expect(page).toHaveURL(/name=My\+Palette/);
+    await expect(page).toHaveURL(hasParams({ name: 'My Palette' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('rename-palette.png'));
   });
 
   await test.step('opens palette options panel', async () => {
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
-    await expect(page).toHaveScreenshot('09-palette-options.png');
+    await expect(page.locator('html')).toHaveAttribute('data-palette-options', 'open');
+
+    await expect(page).toHaveScreenshot(getScreenshotName('palette-options.png'));
   });
 
-  await test.step('toggles light/dark scale', async () => {
-    const scaleSwitch = page.getByRole('switch', { name: /light scale/i });
+  await test.step('switches the scale mode', async () => {
+    const lightRadio = page.getByRole('radio', { name: 'Light' });
+    const darkRadio = page.getByRole('radio', { name: 'Dark' });
+    const reversedRadio = page.getByRole('radio', { name: 'Reversed' });
 
-    await expect(scaleSwitch).toBeVisible();
+    await expect(darkRadio).toBeVisible();
 
-    await scaleSwitch.click();
+    await darkRadio.click();
 
-    await expect(page.getByRole('switch', { name: /dark scale/i })).toBeVisible();
+    await expect(darkRadio).toBeChecked();
+    // Dark is non-default, so it surfaces in the query as `m=d`.
+    await expect(page).toHaveURL(hasParams({ m: 'd' }));
 
-    await page.getByRole('switch', { name: /dark scale/i }).click();
-    await expect(page.getByRole('switch', { name: /light scale/i })).toBeVisible();
+    await expect(page).toHaveScreenshot(getScreenshotName('dark-scale.png'));
+
+    await reversedRadio.click();
+    await expect(reversedRadio).toBeChecked();
+    // Reverse is non-default, so it surfaces in the query as `m=r`.
+    await expect(page).toHaveURL(hasParams({ m: 'r' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('reversed-scale.png'));
+
+    await lightRadio.click();
+    await expect(lightRadio).toBeChecked();
+    // Light is the default, so the param is dropped entirely.
+    await expect(page).toHaveURL(lacksParams('m'));
+  });
+
+  await test.step('adjusts scale options and updates URL', async () => {
+    const paletteOptions = page.getByTestId('PaletteOptions');
+    const stepsSlider = page.locator('input[name="steps"]');
+
+    await stepsSlider.focus();
+    await page.keyboard.press('ArrowLeft');
+    await expect(stepsSlider).toHaveValue('10');
+    await expect(page).toHaveURL(hasParams({ i: 10 }));
+
+    await page.getByRole('button', { name: /^select variant/i }).click();
+    await page.getByRole('option', { name: 'Neutral' }).click();
+    await expect(page).toHaveURL(hasParams({ v: 'neutral' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('custom-steps-and-variant.png'));
+
+    await paletteOptions.getByRole('button', { name: 'Reset', exact: true }).click();
+
+    await page.getByRole('switch', { name: 'Apply saturation to all colors' }).click();
+
+    const saturationSlider = page.locator('input[name="saturation"]');
+
+    await saturationSlider.focus();
+    await page.keyboard.press('End');
+    await expect(saturationSlider).toHaveValue('100');
+
+    // Maxing saturation with the override on writes both o=1 and s=100.
+    await expect(page).toHaveURL(hasParams({ o: 1, s: 100 }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('saturation-override.png'));
+
+    // Reset clears only the palette options (steps/variant/saturation), leaving the curves.
+    await paletteOptions.getByRole('button', { name: 'Reset', exact: true }).click();
+
+    await expect(page).toHaveURL(lacksParams('i', 'o', 's', 'v'));
   });
 
   await test.step('enable lock 500 and close the palette options', async () => {
-    // Open the Lock select dropdown inside the Palette Options popover
     await page.getByRole('button', { name: /^select lock/i }).click();
 
     await page.getByRole('option', { name: '500', exact: true }).click();
 
     await expect(page.getByRole('button', { name: /^500 lock/i })).toBeVisible();
+    await expect(page).toHaveURL(hasParams({ k: 500 }));
 
-    // Close the panel
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
-    await expect(page).toHaveScreenshot('10-post-palette-options.png');
+    await expect(page.locator('html')).toHaveAttribute('data-palette-options', 'closed');
+
+    await expect(page).toHaveScreenshot(getScreenshotName('post-palette-options.png'));
+  });
+
+  await test.step('opens color charts', async () => {
+    await page.getByRole('button', { name: 'View Charts' }).first().click();
+    await page.waitForTimeout(collapseDuration);
+
+    await expect(page.getByRole('tab', { name: 'Chroma' })).toBeVisible();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('chroma-chart.png'));
+
+    await page.getByRole('tab', { name: 'Lightness' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('lightness-chart.png'));
+
+    await page.getByRole('tab', { name: 'Hue' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('hue-chart.png'));
+
+    await page.getByRole('button', { name: 'View Charts' }).first().click();
   });
 
   await test.step('opens color info', async () => {
     await page.getByRole('button', { name: 'View color info' }).first().click();
 
-    // Wait for modal content
     await expect(page.getByRole('columnheader', { name: 'APCA LC' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('11-color-info.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('color-info.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
@@ -291,20 +562,65 @@ test('desktop', async () => {
 
     await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('12-contrast-grid.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('contrast-grid.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
     await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
   });
 
+  await test.step('interacts with the live preview', async () => {
+    await page.getByTestId('Preview').evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preview-components.png'));
+
+    const themeToggle = page.getByRole('button', { name: 'Toggle preview theme' });
+
+    await themeToggle.click();
+
+    await page.waitForTimeout(100);
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preview-light-theme.png'));
+
+    // cycle back to auto (light -> dark -> auto)
+    await themeToggle.click();
+    await themeToggle.click();
+
+    await page.getByRole('tab', { name: 'Typography' }).click();
+    await expect(page.getByRole('tab', { name: 'Typography' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
+    await expect(page).toHaveScreenshot(getScreenshotName('preview-typography.png'));
+
+    await page.getByRole('tab', { name: 'Components' }).click();
+
+    await expect(page.getByTestId('Preview-Controls')).toBeVisible();
+    await expect(page.getByTestId('Preview-Typography')).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Use Secondary as primary' }).click();
+    await expect(page.getByRole('button', { name: 'Use Secondary as primary' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preview-secondary.png'));
+
+    await page.getByRole('button', { name: 'Collapse Live preview' }).click();
+    await page.waitForTimeout(collapseDuration);
+    await expect(page.locator('html')).toHaveAttribute('data-preview', 'closed');
+
+    await page.getByRole('button', { name: 'Expand Live preview' }).click();
+    await page.waitForTimeout(collapseDuration);
+    await expect(page.locator('html')).toHaveAttribute('data-preview', 'open');
+  });
+
   await test.step('select first color', async () => {
     await page.getByRole('button', { name: 'Select Primary' }).click();
 
-    // Wait for Collapse animation to settle
     await page.waitForTimeout(collapseDuration);
 
-    await expect(page).toHaveScreenshot('13-select-primary.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('select-primary.png'));
   });
 
   await test.step('opens export drawer with format tabs', async () => {
@@ -321,7 +637,7 @@ test('desktop', async () => {
     await expect(page.getByRole('tab', { name: 'HSL' })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'RGB' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('14-export-palette.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('export-palette.png'));
   });
 
   await test.step('switches between format tabs', async () => {
@@ -348,6 +664,11 @@ test('desktop', async () => {
     const toast = page.locator('[data-slot="toast"]').or(page.getByRole('alert'));
 
     await expect(toast.first()).toBeVisible({ timeout: 2000 });
+
+    await expect(page).toHaveScreenshot(getScreenshotName('copy-toast.png'));
+
+    await page.getByLabel('closeButton').click();
+    await expect(page.getByLabel('closeButton')).toHaveCount(0);
   });
 
   await test.step('removes the second color with confirmation', async () => {
@@ -365,12 +686,15 @@ test('desktop', async () => {
     // Confirm the removal
     await removeButton.click();
 
-    // Wait for Collapse re-open animation on the remaining color (~400ms).
-    // Without this, the next step clicks while the trigger button is clipped
-    // by the still-animating overflow:hidden container, missing the popover.
     await page.waitForTimeout(collapseDuration);
 
-    await expect(page).toHaveScreenshot('15-single-color.png');
+    // The Secondary segment is dropped, but the palette identity and global options are kept.
+    await expect(page).toHaveURL(lacksColor('Secondary'));
+    await expect(page).toHaveURL(hasColor('Primary'));
+    await expect(page).toHaveURL(hasParams({ k: 500 }));
+    await expect(page).toHaveURL(hasParams({ name: 'My Palette' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('single-color.png'));
   });
 
   await test.step('walks the palette history back and forward', async () => {
@@ -380,37 +704,37 @@ test('desktop', async () => {
       () => (window as unknown as { __historyStack: string[] }).__historyStack,
     );
 
-    // Sanity: the recorded top must be where we are now, and there must be a stack to walk.
     expect(stack.length).toBeGreaterThan(2);
     await expect(page).toHaveURL(url => url.pathname + url.search === stack.at(-1));
 
-    // Back: every step must land on the exact prior entry, in order. toHaveURL auto-retries
-    // until the popstate-driven hydrate settles, so each nav is paced like a real user.
+    // Mid-walk screenshot checkpoint, derived from the actual stack length so it stays
+    // the true middle as steps are added/removed (not a hardcoded step count).
+    const middleIndex = Math.floor(stack.length / 2);
+
+    // toHaveURL auto-retries until the popstate-driven hydrate settles, so each nav is paced.
     for (let index = stack.length - 1; index > 0; index--) {
       await page.goBack();
       await expect(page).toHaveURL(url => url.pathname + url.search === stack[index - 1]);
 
-      if (index === 8) {
-        await expect(page).toHaveScreenshot('16-history-back-middle.png');
+      if (index === middleIndex) {
+        await expect(page).toHaveScreenshot(getScreenshotName('history-back-middle.png'));
       }
     }
 
-    // Bottom of the stack is the initial single-color palette.
     await expect(ColorItem).toHaveCount(1);
-    await expect(page).toHaveScreenshot('17-history-initial.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('history-initial.png'));
 
-    // Forward: must walk back up the same entries to where we left off. This is the
-    // regression guard — the History API switch must not clobber forward entries.
+    // Regression guard: the History API switch must not clobber forward entries.
     for (let index = 1; index < stack.length; index++) {
       await page.goForward();
       await expect(page).toHaveURL(url => url.pathname + url.search === stack[index]);
 
-      if (index === 8) {
-        await expect(page).toHaveScreenshot('18-history-forward-middle.png');
+      if (index === middleIndex) {
+        await expect(page).toHaveScreenshot(getScreenshotName('history-forward-middle.png'));
       }
     }
 
     await expect(ColorItem).toHaveCount(1);
-    await expect(page).toHaveScreenshot('19-history-final.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('history-final.png'));
   });
 });

@@ -1,7 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = process.env.CI ? 'http://localhost:3000' : 'https://color-lab.localhost';
-
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -26,18 +24,17 @@ export default defineConfig({
     },
   ],
   use: {
-    baseURL,
     // Fail fast on wrong locators instead of hanging until the per-test timeout.
     actionTimeout: 10000,
+    baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
     launchOptions: {
       slowMo: process.env.SLO_MO ? Number(process.env.SLO_MO) : 0,
     },
   },
   webServer: {
-    command: process.env.CI ? 'pnpm start' : 'pnpm dev',
-    url: baseURL,
+    command: 'pnpm start',
+    port: 3000,
     reuseExistingServer: !process.env.CI,
-    ignoreHTTPSErrors: !process.env.CI,
   },
 });

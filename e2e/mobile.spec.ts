@@ -1,7 +1,19 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { collapseDuration } from './fixtures/constants';
+import { hasColor, hasParams, scrollBottomBarToTop } from './__setup__/utils';
+import { collapseDuration, collapsibleMenuDuration } from './fixtures/constants';
 
+let screenshotCount = 0;
+
+function getScreenshotName(name: string) {
+  screenshotCount += 1;
+
+  return `${screenshotCount.toString().padStart(3, '0')}-${name}`;
+}
+
+// HeroUI sliders must be driven by keyboard (focus + Arrow/Page/Home/End), not fill():
+// fill() fires react-aria's onChange but never onChangeEnd, so the interaction never
+// releases and useUrlSync stays paused, suppressing later URL writes.
 let page: Page;
 
 test.setTimeout(60_000);
@@ -36,42 +48,6 @@ test.afterAll(async () => {
   await page.close();
 });
 
-async function scrollBottomBarToTop() {
-  // Adding or selecting a color triggers an async scroll-to-color (a rAF gated
-  // by collapse animations, and a 500ms timeout when the bar opens). Under load
-  // that scroll can fire after a one-shot reset and offset the screenshot. Pin
-  // the panel to the top, re-zeroing on any late movement, until it holds for a
-  // sustained window so the capture is deterministic.
-  await page.getByTestId('GeneratorPanel').evaluate(
-    el =>
-      new Promise<void>(resolve => {
-        const QUIET_FRAMES = 12; // ~200ms of no movement
-        const MAX_FRAMES = 180; // ~3s safety cap
-        let quiet = 0;
-        let frames = 0;
-
-        const tick = () => {
-          frames += 1;
-
-          if (el.scrollTop !== 0) {
-            el.scrollTop = 0;
-            quiet = 0;
-          } else {
-            quiet += 1;
-          }
-
-          if (quiet >= QUIET_FRAMES || frames >= MAX_FRAMES) {
-            resolve();
-          } else {
-            requestAnimationFrame(tick);
-          }
-        };
-
-        requestAnimationFrame(tick);
-      }),
-  );
-}
-
 async function toggleBottomBar() {
   await page.getByRole('button', { name: /toggle bottom bar/i }).click();
   await page.waitForTimeout(collapseDuration);
@@ -80,7 +56,6 @@ async function toggleBottomBar() {
 test('mobile', async () => {
   await test.step('displays main elements on initial load', async () => {
     await expect(page.getByRole('link', { name: /colormeup/i })).toBeVisible();
-    await expect(page.getByTestId('NewPalette')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Menu' })).toBeVisible();
     await expect(page.getByRole('button', { name: /toggle dark mode/i })).toBeVisible();
     await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
@@ -91,7 +66,7 @@ test('mobile', async () => {
     await expect(page.getByRole('button', { name: '500', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: '950', exact: true })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('01-initial.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('initial.png'));
   });
 
   await test.step('has correct page title', async () => {
@@ -99,7 +74,7 @@ test('mobile', async () => {
   });
 
   await test.step('encodes palette state in URL', async () => {
-    await expect(page).toHaveURL(/Primary-73_0\.127_321/);
+    await expect(page).toHaveURL(hasColor('Primary', '73_0.127_321'));
   });
 
   await test.step('toggles dark mode', async () => {
@@ -111,7 +86,7 @@ test('mobile', async () => {
 
     await expect(html).toHaveClass(/dark/);
 
-    await expect(page).toHaveScreenshot('02-dark-mode.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('dark-mode.png'));
   });
 
   await test.step('persists theme preference across reload', async () => {
@@ -138,7 +113,9 @@ test('mobile', async () => {
     await expect(page.getByRole('tab', { name: 'Tailwind 4' })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'OKLCH' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('03-export-scale.png', { maxDiffPixelRatio: 0.1 });
+    await expect(page).toHaveScreenshot(getScreenshotName('export-scale.png'), {
+      maxDiffPixelRatio: 0.1,
+    });
 
     await page.getByRole('button', { name: 'Close' }).click();
     await expect(page.getByRole('tab', { name: 'Tailwind 4' })).not.toBeVisible();
@@ -158,7 +135,7 @@ test('mobile', async () => {
     await lightnessSlider.fill('0.5');
     await expect(lightnessSlider).toHaveValue('0.5');
 
-    await expect(page).toHaveURL(/50/);
+    await expect(page).toHaveURL(hasColor('Primary', '50'));
   });
 
   await test.step('modifies chroma slider', async () => {
@@ -166,7 +143,6 @@ test('mobile', async () => {
 
     await chromaSlider.fill('0.2');
 
-    // Value may be clamped by gamut limits
     const value = await chromaSlider.inputValue();
 
     expect(parseFloat(value)).toBeGreaterThan(0);
@@ -188,7 +164,6 @@ test('mobile', async () => {
 
     await addColorButton.click();
 
-    // Wait for Collapse animation
     await page.waitForTimeout(collapseDuration);
 
     await expect(ColorItem).toHaveCount(2);
@@ -197,9 +172,9 @@ test('mobile', async () => {
 
     // Adding a color auto-scrolls the bar to the new color; reset to top so
     // the screenshot starts from Advanced Options + Primary.
-    await scrollBottomBarToTop();
+    await scrollBottomBarToTop(page);
 
-    await expect(page).toHaveScreenshot('04-two-colors.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('two-colors.png'));
   });
 
   await test.step('opens Advanced Options', async () => {
@@ -208,9 +183,9 @@ test('mobile', async () => {
     await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
 
     await page.waitForTimeout(collapseDuration);
-    await scrollBottomBarToTop();
+    await scrollBottomBarToTop(page);
 
-    await expect(page).toHaveScreenshot('05-advanced-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('advanced-options.png'));
   });
 
   await test.step('change global Lightness Curve', async () => {
@@ -218,12 +193,8 @@ test('mobile', async () => {
 
     await expect(lightnessCurveSlider).toHaveValue('1.3');
 
-    // Drive HeroUI sliders by keyboard, not fill(): fill() fires react-aria's
-    // onChange (which sets data-interacting) but never onChangeEnd, so the
-    // interaction never releases and useUrlSync stays paused — suppressing all
-    // later URL writes (e.g. the rename below). ArrowDown steps 1.3 → 1.2.
     await lightnessCurveSlider.focus();
-    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('PageDown');
     await expect(lightnessCurveSlider).toHaveValue('1.2');
 
     await page.getByRole('button', { name: 'Advanced Options' }).click();
@@ -231,49 +202,64 @@ test('mobile', async () => {
     await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
 
     await page.waitForTimeout(collapseDuration);
-    await scrollBottomBarToTop();
+    await scrollBottomBarToTop(page);
 
-    await expect(page).toHaveScreenshot('06-post-advanced-color-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('post-advanced-color-options.png'));
   });
 
-  await test.step('opens color options popover', async () => {
-    await page.getByRole('button', { name: 'Change color options' }).first().click();
+  await test.step('opens color options', async () => {
+    const colorItem = page.getByTestId('ColorItem').nth(1);
 
-    const popover = page.locator('[data-slot="content"]').last();
-    const lightnessCurveSlider = popover.locator('input[name="lightnessCurve"]');
+    await colorItem.getByRole('button', { name: 'Change color options' }).click();
+    await page.waitForTimeout(collapseDuration);
+
+    const colorItemOffset = await colorItem.evaluate(el => (el as HTMLElement).offsetTop);
+
+    await page.getByTestId('GeneratorPanel').evaluate((el, scrollTop) => {
+      el.scrollTo({ top: scrollTop, behavior: 'instant' });
+    }, colorItemOffset);
+
+    const lightnessCurveSlider = colorItem.locator('input[name="lightnessCurve"]');
 
     await expect(lightnessCurveSlider).toHaveValue('1.2');
 
-    // Keyboard, not fill() — see the global Lightness Curve step. ArrowUp steps 1.2 → 1.3.
     await lightnessCurveSlider.focus();
-    await page.keyboard.press('ArrowUp');
+    await page.keyboard.press('PageUp');
     await expect(lightnessCurveSlider).toHaveValue('1.3');
 
-    // Floating popover capture: its position can vary by a few px between runs
-    // and isn't covered by the panel scroll-pin, so allow a wider diff like the
-    // export drawer shot (14).
-    await expect(page).toHaveScreenshot('07-color-options.png', {
+    const hueShiftSlider = colorItem.locator('input[name="hueShift"]');
+
+    await expect(hueShiftSlider).toHaveValue('0');
+
+    await hueShiftSlider.focus();
+    await page.keyboard.press('PageUp');
+    await expect(hueShiftSlider).toHaveValue('10');
+    await page.keyboard.press('PageUp');
+    await expect(hueShiftSlider).toHaveValue('20');
+
+    // Floating popover position varies a few px between runs, so allow a wider diff.
+    await expect(page).toHaveScreenshot(getScreenshotName('color-options.png'), {
       maxDiffPixelRatio: 0.1,
     });
   });
 
-  await test.step('closes color options popover with Escape', async () => {
-    const popover = page.locator('[data-slot="content"]').last();
+  await test.step('closes color options', async () => {
+    const colorItem = page.getByTestId('ColorItem').nth(1);
 
-    await expect(popover.getByText(/options for/i)).toBeVisible();
+    await colorItem.getByRole('button', { name: 'Change color options' }).click();
 
-    await page.keyboard.press('Escape');
+    const lightnessCurveSlider = colorItem.locator('input[name="lightnessCurve"]');
 
-    await expect(popover).not.toBeVisible();
+    await expect(lightnessCurveSlider).not.toBeVisible();
 
-    await expect(page).toHaveScreenshot('08-post-color-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('post-color-options.png'));
   });
-
-  // === Bar CLOSED: Palette Options, Color Info, Contrast Grid ===
 
   await test.step('closes bottom bar', async () => {
     await toggleBottomBar();
   });
+
+  // === Bar CLOSED: Palette Options, Color Info, Contrast Grid ===
 
   await test.step('renames the palette', async () => {
     const nameInput = page.locator('input[name="palette-name"]');
@@ -283,28 +269,39 @@ test('mobile', async () => {
     await nameInput.press('Enter');
 
     await expect(nameInput).toHaveValue('My Palette');
-    await expect(page).toHaveURL(/name=My\+Palette/);
+    await expect(page).toHaveURL(hasParams({ name: 'My Palette' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('rename-palette.png'));
+  });
+
+  await test.step('opens palette tools menu', async () => {
+    await page.getByRole('button', { name: 'More palette tools' }).click();
+    await page.waitForTimeout(collapsibleMenuDuration);
+
+    await expect(page).toHaveScreenshot(getScreenshotName('palette-tools-menu.png'));
   });
 
   await test.step('opens palette options panel', async () => {
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
-    await page.waitForTimeout(collapseDuration);
+    await page.getByRole('button', { name: 'More palette tools' }).click();
+    await page.waitForTimeout(collapsibleMenuDuration);
 
-    await expect(page).toHaveScreenshot('09-palette-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('palette-options.png'));
   });
 
-  await test.step('toggles light/dark scale', async () => {
-    const scaleSwitch = page.getByRole('switch', { name: /light scale/i });
+  await test.step('switches the scale mode', async () => {
+    const darkRadio = page.getByRole('radio', { name: 'Dark' });
 
-    await expect(scaleSwitch).toBeVisible();
+    await expect(darkRadio).toBeVisible();
 
-    await scaleSwitch.click();
+    await darkRadio.click();
+    await expect(darkRadio).toBeChecked();
 
-    await expect(page.getByRole('switch', { name: /dark scale/i })).toBeVisible();
+    await expect(page).toHaveScreenshot(getScreenshotName('dark-scale.png'));
 
-    await page.getByRole('switch', { name: /dark scale/i }).click();
-    await expect(page.getByRole('switch', { name: /light scale/i })).toBeVisible();
+    await page.getByRole('radio', { name: 'Light' }).click();
+    await expect(page.getByRole('radio', { name: 'Light' })).toBeChecked();
   });
 
   await test.step('enable lock 500 and close the palette options', async () => {
@@ -314,17 +311,44 @@ test('mobile', async () => {
 
     await expect(page.getByRole('button', { name: /^500 lock/i })).toBeVisible();
 
+    await page.getByRole('button', { name: 'More palette tools' }).click();
+
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
-    await expect(page).toHaveScreenshot('10-post-palette-options.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('post-palette-options.png'));
+
+    await page.getByRole('button', { name: 'More palette tools' }).click();
+  });
+
+  await test.step('opens color charts', async () => {
+    await page.getByRole('button', { name: 'More scale tools' }).first().click();
+    await page.waitForTimeout(collapsibleMenuDuration);
+
+    await page.getByRole('button', { name: 'View Charts' }).click();
+    await page.waitForTimeout(collapseDuration);
+
+    await page.getByRole('tab', { name: 'Chroma' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('chroma-chart.png'));
+
+    await page.getByRole('tab', { name: 'Lightness' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('lightness-chart.png'));
+
+    await page.getByRole('tab', { name: 'Hue' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('hue-chart.png'));
   });
 
   await test.step('opens color info', async () => {
+    await page.getByRole('button', { name: 'More scale tools' }).first().click();
+    await page.waitForTimeout(collapsibleMenuDuration);
+
     await page.getByRole('button', { name: 'View color info' }).first().click();
 
     await expect(page.getByRole('columnheader', { name: 'APCA LC' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('11-color-info.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('color-info.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
@@ -336,7 +360,7 @@ test('mobile', async () => {
 
     await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('12-contrast-grid.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('contrast-grid.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
@@ -349,7 +373,7 @@ test('mobile', async () => {
     // Select Primary auto-opens the bottom bar; let the animation settle
     await page.waitForTimeout(collapseDuration);
 
-    await expect(page).toHaveScreenshot('13-select-primary.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('select-primary.png'));
   });
 
   // === Bar CLOSED again: Export drawer, swatch toast ===
@@ -366,7 +390,9 @@ test('mobile', async () => {
     await expect(page.getByRole('tab', { name: 'OKLCH' })).toBeVisible();
     await expect(page.getByRole('tab', { name: /hex/i })).toBeVisible();
 
-    await expect(page).toHaveScreenshot('14-export-drawer.png', { maxDiffPixelRatio: 0.1 });
+    await expect(page).toHaveScreenshot(getScreenshotName('export-drawer.png'), {
+      maxDiffPixelRatio: 0.1,
+    });
   });
 
   await test.step('switches between format tabs', async () => {
@@ -406,12 +432,11 @@ test('mobile', async () => {
       await expect(toast).not.toBeVisible();
     }
 
-    // Selecting the color activates it and auto-opens the bottom bar. An inactive
-    // color swallows its first click to activate (handleCaptureInactive), so it
-    // must be active for the remove button's first click to register.
+    // An inactive color swallows its first click to activate, so select it first or the
+    // remove button's first click is lost. Selecting also auto-opens the bottom bar.
     await page.getByRole('button', { name: 'Select Secondary' }).click();
     await page.waitForTimeout(collapseDuration);
-    await scrollBottomBarToTop();
+    await scrollBottomBarToTop(page);
 
     const ColorItem = page.getByTestId('ColorItem').nth(1);
 
@@ -426,9 +451,8 @@ test('mobile', async () => {
 
     await expect(page.getByTestId('ColorItem')).toHaveCount(1);
 
-    // Wait for Collapse re-open animation on the remaining color
     await page.waitForTimeout(collapseDuration);
 
-    await expect(page).toHaveScreenshot('15-single-color.png');
+    await expect(page).toHaveScreenshot(getScreenshotName('single-color.png'));
   });
 });
