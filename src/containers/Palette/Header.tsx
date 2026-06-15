@@ -14,6 +14,7 @@ import { getPaletteIdFromUrl } from '~/utils/url';
 import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import CollapsePanel from '~/components/CollapsePanel';
+import CollapsibleMenu from '~/components/CollapsibleMenu';
 import EditableInput, { type CommitAction } from '~/components/EditableInput';
 import SavePaletteModal from '~/components/SavePaletteModal';
 import Tooltip from '~/components/Tooltip';
@@ -133,23 +134,25 @@ export default function PaletteHeader() {
         />
 
         <div className="flex items-center gap-1 md:gap-2">
-          <GamutToggle />
-          <Tooltip content="Palette Options" placement="bottom">
-            <Button
-              aria-label="Palette Options"
-              className="@max-2xl:button-menu-square"
-              onPress={togglePaletteOptionsPanel}
-              size="menu"
-              startContent={
-                <Badge content="" isInvisible={!hasCustomPaletteOptions}>
-                  <PaletteIcon className="text-xl" weight="bold" />
-                </Badge>
-              }
-              variant={showPaletteOptionsPanel ? 'solid' : 'light'}
-            >
-              <span className="hidden @2xl:inline-flex">Options</span>
-            </Button>
-          </Tooltip>
+          <CollapsibleMenu label="More palette tools">
+            <GamutToggle />
+            <Tooltip content="Palette Options" placement="bottom">
+              <Button
+                aria-label="Palette Options"
+                className="@max-2xl:button-menu-square"
+                onPress={togglePaletteOptionsPanel}
+                size="menu"
+                startContent={
+                  <Badge content="" isInvisible={!hasCustomPaletteOptions}>
+                    <PaletteIcon className="text-xl" weight="bold" />
+                  </Badge>
+                }
+                variant={showPaletteOptionsPanel ? 'solid' : 'light'}
+              >
+                <span className="hidden @2xl:inline-flex">Options</span>
+              </Button>
+            </Tooltip>
+          </CollapsibleMenu>
           <ExportPalette />
           <Button
             aria-label={paletteId ? 'Update palette' : 'Save palette'}

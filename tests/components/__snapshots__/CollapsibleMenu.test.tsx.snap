@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CollapsibleMenu > Render > renders the trigger collapsed with the children always mounted 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="relative flex items-center"
+    >
+      <button
+        aria-controls="_r_0_"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="More color tools"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8 xsm:hidden"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
+      >
+        <svg
+          class="text-lg"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128ZM60,112a16,16,0,1,0,16,16A16,16,0,0,0,60,112Zm136,0a16,16,0,1,0,16,16A16,16,0,0,0,196,112Z"
+          />
+        </svg>
+      </button>
+      <div
+        aria-label="More color tools"
+        class="absolute right-0 top-full z-20 mt-1 flex items-center gap-2 rounded-medium bg-content1 p-1 shadow-medium invisible opacity-0 transition-[opacity,visibility] duration-200 data-[open=true]:visible data-[open=true]:opacity-100 xsm:static xsm:visible xsm:opacity-100 xsm:z-auto xsm:mt-0 xsm:bg-transparent xsm:p-0 xsm:shadow-none"
+        data-open="false"
+        id="_r_0_"
+        role="group"
+      >
+        <button
+          type="button"
+        >
+          Charts
+        </button>
+        <button
+          type="button"
+        >
+          Info
+        </button>
+        <button
+          type="button"
+        >
+          Contrast
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
