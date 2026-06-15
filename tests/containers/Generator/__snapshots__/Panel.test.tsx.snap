@@ -1498,103 +1498,90 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                   </div>
                 </div>
               </div>
-              <style>
-                
-      .popover-content-0 { background-color: oklch(70.2% 0.236 30); }
-      .popover-base-0 {
-        &:before {
-          background-color: oklch(70.2% 0.236 30);
-        }
-       }
-      
-              </style>
               <div
-                class="flex items-center justify-between"
+                class="flex flex-col"
               >
                 <div
-                  class="flex items-center"
-                  data-testid="ModeSelector"
+                  class="flex items-center justify-between"
                 >
-                  <button
-                    aria-label="Switch to OKLCH"
-                    aria-pressed="true"
-                    class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
-                    type="button"
+                  <div
+                    class="flex items-center"
+                    data-testid="ModeSelector"
                   >
-                    OKLCH
-                  </button>
-                  <button
-                    aria-label="Switch to HSL"
-                    aria-pressed="false"
-                    class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                    type="button"
-                  >
-                    HSL
-                  </button>
-                  <button
-                    aria-label="Switch to RGB"
-                    aria-pressed="false"
-                    class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                    type="button"
-                  >
-                    RGB
-                  </button>
-                </div>
-                <div
-                  class="flex items-center gap-1"
-                >
-                  <button
-                    aria-label="View Live Preview"
-                    class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
-                    data-react-aria-pressable="true"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <svg
-                      class="text-lg"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-label="Switch to OKLCH"
+                      aria-pressed="true"
+                      class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
+                      type="button"
                     >
-                      <path
-                        d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    aria-label="Random color"
-                    class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
-                    data-react-aria-pressable="true"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <svg
-                      class="text-base"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
+                      OKLCH
+                    </button>
+                    <button
+                      aria-label="Switch to HSL"
+                      aria-pressed="false"
+                      class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
+                      type="button"
                     >
-                      <path
-                        d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="dialog"
-                    aria-label="Change color options"
-                    class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
-                    data-react-aria-pressable="true"
-                    data-slot="trigger"
-                    tabindex="0"
-                    type="button"
+                      HSL
+                    </button>
+                    <button
+                      aria-label="Switch to RGB"
+                      aria-pressed="false"
+                      class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
+                      type="button"
+                    >
+                      RGB
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-1"
                   >
-                    <span
-                      class="size-8 inline-flex items-center justify-center"
+                    <button
+                      aria-label="View Live Preview"
+                      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        class="text-lg"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      aria-label="Random color"
+                      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      aria-label="Change color options"
+                      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      type="button"
                     >
                       <div
                         class="relative inline-flex shrink-0"
@@ -1616,8 +1603,8 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                           data-invisible="true"
                         />
                       </div>
-                    </span>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1678,7 +1665,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_2s_"
+                          id="react-aria-_r_2q_"
                           name="color-name-1"
                           tabindex="0"
                           title=""
@@ -1738,7 +1725,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_32_"
+                        id="react-aria-_r_30_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -1948,12 +1935,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                 class="flex flex-col gap-6"
               >
                 <div
-                  aria-labelledby="react-aria-_r_39_"
+                  aria-labelledby="react-aria-_r_37_"
                   class="flex flex-col w-full gap-1"
                   data-hover="false"
                   data-orientation="horizontal"
                   data-slot="base"
-                  id="react-aria-_r_38_"
+                  id="react-aria-_r_36_"
                   role="group"
                 >
                   <div
@@ -1963,7 +1950,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     <label
                       class="flex gap-2 items-center"
                       data-slot="label"
-                      id="react-aria-_r_39_"
+                      id="react-aria-_r_37_"
                     >
                       <span
                         class="text-base/5"
@@ -2011,7 +1998,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       aria-live="off"
                       class="flex gap-2 text-small"
                       data-slot="value"
-                      for="react-aria-_r_39_-0 react-aria-_r_39_-1"
+                      for="react-aria-_r_37_-0 react-aria-_r_37_-1"
                     >
                       <span
                         class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2086,10 +2073,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           <input
                             aria-describedby=""
                             aria-details=""
-                            aria-labelledby="react-aria-_r_39_"
+                            aria-labelledby="react-aria-_r_37_"
                             aria-orientation="horizontal"
                             aria-valuetext="0.26"
-                            id="react-aria-_r_39_-0"
+                            id="react-aria-_r_37_-0"
                             max="0.97"
                             min="0"
                             name="lightness"
@@ -2115,10 +2102,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           <input
                             aria-describedby=""
                             aria-details=""
-                            aria-labelledby="react-aria-_r_39_"
+                            aria-labelledby="react-aria-_r_37_"
                             aria-orientation="horizontal"
                             aria-valuetext="0.97"
-                            id="react-aria-_r_39_-1"
+                            id="react-aria-_r_37_-1"
                             max="1"
                             min="0.26"
                             name="lightness"
@@ -2133,7 +2120,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-labelledby="_r_3j_"
+                  aria-labelledby="_r_3h_"
                   class="flex flex-col gap-2"
                   role="group"
                 >
@@ -2145,7 +2132,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     >
                       <span
                         class="text-base/5"
-                        id="_r_3j_"
+                        id="_r_3h_"
                       >
                         Lightness Curve
                       </span>
@@ -2195,9 +2182,9 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-label="Lightness curve mode"
                         aria-orientation="horizontal"
                         class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-                        data-collection="react-aria-_r_3m_"
+                        data-collection="react-aria-_r_3k_"
                         data-slot="tabList"
-                        id="react-aria-_r_3n_"
+                        id="react-aria-_r_3l_"
                         role="tablist"
                       >
                         <span
@@ -2207,12 +2194,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="true"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_3m_"
+                          data-collection="react-aria-_r_3k_"
                           data-key="scalar"
                           data-react-aria-pressable="true"
                           data-selected="true"
                           data-slot="tab"
-                          id="react-aria-_r_3n_-tab-scalar"
+                          id="react-aria-_r_3l_-tab-scalar"
                           role="tab"
                           tabindex="0"
                           type="button"
@@ -2227,11 +2214,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="false"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_3m_"
+                          data-collection="react-aria-_r_3k_"
                           data-key="range"
                           data-react-aria-pressable="true"
                           data-slot="tab"
-                          id="react-aria-_r_3n_-tab-range"
+                          id="react-aria-_r_3l_-tab-range"
                           role="tab"
                           tabindex="-1"
                           type="button"
@@ -2248,12 +2235,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                   <div
                     aria-label="Lightness Curve"
-                    aria-labelledby="react-aria-_r_3t_ react-aria-_r_3u_"
+                    aria-labelledby="react-aria-_r_3r_ react-aria-_r_3s_"
                     class="flex flex-col w-full gap-1"
                     data-hover="false"
                     data-orientation="horizontal"
                     data-slot="base"
-                    id="react-aria-_r_3t_"
+                    id="react-aria-_r_3r_"
                     role="group"
                   >
                     <div
@@ -2263,7 +2250,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       <label
                         class="flex gap-2 items-center"
                         data-slot="label"
-                        id="react-aria-_r_3u_"
+                        id="react-aria-_r_3s_"
                       >
                         <span
                           class="text-sm/5 text-foreground-500"
@@ -2275,7 +2262,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-live="off"
                         class="text-small"
                         data-slot="value"
-                        for="react-aria-_r_3u_-0"
+                        for="react-aria-_r_3s_-0"
                       >
                         <span
                           class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2341,10 +2328,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                             <input
                               aria-describedby=""
                               aria-details=""
-                              aria-labelledby="react-aria-_r_3u_"
+                              aria-labelledby="react-aria-_r_3s_"
                               aria-orientation="horizontal"
                               aria-valuetext="1.3"
-                              id="react-aria-_r_3u_-0"
+                              id="react-aria-_r_3s_-0"
                               max="5"
                               min="0.1"
                               name="lightnessCurve"
@@ -2360,7 +2347,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-labelledby="_r_43_"
+                  aria-labelledby="_r_41_"
                   class="flex flex-col gap-2"
                   role="group"
                 >
@@ -2372,7 +2359,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     >
                       <span
                         class="text-base/5"
-                        id="_r_43_"
+                        id="_r_41_"
                       >
                         Chroma Curve
                       </span>
@@ -2422,9 +2409,9 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-label="Chroma curve mode"
                         aria-orientation="horizontal"
                         class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-                        data-collection="react-aria-_r_46_"
+                        data-collection="react-aria-_r_44_"
                         data-slot="tabList"
-                        id="react-aria-_r_47_"
+                        id="react-aria-_r_45_"
                         role="tablist"
                       >
                         <span
@@ -2434,12 +2421,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="true"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_46_"
+                          data-collection="react-aria-_r_44_"
                           data-key="scalar"
                           data-react-aria-pressable="true"
                           data-selected="true"
                           data-slot="tab"
-                          id="react-aria-_r_47_-tab-scalar"
+                          id="react-aria-_r_45_-tab-scalar"
                           role="tab"
                           tabindex="0"
                           type="button"
@@ -2454,11 +2441,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="false"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_46_"
+                          data-collection="react-aria-_r_44_"
                           data-key="range"
                           data-react-aria-pressable="true"
                           data-slot="tab"
-                          id="react-aria-_r_47_-tab-range"
+                          id="react-aria-_r_45_-tab-range"
                           role="tab"
                           tabindex="-1"
                           type="button"
@@ -2478,12 +2465,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   >
                     <div
                       aria-label="Chroma Curve"
-                      aria-labelledby="react-aria-_r_4d_ react-aria-_r_4e_"
+                      aria-labelledby="react-aria-_r_4b_ react-aria-_r_4c_"
                       class="flex flex-col w-full gap-1"
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_4d_"
+                      id="react-aria-_r_4b_"
                       role="group"
                     >
                       <div
@@ -2493,7 +2480,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <label
                           class="flex gap-2 items-center"
                           data-slot="label"
-                          id="react-aria-_r_4e_"
+                          id="react-aria-_r_4c_"
                         >
                           <span
                             class="text-sm/5 text-foreground-500"
@@ -2505,7 +2492,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           aria-live="off"
                           class="text-small"
                           data-slot="value"
-                          for="react-aria-_r_4e_-0"
+                          for="react-aria-_r_4c_-0"
                         >
                           <span
                             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2571,10 +2558,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_4e_"
+                                aria-labelledby="react-aria-_r_4c_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="0"
-                                id="react-aria-_r_4e_-0"
+                                id="react-aria-_r_4c_-0"
                                 max="1"
                                 min="0"
                                 name="chromaAmount"
@@ -2589,12 +2576,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       </div>
                     </div>
                     <div
-                      aria-labelledby="react-aria-_r_4k_"
+                      aria-labelledby="react-aria-_r_4i_"
                       class="flex flex-col w-full gap-1 opacity-disabled"
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_4j_"
+                      id="react-aria-_r_4h_"
                       role="group"
                     >
                       <div
@@ -2604,7 +2591,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <label
                           class="flex gap-2 items-center"
                           data-slot="label"
-                          id="react-aria-_r_4k_"
+                          id="react-aria-_r_4i_"
                         >
                           <span
                             class="text-sm/5 text-foreground-500"
@@ -2616,7 +2603,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           aria-live="off"
                           class="text-small"
                           data-slot="value"
-                          for="react-aria-_r_4k_-0"
+                          for="react-aria-_r_4i_-0"
                         >
                           <span
                             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2662,11 +2649,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_4k_"
+                                aria-labelledby="react-aria-_r_4i_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="0.5"
                                 disabled=""
-                                id="react-aria-_r_4k_-0"
+                                id="react-aria-_r_4i_-0"
                                 max="0.99"
                                 min="0.01"
                                 name="chromaPeak"
@@ -2683,7 +2670,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-labelledby="_r_4p_"
+                  aria-labelledby="_r_4n_"
                   class="flex flex-col gap-2"
                   role="group"
                 >
@@ -2695,7 +2682,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     >
                       <span
                         class="text-base/5"
-                        id="_r_4p_"
+                        id="_r_4n_"
                       >
                         Hue Shift
                       </span>
@@ -2745,9 +2732,9 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-label="Hue shift mode"
                         aria-orientation="horizontal"
                         class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-                        data-collection="react-aria-_r_4s_"
+                        data-collection="react-aria-_r_4q_"
                         data-slot="tabList"
-                        id="react-aria-_r_4t_"
+                        id="react-aria-_r_4r_"
                         role="tablist"
                       >
                         <span
@@ -2757,12 +2744,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="true"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_4s_"
+                          data-collection="react-aria-_r_4q_"
                           data-key="scalar"
                           data-react-aria-pressable="true"
                           data-selected="true"
                           data-slot="tab"
-                          id="react-aria-_r_4t_-tab-scalar"
+                          id="react-aria-_r_4r_-tab-scalar"
                           role="tab"
                           tabindex="0"
                           type="button"
@@ -2777,11 +2764,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="false"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_4s_"
+                          data-collection="react-aria-_r_4q_"
                           data-key="range"
                           data-react-aria-pressable="true"
                           data-slot="tab"
-                          id="react-aria-_r_4t_-tab-range"
+                          id="react-aria-_r_4r_-tab-range"
                           role="tab"
                           tabindex="-1"
                           type="button"
@@ -2798,12 +2785,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                   <div
                     aria-label="Hue Shift"
-                    aria-labelledby="react-aria-_r_53_ react-aria-_r_54_"
+                    aria-labelledby="react-aria-_r_51_ react-aria-_r_52_"
                     class="flex flex-col w-full gap-1"
                     data-hover="false"
                     data-orientation="horizontal"
                     data-slot="base"
-                    id="react-aria-_r_53_"
+                    id="react-aria-_r_51_"
                     role="group"
                   >
                     <div
@@ -2813,7 +2800,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       <label
                         class="flex gap-2 items-center"
                         data-slot="label"
-                        id="react-aria-_r_54_"
+                        id="react-aria-_r_52_"
                       >
                         <span
                           class="text-sm/5 text-foreground-500"
@@ -2825,7 +2812,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-live="off"
                         class="text-small"
                         data-slot="value"
-                        for="react-aria-_r_54_-0"
+                        for="react-aria-_r_52_-0"
                       >
                         <span
                           class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2871,10 +2858,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                             <input
                               aria-describedby=""
                               aria-details=""
-                              aria-labelledby="react-aria-_r_54_"
+                              aria-labelledby="react-aria-_r_52_"
                               aria-orientation="horizontal"
                               aria-valuetext="0"
-                              id="react-aria-_r_54_-0"
+                              id="react-aria-_r_52_-0"
                               max="90"
                               min="-90"
                               name="hueShift"
@@ -2947,7 +2934,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
             class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
             data-react-aria-pressable="true"
             data-slot="trigger"
-            id="react-aria-_r_59_"
+            id="react-aria-_r_57_"
             tabindex="0"
             type="button"
           >
@@ -3040,7 +3027,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_5e_"
+                          id="react-aria-_r_5c_"
                           name="color-name-0"
                           tabindex="0"
                           title=""
@@ -3099,7 +3086,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_5k_"
+                        id="react-aria-_r_5i_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -3284,103 +3271,90 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
               </div>
-              <style>
-                
-      .popover-content-0 { background-color: oklch(70.2% 0.236 30); }
-      .popover-base-0 {
-        &:before {
-          background-color: oklch(70.2% 0.236 30);
-        }
-       }
-      
-              </style>
               <div
-                class="flex items-center justify-between"
+                class="flex flex-col"
               >
                 <div
-                  class="flex items-center"
-                  data-testid="ModeSelector"
+                  class="flex items-center justify-between"
                 >
-                  <button
-                    aria-label="Switch to OKLCH"
-                    aria-pressed="true"
-                    class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
-                    type="button"
+                  <div
+                    class="flex items-center"
+                    data-testid="ModeSelector"
                   >
-                    OKLCH
-                  </button>
-                  <button
-                    aria-label="Switch to HSL"
-                    aria-pressed="false"
-                    class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                    type="button"
-                  >
-                    HSL
-                  </button>
-                  <button
-                    aria-label="Switch to RGB"
-                    aria-pressed="false"
-                    class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                    type="button"
-                  >
-                    RGB
-                  </button>
-                </div>
-                <div
-                  class="flex items-center gap-1"
-                >
-                  <button
-                    aria-label="View Live Preview"
-                    class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
-                    data-react-aria-pressable="true"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <svg
-                      class="text-lg"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <button
+                      aria-label="Switch to OKLCH"
+                      aria-pressed="true"
+                      class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
+                      type="button"
                     >
-                      <path
-                        d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    aria-label="Random color"
-                    class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
-                    data-react-aria-pressable="true"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <svg
-                      class="text-base"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
+                      OKLCH
+                    </button>
+                    <button
+                      aria-label="Switch to HSL"
+                      aria-pressed="false"
+                      class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
+                      type="button"
                     >
-                      <path
-                        d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="dialog"
-                    aria-label="Change color options"
-                    class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
-                    data-react-aria-pressable="true"
-                    data-slot="trigger"
-                    tabindex="0"
-                    type="button"
+                      HSL
+                    </button>
+                    <button
+                      aria-label="Switch to RGB"
+                      aria-pressed="false"
+                      class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
+                      type="button"
+                    >
+                      RGB
+                    </button>
+                  </div>
+                  <div
+                    class="flex items-center gap-1"
                   >
-                    <span
-                      class="size-8 inline-flex items-center justify-center"
+                    <button
+                      aria-label="View Live Preview"
+                      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        class="text-lg"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      aria-label="Random color"
+                      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      aria-label="Change color options"
+                      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      type="button"
                     >
                       <div
                         class="relative inline-flex shrink-0"
@@ -3402,8 +3376,8 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-invisible="true"
                         />
                       </div>
-                    </span>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3464,7 +3438,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_63_"
+                          id="react-aria-_r_5v_"
                           name="color-name-1"
                           tabindex="0"
                           title=""
@@ -3524,7 +3498,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_69_"
+                        id="react-aria-_r_65_"
                         tabindex="0"
                         title=""
                         type="text"
