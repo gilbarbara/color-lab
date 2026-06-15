@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react';
 import { parseCSS, readableColor, scale } from 'colorizr';
 
+import type { EffectiveScaleOptions } from '~/types';
+
 const STOP_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
 
 type Steps = Record<number, string>;
@@ -14,14 +16,25 @@ interface ScaleSet {
 
 function scaleSet(
   color: string,
+  options: EffectiveScaleOptions,
   lightMode: 'light' | 'dark',
   darkMode: 'light' | 'dark',
 ): ScaleSet {
+  // Spread the effective scale options first (chromaCurve, lightnessCurve, hueShift,
+  // min/maxLightness, saturation, overrides) so the preview matches the palette, then pin the
+  // preview-controlled fields last: a fixed 10-stop grid (HeroUI-compatible) with the source
+  // color locked at 500, and the mode chosen per theme slot.
   return {
-    lightOklch: scale(color, { steps: 10, mode: lightMode, lock: 500, format: 'oklch' }),
-    lightHex: scale(color, { steps: 10, mode: lightMode, lock: 500, format: 'hex' }),
-    darkOklch: scale(color, { steps: 10, mode: darkMode, lock: 500, format: 'oklch' }),
-    darkHex: scale(color, { steps: 10, mode: darkMode, lock: 500, format: 'hex' }),
+    lightOklch: scale(color, {
+      ...options,
+      steps: 10,
+      mode: lightMode,
+      lock: 500,
+      format: 'oklch',
+    }),
+    lightHex: scale(color, { ...options, steps: 10, mode: lightMode, lock: 500, format: 'hex' }),
+    darkOklch: scale(color, { ...options, steps: 10, mode: darkMode, lock: 500, format: 'oklch' }),
+    darkHex: scale(color, { ...options, steps: 10, mode: darkMode, lock: 500, format: 'hex' }),
   };
 }
 
@@ -67,15 +80,19 @@ function tokensFromScales(scales: ScaleSet): CSSProperties {
  * `.dark` swap is a no-op. The auto path uses color lightness to lock very
  * light or very dark colors the same way.
  */
-export function buildPreviewScope(color: string, forced?: 'light' | 'dark'): CSSProperties {
+export function buildPreviewScope(
+  color: string,
+  options: EffectiveScaleOptions,
+  forced?: 'light' | 'dark',
+): CSSProperties {
   if (forced) {
-    return tokensFromScales(scaleSet(color, forced, forced));
+    return tokensFromScales(scaleSet(color, options, forced, forced));
   }
 
   const { l } = parseCSS(color, 'oklch');
 
-  if (l >= 0.9) return tokensFromScales(scaleSet(color, 'dark', 'dark'));
-  if (l <= 0.3) return tokensFromScales(scaleSet(color, 'light', 'light'));
+  if (l >= 0.9) return tokensFromScales(scaleSet(color, options, 'dark', 'dark'));
+  if (l <= 0.3) return tokensFromScales(scaleSet(color, options, 'light', 'light'));
 
-  return tokensFromScales(scaleSet(color, 'light', 'dark'));
+  return tokensFromScales(scaleSet(color, options, 'light', 'dark'));
 }
