@@ -1,16 +1,15 @@
-import { useBreakpoint, useMemoDeepCompare } from '@gilbarbara/hooks';
-import { cn, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
+import { useToggle } from '@gilbarbara/hooks';
+import { Divider } from '@heroui/react';
 import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
 import { type ColorMode, ModeSelector } from '@transience/color-picker';
-import { readableColor } from 'colorizr';
 
-import { BREAKPOINTS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 
 import Badge from '~/components/Badge';
 import Button from '~/components/Button';
+import Collapse from '~/components/Collapse';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
 import PreviewButton from '~/containers/Preview/Button';
@@ -33,16 +32,10 @@ export default function ColorActions(props: ColorActionsProps) {
     'setColorOverride',
   );
   const { toggleBottomBar } = useApp('toggleBottomBar');
-  const { isOpen, onOpenChange } = useDisclosure();
-  const { min } = useBreakpoint(BREAKPOINTS);
-
-  const color = colorEntry.value;
-
-  const useLightTheme = useMemoDeepCompare(() => {
-    return readableColor(color, 'apca') !== '#ffffff';
-  }, [color, globalOptions, colorEntry.overrides]);
+  const [showColorOptions, { toggle }] = useToggle(false);
 
   const handleClickOptions = () => {
+    toggle();
     trackEvent('open-color-options-overrides');
   };
 
@@ -56,17 +49,7 @@ export default function ColorActions(props: ColorActionsProps) {
   };
 
   return (
-    <>
-      <style>
-        {`
-      .popover-content-${index} { background-color: ${color}; }
-      .popover-base-${index} {
-        &:before {
-          background-color: ${color};
-        }
-       }
-      `}
-      </style>
+    <div className="flex flex-col">
       <div className="flex items-center justify-between">
         <ModeSelector mode={mode} onClick={onClickMode} />
 
@@ -85,53 +68,32 @@ export default function ColorActions(props: ColorActionsProps) {
           >
             <ArrowsClockwiseIcon className="text-base" />
           </Button>
-          <Popover
-            classNames={{
-              base: cn(`popover-base-${index} lg:before:top-2.5!`, {
-                light: useLightTheme,
-                dark: !useLightTheme,
-              }),
-              content: cn(`p-4 min-w-xs text-foreground popover-content-${index}`),
-            }}
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            placement={min('lg') ? 'right-start' : 'bottom-end'}
-            shouldBlockScroll
-            showArrow
-            size="lg"
-          >
-            <PopoverTrigger>
-              <Button
-                aria-label="Change color options"
-                isIconOnly
-                onPress={handleClickOptions}
-                size="sm"
-                variant="light"
-              >
-                <Tooltip content="Color options" delay={250} placement="bottom-end">
-                  <span className="size-8 inline-flex items-center justify-center">
-                    <Badge content="" isInvisible={!colorEntry.overrides}>
-                      <SlidersHorizontalIcon className="text-base" />
-                    </Badge>
-                  </span>
-                </Tooltip>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <ScaleColorOptions
-                defaultOptions={globalOptions}
-                isChromatic
-                onReset={handleResetOptions}
-                onUpdate={handleUpdateOptions}
-                options={{ ...globalOptions, ...colorEntry.overrides }}
-                seedColor={colorEntry.value}
-                title={`Options for ${colorEntry.name}`}
-                useLightTheme={useLightTheme}
-              />
-            </PopoverContent>
-          </Popover>
+          <Tooltip content="Color options" delay={250} placement="bottom-end">
+            <Button
+              aria-label="Change color options"
+              isIconOnly
+              onPress={handleClickOptions}
+              size="sm"
+              variant={showColorOptions ? 'solid' : 'light'}
+            >
+              <Badge content="" isInvisible={!colorEntry.overrides}>
+                <SlidersHorizontalIcon className="text-base" />
+              </Badge>
+            </Button>
+          </Tooltip>
         </div>
       </div>
-    </>
+      <Collapse isOpen={showColorOptions}>
+        <Divider className="my-4" />
+        <ScaleColorOptions
+          defaultOptions={globalOptions}
+          headingSize="md"
+          onReset={handleResetOptions}
+          onUpdate={handleUpdateOptions}
+          options={{ ...globalOptions, ...colorEntry.overrides }}
+          seedColor={colorEntry.value}
+        />
+      </Collapse>
+    </div>
   );
 }
