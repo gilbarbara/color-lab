@@ -54,21 +54,12 @@ export default function SliderLabel(props: SliderLabelProps) {
       {!!description && (
         <TooltipClickable
           aria-label={`Description for ${getTextFromNode(children)}`}
-          classNames={{
-            base: '-ml-2',
-          }}
           content={description}
           isDisabled={isDisabled}
         />
       )}
       {!!onReset && (
-        <Tooltip
-          classNames={{
-            base: '-ml-2',
-          }}
-          content="Reset to default"
-          isDisabled={isDisabled}
-        >
+        <Tooltip content="Reset to default" isDisabled={isDisabled}>
           <button
             aria-label={`Reset ${getTextFromNode(children)} to default`}
             className="text-lg transition-colors text-secondary disabled:text-foreground-500"

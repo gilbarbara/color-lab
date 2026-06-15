@@ -223,6 +223,26 @@ describe('Tooltip', () => {
       expect(screen.queryByText(content)).not.toBeInTheDocument();
     });
 
+    it('closes on click (activation)', async () => {
+      render(
+        <Tooltip content={content} delay={0}>
+          <button type="button">Trigger</button>
+        </Tooltip>,
+      );
+
+      const trigger = screen.getByRole('button');
+
+      fireEvent.pointerEnter(trigger, { pointerType: 'mouse' });
+
+      await expect(screen.findByText(content)).resolves.toBeInTheDocument();
+
+      fireEvent.click(trigger);
+
+      await waitFor(() => {
+        expect(screen.queryByText(content)).not.toBeInTheDocument();
+      });
+    });
+
     it('preserves the child’s own handlers (chain)', () => {
       const onPointerEnter = vi.fn();
       const onClick = vi.fn();
