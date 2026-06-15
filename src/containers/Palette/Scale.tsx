@@ -6,6 +6,7 @@ import useScrollToColor from '~/hooks/useScrollToColor';
 import { formatOklch } from '~/utils/color';
 
 import Collapse from '~/components/Collapse';
+import CollapsibleMenu from '~/components/CollapsibleMenu';
 import ColorBox from '~/components/ColorBox';
 import ColorCharts from '~/containers/ColorCharts';
 import ColorChartsButton from '~/containers/ColorCharts/Button';
@@ -64,9 +65,11 @@ function Scale(props: ScaleProps) {
         </div>
         <div className="flex items-center gap-2">
           <PreviewButton id={colorEntry.id} />
-          <ColorChartsButton id={colorEntry.id} />
-          <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />
-          <ContrastGrid colorEntry={colorEntry} steps={steps} />
+          <CollapsibleMenu label="More scale tools">
+            <ColorChartsButton id={colorEntry.id} />
+            <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />
+            <ContrastGrid colorEntry={colorEntry} steps={steps} />
+          </CollapsibleMenu>
           <ExportScale name={colorEntry.name} steps={steps} />
         </div>
       </div>
