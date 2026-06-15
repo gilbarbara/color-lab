@@ -109,9 +109,6 @@ export default function PaletteOptions() {
           </label>
           <TooltipClickable
             aria-label="Variant options"
-            classNames={{
-              base: '-ml-2',
-            }}
             content={
               <>
                 <p className="mb-1">Applies a preset style to the palette.</p>
@@ -148,9 +145,6 @@ export default function PaletteOptions() {
           </label>
           <TooltipClickable
             aria-label="Lock options"
-            classNames={{
-              base: '-ml-2',
-            }}
             content={
               <>
                 <p className="mb-1">Pins the base color to a specific step.</p>
@@ -261,9 +255,6 @@ export default function PaletteOptions() {
             </Switch>
             <TooltipClickable
               aria-label="Saturation override options"
-              classNames={{
-                base: '-mr-2',
-              }}
               content={
                 <>
                   <p className="mb-1">Sets a uniform saturation level for all palette colors.</p>

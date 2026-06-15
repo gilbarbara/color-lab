@@ -2,6 +2,7 @@ import {
   Children,
   cloneElement,
   type FocusEvent,
+  type MouseEvent,
   type PointerEvent,
   type ReactElement,
   type ReactNode,
@@ -80,6 +81,16 @@ const SIZE: Record<TooltipSize, string> = {
   lg: 'text-medium px-2.5 py-1.5',
 };
 
+// Pull the panel's text toward the trigger edge, compensating the panel's
+// horizontal padding. Centered placements stay put. The panel is `position:
+// fixed` with `left` set, so only margin-left shifts its x — `-end` must nudge
+// right via a positive margin-left, not margin-right (which is a no-op here).
+const ALIGN_MARGIN: Record<'' | '-end' | '-start', string> = {
+  '-start': '-ml-2',
+  '-end': 'ml-2',
+  '': '',
+};
+
 function chain<E>(...handlers: Array<((event: E) => void) | undefined>) {
   return (event: E) => {
     for (const handler of handlers) handler?.(event);
@@ -90,6 +101,7 @@ function computeCoords(
   placement: TooltipPlacement,
   triggerRect: DOMRect,
   contentRect: DOMRect,
+  marginOffset: number,
 ): Coords {
   const isTop = placement.startsWith('top');
   const top = isTop ? triggerRect.top - contentRect.height - GAP : triggerRect.bottom + GAP;
@@ -109,11 +121,13 @@ function computeCoords(
   const maxTop = window.innerHeight - contentRect.height - EDGE_MARGIN;
   const clampedLeft = clamp(left, EDGE_MARGIN, Math.max(maxLeft, EDGE_MARGIN));
 
-  // Keep the arrow pointing at the trigger center even after edge-clamping or
-  // start/end alignment shifts the panel away from center.
+  // Keep the arrow pointing at the trigger center even after edge-clamping,
+  // start/end alignment, or the ALIGN_MARGIN shift moves the panel away from
+  // center. The panel renders at clampedLeft + marginOffset (the CSS margin),
+  // so the arrow's panel-local offset must subtract that shift.
   const triggerCenter = triggerRect.left + triggerRect.width / 2;
   const arrowOffset = clamp(
-    triggerCenter - clampedLeft,
+    triggerCenter - clampedLeft - marginOffset,
     ARROW_SIZE,
     Math.max(contentRect.width - ARROW_SIZE, ARROW_SIZE),
   );
@@ -191,11 +205,16 @@ export default function Tooltip(props: TooltipProps) {
       return;
     }
 
+    const el = contentRef.current;
     const triggerRect = triggerRef.current.getBoundingClientRect();
-    const contentRect = contentRef.current.getBoundingClientRect();
+    const contentRect = el.getBoundingClientRect();
+    // The applied ALIGN_MARGIN shifts the rendered panel away from the inline
+    // `left` we set. Measure it from the DOM so the arrow stays on the trigger
+    // regardless of which margin (or none) is in effect.
+    const marginOffset = contentRect.left - (parseFloat(el.style.left) || 0);
     const resolved = resolvePlacement(placement, triggerRect, contentRect);
 
-    setCoords(computeCoords(resolved, triggerRect, contentRect));
+    setCoords(computeCoords(resolved, triggerRect, contentRect, marginOffset));
   }, [placement]);
 
   useEffect(() => {
@@ -275,6 +294,7 @@ export default function Tooltip(props: TooltipProps) {
   const child = Children.only(children) as ReactElement<{
     'aria-describedby'?: string;
     onBlur?: (event: FocusEvent) => void;
+    onClick?: (event: MouseEvent) => void;
     onFocus?: (event: FocusEvent) => void;
     onPointerEnter?: (event: PointerEvent) => void;
     onPointerLeave?: (event: PointerEvent) => void;
@@ -334,6 +354,14 @@ export default function Tooltip(props: TooltipProps) {
       }
     });
     triggerProps.onBlur = chain(child.props.onBlur, () => setUncontrolledOpen(false));
+    // Activating the trigger (click or keyboard Enter/Space) dismisses the tooltip.
+    // Clicking fires neither pointerleave (pointer still over) nor blur (focus moves
+    // onto the trigger), so without this an opened tooltip lingers after a click.
+    triggerProps.onClick = chain(child.props.onClick, () => {
+      clearTimeout(openTimer.current);
+      clearTimeout(closeTimer.current);
+      setUncontrolledOpen(false);
+    });
   }
 
   return (
@@ -349,6 +377,7 @@ export default function Tooltip(props: TooltipProps) {
               SIZE[size],
               PANEL[color],
               coords && isVisible ? 'opacity-100' : 'opacity-0',
+              ALIGN_MARGIN[getAlignment(placement)],
               classNames?.base,
               classNames?.content,
             )}
