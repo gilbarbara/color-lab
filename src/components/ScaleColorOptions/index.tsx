@@ -16,6 +16,8 @@ import type { GlobalScaleOptions, OklchString } from '~/types';
 interface ScaleColorOptionsProps {
   className?: string;
   defaultOptions: GlobalScaleOptions;
+  /** Disables the Reset button when there is nothing to reset. */
+  disableReset?: boolean;
   headingSize?: 'md' | 'lg';
   onReset: () => void;
   onUpdate: (updates: Partial<GlobalScaleOptions>) => void;
@@ -34,6 +36,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
   const {
     className,
     defaultOptions,
+    disableReset = false,
     headingSize = 'lg',
     onReset,
     onUpdate,
@@ -85,10 +88,10 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
 
       <div className="flex justify-end">
         <Button
+          isDisabled={disableReset}
           onPress={onReset}
           size="menu"
           startContent={<EraserIcon className="text-lg" />}
-          variant="flat"
         >
           Reset
         </Button>

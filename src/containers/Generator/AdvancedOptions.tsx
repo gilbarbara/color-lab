@@ -60,6 +60,7 @@ export default function AdvancedOptions(props: AdvancedOptionsProps) {
         <div className="p-4">
           <ScaleColorOptions
             defaultOptions={defaultOptions}
+            disableReset={!hasCustomCurves}
             onReset={handleClickReset}
             onUpdate={updateGlobalOptions}
             options={globalOptions}

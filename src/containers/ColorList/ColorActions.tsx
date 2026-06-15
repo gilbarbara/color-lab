@@ -87,6 +87,7 @@ export default function ColorActions(props: ColorActionsProps) {
         <Divider className="my-4" />
         <ScaleColorOptions
           defaultOptions={globalOptions}
+          disableReset={!colorEntry.overrides}
           headingSize="md"
           onReset={handleResetOptions}
           onUpdate={handleUpdateOptions}
