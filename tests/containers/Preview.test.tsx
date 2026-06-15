@@ -58,6 +58,20 @@ describe('Preview', () => {
       expect(screen.getByTestId('Preview-Toolbar')).toMatchSnapshot('toolbar');
       expect(screen.getByTestId('Preview-Controls')).toMatchSnapshot('controls');
       expect(screen.getByTestId('Preview-Cards')).toMatchSnapshot('cards');
+
+      expect(screen.getByTestId('Preview')).toMatchSnapshot();
+    });
+
+    it('renders the Typography view', () => {
+      render(<Preview />);
+
+      fireEvent.click(screen.getByRole('tab', { name: 'Typography' }));
+
+      expect(screen.getByTestId('Preview-Typography')).toBeInTheDocument();
+      expect(screen.queryByTestId('Preview-Controls')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('Preview-Cards')).not.toBeInTheDocument();
+
+      expect(screen.getByTestId('Preview')).toMatchSnapshot();
     });
   });
 
@@ -123,6 +137,14 @@ describe('Preview', () => {
       const header = screen.getByTestId('Preview-Header');
 
       expect(within(header).getByText('Primary')).toBeInTheDocument();
+    });
+
+    it('defaults to the Components view', () => {
+      render(<Preview />);
+
+      expect(screen.getByTestId('Preview-Controls')).toBeInTheDocument();
+      expect(screen.getByTestId('Preview-Cards')).toBeInTheDocument();
+      expect(screen.queryByTestId('Preview-Typography')).not.toBeInTheDocument();
     });
   });
 });
