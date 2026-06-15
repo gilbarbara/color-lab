@@ -1143,11 +1143,59 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
       class="p-4"
       data-testid="ColorList"
     >
-      <h2
-        class="font-semibold text-xl"
+      <div
+        class="flex items-center justify-between"
       >
-        Colors
-      </h2>
+        <h2
+          class="font-semibold text-xl"
+        >
+          Colors
+        </h2>
+        <div
+          class="flex items-center gap-2"
+          data-testid="ColorPresets"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
+            data-react-aria-pressable="true"
+            data-slot="trigger"
+            id="react-aria-_r_22_"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="text-lg"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M195.88,96c.07-1.31.12-2.63.12-4A68,68,0,0,0,60,92c0,1.33,0,2.65.12,4A68,68,0,1,0,128,213.65,68,68,0,1,0,195.88,96ZM128,193.47a51.89,51.89,0,0,1-16-35.38,67.55,67.55,0,0,0,31.9,0A51.89,51.89,0,0,1,128,193.47ZM128,144a51.93,51.93,0,0,1-14.08-1.95A52.06,52.06,0,0,1,128,118.53a52.06,52.06,0,0,1,14.08,23.52A51.93,51.93,0,0,1,128,144Zm-28.77-8.71A52.19,52.19,0,0,1,77.92,106a51.88,51.88,0,0,1,36.79,3.28A68.17,68.17,0,0,0,99.23,135.29Zm42.06-26.06A51.88,51.88,0,0,1,178.08,106a52.19,52.19,0,0,1-21.31,29.34A68.17,68.17,0,0,0,141.29,109.23ZM128,40A52.06,52.06,0,0,1,180,89.91,67.72,67.72,0,0,0,128,98.35a67.72,67.72,0,0,0-51.95-8.44A52.06,52.06,0,0,1,128,40ZM40,156a52,52,0,0,1,23.23-43.29A68.36,68.36,0,0,0,96.12,152c-.07,1.31-.12,2.63-.12,4a67.74,67.74,0,0,0,18.71,46.77A52,52,0,0,1,40,156Zm124,52a51.65,51.65,0,0,1-22.71-5.23A67.74,67.74,0,0,0,160,156c0-1.33-.05-2.65-.12-4a68.36,68.36,0,0,0,32.89-39.33A52,52,0,0,1,164,208Z"
+              />
+            </svg>
+            Apply a preset
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div
         class="space-y-4 mt-4"
       >
@@ -1206,7 +1254,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_24_"
+                          id="react-aria-_r_27_"
                           name="color-name-0"
                           tabindex="0"
                           title=""
@@ -1265,7 +1313,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_2a_"
+                        id="react-aria-_r_2d_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -1630,7 +1678,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_2p_"
+                          id="react-aria-_r_2s_"
                           name="color-name-1"
                           tabindex="0"
                           title=""
@@ -1690,7 +1738,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_2v_"
+                        id="react-aria-_r_32_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -1900,12 +1948,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                 class="flex flex-col gap-6"
               >
                 <div
-                  aria-labelledby="react-aria-_r_36_"
+                  aria-labelledby="react-aria-_r_39_"
                   class="flex flex-col w-full gap-1"
                   data-hover="false"
                   data-orientation="horizontal"
                   data-slot="base"
-                  id="react-aria-_r_35_"
+                  id="react-aria-_r_38_"
                   role="group"
                 >
                   <div
@@ -1915,7 +1963,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     <label
                       class="flex gap-2 items-center"
                       data-slot="label"
-                      id="react-aria-_r_36_"
+                      id="react-aria-_r_39_"
                     >
                       <span
                         class="text-base/5"
@@ -1963,7 +2011,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       aria-live="off"
                       class="flex gap-2 text-small"
                       data-slot="value"
-                      for="react-aria-_r_36_-0 react-aria-_r_36_-1"
+                      for="react-aria-_r_39_-0 react-aria-_r_39_-1"
                     >
                       <span
                         class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2038,10 +2086,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           <input
                             aria-describedby=""
                             aria-details=""
-                            aria-labelledby="react-aria-_r_36_"
+                            aria-labelledby="react-aria-_r_39_"
                             aria-orientation="horizontal"
                             aria-valuetext="0.26"
-                            id="react-aria-_r_36_-0"
+                            id="react-aria-_r_39_-0"
                             max="0.97"
                             min="0"
                             name="lightness"
@@ -2067,10 +2115,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           <input
                             aria-describedby=""
                             aria-details=""
-                            aria-labelledby="react-aria-_r_36_"
+                            aria-labelledby="react-aria-_r_39_"
                             aria-orientation="horizontal"
                             aria-valuetext="0.97"
-                            id="react-aria-_r_36_-1"
+                            id="react-aria-_r_39_-1"
                             max="1"
                             min="0.26"
                             name="lightness"
@@ -2085,7 +2133,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-labelledby="_r_3g_"
+                  aria-labelledby="_r_3j_"
                   class="flex flex-col gap-2"
                   role="group"
                 >
@@ -2097,7 +2145,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     >
                       <span
                         class="text-base/5"
-                        id="_r_3g_"
+                        id="_r_3j_"
                       >
                         Lightness Curve
                       </span>
@@ -2147,9 +2195,9 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-label="Lightness curve mode"
                         aria-orientation="horizontal"
                         class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-                        data-collection="react-aria-_r_3j_"
+                        data-collection="react-aria-_r_3m_"
                         data-slot="tabList"
-                        id="react-aria-_r_3k_"
+                        id="react-aria-_r_3n_"
                         role="tablist"
                       >
                         <span
@@ -2159,12 +2207,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="true"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_3j_"
+                          data-collection="react-aria-_r_3m_"
                           data-key="scalar"
                           data-react-aria-pressable="true"
                           data-selected="true"
                           data-slot="tab"
-                          id="react-aria-_r_3k_-tab-scalar"
+                          id="react-aria-_r_3n_-tab-scalar"
                           role="tab"
                           tabindex="0"
                           type="button"
@@ -2179,11 +2227,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="false"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_3j_"
+                          data-collection="react-aria-_r_3m_"
                           data-key="range"
                           data-react-aria-pressable="true"
                           data-slot="tab"
-                          id="react-aria-_r_3k_-tab-range"
+                          id="react-aria-_r_3n_-tab-range"
                           role="tab"
                           tabindex="-1"
                           type="button"
@@ -2200,12 +2248,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                   <div
                     aria-label="Lightness Curve"
-                    aria-labelledby="react-aria-_r_3q_ react-aria-_r_3r_"
+                    aria-labelledby="react-aria-_r_3t_ react-aria-_r_3u_"
                     class="flex flex-col w-full gap-1"
                     data-hover="false"
                     data-orientation="horizontal"
                     data-slot="base"
-                    id="react-aria-_r_3q_"
+                    id="react-aria-_r_3t_"
                     role="group"
                   >
                     <div
@@ -2215,7 +2263,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       <label
                         class="flex gap-2 items-center"
                         data-slot="label"
-                        id="react-aria-_r_3r_"
+                        id="react-aria-_r_3u_"
                       >
                         <span
                           class="text-sm/5 text-foreground-500"
@@ -2227,7 +2275,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-live="off"
                         class="text-small"
                         data-slot="value"
-                        for="react-aria-_r_3r_-0"
+                        for="react-aria-_r_3u_-0"
                       >
                         <span
                           class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2293,10 +2341,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                             <input
                               aria-describedby=""
                               aria-details=""
-                              aria-labelledby="react-aria-_r_3r_"
+                              aria-labelledby="react-aria-_r_3u_"
                               aria-orientation="horizontal"
                               aria-valuetext="1.3"
-                              id="react-aria-_r_3r_-0"
+                              id="react-aria-_r_3u_-0"
                               max="5"
                               min="0.1"
                               name="lightnessCurve"
@@ -2312,7 +2360,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-labelledby="_r_40_"
+                  aria-labelledby="_r_43_"
                   class="flex flex-col gap-2"
                   role="group"
                 >
@@ -2324,7 +2372,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     >
                       <span
                         class="text-base/5"
-                        id="_r_40_"
+                        id="_r_43_"
                       >
                         Chroma Curve
                       </span>
@@ -2374,9 +2422,9 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-label="Chroma curve mode"
                         aria-orientation="horizontal"
                         class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-                        data-collection="react-aria-_r_43_"
+                        data-collection="react-aria-_r_46_"
                         data-slot="tabList"
-                        id="react-aria-_r_44_"
+                        id="react-aria-_r_47_"
                         role="tablist"
                       >
                         <span
@@ -2386,12 +2434,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="true"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_43_"
+                          data-collection="react-aria-_r_46_"
                           data-key="scalar"
                           data-react-aria-pressable="true"
                           data-selected="true"
                           data-slot="tab"
-                          id="react-aria-_r_44_-tab-scalar"
+                          id="react-aria-_r_47_-tab-scalar"
                           role="tab"
                           tabindex="0"
                           type="button"
@@ -2406,11 +2454,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="false"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_43_"
+                          data-collection="react-aria-_r_46_"
                           data-key="range"
                           data-react-aria-pressable="true"
                           data-slot="tab"
-                          id="react-aria-_r_44_-tab-range"
+                          id="react-aria-_r_47_-tab-range"
                           role="tab"
                           tabindex="-1"
                           type="button"
@@ -2430,12 +2478,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   >
                     <div
                       aria-label="Chroma Curve"
-                      aria-labelledby="react-aria-_r_4a_ react-aria-_r_4b_"
+                      aria-labelledby="react-aria-_r_4d_ react-aria-_r_4e_"
                       class="flex flex-col w-full gap-1"
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_4a_"
+                      id="react-aria-_r_4d_"
                       role="group"
                     >
                       <div
@@ -2445,7 +2493,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <label
                           class="flex gap-2 items-center"
                           data-slot="label"
-                          id="react-aria-_r_4b_"
+                          id="react-aria-_r_4e_"
                         >
                           <span
                             class="text-sm/5 text-foreground-500"
@@ -2457,7 +2505,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           aria-live="off"
                           class="text-small"
                           data-slot="value"
-                          for="react-aria-_r_4b_-0"
+                          for="react-aria-_r_4e_-0"
                         >
                           <span
                             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2523,10 +2571,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_4b_"
+                                aria-labelledby="react-aria-_r_4e_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="0"
-                                id="react-aria-_r_4b_-0"
+                                id="react-aria-_r_4e_-0"
                                 max="1"
                                 min="0"
                                 name="chromaAmount"
@@ -2541,12 +2589,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       </div>
                     </div>
                     <div
-                      aria-labelledby="react-aria-_r_4h_"
+                      aria-labelledby="react-aria-_r_4k_"
                       class="flex flex-col w-full gap-1 opacity-disabled"
                       data-hover="false"
                       data-orientation="horizontal"
                       data-slot="base"
-                      id="react-aria-_r_4g_"
+                      id="react-aria-_r_4j_"
                       role="group"
                     >
                       <div
@@ -2556,7 +2604,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <label
                           class="flex gap-2 items-center"
                           data-slot="label"
-                          id="react-aria-_r_4h_"
+                          id="react-aria-_r_4k_"
                         >
                           <span
                             class="text-sm/5 text-foreground-500"
@@ -2568,7 +2616,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           aria-live="off"
                           class="text-small"
                           data-slot="value"
-                          for="react-aria-_r_4h_-0"
+                          for="react-aria-_r_4k_-0"
                         >
                           <span
                             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2614,11 +2662,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                               <input
                                 aria-describedby=""
                                 aria-details=""
-                                aria-labelledby="react-aria-_r_4h_"
+                                aria-labelledby="react-aria-_r_4k_"
                                 aria-orientation="horizontal"
                                 aria-valuetext="0.5"
                                 disabled=""
-                                id="react-aria-_r_4h_-0"
+                                id="react-aria-_r_4k_-0"
                                 max="0.99"
                                 min="0.01"
                                 name="chromaPeak"
@@ -2635,7 +2683,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-labelledby="_r_4m_"
+                  aria-labelledby="_r_4p_"
                   class="flex flex-col gap-2"
                   role="group"
                 >
@@ -2647,7 +2695,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                     >
                       <span
                         class="text-base/5"
-                        id="_r_4m_"
+                        id="_r_4p_"
                       >
                         Hue Shift
                       </span>
@@ -2697,9 +2745,9 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-label="Hue shift mode"
                         aria-orientation="horizontal"
                         class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-                        data-collection="react-aria-_r_4p_"
+                        data-collection="react-aria-_r_4s_"
                         data-slot="tabList"
-                        id="react-aria-_r_4q_"
+                        id="react-aria-_r_4t_"
                         role="tablist"
                       >
                         <span
@@ -2709,12 +2757,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="true"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_4p_"
+                          data-collection="react-aria-_r_4s_"
                           data-key="scalar"
                           data-react-aria-pressable="true"
                           data-selected="true"
                           data-slot="tab"
-                          id="react-aria-_r_4q_-tab-scalar"
+                          id="react-aria-_r_4t_-tab-scalar"
                           role="tab"
                           tabindex="0"
                           type="button"
@@ -2729,11 +2777,11 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         <button
                           aria-selected="false"
                           class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-                          data-collection="react-aria-_r_4p_"
+                          data-collection="react-aria-_r_4s_"
                           data-key="range"
                           data-react-aria-pressable="true"
                           data-slot="tab"
-                          id="react-aria-_r_4q_-tab-range"
+                          id="react-aria-_r_4t_-tab-range"
                           role="tab"
                           tabindex="-1"
                           type="button"
@@ -2750,12 +2798,12 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                   </div>
                   <div
                     aria-label="Hue Shift"
-                    aria-labelledby="react-aria-_r_50_ react-aria-_r_51_"
+                    aria-labelledby="react-aria-_r_53_ react-aria-_r_54_"
                     class="flex flex-col w-full gap-1"
                     data-hover="false"
                     data-orientation="horizontal"
                     data-slot="base"
-                    id="react-aria-_r_50_"
+                    id="react-aria-_r_53_"
                     role="group"
                   >
                     <div
@@ -2765,7 +2813,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                       <label
                         class="flex gap-2 items-center"
                         data-slot="label"
-                        id="react-aria-_r_51_"
+                        id="react-aria-_r_54_"
                       >
                         <span
                           class="text-sm/5 text-foreground-500"
@@ -2777,7 +2825,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         aria-live="off"
                         class="text-small"
                         data-slot="value"
-                        for="react-aria-_r_51_-0"
+                        for="react-aria-_r_54_-0"
                       >
                         <span
                           class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2823,10 +2871,10 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                             <input
                               aria-describedby=""
                               aria-details=""
-                              aria-labelledby="react-aria-_r_51_"
+                              aria-labelledby="react-aria-_r_54_"
                               aria-orientation="horizontal"
                               aria-valuetext="0"
-                              id="react-aria-_r_51_-0"
+                              id="react-aria-_r_54_-0"
                               max="90"
                               min="-90"
                               name="hueShift"
@@ -2881,11 +2929,59 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
       class="p-4"
       data-testid="ColorList"
     >
-      <h2
-        class="font-semibold text-xl"
+      <div
+        class="flex items-center justify-between"
       >
-        Colors
-      </h2>
+        <h2
+          class="font-semibold text-xl"
+        >
+          Colors
+        </h2>
+        <div
+          class="flex items-center gap-2"
+          data-testid="ColorPresets"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
+            data-react-aria-pressable="true"
+            data-slot="trigger"
+            id="react-aria-_r_59_"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="text-lg"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M195.88,96c.07-1.31.12-2.63.12-4A68,68,0,0,0,60,92c0,1.33,0,2.65.12,4A68,68,0,1,0,128,213.65,68,68,0,1,0,195.88,96ZM128,193.47a51.89,51.89,0,0,1-16-35.38,67.55,67.55,0,0,0,31.9,0A51.89,51.89,0,0,1,128,193.47ZM128,144a51.93,51.93,0,0,1-14.08-1.95A52.06,52.06,0,0,1,128,118.53a52.06,52.06,0,0,1,14.08,23.52A51.93,51.93,0,0,1,128,144Zm-28.77-8.71A52.19,52.19,0,0,1,77.92,106a51.88,51.88,0,0,1,36.79,3.28A68.17,68.17,0,0,0,99.23,135.29Zm42.06-26.06A51.88,51.88,0,0,1,178.08,106a52.19,52.19,0,0,1-21.31,29.34A68.17,68.17,0,0,0,141.29,109.23ZM128,40A52.06,52.06,0,0,1,180,89.91,67.72,67.72,0,0,0,128,98.35a67.72,67.72,0,0,0-51.95-8.44A52.06,52.06,0,0,1,128,40ZM40,156a52,52,0,0,1,23.23-43.29A68.36,68.36,0,0,0,96.12,152c-.07,1.31-.12,2.63-.12,4a67.74,67.74,0,0,0,18.71,46.77A52,52,0,0,1,40,156Zm124,52a51.65,51.65,0,0,1-22.71-5.23A67.74,67.74,0,0,0,160,156c0-1.33-.05-2.65-.12-4a68.36,68.36,0,0,0,32.89-39.33A52,52,0,0,1,164,208Z"
+              />
+            </svg>
+            Apply a preset
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div
         class="space-y-4 mt-4"
       >
@@ -2944,7 +3040,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_58_"
+                          id="react-aria-_r_5e_"
                           name="color-name-0"
                           tabindex="0"
                           title=""
@@ -3003,7 +3099,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_5e_"
+                        id="react-aria-_r_5k_"
                         tabindex="0"
                         title=""
                         type="text"
@@ -3368,7 +3464,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                           data-filled="true"
                           data-filled-within="true"
                           data-slot="input"
-                          id="react-aria-_r_5t_"
+                          id="react-aria-_r_63_"
                           name="color-name-1"
                           tabindex="0"
                           title=""
@@ -3428,7 +3524,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
                         data-filled-within="true"
                         data-slot="input"
                         data-type="text"
-                        id="react-aria-_r_63_"
+                        id="react-aria-_r_69_"
                         tabindex="0"
                         title=""
                         type="text"
