@@ -105,10 +105,9 @@ describe('Header', () => {
     it('mints a fresh palette URL on New Palette click and tracks event', () => {
       render(<Header />);
 
-      // eslint-disable-next-line testing-library/no-node-access
-      const button = screen.getByTestId('NewPalette').closest('button');
+      const button = screen.getByRole('button', { name: 'New Palette' });
 
-      fireEvent.click(button!);
+      fireEvent.click(button);
 
       expect(useAppStore.getState().paletteId).toBeNull();
       expect(trackEvent).toHaveBeenCalledWith('new-palette');
