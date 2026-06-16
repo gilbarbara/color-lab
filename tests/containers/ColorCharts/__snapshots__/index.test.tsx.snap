@@ -2,7 +2,7 @@
 
 exports[`ColorCharts > Render > renders the Chroma chart by default 1`] = `
 <div
-  class="bg-content1 p-2 pl-1 rounded-xl"
+  class="bg-surface p-2 pl-1 rounded-xl"
   data-testid="ColorCharts"
 >
   <div

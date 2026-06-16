@@ -13,7 +13,7 @@ export default function ColorCharts(props: ColorChartsProps) {
   const { colorEntry, options, steps } = props;
 
   return (
-    <div className="bg-content1 p-2 pl-1 rounded-xl" data-testid="ColorCharts">
+    <div className="bg-surface p-2 pl-1 rounded-xl" data-testid="ColorCharts">
       <Tabs
         aria-label="Scale chart"
         classNames={{
