@@ -59,15 +59,17 @@ export default function ColorActions(props: ColorActionsProps) {
             onPreview={() => toggleBottomBar(false)}
             variant="light"
           />
-          <Button
-            aria-label="Random color"
-            isIconOnly
-            onPress={onClickRandom}
-            size="sm"
-            variant="light"
-          >
-            <ArrowsClockwiseIcon className="text-base" />
-          </Button>
+          <Tooltip content="Random Color" delay={250} placement="bottom-end">
+            <Button
+              aria-label="Random color"
+              isIconOnly
+              onPress={onClickRandom}
+              size="sm"
+              variant="light"
+            >
+              <ArrowsClockwiseIcon className="text-base" />
+            </Button>
+          </Tooltip>
           <Tooltip content="Color options" delay={250} placement="bottom-end">
             <Button
               aria-label="Change color options"
