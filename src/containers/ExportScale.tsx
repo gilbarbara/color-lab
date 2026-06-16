@@ -60,7 +60,7 @@ export default function ExportScale(props: ExportScaleProps) {
         const code = generateExport(name, steps, { colorFormat, formatType });
 
         return (
-          <pre className="h-full overflow-auto rounded-lg bg-content2 p-4 font-mono text-sm">
+          <pre className="h-full overflow-auto rounded-lg bg-surface-alt p-4 font-mono text-sm">
             <code>{code}</code>
           </pre>
         );

@@ -212,11 +212,11 @@ export default function ExportPalette() {
               </div>
             )}
             {selectedIndices.size === 0 ? (
-              <div className="rounded-lg bg-content2 p-4 text-sm text-foreground-500">
+              <div className="rounded-lg bg-surface-alt p-4 text-sm text-foreground-500">
                 Select at least one color to preview the export.
               </div>
             ) : (
-              <pre className="overflow-auto rounded-lg bg-content2 p-4 font-mono text-sm">
+              <pre className="overflow-auto rounded-lg bg-surface-alt p-4 font-mono text-sm">
                 <code>{allCode}</code>
               </pre>
             )}

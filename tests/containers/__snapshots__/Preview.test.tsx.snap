@@ -613,7 +613,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
               </div>
             </div>
             <div
-              class="flex flex-col relative overflow-hidden h-auto text-foreground box-border outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none bg-content2"
+              class="flex flex-col relative overflow-hidden h-auto text-foreground box-border outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none bg-surface-alt"
               tabindex="-1"
             >
               <div
@@ -796,7 +796,7 @@ exports[`Preview > Render > renders expanded > cards 1`] = `
     </div>
   </div>
   <div
-    class="flex flex-col relative overflow-hidden h-auto text-foreground box-border outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none bg-content2"
+    class="flex flex-col relative overflow-hidden h-auto text-foreground box-border outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none bg-surface-alt"
     tabindex="-1"
   >
     <div

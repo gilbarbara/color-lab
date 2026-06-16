@@ -28,7 +28,7 @@ function PreviewCards() {
         </CardBody>
       </Card>
 
-      <Card className="bg-content2">
+      <Card className="bg-surface-alt">
         <CardHeader className="flex items-center justify-between">
           <div className="flex flex-col">
             <p className="text-sm text-foreground-500">Expenses</p>
