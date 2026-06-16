@@ -47,10 +47,8 @@ export default function Header() {
         startContent={<PlusIcon />}
         variant="flat"
       >
-        <span className="hidden xs:inline-flex items-center" data-testid="NewPalette">
-          New
-          <span className="hidden sm:inline-flex">&nbsp;Palette</span>
-        </span>
+        <span className="hidden xs:inline-flex sm:hidden">New</span>
+        <span className="hidden sm:inline-flex">New Palette</span>
       </Button>
       <div className="hidden sm:contents">
         <NavLink className={navLinkClassName} to="/palettes">
