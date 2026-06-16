@@ -75,14 +75,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
     role="separator"
   />
   <div
-    class="flex-1 p-4 gap-4 overflow-hidden flex flex-col min-h-0"
+    class="flex-1 overflow-y-auto p-4 gap-4 flex flex-col lg:min-h-0"
     id="_r_9_"
   >
     <div
       class="flex flex-col lg:flex-row gap-6 flex-1 min-h-0"
     >
       <div
-        class="lg:basis-2/5 flex flex-col gap-6 min-w-0"
+        class="flex flex-col gap-6 lg:basis-2/5 lg:min-w-0"
       >
         <section
           data-testid="ColorInfo-ScaleOptions"
@@ -461,7 +461,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
         </section>
       </div>
       <div
-        class="lg:basis-3/5 min-w-0 min-h-0 flex flex-col"
+        class="flex flex-col lg:basis-3/5 lg:min-w-0 lg:min-h-0"
       >
         <div
           class="overflow-auto flex-1 min-h-0"
@@ -476,10 +476,10 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
               >
                 <th
                   aria-label="Step"
-                  class="py-2 pr-3 font-normal w-12 sticky top-0 bg-content1 z-10"
+                  class="sticky top-0 z-10 w-12 bg-content1 py-2 pr-3"
                 />
                 <th
-                  class="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10"
+                  class="sticky top-0 z-10 bg-content1 py-2 pr-3"
                 >
                   APCA 
                   <span>
@@ -490,12 +490,12 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                   </span>
                 </th>
                 <th
-                  class="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10"
+                  class="sticky top-0 z-10 bg-content1 py-2 pr-3"
                 >
                   Gamut
                 </th>
                 <th
-                  class="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10"
+                  class="sticky top-0 z-10 bg-content1 py-2 pr-3"
                 >
                   OKLCH
                 </th>

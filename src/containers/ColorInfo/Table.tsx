@@ -17,7 +17,15 @@ export default function Table({ onSelect, options, selectedStep, steps }: TableP
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const row = containerRef.current?.querySelector<HTMLElement>(`[data-step="${selectedStep}"]`);
+    const container = containerRef.current;
+
+    // Only scroll when the table is its own scroller (lg layout). On small screens the
+    // ModalBody is the scroller, and scrollIntoView would jump the whole modal on open.
+    if (!container || container.scrollHeight <= container.clientHeight) {
+      return;
+    }
+
+    const row = container.querySelector<HTMLElement>(`[data-step="${selectedStep}"]`);
 
     row?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, [selectedStep]);
@@ -27,15 +35,12 @@ export default function Table({ onSelect, options, selectedStep, steps }: TableP
       <table className="w-full text-left border-separate border-spacing-0">
         <thead>
           <tr className="text-foreground-500 text-xs uppercase tracking-wide">
-            <th
-              aria-label="Step"
-              className="py-2 pr-3 font-normal w-12 sticky top-0 bg-content1 z-10"
-            />
-            <th className="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10">
+            <th aria-label="Step" className="sticky top-0 z-10 w-12 bg-content1 py-2 pr-3" />
+            <th className="sticky top-0 z-10 bg-content1 py-2 pr-3">
               APCA {APCA_LIGHTNESS_CONTRAST}
             </th>
-            <th className="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10">Gamut</th>
-            <th className="py-2 pr-3 font-normal sticky top-0 bg-content1 z-10">OKLCH</th>
+            <th className="sticky top-0 z-10 bg-content1 py-2 pr-3">Gamut</th>
+            <th className="sticky top-0 z-10 bg-content1 py-2 pr-3">OKLCH</th>
           </tr>
         </thead>
         <tbody>

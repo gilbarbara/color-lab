@@ -69,7 +69,7 @@ export default function ColorInfo(props: ColorInfoProps) {
       <Modal
         classNames={{
           base: 'w-full',
-          body: 'overflow-hidden flex flex-col min-h-0',
+          body: 'flex flex-col lg:min-h-0',
           header: 'gap-1 font-normal',
         }}
         isOpen={isOpen}
@@ -85,7 +85,7 @@ export default function ColorInfo(props: ColorInfoProps) {
           <Divider />
           <ModalBody>
             <div className="flex flex-col lg:flex-row gap-6 flex-1 min-h-0">
-              <div className="lg:basis-2/5 flex flex-col gap-6 min-w-0">
+              <div className="flex flex-col gap-6 lg:basis-2/5 lg:min-w-0">
                 <ScaleOptionsSection colorEntry={colorEntry} options={options} />
                 <ChromaDistributionChart
                   onSelect={setSelectedStep}
@@ -94,7 +94,7 @@ export default function ColorInfo(props: ColorInfoProps) {
                 />
                 <Definition color={activeColor} step={activeStep} />
               </div>
-              <div className="lg:basis-3/5 min-w-0 min-h-0 flex flex-col">
+              <div className="flex flex-col lg:basis-3/5 lg:min-w-0 lg:min-h-0">
                 <Table
                   onSelect={setSelectedStep}
                   options={options}

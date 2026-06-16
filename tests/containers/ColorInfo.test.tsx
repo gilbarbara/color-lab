@@ -123,8 +123,14 @@ describe('ColorInfo', () => {
       expect(within(definition).getByText('0.469')).toBeInTheDocument();
     });
 
-    it('scrolls selected row into view when selection changes', async () => {
+    it('scrolls selected row into view when the table is its own scroller', async () => {
       await openColorInfo();
+
+      // Simulate the lg layout where the table container scrolls internally.
+      const container = screen.getByTestId('ColorInfo-Table');
+
+      Object.defineProperty(container, 'scrollHeight', { configurable: true, value: 1000 });
+      Object.defineProperty(container, 'clientHeight', { configurable: true, value: 200 });
 
       scrollIntoViewMock.mockClear();
       fireEvent.click(getBarForStep('950'));
@@ -135,6 +141,18 @@ describe('ColorInfo', () => {
           block: 'center',
         });
       });
+    });
+
+    it('does not scroll when the table is not its own scroller', async () => {
+      await openColorInfo();
+
+      // Small-screen stacked layout: the ModalBody scrolls, not the table. jsdom
+      // reports scrollHeight === clientHeight (0), so the guard must skip scrolling.
+      scrollIntoViewMock.mockClear();
+      fireEvent.click(getBarForStep('950'));
+
+      expect(getBarForStep('950')).toHaveAttribute('aria-pressed', 'true');
+      expect(scrollIntoViewMock).not.toHaveBeenCalled();
     });
 
     it('copies OKLCH for the row', async () => {
