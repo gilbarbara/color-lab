@@ -49,7 +49,7 @@ describe('Options', () => {
       expect(container).toMatchSnapshot();
     });
 
-    it('renders dark mode label', () => {
+    it('reflects the selected mode', () => {
       const base = createTestPalette(1);
 
       getGeneratorStore().setState({
@@ -58,19 +58,20 @@ describe('Options', () => {
       });
       render(<Options />);
 
-      expect(screen.getByText('Dark scale')).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Dark' })).toBeChecked();
+      expect(screen.getByRole('radio', { name: 'Light' })).not.toBeChecked();
     });
   });
 
   describe('Behavior', () => {
-    it('toggles mode via Switch', () => {
+    it('toggles mode via the button group', () => {
       render(<Options />);
 
-      const modeSwitch = screen.getByRole('switch', { name: /Light scale/ });
-
-      fireEvent.click(modeSwitch);
-
+      fireEvent.click(screen.getByRole('radio', { name: 'Dark' }));
       expect(getGeneratorStore().getState().globalOptions.mode).toBe('dark');
+
+      fireEvent.click(screen.getByRole('radio', { name: 'Reversed' }));
+      expect(getGeneratorStore().getState().globalOptions.mode).toBe('reversed');
     });
 
     it('toggles saturationOverride via Switch', () => {

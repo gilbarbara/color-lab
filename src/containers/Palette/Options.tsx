@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { cn, Select, SelectItem, type SharedSelection, Slider } from '@heroui/react';
 import { EraserIcon } from '@phosphor-icons/react';
-import { getScaleStepKeys } from 'colorizr';
+import { getScaleStepKeys, type ScaleMode as ScaleModeType } from 'colorizr';
 
 import useGenerator from '~/hooks/useGenerator';
 import useRafCallback from '~/hooks/useRafCallback';
@@ -10,6 +10,7 @@ import { trackEvent } from '~/utils/analytics';
 import { PALETTE_OPTION_KEYS } from '~/utils/generator';
 
 import Button from '~/components/Button';
+import ScaleMode from '~/components/ScaleMode';
 import SliderLabel from '~/components/SliderLabel';
 import SliderValue from '~/components/SliderValue';
 import Switch from '~/components/Switch';
@@ -78,9 +79,9 @@ export default function PaletteOptions() {
     trackEvent('reset-palette-options');
   };
 
-  const handleToggleMode = (value: boolean) => {
-    trackEvent('scale-mode', { value: value ? 'dark' : 'light' });
-    updateGlobalOptions({ mode: value ? 'dark' : 'light' });
+  const handleClickMode = (value: ScaleModeType) => {
+    trackEvent('scale-mode', { value });
+    updateGlobalOptions({ mode: value });
   };
 
   const handleToggleSaturationOverride = (value: boolean) => {
@@ -102,7 +103,7 @@ export default function PaletteOptions() {
   const locks = useMemo(() => ['None', ...getScaleStepKeys(steps).map(d => `${d}`)], [steps]);
 
   return (
-    <div className="border border-default p-4 mt-4 rounded-xl">
+    <div className="border border-default p-4 mt-4 rounded-xl" data-testid="PaletteOptions">
       <div className="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8">
         <div className="w-full flex items-center gap-2">
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -269,23 +270,7 @@ export default function PaletteOptions() {
         </div>
       </div>
       <div className="flex flex-col @xl:flex-row items-start @xl:items-center justify-start @xl:justify-between gap-4 mt-4 @xl:mt-2">
-        <div className="flex items-center gap-2 shrink-0">
-          <Switch isSelected={mode === 'dark'} name="mode" onValueChange={handleToggleMode}>
-            {mode === 'light' ? 'Light scale' : 'Dark scale'}
-          </Switch>
-          <TooltipClickable
-            aria-label="Dark scale"
-            content={
-              <>
-                <p className="mb-1">Toggles between light and dark color scales.</p>
-                <p>
-                  Light scales are optimized for light themes, while dark scales work best on dark
-                  backgrounds.
-                </p>
-              </>
-            }
-          />
-        </div>
+        <ScaleMode mode={mode} onClick={handleClickMode} />
         <div>
           <Button
             isDisabled={!hasCustomPaletteOptions}

@@ -7,6 +7,7 @@ exports[`Options > Render > renders default state 1`] = `
   >
     <div
       class="border border-default p-4 mt-4 rounded-xl"
+      data-testid="PaletteOptions"
     >
       <div
         class="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8"
@@ -602,40 +603,16 @@ exports[`Options > Render > renders default state 1`] = `
         class="flex flex-col @xl:flex-row items-start @xl:items-center justify-start @xl:justify-between gap-4 mt-4 @xl:mt-2"
       >
         <div
-          class="flex items-center gap-2 shrink-0"
+          class="flex items-center gap-2"
         >
-          <label
-            class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
+          <span
+            id="_r_15_"
           >
-            <input
-              aria-label="Light scale"
-              aria-labelledby="_r_15_"
-              class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
-              data-react-aria-pressable="true"
-              name="mode"
-              role="switch"
-              tabindex="0"
-              type="checkbox"
-              value=""
-            />
-            <span
-              aria-hidden="true"
-              class="px-1 relative inline-flex items-center justify-start shrink-0 overflow-hidden bg-default-200 rounded-full outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:bg-primary group-data-[selected=true]:text-primary-foreground w-10 h-6 transition-background"
-            >
-              <span
-                class="z-10 flex items-center justify-center shadow-small rounded-full origin-right pointer-events-none w-4 h-4 text-tiny group-data-[selected=true]:ms-4 transition-all group-data-[pressed=true]:w-5 group-data-[selected]:group-data-[pressed]:ml-3 bg-background"
-              />
-            </span>
-            <span
-              class="relative text-foreground select-none ms-2 text-small"
-              id="_r_15_"
-            >
-              Light scale
-            </span>
-          </label>
+            Mode
+          </span>
           <button
             aria-expanded="false"
-            aria-label="Dark scale"
+            aria-label="Scale mode"
             class="inline-flex shrink-0 text-base"
             type="button"
           >
@@ -651,6 +628,43 @@ exports[`Options > Render > renders default state 1`] = `
               />
             </svg>
           </button>
+          <div
+            aria-labelledby="_r_15_"
+            class="flex items-center gap-1 bg-default-100 rounded-full"
+            role="radiogroup"
+            tabindex="-1"
+          >
+            <button
+              aria-checked="true"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="0"
+              type="button"
+            >
+              Light
+            </button>
+            <button
+              aria-checked="false"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="-1"
+              type="button"
+            >
+              Dark
+            </button>
+            <button
+              aria-checked="false"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="-1"
+              type="button"
+            >
+              Reversed
+            </button>
+          </div>
         </div>
         <div>
           <button
@@ -690,6 +704,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
   >
     <div
       class="border border-default p-4 mt-4 rounded-xl"
+      data-testid="PaletteOptions"
     >
       <div
         class="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8"
@@ -775,7 +790,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Variant"
-                aria-labelledby="react-aria-_r_1h_  variant-select"
+                aria-labelledby="react-aria-_r_1f_  variant-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small pointer-events-none bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                 data-disabled="true"
                 data-react-aria-pressable="true"
@@ -792,7 +807,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_1h_"
+                    id="react-aria-_r_1f_"
                   >
                     Select variant
                   </span>
@@ -936,7 +951,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Lock"
-                aria-labelledby="react-aria-_r_1q_  lock-select"
+                aria-labelledby="react-aria-_r_1o_  lock-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small bg-default-100 data-[hover=true]:bg-default-200 outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
@@ -952,7 +967,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_1q_"
+                    id="react-aria-_r_1o_"
                   >
                     Select lock
                   </span>
@@ -988,12 +1003,12 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_1s_"
+            aria-labelledby="react-aria-_r_1q_"
             class="flex flex-col w-full gap-1"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_1r_"
+            id="react-aria-_r_1p_"
             role="group"
           >
             <div
@@ -1003,7 +1018,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_1s_"
+                id="react-aria-_r_1q_"
               >
                 <span
                   class="text-base/5"
@@ -1051,7 +1066,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_1s_-0"
+                for="react-aria-_r_1q_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1097,10 +1112,10 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_1s_"
+                      aria-labelledby="react-aria-_r_1q_"
                       aria-orientation="horizontal"
                       aria-valuetext="11"
-                      id="react-aria-_r_1s_-0"
+                      id="react-aria-_r_1q_-0"
                       max="20"
                       min="3"
                       name="steps"
@@ -1119,12 +1134,12 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_24_"
+            aria-labelledby="react-aria-_r_22_"
             class="flex flex-col w-full gap-1"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_23_"
+            id="react-aria-_r_21_"
             role="group"
           >
             <div
@@ -1134,7 +1149,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_24_"
+                id="react-aria-_r_22_"
               >
                 <span
                   class="text-base/5"
@@ -1163,7 +1178,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_24_-0"
+                for="react-aria-_r_22_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
@@ -1209,10 +1224,10 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_24_"
+                      aria-labelledby="react-aria-_r_22_"
                       aria-orientation="horizontal"
                       aria-valuetext="50"
-                      id="react-aria-_r_24_-0"
+                      id="react-aria-_r_22_-0"
                       max="100"
                       min="0"
                       name="saturation"
@@ -1234,7 +1249,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               data-selected="true"
             >
               <input
-                aria-labelledby="_r_2a_"
+                aria-labelledby="_r_28_"
                 checked=""
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
@@ -1254,7 +1269,7 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               </span>
               <span
                 class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                id="_r_2a_"
+                id="_r_28_"
               >
                 <span>
                   Apply saturation to all colors
@@ -1286,40 +1301,16 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
         class="flex flex-col @xl:flex-row items-start @xl:items-center justify-start @xl:justify-between gap-4 mt-4 @xl:mt-2"
       >
         <div
-          class="flex items-center gap-2 shrink-0"
+          class="flex items-center gap-2"
         >
-          <label
-            class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
+          <span
+            id="_r_2c_"
           >
-            <input
-              aria-label="Light scale"
-              aria-labelledby="_r_2e_"
-              class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
-              data-react-aria-pressable="true"
-              name="mode"
-              role="switch"
-              tabindex="0"
-              type="checkbox"
-              value=""
-            />
-            <span
-              aria-hidden="true"
-              class="px-1 relative inline-flex items-center justify-start shrink-0 overflow-hidden bg-default-200 rounded-full outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:bg-primary group-data-[selected=true]:text-primary-foreground w-10 h-6 transition-background"
-            >
-              <span
-                class="z-10 flex items-center justify-center shadow-small rounded-full origin-right pointer-events-none w-4 h-4 text-tiny group-data-[selected=true]:ms-4 transition-all group-data-[pressed=true]:w-5 group-data-[selected]:group-data-[pressed]:ml-3 bg-background"
-              />
-            </span>
-            <span
-              class="relative text-foreground select-none ms-2 text-small"
-              id="_r_2e_"
-            >
-              Light scale
-            </span>
-          </label>
+            Mode
+          </span>
           <button
             aria-expanded="false"
-            aria-label="Dark scale"
+            aria-label="Scale mode"
             class="inline-flex shrink-0 text-base"
             type="button"
           >
@@ -1335,6 +1326,43 @@ exports[`Options > Render > renders with saturationOverride enabled 1`] = `
               />
             </svg>
           </button>
+          <div
+            aria-labelledby="_r_2c_"
+            class="flex items-center gap-1 bg-default-100 rounded-full"
+            role="radiogroup"
+            tabindex="-1"
+          >
+            <button
+              aria-checked="true"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="0"
+              type="button"
+            >
+              Light
+            </button>
+            <button
+              aria-checked="false"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="-1"
+              type="button"
+            >
+              Dark
+            </button>
+            <button
+              aria-checked="false"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="-1"
+              type="button"
+            >
+              Reversed
+            </button>
+          </div>
         </div>
         <div>
           <button
@@ -1373,6 +1401,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
   >
     <div
       class="border border-default p-4 mt-4 rounded-xl"
+      data-testid="PaletteOptions"
     >
       <div
         class="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8"
@@ -1459,7 +1488,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Variant"
-                aria-labelledby="react-aria-_r_2q_  variant-select"
+                aria-labelledby="react-aria-_r_2m_  variant-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 data-[hover=true]:bg-default-400"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
@@ -1475,7 +1504,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_2q_"
+                    id="react-aria-_r_2m_"
                   >
                     Vibrant
                   </span>
@@ -1620,7 +1649,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-label="Lock"
-                aria-labelledby="react-aria-_r_33_  lock-select"
+                aria-labelledby="react-aria-_r_2v_  lock-select"
                 class="relative gap-3 w-full inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 data-[hover=true]:bg-default-400"
                 data-react-aria-pressable="true"
                 data-slot="trigger"
@@ -1636,7 +1665,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                   <span
                     class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
                     data-slot="value"
-                    id="react-aria-_r_33_"
+                    id="react-aria-_r_2v_"
                   >
                     500
                   </span>
@@ -1672,12 +1701,12 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_35_"
+            aria-labelledby="react-aria-_r_31_"
             class="flex flex-col w-full gap-1"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_34_"
+            id="react-aria-_r_30_"
             role="group"
           >
             <div
@@ -1687,7 +1716,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_35_"
+                id="react-aria-_r_31_"
               >
                 <span
                   class="text-base/5"
@@ -1735,7 +1764,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_35_-0"
+                for="react-aria-_r_31_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1781,10 +1810,10 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_35_"
+                      aria-labelledby="react-aria-_r_31_"
                       aria-orientation="horizontal"
                       aria-valuetext="11"
-                      id="react-aria-_r_35_-0"
+                      id="react-aria-_r_31_-0"
                       max="20"
                       min="3"
                       name="steps"
@@ -1803,12 +1832,12 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
           class="w-full"
         >
           <div
-            aria-labelledby="react-aria-_r_3d_"
+            aria-labelledby="react-aria-_r_39_"
             class="flex flex-col w-full gap-1 opacity-disabled"
             data-hover="false"
             data-orientation="horizontal"
             data-slot="base"
-            id="react-aria-_r_3c_"
+            id="react-aria-_r_38_"
             role="group"
           >
             <div
@@ -1818,7 +1847,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               <label
                 class="flex gap-2 items-center"
                 data-slot="label"
-                id="react-aria-_r_3d_"
+                id="react-aria-_r_39_"
               >
                 <span
                   class="text-base/5"
@@ -1848,7 +1877,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                 aria-live="off"
                 class="text-small"
                 data-slot="value"
-                for="react-aria-_r_3d_-0"
+                for="react-aria-_r_39_-0"
               >
                 <span
                   class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1894,11 +1923,11 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
                     <input
                       aria-describedby=""
                       aria-details=""
-                      aria-labelledby="react-aria-_r_3d_"
+                      aria-labelledby="react-aria-_r_39_"
                       aria-orientation="horizontal"
                       aria-valuetext="97.9"
                       disabled=""
-                      id="react-aria-_r_3d_-0"
+                      id="react-aria-_r_39_-0"
                       max="100"
                       min="0"
                       name="saturation"
@@ -1919,7 +1948,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
             >
               <input
-                aria-labelledby="_r_3j_"
+                aria-labelledby="_r_3f_"
                 class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
                 data-react-aria-pressable="true"
                 name="saturationOverride"
@@ -1938,7 +1967,7 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               </span>
               <span
                 class="relative text-foreground select-none ms-2 inline-flex gap-1 text-sm/4"
-                id="_r_3j_"
+                id="_r_3f_"
               >
                 <span>
                   Apply saturation to all colors
@@ -1970,40 +1999,16 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
         class="flex flex-col @xl:flex-row items-start @xl:items-center justify-start @xl:justify-between gap-4 mt-4 @xl:mt-2"
       >
         <div
-          class="flex items-center gap-2 shrink-0"
+          class="flex items-center gap-2"
         >
-          <label
-            class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer touch-none tap-highlight-transparent select-none"
+          <span
+            id="_r_3j_"
           >
-            <input
-              aria-label="Light scale"
-              aria-labelledby="_r_3n_"
-              class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
-              data-react-aria-pressable="true"
-              name="mode"
-              role="switch"
-              tabindex="0"
-              type="checkbox"
-              value=""
-            />
-            <span
-              aria-hidden="true"
-              class="px-1 relative inline-flex items-center justify-start shrink-0 overflow-hidden bg-default-200 rounded-full outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:bg-primary group-data-[selected=true]:text-primary-foreground w-10 h-6 transition-background"
-            >
-              <span
-                class="z-10 flex items-center justify-center shadow-small rounded-full origin-right pointer-events-none w-4 h-4 text-tiny group-data-[selected=true]:ms-4 transition-all group-data-[pressed=true]:w-5 group-data-[selected]:group-data-[pressed]:ml-3 bg-background"
-              />
-            </span>
-            <span
-              class="relative text-foreground select-none ms-2 text-small"
-              id="_r_3n_"
-            >
-              Light scale
-            </span>
-          </label>
+            Mode
+          </span>
           <button
             aria-expanded="false"
-            aria-label="Dark scale"
+            aria-label="Scale mode"
             class="inline-flex shrink-0 text-base"
             type="button"
           >
@@ -2019,6 +2024,43 @@ exports[`Options > Render > renders with variant and lock selected 1`] = `
               />
             </svg>
           </button>
+          <div
+            aria-labelledby="_r_3j_"
+            class="flex items-center gap-1 bg-default-100 rounded-full"
+            role="radiogroup"
+            tabindex="-1"
+          >
+            <button
+              aria-checked="true"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="0"
+              type="button"
+            >
+              Light
+            </button>
+            <button
+              aria-checked="false"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="-1"
+              type="button"
+            >
+              Dark
+            </button>
+            <button
+              aria-checked="false"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-12 h-6 text-tiny gap-1 px-3 rounded-full"
+              data-react-aria-pressable="true"
+              role="radio"
+              tabindex="-1"
+              type="button"
+            >
+              Reversed
+            </button>
+          </div>
         </div>
         <div>
           <button
