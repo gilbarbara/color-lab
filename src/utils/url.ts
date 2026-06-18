@@ -1,6 +1,12 @@
 import { objectEntries, round } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/nextjs';
-import { isHex, type ScaleChromaPeak, type ScaleRange, type ScaleVariant } from 'colorizr';
+import {
+  isHex,
+  type ScaleChromaPeak,
+  type ScaleMode,
+  type ScaleRange,
+  type ScaleVariant,
+} from 'colorizr';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { HUE_SHIFT_LIMIT } from '~/config/scale';
@@ -48,11 +54,11 @@ const OPTION_KEYS_REVERSE = Object.fromEntries(
   objectEntries(OPTION_KEYS).map(([k, v]) => [v, k]),
 ) as Record<string, keyof typeof OPTION_KEYS>;
 
-// Local alias — colorizr exports ScaleVariant but not ScaleMode.
-type ScaleMode = 'light' | 'dark';
-
 // Mode short values — single source of truth; MODE_LONG and VALID_MODES derive from this.
-const MODE_SHORT = { light: 'l', dark: 'd' } as const satisfies Record<ScaleMode, string>;
+const MODE_SHORT = { light: 'l', dark: 'd', reversed: 'r' } as const satisfies Record<
+  ScaleMode,
+  string
+>;
 const MODE_LONG: Record<string, ScaleMode> = Object.fromEntries(
   objectEntries(MODE_SHORT).map(([k, v]) => [v, k]),
 );
