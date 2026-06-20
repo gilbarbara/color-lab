@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { CRIMSON } from '~/test-fixtures';
@@ -88,6 +89,66 @@ describe('ScaleColorOptions', () => {
       );
 
       expect(screen.getByTestId('ScaleColorOptions')).toMatchSnapshot();
+    });
+
+    it('renders the tooltip for Lightness Range', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Lightness Range'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
+    });
+
+    it('renders the tooltip for Lightness Curve', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Lightness Curve'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
+    });
+
+    it('renders the tooltip for Chroma Curve', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Chroma Curve'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
+    });
+
+    it('renders the tooltip for Hue Shift', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Hue Shift'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
     });
   });
 

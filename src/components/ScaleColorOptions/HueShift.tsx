@@ -70,10 +70,17 @@ export default function HueShift(props: HueShiftProps) {
       <div className="flex items-center justify-between gap-2">
         <CurveHeading
           description={
-            <>
-              <p className="mb-1">Rotates hue toward the ends of the scale.</p>
-              <p>0 keeps the input hue at the anchor step.</p>
-            </>
+            <div>
+              <p className="mb-1">
+                Rotates hue toward the ends of the scale; the anchor step keeps the input hue.
+              </p>
+              <p className="mb-1">
+                <b>Simple</b> shifts the two ends by equal and opposite amounts (Amount).
+              </p>
+              <p>
+                <b>Split</b> shifts each end (Low/High) independently.
+              </p>
+            </div>
           }
           disableReset={isSameOptionValue(hueShift, defaultHueShift)}
           id={headingId}

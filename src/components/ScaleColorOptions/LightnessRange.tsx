@@ -63,10 +63,10 @@ export default function LightnessRange(props: LightnessRangeProps) {
         <SliderLabel
           {...renderProps}
           description={
-            <>
+            <div>
               <p className="mb-1">Sets the lightest and darkest limits of the scale.</p>
               <p>Use this to avoid washed-out highlights or crushed shadows.</p>
-            </>
+            </div>
           }
           disableReset={
             minLightness === defaultMinLightness && maxLightness === defaultMaxLightness
