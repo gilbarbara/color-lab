@@ -32,7 +32,7 @@ function yFor(value: number, maxY: number) {
  * Chroma across the scale for a specific hue: the P3 gamut ceiling, what the
  * chroma curve requests, and what survives the clamp (the actual output). The
  * ceiling and actual come straight from the generated steps (so they reflect mode
- * and locked steps); the requested line is derived at each step's real lightness.
+ * and locked steps); the chroma curve line is derived at each step's real lightness.
  * Hue-specific, so it belongs next to a color editor, not a global slider.
  */
 export default function ChromaChart(props: ScaleChartComponentProps) {
@@ -43,7 +43,7 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
   const { chromaCurve, lock } = options;
   const chroma = normalizeChromaCurve(chromaCurve);
 
-  const { actual, ceiling, dots, maxY, requested, ticks } = useMemo(() => {
+  const { actual, ceiling, curve, dots, maxY, ticks } = useMemo(() => {
     const parsed = parseSteps(steps);
     const anchorT = getAnchorT(parsed.length, lock);
     // Endpoints "mid" = the input color's own fraction of the gamut ceiling at
@@ -53,12 +53,12 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
 
     const points = parsed.map(step => {
       const ceil = getP3MaxChroma({ l: step.l, c: 0, h: step.h });
-      const request =
+      const curveValue =
         chroma.type === 'range'
           ? rangeFractionAt(step.t, anchorT, chroma.low, mid, chroma.high) * ceil
           : baseC * parabolicScale(step.l, chroma.amount, chroma.peak);
 
-      return { ceil, label: step.label, output: step.c, request, t: step.t };
+      return { ceil, curveValue, label: step.label, output: step.c, t: step.t };
     });
 
     const max = Math.max(...points.map(point => point.ceil), baseC) || 1;
@@ -67,6 +67,7 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
     return {
       actual: points.map(point => toPoint(point.t, point.output)).join(' '),
       ceiling: points.map(point => toPoint(point.t, point.ceil)).join(' '),
+      curve: points.map(point => toPoint(point.t, point.curveValue)).join(' '),
       // Dots sit at the real step positions (3–20), aligned with the swatch row.
       dots: points.map(point => ({
         label: point.label,
@@ -75,7 +76,6 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
         y: yFor(point.output, max),
       })),
       maxY: max,
-      requested: points.map(point => toPoint(point.t, point.request)).join(' '),
       ticks: getChromaTicks(max),
     };
   }, [baseC, baseH, chroma, inputL, lock, steps]);
@@ -130,17 +130,6 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
             />
 
             <polyline
-              className="text-success-400"
-              fill="none"
-              points={requested}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-              vectorEffect="non-scaling-stroke"
-            />
-
-            <polyline
               className="text-warning-500"
               fill="none"
               points={actual}
@@ -148,6 +137,17 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+
+            <polyline
+              className="text-success-400"
+              fill="none"
+              points={curve}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1"
               vectorEffect="non-scaling-stroke"
             />
           </svg>
@@ -170,7 +170,7 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
 
       <div className="flex items-center justify-center gap-2 text-sm mt-1">
         <div className="text-foreground-400">┄ gamut ceiling</div>
-        <div className="text-success-600 ">▬ chroma</div>
+        <div className="text-success-600 ">▬ chroma curve</div>
         <div className="text-warning-600 ">▬ output</div>
       </div>
     </div>
