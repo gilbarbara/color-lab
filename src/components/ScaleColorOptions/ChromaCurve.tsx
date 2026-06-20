@@ -135,13 +135,19 @@ export default function ChromaCurve(props: ChromaCurveProps) {
       <div className="flex items-center justify-between gap-2">
         <CurveHeading
           description={
-            <>
+            <div>
               <p className="mb-2">
                 Controls how color intensity changes across light and dark shades.
               </p>
-              <p className="mb-1">Peak bends chroma around a movable lightness.</p>
-              <p>Split sets chroma as a fraction of the gamut ceiling at each end.</p>
-            </>
+              <p className="mb-1">
+                <b>Simple</b> scales chroma by a parabola (Amount), with Peak shifting where it
+                bends.
+              </p>
+              <p>
+                <b>Split</b> sets each end's chroma as a fraction of the gamut ceiling, interpolated
+                across the steps.
+              </p>
+            </div>
           }
           disableReset={isSameOptionValue(chromaCurve, defaultChromaCurve)}
           id={headingId}

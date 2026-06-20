@@ -96,10 +96,15 @@ export default function LightnessCurve(props: LightnessCurveProps) {
       <div className="flex items-center justify-between gap-2">
         <CurveHeading
           description={
-            <>
+            <div>
               <p className="mb-1">Controls how lightness is distributed across the scale.</p>
-              <p>Split gives the light and dark halves their own curve.</p>
-            </>
+              <p className="mb-1">
+                <b>Simple</b> applies one easing curve (Amount) to the whole scale.
+              </p>
+              <p>
+                <b>Split</b> sets the easing at each end (Low/High), interpolated across the scale.
+              </p>
+            </div>
           }
           disableReset={isSameOptionValue(lightnessCurve, defaultLightnessCurve)}
           id={headingId}
