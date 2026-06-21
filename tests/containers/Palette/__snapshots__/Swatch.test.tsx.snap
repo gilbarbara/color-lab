@@ -1,47 +1,44 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
-<div
+<button
   class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-  role="button"
   style="--gamut-bg-oklch: oklch(63.27% 0.254 19.9); --gamut-bg-hex: #ff0044; color: rgb(255, 255, 255);"
-  tabindex="0"
+  type="button"
 >
-  <p
+  <span
     class="text-base/4 @xl:order-2"
   >
     500
-  </p>
-</div>
+  </span>
+</button>
 `;
 
 exports[`Swatch > Render > renders hex background when gamut is srgb 1`] = `
-<div
+<button
   class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-  role="button"
   style="--gamut-bg-oklch: oklch(63.27% 0.254 19.9); --gamut-bg-hex: #ff0044; color: rgb(255, 255, 255);"
-  tabindex="0"
+  type="button"
 >
-  <p
+  <span
     class="text-base/4 @xl:order-2"
   >
     500
-  </p>
-</div>
+  </span>
+</button>
 `;
 
-exports[`Swatch > Render > renders with lock icon 1`] = `
-<div
+exports[`Swatch > Render > renders with lock icon and step className 1`] = `
+<button
   class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-  role="button"
   style="--gamut-bg-oklch: oklch(63.27% 0.254 19.9); --gamut-bg-hex: #ff0044; color: rgb(255, 255, 255);"
-  tabindex="0"
+  type="button"
 >
-  <p
-    class="text-base/4 @xl:order-2"
+  <span
+    class="@xl:order-2 text-sm/4"
   >
     500
-  </p>
+  </span>
   <span
     class="mb-auto @xl:mt-2 @xl:order-1"
   >
@@ -58,5 +55,5 @@ exports[`Swatch > Render > renders with lock icon 1`] = `
       />
     </svg>
   </span>
-</div>
+</button>
 `;

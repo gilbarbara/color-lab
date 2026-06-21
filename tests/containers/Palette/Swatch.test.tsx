@@ -27,8 +27,8 @@ describe('Swatch', () => {
       expect(screen.getByRole('button')).toMatchSnapshot();
     });
 
-    it('renders with lock icon', () => {
-      render(<Swatch color={CRIMSON} lock={500} step="500" />);
+    it('renders with lock icon and step className', () => {
+      render(<Swatch color={CRIMSON} lock={500} step="500" stepClassName="text-sm/4" />);
 
       expect(screen.getByRole('button')).toMatchSnapshot();
     });
@@ -51,30 +51,6 @@ describe('Swatch', () => {
       );
     });
 
-    it('copies color on Enter key', async () => {
-      render(<Swatch color={CRIMSON} step="500" />);
-
-      const swatch = screen.getByRole('button');
-
-      fireEvent.keyDown(swatch, { key: 'Enter' });
-
-      await waitFor(() => {
-        expect(mockClipboard.writeText).toHaveBeenCalledWith(CRIMSON);
-      });
-    });
-
-    it('copies color on Space key', async () => {
-      render(<Swatch color={CRIMSON} step="500" />);
-
-      const swatch = screen.getByRole('button');
-
-      fireEvent.keyDown(swatch, { key: ' ' });
-
-      await waitFor(() => {
-        expect(mockClipboard.writeText).toHaveBeenCalledWith(CRIMSON);
-      });
-    });
-
     it('shows error toast when clipboard fails', async () => {
       mockClipboard.writeText.mockRejectedValue(new Error('Clipboard error'));
 
@@ -92,6 +68,19 @@ describe('Swatch', () => {
           }),
         );
       });
+    });
+
+    it('renders presentational (no copy) when interactive is false', async () => {
+      render(<Swatch color={CRIMSON} interactive={false} step="500" />);
+
+      expect(screen.queryByRole('button')).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByText('500'));
+
+      await waitFor(() => {
+        expect(mockClipboard.writeText).not.toHaveBeenCalled();
+      });
+      expect(mockAddToast).not.toHaveBeenCalled();
     });
 
     it('shows lock icon when step matches lock value', () => {
