@@ -1,0 +1,1205 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`pages/CustomColorScales > renders correctly 1`] = `
+<div
+  class="flex flex-col flex-1"
+  data-testid="CustomColorScales"
+>
+  <div
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 @container"
+  >
+    <script
+      type="application/ld+json"
+    >
+      {"@context":"https://schema.org","@type":"TechArticle","headline":"Color Scales That Don't Look Generated","description":"Shape color scales in OKLCH: control lightness range, lightness and chroma curves, and hue shift to build palettes with character — not flat, generated tints.","about":["OKLCH","color scales","lightness range","lightness curve","chroma curve","hue shift","design systems"],"mainEntityOfPage":"https://lab.colormeup.co/custom-color-scales","url":"https://lab.colormeup.co/custom-color-scales","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-06-22","dateModified":"2026-06-22"}
+    </script>
+    <h1
+      class="text-3xl lg:text-4xl font-bold mb-8"
+    >
+      Color Scales That Don't Look Generated
+    </h1>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <p>
+        A perceptually even color scale changes by the same amount at every step. In OKLCH, that evenness buys predictable contrast across every tint and shade — a palette you can trust — but it isn't the whole story. Hold chroma flat as the colors get lighter and the pale tints turn chalky; keep lightness perfectly linear and the scale reads mechanical. The math is right; it just stops a step short of intentional.
+      </p>
+      <p>
+        Music production knows this trade-off. Quantize a drum pattern to a perfect grid and the timing is flawless and a little robotic; add some 
+        <i>
+          swing
+        </i>
+        , nudging notes a little off the grid, and the feel returns without losing the structure.
+      </p>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      The Grid Is Not the Song
+    </h2>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <p>
+        A perceptually even scale is the grid: reliable, predictable, the thing worth keeping. Shaping it with chroma, hue, and lightness curves is the swing. The difference is easiest to just see:
+      </p>
+      <div>
+        <div
+          class="w-full flex flex-col md:flex-row flex-wrap items-center gap-1 mb-4"
+        >
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(90% 0.053 259.82); --gamut-bg-hex: #cadfff; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              50
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(83% 0.093 259.82); --gamut-bg-hex: #a4c9ff; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              100
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(76% 0.134 259.82); --gamut-bg-hex: #7eb1ff; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              200
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(69% 0.177 259.82); --gamut-bg-hex: #5598ff; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              300
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(62% 0.214 259.82); --gamut-bg-hex: #2a7eff; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              400
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(55% 0.214 259.82); --gamut-bg-hex: #0c67eb; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              500
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(48% 0.214 259.82); --gamut-bg-hex: #0050d3; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              600
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(41% 0.209 259.82); --gamut-bg-hex: #003ab8; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              700
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(34% 0.173 259.82); --gamut-bg-hex: #002b8f; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              800
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(27% 0.137 259.82); --gamut-bg-hex: #001c67; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              900
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(20% 0.102 259.82); --gamut-bg-hex: #000f43; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              950
+            </span>
+          </div>
+        </div>
+        <div
+          class="flex items-center gap-2 mt-2"
+        >
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover rounded-full px-4"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            Flat
+          </button>
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover rounded-full px-4"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            Swing
+          </button>
+        </div>
+      </div>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Size the Grid, Then Shape It
+    </h2>
+    <div
+      class="mb-8"
+    >
+      <p>
+        There are four levers: lightness range, lightness curve, chroma, and hue. The first sizes the grid; the other three are the swing on top of it. None require eyeballing OKLCH values in your head; that's what the charts are for. But it helps to know what each one is
+         
+        <b>
+          for
+        </b>
+        .
+      </p>
+      <h3
+        class="text-xl font-bold mt-8 mb-2"
+      >
+        Lightness Range
+      </h3>
+      <div
+        class="space-y-3"
+      >
+        <p>
+          Before shaping anything, you decide how far the scale runs: how light the lightest tint, how dark the darkest shade. This is still perfectly even; you're not bending the grid, you're sizing it. And it's the lever that moves a scale most: the same color reads airy and delicate across a light range, dense and grounded across a dark one. It's the first move, and sometimes the only one you need.
+        </p>
+        <div>
+          <div
+            class="w-full flex flex-col md:flex-row flex-wrap items-center gap-1 mb-4"
+          >
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(90% 0.053 259.82); --gamut-bg-hex: #cadfff; color: rgb(0, 0, 0);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                90%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(87.74% 0.066 259.82); --gamut-bg-hex: #bed8ff; color: rgb(0, 0, 0);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                87.7%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(84.45% 0.084 259.82); --gamut-bg-hex: #acceff; color: rgb(0, 0, 0);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                84.4%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(80.59% 0.107 259.82); --gamut-bg-hex: #97c1ff; color: rgb(0, 0, 0);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                80.6%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(76.33% 0.132 259.82); --gamut-bg-hex: #7fb2ff; color: rgb(0, 0, 0);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                76.3%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(71.72% 0.160 259.82); --gamut-bg-hex: #65a2ff; color: rgb(255, 255, 255);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                71.7%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(66.84% 0.190 259.82); --gamut-bg-hex: #4890ff; color: rgb(255, 255, 255);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                66.8%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(61.7% 0.214 259.82); --gamut-bg-hex: #297dff; color: rgb(255, 255, 255);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                61.7%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(56.33% 0.214 259.82); --gamut-bg-hex: #136bf0; color: rgb(255, 255, 255);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                56.3%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(50.76% 0.214 259.82); --gamut-bg-hex: #0059dc; color: rgb(255, 255, 255);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                50.8%
+              </span>
+            </div>
+            <div
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              style="--gamut-bg-oklch: oklch(45% 0.214 259.82); --gamut-bg-hex: #0046c8; color: rgb(255, 255, 255);"
+            >
+              <span
+                class="text-base/4 @xl:order-2 max-lg:text-sm/4"
+              >
+                45%
+              </span>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-2 mt-2"
+          >
+            <button
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover rounded-full px-4"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              90% -&gt; 45%
+            </button>
+            <button
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover rounded-full px-4"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              97% -&gt; 26%
+            </button>
+            <button
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover rounded-full px-4"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              100% -&gt; 0%
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr
+        class="shrink-0 bg-divider border-none w-full h-divider my-8"
+        role="separator"
+      />
+      <h3
+        class="text-xl font-bold mb-2"
+      >
+        Lightness Curve
+      </h3>
+      <div
+        class="space-y-3"
+      >
+        <p>
+          Even with the endpoints fixed, 
+          <i>
+            how
+          </i>
+           lightness travels between them changes everything. Spend your contrast on the dark end, and the scale feels grounded and dramatic. Spread it evenly, and it feels calm. Pack it into the mid-tones, and it feels energetic: punchy UI colors, soft extremes. Same two anchors, three personalities.
+        </p>
+        <div>
+          <div>
+            <div
+              class="w-full h-32 flex gap-3"
+            >
+              <div
+                class="relative w-9 shrink-0"
+              >
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 95%;"
+                >
+                  0
+                </span>
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 50%;"
+                >
+                  50
+                </span>
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 5%;"
+                >
+                  100
+                </span>
+              </div>
+              <div
+                class="relative flex-1 overflow-visible"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="block size-full overflow-visible"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 100"
+                >
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="95"
+                    y2="95"
+                  />
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="50"
+                    y2="50"
+                  />
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="5"
+                    y2="5"
+                  />
+                  <polyline
+                    class="text-foreground-400"
+                    fill="none"
+                    points="0,7.700000000000003 100,71.6"
+                    stroke="currentColor"
+                    stroke-dasharray="3 3"
+                    stroke-width="1.5"
+                    vector-effect="non-scaling-stroke"
+                  />
+                  <polyline
+                    class="text-secondary"
+                    fill="none"
+                    points="0,7.700000000000003 10,12.893899999999995 20,20.8985 30,30.118099999999995 40,39.5465 50,48.42229999999999 60,56.1956 70,62.5145 80,67.19630000000001 90,70.20139999999999 100,71.6"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 50: lightness 97%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 0%; top: 7.700000000000003%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 100: lightness 91%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 10%; top: 12.893899999999995%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 200: lightness 82%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 20%; top: 20.8985%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 300: lightness 72%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 30%; top: 30.118099999999995%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 400: lightness 62%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 40%; top: 39.5465%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 500: lightness 52%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 50%; top: 48.42229999999999%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 600: lightness 43%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 60%; top: 56.1956%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 700: lightness 36%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 70%; top: 62.5145%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 800: lightness 31%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 80%; top: 67.19630000000001%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 900: lightness 28%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 90%; top: 70.20139999999999%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 950: lightness 26%"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 100%; top: 71.6%;"
+                  type="button"
+                />
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-center gap-2 text-sm mt-1"
+            >
+              <div
+                class="text-secondary"
+              >
+                ▬ lightness
+              </div>
+              <div
+                class="text-foreground-400"
+              >
+                ┄ even
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        class="shrink-0 bg-divider border-none w-full h-divider my-8"
+        role="separator"
+      />
+      <h3
+        class="text-xl font-bold mb-2"
+      >
+        Chroma Curve
+      </h3>
+      <div
+        class="space-y-3"
+      >
+        <p>
+          When chroma stays flat as lightness climbs, the pale tints carry more color than they should and turn chalky. A chroma curve deliberately fixes it: ease chroma down toward the highlights so tints stay clean, and let it peak in the upper-mid range, where a color has room to be vivid. It's the same correction the old
+           
+          <a
+            class="underline"
+            href="/oklch-vs-hsl"
+          >
+            HSL
+          </a>
+           
+          habit of dropping saturation made by feel, now something you can place on purpose.
+        </p>
+        <p
+          class="text-sm text-foreground-500"
+        >
+          The chart traces three things: the chroma curve you ask for, the
+           
+          <a
+            class="underline"
+            href="https://www.w3.org/TR/css-color-4/#gamut-mapping"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            gamut ceiling
+          </a>
+           
+          the display can render, and the output where the two meet.
+        </p>
+        <div>
+          <div>
+            <div
+              class="w-full h-32 flex gap-3"
+            >
+              <div
+                class="relative w-9 shrink-0"
+              >
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 95%;"
+                >
+                  0.00
+                </span>
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 61.22255582660912%;"
+                >
+                  0.10
+                </span>
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 27.44511165321824%;"
+                >
+                  0.20
+                </span>
+              </div>
+              <div
+                class="relative flex-1 overflow-visible"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="block size-full overflow-visible"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 100"
+                >
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="95"
+                    y2="95"
+                  />
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="61.22255582660912"
+                    y2="61.22255582660912"
+                  />
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="27.44511165321824"
+                    y2="27.44511165321824"
+                  />
+                  <polyline
+                    class="text-foreground-400"
+                    fill="none"
+                    points="0,89.72734096453368 10,83.33664852692813 20,73.72021017076375 30,62.07036967536124 40,48.65059110527304 50,33.55545130418466 60,16.835616438356166 70,5 80,19.554700694314135 90,34.66672921748922 100,50.29217489209984"
+                    stroke="currentColor"
+                    stroke-dasharray="3 3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    vector-effect="non-scaling-stroke"
+                  />
+                  <polyline
+                    class="text-warning-500"
+                    fill="none"
+                    points="0,89.72734096453368 10,83.33664852692813 20,73.72021017076375 30,62.07036967536124 40,50.45092887971477 50,43.65152936761119 60,37.473634828297996 70,32.136798648902236 80,27.833552261212244 90,34.6836179395759 100,50.30230812535186"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    vector-effect="non-scaling-stroke"
+                  />
+                  <polyline
+                    class="text-success-400"
+                    fill="none"
+                    points="0,76.28754925877276 10,71.45111138611372 20,64.78923749457684 30,57.62472716257271 40,50.47359674787015 50,43.677351638909734 60,37.50231503346782 70,32.16799654707263 80,27.8679208603115 90,24.77317299185589 100,23.041546256333273"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 50: chroma 0.016"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 0%; top: 89.72734096453368%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 100: chroma 0.035"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 10%; top: 83.33664852692813%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 200: chroma 0.063"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 20%; top: 73.72021017076375%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 300: chroma 0.097"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 30%; top: 62.07036967536124%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 400: chroma 0.132"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 40%; top: 50.45092887971477%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 500: chroma 0.152"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 50%; top: 43.65152936761119%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 600: chroma 0.170"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 60%; top: 37.473634828297996%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 700: chroma 0.186"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 70%; top: 32.136798648902236%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 800: chroma 0.199"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 80%; top: 27.833552261212244%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 900: chroma 0.179"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 90%; top: 34.6836179395759%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 950: chroma 0.132"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 100%; top: 50.30230812535186%;"
+                  type="button"
+                />
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-center gap-2 text-sm mt-1"
+            >
+              <div
+                class="text-foreground-400"
+              >
+                ┄ gamut ceiling
+              </div>
+              <div
+                class="text-success-600 "
+              >
+                ▬ chroma curve
+              </div>
+              <div
+                class="text-warning-600 "
+              >
+                ▬ output
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        class="shrink-0 bg-divider border-none w-full h-divider my-8"
+        role="separator"
+      />
+      <h3
+        class="text-xl font-bold mb-2"
+      >
+        Hue Shift
+      </h3>
+      <div
+        class="space-y-3"
+      >
+        <p>
+          Colors rarely sit on a single hue across a full range, and pinning them there is part of what makes a scale feel synthetic. A small, controlled shift adds depth: cool the highlights a few degrees, warm the shadows, and the scale gains a sense of light moving through it. Keep it subtle — enough to feel, not enough to turn your blue into teal at one end.
+        </p>
+        <div>
+          <div>
+            <div
+              class="w-full h-32 flex gap-3"
+            >
+              <div
+                class="relative w-9 shrink-0"
+              >
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 5%;"
+                >
+                  278
+                  °
+                </span>
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 50%;"
+                >
+                  261
+                  °
+                </span>
+                <span
+                  class="absolute right-1 -translate-y-1/2 text-tiny leading-none text-foreground-400"
+                  style="top: 95%;"
+                >
+                  245
+                  °
+                </span>
+              </div>
+              <div
+                class="relative flex-1 overflow-visible"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="block size-full overflow-visible"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 100"
+                >
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="5"
+                    y2="5"
+                  />
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="50"
+                    y2="50"
+                  />
+                  <line
+                    class="text-foreground/10"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    vector-effect="non-scaling-stroke"
+                    x1="0"
+                    x2="100"
+                    y1="95"
+                    y2="95"
+                  />
+                  <polyline
+                    class="text-foreground-400"
+                    fill="none"
+                    points="0,54.18055555555554 100,54.18055555555554"
+                    stroke="currentColor"
+                    stroke-dasharray="3 3"
+                    stroke-width="1.5"
+                    vector-effect="non-scaling-stroke"
+                  />
+                  <polyline
+                    class="text-danger"
+                    fill="none"
+                    points="0,87.50000000000003 10,80.83333333333334 20,74.16666666666666 30,67.49999999999996 40,60.86111111111103 50,54.166666666666664 60,45.833333333333336 70,37.49999999999999 80,29.166666666666654 90,20.833333333333314 100,12.499999999999973"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 50: hue 248°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 0%; top: 87.50000000000003%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 100: hue 250°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 10%; top: 80.83333333333334%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 200: hue 253°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 20%; top: 74.16666666666666%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 300: hue 255°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 30%; top: 67.49999999999996%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 400: hue 257°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 40%; top: 60.86111111111103%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 500: hue 260°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 50%; top: 54.166666666666664%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 600: hue 263°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 60%; top: 45.833333333333336%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 700: hue 266°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 70%; top: 37.49999999999999%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 800: hue 269°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 80%; top: 29.166666666666654%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 900: hue 272°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 90%; top: 20.833333333333314%;"
+                  type="button"
+                />
+                <button
+                  aria-expanded="false"
+                  aria-label="Step 950: hue 275°"
+                  class="inline-flex shrink-0 text-base absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"
+                  style="left: 100%; top: 12.499999999999973%;"
+                  type="button"
+                />
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-center gap-2 text-sm mt-1"
+            >
+              <div
+                class="text-danger"
+              >
+                ▬ hue
+              </div>
+              <div
+                class="text-foreground-400"
+              >
+                ┄ base
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        class="shrink-0 bg-divider border-none w-full h-divider my-8"
+        role="separator"
+      />
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Why Great Color Systems Don't Look Identical
+    </h2>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <p>
+        If perceptually even scales produced one correct answer, every good design system would converge on the same palette. They don't. Tailwind, Material, Bootstrap, Open Color: all solving the same problem, all landing on visibly different results.
+      </p>
+      <p>
+        The reason is simple: consistency is half the job. A design system is also trying to create a feeling. Some palettes read as energetic, others as calm; some keep vibrant midtones, others reserve intensity for the darks. Those are taste, made concrete. A perceptual color space doesn't remove those decisions. It gives taste something steady to act on.
+      </p>
+      <p>
+        The same base color, shaped by presets inspired by popular design systems:
+      </p>
+      <div>
+        <div
+          class="w-full flex flex-col md:flex-row flex-wrap items-center gap-1 mb-4"
+        >
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(99% 0.004 259.82); --gamut-bg-hex: #fafcfe; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              50
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(95.56% 0.018 259.82); --gamut-bg-hex: #e9f1fd; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              100
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(89.95% 0.045 259.82); --gamut-bg-hex: #cddffc; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              200
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(83.14% 0.081 259.82); --gamut-bg-hex: #a9c9fd; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              300
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(75.57% 0.127 259.82); --gamut-bg-hex: #7fb0ff; color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              400
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(67.55% 0.181 259.82); --gamut-bg-hex: #4f93ff; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              500
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(59.34% 0.226 259.82); --gamut-bg-hex: #1574ff; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              600
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(51.13% 0.239 259.82); --gamut-bg-hex: #0056eb; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              700
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(43.08% 0.195 259.82); --gamut-bg-hex: #0044b8; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              800
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(35.34% 0.155 259.82); --gamut-bg-hex: #00338a; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              900
+            </span>
+          </div>
+          <div
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            style="--gamut-bg-oklch: oklch(28% 0.118 259.82); --gamut-bg-hex: #002361; color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-base/4 @xl:order-2 max-md:text-sm/4"
+            >
+              950
+            </span>
+          </div>
+        </div>
+        <div
+          class="flex items-center gap-2 mt-2"
+        >
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover rounded-full px-4"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            Tailwind
+          </button>
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover rounded-full px-4"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            Material
+          </button>
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover rounded-full px-4"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            Bootstrap
+          </button>
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover rounded-full px-4"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            Open Color
+          </button>
+        </div>
+      </div>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Bring Back the Fun
+    </h2>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <p>
+        You saw the ceiling in the chroma chart, which marks the limit of what the display can render. The math holds you inside what's renderable, so nothing you do produces a broken or muddy palette. The constraint lets you push every lever without fear. Not a cage.
+      </p>
+      <p>
+        So the goal was never to 
+        <i>
+          generate
+        </i>
+         a scale, but to 
+        <i>
+          make
+        </i>
+         one. That's where taste lives, and honestly, where the fun does too.
+        <br />
+        The real playground is the generator.
+      </p>
+    </div>
+    <p>
+      <a
+        class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+        href="/p/Primary-62.3_0.214_259.82"
+      >
+        Open the Generator
+      </a>
+    </p>
+  </div>
+</div>
+`;

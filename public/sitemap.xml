@@ -11,6 +11,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://lab.colormeup.co/custom-color-scales</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://lab.colormeup.co/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

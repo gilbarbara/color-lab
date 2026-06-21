@@ -24,6 +24,7 @@ export default function Footer(props: FooterProps) {
         <div className="flex flex-col gap-2">
           <Link href="/about">About</Link>
           <Link href="/oklch-vs-hsl">OKLCH vs HSL</Link>
+          <Link href="/custom-color-scales">Custom Color Scales</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </div>
