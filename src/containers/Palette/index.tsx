@@ -30,7 +30,7 @@ export default function Palette() {
           <Preview />
         </div>
       </div>
-      <Footer hideBorder />
+      <Footer />
     </div>
   );
 }

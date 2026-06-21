@@ -4,35 +4,31 @@ import Link from 'next/link';
 import Contact from '~/components/Contact';
 
 interface FooterProps {
-  hideBorder?: boolean;
+  className?: string;
+  innerClassName?: string;
 }
 
-const separator = <span aria-hidden="true">·</span>;
+export default function Footer(props: FooterProps) {
+  const { className, innerClassName } = props;
 
-export default function Footer({ hideBorder = false }: FooterProps) {
   return (
     <footer
-      className={cn('w-full text-foreground-600', {
-        'border-t border-default': !hideBorder,
-      })}
+      className={cn(
+        'w-full px-4 pb-8 pt-4',
+        'border-t border-default-200 text-foreground-600',
+        className,
+      )}
       data-testid="Footer"
     >
-      <div className="flex flex-col md:flex-row items-center justify-center gap-2 flex-wrap p-4">
-        <div className="flex items-center justify-center gap-2">
+      <div className={cn('grid grid-cols-1 sm:grid-cols-2 gap-8', innerClassName)}>
+        <div className="flex flex-col gap-2">
           <Link href="/about">About</Link>
-          {separator}
           <Link href="/oklch-vs-hsl">OKLCH vs HSL</Link>
-          {separator}
           <Link href="/privacy">Privacy</Link>
-          {separator}
           <Link href="/terms">Terms</Link>
         </div>
-        <span aria-hidden="true" className="hidden md:inline">
-          ·
-        </span>
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col gap-2">
           <Contact />
-          {separator}
           <a
             className="inline-flex items-center gap-2"
             href="https://github.com/gilbarbara/color-lab"
@@ -42,6 +38,14 @@ export default function Footer({ hideBorder = false }: FooterProps) {
             <img alt="GitHub" className="size-3 block dark:hidden" src="/icons/github.svg" />
             <img alt="GitHub" className="size-3 hidden dark:block" src="/icons/github-dark.svg" />
             GitHub
+          </a>
+          <a
+            className="inline-flex items-center gap-2"
+            href="https://github.com/gilbarbara/colorizr"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            colorizr
           </a>
         </div>
       </div>
