@@ -22,6 +22,11 @@ exports[`Footer > renders correctly 1`] = `
         OKLCH vs HSL
       </a>
       <a
+        href="/custom-color-scales"
+      >
+        Custom Color Scales
+      </a>
+      <a
         href="/privacy"
       >
         Privacy
