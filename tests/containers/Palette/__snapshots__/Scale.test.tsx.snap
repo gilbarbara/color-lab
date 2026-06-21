@@ -173,138 +173,127 @@ exports[`Scale > renders correctly 1`] = `
   <div
     class="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto"
   >
-    <div
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(97% 0.019 19.9); --gamut-bg-hex: #fff0f0; color: rgb(0, 0, 0);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         50
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(93.44% 0.043 19.9); --gamut-bg-hex: #ffdfdd; color: rgb(0, 0, 0);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         100
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(88.24% 0.081 19.9); --gamut-bg-hex: #ffc4c2; color: rgb(0, 0, 0);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         200
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(82.16% 0.129 19.9); --gamut-bg-hex: #ffa1a2; color: rgb(0, 0, 0);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         300
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(75.43% 0.190 19.9); --gamut-bg-hex: #ff747c; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         400
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(68.16% 0.254 19.9); --gamut-bg-hex: #ff2d53; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         500
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(60.45% 0.254 19.9); --gamut-bg-hex: #f4003c; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         600
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(52.34% 0.237 19.9); --gamut-bg-hex: #d00029; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         700
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(43.88% 0.199 19.9); --gamut-bg-hex: #a4001e; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         800
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(35.09% 0.159 19.9); --gamut-bg-hex: #790014; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         900
-      </p>
-    </div>
-    <div
+      </span>
+    </button>
+    <button
       class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-md text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
-      role="button"
       style="--gamut-bg-oklch: oklch(26% 0.118 19.9); --gamut-bg-hex: #4e0009; color: rgb(255, 255, 255);"
-      tabindex="0"
+      type="button"
     >
-      <p
+      <span
         class="text-base/4 @xl:order-2"
       >
         950
-      </p>
-    </div>
+      </span>
+    </button>
   </div>
 </div>
 `;
