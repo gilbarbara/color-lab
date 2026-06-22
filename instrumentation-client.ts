@@ -2,7 +2,16 @@ import * as Sentry from '@sentry/nextjs';
 
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION;
 
-if (process.env.NODE_ENV === 'production') {
+// Crawlers (Googlebot, GSC's Google-InspectionTool, Lighthouse/PSI, headless Chrome) execute
+// page JS during rendering. Initializing Sentry for them fires beacons to ingest.sentry.io that
+// get blocked and surface as CORS errors in Search Console, while burning quota on bot traffic.
+const isBot =
+  typeof navigator !== 'undefined' &&
+  /bot|crawl|spider|inspectiontool|lighthouse|headless|pagespeed|google-/i.test(
+    navigator.userAgent,
+  );
+
+if (process.env.NODE_ENV === 'production' && !isBot) {
   Sentry.init({
     dsn: 'https://741e6611f536afcbb507dc8ff10c4553@o23412.ingest.us.sentry.io/4510694826508288',
     environment: process.env.NODE_ENV,
