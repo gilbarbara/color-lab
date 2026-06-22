@@ -9,7 +9,7 @@ import {
   lacksColor,
   lacksParams,
 } from './__setup__/utils';
-import { collapseDuration } from './fixtures/constants';
+import { collapseDuration, scrollOffset } from './fixtures/constants';
 
 let screenshotCount = 0;
 
@@ -570,7 +570,11 @@ test('desktop', async () => {
   });
 
   await test.step('interacts with the live preview', async () => {
-    await page.getByTestId('Preview').evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
+    await page.getByTestId('Preview').evaluate((el, offset) => {
+      const top = window.scrollY + el.getBoundingClientRect().top - offset;
+
+      window.scrollTo({ top, behavior: 'instant' });
+    }, scrollOffset);
 
     await expect(page).toHaveScreenshot(getScreenshotName('preview-components.png'));
 
