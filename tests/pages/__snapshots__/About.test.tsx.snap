@@ -21,27 +21,38 @@ exports[`pages/About > renders correctly 1`] = `
     <div
       class="space-y-2 mb-8"
     >
-      <p>
-        It’s built for designers and developers who need control over how a scale behaves: lightness range and distribution, chroma handling, number of steps, and how a scale responds to constraints like locks and curves. You shape the scale directly and see the impact of each adjustment in real time.
-      </p>
-      <p>
-        All calculations are done in the 
-        <strong>
-          OKLCH
-        </strong>
-         color space, which makes it easier to reason about lightness and chroma independently and to generate scales that behave consistently across steps and different displays. This is especially important for UI work, where uneven jumps quickly become noticeable.
+      <p
+        class="mb-0"
+      >
+        It’s built for designers and developers who need control over how a scale behaves: lightness range and distribution, chroma handling, hue shift, number of steps, and how a scale responds to constraints like locks and curves. You shape the scale directly and see the impact of each adjustment in real time.
       </p>
       <p>
         See
          
         <a
           class="underline"
-          href="/oklch-vs-hsl"
+          href="/custom-color-scales"
         >
-          OKLCH vs HSL
+          Custom Color Scales
         </a>
          
-        for a side-by-side look at why.
+        to learn how to shape your own.
+      </p>
+      <p>
+        All calculations are done in the 
+        <strong>
+          OKLCH
+        </strong>
+         color space, which makes it easier to reason about lightness and chroma independently and to generate scales that behave consistently across steps and different displays. This is especially important for UI work, where
+         
+        <a
+          class="underline"
+          href="/oklch-vs-hsl"
+        >
+          uneven jumps
+        </a>
+         
+        quickly become noticeable.
       </p>
     </div>
     <h2
@@ -112,17 +123,15 @@ exports[`pages/About > renders correctly 1`] = `
       <p>
         That's it. Jump into the generator, tweak your scales, and explore a bit. If you find it useful, starring the repos is appreciated.
       </p>
-      <p
-        class="mt-4"
-      >
-        <a
-          class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
-          href="/"
-        >
-          Create your palette
-        </a>
-      </p>
     </div>
+    <p>
+      <a
+        class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+        href="/"
+      >
+        Create your palette
+      </a>
+    </p>
   </div>
 </div>
 `;

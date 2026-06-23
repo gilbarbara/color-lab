@@ -10,25 +10,30 @@ export default function About() {
       <p className="mb-6">A design tool for creating and fine-tuning perceptual color scales.</p>
 
       <div className="space-y-2 mb-8">
-        <p>
+        <p className="mb-0">
           It’s built for designers and developers who need control over how a scale behaves:
-          lightness range and distribution, chroma handling, number of steps, and how a scale
-          responds to constraints like locks and curves. You shape the scale directly and see the
-          impact of each adjustment in real time.
+          lightness range and distribution, chroma handling, hue shift, number of steps, and how a
+          scale responds to constraints like locks and curves. You shape the scale directly and see
+          the impact of each adjustment in real time.
+        </p>
+
+        <p>
+          See{' '}
+          <Link className="underline" href="/custom-color-scales">
+            Custom Color Scales
+          </Link>{' '}
+          to learn how to shape your own.
         </p>
 
         <p>
           All calculations are done in the <strong>OKLCH</strong> color space, which makes it easier
           to reason about lightness and chroma independently and to generate scales that behave
           consistently across steps and different displays. This is especially important for UI
-          work, where uneven jumps quickly become noticeable.
-        </p>
-        <p>
-          See{' '}
+          work, where{' '}
           <Link className="underline" href="/oklch-vs-hsl">
-            OKLCH vs HSL
+            uneven jumps
           </Link>{' '}
-          for a side-by-side look at why.
+          quickly become noticeable.
         </p>
       </div>
 
@@ -100,15 +105,15 @@ export default function About() {
           That's it. Jump into the generator, tweak your scales, and explore a bit. If you find it
           useful, starring the repos is appreciated.
         </p>
-        <p className="mt-4">
-          <Link
-            className="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
-            href="/"
-          >
-            Create your palette
-          </Link>
-        </p>
       </div>
+      <p>
+        <Link
+          className="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+          href="/"
+        >
+          Create your palette
+        </Link>
+      </p>
     </Page>
   );
 }

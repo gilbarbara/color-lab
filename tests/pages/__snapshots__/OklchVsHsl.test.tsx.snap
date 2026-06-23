@@ -11,7 +11,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
     <script
       type="application/ld+json"
     >
-      [{"@context":"https://schema.org","@type":"TechArticle","headline":"OKLCH vs HSL","description":"Why OKLCH beats HSL for color scales: perceptual lightness, hue stability, and cleaner gradients, compared side by side.","about":["OKLCH","HSL","perceptual color","color scales"],"mainEntityOfPage":"https://lab.colormeup.co/oklch-vs-hsl","url":"https://lab.colormeup.co/oklch-vs-hsl","publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is OKLCH better than HSL?","acceptedAnswer":{"@type":"Answer","text":"For building color scales, yes — OKLCH keeps lightness and hue predictable, so the steps look evenly spaced. For a quick one-off tweak, HSL is still perfectly fine. They solve different problems."}},{"@type":"Question","name":"Do all browsers support OKLCH?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every major browser has supported the oklch() CSS function since 2023 (Chrome and Edge 111, Safari 15.4, Firefox 113). For older browsers you can ship a hex or RGB fallback alongside it."}},{"@type":"Question","name":"Can I use OKLCH with Tailwind CSS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tailwind CSS v4 already defines its default palette in OKLCH, and you can drop oklch() values straight into your theme. This tool exports scales as Tailwind config, CSS variables, SCSS, and SVG."}}]}]
+      [{"@context":"https://schema.org","@type":"TechArticle","headline":"OKLCH vs HSL","description":"Why OKLCH beats HSL for color scales: perceptual lightness, hue stability, and cleaner gradients, compared side by side.","about":["OKLCH","HSL","perceptual color","color scales"],"mainEntityOfPage":"https://lab.colormeup.co/oklch-vs-hsl","url":"https://lab.colormeup.co/oklch-vs-hsl","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-06-10","dateModified":"2026-06-23"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is OKLCH better than HSL?","acceptedAnswer":{"@type":"Answer","text":"For building color scales, yes — OKLCH keeps lightness and hue predictable, so the steps look evenly spaced. For a quick one-off tweak, HSL is still perfectly fine. They solve different problems."}},{"@type":"Question","name":"Do all browsers support OKLCH?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every major browser has supported the oklch() CSS function since 2023 (Chrome and Edge 111, Safari 15.4, Firefox 113). For older browsers you can ship a hex or RGB fallback alongside it."}},{"@type":"Question","name":"Can I use OKLCH with Tailwind CSS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tailwind CSS v4 already defines its default palette in OKLCH, and you can drop oklch() values straight into your theme. This tool exports scales as Tailwind config, CSS variables, SCSS, and SVG."}}]}]
     </script>
     <h1
       class="text-4xl font-bold mb-8"
@@ -19,7 +19,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
       OKLCH vs HSL: why perceptual color wins
     </h1>
     <div
-      class="space-y-2 mb-8"
+      class="space-y-3 mb-8"
     >
       <p>
         HSL and RGB describe colors the way a screen builds them, not the way an eye sees them. That gap is why a palette that looks balanced on paper can look uneven on screen: the same numbers produce wildly different perceived brightness from one hue to the next.
@@ -63,13 +63,11 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
     >
       Equal lightness ≠ equal brightness
     </h2>
-    <div
-      class="space-y-2 mb-6"
+    <p
+      class="mb-6"
     >
-      <p>
-        Every swatch below is set to the same lightness value within its own space. In HSL, yellow blazes while blue sinks into the dark — “50% lightness” means something different for every hue. In OKLCH, the row reads as one even band of brightness.
-      </p>
-    </div>
+      Every swatch below is set to the same lightness value within its own space. In HSL, yellow blazes while blue sinks into the dark — “50% lightness” means something different for every hue. In OKLCH, the row reads as one even band of brightness.
+    </p>
     <div
       class="space-y-4 mb-8"
     >
@@ -92,7 +90,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(0 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(255, 0, 0);"
             />
           </div>
@@ -101,7 +99,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(40 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(255, 170, 0);"
             />
           </div>
@@ -110,7 +108,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(80 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(170, 255, 0);"
             />
           </div>
@@ -119,7 +117,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(120 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(0, 255, 0);"
             />
           </div>
@@ -128,7 +126,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(160 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(0, 255, 170);"
             />
           </div>
@@ -137,7 +135,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(200 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(0, 170, 255);"
             />
           </div>
@@ -146,7 +144,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(0, 0, 255);"
             />
           </div>
@@ -155,7 +153,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(280 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(170, 0, 255);"
             />
           </div>
@@ -164,7 +162,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(320 100% 50%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(255, 0, 170);"
             />
           </div>
@@ -188,81 +186,81 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 0)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 0);"
+              aria-label="oklch(0.72 0.24 0)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 0);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 40)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 40);"
+              aria-label="oklch(0.72 0.24 40)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 40);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 80)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 80);"
+              aria-label="oklch(0.72 0.24 80)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 80);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 120)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 120);"
+              aria-label="oklch(0.72 0.24 120)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 120);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 160)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 160);"
+              aria-label="oklch(0.72 0.24 160)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 160);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 200)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 200);"
+              aria-label="oklch(0.72 0.24 200)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 200);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 240)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 240);"
+              aria-label="oklch(0.72 0.24 240)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 240);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 280)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 280);"
+              aria-label="oklch(0.72 0.24 280)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 280);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.72 0.16 320)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.72 0.16 320);"
+              aria-label="oklch(0.72 0.24 320)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.72 0.24 320);"
             />
           </div>
         </div>
@@ -273,15 +271,13 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
     >
       Try it yourself
     </h2>
-    <div
-      class="space-y-2 mb-4"
+    <p
+      class="mb-8"
     >
-      <p>
-        Drag the hue. Both swatches stay at a fixed lightness — only the hue changes. Watch the HSL side lurch between bright and dark while OKLCH holds steady.
-      </p>
-    </div>
+      Drag the hue. Both swatches stay at a fixed lightness — only the hue changes. Watch the HSL side lurch between bright and dark while OKLCH holds steady.
+    </p>
     <div
-      class="flex flex-col lg:flex-row lg:items-center gap-4 mb-8"
+      class="flex flex-col lg:flex-row lg:items-start gap-4 mb-8"
     >
       <div
         class="grid grid-cols-2 gap-4 lg:w-1/2"
@@ -291,7 +287,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
         >
           <div
             aria-label="hsl(240 100% 50%)"
-            class="w-full aspect-square rounded-medium"
+            class="w-full rounded-md aspect-square md:aspect-video"
             style="background: rgb(0, 0, 255);"
           />
           <span
@@ -305,7 +301,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
         >
           <div
             aria-label="oklch(0.72 0.16 240)"
-            class="w-full aspect-square rounded-medium"
+            class="w-full rounded-md aspect-square md:aspect-video"
             style="background: oklch(0.72 0.16 240);"
           />
           <span
@@ -316,7 +312,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
         </div>
       </div>
       <label
-        class="w-full lg:w-1/2 flex flex-col gap-2"
+        class="w-full lg:w-1/2 flex flex-col gap-2 lg:mt-8"
         for="hue-slider"
       >
         <span
@@ -341,13 +337,11 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
     >
       Lighten without the hue shift
     </h2>
-    <div
-      class="space-y-2 mb-6"
+    <p
+      class="mb-6"
     >
-      <p>
-        Take one blue and lighten it. In HSL, raising lightness drifts the color toward a washed periwinkle. In OKLCH, lightening keeps the hue and chroma intact — it stays blue all the way up.
-      </p>
-    </div>
+      Take one blue and lighten it. In HSL, raising lightness drifts the color toward a washed periwinkle. In OKLCH, lightening keeps the hue and chroma intact — it stays blue all the way up.
+    </p>
     <div
       class="space-y-4 mb-8"
     >
@@ -365,7 +359,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 90% 94%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(226, 226, 254);"
             />
           </div>
@@ -374,7 +368,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 90% 78%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(148, 148, 249);"
             />
           </div>
@@ -383,7 +377,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 90% 66%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(90, 90, 246);"
             />
           </div>
@@ -392,7 +386,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 90% 54%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(32, 32, 243);"
             />
           </div>
@@ -401,7 +395,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 90% 42%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(11, 11, 204);"
             />
           </div>
@@ -410,7 +404,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           >
             <div
               aria-label="hsl(240 90% 21%)"
-              class="w-full aspect-square rounded-medium"
+              class="w-full rounded-md aspect-square lg:aspect-video"
               style="background: rgb(5, 5, 102);"
             />
           </div>
@@ -429,54 +423,54 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.94 0.15 264)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.94 0.15 264);"
+              aria-label="oklch(94% 0.03132 264)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.94 0.03132 264);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.78 0.15 264)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.78 0.15 264);"
+              aria-label="oklch(87.471% 0.06684 264)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.87471 0.06684 264);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.66 0.15 264)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.66 0.15 264);"
+              aria-label="oklch(75.532% 0.13571 264)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.75532 0.13571 264);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.54 0.15 264)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.54 0.15 264);"
+              aria-label="oklch(60.073% 0.15 264)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.60073 0.15 264);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.42 0.15 264)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.42 0.15 264);"
+              aria-label="oklch(41.765% 0.15 264)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.41765 0.15 264);"
             />
           </div>
           <div
             class="flex flex-col gap-1"
           >
             <div
-              aria-label="oklch(0.21 0.15 264)"
-              class="w-full aspect-square rounded-medium"
-              style="background: oklch(0.21 0.15 264);"
+              aria-label="oklch(21% 0.14449 264)"
+              class="w-full rounded-md aspect-square lg:aspect-video"
+              style="background: oklch(0.21 0.14449 264);"
             />
           </div>
         </div>
@@ -488,7 +482,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
       Cleaner gradients
     </h2>
     <div
-      class="space-y-2 mb-6"
+      class="space-y-2 mb-8"
     >
       <p>
         Both gradients run between the same two colors. The HSL blend spikes through an over-bright cyan-green in the middle — the same uneven lightness from the first demo. The OKLCH blend keeps the brightness progression even from end to end.
@@ -519,6 +513,28 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           style="background: linear-gradient(to right in oklch, oklch(0.55 0.2 264), oklch(0.86 0.17 95));"
         />
       </div>
+    </div>
+    <div
+      class="mb-8"
+    >
+      <p>
+        That’s the whole idea: perceptual color makes scales predictable.
+      </p>
+      <p>
+        Whether you’re building a design system, generating Tailwind palettes, creating design tokens, or refining UI colors, perceptual color helps scales stay balanced from start to finish.
+      </p>
+      <p>
+        An even scale is the starting point — see
+         
+        <a
+          class="underline"
+          href="/custom-color-scales"
+        >
+          Custom Color Scales
+        </a>
+         
+        for shaping it into something with character.
+      </p>
     </div>
     <h2
       class="text-2xl font-bold mb-4"
@@ -560,14 +576,6 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
       </div>
     </div>
     <p>
-      That’s the whole idea: perceptual color makes scales predictable.
-    </p>
-    <p>
-      Whether you’re building a design system, generating Tailwind palettes, creating design tokens, or refining UI colors, perceptual color helps scales stay balanced from start to finish.
-    </p>
-    <p
-      class="mt-4"
-    >
       <a
         class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
         href="/"
