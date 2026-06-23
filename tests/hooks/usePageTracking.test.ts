@@ -19,6 +19,9 @@ describe('hooks/usePageTracking', () => {
     ['/palettes', '/palettes'],
     ['/privacy', '/privacy'],
     ['/terms', '/terms'],
+    ['/custom-color-scales', '/custom-color-scales'],
+    ['/oklch-vs-hsl', '/oklch-vs-hsl'],
+    ['/unknown', '/unknown'],
     ['/p/Primary-FF0044', '/generator'],
     ['/p/anything', '/generator'],
   ])('tracks %s as %s', (pathname, tracked) => {
@@ -28,7 +31,7 @@ describe('hooks/usePageTracking', () => {
     expect(trackPage).toHaveBeenCalledWith(tracked);
   });
 
-  it.each(['/auth/callback', '/unknown'])('does not track %s', pathname => {
+  it.each(['/auth/callback'])('does not track %s', pathname => {
     setMockRoute(pathname);
     renderHook(() => usePageTracking());
 

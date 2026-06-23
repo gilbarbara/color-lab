@@ -6,14 +6,12 @@ import { usePathname } from 'next/navigation';
 import { trackPage } from '~/utils/analytics';
 
 function normalizePathname(pathname: string): string | null {
-  if (pathname === '/') return '/';
-  if (pathname === '/about') return '/about';
-  if (pathname === '/palettes') return '/palettes';
-  if (pathname === '/privacy') return '/privacy';
-  if (pathname === '/terms') return '/terms';
+  // Collapse high-cardinality palette URLs into a single page.
   if (pathname === '/p' || pathname.startsWith('/p/')) return '/generator';
+  // Skip auth routes (robots-disallowed, no analytics value).
+  if (pathname.startsWith('/auth/')) return null;
 
-  return null;
+  return pathname;
 }
 
 export default function usePageTracking(): void {
