@@ -199,7 +199,7 @@ test('desktop', async () => {
 
     // A preset writes its full curve set to the query, dropping any value at its default.
     await expect(page).toHaveURL(
-      hasExactParams({ c: '0.75_0.83', f: '1.35_1', x: '0.99', n: '0.28' }),
+      hasExactParams({ c: '0.75_0.83', f: '1.3_1.05', x: '0.99', n: '0.28' }),
     );
 
     await expect(page).toHaveScreenshot(getScreenshotName('preset-tailwind.png'));
@@ -211,7 +211,7 @@ test('desktop', async () => {
     await page.getByRole('menuitemradio', { name: 'Material' }).click();
 
     await expect(page).toHaveURL(
-      hasExactParams({ c: '0.5_0.8', h: '1_-5', f: '0.9_1.2', x: '0.95', n: '0.48' }),
+      hasExactParams({ c: '0.5_0.8', h: '1_-5', f: '0.8_0.9', x: '0.95', n: '0.48' }),
     );
 
     await expect(page).toHaveScreenshot(getScreenshotName('preset-material.png'));
@@ -223,7 +223,7 @@ test('desktop', async () => {
     await page.getByRole('menuitemradio', { name: 'Bootstrap' }).click();
 
     await expect(page).toHaveURL(
-      hasExactParams({ c: '0.73_0.7', h: '9_2', f: '0.9_1.05', x: '0.93', n: '0.24' }),
+      hasExactParams({ c: '0.73_0.7', h: '9_2', f: '0.9_1.1', x: '0.93', n: '0.24' }),
     );
 
     await expect(page).toHaveScreenshot(getScreenshotName('preset-bootstrap.png'));
@@ -234,7 +234,7 @@ test('desktop', async () => {
 
     await page.getByRole('menuitemradio', { name: 'Open Color' }).click();
 
-    await expect(page).toHaveURL(hasExactParams({ c: '0.78_0.75', f: '1.15_1.4', n: '0.48' }));
+    await expect(page).toHaveURL(hasExactParams({ c: '0.8_0.75', f: '1.05_1.4', n: '0.48' }));
 
     await expect(page).toHaveScreenshot(getScreenshotName('preset-opencolor.png'));
   });
