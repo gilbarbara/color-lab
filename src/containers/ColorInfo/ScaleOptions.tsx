@@ -88,7 +88,7 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
       return 'override';
     }
 
-    if (keys.some(k => !isSameOptionValue(globalOptions[k], defaultOptions[k]))) {
+    if (keys.some(k => !isSameOptionValue(k, globalOptions[k], defaultOptions[k]))) {
       return 'custom';
     }
 

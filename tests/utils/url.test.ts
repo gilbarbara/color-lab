@@ -839,7 +839,7 @@ describe('utils/url', () => {
         });
       });
 
-      it('persists a { x, x } shape distinct from the scalar default', () => {
+      it('omits a lightnessCurve { x, x } range that equals the scalar default (moot Split)', () => {
         const scalar = getDefaultGlobalOptions(base).lightnessCurve as number;
         const url = serializePaletteToUrl({
           colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
@@ -849,11 +849,34 @@ describe('utils/url', () => {
           },
         });
 
-        expect(url).toContain(`f=${scalar}_${scalar}`);
-        expect(parsePaletteFromUrl(url)!.state.globalOptions.lightnessCurve).toEqual({
-          low: scalar,
-          high: scalar,
+        expect(url).not.toContain('f=');
+        expect(parsePaletteFromUrl(url)!.state.globalOptions.lightnessCurve).toBe(scalar);
+      });
+
+      it('persists a non-default { x, x } range so Split mode survives reload', () => {
+        const url = serializePaletteToUrl({
+          colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
+          globalOptions: {
+            ...getDefaultGlobalOptions(base),
+            lightnessCurve: { low: 1.5, high: 1.5 },
+          },
         });
+
+        expect(url).toContain('f=1.5_1.5');
+        expect(parsePaletteFromUrl(url)!.state.globalOptions.lightnessCurve).toEqual({
+          low: 1.5,
+          high: 1.5,
+        });
+      });
+
+      it('omits a hueShift { 0, 0 } range that equals the scalar default (moot Split)', () => {
+        const url = serializePaletteToUrl({
+          colors: [createColorEntry('Primary', 'oklch(0.64 0.142 329)')],
+          globalOptions: { ...getDefaultGlobalOptions(base), hueShift: { low: 0, high: 0 } },
+        });
+
+        expect(url).not.toContain('h=');
+        expect(parsePaletteFromUrl(url)!.state.globalOptions.hueShift).toBe(0);
       });
 
       it('keeps a hand-written scalar hueShift as a scalar (Simple mode)', () => {
@@ -899,6 +922,18 @@ describe('utils/url', () => {
         const result = parsePaletteFromUrl('/p/Primary-FF0044-h:-15_-20');
 
         expect(result!.state.colors[0].overrides).toEqual({ hueShift: { low: -15, high: -20 } });
+      });
+
+      it('omits a moot hueShift { 0, 0 } override that matches the scalar-default global', () => {
+        const url = serializePaletteToUrl({
+          colors: [
+            createColorEntry('Primary', 'oklch(0.64 0.142 329)', { hueShift: { low: 0, high: 0 } }),
+          ],
+          globalOptions: getDefaultGlobalOptions(base),
+        });
+
+        expect(url).not.toContain('h:');
+        expect(parsePaletteFromUrl(url)!.state.colors[0].overrides).toBeUndefined();
       });
 
       it('serializes an endpoints override into the path chunk', () => {

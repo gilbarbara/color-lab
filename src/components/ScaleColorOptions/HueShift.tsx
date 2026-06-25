@@ -82,7 +82,7 @@ export default function HueShift(props: HueShiftProps) {
               </p>
             </div>
           }
-          disableReset={isSameOptionValue(hueShift, defaultHueShift)}
+          disableReset={isSameOptionValue('hueShift', hueShift, defaultHueShift)}
           id={headingId}
           onReset={() => onUpdate({ hueShift: defaultHueShift })}
           size={headingSize}

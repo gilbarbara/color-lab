@@ -106,7 +106,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
               </p>
             </div>
           }
-          disableReset={isSameOptionValue(lightnessCurve, defaultLightnessCurve)}
+          disableReset={isSameOptionValue('lightnessCurve', lightnessCurve, defaultLightnessCurve)}
           id={headingId}
           onReset={() => onUpdate({ lightnessCurve: defaultLightnessCurve })}
           size={headingSize}

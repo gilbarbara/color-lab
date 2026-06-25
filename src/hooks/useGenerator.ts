@@ -94,7 +94,9 @@ export default function useGenerator<K extends UsePaletteKey>(
   const hasCustomCurves = useMemo(
     () =>
       globalOptions && defaultOptions
-        ? CURVE_OPTION_KEYS.some(key => !isSameOptionValue(globalOptions[key], defaultOptions[key]))
+        ? CURVE_OPTION_KEYS.some(
+            key => !isSameOptionValue(key, globalOptions[key], defaultOptions[key]),
+          )
         : (undefined as never),
     [globalOptions, defaultOptions],
   );
@@ -103,7 +105,7 @@ export default function useGenerator<K extends UsePaletteKey>(
     () =>
       globalOptions && defaultOptions
         ? PALETTE_OPTION_KEYS.some(
-            key => !isSameOptionValue(globalOptions[key], defaultOptions[key]),
+            key => !isSameOptionValue(key, globalOptions[key], defaultOptions[key]),
           )
         : (undefined as never),
     [globalOptions, defaultOptions],

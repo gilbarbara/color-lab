@@ -224,7 +224,7 @@ describe('utils/generator', () => {
       expect(result.colors[0].overrides).toBeUndefined();
     });
 
-    it('keeps a { low, high } override against a scalar global (shape differs)', () => {
+    it('keeps a { low, high } override against a scalar global (shape preserves Split mode)', () => {
       const initial: GeneratorState = {
         colors: [createColorEntry('Primary', CRIMSON)],
         globalOptions: { ...getDefaultGlobalOptions(CRIMSON), lightnessCurve: 1.3 },
@@ -232,6 +232,16 @@ describe('utils/generator', () => {
       const result = setColorOverride(initial, 0, { lightnessCurve: { low: 1.3, high: 1.3 } });
 
       expect(result.colors[0].overrides).toEqual({ lightnessCurve: { low: 1.3, high: 1.3 } });
+    });
+
+    it('keeps a moot hueShift { 0, 0 } override so per-color Split stays reachable', () => {
+      const initial: GeneratorState = {
+        colors: [createColorEntry('Primary', CRIMSON)],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
+      };
+      const result = setColorOverride(initial, 0, { hueShift: { low: 0, high: 0 } });
+
+      expect(result.colors[0].overrides).toEqual({ hueShift: { low: 0, high: 0 } });
     });
   });
 

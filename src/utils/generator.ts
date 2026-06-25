@@ -11,7 +11,7 @@ import {
   STEPS_DEFAULT,
 } from '~/config/scale';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
-import { isSameOptionValue } from '~/utils/scale-options';
+import { isStructurallyEqualOption } from '~/utils/scale-options';
 
 import type {
   ColorEntry,
@@ -187,7 +187,7 @@ export function setColorOverride(
   const merged: Partial<ScaleOptions> = { ...currentColor.overrides, ...updates };
 
   for (const key of objectKeys(merged)) {
-    if (isSameOptionValue(merged[key], state.globalOptions[key])) {
+    if (isStructurallyEqualOption(merged[key], state.globalOptions[key])) {
       delete merged[key];
     }
   }

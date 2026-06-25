@@ -56,11 +56,42 @@ export function isCurveRange(value: unknown): value is ScaleRange {
 }
 
 /**
- * Shape-sensitive equality for option values. A number and an object are never
- * equal — the shape carries the UI mode, so `1.3` and `{ low: 1.3, high: 1.3 }`
- * are deliberately distinct. Objects compare field-wise (peak defaults to 0.5).
+ * Value equality for an option `key`, used for default detection, dirty state, and URL
+ * serialization. For hueShift and lightnessCurve a scalar and its equal-endpoint range are the
+ * *same value* — scale() normalizes scalar `x` to `{ -x, x }` / `{ x, x }` before use — so `0` ≡
+ * `{ 0, 0 }` and `1.3` ≡ `{ 1.3, 1.3 }`; a moot Split toggle at the default is not a change. All
+ * other keys (chromaCurve's Simple parabola vs Split endpoints are different curves, plus scalars)
+ * fall back to structural equality.
+ *
+ * NOTE: this is *not* the right check for de-duplicating per-color overrides — that must keep the
+ * Simple/Split shape so a freshly-toggled Split survives; use {@link isStructurallyEqualOption}.
  */
-export function isSameOptionValue(a: unknown, b: unknown): boolean {
+export function isSameOptionValue(key: keyof GlobalScaleOptions, a: unknown, b: unknown): boolean {
+  if (key === 'hueShift') {
+    const ra = normalizeHueShift(a as number | ScaleRange);
+    const rb = normalizeHueShift(b as number | ScaleRange);
+
+    return ra.low === rb.low && ra.high === rb.high;
+  }
+
+  if (key === 'lightnessCurve') {
+    const ra = normalizeLightnessCurve(a as LightnessCurveValue);
+    const rb = normalizeLightnessCurve(b as LightnessCurveValue);
+
+    return ra.low === rb.low && ra.high === rb.high;
+  }
+
+  return isStructurallyEqualOption(a, b);
+}
+
+/**
+ * Structural (shape-sensitive) equality: a number and an object are never equal, so the
+ * Simple/Split *shape* is significant. Used to drop a per-color override only when it exactly
+ * duplicates the global value — keeping it whenever the shape differs preserves the user's
+ * per-color mode choice (e.g. a just-toggled Split) even if it currently resolves to the same
+ * scale. Objects compare field-wise (peak defaults to 0.5).
+ */
+export function isStructurallyEqualOption(a: unknown, b: unknown): boolean {
   if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
     if (isCurvePeak(a) && isCurvePeak(b)) {
       return (
