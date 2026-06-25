@@ -42,7 +42,7 @@ const JSON_LD = {
   author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
   publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
   datePublished: '2026-06-22',
-  dateModified: '2026-06-22',
+  dateModified: '2026-06-25',
 };
 
 const jsonLdHtml = JSON.stringify(JSON_LD);
@@ -61,8 +61,8 @@ export default function CustomColorScales() {
           A perceptually even color scale changes by the same amount at every step. In OKLCH, that
           evenness buys predictable contrast across every tint and shade — a palette you can trust —
           but it isn't the whole story. Hold chroma flat as the colors get lighter and the pale
-          tints turn chalky; keep lightness perfectly linear and the scale reads mechanical. The
-          math is right; it just stops a step short of intentional.
+          tints turn chalky; keep lightness linear and the scale reads mechanical. The math is
+          right; it just stops a step short of intentional.
         </p>
 
         <p>
@@ -95,9 +95,9 @@ export default function CustomColorScales() {
         <div className="space-y-3">
           <p>
             Before shaping anything, you decide how far the scale runs: how light the lightest tint,
-            how dark the darkest shade. This is still perfectly even; you're not bending the grid,
-            you're sizing it. And it's the lever that moves a scale most: the same color reads airy
-            and delicate across a light range, dense and grounded across a dark one. It's the first
+            how dark the darkest shade. This is still even; you're not bending the grid, you're
+            sizing it. And it's the lever that moves a scale most: the same color reads airy and
+            delicate across a light range, dense and grounded across a dark one. It's the first
             move, and sometimes the only one you need.
           </p>
           <ScaleDemo
@@ -126,9 +126,9 @@ export default function CustomColorScales() {
         <div className="space-y-3">
           <p>
             When chroma stays flat as lightness climbs, the pale tints carry more color than they
-            should and turn chalky. A chroma curve deliberately fixes it: ease chroma down toward
-            the highlights so tints stay clean, and let it peak in the upper-mid range, where a
-            color has room to be vivid. It's the same correction the old{' '}
+            should and turn chalky. A chroma curve fixes it: ease chroma down toward the highlights
+            so tints stay clean, and let it peak in the upper-mid range, where a color has room to
+            be vivid. It's the same correction the old{' '}
             <Link className="underline" href="/oklch-vs-hsl">
               HSL
             </Link>{' '}
@@ -169,9 +169,8 @@ export default function CustomColorScales() {
       <h2 className="text-2xl font-bold mb-4">Why Great Color Systems Don't Look Identical</h2>
       <div className="space-y-3 mb-8">
         <p>
-          If perceptually even scales produced one correct answer, every good design system would
-          converge on the same palette. They don't. Tailwind, Material, Bootstrap, Open Color: all
-          solving the same problem, all landing on visibly different results.
+          Perceptually even scales don't produce one correct answer. Tailwind, Material, Bootstrap,
+          and Open Color all solve the same problem and land somewhere different.
         </p>
         <p>
           The reason is simple: consistency is half the job. A design system is also trying to
@@ -189,11 +188,12 @@ export default function CustomColorScales() {
         <p>
           You saw the ceiling in the chroma chart, which marks the limit of what the display can
           render. The math holds you inside what's renderable, so nothing you do produces a broken
-          or muddy palette. The constraint lets you push every lever without fear. Not a cage.
+          or muddy palette. The constraint lets you push every lever without fear; it's scaffolding,
+          not a cage.
         </p>
         <p>
           So the goal was never to <i>generate</i> a scale, but to <i>make</i> one. That's where
-          taste lives, and honestly, where the fun does too.
+          taste lives, and where the fun is.
           <br />
           The real playground is the generator.
         </p>
