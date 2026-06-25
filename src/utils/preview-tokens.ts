@@ -1,9 +1,8 @@
 import type { CSSProperties } from 'react';
-import { parseCSS, readableColor, scale } from 'colorizr';
+import { objectKeys } from '@gilbarbara/helpers';
+import { parseCSS, readableColor, scale, type ScaleMode } from 'colorizr';
 
 import type { EffectiveScaleOptions } from '~/types';
-
-const STOP_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
 
 type Steps = Record<number, string>;
 
@@ -17,52 +16,56 @@ interface ScaleSet {
 function scaleSet(
   color: string,
   options: EffectiveScaleOptions,
-  lightMode: 'light' | 'dark',
-  darkMode: 'light' | 'dark',
+  lightMode: Exclude<ScaleMode, 'dark'>,
+  darkMode: Exclude<ScaleMode, 'dark'>,
 ): ScaleSet {
   // Spread the effective scale options first (chromaCurve, lightnessCurve, hueShift,
-  // min/maxLightness, saturation, overrides) so the preview matches the palette, then pin the
-  // preview-controlled fields last: a fixed 10-stop grid (HeroUI-compatible) with the source
-  // color locked at 500, and the mode chosen per theme slot.
+  // min/maxLightness, saturation, lock, overrides) so the preview mirrors the palette's own scale,
+  // then pin only the preview-controlled fields: format and the mode per theme slot. The grid
+  // matches the palette's step count, floored at 10 so the canonical HeroUI stop set (50–900)
+  // always exists even when the user picks fewer steps. The dark slot uses 'reversed' (the light
+  // ramp's values with reversed keys), not re-curved 'dark', so its 500 stays equal to the light
+  // 500 while the surface ramp inverts for dark backgrounds.
+  const steps = options.steps < 10 ? 10 : options.steps;
+
   return {
-    lightOklch: scale(color, {
-      ...options,
-      steps: 10,
-      mode: lightMode,
-      lock: 500,
-      format: 'oklch',
-    }),
-    lightHex: scale(color, { ...options, steps: 10, mode: lightMode, lock: 500, format: 'hex' }),
-    darkOklch: scale(color, { ...options, steps: 10, mode: darkMode, lock: 500, format: 'oklch' }),
-    darkHex: scale(color, { ...options, steps: 10, mode: darkMode, lock: 500, format: 'hex' }),
+    lightOklch: scale(color, { ...options, steps, mode: lightMode, format: 'oklch' }),
+    lightHex: scale(color, { ...options, steps, mode: lightMode, format: 'hex' }),
+    darkOklch: scale(color, { ...options, steps, mode: darkMode, format: 'oklch' }),
+    darkHex: scale(color, { ...options, steps, mode: darkMode, format: 'hex' }),
   };
 }
 
 function tokensFromScales(scales: ScaleSet): CSSProperties {
   const vars: Record<string, string> = {};
 
-  for (const stop of STOP_KEYS) {
-    vars[`--color-preview-${stop}-light-oklch`] = scales.lightOklch[stop];
-    vars[`--color-preview-${stop}-light-hex`] = scales.lightHex[stop];
-    vars[`--color-preview-${stop}-dark-oklch`] = scales.darkOklch[stop];
-    vars[`--color-preview-${stop}-dark-hex`] = scales.darkHex[stop];
+  for (const step of objectKeys(scales.lightOklch)) {
+    vars[`--color-preview-${step}-light-oklch`] = scales.lightOklch[step];
+    vars[`--color-preview-${step}-light-hex`] = scales.lightHex[step];
+    vars[`--color-preview-${step}-dark-oklch`] = scales.darkOklch[step];
+    vars[`--color-preview-${step}-dark-hex`] = scales.darkHex[step];
   }
 
-  const { 500: lightOklchBase } = scales.lightOklch;
-  const { 500: lightHexBase } = scales.lightHex;
-  const { 500: darkOklchBase } = scales.darkOklch;
-  const { 500: darkHexBase } = scales.darkHex;
+  // The primary token is the scale's real 500 stop — the same value as the 500 swatch in the
+  // header's scale row. It is mode-invariant: a brand color does not change between light and dark
+  // themes, only the surrounding shades do, and `reversed[500] === light[500]` makes both slots
+  // agree anyway.
+  const oklchBase = scales.lightOklch[500];
+  const hexBase = scales.lightHex[500];
 
-  vars['--color-preview-light-oklch'] = lightOklchBase;
-  vars['--color-preview-light-hex'] = lightHexBase;
-  vars['--color-preview-dark-oklch'] = darkOklchBase;
-  vars['--color-preview-dark-hex'] = darkHexBase;
+  vars['--color-preview-light-oklch'] = oklchBase;
+  vars['--color-preview-light-hex'] = hexBase;
+  vars['--color-preview-dark-oklch'] = oklchBase;
+  vars['--color-preview-dark-hex'] = hexBase;
 
-  // Foreground only needs one source — APCA picks black/white either way.
-  vars['--color-preview-foreground-light-oklch'] = readableColor(lightOklchBase, 'apca');
-  vars['--color-preview-foreground-light-hex'] = readableColor(lightHexBase, 'apca');
-  vars['--color-preview-foreground-dark-oklch'] = readableColor(darkOklchBase, 'apca');
-  vars['--color-preview-foreground-dark-hex'] = readableColor(darkHexBase, 'apca');
+  // Foreground only needs one source per gamut — APCA picks black/white either way.
+  const oklchForeground = readableColor(oklchBase, 'apca');
+  const hexForeground = readableColor(hexBase, 'apca');
+
+  vars['--color-preview-foreground-light-oklch'] = oklchForeground;
+  vars['--color-preview-foreground-light-hex'] = hexForeground;
+  vars['--color-preview-foreground-dark-oklch'] = oklchForeground;
+  vars['--color-preview-foreground-dark-hex'] = hexForeground;
 
   return vars as CSSProperties;
 }
@@ -76,9 +79,11 @@ function tokensFromScales(scales: ScaleSet): CSSProperties {
  * Server emits all four variants; CSS picks the right one at paint time.
  * No JS branch on theme or gamut → no hydration mismatch.
  *
- * `forced` (user override) collapses both theme slots to the same scale so
- * `.dark` swap is a no-op. The auto path uses color lightness to lock very
- * light or very dark colors the same way.
+ * Each slot is built in 'light' or 'reversed' mode (never re-curved 'dark', which
+ * would shift the 500 off the swatch). `forced` (user override) collapses both
+ * slots to one mode so the `.dark` swap is a no-op. The auto path picks per slot by
+ * the color's lightness: very light (l >= 0.9) → reversed on both, very dark
+ * (l <= 0.3) → light on both, mid-range → light slot + reversed slot.
  */
 export function buildPreviewScope(
   color: string,
@@ -86,13 +91,15 @@ export function buildPreviewScope(
   forced?: 'light' | 'dark',
 ): CSSProperties {
   if (forced) {
-    return tokensFromScales(scaleSet(color, options, forced, forced));
+    const mode = forced === 'dark' ? 'reversed' : forced;
+
+    return tokensFromScales(scaleSet(color, options, mode, mode));
   }
 
   const { l } = parseCSS(color, 'oklch');
 
-  if (l >= 0.9) return tokensFromScales(scaleSet(color, options, 'dark', 'dark'));
+  if (l >= 0.9) return tokensFromScales(scaleSet(color, options, 'reversed', 'reversed'));
   if (l <= 0.3) return tokensFromScales(scaleSet(color, options, 'light', 'light'));
 
-  return tokensFromScales(scaleSet(color, options, 'light', 'dark'));
+  return tokensFromScales(scaleSet(color, options, 'light', 'reversed'));
 }
