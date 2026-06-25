@@ -38,6 +38,32 @@ describe('Contact', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    it('prefills the email field with the signed-in user email', async () => {
+      render(<Contact />, {
+        authState: { isAuthenticated: true, user: { email: 'user@example.com' } },
+      });
+
+      fireEvent.click(screen.getByRole('button', { name: /feedback/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+      });
+
+      expect(screen.getByPlaceholderText(/e-mail address/i)).toHaveValue('user@example.com');
+    });
+
+    it('leaves the email field empty when signed out', async () => {
+      render(<Contact />);
+
+      fireEvent.click(screen.getByRole('button', { name: /feedback/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+      });
+
+      expect(screen.getByPlaceholderText(/e-mail address/i)).toHaveValue('');
+    });
   });
 
   describe('Behavior', () => {

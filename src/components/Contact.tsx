@@ -4,6 +4,7 @@ import { useSetState } from '@gilbarbara/hooks';
 import { Button, Divider, useDisclosure } from '@heroui/react';
 import { CheckCircleIcon, WarningCircleIcon, XCircleIcon } from '@phosphor-icons/react';
 
+import useAuth from '~/hooks/useAuth';
 import { trackEvent } from '~/utils/analytics';
 
 import { Input, Textarea } from '~/components/Field';
@@ -31,6 +32,7 @@ const defaultState: State = {
 
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
+  const { user } = useAuth();
 
   const [{ errorMessage, messageLengthError, status }, setState] = useSetState<State>(defaultState);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -116,7 +118,13 @@ export default function Contact() {
                   required
                 />
 
-                <Input name="email" placeholder="Your e-mail address" required type="email" />
+                <Input
+                  defaultValue={user?.email ?? undefined}
+                  name="email"
+                  placeholder="Your e-mail address"
+                  required
+                  type="email"
+                />
                 <div className="flex gap-4 items-center">
                   <Button isLoading={status === ASYNC_STATUS.PENDING} type="submit">
                     Send
