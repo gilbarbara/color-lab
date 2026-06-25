@@ -55,7 +55,7 @@ describe('hooks/useGenerator', () => {
       expect(result.current.hasCustomCurves).toBe(false);
     });
 
-    it('hasCustomCurves is true for a { low, high } lightnessCurve even when values equal the scalar default', () => {
+    it('hasCustomCurves is false for a { x, x } lightnessCurve equal to the scalar default (moot Split)', () => {
       const { result } = renderHook(() => useGenerator('hasCustomCurves', 'updateGlobalOptions'));
       const scalar = getDefaultGlobalOptions(CRIMSON).lightnessCurve;
 
@@ -63,6 +63,16 @@ describe('hooks/useGenerator', () => {
         result.current.updateGlobalOptions({
           lightnessCurve: { low: scalar as number, high: scalar as number },
         });
+      });
+
+      expect(result.current.hasCustomCurves).toBe(false);
+    });
+
+    it('hasCustomCurves is true for a non-default { x, x } lightnessCurve', () => {
+      const { result } = renderHook(() => useGenerator('hasCustomCurves', 'updateGlobalOptions'));
+
+      act(() => {
+        result.current.updateGlobalOptions({ lightnessCurve: { low: 1.5, high: 1.5 } });
       });
 
       expect(result.current.hasCustomCurves).toBe(true);

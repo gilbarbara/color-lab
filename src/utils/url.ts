@@ -454,7 +454,7 @@ function serializeGlobalOptions(options: GlobalScaleOptions, defaults: GlobalSca
     const value = options[key as keyof GlobalScaleOptions];
     const defaultValue = defaults[key];
 
-    if (value !== undefined && !isSameOptionValue(value, defaultValue)) {
+    if (value !== undefined && !isSameOptionValue(key, value, defaultValue)) {
       let serialized: string;
 
       if (isCurveOptionKey(key)) {
@@ -493,7 +493,7 @@ function serializeOptions(
     const value = options[key as keyof ScaleOptions];
     const defaultValue = defaults[key];
 
-    if (value !== undefined && !isSameOptionValue(value, defaultValue)) {
+    if (value !== undefined && !isSameOptionValue(key, value, defaultValue)) {
       let serialized: string;
 
       if (isCurveOptionKey(key)) {

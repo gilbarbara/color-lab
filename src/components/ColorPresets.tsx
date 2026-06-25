@@ -39,7 +39,7 @@ export default function ColorPresets() {
     () =>
       (Object.keys(DESIGN_SYSTEM_PRESETS) as PresetKey[]).find(name =>
         CURVE_OPTION_KEYS.every(key =>
-          isSameOptionValue(globalOptions[key], DESIGN_SYSTEM_PRESETS[name][key]),
+          isSameOptionValue(key, globalOptions[key], DESIGN_SYSTEM_PRESETS[name][key]),
         ),
       ) ?? null,
     [globalOptions],

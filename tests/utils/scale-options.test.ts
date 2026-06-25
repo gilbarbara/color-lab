@@ -7,6 +7,7 @@ import {
   getHueShiftMode,
   getLightnessCurveMode,
   isSameOptionValue,
+  isStructurallyEqualOption,
   lightnessAt,
   normalizeChromaCurve,
   normalizeHueShift,
@@ -63,33 +64,66 @@ describe('utils/scale-options', () => {
 
   describe('isSameOptionValue', () => {
     it('number vs number', () => {
-      expect(isSameOptionValue(1.3, 1.3)).toBe(true);
-      expect(isSameOptionValue(1.3, 1.4)).toBe(false);
+      expect(isSameOptionValue('chromaCurve', 1.3, 1.3)).toBe(true);
+      expect(isSameOptionValue('chromaCurve', 1.3, 1.4)).toBe(false);
     });
 
-    it('number vs object is never equal (shape is the mode)', () => {
-      expect(isSameOptionValue(1.3, { low: 1.3, high: 1.3 })).toBe(false);
-      expect(isSameOptionValue({ low: 1.3, high: 1.3 }, 1.3)).toBe(false);
+    it('chromaCurve number vs object is never equal (shape is the mode)', () => {
+      expect(isSameOptionValue('chromaCurve', 1.3, { low: 1.3, high: 1.3 })).toBe(false);
+      expect(isSameOptionValue('chromaCurve', { low: 1.3, high: 1.3 }, 1.3)).toBe(false);
+    });
+
+    it('hueShift scalar and its symmetric range are the same value', () => {
+      expect(isSameOptionValue('hueShift', 0, { low: 0, high: 0 })).toBe(true);
+      expect(isSameOptionValue('hueShift', 15, { low: -15, high: 15 })).toBe(true);
+      expect(isSameOptionValue('hueShift', 0, { low: -5, high: 5 })).toBe(false);
+    });
+
+    it('lightnessCurve scalar and its equal-endpoint range are the same value', () => {
+      expect(isSameOptionValue('lightnessCurve', 1.3, { low: 1.3, high: 1.3 })).toBe(true);
+      expect(isSameOptionValue('lightnessCurve', 1.3, { low: 1.5, high: 1.5 })).toBe(false);
+      expect(isSameOptionValue('lightnessCurve', 1.3, { low: 1.3, high: 1.4 })).toBe(false);
     });
 
     it('range field-wise', () => {
-      expect(isSameOptionValue({ low: 1, high: 2 }, { low: 1, high: 2 })).toBe(true);
-      expect(isSameOptionValue({ low: 1, high: 2 }, { low: 1, high: 3 })).toBe(false);
+      expect(isSameOptionValue('chromaCurve', { low: 1, high: 2 }, { low: 1, high: 2 })).toBe(true);
+      expect(isSameOptionValue('chromaCurve', { low: 1, high: 2 }, { low: 1, high: 3 })).toBe(
+        false,
+      );
     });
 
     it('peak field-wise with default peak', () => {
-      expect(isSameOptionValue({ amount: 0.6 }, { amount: 0.6, peak: 0.5 })).toBe(true);
-      expect(isSameOptionValue({ amount: 0.6, peak: 0.3 }, { amount: 0.6, peak: 0.5 })).toBe(false);
+      expect(isSameOptionValue('chromaCurve', { amount: 0.6 }, { amount: 0.6, peak: 0.5 })).toBe(
+        true,
+      );
+      expect(
+        isSameOptionValue('chromaCurve', { amount: 0.6, peak: 0.3 }, { amount: 0.6, peak: 0.5 }),
+      ).toBe(false);
     });
 
     it('peak vs range objects are not equal', () => {
-      expect(isSameOptionValue({ amount: 0.6 }, { low: 0.6, high: 0.6 })).toBe(false);
+      expect(isSameOptionValue('chromaCurve', { amount: 0.6 }, { low: 0.6, high: 0.6 })).toBe(
+        false,
+      );
     });
 
     it('primitives and undefined', () => {
-      expect(isSameOptionValue(undefined, undefined)).toBe(true);
-      expect(isSameOptionValue('light', 'light')).toBe(true);
-      expect(isSameOptionValue('light', 'dark')).toBe(false);
+      expect(isSameOptionValue('mode', undefined, undefined)).toBe(true);
+      expect(isSameOptionValue('mode', 'light', 'light')).toBe(true);
+      expect(isSameOptionValue('mode', 'light', 'dark')).toBe(false);
+    });
+  });
+
+  describe('isStructurallyEqualOption', () => {
+    it('a number and an object are never equal (shape preserved, even for hueShift values)', () => {
+      expect(isStructurallyEqualOption(0, { low: 0, high: 0 })).toBe(false);
+      expect(isStructurallyEqualOption(1.3, { low: 1.3, high: 1.3 })).toBe(false);
+    });
+
+    it('compares same-shape values field-wise', () => {
+      expect(isStructurallyEqualOption({ low: -15, high: 20 }, { low: -15, high: 20 })).toBe(true);
+      expect(isStructurallyEqualOption({ low: -15, high: 20 }, { low: -15, high: 21 })).toBe(false);
+      expect(isStructurallyEqualOption(5, 5)).toBe(true);
     });
   });
 

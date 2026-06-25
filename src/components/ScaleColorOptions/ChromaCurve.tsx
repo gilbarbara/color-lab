@@ -149,7 +149,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
               </p>
             </div>
           }
-          disableReset={isSameOptionValue(chromaCurve, defaultChromaCurve)}
+          disableReset={isSameOptionValue('chromaCurve', chromaCurve, defaultChromaCurve)}
           id={headingId}
           onReset={() => onUpdate({ chromaCurve: defaultChromaCurve })}
           size={headingSize}
