@@ -224,14 +224,19 @@ export function useSavedPalettesList() {
         return false;
       }
 
+      const previous = palette.isFavorite;
+
+      // Optimistic: flip the heart immediately so it responds without waiting on Firestore.
+      updatePaletteInStore(id, { isFavorite: !previous });
+
       try {
         const { updatePalette: updatePaletteService } = await loadPalettesService();
-        const updated = await updatePaletteService(id, { isFavorite: !palette.isFavorite });
 
-        updatePaletteInStore(id, { isFavorite: updated.isFavorite });
+        await updatePaletteService(id, { isFavorite: !previous });
 
         return true;
       } catch (error_) {
+        updatePaletteInStore(id, { isFavorite: previous });
         setError(error_ instanceof Error ? error_.message : 'Failed to update favorite');
 
         return false;

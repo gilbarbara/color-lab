@@ -35,7 +35,11 @@ export default function Palettes() {
   };
 
   const handleToggleFavorite = async (id: string) => {
-    await toggleFavorite(id);
+    const success = await toggleFavorite(id);
+
+    if (!success) {
+      addToast({ title: 'Failed to update favorite', color: 'danger' });
+    }
   };
 
   // Show loading while checking auth

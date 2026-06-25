@@ -392,7 +392,7 @@ describe('hooks/useSavedPalettes', () => {
       expect(success).toBe(false);
     });
 
-    it('sets error on failure', async () => {
+    it('reverts the optimistic flip and sets error on failure', async () => {
       mockListPalettes.mockResolvedValueOnce([mockPalette]);
       mockUpdatePalette.mockRejectedValueOnce(new Error('Favorite failed'));
 
@@ -406,7 +406,42 @@ describe('hooks/useSavedPalettes', () => {
         await result.current.toggleFavorite('palette-1');
       });
 
+      expect(usePalettesStore.getState().palettes[0].isFavorite).toBe(false);
       expect(usePalettesStore.getState().error).toBe('Favorite failed');
+    });
+
+    it('flips the store optimistically before the write resolves', async () => {
+      mockListPalettes.mockResolvedValueOnce([mockPalette]);
+
+      let resolveUpdate!: (value: SavedPalette) => void;
+
+      mockUpdatePalette.mockReturnValueOnce(
+        new Promise<SavedPalette>(resolve => {
+          resolveUpdate = resolve;
+        }),
+      );
+
+      const { result } = renderHook(() => useSavedPalettes());
+
+      await waitFor(() => {
+        expect(usePalettesStore.getState().palettes).toHaveLength(1);
+      });
+
+      let promise!: Promise<boolean>;
+
+      await act(async () => {
+        promise = result.current.toggleFavorite('palette-1');
+      });
+
+      // Heart is already flipped while the Firestore write is still in flight.
+      expect(usePalettesStore.getState().palettes[0].isFavorite).toBe(true);
+
+      await act(async () => {
+        resolveUpdate({ ...mockPalette, isFavorite: true });
+        await promise;
+      });
+
+      expect(usePalettesStore.getState().palettes[0].isFavorite).toBe(true);
     });
   });
 
