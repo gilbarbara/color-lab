@@ -60,6 +60,7 @@ describe('Palettes', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockDeletePalette.mockResolvedValue(true);
+    mockToggleFavorite.mockResolvedValue(true);
     mockAuthReturn = {
       isAuthenticated: true,
       isLoading: false,
@@ -151,6 +152,22 @@ describe('Palettes', () => {
       fireEvent.click(favoriteButton);
 
       expect(mockToggleFavorite).toHaveBeenCalledWith('palette-1');
+    });
+
+    it('shows an error toast when toggleFavorite fails', async () => {
+      mockToggleFavorite.mockResolvedValueOnce(false);
+      mockSavedPalettesReturn = { ...mockSavedPalettesReturn, palettes: [mockPalette] };
+
+      render(<Palettes />);
+
+      fireEvent.click(screen.getAllByRole('button')[0]);
+
+      await waitFor(() => {
+        expect(mockAddToast).toHaveBeenCalledWith({
+          title: 'Failed to update favorite',
+          color: 'danger',
+        });
+      });
     });
   });
 });
