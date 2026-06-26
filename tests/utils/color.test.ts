@@ -2,6 +2,7 @@ import { DELTA_E_JND, deltaE } from 'colorizr';
 
 import { BLACK, BLUE, CRIMSON, GRAY, GREEN, PLUM, RED, WHITE } from '~/test-fixtures';
 import {
+  clampOklchToP3,
   formatOklch,
   formatOklchUrl,
   getChromaAsPercentage,
@@ -188,6 +189,11 @@ describe('utils/color', () => {
       expect(toOklch('oklch(70.2% 0.196 300)')).toBe(PLUM);
     });
 
+    it('clamps out-of-P3 chroma to the gamut max for the hue', () => {
+      // getP3MaxChroma(0.7, 120) ≈ 0.194; 0.2 is out of P3 and must be clamped.
+      expect(toOklch('oklch(70% 0.2 120)')).toBe('oklch(70% 0.194 120)');
+    });
+
     it('throws on L > 100% (parser silent-pass case)', () => {
       expect(() => toOklch('oklch(150% 0.1 100)')).toThrow(/out of OKLCH range/);
     });
@@ -198,6 +204,21 @@ describe('utils/color', () => {
 
     it('throws on invalid CSS', () => {
       expect(() => toOklch('garbage')).toThrow();
+    });
+  });
+
+  describe('clampOklchToP3', () => {
+    it('clamps chroma beyond the P3 gamut to the hue/lightness max', () => {
+      // getP3MaxChroma(0.7, 120) ≈ 0.1937
+      expect(clampOklchToP3({ l: 0.7, c: 0.2, h: 120 }).c).toBeCloseTo(0.1937, 4);
+    });
+
+    it('leaves in-gamut chroma untouched', () => {
+      expect(clampOklchToP3({ l: 0.7, c: 0.15, h: 120 })).toEqual({ l: 0.7, c: 0.15, h: 120 });
+    });
+
+    it('clamps to 0 chroma at white (no displayable chroma)', () => {
+      expect(clampOklchToP3({ l: 1, c: 0.2, h: 120 }).c).toBe(0);
     });
   });
 });
