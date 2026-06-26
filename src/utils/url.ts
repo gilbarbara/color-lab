@@ -289,7 +289,14 @@ function parseOklchUrlValue(urlValue: string): OklchString | null {
     return null;
   }
 
-  return formatOklch(values) as OklchString;
+  // isInRangeOklch has no upper chroma bound and ignores hue; route through toOklch (parseCSS-
+  // backed) so out-of-gamut chroma / out-of-range hue are clamped or rejected here instead of throwing
+  // later inside colorizr's scale().
+  try {
+    return toOklch(formatOklch(values));
+  } catch {
+    return null;
+  }
 }
 
 /**
