@@ -17,6 +17,18 @@ function toOklchValues(value: string | OklchValues): OklchValues {
   return typeof value === 'string' ? parseCSS(value, 'oklch') : value;
 }
 
+/**
+ * Clamp an OKLCH value's chroma to the P3 display gamut for its lightness/hue.
+ * Chroma beyond getP3MaxChroma is not displayable on a P3 monitor, so we never
+ * store it. parseCSS already rejects chroma > 0.4 (colorizr's hard cap), so this
+ * only ever tightens values in the (getP3MaxChroma, 0.4] gap.
+ */
+export function clampOklchToP3(oklch: OklchValues): OklchValues {
+  const maxChroma = getP3MaxChroma({ l: oklch.l, c: 0, h: oklch.h });
+
+  return { ...oklch, c: clamp(oklch.c, 0, maxChroma) };
+}
+
 export function formatOklch(value: string | OklchValues): string {
   const { c, h, l } = toOklchValues(value);
   const lightness = `${round(l * 100, L_PRECISION)}%`;
@@ -99,8 +111,9 @@ export function rotateOklchHue(value: OklchString, deltaDeg: number): OklchStrin
 /**
  * The only mint site for `OklchString`. Validates via parseCSS (throws on
  * syntax / negative L / big H / negative C) and via isInRangeOklch (catches
- * the L > 1 case that parseCSS silently accepts). Normalises via formatCSS so
- * every branded value is in canonical oklch CSS form.
+ * the L > 1 case that parseCSS silently accepts), then clamps chroma into the
+ * P3 display gamut so no branded value is out of gamut. Normalises via formatCSS
+ * so every branded value is in canonical oklch CSS form.
  */
 export function toOklch(value: string): OklchString {
   const parsed = parseCSS(value, 'oklch');
@@ -109,5 +122,5 @@ export function toOklch(value: string): OklchString {
     throw new Error(`toOklch: value out of OKLCH range: ${value}`);
   }
 
-  return formatOklch(parsed) as OklchString;
+  return formatOklch(clampOklchToP3(parsed)) as OklchString;
 }

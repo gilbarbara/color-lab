@@ -23,9 +23,8 @@ export const VIOLET = toOklch('oklch(70.2% 0.163 270)');
 export const PLUM = toOklch('oklch(70.2% 0.196 300)');
 
 export const CRIMSON = toOklch('oklch(63.27% 0.254 19.9)');
-export const CRIMSON_DARK = toOklch('oklch(8% 0.254 19.9)');
-export const CRIMSON_LIGHT = toOklch('oklch(94% 0.254 19.9)');
-export const DARK_BLUE = toOklch('oklch(45.2% 0.313 264.05)');
+export const CRIMSON_DARK = toOklch('oklch(24% 0.108 19.9)');
+export const CRIMSON_LIGHT = toOklch('oklch(91% 0.060 19.9)');
 
 export const WHITE = toOklch('oklch(100% 0 none)'); // ex-#FFFFFF
 export const BLACK = toOklch('oklch(0% 0 none)'); // ex-#000000
