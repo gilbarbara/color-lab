@@ -11,12 +11,20 @@ import type {
   ScaleSteps,
 } from '~/types';
 
+/** Escape a string for safe inclusion in SVG/XML text content (&lt;title&gt;, &lt;text&gt;). */
+function escapeXml(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 /**
  * Generate CSS format for palette (multiple scales).
  */
 function generatePaletteCSS(palette: ScaleExportData[], colorFormat: ExportColorFormat): string {
   return palette
-    .map(({ name, steps }) => `/* ${name} */\n${generateCSS(name, steps, colorFormat)}`)
+    .map(
+      ({ name, steps }) =>
+        `/* ${sanitizeComment(name)} */\n${generateCSS(name, steps, colorFormat)}`,
+    )
     .join('\n\n');
 }
 
@@ -25,7 +33,10 @@ function generatePaletteCSS(palette: ScaleExportData[], colorFormat: ExportColor
  */
 function generatePaletteSCSS(palette: ScaleExportData[], colorFormat: ExportColorFormat): string {
   return palette
-    .map(({ name, steps }) => `/* ${name} */\n${generateSCSS(name, steps, colorFormat)}`)
+    .map(
+      ({ name, steps }) =>
+        `/* ${sanitizeComment(name)} */\n${generateSCSS(name, steps, colorFormat)}`,
+    )
     .join('\n\n');
 }
 
@@ -58,7 +69,7 @@ function generatePaletteSVG(palette: ScaleExportData[]): string {
         })
         .join('\n');
 
-      return `  <text x="0" y="${textY}" font-family="system-ui, sans-serif" font-size="14" fill="#333">${name}</text>\n${rects}`;
+      return `  <text x="0" y="${textY}" font-family="system-ui, sans-serif" font-size="14" fill="#333">${escapeXml(name)}</text>\n${rects}`;
     })
     .join('\n');
 
@@ -73,7 +84,10 @@ function generatePaletteTailwind3(
   colorFormat: ExportColorFormat,
 ): string {
   return palette
-    .map(({ name, steps }) => `// ${name}\n${generateTailwind3(name, steps, colorFormat)}`)
+    .map(
+      ({ name, steps }) =>
+        `// ${sanitizeComment(name)}\n${generateTailwind3(name, steps, colorFormat)}`,
+    )
     .join('\n\n');
 }
 
@@ -85,24 +99,39 @@ function generatePaletteTailwind4(
   colorFormat: ExportColorFormat,
 ): string {
   return palette
-    .map(({ name, steps }) => `/* ${name} */\n${generateTailwind4(name, steps, colorFormat)}`)
+    .map(
+      ({ name, steps }) =>
+        `/* ${sanitizeComment(name)} */\n${generateTailwind4(name, steps, colorFormat)}`,
+    )
     .join('\n\n');
 }
 
 /**
  * Normalize a color name for use in CSS variables/SCSS.
  * Lowercases, collapses whitespace to hyphens, preserves Unicode letters and
- * digits, strips characters that would break CSS parsing. Falls back to
- * 'color' when no usable characters remain.
+ * digits, strips characters that would break CSS parsing, and collapses runs of
+ * hyphens (left by stripped chars) into one. Falls back to 'color' when no
+ * usable characters remain.
  */
 function normalizeColorName(name: string): string {
   const cleaned = name
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^\p{L}\p{N}_-]+/gu, '')
+    .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '');
 
   return cleaned || 'color';
+}
+
+/**
+ * Sanitize a name for use inside a CSS/SCSS/JS comment header. CSS block
+ * comments cannot nest or be escaped, so split the close-comment token (star
+ * then slash) with a space, and collapse newlines to keep the header on one
+ * line (which also prevents a name from escaping a `//` line comment).
+ */
+function sanitizeComment(value: string): string {
+  return value.replace(/[\r\n\u2028\u2029]+/g, ' ').replace(/\*\//g, '* /');
 }
 
 /**
@@ -149,7 +178,8 @@ export function generateCSS(
 ): string {
   const normalizedName = normalizeColorName(name);
   const lines = objectEntries(steps).map(
-    ([step, color]) => `--${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
+    ([step, color]) =>
+      `--color-${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
   );
 
   return lines.join('\n');
@@ -221,7 +251,7 @@ export function generateSCSS(
 ): string {
   const normalizedName = normalizeColorName(name);
   const lines = objectEntries(steps).map(
-    ([step, color]) => `$${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
+    ([step, color]) => `$color-${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
   );
 
   return lines.join('\n');
@@ -246,7 +276,7 @@ export function generateSVG(name: string, steps: ScaleSteps): string {
     })
     .join('\n');
 
-  return `<svg width="${totalWidth}" height="${rectHeight}" viewBox="0 0 ${totalWidth} ${rectHeight}">\n  <title>${name}</title>\n${rects}\n</svg>`;
+  return `<svg width="${totalWidth}" height="${rectHeight}" viewBox="0 0 ${totalWidth} ${rectHeight}">\n  <title>${escapeXml(name)}</title>\n${rects}\n</svg>`;
 }
 
 /**
@@ -266,20 +296,16 @@ export function generateTailwind3(
 }
 
 /**
- * Generate Tailwind 4 format (CSS custom properties with --color- prefix).
+ * Generate Tailwind 4 format. Tailwind 4 theme tokens are `--color-*` CSS
+ * custom properties, so the output is identical to the CSS format — the only
+ * difference is the user pastes it inside `@theme { … }`.
  */
 export function generateTailwind4(
   name: string,
   steps: ScaleSteps,
   colorFormat: ExportColorFormat,
 ): string {
-  const normalizedName = normalizeColorName(name);
-  const lines = objectEntries(steps).map(
-    ([step, color]) =>
-      `--color-${normalizedName}-${step}: ${formatColorValue(color, colorFormat)};`,
-  );
-
-  return lines.join('\n');
+  return generateCSS(name, steps, colorFormat);
 }
 
 /**

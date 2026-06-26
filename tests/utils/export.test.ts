@@ -114,7 +114,7 @@ describe('utils/export', () => {
     it('preserves Unicode letters (accents)', () => {
       const result = generateCSS('Açaí', PLUM_SCALE, 'hex');
 
-      expect(result).toContain('--açaí-');
+      expect(result).toContain('--color-açaí-');
     });
 
     it('strips CSS-dangerous characters from variable names', () => {
@@ -122,25 +122,45 @@ describe('utils/export', () => {
       const varNames = [...result.matchAll(/--([^:]+):/g)].map(m => m[1]);
 
       expect(varNames.every(n => !/[;<>{}]/.test(n))).toBe(true);
-      expect(varNames[0]).toBe('red-50');
+      expect(varNames[0]).toBe('color-red-50');
     });
 
     it('collapses whitespace and trims edge hyphens', () => {
       const result = generateCSS('  Bold   Red  ', PLUM_SCALE, 'hex');
 
-      expect(result).toContain('--bold-red-');
+      expect(result).toContain('--color-bold-red-');
     });
 
     it('falls back to "color" when all characters are stripped', () => {
       const result = generateCSS('!@#$', PLUM_SCALE, 'hex');
 
-      expect(result).toContain('--color-');
+      expect(result).toContain('--color-color-50:');
     });
 
     it('strips angle brackets from script-like names', () => {
       const result = generateCSS('<script>alert(1)</script>', PLUM_SCALE, 'hex');
 
       expect(result).not.toMatch(/[()<>]/);
+    });
+
+    it('collapses hyphens left by a stripped character between words', () => {
+      const result = generateCSS('Tom & Jerry', PLUM_SCALE, 'hex');
+
+      expect(result).toContain('--color-tom-jerry-50:');
+      expect(result).not.toContain('tom--jerry');
+    });
+
+    it('collapses runs of hyphens from spaced or repeated separators', () => {
+      expect(generateCSS('primary - color', PLUM_SCALE, 'hex')).toContain(
+        '--color-primary-color-50:',
+      );
+      expect(generateCSS('A--B', PLUM_SCALE, 'hex')).toContain('--color-a-b-50:');
+    });
+
+    it('keeps a leading-digit name valid via the color- prefix', () => {
+      // Sass variable names cannot start with a digit; the prefix guarantees they never do.
+      expect(generateSCSS('123color', PLUM_SCALE, 'hex')).toContain('$color-123color-50:');
+      expect(generateCSS('123color', PLUM_SCALE, 'hex')).toContain('--color-123color-50:');
     });
   });
 
@@ -172,6 +192,24 @@ describe('utils/export', () => {
       expect(result).not.toContain('oklch(');
       expect(result).toMatch(/fill="#[\da-f]{6}"/i);
     });
+
+    it('escapes XML metacharacters in the title (invalid SVG otherwise)', () => {
+      const result = generateSVG('Tom & Jerry <x>', PLUM_SCALE);
+
+      expect(result).toContain('<title>Tom &amp; Jerry &lt;x&gt;</title>');
+      // no raw & that isn't part of an entity
+      expect(result).not.toMatch(/&(?!amp;|lt;|gt;)/);
+    });
+
+    it('escapes XML metacharacters in palette row labels', () => {
+      const result = generatePaletteExport([{ name: 'A & <B>', steps: PLUM_SCALE }], {
+        colorFormat: 'hex',
+        formatType: 'svg',
+      });
+
+      expect(result).toContain('>A &amp; &lt;B&gt;</text>');
+      expect(result).not.toMatch(/&(?!amp;|lt;|gt;)/);
+    });
   });
 
   describe('generateExport', () => {
@@ -188,7 +226,7 @@ describe('utils/export', () => {
         formatType: 'css',
       });
 
-      expect(css).toContain('--plum-');
+      expect(css).toContain('--color-plum-');
       expect(css).not.toContain("'plum': {");
     });
 
@@ -207,7 +245,7 @@ describe('utils/export', () => {
         formatType: 'scss',
       });
 
-      expect(result).toContain('$plum-50:');
+      expect(result).toContain('$color-plum-50:');
     });
 
     it('generates svg format', () => {
@@ -267,9 +305,9 @@ describe('utils/export', () => {
       });
 
       expect(result).toContain('/* Primary */');
-      expect(result).toContain('--primary-50:');
+      expect(result).toContain('--color-primary-50:');
       expect(result).toContain('/* Secondary */');
-      expect(result).toContain('--secondary-50:');
+      expect(result).toContain('--color-secondary-50:');
     });
 
     it('generates scss format for palette', () => {
@@ -279,9 +317,9 @@ describe('utils/export', () => {
       });
 
       expect(result).toContain('/* Primary */');
-      expect(result).toContain('$primary-50:');
+      expect(result).toContain('$color-primary-50:');
       expect(result).toContain('/* Secondary */');
-      expect(result).toContain('$secondary-50:');
+      expect(result).toContain('$color-secondary-50:');
     });
 
     it('generates svg format for palette with stacked rows', () => {
@@ -314,6 +352,52 @@ describe('utils/export', () => {
       });
 
       expect(result).toContain('oklch(');
+    });
+  });
+
+  describe('comment header sanitization', () => {
+    it('neutralizes the */ block-comment terminator in CSS/SCSS/Tailwind 4 headers', () => {
+      const css = generatePaletteExport([{ name: '*/ body{display:none} /*', steps: PLUM_SCALE }], {
+        colorFormat: 'hex',
+        formatType: 'css',
+      });
+
+      expect(css).toContain('/* * / body{display:none} /* */');
+      expect(css).not.toContain('*/ body');
+
+      const scss = generatePaletteExport([{ name: '*/ @import "x";', steps: PLUM_SCALE }], {
+        colorFormat: 'hex',
+        formatType: 'scss',
+      });
+
+      expect(scss).not.toContain('*/ @import');
+
+      const tw4 = generatePaletteExport([{ name: '*/ x', steps: PLUM_SCALE }], {
+        colorFormat: 'hex',
+        formatType: 'tailwind4',
+      });
+
+      expect(tw4).toContain('/* * / x */');
+    });
+
+    it('collapses newlines so a name cannot escape the // comment (Tailwind 3)', () => {
+      const result = generatePaletteExport([{ name: 'Brand\nMALICIOUS()', steps: PLUM_SCALE }], {
+        colorFormat: 'hex',
+        formatType: 'tailwind3',
+      });
+
+      expect(result).toContain('// Brand MALICIOUS()');
+      expect(result).not.toMatch(/\nMALICIOUS/);
+    });
+
+    it('collapses Unicode line separators (U+2028/U+2029) in the // comment (Tailwind 3)', () => {
+      const result = generatePaletteExport(
+        [{ name: 'Brand\u2028LS()\u2029PS()', steps: PLUM_SCALE }],
+        { colorFormat: 'hex', formatType: 'tailwind3' },
+      );
+
+      expect(result).toContain('// Brand LS() PS()');
+      expect(result).not.toMatch(/[\u2028\u2029]/);
     });
   });
 
