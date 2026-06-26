@@ -1,4 +1,4 @@
-import { parseCSS } from 'colorizr';
+import { getScaleStepKeys, parseCSS, scale } from 'colorizr';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { createColorEntry } from '~/test-fixtures';
@@ -959,6 +959,147 @@ describe('utils/url', () => {
       const url = '/p/Primary-64_0.142_329?c=p0.6_0.35&h=-15_20&f=1.5_1';
 
       expect(canonicalizeUrl(url)).toBe(url);
+    });
+  });
+
+  describe('numeric option validation', () => {
+    // Defaults for the exact color the test URLs use (saturation default is color-derived).
+    const baseDefaults = parsePaletteFromUrl('/p/Primary-FF0044')!.state.globalOptions;
+
+    const parseGlobal = (query: string) =>
+      parsePaletteFromUrl(`/p/Primary-FF0044?${query}`)!.state.globalOptions;
+    const parseOverrides = (path: string) =>
+      parsePaletteFromUrl(`/p/Primary-FF0044-${path}`)!.state.colors[0].overrides;
+
+    describe('scalar range (query) — out of range drops to default', () => {
+      it.each(['i=99999', 'i=0', 'i=2'])('drops steps %s', query => {
+        expect(parseGlobal(query).steps).toBe(baseDefaults.steps);
+      });
+
+      it('drops out-of-range saturation, maxLightness, minLightness', () => {
+        expect(parseGlobal('s=999').saturation).toBe(baseDefaults.saturation);
+        expect(parseGlobal('x=5').maxLightness).toBe(baseDefaults.maxLightness);
+        expect(parseGlobal('n=-2').minLightness).toBe(baseDefaults.minLightness);
+      });
+
+      it('keeps valid scalars', () => {
+        const result = parseGlobal('i=15&x=0.9&n=0.1&s=42');
+
+        expect(result.steps).toBe(15);
+        expect(result.maxLightness).toBe(0.9);
+        expect(result.minLightness).toBe(0.1);
+        expect(result.saturation).toBe(42);
+      });
+    });
+
+    describe('scalar range (per-color path)', () => {
+      it.each(['i:99999', 'x:5', 'n:-2'])('drops out-of-range override %s', chunk => {
+        expect(parseOverrides(chunk)).toEqual({});
+      });
+
+      it('keeps a valid override', () => {
+        expect(parseOverrides('x:0.95')).toEqual({ maxLightness: 0.95 });
+      });
+    });
+
+    describe('lightness inversion (minLightness < maxLightness)', () => {
+      it.each(['n=0.9&x=0.1', 'x=0.1', 'n=0.99'])(
+        'reverts inverted global %s to defaults',
+        query => {
+          const result = parseGlobal(query);
+
+          expect(result.minLightness).toBe(baseDefaults.minLightness);
+          expect(result.maxLightness).toBe(baseDefaults.maxLightness);
+          expect(result.minLightness).toBeLessThan(result.maxLightness as number);
+        },
+      );
+
+      it.each(['n:0.9,x:0.1', 'x:0.1'])('reverts an inverted per-color override %s', chunk => {
+        expect(parseOverrides(chunk)).toEqual({});
+      });
+    });
+
+    describe('curve slider ranges', () => {
+      it.each(['f=999', 'f=0.05', 'f=0.05_2'])(
+        'drops lightnessCurve outside [0.1, 5] %s',
+        query => {
+          expect(parseGlobal(query).lightnessCurve).toBe(baseDefaults.lightnessCurve);
+        },
+      );
+
+      it('keeps valid lightnessCurve (scalar + range)', () => {
+        expect(parseGlobal('f=2.5').lightnessCurve).toBe(2.5);
+        expect(parseGlobal('f=0.5_2').lightnessCurve).toEqual({ low: 0.5, high: 2 });
+      });
+
+      it.each(['c=p0.5_0.005', 'c=p0.5_0.995'])(
+        'drops chromaPeak outside [0.01, 0.99] %s',
+        query => {
+          expect(parseGlobal(query).chromaCurve).toBe(baseDefaults.chromaCurve);
+        },
+      );
+
+      it('keeps a valid chromaPeak', () => {
+        expect(parseGlobal('c=p0.5_0.35').chromaCurve).toEqual({ amount: 0.5, peak: 0.35 });
+      });
+    });
+
+    it('rounds fractional steps to an integer', () => {
+      expect(parseGlobal('i=11.5').steps).toBe(12);
+      expect(parseGlobal('i=11.4').steps).toBe(11);
+    });
+
+    describe('lock validity (must be a valid step key)', () => {
+      const validLock = getScaleStepKeys(baseDefaults.steps)[1];
+
+      it('drops an invalid global lock', () => {
+        expect(parseGlobal('k=999').lock).toBeUndefined();
+      });
+
+      it('drops an invalid per-color lock', () => {
+        expect(parseOverrides('k:999')).toEqual({});
+      });
+
+      it('keeps a valid lock', () => {
+        expect(parseGlobal(`k=${validLock}`).lock).toBe(validLock);
+      });
+    });
+
+    it('never lets a malicious URL throw in scale()', () => {
+      for (const query of ['x=5', 'n=0.9&x=0.1', 'x=0.1', 'i=99999', 'f=999', 'k=999']) {
+        const { colors, globalOptions } = parsePaletteFromUrl(`/p/Primary-FF0044?${query}`)!.state;
+
+        for (const color of colors) {
+          expect(() => scale(color.value, { ...globalOptions, ...color.overrides })).not.toThrow();
+        }
+      }
+    });
+
+    it('self-heals the URL on load (bad params stripped)', () => {
+      for (const query of ['x=5', 'n=0.9&x=0.1', 'i=99999', 'f=999', 'k=999']) {
+        const out = canonicalizeUrl(`/p/Primary-FF0044?${query}`);
+        const shortKey = query.split('&')[0].split('=')[0];
+
+        expect(out).not.toContain(`${shortKey}=`);
+      }
+    });
+
+    it('round-trips valid options unchanged', () => {
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', '#ff0044')],
+        globalOptions: {
+          ...baseDefaults,
+          steps: 15,
+          saturationOverride: true,
+          saturation: 25,
+          minLightness: 0.3,
+          maxLightness: 0.8,
+        },
+      };
+
+      expect(parsePaletteFromUrl(serializePaletteToUrl(state))!.state.globalOptions).toEqual(
+        state.globalOptions,
+      );
     });
   });
 });

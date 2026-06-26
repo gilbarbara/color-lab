@@ -20,10 +20,19 @@ export const LIGHTNESS_CURVE_MIN = 0.1;
 export const LIGHTNESS_CURVE_STEP = 0.01;
 
 // Lightness Range
+export const LIGHTNESS_RANGE_MIN = 0;
 export const LIGHTNESS_RANGE_MAX = 1;
-export const LIGHTNESS_RANGE_MAX_DEFAULT = 0.97;
 export const LIGHTNESS_RANGE_MIN_DEFAULT = 0.26;
+export const LIGHTNESS_RANGE_MAX_DEFAULT = 0.97;
 export const LIGHTNESS_RANGE_STEP = 0.01;
 
 export const MODE_DEFAULT = 'light';
+
+// Saturation
+export const SATURATION_MIN = 0;
+export const SATURATION_MAX = 100;
+
+// Steps
 export const STEPS_DEFAULT = 11;
+export const STEPS_MIN = 3;
+export const STEPS_MAX = 20;
