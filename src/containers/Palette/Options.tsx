@@ -3,6 +3,7 @@ import { cn, Select, SelectItem, type SharedSelection, Slider } from '@heroui/re
 import { EraserIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys, type ScaleMode as ScaleModeType } from 'colorizr';
 
+import { SATURATION_MAX, SATURATION_MIN, STEPS_MAX, STEPS_MIN } from '~/config/scale';
 import useGenerator from '~/hooks/useGenerator';
 import useRafCallback from '~/hooks/useRafCallback';
 import useSliderInteraction from '~/hooks/useSliderInteraction';
@@ -184,8 +185,8 @@ export default function PaletteOptions() {
           <Slider
             color="foreground"
             label="Steps"
-            maxValue={20}
-            minValue={3}
+            maxValue={STEPS_MAX}
+            minValue={STEPS_MIN}
             name="steps"
             onChange={handleChangeSteps}
             onChangeEnd={value => {
@@ -220,7 +221,8 @@ export default function PaletteOptions() {
             color="foreground"
             isDisabled={!saturationOverride}
             label="Saturation"
-            maxValue={100}
+            maxValue={SATURATION_MAX}
+            minValue={SATURATION_MIN}
             name="saturation"
             onChange={handleChangeSaturation}
             onChangeEnd={value => {

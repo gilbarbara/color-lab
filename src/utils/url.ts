@@ -1,6 +1,7 @@
 import { objectEntries, round } from '@gilbarbara/helpers';
 import * as Sentry from '@sentry/nextjs';
 import {
+  getScaleStepKeys,
   isHex,
   type ScaleChromaPeak,
   type ScaleMode,
@@ -9,7 +10,19 @@ import {
 } from 'colorizr';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
-import { HUE_SHIFT_LIMIT } from '~/config/scale';
+import {
+  CHROMA_PEAK_MAX,
+  CHROMA_PEAK_MIN,
+  HUE_SHIFT_LIMIT,
+  LIGHTNESS_CURVE_MAX,
+  LIGHTNESS_CURVE_MIN,
+  LIGHTNESS_RANGE_MAX,
+  LIGHTNESS_RANGE_MIN,
+  SATURATION_MAX,
+  SATURATION_MIN,
+  STEPS_MAX,
+  STEPS_MIN,
+} from '~/config/scale';
 import { formatOklch, formatOklchUrl, isInRangeOklch, toOklch } from '~/utils/color';
 import { getDefaultGlobalOptions } from '~/utils/generator';
 import { isCurvePeak, isSameOptionValue } from '~/utils/scale-options';
@@ -212,10 +225,17 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
 
         break;
       }
-      default: {
-        const numberValue = Number.parseFloat(value);
+      case 'lock': {
+        const lock = parseLock(value);
 
-        if (!Number.isNaN(numberValue)) {
+        if (lock !== undefined) result.lock = lock;
+
+        break;
+      }
+      default: {
+        const numberValue = parseScalarOptionValue(fullKey, value);
+
+        if (numberValue !== undefined) {
           (result as Record<string, number>)[fullKey] = numberValue;
         }
       }
@@ -343,8 +363,16 @@ function isValidCurveValue(key: CurveOptionKey, value: number): boolean {
   }
 
   // lightnessCurve
-  return Number.isFinite(value) && value > 0;
+  return inRange(value, LIGHTNESS_CURVE_MIN, LIGHTNESS_CURVE_MAX);
 }
+
+/** Per-key valid range for the non-curve numeric options (matches each slider's bounds). */
+const SCALAR_RANGES: Partial<Record<keyof typeof OPTION_KEYS, [number, number]>> = {
+  maxLightness: [LIGHTNESS_RANGE_MIN, LIGHTNESS_RANGE_MAX],
+  minLightness: [LIGHTNESS_RANGE_MIN, LIGHTNESS_RANGE_MAX],
+  saturation: [SATURATION_MIN, SATURATION_MAX],
+  steps: [STEPS_MIN, STEPS_MAX],
+};
 
 /**
  * Parse a curve option value. Returns undefined to drop silently — scale()
@@ -368,7 +396,7 @@ function parseCurveOptionValue(
 
     const [amount, peak] = parts.map(Number.parseFloat);
 
-    if (!inRange(amount, 0, 1) || !Number.isFinite(peak) || peak <= 0 || peak >= 1) {
+    if (!inRange(amount, 0, 1) || !inRange(peak, CHROMA_PEAK_MIN, CHROMA_PEAK_MAX)) {
       return undefined;
     }
 
@@ -403,6 +431,60 @@ function parseCurveOptionValue(
   return value;
 }
 
+/**
+ * Parse a non-curve numeric option, dropping (→ undefined) anything out of range so it never
+ * reaches scale() or the URL. `steps` is rounded to an integer first (colorizr rounds too).
+ */
+function parseScalarOptionValue(key: keyof typeof OPTION_KEYS, raw: string): number | undefined {
+  const parsed = Number.parseFloat(raw);
+  const value = key === 'steps' ? Math.round(parsed) : parsed;
+  const range = SCALAR_RANGES[key];
+
+  if (range) {
+    return inRange(value, range[0], range[1]) ? value : undefined;
+  }
+
+  return Number.isNaN(value) ? undefined : value;
+}
+
+/**
+ * Enforce minLightness < maxLightness for an effective options object. `base` is a known-valid
+ * fallback (defaults for the global object; the sanitized global for a per-color override). On
+ * violation, drop BOTH lightness keys so they revert to `base` (always valid) — keeping overrides
+ * minimal. `delete` of an absent key is a no-op, so only user-supplied bounds are removed.
+ */
+function reconcileLightnessBounds<T extends { maxLightness?: number; minLightness?: number }>(
+  overrides: T,
+  base: { maxLightness: number; minLightness: number },
+): T {
+  const minL = overrides.minLightness ?? base.minLightness;
+  const maxL = overrides.maxLightness ?? base.maxLightness;
+
+  if (minL < maxL) {
+    return overrides;
+  }
+
+  const next = { ...overrides };
+
+  delete next.minLightness;
+  delete next.maxLightness;
+
+  return next;
+}
+
+/** Drop a `lock` that isn't one of the valid step keys for `steps` (colorizr ignores it anyway). */
+function reconcileLock<T extends { lock?: number }>(options: T, steps: number): T {
+  if (options.lock === undefined || getScaleStepKeys(steps).includes(options.lock)) {
+    return options;
+  }
+
+  const next = { ...options };
+
+  delete next.lock;
+
+  return next;
+}
+
 /** Non-curve per-color option (mode/variant/lock or a plain number) as a fragment to merge. */
 function scalarOptionEntry(
   key: Exclude<keyof typeof OPTION_KEYS, CurveOptionKey>,
@@ -423,9 +505,9 @@ function scalarOptionEntry(
       return { lock: parseLock(value) };
     }
     default: {
-      const numberValue = Number.parseFloat(value);
+      const numberValue = parseScalarOptionValue(key, value);
 
-      return Number.isNaN(numberValue) ? {} : { [key]: numberValue };
+      return numberValue === undefined ? {} : { [key]: numberValue };
     }
   }
 }
@@ -687,16 +769,27 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
   // Compute defaults based on first color (for correct saturation)
   const defaults = getDefaultGlobalOptions(colors[0].value);
 
-  // Parse global options from query params
-  const globalOverrides = parseGlobalOptions(searchParams);
+  // Parse global options, then sanitize the cross-field invariants that per-key range checks
+  // can't catch (minLightness < maxLightness, lock ∈ valid step keys) so scale() never throws.
+  const globalOverrides = reconcileLightnessBounds(parseGlobalOptions(searchParams), defaults);
+  let globalOptions = { ...defaults, ...globalOverrides };
+
+  globalOptions = reconcileLock(globalOptions, globalOptions.steps);
+
+  for (const color of colors) {
+    if (!color.overrides) {
+      continue;
+    }
+
+    const reconciled = reconcileLightnessBounds(color.overrides, globalOptions);
+
+    color.overrides = reconcileLock(reconciled, reconciled.steps ?? globalOptions.steps);
+  }
 
   return {
     state: {
       colors,
-      globalOptions: {
-        ...defaults,
-        ...globalOverrides,
-      },
+      globalOptions,
       name: searchParams.get('name') || DEFAULT_PALETTE_NAME,
     },
     dropped,
