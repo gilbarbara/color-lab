@@ -1,59 +1,59 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`utils/export > generateCSS > generates CSS custom properties 1`] = `
-"--plum-50: #f7f3ff;
---plum-100: #f0e8ff;
---plum-200: #e4d6ff;
---plum-300: #d5bdff;
---plum-400: #c59fff;
---plum-500: #b27bff;
---plum-600: #9860e6;
---plum-700: #7c42c6;
---plum-800: #601ea4;
---plum-900: #420079;
---plum-950: #20003f;"
+"--color-plum-50: #f7f3ff;
+--color-plum-100: #f0e8ff;
+--color-plum-200: #e4d6ff;
+--color-plum-300: #d5bdff;
+--color-plum-400: #c59fff;
+--color-plum-500: #b27bff;
+--color-plum-600: #9860e6;
+--color-plum-700: #7c42c6;
+--color-plum-800: #601ea4;
+--color-plum-900: #420079;
+--color-plum-950: #20003f;"
 `;
 
 exports[`utils/export > generateCSS > generates rgb-channels format 1`] = `
-"--plum-50: 247 243 255;
---plum-100: 240 232 255;
---plum-200: 228 214 255;
---plum-300: 213 189 255;
---plum-400: 197 159 255;
---plum-500: 178 123 255;
---plum-600: 152 96 230;
---plum-700: 124 66 198;
---plum-800: 96 30 164;
---plum-900: 66 0 121;
---plum-950: 32 0 63;"
+"--color-plum-50: 247 243 255;
+--color-plum-100: 240 232 255;
+--color-plum-200: 228 214 255;
+--color-plum-300: 213 189 255;
+--color-plum-400: 197 159 255;
+--color-plum-500: 178 123 255;
+--color-plum-600: 152 96 230;
+--color-plum-700: 124 66 198;
+--color-plum-800: 96 30 164;
+--color-plum-900: 66 0 121;
+--color-plum-950: 32 0 63;"
 `;
 
 exports[`utils/export > generateSCSS > generates SCSS variables 1`] = `
-"$plum-50: #f7f3ff;
-$plum-100: #f0e8ff;
-$plum-200: #e4d6ff;
-$plum-300: #d5bdff;
-$plum-400: #c59fff;
-$plum-500: #b27bff;
-$plum-600: #9860e6;
-$plum-700: #7c42c6;
-$plum-800: #601ea4;
-$plum-900: #420079;
-$plum-950: #20003f;"
+"$color-plum-50: #f7f3ff;
+$color-plum-100: #f0e8ff;
+$color-plum-200: #e4d6ff;
+$color-plum-300: #d5bdff;
+$color-plum-400: #c59fff;
+$color-plum-500: #b27bff;
+$color-plum-600: #9860e6;
+$color-plum-700: #7c42c6;
+$color-plum-800: #601ea4;
+$color-plum-900: #420079;
+$color-plum-950: #20003f;"
 `;
 
 exports[`utils/export > generateSCSS > generates rgb-channels format 1`] = `
-"$plum-50: 247 243 255;
-$plum-100: 240 232 255;
-$plum-200: 228 214 255;
-$plum-300: 213 189 255;
-$plum-400: 197 159 255;
-$plum-500: 178 123 255;
-$plum-600: 152 96 230;
-$plum-700: 124 66 198;
-$plum-800: 96 30 164;
-$plum-900: 66 0 121;
-$plum-950: 32 0 63;"
+"$color-plum-50: 247 243 255;
+$color-plum-100: 240 232 255;
+$color-plum-200: 228 214 255;
+$color-plum-300: 213 189 255;
+$color-plum-400: 197 159 255;
+$color-plum-500: 178 123 255;
+$color-plum-600: 152 96 230;
+$color-plum-700: 124 66 198;
+$color-plum-800: 96 30 164;
+$color-plum-900: 66 0 121;
+$color-plum-950: 32 0 63;"
 `;
 
 exports[`utils/export > generateSVG > generates SVG with colored rectangles 1`] = `
