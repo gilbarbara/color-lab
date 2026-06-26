@@ -93,6 +93,20 @@ describe('utils/url', () => {
       expect(parsePaletteFromUrl('/p/Primary-abc_0.142_329')).toBeNull();
     });
 
+    it('returns null for out-of-range oklch color values (never reaches scale())', () => {
+      expect(parsePaletteFromUrl('/p/Primary-63_5_19.9')).toBeNull(); // chroma out of gamut
+      expect(parsePaletteFromUrl('/p/Primary-63_0.272_9999')).toBeNull(); // hue out of range
+      expect(parsePaletteFromUrl('/p/Primary-200_0.272_19.9')).toBeNull(); // lightness > 1
+    });
+
+    it('drops only the out-of-range color in a multi-color palette', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044/Bad-63_5_19.9');
+
+      expect(result!.state.colors).toHaveLength(1);
+      expect(result!.state.colors[0].name).toBe('Primary');
+      expect(result!.dropped).toContain('Bad');
+    });
+
     it('ignores unknown option keys', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-z:unknown');
 
