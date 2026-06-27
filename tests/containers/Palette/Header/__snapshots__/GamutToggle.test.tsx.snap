@@ -9,7 +9,7 @@ exports[`GamutToggle > Render > renders dropdown trigger when P3 is supported 1`
       aria-expanded="false"
       aria-haspopup="true"
       aria-label="Color gamut"
-      class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
+      class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning @max-4xl:button-menu-square"
       data-react-aria-pressable="true"
       data-slot="trigger"
       id="react-aria-_r_0_"
@@ -44,7 +44,7 @@ exports[`GamutToggle > Render > renders dropdown trigger when P3 is supported 1`
           />
         </svg>
         <span
-          class="hidden xl:inline"
+          class="hidden @4xl:inline"
         >
           Gamut
         </span>
@@ -63,7 +63,7 @@ exports[`GamutToggle > Render > renders warning color when gamut is srgb 1`] = `
       aria-expanded="false"
       aria-haspopup="true"
       aria-label="Color gamut"
-      class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
+      class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased gamut-srgb:text-warning p3-unsupported:text-warning @max-4xl:button-menu-square"
       data-react-aria-pressable="true"
       data-slot="trigger"
       id="react-aria-_r_4_"
@@ -98,7 +98,7 @@ exports[`GamutToggle > Render > renders warning color when gamut is srgb 1`] = `
           />
         </svg>
         <span
-          class="hidden xl:inline"
+          class="hidden @4xl:inline"
         >
           Gamut
         </span>

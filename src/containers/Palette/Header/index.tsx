@@ -1,6 +1,6 @@
 import { useSetState } from '@gilbarbara/hooks';
 import { addToast, cn } from '@heroui/react';
-import { HeartIcon, PaletteIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
+import { HeartIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 import { useSearchParams } from 'next/navigation';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
@@ -11,17 +11,17 @@ import useSavedPalettes from '~/hooks/useSavedPalettes';
 import { trackEvent } from '~/utils/analytics';
 import { getPaletteIdFromUrl } from '~/utils/url';
 
-import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import CollapsePanel from '~/components/CollapsePanel';
 import CollapsibleMenu from '~/components/CollapsibleMenu';
 import EditableInput, { type CommitAction } from '~/components/EditableInput';
 import SavePaletteModal from '~/components/SavePaletteModal';
-import Tooltip from '~/components/Tooltip';
 import ExportPalette from '~/containers/ExportPalette';
 
 import GamutToggle from './GamutToggle';
 import Options from './Options';
+import OptionsToggle from './OptionsToggle';
+import ShareButton from './ShareButton';
 
 interface PaletteHeaderState {
   isSaveModalOpen: boolean;
@@ -136,27 +136,17 @@ export default function PaletteHeader() {
         <div className="flex items-center gap-1 md:gap-2">
           <CollapsibleMenu label="More palette tools">
             <GamutToggle />
-            <Tooltip content="Palette Options" placement="bottom">
-              <Button
-                aria-label="Palette Options"
-                className="@max-2xl:button-menu-square"
-                onPress={togglePaletteOptionsPanel}
-                size="menu"
-                startContent={
-                  <Badge content="" isInvisible={!hasCustomPaletteOptions}>
-                    <PaletteIcon className="text-xl" weight="bold" />
-                  </Badge>
-                }
-                variant={showPaletteOptionsPanel ? 'solid' : 'light'}
-              >
-                <span className="hidden @2xl:inline-flex">Options</span>
-              </Button>
-            </Tooltip>
+            <OptionsToggle
+              hasCustomPaletteOptions={hasCustomPaletteOptions}
+              isVisible={showPaletteOptionsPanel}
+              onToggle={togglePaletteOptionsPanel}
+            />
           </CollapsibleMenu>
           <ExportPalette />
+          <ShareButton />
           <Button
             aria-label={paletteId ? 'Update palette' : 'Save palette'}
-            className="max-lg:button-menu-square"
+            className="@max-2xl:button-menu-square"
             color={hasUnsavedChanges ? 'warning' : 'primary'}
             isDisabled={isSaving || (!!paletteId && !hasUnsavedChanges)}
             onPress={handleClickSave}
@@ -170,7 +160,7 @@ export default function PaletteHeader() {
             }
             variant="faded"
           >
-            <span className="hidden lg:inline">{paletteId ? 'Update' : 'Save'}</span>
+            <span className="hidden @2xl:inline">{paletteId ? 'Update' : 'Save'}</span>
           </Button>
         </div>
       </div>
