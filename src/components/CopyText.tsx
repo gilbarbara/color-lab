@@ -29,7 +29,7 @@ export default function CopyText(props: CopyTextProps) {
   } = props;
 
   const handleCopyToClipboard = async () => {
-    if (await copyToClipboard(value, showToast)) {
+    if (await copyToClipboard(value, { showToast })) {
       onCopy?.(value);
     }
   };

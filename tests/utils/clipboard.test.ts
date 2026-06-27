@@ -20,10 +20,23 @@ describe('utils/clipboard', () => {
       });
     });
 
+    it('writes the value and shows a custom title', async () => {
+      mockClipboard.writeText.mockResolvedValue(undefined);
+
+      const result = await copyToClipboard('value', { title: 'Custom title' });
+
+      expect(result).toBe(true);
+      expect(mockClipboard.writeText).toHaveBeenCalledWith('value');
+      expect(mockAddToast).toHaveBeenCalledWith({
+        title: 'Custom title',
+        color: 'success',
+      });
+    });
+
     it('writes the value without a toast when showToast is false', async () => {
       mockClipboard.writeText.mockResolvedValue(undefined);
 
-      const result = await copyToClipboard('value', false);
+      const result = await copyToClipboard('value', { showToast: false });
 
       expect(result).toBe(true);
       expect(mockClipboard.writeText).toHaveBeenCalledWith('value');
@@ -45,7 +58,7 @@ describe('utils/clipboard', () => {
     it('suppresses the danger toast when showToast is false', async () => {
       mockClipboard.writeText.mockRejectedValue(new Error('denied'));
 
-      const result = await copyToClipboard('value', false);
+      const result = await copyToClipboard('value', { showToast: false });
 
       expect(result).toBe(false);
       expect(mockAddToast).not.toHaveBeenCalled();
