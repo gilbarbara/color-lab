@@ -174,7 +174,7 @@ export default function ExportPalette() {
         <Tooltip content="Export all" isDisabled={isLarge} placement="bottom-end">
           <Button
             aria-label="Export All"
-            className="@max-xl:px-0 @max-xl:min-w-8 @max-xl:w-8"
+            className="@max-xl:button-menu-square"
             onPress={() => {
               trackEvent('open-export-palette');
               onOpen();

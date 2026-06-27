@@ -5,7 +5,7 @@ import { createTestPalette } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor } from '~/test-utils';
 
-import Options from '~/containers/Palette/Options';
+import Options from '~/containers/Palette/Header/Options';
 
 vi.mock('~/hooks/useRafCallback', () => ({
   default: (callback: unknown) => callback,

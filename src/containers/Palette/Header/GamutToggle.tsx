@@ -41,7 +41,7 @@ export default function PaletteGamutToggle() {
       <DropdownTrigger>
         <Button
           aria-label="Color gamut"
-          className="gamut-srgb:text-warning p3-unsupported:text-warning max-xl:button-menu-square"
+          className="gamut-srgb:text-warning p3-unsupported:text-warning @max-4xl:button-menu-square"
           size="menu"
           variant="light"
         >
@@ -52,7 +52,7 @@ export default function PaletteGamutToggle() {
                 className="hidden gamut-srgb:block p3-unsupported:block absolute text-[10px] top-1 left-1.25"
                 weight="bold"
               />
-              <span className="hidden xl:inline">Gamut</span>
+              <span className="hidden @4xl:inline">Gamut</span>
             </span>
           </Tooltip>
         </Button>

@@ -2,7 +2,7 @@ import { useAppStore } from '~/stores/appStore';
 import { mockIsP3Supported } from '~/test-mocks';
 import { fireEvent, render, screen } from '~/test-utils';
 
-import GamutToggle from '~/containers/Palette/GamutToggle';
+import GamutToggle from '~/containers/Palette/Header/GamutToggle';
 
 describe('GamutToggle', () => {
   beforeEach(() => {

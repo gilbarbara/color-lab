@@ -627,6 +627,20 @@ test('desktop', async () => {
     await expect(page).toHaveScreenshot(getScreenshotName('select-primary.png'));
   });
 
+  await test.step('shows toast when clicking swatch to copy', async () => {
+    await page.getByRole('button', { name: '500', exact: true }).first().click();
+
+    // Toast may say "copied" or "failed to copy" in headless
+    const toast = page.locator('[data-slot="toast"]').or(page.getByRole('alert'));
+
+    await expect(toast.first()).toBeVisible({ timeout: 2000 });
+
+    await expect(page).toHaveScreenshot(getScreenshotName('copy-toast.png'));
+
+    await page.getByLabel('closeButton').click();
+    await expect(page.getByLabel('closeButton')).toHaveCount(0);
+  });
+
   await test.step('opens export drawer with format tabs', async () => {
     await page.getByRole('button', { name: 'Export All' }).click();
 
@@ -661,15 +675,15 @@ test('desktop', async () => {
     await expect(page.getByRole('tab', { name: 'Tailwind 4' })).not.toBeVisible();
   });
 
-  await test.step('shows toast when clicking swatch to copy', async () => {
-    await page.getByRole('button', { name: '500', exact: true }).first().click();
+  await test.step('click Share button', async () => {
+    await page.getByRole('button', { name: 'Share' }).click();
 
     // Toast may say "copied" or "failed to copy" in headless
     const toast = page.locator('[data-slot="toast"]').or(page.getByRole('alert'));
 
     await expect(toast.first()).toBeVisible({ timeout: 2000 });
 
-    await expect(page).toHaveScreenshot(getScreenshotName('copy-toast.png'));
+    await expect(page).toHaveScreenshot(getScreenshotName('share-palette-url.png'));
 
     await page.getByLabel('closeButton').click();
     await expect(page.getByLabel('closeButton')).toHaveCount(0);

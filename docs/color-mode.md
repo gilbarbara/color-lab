@@ -21,7 +21,7 @@ HSL/RGB/HEX are **input affordances and display surfaces**, not storage formats.
 ## Three orthogonal axes
 
 | Axis | Scope | Drives | Persisted in URL? |
-|------|-------|--------|-------------------|
+| --- | --- | --- | --- |
 | **Input mode** | per ColorItem (UI ephemeral) | Sliders + text input format | No |
 | **Gamut mode** | global, app-wide | Swatch rendering, tooltip, clipboard copy | No (session-only; see open questions) |
 | **URL format** | global, fixed | URL path serialization | N/A — always OKLCH |
@@ -37,20 +37,20 @@ Each axis is independent. None reads from another. Conflating them is the root c
 **Values:** `OKLCH` | `HSL` | `RGB`
 
 **What it controls:**
+
 - `ChannelSliders` component — which channel set renders (L/C/H, H/S/L, or R/G/B)
 - Text input format under the color name — `oklch(...)`, `#hex`, or whatever the active mode renders
 
 **What it does NOT control:**
+
 - Stored `colorEntry.value` (always OKLCH)
 - Swatch rendering
 - URL output
 - Exports
 
-**Lossy behavior:**
-Dragging HSL or RGB sliders on a color whose OKLCH is outside sRGB will clip the chroma. The slider operates in sRGB by definition — the resulting OKLCH is whatever sRGB triple maps back. This is user choice: they picked the sRGB-bound input.
+**Lossy behavior:** Dragging HSL or RGB sliders on a color whose OKLCH is outside sRGB will clip the chroma. The slider operates in sRGB by definition — the resulting OKLCH is whatever sRGB triple maps back. This is user choice: they picked the sRGB-bound input.
 
-**Surface for the user:**
-A gamut warning icon (triangle, in the input row) appears when the current OKLCH value is outside sRGB. It signals "this color cannot be expressed losslessly in your current input mode." Switching mode does not change the value; it only changes the slider math available for the next edit.
+**Surface for the user:** A gamut warning icon (triangle, in the input row) appears when the current OKLCH value is outside sRGB. It signals "this color cannot be expressed losslessly in your current input mode." Switching mode does not change the value; it only changes the slider math available for the next edit.
 
 ---
 
@@ -61,15 +61,18 @@ A gamut warning icon (triangle, in the input row) appears when the current OKLCH
 **Values:** `p3` | `srgb`
 
 **Two coupled concepts:**
+
 - **Capability** — static, derived from `window.matchMedia('(color-gamut: p3)')`. Computed once at module load via `isP3Supported()` in `src/utils/gamut.ts`. Never changes within a session.
 - **Active gamut** — user-toggleable when capability is `p3`. Locked to `srgb` when capability is `srgb`. Lives in `appStore.gamut`, initialized to detected capability.
 
 **What it controls:**
+
 - `Swatch` `backgroundColor` — raw OKLCH in `p3` mode, sRGB-clipped hex in `srgb` mode
 - Clipboard format on swatch click — `oklch(...)` in `p3` mode, `#RRGGBB` in `srgb` mode
 - Swatch tooltip — same as clipboard
 
 **What it does NOT control:**
+
 - Stored `colorEntry.value` (always OKLCH)
 - Input mode in the sidebar (axis #1)
 - URL output (axis #3 — always OKLCH)
@@ -80,12 +83,12 @@ A gamut warning icon (triangle, in the input row) appears when the current OKLCH
 
 **Default:** Matches detected capability. P3-capable display → `p3`. sRGB-only display → `srgb`.
 
-**Toggle UI** (`src/containers/Palette/GamutToggle.tsx`):
+**Toggle UI** (`src/containers/Palette/Header/GamutToggle.tsx`):
+
 - Capability `p3` — `MonitorIcon` button opens a `Dropdown` with `P3` and `SRGB` items (each with a one-line description). Active mode reflected via warning color + exclamation overlay when `srgb`.
 - Capability `srgb` — Inline warning badge `SRGB gamut` with `WarningIcon` and a clickable tooltip explaining the device limitation. No interactive toggle (locked).
 
-**Lossy behavior:**
-In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex at render time. Stored value is unchanged — flipping back to `p3` restores the original wide-gamut color.
+**Lossy behavior:** In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex at render time. Stored value is unchanged — flipping back to `p3` restores the original wide-gamut color.
 
 ---
 
@@ -96,6 +99,7 @@ In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex
 **Format:** `L_C_H` (lightness as percentage, chroma, hue) — see `docs/palette.md` for the full URL schema.
 
 **Rationale:**
+
 - Storage is OKLCH → URL mirrors storage → no decode-side conversion
 - Shared links never lose P3 chroma
 - Decoder is one-pass — no branching on value format
@@ -108,7 +112,7 @@ In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex
 ## Lossy operations — what the user sees
 
 | Action | Effect on stored value | Surface |
-|--------|------------------------|---------|
+| --- | --- | --- |
 | Drag OKLCH slider on any color | Lossless | None needed |
 | Drag HSL/RGB slider on out-of-sRGB color | Chroma clips to sRGB | Gamut icon updates on next render |
 | Toggle Gamut mode to sRGB while palette has P3 colors | Stored values unchanged | Swatch renders sRGB-clipped hex; gamut indicator in Color Info modal |
@@ -123,6 +127,7 @@ In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex
 Input mode is **ephemeral local state inside `ColorItem`** (`useSetState`). It is not on `ColorEntry`, not in `appStore`, not in the URL.
 
 Consequences:
+
 - Discarded on unmount (collapsing the sidebar, navigating away).
 - Each `ColorItem` instance has its own mode. Two colors can have different active slider sets simultaneously.
 - A shared link always opens with the default mode (`oklch`).
@@ -133,7 +138,7 @@ Consequences:
 ## Migration notes
 
 - `src/containers/Palette/Swatch.tsx` — now reads `appStore.gamut` and derives `displayColor`. No `mode` prop.
-- `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to *accept* legacy HEX and 0–1 OKLCH URLs and convert to OKLCH on load (one-way back-compat). `useUrlSync` rewrites the address bar to the canonical OKLCH form on hydration via `window.history.replaceState(null, '', canonicalUrl)` so shared legacy links self-heal.
+- `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to _accept_ legacy HEX and 0–1 OKLCH URLs and convert to OKLCH on load (one-way back-compat). `useUrlSync` rewrites the address bar to the canonical OKLCH form on hydration via `window.history.replaceState(null, '', canonicalUrl)` so shared legacy links self-heal.
 
 ---
 
