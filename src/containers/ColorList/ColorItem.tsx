@@ -71,6 +71,7 @@ function ColorItem(props: ColorItemProps) {
   });
   const { isOpen, onOpenChange } = useDisclosure();
   const isAnimatingRef = useRef(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(
     () => () => {
@@ -176,11 +177,14 @@ function ColorItem(props: ColorItemProps) {
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           placement="bottom-start"
-          shouldCloseOnInteractOutside={element => !element.closest('[data-color-picker-portal]')}
+          shouldCloseOnInteractOutside={element =>
+            !element.closest('[data-color-picker-portal]') && !triggerRef.current?.contains(element)
+          }
           showArrow
         >
           <PopoverTrigger>
             <ColorBox
+              ref={triggerRef}
               aria-label="Color picker"
               color={color}
               onClick={() => trackEvent('color-picker')}
