@@ -1,5 +1,90 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`ScaleColorOptions > ChromaCurve > renders the tooltip 1`] = `
+<div>
+  <p
+    class="mb-2"
+  >
+    Controls how color intensity changes across light and dark shades.
+  </p>
+  <p
+    class="mb-1"
+  >
+    <b>
+      Simple
+    </b>
+     scales chroma by a parabola (Amount), with Peak shifting where it bends.
+  </p>
+  <p>
+    <b>
+      Split
+    </b>
+     sets each end's chroma as a fraction of the gamut ceiling, interpolated across the steps.
+  </p>
+</div>
+`;
+
+exports[`ScaleColorOptions > HueShift > renders the tooltip 1`] = `
+<div>
+  <p
+    class="mb-1"
+  >
+    Rotates hue toward the ends of the scale; the anchor step keeps the input hue.
+  </p>
+  <p
+    class="mb-1"
+  >
+    <b>
+      Simple
+    </b>
+     shifts the two ends by equal and opposite amounts (Amount).
+  </p>
+  <p>
+    <b>
+      Split
+    </b>
+     shifts each end (Low/High) independently.
+  </p>
+</div>
+`;
+
+exports[`ScaleColorOptions > LightnessCurve > renders the tooltip 1`] = `
+<div>
+  <p
+    class="mb-1"
+  >
+    Controls how lightness is distributed across the scale.
+  </p>
+  <p
+    class="mb-1"
+  >
+    <b>
+      Simple
+    </b>
+     applies one easing curve (Amount) to the whole scale.
+  </p>
+  <p>
+    <b>
+      Split
+    </b>
+     sets the easing at each end (Low/High), interpolated across the scale.
+  </p>
+</div>
+`;
+
+exports[`ScaleColorOptions > LightnessRange > renders the tooltip 1`] = `
+<div>
+  <p
+    class="mb-1"
+  >
+    Sets the lightest and darkest limits of the scale.
+  </p>
+  <p>
+    Use this to avoid washed-out highlights or crushed shadows.
+  </p>
+</div>
+`;
+
 exports[`ScaleColorOptions > Render > renders all chips as default when range options match defaults (per-color, no overrides) 1`] = `
 <div
   class="w-full flex flex-col gap-3"
@@ -9,12 +94,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
     class="flex flex-col gap-6"
   >
     <div
-      aria-labelledby="react-aria-_r_22_"
+      aria-labelledby="react-aria-_r_45_"
       class="flex flex-col w-full gap-1"
       data-hover="false"
       data-orientation="horizontal"
       data-slot="base"
-      id="react-aria-_r_21_"
+      id="react-aria-_r_44_"
       role="group"
     >
       <div
@@ -24,7 +109,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         <label
           class="flex gap-2 items-center"
           data-slot="label"
-          id="react-aria-_r_22_"
+          id="react-aria-_r_45_"
         >
           <span
             class="text-base/5"
@@ -72,7 +157,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
           aria-live="off"
           class="flex gap-2 text-small"
           data-slot="value"
-          for="react-aria-_r_22_-0 react-aria-_r_22_-1"
+          for="react-aria-_r_45_-0 react-aria-_r_45_-1"
         >
           <span
             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -147,10 +232,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               <input
                 aria-describedby=""
                 aria-details=""
-                aria-labelledby="react-aria-_r_22_"
+                aria-labelledby="react-aria-_r_45_"
                 aria-orientation="horizontal"
                 aria-valuetext="0.48"
-                id="react-aria-_r_22_-0"
+                id="react-aria-_r_45_-0"
                 max="0.95"
                 min="0"
                 name="lightness"
@@ -176,10 +261,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               <input
                 aria-describedby=""
                 aria-details=""
-                aria-labelledby="react-aria-_r_22_"
+                aria-labelledby="react-aria-_r_45_"
                 aria-orientation="horizontal"
                 aria-valuetext="0.95"
-                id="react-aria-_r_22_-1"
+                id="react-aria-_r_45_-1"
                 max="1"
                 min="0.48"
                 name="lightness"
@@ -194,7 +279,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
       </div>
     </div>
     <div
-      aria-labelledby="_r_2c_"
+      aria-labelledby="_r_4f_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -206,7 +291,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         >
           <span
             class="text-base/5"
-            id="_r_2c_"
+            id="_r_4f_"
           >
             Lightness Curve
           </span>
@@ -256,9 +341,9 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             aria-label="Lightness curve mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_2f_"
+            data-collection="react-aria-_r_4i_"
             data-slot="tabList"
-            id="react-aria-_r_2g_"
+            id="react-aria-_r_4j_"
             role="tablist"
           >
             <span
@@ -268,11 +353,11 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_2f_"
+              data-collection="react-aria-_r_4i_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_2g_-tab-scalar"
+              id="react-aria-_r_4j_-tab-scalar"
               role="tab"
               tabindex="-1"
               type="button"
@@ -287,12 +372,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_2f_"
+              data-collection="react-aria-_r_4i_"
               data-key="range"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_2g_-tab-range"
+              id="react-aria-_r_4j_-tab-range"
               role="tab"
               tabindex="0"
               type="button"
@@ -311,12 +396,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         class="flex items-center gap-3"
       >
         <div
-          aria-labelledby="react-aria-_r_2n_"
+          aria-labelledby="react-aria-_r_4q_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_2m_"
+          id="react-aria-_r_4p_"
           role="group"
         >
           <div
@@ -326,7 +411,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_2n_"
+              id="react-aria-_r_4q_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -338,7 +423,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_2n_-0"
+              for="react-aria-_r_4q_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -384,10 +469,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_2n_"
+                    aria-labelledby="react-aria-_r_4q_"
                     aria-orientation="horizontal"
                     aria-valuetext="0.9"
-                    id="react-aria-_r_2n_-0"
+                    id="react-aria-_r_4q_-0"
                     max="5"
                     min="0.1"
                     name="lightnessCurveLow"
@@ -402,12 +487,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
           </div>
         </div>
         <div
-          aria-labelledby="react-aria-_r_2t_"
+          aria-labelledby="react-aria-_r_50_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_2s_"
+          id="react-aria-_r_4v_"
           role="group"
         >
           <div
@@ -417,7 +502,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_2t_"
+              id="react-aria-_r_50_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -429,7 +514,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_2t_-0"
+              for="react-aria-_r_50_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -475,10 +560,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_2t_"
+                    aria-labelledby="react-aria-_r_50_"
                     aria-orientation="horizontal"
                     aria-valuetext="1.2"
-                    id="react-aria-_r_2t_-0"
+                    id="react-aria-_r_50_-0"
                     max="5"
                     min="0.1"
                     name="lightnessCurveHigh"
@@ -495,7 +580,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
       </div>
     </div>
     <div
-      aria-labelledby="_r_32_"
+      aria-labelledby="_r_55_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -507,7 +592,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         >
           <span
             class="text-base/5"
-            id="_r_32_"
+            id="_r_55_"
           >
             Chroma Curve
           </span>
@@ -557,9 +642,9 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             aria-label="Chroma curve mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_35_"
+            data-collection="react-aria-_r_58_"
             data-slot="tabList"
-            id="react-aria-_r_36_"
+            id="react-aria-_r_59_"
             role="tablist"
           >
             <span
@@ -569,11 +654,11 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_35_"
+              data-collection="react-aria-_r_58_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_36_-tab-scalar"
+              id="react-aria-_r_59_-tab-scalar"
               role="tab"
               tabindex="-1"
               type="button"
@@ -588,12 +673,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_35_"
+              data-collection="react-aria-_r_58_"
               data-key="range"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_36_-tab-range"
+              id="react-aria-_r_59_-tab-range"
               role="tab"
               tabindex="0"
               type="button"
@@ -612,12 +697,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         class="flex items-center gap-3"
       >
         <div
-          aria-labelledby="react-aria-_r_3d_"
+          aria-labelledby="react-aria-_r_5g_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_3c_"
+          id="react-aria-_r_5f_"
           role="group"
         >
           <div
@@ -627,7 +712,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_3d_"
+              id="react-aria-_r_5g_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -639,7 +724,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_3d_-0"
+              for="react-aria-_r_5g_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -685,10 +770,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_3d_"
+                    aria-labelledby="react-aria-_r_5g_"
                     aria-orientation="horizontal"
                     aria-valuetext="0.5"
-                    id="react-aria-_r_3d_-0"
+                    id="react-aria-_r_5g_-0"
                     max="1"
                     min="0"
                     name="chromaLow"
@@ -703,12 +788,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
           </div>
         </div>
         <div
-          aria-labelledby="react-aria-_r_3j_"
+          aria-labelledby="react-aria-_r_5m_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_3i_"
+          id="react-aria-_r_5l_"
           role="group"
         >
           <div
@@ -718,7 +803,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_3j_"
+              id="react-aria-_r_5m_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -730,7 +815,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_3j_-0"
+              for="react-aria-_r_5m_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -776,10 +861,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_3j_"
+                    aria-labelledby="react-aria-_r_5m_"
                     aria-orientation="horizontal"
                     aria-valuetext="0.8"
-                    id="react-aria-_r_3j_-0"
+                    id="react-aria-_r_5m_-0"
                     max="1"
                     min="0"
                     name="chromaHigh"
@@ -796,7 +881,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
       </div>
     </div>
     <div
-      aria-labelledby="_r_3o_"
+      aria-labelledby="_r_5r_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -808,7 +893,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         >
           <span
             class="text-base/5"
-            id="_r_3o_"
+            id="_r_5r_"
           >
             Hue Shift
           </span>
@@ -858,9 +943,9 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             aria-label="Hue shift mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_3r_"
+            data-collection="react-aria-_r_5u_"
             data-slot="tabList"
-            id="react-aria-_r_3s_"
+            id="react-aria-_r_5v_"
             role="tablist"
           >
             <span
@@ -870,11 +955,11 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_3r_"
+              data-collection="react-aria-_r_5u_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_3s_-tab-scalar"
+              id="react-aria-_r_5v_-tab-scalar"
               role="tab"
               tabindex="-1"
               type="button"
@@ -889,12 +974,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_3r_"
+              data-collection="react-aria-_r_5u_"
               data-key="range"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_3s_-tab-range"
+              id="react-aria-_r_5v_-tab-range"
               role="tab"
               tabindex="0"
               type="button"
@@ -913,12 +998,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
         class="flex items-center gap-3"
       >
         <div
-          aria-labelledby="react-aria-_r_43_"
+          aria-labelledby="react-aria-_r_66_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_42_"
+          id="react-aria-_r_65_"
           role="group"
         >
           <div
@@ -928,7 +1013,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_43_"
+              id="react-aria-_r_66_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -940,7 +1025,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_43_-0"
+              for="react-aria-_r_66_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -986,10 +1071,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_43_"
+                    aria-labelledby="react-aria-_r_66_"
                     aria-orientation="horizontal"
                     aria-valuetext="1"
-                    id="react-aria-_r_43_-0"
+                    id="react-aria-_r_66_-0"
                     max="90"
                     min="-90"
                     name="hueShiftLow"
@@ -1004,12 +1089,12 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
           </div>
         </div>
         <div
-          aria-labelledby="react-aria-_r_49_"
+          aria-labelledby="react-aria-_r_6c_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_48_"
+          id="react-aria-_r_6b_"
           role="group"
         >
           <div
@@ -1019,7 +1104,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_49_"
+              id="react-aria-_r_6c_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -1031,7 +1116,7 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_49_-0"
+              for="react-aria-_r_6c_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1077,10 +1162,10 @@ exports[`ScaleColorOptions > Render > renders all chips as default when range op
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_49_"
+                    aria-labelledby="react-aria-_r_6c_"
                     aria-orientation="horizontal"
                     aria-valuetext="-5"
-                    id="react-aria-_r_49_-0"
+                    id="react-aria-_r_6c_-0"
                     max="90"
                     min="-90"
                     name="hueShiftHigh"
@@ -1135,12 +1220,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
     class="flex flex-col gap-6"
   >
     <div
-      aria-labelledby="react-aria-_r_1_"
+      aria-labelledby="react-aria-_r_24_"
       class="flex flex-col w-full gap-1"
       data-hover="false"
       data-orientation="horizontal"
       data-slot="base"
-      id="react-aria-_r_0_"
+      id="react-aria-_r_23_"
       role="group"
     >
       <div
@@ -1150,7 +1235,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         <label
           class="flex gap-2 items-center"
           data-slot="label"
-          id="react-aria-_r_1_"
+          id="react-aria-_r_24_"
         >
           <span
             class="text-base/5"
@@ -1198,7 +1283,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
           aria-live="off"
           class="flex gap-2 text-small"
           data-slot="value"
-          for="react-aria-_r_1_-0 react-aria-_r_1_-1"
+          for="react-aria-_r_24_-0 react-aria-_r_24_-1"
         >
           <span
             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1273,10 +1358,10 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
               <input
                 aria-describedby=""
                 aria-details=""
-                aria-labelledby="react-aria-_r_1_"
+                aria-labelledby="react-aria-_r_24_"
                 aria-orientation="horizontal"
                 aria-valuetext="0.26"
-                id="react-aria-_r_1_-0"
+                id="react-aria-_r_24_-0"
                 max="0.97"
                 min="0"
                 name="lightness"
@@ -1302,10 +1387,10 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
               <input
                 aria-describedby=""
                 aria-details=""
-                aria-labelledby="react-aria-_r_1_"
+                aria-labelledby="react-aria-_r_24_"
                 aria-orientation="horizontal"
                 aria-valuetext="0.97"
-                id="react-aria-_r_1_-1"
+                id="react-aria-_r_24_-1"
                 max="1"
                 min="0.26"
                 name="lightness"
@@ -1320,7 +1405,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       </div>
     </div>
     <div
-      aria-labelledby="_r_b_"
+      aria-labelledby="_r_2e_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -1332,7 +1417,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         >
           <span
             class="text-base/5"
-            id="_r_b_"
+            id="_r_2e_"
           >
             Lightness Curve
           </span>
@@ -1382,9 +1467,9 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             aria-label="Lightness curve mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_e_"
+            data-collection="react-aria-_r_2h_"
             data-slot="tabList"
-            id="react-aria-_r_f_"
+            id="react-aria-_r_2i_"
             role="tablist"
           >
             <span
@@ -1394,12 +1479,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_e_"
+              data-collection="react-aria-_r_2h_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_f_-tab-scalar"
+              id="react-aria-_r_2i_-tab-scalar"
               role="tab"
               tabindex="0"
               type="button"
@@ -1414,11 +1499,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_e_"
+              data-collection="react-aria-_r_2h_"
               data-key="range"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_f_-tab-range"
+              id="react-aria-_r_2i_-tab-range"
               role="tab"
               tabindex="-1"
               type="button"
@@ -1435,12 +1520,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       </div>
       <div
         aria-label="Lightness Curve"
-        aria-labelledby="react-aria-_r_l_ react-aria-_r_m_"
+        aria-labelledby="react-aria-_r_2o_ react-aria-_r_2p_"
         class="flex flex-col w-full gap-1"
         data-hover="false"
         data-orientation="horizontal"
         data-slot="base"
-        id="react-aria-_r_l_"
+        id="react-aria-_r_2o_"
         role="group"
       >
         <div
@@ -1450,7 +1535,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
           <label
             class="flex gap-2 items-center"
             data-slot="label"
-            id="react-aria-_r_m_"
+            id="react-aria-_r_2p_"
           >
             <span
               class="text-sm/5 text-foreground-500"
@@ -1462,7 +1547,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             aria-live="off"
             class="text-small"
             data-slot="value"
-            for="react-aria-_r_m_-0"
+            for="react-aria-_r_2p_-0"
           >
             <span
               class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1528,10 +1613,10 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
                 <input
                   aria-describedby=""
                   aria-details=""
-                  aria-labelledby="react-aria-_r_m_"
+                  aria-labelledby="react-aria-_r_2p_"
                   aria-orientation="horizontal"
                   aria-valuetext="1.3"
-                  id="react-aria-_r_m_-0"
+                  id="react-aria-_r_2p_-0"
                   max="5"
                   min="0.1"
                   name="lightnessCurve"
@@ -1547,7 +1632,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       </div>
     </div>
     <div
-      aria-labelledby="_r_r_"
+      aria-labelledby="_r_2u_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -1559,7 +1644,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         >
           <span
             class="text-base/5"
-            id="_r_r_"
+            id="_r_2u_"
           >
             Chroma Curve
           </span>
@@ -1609,9 +1694,9 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             aria-label="Chroma curve mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_u_"
+            data-collection="react-aria-_r_31_"
             data-slot="tabList"
-            id="react-aria-_r_v_"
+            id="react-aria-_r_32_"
             role="tablist"
           >
             <span
@@ -1621,12 +1706,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_u_"
+              data-collection="react-aria-_r_31_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_v_-tab-scalar"
+              id="react-aria-_r_32_-tab-scalar"
               role="tab"
               tabindex="0"
               type="button"
@@ -1641,11 +1726,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_u_"
+              data-collection="react-aria-_r_31_"
               data-key="range"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_v_-tab-range"
+              id="react-aria-_r_32_-tab-range"
               role="tab"
               tabindex="-1"
               type="button"
@@ -1665,12 +1750,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       >
         <div
           aria-label="Chroma Curve"
-          aria-labelledby="react-aria-_r_15_ react-aria-_r_16_"
+          aria-labelledby="react-aria-_r_38_ react-aria-_r_39_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_15_"
+          id="react-aria-_r_38_"
           role="group"
         >
           <div
@@ -1680,7 +1765,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_16_"
+              id="react-aria-_r_39_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -1692,7 +1777,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_16_-0"
+              for="react-aria-_r_39_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1758,10 +1843,10 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_16_"
+                    aria-labelledby="react-aria-_r_39_"
                     aria-orientation="horizontal"
                     aria-valuetext="0"
-                    id="react-aria-_r_16_-0"
+                    id="react-aria-_r_39_-0"
                     max="1"
                     min="0"
                     name="chromaAmount"
@@ -1776,12 +1861,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
           </div>
         </div>
         <div
-          aria-labelledby="react-aria-_r_1c_"
+          aria-labelledby="react-aria-_r_3f_"
           class="flex flex-col w-full gap-1 opacity-disabled"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_1b_"
+          id="react-aria-_r_3e_"
           role="group"
         >
           <div
@@ -1791,7 +1876,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_1c_"
+              id="react-aria-_r_3f_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -1803,7 +1888,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_1c_-0"
+              for="react-aria-_r_3f_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -1849,11 +1934,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_1c_"
+                    aria-labelledby="react-aria-_r_3f_"
                     aria-orientation="horizontal"
                     aria-valuetext="0.5"
                     disabled=""
-                    id="react-aria-_r_1c_-0"
+                    id="react-aria-_r_3f_-0"
                     max="0.99"
                     min="0.01"
                     name="chromaPeak"
@@ -1870,7 +1955,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       </div>
     </div>
     <div
-      aria-labelledby="_r_1h_"
+      aria-labelledby="_r_3k_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -1882,7 +1967,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
         >
           <span
             class="text-base/5"
-            id="_r_1h_"
+            id="_r_3k_"
           >
             Hue Shift
           </span>
@@ -1932,9 +2017,9 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             aria-label="Hue shift mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_1k_"
+            data-collection="react-aria-_r_3n_"
             data-slot="tabList"
-            id="react-aria-_r_1l_"
+            id="react-aria-_r_3o_"
             role="tablist"
           >
             <span
@@ -1944,12 +2029,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_1k_"
+              data-collection="react-aria-_r_3n_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_1l_-tab-scalar"
+              id="react-aria-_r_3o_-tab-scalar"
               role="tab"
               tabindex="0"
               type="button"
@@ -1964,11 +2049,11 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_1k_"
+              data-collection="react-aria-_r_3n_"
               data-key="range"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_1l_-tab-range"
+              id="react-aria-_r_3o_-tab-range"
               role="tab"
               tabindex="-1"
               type="button"
@@ -1985,12 +2070,12 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
       </div>
       <div
         aria-label="Hue Shift"
-        aria-labelledby="react-aria-_r_1r_ react-aria-_r_1s_"
+        aria-labelledby="react-aria-_r_3u_ react-aria-_r_3v_"
         class="flex flex-col w-full gap-1"
         data-hover="false"
         data-orientation="horizontal"
         data-slot="base"
-        id="react-aria-_r_1r_"
+        id="react-aria-_r_3u_"
         role="group"
       >
         <div
@@ -2000,7 +2085,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
           <label
             class="flex gap-2 items-center"
             data-slot="label"
-            id="react-aria-_r_1s_"
+            id="react-aria-_r_3v_"
           >
             <span
               class="text-sm/5 text-foreground-500"
@@ -2012,7 +2097,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
             aria-live="off"
             class="text-small"
             data-slot="value"
-            for="react-aria-_r_1s_-0"
+            for="react-aria-_r_3v_-0"
           >
             <span
               class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2058,10 +2143,10 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
                 <input
                   aria-describedby=""
                   aria-details=""
-                  aria-labelledby="react-aria-_r_1s_"
+                  aria-labelledby="react-aria-_r_3v_"
                   aria-orientation="horizontal"
                   aria-valuetext="0"
-                  id="react-aria-_r_1s_-0"
+                  id="react-aria-_r_3v_-0"
                   max="90"
                   min="-90"
                   name="hueShift"
@@ -2106,92 +2191,7 @@ exports[`ScaleColorOptions > Render > renders default state 1`] = `
 </div>
 `;
 
-exports[`ScaleColorOptions > Render > renders the tooltip for Chroma Curve 1`] = `
-<div>
-  <p
-    class="mb-2"
-  >
-    Controls how color intensity changes across light and dark shades.
-  </p>
-  <p
-    class="mb-1"
-  >
-    <b>
-      Simple
-    </b>
-     scales chroma by a parabola (Amount), with Peak shifting where it bends.
-  </p>
-  <p>
-    <b>
-      Split
-    </b>
-     sets each end's chroma as a fraction of the gamut ceiling, interpolated across the steps.
-  </p>
-</div>
-`;
-
-exports[`ScaleColorOptions > Render > renders the tooltip for Hue Shift 1`] = `
-<div>
-  <p
-    class="mb-1"
-  >
-    Rotates hue toward the ends of the scale; the anchor step keeps the input hue.
-  </p>
-  <p
-    class="mb-1"
-  >
-    <b>
-      Simple
-    </b>
-     shifts the two ends by equal and opposite amounts (Amount).
-  </p>
-  <p>
-    <b>
-      Split
-    </b>
-     shifts each end (Low/High) independently.
-  </p>
-</div>
-`;
-
-exports[`ScaleColorOptions > Render > renders the tooltip for Lightness Curve 1`] = `
-<div>
-  <p
-    class="mb-1"
-  >
-    Controls how lightness is distributed across the scale.
-  </p>
-  <p
-    class="mb-1"
-  >
-    <b>
-      Simple
-    </b>
-     applies one easing curve (Amount) to the whole scale.
-  </p>
-  <p>
-    <b>
-      Split
-    </b>
-     sets the easing at each end (Low/High), interpolated across the scale.
-  </p>
-</div>
-`;
-
-exports[`ScaleColorOptions > Render > renders the tooltip for Lightness Range 1`] = `
-<div>
-  <p
-    class="mb-1"
-  >
-    Sets the lightest and darkest limits of the scale.
-  </p>
-  <p>
-    Use this to avoid washed-out highlights or crushed shadows.
-  </p>
-</div>
-`;
-
-exports[`ScaleColorOptions > Render > renders with non-default options (Reset buttons enabled) 1`] = `
+exports[`ScaleColorOptions > Render > renders with non-default options and lock (Reset buttons enabled) 1`] = `
 <div
   class="w-full flex flex-col gap-3"
   data-testid="ScaleColorOptions"
@@ -2200,12 +2200,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
     class="flex flex-col gap-6"
   >
     <div
-      aria-labelledby="react-aria-_r_4f_"
+      aria-labelledby="react-aria-_r_6i_"
       class="flex flex-col w-full gap-1"
       data-hover="false"
       data-orientation="horizontal"
       data-slot="base"
-      id="react-aria-_r_4e_"
+      id="react-aria-_r_6h_"
       role="group"
     >
       <div
@@ -2215,7 +2215,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         <label
           class="flex gap-2 items-center"
           data-slot="label"
-          id="react-aria-_r_4f_"
+          id="react-aria-_r_6i_"
         >
           <span
             class="text-base/5"
@@ -2262,7 +2262,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
           aria-live="off"
           class="flex gap-2 text-small"
           data-slot="value"
-          for="react-aria-_r_4f_-0 react-aria-_r_4f_-1"
+          for="react-aria-_r_6i_-0 react-aria-_r_6i_-1"
         >
           <span
             class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
@@ -2337,10 +2337,10 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
               <input
                 aria-describedby=""
                 aria-details=""
-                aria-labelledby="react-aria-_r_4f_"
+                aria-labelledby="react-aria-_r_6i_"
                 aria-orientation="horizontal"
                 aria-valuetext="0.1"
-                id="react-aria-_r_4f_-0"
+                id="react-aria-_r_6i_-0"
                 max="0.95"
                 min="0"
                 name="lightness"
@@ -2366,10 +2366,10 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
               <input
                 aria-describedby=""
                 aria-details=""
-                aria-labelledby="react-aria-_r_4f_"
+                aria-labelledby="react-aria-_r_6i_"
                 aria-orientation="horizontal"
                 aria-valuetext="0.95"
-                id="react-aria-_r_4f_-1"
+                id="react-aria-_r_6i_-1"
                 max="1"
                 min="0.1"
                 name="lightness"
@@ -2384,7 +2384,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       </div>
     </div>
     <div
-      aria-labelledby="_r_4p_"
+      aria-labelledby="_r_6s_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -2396,7 +2396,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         >
           <span
             class="text-base/5"
-            id="_r_4p_"
+            id="_r_6s_"
           >
             Lightness Curve
           </span>
@@ -2445,9 +2445,9 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             aria-label="Lightness curve mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_4s_"
+            data-collection="react-aria-_r_6v_"
             data-slot="tabList"
-            id="react-aria-_r_4t_"
+            id="react-aria-_r_70_"
             role="tablist"
           >
             <span
@@ -2457,12 +2457,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_4s_"
+              data-collection="react-aria-_r_6v_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_4t_-tab-scalar"
+              id="react-aria-_r_70_-tab-scalar"
               role="tab"
               tabindex="0"
               type="button"
@@ -2477,11 +2477,11 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_4s_"
+              data-collection="react-aria-_r_6v_"
               data-key="range"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_4t_-tab-range"
+              id="react-aria-_r_70_-tab-range"
               role="tab"
               tabindex="-1"
               type="button"
@@ -2498,12 +2498,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       </div>
       <div
         aria-label="Lightness Curve"
-        aria-labelledby="react-aria-_r_53_ react-aria-_r_54_"
+        aria-labelledby="react-aria-_r_76_ react-aria-_r_77_"
         class="flex flex-col w-full gap-1"
         data-hover="false"
         data-orientation="horizontal"
         data-slot="base"
-        id="react-aria-_r_53_"
+        id="react-aria-_r_76_"
         role="group"
       >
         <div
@@ -2513,7 +2513,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
           <label
             class="flex gap-2 items-center"
             data-slot="label"
-            id="react-aria-_r_54_"
+            id="react-aria-_r_77_"
           >
             <span
               class="text-sm/5 text-foreground-500"
@@ -2525,7 +2525,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             aria-live="off"
             class="text-small"
             data-slot="value"
-            for="react-aria-_r_54_-0"
+            for="react-aria-_r_77_-0"
           >
             <span
               class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
@@ -2591,10 +2591,10 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
                 <input
                   aria-describedby=""
                   aria-details=""
-                  aria-labelledby="react-aria-_r_54_"
+                  aria-labelledby="react-aria-_r_77_"
                   aria-orientation="horizontal"
                   aria-valuetext="2"
-                  id="react-aria-_r_54_-0"
+                  id="react-aria-_r_77_-0"
                   max="5"
                   min="0.1"
                   name="lightnessCurve"
@@ -2610,7 +2610,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       </div>
     </div>
     <div
-      aria-labelledby="_r_59_"
+      aria-labelledby="_r_7c_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -2622,7 +2622,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         >
           <span
             class="text-base/5"
-            id="_r_59_"
+            id="_r_7c_"
           >
             Chroma Curve
           </span>
@@ -2671,9 +2671,9 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             aria-label="Chroma curve mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_5c_"
+            data-collection="react-aria-_r_7f_"
             data-slot="tabList"
-            id="react-aria-_r_5d_"
+            id="react-aria-_r_7g_"
             role="tablist"
           >
             <span
@@ -2683,12 +2683,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_5c_"
+              data-collection="react-aria-_r_7f_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_5d_-tab-scalar"
+              id="react-aria-_r_7g_-tab-scalar"
               role="tab"
               tabindex="0"
               type="button"
@@ -2703,11 +2703,11 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_5c_"
+              data-collection="react-aria-_r_7f_"
               data-key="range"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_5d_-tab-range"
+              id="react-aria-_r_7g_-tab-range"
               role="tab"
               tabindex="-1"
               type="button"
@@ -2727,12 +2727,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       >
         <div
           aria-label="Chroma Curve"
-          aria-labelledby="react-aria-_r_5j_ react-aria-_r_5k_"
+          aria-labelledby="react-aria-_r_7m_ react-aria-_r_7n_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_5j_"
+          id="react-aria-_r_7m_"
           role="group"
         >
           <div
@@ -2742,7 +2742,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_5k_"
+              id="react-aria-_r_7n_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -2754,7 +2754,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_5k_-0"
+              for="react-aria-_r_7n_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-primary text-primary-foreground h-5 w-12 max-w-none text-center"
@@ -2820,10 +2820,10 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_5k_"
+                    aria-labelledby="react-aria-_r_7n_"
                     aria-orientation="horizontal"
                     aria-valuetext="0.5"
-                    id="react-aria-_r_5k_-0"
+                    id="react-aria-_r_7n_-0"
                     max="1"
                     min="0"
                     name="chromaAmount"
@@ -2838,12 +2838,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
           </div>
         </div>
         <div
-          aria-labelledby="react-aria-_r_5q_"
+          aria-labelledby="react-aria-_r_7t_"
           class="flex flex-col w-full gap-1"
           data-hover="false"
           data-orientation="horizontal"
           data-slot="base"
-          id="react-aria-_r_5p_"
+          id="react-aria-_r_7s_"
           role="group"
         >
           <div
@@ -2853,7 +2853,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <label
               class="flex gap-2 items-center"
               data-slot="label"
-              id="react-aria-_r_5q_"
+              id="react-aria-_r_7t_"
             >
               <span
                 class="text-sm/5 text-foreground-500"
@@ -2865,7 +2865,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
               aria-live="off"
               class="text-small"
               data-slot="value"
-              for="react-aria-_r_5q_-0"
+              for="react-aria-_r_7t_-0"
             >
               <span
                 class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -2911,10 +2911,10 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
                   <input
                     aria-describedby=""
                     aria-details=""
-                    aria-labelledby="react-aria-_r_5q_"
+                    aria-labelledby="react-aria-_r_7t_"
                     aria-orientation="horizontal"
                     aria-valuetext="0.5"
-                    id="react-aria-_r_5q_-0"
+                    id="react-aria-_r_7t_-0"
                     max="0.99"
                     min="0.01"
                     name="chromaPeak"
@@ -2931,7 +2931,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       </div>
     </div>
     <div
-      aria-labelledby="_r_5v_"
+      aria-labelledby="_r_82_"
       class="flex flex-col gap-2"
       role="group"
     >
@@ -2943,7 +2943,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
         >
           <span
             class="text-base/5"
-            id="_r_5v_"
+            id="_r_82_"
           >
             Hue Shift
           </span>
@@ -2993,9 +2993,9 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             aria-label="Hue shift mode"
             aria-orientation="horizontal"
             class="relative flex h-fit gap-2 items-center flex-nowrap scrollbar-hide bg-default-100 rounded-full p-0 overflow-visible"
-            data-collection="react-aria-_r_62_"
+            data-collection="react-aria-_r_85_"
             data-slot="tabList"
-            id="react-aria-_r_63_"
+            id="react-aria-_r_86_"
             role="tablist"
           >
             <span
@@ -3005,12 +3005,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <button
               aria-selected="true"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_62_"
+              data-collection="react-aria-_r_85_"
               data-key="scalar"
               data-react-aria-pressable="true"
               data-selected="true"
               data-slot="tab"
-              id="react-aria-_r_63_-tab-scalar"
+              id="react-aria-_r_86_-tab-scalar"
               role="tab"
               tabindex="0"
               type="button"
@@ -3025,11 +3025,11 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             <button
               aria-selected="false"
               class="z-0 w-full px-3 py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny rounded-full h-5"
-              data-collection="react-aria-_r_62_"
+              data-collection="react-aria-_r_85_"
               data-key="range"
               data-react-aria-pressable="true"
               data-slot="tab"
-              id="react-aria-_r_63_-tab-range"
+              id="react-aria-_r_86_-tab-range"
               role="tab"
               tabindex="-1"
               type="button"
@@ -3046,12 +3046,12 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
       </div>
       <div
         aria-label="Hue Shift"
-        aria-labelledby="react-aria-_r_69_ react-aria-_r_6a_"
+        aria-labelledby="react-aria-_r_8c_ react-aria-_r_8d_"
         class="flex flex-col w-full gap-1"
         data-hover="false"
         data-orientation="horizontal"
         data-slot="base"
-        id="react-aria-_r_69_"
+        id="react-aria-_r_8c_"
         role="group"
       >
         <div
@@ -3061,7 +3061,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
           <label
             class="flex gap-2 items-center"
             data-slot="label"
-            id="react-aria-_r_6a_"
+            id="react-aria-_r_8d_"
           >
             <span
               class="text-sm/5 text-foreground-500"
@@ -3073,7 +3073,7 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
             aria-live="off"
             class="text-small"
             data-slot="value"
-            for="react-aria-_r_6a_-0"
+            for="react-aria-_r_8d_-0"
           >
             <span
               class="relative min-w-min inline-flex items-center justify-between box-border whitespace-nowrap px-1 text-tiny rounded-full bg-default text-default-foreground h-5 w-12 max-w-none text-center"
@@ -3119,10 +3119,10 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
                 <input
                   aria-describedby=""
                   aria-details=""
-                  aria-labelledby="react-aria-_r_6a_"
+                  aria-labelledby="react-aria-_r_8d_"
                   aria-orientation="horizontal"
                   aria-valuetext="0"
-                  id="react-aria-_r_6a_-0"
+                  id="react-aria-_r_8d_-0"
                   max="90"
                   min="-90"
                   name="hueShift"
@@ -3139,8 +3139,165 @@ exports[`ScaleColorOptions > Render > renders with non-default options (Reset bu
     </div>
   </div>
   <div
-    class="flex justify-end"
+    class="flex justify-between"
   >
+    <div
+      data-testid="ColorLock"
+    >
+      <div
+        class="relative inline-flex shrink-0"
+      >
+        <div
+          class="group flex flex-col w-full transition-background motion-reduce:transition-none !duration-150 group relative justify-end data-[has-label=true]:mt-[calc(var(--heroui-font-size-small)_+_8px)]"
+          data-filled="true"
+          data-has-value="true"
+          data-slot="base"
+        >
+          <div
+            aria-hidden="true"
+            data-a11y-ignore="aria-hidden-focus"
+            data-testid="hidden-select-container"
+            style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+          >
+            <label>
+              <select
+                name="lock"
+                tabindex="-1"
+                title=""
+              >
+                <option />
+                <option
+                  value="None"
+                >
+                  None
+                </option>
+                <option
+                  value="50"
+                >
+                  50
+                </option>
+                <option
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  value="200"
+                >
+                  200
+                </option>
+                <option
+                  value="300"
+                >
+                  300
+                </option>
+                <option
+                  value="400"
+                >
+                  400
+                </option>
+                <option
+                  value="500"
+                >
+                  500
+                </option>
+                <option
+                  value="600"
+                >
+                  600
+                </option>
+                <option
+                  value="700"
+                >
+                  700
+                </option>
+                <option
+                  value="800"
+                >
+                  800
+                </option>
+                <option
+                  value="900"
+                >
+                  900
+                </option>
+                <option
+                  value="950"
+                >
+                  950
+                </option>
+              </select>
+            </label>
+          </div>
+          <div
+            class="w-full flex flex-col"
+            data-slot="mainWrapper"
+          >
+            <button
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-label="Color Lock"
+              aria-labelledby="react-aria-_r_8p_  react-aria-_r_8k_"
+              class="relative gap-3 inline-flex flex-row items-center shadow-xs tap-highlight-transparent group-data-[focus=true]:bg-default-200 h-8 min-h-8 px-2 rounded-small outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 bg-default-200 w-24 data-[hover=true]:bg-default-400"
+              data-react-aria-pressable="true"
+              data-slot="trigger"
+              data-testid="ColorLockOptions"
+              id="react-aria-_r_8k_"
+              tabindex="0"
+              type="button"
+            >
+              <div
+                class="inline-flex h-fit w-[calc(100%_-theme(spacing.6))] min-h-4 items-center gap-1.5 box-border"
+                data-slot="innerWrapper"
+              >
+                <svg
+                  class="text-lg"
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 256 256"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"
+                  />
+                </svg>
+                <span
+                  class="text-foreground-500 font-normal w-full text-start text-small truncate group-data-[has-value=true]:text-default-foreground"
+                  data-slot="value"
+                  id="react-aria-_r_8p_"
+                >
+                  500
+                </span>
+              </div>
+              <svg
+                aria-hidden="true"
+                class="absolute end-3 w-4 h-4 transition-transform duration-150 ease motion-reduce:transition-none data-[open=true]:rotate-180"
+                data-slot="selectorIcon"
+                fill="none"
+                focusable="false"
+                height="1em"
+                role="presentation"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <span
+          class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
+          data-invisible="false"
+        />
+      </div>
+    </div>
     <button
       class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium"
       data-react-aria-pressable="true"

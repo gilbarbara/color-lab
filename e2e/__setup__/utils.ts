@@ -2,6 +2,18 @@ import { type Page } from '@playwright/test';
 
 type ParamValue = string | number;
 
+/** Options map for the path segment named `name` (empty when the color or options are absent). */
+function parseColorOptions(url: URL, name: string): Record<string, string> {
+  const segment = url.pathname.split('/').find(part => part.startsWith(`${name}-`));
+  const last = segment?.split('-').at(-1) ?? '';
+
+  if (!last.includes(':')) {
+    return {};
+  }
+
+  return Object.fromEntries(last.split(',').map(pair => pair.split(':') as [string, string]));
+}
+
 /** Read a single query param from a URL string (null when absent). */
 export function getParam(url: string, key: string) {
   return new URL(url).searchParams.get(key);
@@ -12,6 +24,15 @@ export function hasColor(name: string, value?: string) {
   const needle = value ? `${name}-${value}` : `${name}-`;
 
   return (url: URL) => url.pathname.includes(needle);
+}
+
+/** The color segment for `name` carries each given path option (short key:value). Extra allowed. */
+export function hasColorOptions(name: string, expected: Record<string, ParamValue>) {
+  return (url: URL) => {
+    const options = parseColorOptions(url, name);
+
+    return Object.entries(expected).every(([key, value]) => options[key] === String(value));
+  };
 }
 
 /** The query contains exactly these params — no more, no less — with matching values. */

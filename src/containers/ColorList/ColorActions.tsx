@@ -95,6 +95,7 @@ export default function ColorActions(props: ColorActionsProps) {
           onUpdate={handleUpdateOptions}
           options={{ ...globalOptions, ...colorEntry.overrides }}
           seedColor={colorEntry.value}
+          showLock
         />
       </Collapse>
     </div>
