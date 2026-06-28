@@ -262,6 +262,21 @@ export default function Tooltip(props: TooltipProps) {
     };
   }, [isOpen, reposition]);
 
+  // Recenter when the panel itself resizes — e.g. `content` swapping to a
+  // narrower/wider value while open. Observing the node keeps the arrow on the
+  // trigger regardless of content identity (string or JSX).
+  useEffect(() => {
+    if (!isOpen || !contentRef.current || typeof ResizeObserver === 'undefined') {
+      return undefined;
+    }
+
+    const observer = new ResizeObserver(() => reposition());
+
+    observer.observe(contentRef.current);
+
+    return () => observer.disconnect();
+  }, [isOpen, reposition]);
+
   useEffect(
     () => () => {
       clearTimeout(openTimer.current);
