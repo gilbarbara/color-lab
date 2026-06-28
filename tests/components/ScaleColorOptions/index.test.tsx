@@ -41,6 +41,16 @@ describe('ScaleColorOptions', () => {
     vi.clearAllMocks();
   });
 
+  it('calls onReset when the panel Reset button is clicked', () => {
+    const onReset = vi.fn();
+
+    render(<ScaleColorOptions {...createDefaultProps({ onReset })} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
+
+    expect(onReset).toHaveBeenCalledOnce();
+  });
+
   describe('Render', () => {
     it('renders default state', () => {
       render(<ScaleColorOptions {...createDefaultProps()} />);
@@ -70,7 +80,7 @@ describe('ScaleColorOptions', () => {
       expect(screen.getByTestId('ScaleColorOptions')).toMatchSnapshot();
     });
 
-    it('renders with non-default options (Reset buttons enabled)', () => {
+    it('renders with non-default options and lock (Reset buttons enabled)', () => {
       const defaults = getDefaultGlobalOptions(CRIMSON);
 
       render(
@@ -83,15 +93,19 @@ describe('ScaleColorOptions', () => {
               lightnessCurve: 2.0,
               minLightness: 0.1,
               maxLightness: 0.95,
+              lock: 500,
             },
           })}
+          showLock
         />,
       );
 
       expect(screen.getByTestId('ScaleColorOptions')).toMatchSnapshot();
     });
+  });
 
-    it('renders the tooltip for Lightness Range', async () => {
+  describe('LightnessRange', () => {
+    it('renders the tooltip', async () => {
       const user = userEvent.setup();
 
       render(<ScaleColorOptions {...createDefaultProps()} />);
@@ -106,90 +120,7 @@ describe('ScaleColorOptions', () => {
       expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
     });
 
-    it('renders the tooltip for Lightness Curve', async () => {
-      const user = userEvent.setup();
-
-      render(<ScaleColorOptions {...createDefaultProps()} />);
-
-      await user.hover(screen.getByLabelText('Description for Lightness Curve'));
-
-      await waitFor(() => {
-        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
-      });
-
-      // eslint-disable-next-line testing-library/no-node-access
-      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
-    });
-
-    it('renders the tooltip for Chroma Curve', async () => {
-      const user = userEvent.setup();
-
-      render(<ScaleColorOptions {...createDefaultProps()} />);
-
-      await user.hover(screen.getByLabelText('Description for Chroma Curve'));
-
-      await waitFor(() => {
-        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
-      });
-
-      // eslint-disable-next-line testing-library/no-node-access
-      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
-    });
-
-    it('renders the tooltip for Hue Shift', async () => {
-      const user = userEvent.setup();
-
-      render(<ScaleColorOptions {...createDefaultProps()} />);
-
-      await user.hover(screen.getByLabelText('Description for Hue Shift'));
-
-      await waitFor(() => {
-        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
-      });
-
-      // eslint-disable-next-line testing-library/no-node-access
-      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
-    });
-  });
-
-  describe('Behavior', () => {
-    it('updates lightnessCurve via slider keyboard interaction', async () => {
-      const user = userEvent.setup();
-      const onUpdate = vi.fn();
-      const defaults = getDefaultGlobalOptions(CRIMSON);
-      const expected = Number(((defaults.lightnessCurve as number) + 0.01).toFixed(2));
-
-      render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
-
-      const group = screen.getByRole('group', { name: 'Lightness Curve Amount' });
-      const slider = within(group).getByRole('slider');
-
-      act(() => slider.focus());
-      await user.keyboard('{ArrowRight}');
-
-      expect(onUpdate).toHaveBeenLastCalledWith({ lightnessCurve: expected });
-      expect(mockTrackEvent).toHaveBeenCalledWith('lightness-curve', { value: expected });
-    });
-
-    it('updates chromaCurve via slider keyboard interaction', async () => {
-      const user = userEvent.setup();
-      const onUpdate = vi.fn();
-      const defaults = getDefaultGlobalOptions(CRIMSON);
-      const expected = Number(((defaults.chromaCurve as number) + 0.1).toFixed(1));
-
-      render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
-
-      const group = screen.getByRole('group', { name: 'Chroma Curve Amount' });
-      const slider = within(group).getByRole('slider');
-
-      act(() => slider.focus());
-      await user.keyboard('{PageUp}');
-
-      expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: expected });
-      expect(mockTrackEvent).toHaveBeenCalledWith('chroma-curve', { value: expected });
-    });
-
-    it('updates lightness range via second-handle keyboard interaction', async () => {
+    it('updates via second-handle keyboard interaction', async () => {
       const user = userEvent.setup();
       const onUpdate = vi.fn();
       const defaults = getDefaultGlobalOptions(CRIMSON);
@@ -212,14 +143,61 @@ describe('ScaleColorOptions', () => {
       });
     });
 
-    it('calls onReset when Reset button is clicked', () => {
-      const onReset = vi.fn();
+    it('Reset button calls onUpdate with default values', () => {
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
 
-      render(<ScaleColorOptions {...createDefaultProps({ onReset })} />);
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, minLightness: 0.1, maxLightness: 0.9 },
+            onUpdate,
+          })}
+        />,
+      );
 
-      fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Reset Lightness Range to default' }));
 
-      expect(onReset).toHaveBeenCalledOnce();
+      expect(onUpdate).toHaveBeenCalledWith({
+        minLightness: defaults.minLightness,
+        maxLightness: defaults.maxLightness,
+      });
+    });
+  });
+
+  describe('LightnessCurve', () => {
+    it('renders the tooltip', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Lightness Curve'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
+    });
+
+    it('updates via slider keyboard interaction', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+      const expected = Number(((defaults.lightnessCurve as number) + 0.01).toFixed(2));
+
+      render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
+
+      const group = screen.getByRole('group', { name: 'Lightness Curve Amount' });
+      const slider = within(group).getByRole('slider');
+
+      act(() => slider.focus());
+      await user.keyboard('{ArrowRight}');
+
+      expect(onUpdate).toHaveBeenLastCalledWith({ lightnessCurve: expected });
+      expect(mockTrackEvent).toHaveBeenCalledWith('lightness-curve', { value: expected });
     });
 
     it('per-slider Reset button calls onUpdate with default value', () => {
@@ -249,50 +227,7 @@ describe('ScaleColorOptions', () => {
       ).toBeDisabled();
     });
 
-    it('Chroma Curve Reset button calls onUpdate with default value', () => {
-      const onUpdate = vi.fn();
-      const defaults = getDefaultGlobalOptions(CRIMSON);
-
-      render(
-        <ScaleColorOptions
-          {...createDefaultProps({
-            defaultOptions: defaults,
-            options: { ...defaults, chromaCurve: 0.5 },
-            onUpdate,
-          })}
-        />,
-      );
-
-      fireEvent.click(screen.getByRole('button', { name: 'Reset Chroma Curve to default' }));
-
-      expect(onUpdate).toHaveBeenCalledWith({ chromaCurve: defaults.chromaCurve });
-    });
-
-    it('Lightness Range Reset button calls onUpdate with default values', () => {
-      const onUpdate = vi.fn();
-      const defaults = getDefaultGlobalOptions(CRIMSON);
-
-      render(
-        <ScaleColorOptions
-          {...createDefaultProps({
-            defaultOptions: defaults,
-            options: { ...defaults, minLightness: 0.1, maxLightness: 0.9 },
-            onUpdate,
-          })}
-        />,
-      );
-
-      fireEvent.click(screen.getByRole('button', { name: 'Reset Lightness Range to default' }));
-
-      expect(onUpdate).toHaveBeenCalledWith({
-        minLightness: defaults.minLightness,
-        maxLightness: defaults.maxLightness,
-      });
-    });
-  });
-
-  describe('Mode switching', () => {
-    it('derives the Lightness tab from the value shape (Split selected for a range)', () => {
+    it('derives the tab from the value shape (Split selected for a range)', () => {
       const defaults = getDefaultGlobalOptions(CRIMSON);
 
       render(
@@ -323,13 +258,140 @@ describe('ScaleColorOptions', () => {
       });
     });
 
-    it('Chroma Peak slider is disabled when Amount is 0', () => {
+    it('re-selecting the active tab is a no-op', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(<ScaleColorOptions {...createDefaultProps({ defaultOptions: defaults, onUpdate })} />);
+
+      const tabs = within(screen.getByRole('tablist', { name: 'Lightness curve mode' }));
+
+      await user.click(tabs.getByRole('tab', { name: 'Simple' }));
+
+      expect(onUpdate).not.toHaveBeenCalled();
+    });
+
+    it('Split→Simple collapses the range to its rounded midpoint', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, lightnessCurve: { low: 1, high: 2 } },
+            onUpdate,
+          })}
+        />,
+      );
+
+      const tabs = within(screen.getByRole('tablist', { name: 'Lightness curve mode' }));
+
+      await user.click(tabs.getByRole('tab', { name: 'Simple' }));
+
+      expect(onUpdate).toHaveBeenCalledWith({ lightnessCurve: 1.5 });
+    });
+
+    it('emits a { low, high } range from the Low slider in Split mode', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, lightnessCurve: { low: 1, high: 1.5 } },
+            onUpdate,
+          })}
+        />,
+      );
+
+      const slider = screen.getByRole('slider', { name: 'Low' });
+
+      act(() => slider.focus());
+      await user.keyboard('{ArrowRight}');
+
+      expect(onUpdate).toHaveBeenLastCalledWith({ lightnessCurve: { low: 1.01, high: 1.5 } });
+    });
+  });
+
+  describe('ChromaCurve', () => {
+    it('renders the tooltip', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Chroma Curve'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
+    });
+
+    it('updates via slider keyboard interaction', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+      const expected = Number(((defaults.chromaCurve as number) + 0.1).toFixed(1));
+
+      render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} />);
+
+      const group = screen.getByRole('group', { name: 'Chroma Curve Amount' });
+      const slider = within(group).getByRole('slider');
+
+      act(() => slider.focus());
+      await user.keyboard('{PageUp}');
+
+      expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: expected });
+      expect(mockTrackEvent).toHaveBeenCalledWith('chroma-curve', { value: expected });
+    });
+
+    it('Reset button calls onUpdate with default value', () => {
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, chromaCurve: 0.5 },
+            onUpdate,
+          })}
+        />,
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Reset Chroma Curve to default' }));
+
+      expect(onUpdate).toHaveBeenCalledWith({ chromaCurve: defaults.chromaCurve });
+    });
+
+    it('re-selecting the active tab is a no-op', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(<ScaleColorOptions {...createDefaultProps({ defaultOptions: defaults, onUpdate })} />);
+
+      const tabs = within(screen.getByRole('tablist', { name: 'Chroma curve mode' }));
+
+      await user.click(tabs.getByRole('tab', { name: 'Simple' }));
+
+      expect(onUpdate).not.toHaveBeenCalled();
+    });
+
+    it('Peak slider is disabled when Amount is 0', () => {
       render(<ScaleColorOptions {...createDefaultProps()} />);
 
       expect(screen.getByRole('slider', { name: 'Peak' })).toBeDisabled();
     });
 
-    it('Chroma Peak slider emits { amount, peak } once moved off center', async () => {
+    it('Peak slider emits { amount, peak } once moved off center', async () => {
       const user = userEvent.setup();
       const onUpdate = vi.fn();
       const defaults = getDefaultGlobalOptions(CRIMSON);
@@ -356,7 +418,7 @@ describe('ScaleColorOptions', () => {
       expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: { amount: 0.4, peak: 0.6 } });
     });
 
-    it('Chroma Amount keeps the scalar form while the peak is centered', async () => {
+    it('Amount keeps the scalar form while the peak is centered', async () => {
       const user = userEvent.setup();
       const onUpdate = vi.fn();
       const defaults = getDefaultGlobalOptions(CRIMSON);
@@ -380,7 +442,7 @@ describe('ScaleColorOptions', () => {
       expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: 0.5 });
     });
 
-    it('Chroma →Split seeds { low, high } from the seedColor chroma fraction', async () => {
+    it('Simple→Split seeds { low, high } from the seedColor chroma fraction', async () => {
       const user = userEvent.setup();
       const onUpdate = vi.fn();
       const defaults = getDefaultGlobalOptions(CRIMSON);
@@ -399,7 +461,30 @@ describe('ScaleColorOptions', () => {
       expect(onUpdate).toHaveBeenCalledWith({ chromaCurve: { low: fraction, high: fraction } });
     });
 
-    it('Reset flips the Chroma tab back to Simple (scalar default)', () => {
+    it('emits a { low, high } range from the Low slider in Split mode', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, chromaCurve: { low: 0.2, high: 0.8 } },
+            onUpdate,
+          })}
+        />,
+      );
+
+      const slider = screen.getByRole('slider', { name: 'Low' });
+
+      act(() => slider.focus());
+      await user.keyboard('{ArrowRight}');
+
+      expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: { low: 0.21, high: 0.8 } });
+    });
+
+    it('Reset flips the tab back to Simple (scalar default)', () => {
       const onUpdate = vi.fn();
       const defaults = getDefaultGlobalOptions(CRIMSON);
 
@@ -419,7 +504,22 @@ describe('ScaleColorOptions', () => {
     });
   });
 
-  describe('Hue Shift', () => {
+  describe('HueShift', () => {
+    it('renders the tooltip', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} />);
+
+      await user.hover(screen.getByLabelText('Description for Hue Shift'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('Tooltip')).toBeInTheDocument();
+      });
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('Tooltip').firstChild).toMatchSnapshot();
+    });
+
     it('defaults to Simple and emits a scalar on slider interaction', async () => {
       const user = userEvent.setup();
       const onUpdate = vi.fn();
@@ -458,6 +558,61 @@ describe('ScaleColorOptions', () => {
       expect(onUpdate).toHaveBeenCalledWith({ hueShift: { low: -15, high: 15 } });
     });
 
+    it('re-selecting the active tab is a no-op', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(<ScaleColorOptions {...createDefaultProps({ defaultOptions: defaults, onUpdate })} />);
+
+      const tabs = within(screen.getByRole('tablist', { name: 'Hue shift mode' }));
+
+      await user.click(tabs.getByRole('tab', { name: 'Simple' }));
+
+      expect(onUpdate).not.toHaveBeenCalled();
+    });
+
+    it('Split→Simple collapses to the high end', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, hueShift: { low: -10, high: 20 } },
+            onUpdate,
+          })}
+        />,
+      );
+
+      const tabs = within(screen.getByRole('tablist', { name: 'Hue shift mode' }));
+
+      await user.click(tabs.getByRole('tab', { name: 'Simple' }));
+
+      expect(onUpdate).toHaveBeenCalledWith({ hueShift: 20 });
+    });
+
+    it('Reset button calls onUpdate with the default value', () => {
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, hueShift: 15 },
+            onUpdate,
+          })}
+        />,
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Reset Hue Shift to default' }));
+
+      expect(onUpdate).toHaveBeenCalledWith({ hueShift: defaults.hueShift });
+    });
+
     it('emits a { low, high } range from the Low slider in Split mode', async () => {
       const user = userEvent.setup();
       const onUpdate = vi.fn();
@@ -479,6 +634,60 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ hueShift: { low: 1, high: 0 } });
+    });
+  });
+
+  describe('Lock', () => {
+    it('updates to 500', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+
+      render(<ScaleColorOptions {...createDefaultProps({ onUpdate })} showLock />);
+
+      const trigger = screen.getByTestId('ColorLockOptions');
+
+      await user.click(trigger);
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+
+      const option = await screen.findByRole('option', { name: '500' });
+
+      await user.click(option);
+
+      expect(onUpdate).toHaveBeenLastCalledWith({
+        lock: 500,
+      });
+      expect(mockTrackEvent).toHaveBeenCalledWith('lock-color', { value: '500' });
+    });
+
+    it('updates to None', async () => {
+      const user = userEvent.setup();
+      const onUpdate = vi.fn();
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            onUpdate,
+            defaultOptions: defaults,
+            options: { ...defaults, lock: 500 },
+          })}
+          showLock
+        />,
+      );
+
+      const trigger = screen.getByTestId('ColorLockOptions');
+
+      await user.click(trigger);
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+
+      const option = await screen.findByRole('option', { name: 'None' });
+
+      await user.click(option);
+
+      expect(onUpdate).toHaveBeenLastCalledWith({
+        lock: undefined,
+      });
+      expect(mockTrackEvent).toHaveBeenCalledWith('lock-color', { value: 'none' });
     });
   });
 });

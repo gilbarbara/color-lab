@@ -3,6 +3,7 @@ import { devices, expect, type Page, test } from '@playwright/test';
 
 import {
   hasColor,
+  hasColorOptions,
   hasExactParams,
   hasNoQuery,
   hasParams,
@@ -405,7 +406,14 @@ test('desktop', async () => {
     await page.keyboard.press('PageDown');
 
     await expect(lightnessCurveSlider).toHaveValue('1.2');
-    await expect(page).toHaveURL(/-f:1\.2/);
+    await expect(page).toHaveURL(hasColorOptions('Secondary', { f: '1.2' }));
+
+    await page.getByTestId('ColorLockOptions').click();
+
+    await page.getByRole('option', { name: '400', exact: true }).click();
+
+    await expect(page.getByTestId('ColorLockOptions')).toHaveText('400');
+    await expect(page).toHaveURL(hasColorOptions('Secondary', { f: '1.2', k: 400 }));
 
     await expect(page).toHaveScreenshot(getScreenshotName('color-options.png'));
   });

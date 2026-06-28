@@ -10,6 +10,7 @@ import ChromaCurve from '~/components/ScaleColorOptions/ChromaCurve';
 import HueShift from '~/components/ScaleColorOptions/HueShift';
 import LightnessCurve from '~/components/ScaleColorOptions/LightnessCurve';
 import LightnessRange from '~/components/ScaleColorOptions/LightnessRange';
+import Lock from '~/components/ScaleColorOptions/Lock';
 
 import type { GlobalScaleOptions, OklchString } from '~/types';
 
@@ -24,6 +25,7 @@ interface ScaleColorOptionsProps {
   options: GlobalScaleOptions;
   /** Color whose chroma fraction seeds the endpoints (Range) chroma mode. */
   seedColor: OklchString;
+  showLock?: boolean;
 }
 
 /**
@@ -42,8 +44,17 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
     onUpdate,
     options,
     seedColor,
+    showLock = false,
   } = props;
-  const { chromaCurve, hueShift, lightnessCurve, maxLightness, minLightness } = options;
+  const {
+    chromaCurve,
+    hueShift,
+    lightnessCurve,
+    lock: defaultLock,
+    maxLightness,
+    minLightness,
+    steps,
+  } = options;
   const { end, ref: interactionRef, start } = useSliderInteraction();
   const scheduleUpdate = useRafCallback(onUpdate);
   const seedFraction = getChromaFraction(seedColor);
@@ -86,7 +97,12 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
         <HueShift {...shared} defaultHueShift={defaultOptions.hueShift} hueShift={hueShift} />
       </div>
 
-      <div className="flex justify-end">
+      <div
+        className={cn('flex justify-end', {
+          'justify-between': showLock,
+        })}
+      >
+        {showLock && <Lock lock={defaultLock} onUpdate={onUpdate} steps={steps} />}
         <Button
           isDisabled={disableReset}
           onPress={onReset}
