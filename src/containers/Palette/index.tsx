@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import useGenerator from '~/hooks/useGenerator';
 import { getEffectiveOptions } from '~/utils/generator';
 
@@ -7,7 +9,7 @@ import Preview from '~/containers/Preview';
 import Header from './Header';
 import Scale from './Scale';
 
-export default function Palette() {
+function Palette() {
   const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
 
   return (
@@ -34,3 +36,5 @@ export default function Palette() {
     </div>
   );
 }
+
+export default memo(Palette);

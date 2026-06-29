@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent, TouchEvent } from 'react';
+import { type KeyboardEvent, memo, type MouseEvent, type TouchEvent } from 'react';
 import { cn } from '@heroui/react';
 import { CaretUpIcon } from '@phosphor-icons/react';
 
@@ -33,7 +33,7 @@ function getStripSpacing(count: number): string {
   return 'ms-2';
 }
 
-export default function PanelBottomBar(props: PanelBottomBarProps) {
+function PanelBottomBar(props: PanelBottomBarProps) {
   const { colors, onClick, onKeyDown, onTouchEnd, onTouchStart, showBottomBar, toggleBottomBar } =
     props;
 
@@ -78,3 +78,5 @@ export default function PanelBottomBar(props: PanelBottomBarProps) {
     </div>
   );
 }
+
+export default memo(PanelBottomBar);

@@ -8,7 +8,7 @@ import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from 
 import { isSameOptionValue } from '~/utils/scale-options';
 import { serializePaletteToUrl } from '~/utils/url';
 
-import type { DefaultScaleOptions } from '~/types';
+import type { DefaultScaleOptions, OklchString } from '~/types';
 
 type ComputedKey = keyof ComputedPaletteValues;
 
@@ -21,15 +21,26 @@ interface ComputedPaletteValues {
   generatorUrl: string;
   hasCustomCurves: boolean;
   hasCustomPaletteOptions: boolean;
+  seedColor: OklchString;
 }
 
+// Synthetic slice dependency: the palette seed is `colors[0].value`, a string.
+// Computeds derived from the seed subscribe to THIS (value-compared by useShallow)
+// instead of the whole `colors` array, so adding/removing/editing a non-first color —
+// which leaves colors[0] untouched — doesn't re-render their consumers. `generatorUrl`
+// is the exception: it serializes every color, so it genuinely depends on `colors`.
+const SEED = '__seedColor';
+
+type SliceDep = StoreKey | typeof SEED;
+
 const COMPUTED_DEPS = {
-  baseSaturation: ['colors'],
-  defaultOptions: ['colors'],
+  baseSaturation: [SEED],
+  defaultOptions: [SEED],
   generatorUrl: ['colors', 'globalOptions'],
-  hasCustomCurves: ['colors', 'globalOptions'],
-  hasCustomPaletteOptions: ['colors', 'globalOptions'],
-} as const satisfies Record<ComputedKey, readonly StoreKey[]>;
+  hasCustomCurves: [SEED, 'globalOptions'],
+  hasCustomPaletteOptions: [SEED, 'globalOptions'],
+  seedColor: [SEED],
+} as const satisfies Record<ComputedKey, readonly SliceDep[]>;
 
 const COMPUTED_KEYS = new Set(Object.keys(COMPUTED_DEPS) as ComputedKey[]);
 
@@ -47,24 +58,28 @@ function isComputedKey(key: UsePaletteKey): key is ComputedKey {
 export default function useGenerator<K extends UsePaletteKey>(
   ...keys: K[]
 ): Pick<PaletteAggregate, K> {
-  const storeKeys = new Set<StoreKey>();
+  const sliceDeps = new Set<SliceDep>();
 
   for (const key of keys) {
     if (isComputedKey(key)) {
       for (const dep of COMPUTED_DEPS[key]) {
-        storeKeys.add(dep);
+        sliceDeps.add(dep);
       }
     } else {
-      storeKeys.add(key);
+      sliceDeps.add(key);
     }
   }
 
   const slice = useGeneratorStore(
     useShallow(state => {
-      const out = {} as Partial<GeneratorStore>;
+      const out = {} as Partial<GeneratorStore> & { [SEED]?: OklchString };
 
-      storeKeys.forEach(k => {
-        (out as Record<string, unknown>)[k] = state[k];
+      sliceDeps.forEach(k => {
+        if (k === SEED) {
+          out[SEED] = state.colors[0]?.value;
+        } else {
+          (out as Record<string, unknown>)[k] = state[k];
+        }
       });
 
       return out;
@@ -72,15 +87,16 @@ export default function useGenerator<K extends UsePaletteKey>(
   );
 
   const { colors, globalOptions } = slice;
+  const seed = slice[SEED];
 
   const defaultOptions = useMemo(
-    () => (colors ? getDefaultGlobalOptions(colors[0].value) : (undefined as never)),
-    [colors],
+    () => (seed ? getDefaultGlobalOptions(seed) : (undefined as never)),
+    [seed],
   );
 
   const baseSaturation = useMemo(
-    () => (colors ? getChromaAsPercentage(colors[0].value) : (undefined as never)),
-    [colors],
+    () => (seed ? getChromaAsPercentage(seed) : (undefined as never)),
+    [seed],
   );
 
   const generatorUrl = useMemo(
@@ -117,6 +133,7 @@ export default function useGenerator<K extends UsePaletteKey>(
     generatorUrl,
     hasCustomCurves,
     hasCustomPaletteOptions,
+    seedColor: seed ?? (undefined as never),
   };
 
   const result = {} as Pick<PaletteAggregate, K>;

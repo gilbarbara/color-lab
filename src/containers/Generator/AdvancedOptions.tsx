@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Divider } from '@heroui/react';
 import { SlidersHorizontalIcon } from '@phosphor-icons/react';
 
@@ -18,16 +19,16 @@ interface AdvancedOptionsProps {
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
 
-export default function AdvancedOptions(props: AdvancedOptionsProps) {
+function AdvancedOptions(props: AdvancedOptionsProps) {
   const { defaultOptions, globalOptions, updateGlobalOptions } = props;
   const { showColorOptionsPanel, toggleColorOptionsPanel } = useApp(
     'showColorOptionsPanel',
     'toggleColorOptionsPanel',
   );
-  const { colors, hasCustomCurves, resetAdvancedOptions } = useGenerator(
-    'colors',
+  const { hasCustomCurves, resetAdvancedOptions, seedColor } = useGenerator(
     'hasCustomCurves',
     'resetAdvancedOptions',
+    'seedColor',
   );
 
   const handleClickReset = () => {
@@ -64,7 +65,7 @@ export default function AdvancedOptions(props: AdvancedOptionsProps) {
             onReset={handleClickReset}
             onUpdate={updateGlobalOptions}
             options={globalOptions}
-            seedColor={colors[0].value}
+            seedColor={seedColor}
           />
         </div>
       </CollapsePanel>
@@ -73,3 +74,5 @@ export default function AdvancedOptions(props: AdvancedOptionsProps) {
     </div>
   );
 }
+
+export default memo(AdvancedOptions);

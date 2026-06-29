@@ -1,0 +1,108 @@
+import { useSetState } from '@gilbarbara/hooks';
+import { addToast, cn } from '@heroui/react';
+import { HeartIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
+
+import { DEFAULT_PALETTE_NAME } from '~/config/globals';
+import useApp from '~/hooks/useApp';
+import useAuth from '~/hooks/useAuth';
+import useGenerator from '~/hooks/useGenerator';
+import useSavedPalettes from '~/hooks/useSavedPalettes';
+import { trackEvent } from '~/utils/analytics';
+
+import Button from '~/components/Button';
+import SavePaletteModal from '~/components/SavePaletteModal';
+
+interface SaveControlsState {
+  isSaveModalOpen: boolean;
+}
+
+/**
+ * Save/Update button + new-palette modal, isolated so the save subscriptions
+ * (useSavedPalettes → generatorUrl, which changes on every edit) live on this leaf
+ * instead of the whole PaletteHeader. Keeps the memo'd header inert on palette edits.
+ */
+export default function SaveControls() {
+  const { isAuthenticated } = useAuth();
+  const { openLoginModal } = useApp('openLoginModal');
+  const { name } = useGenerator('name');
+  const { hasUnsavedChanges, isSaving, paletteId, savePalette, updateCurrentPalette } =
+    useSavedPalettes();
+
+  const [{ isSaveModalOpen }, setState] = useSetState<SaveControlsState>({
+    isSaveModalOpen: false,
+  });
+
+  const saveAndAnnounce = async (nameToSave: string) => {
+    const palette = await savePalette(nameToSave);
+
+    if (palette) {
+      trackEvent('save-palette');
+      addToast({ title: 'Palette saved', color: 'success' });
+    }
+
+    return palette;
+  };
+
+  const handleClickSave = async () => {
+    if (!isAuthenticated) {
+      openLoginModal();
+
+      return;
+    }
+
+    if (paletteId) {
+      // Update existing palette
+      const success = await updateCurrentPalette();
+
+      if (success) {
+        trackEvent('update-palette');
+        addToast({ title: 'Palette updated', color: 'success' });
+      }
+    } else {
+      // Open modal to save new palette
+      setState({ isSaveModalOpen: true });
+    }
+  };
+
+  const handleSaveNewPalette = async (value: string) => {
+    const palette = await saveAndAnnounce(value);
+
+    if (palette) {
+      setState({ isSaveModalOpen: false });
+    }
+  };
+
+  const iconClass = cn('text-xl shrink-0', {
+    'animate-bounce': isSaving,
+  });
+
+  return (
+    <>
+      <Button
+        aria-label={paletteId ? 'Update palette' : 'Save palette'}
+        className="@max-2xl:button-menu-square"
+        color={hasUnsavedChanges ? 'warning' : 'primary'}
+        isDisabled={isSaving || (!!paletteId && !hasUnsavedChanges)}
+        onPress={handleClickSave}
+        size="menu"
+        startContent={
+          paletteId ? (
+            <PencilSimpleLineIcon className={iconClass} />
+          ) : (
+            <HeartIcon className={iconClass} />
+          )
+        }
+        variant="faded"
+      >
+        <span className="hidden @2xl:inline">{paletteId ? 'Update' : 'Save'}</span>
+      </Button>
+      <SavePaletteModal
+        defaultName={name !== DEFAULT_PALETTE_NAME ? name : ''}
+        isOpen={isSaveModalOpen}
+        isSaving={isSaving}
+        onClose={() => setState({ isSaveModalOpen: false })}
+        onSave={handleSaveNewPalette}
+      />
+    </>
+  );
+}

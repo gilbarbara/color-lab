@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 import useGenerator from '~/hooks/useGenerator';
 
 import ColorPresets from '~/components/ColorPresets';
 
 import ColorItem from './ColorItem';
 
-export default function ColorList() {
+function ColorList() {
   const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
 
   return (
@@ -28,3 +30,5 @@ export default function ColorList() {
     </div>
   );
 }
+
+export default memo(ColorList);
