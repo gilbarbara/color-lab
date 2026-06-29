@@ -1,31 +1,32 @@
 import { PaletteIcon } from '@phosphor-icons/react';
 
+import useApp from '~/hooks/useApp';
+import useGenerator from '~/hooks/useGenerator';
+
 import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
 
-interface OptionsToggleProps {
-  hasCustomPaletteOptions: boolean;
-  isVisible: boolean;
-  onToggle: () => void;
-}
-
-export default function OptionsToggle(props: OptionsToggleProps) {
-  const { hasCustomPaletteOptions, isVisible, onToggle } = props;
+export default function OptionsToggle() {
+  const { hasCustomPaletteOptions } = useGenerator('hasCustomPaletteOptions');
+  const { showPaletteOptionsPanel, togglePaletteOptionsPanel } = useApp(
+    'showPaletteOptionsPanel',
+    'togglePaletteOptionsPanel',
+  );
 
   return (
     <Tooltip content="Palette Options" placement="bottom">
       <Button
         aria-label="Palette Options"
         className="@max-2xl:button-menu-square"
-        onPress={onToggle}
+        onPress={togglePaletteOptionsPanel}
         size="menu"
         startContent={
           <Badge content="" isInvisible={!hasCustomPaletteOptions}>
             <PaletteIcon className="text-xl" weight="bold" />
           </Badge>
         }
-        variant={isVisible ? 'solid' : 'light'}
+        variant={showPaletteOptionsPanel ? 'solid' : 'light'}
       >
         <span className="hidden @2xl:inline-flex">Options</span>
       </Button>

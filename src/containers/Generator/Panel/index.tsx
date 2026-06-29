@@ -1,5 +1,11 @@
-import { type KeyboardEvent, type MouseEvent, type TouchEvent, useEffect, useRef } from 'react';
-import { flushSync } from 'react-dom';
+import {
+  type KeyboardEvent,
+  type MouseEvent,
+  type TouchEvent,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 import { useBreakpoint, useIsomorphicLayoutEffect } from '@gilbarbara/hooks';
 import { cn, Divider } from '@heroui/react';
 import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
@@ -63,7 +69,6 @@ export default function Panel() {
   const containerRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const dragStartY = useRef<number | null>(null);
-  const hasMountedRef = useRef(false);
   // Last colorScrollRequest.nonce we actually scrolled to — see the scroll effect.
   const servicedNonceRef = useRef<number | null>(null);
 
@@ -74,16 +79,10 @@ export default function Panel() {
   const { max } = useBreakpoint(BREAKPOINTS);
   const isMobile = max('md');
 
-  // Adding a color changes the URL path, which remounts Panel and its scroll
-  // container (resetting scrollTop to 0). A colorScrollRequest is already pending
-  // on the first run after that remount — restore the scroll position synchronously
-  // before paint so the fresh container never flashes at the top. In-place requests
-  // (swatch / color-box clicks, no remount) keep the smooth animated scroll.
+  // A colorScrollRequest (Add Color, swatch / color-box clicks, Remove) scrolls the
+  // sidebar to that color. Palette edits commit via history.pushState (useUrlSync), so
+  // Panel is never remounted and its scrollTop is preserved — every request animates.
   useIsomorphicLayoutEffect(() => {
-    const isRemountRestore = !hasMountedRef.current;
-
-    hasMountedRef.current = true;
-
     if (!colorScrollRequest || collapseAnimationCount > 0) {
       return undefined;
     }
@@ -99,13 +98,6 @@ export default function Panel() {
 
     const { id, nonce } = colorScrollRequest;
     const offset = isMobile ? SCROLL_OFFSET : OFFSET;
-
-    if (isRemountRestore) {
-      servicedNonceRef.current = nonce;
-      scrollToSelector(id, containerRef.current, offset, true);
-
-      return undefined;
-    }
 
     // Mark serviced inside the frame, not before: if a dep change cancels this rAF
     // first, the re-run must reschedule rather than skip a never-performed scroll.
@@ -136,46 +128,52 @@ export default function Panel() {
       ? rotateOklchHue(lastColor.value, 30)
       : getRandomColor(baseSaturation);
 
-    let newId: string | null = null;
+    const newId = addColor(nextColor);
 
-    flushSync(() => {
-      newId = addColor(nextColor);
-    });
     trackEvent('add-color');
 
     if (newId) requestColorScroll(newId);
   };
 
-  const handleClickColorBox = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    const { id } = event.currentTarget.dataset;
+  const handleClickColorBox = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      const { id } = event.currentTarget.dataset;
 
-    if (id) scrollToColor(id);
-  };
+      if (id) scrollToColor(id);
+    },
+    [scrollToColor],
+  );
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      toggleBottomBar();
-    }
-  };
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleBottomBar();
+      }
+    },
+    [toggleBottomBar],
+  );
 
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
     dragStartY.current = event.touches[0].clientY;
-  };
+  }, []);
 
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    if (dragStartY.current === null) return;
+  const handleTouchEnd = useCallback(
+    (event: TouchEvent<HTMLDivElement>) => {
+      if (dragStartY.current === null) return;
 
-    const deltaY = event.changedTouches[0].clientY - dragStartY.current;
-    const threshold = 30;
+      const deltaY = event.changedTouches[0].clientY - dragStartY.current;
+      const threshold = 30;
 
-    if ((deltaY < -threshold && !showBottomBar) || (deltaY > threshold && showBottomBar)) {
-      toggleBottomBar();
-    }
+      if ((deltaY < -threshold && !showBottomBar) || (deltaY > threshold && showBottomBar)) {
+        toggleBottomBar();
+      }
 
-    dragStartY.current = null;
-  };
+      dragStartY.current = null;
+    },
+    [showBottomBar, toggleBottomBar],
+  );
 
   return (
     <aside
