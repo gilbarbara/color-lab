@@ -1,5 +1,9 @@
 overrides:
   '@react-types/shared': 3.35.0
+  # Security patches for transitive dev/build deps (pnpm audit)
+  undici: 7.28.0
+  vite: 8.0.16
+  postcss: 8.5.10
 # PageUp/PageDown stepped by (max-min)/10, so the jump varied wildly per slider
 # (10x, 18, or nothing). Patch makes calcPageSize use step*10 for a consistent jump.
 patchedDependencies:
