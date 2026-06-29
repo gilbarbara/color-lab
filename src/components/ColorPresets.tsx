@@ -6,7 +6,7 @@ import {
   DropdownTrigger,
   type Selection,
 } from '@heroui/react';
-import { CaretDownIcon, EraserIcon, IntersectThreeIcon } from '@phosphor-icons/react';
+import { CaretDownIcon, EraserIcon, PaintBrushIcon } from '@phosphor-icons/react';
 
 import { DESIGN_SYSTEM_PRESETS } from '~/config/presets';
 import useGenerator from '~/hooks/useGenerator';
@@ -70,7 +70,7 @@ export default function ColorPresets() {
           <Button
             endContent={<CaretDownIcon />}
             size="menu"
-            startContent={<IntersectThreeIcon className="text-lg" />}
+            startContent={<PaintBrushIcon className="text-lg" />}
             variant={activeKey ? 'solid' : 'flat'}
           >
             {activeKey ? presetLabels[activeKey] : 'Apply a preset'}
