@@ -3,7 +3,6 @@ import '~/index.css';
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 
 import {
   SITE_DESCRIPTION,
@@ -12,6 +11,8 @@ import {
   SITE_TITLE,
   SITE_URL,
 } from '~/config/metadata';
+
+import Analytics from '~/components/Analytics';
 
 import Providers from './providers';
 
@@ -76,12 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <Providers>{children}</Providers>
-        <Script
-          data-auto-track="false"
-          data-website-id="f44523f9-b201-4aa8-bc42-7600dcbf643d"
-          src="https://cloud.umami.is/script.js"
-          strategy="afterInteractive"
-        />
+        <Analytics />
       </body>
     </html>
   );
