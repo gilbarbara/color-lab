@@ -15,8 +15,7 @@ export type LightnessCurveMode = 'scalar' | 'range';
 
 /** Normalized chroma curve, mirroring scale()'s internal config. */
 export type NormalizedChromaCurve =
-  | { amount: number; peak: number; type: 'parabola' }
-  | { high: number; low: number; type: 'range' };
+  { amount: number; peak: number; type: 'parabola' } | { high: number; low: number; type: 'range' };
 
 /**
  * UI mode for a chromaCurve value. The parabola family (scalar and `{ amount, peak }`)
