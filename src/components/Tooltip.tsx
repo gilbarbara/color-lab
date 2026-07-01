@@ -27,12 +27,7 @@ interface Coords {
 export type TooltipColor = 'danger' | 'tooltip';
 
 export type TooltipPlacement =
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'top'
-  | 'top-start'
-  | 'top-end';
+  'bottom' | 'bottom-start' | 'bottom-end' | 'top' | 'top-start' | 'top-end';
 
 export type TooltipSize = 'lg' | 'md';
 
