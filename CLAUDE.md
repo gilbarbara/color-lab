@@ -130,6 +130,7 @@ Additional UI surfaces:
 - **next-themes**: Light/dark theme (class strategy)
 - **Firebase**: Authentication (with Identity Platform) + Firestore Lite for palette storage
 - **@sentry/nextjs**: Error/perf monitoring (client/server/edge via `instrumentation.ts`)
+- **posthog-js**: Product analytics (page views + events), reverse-proxied via `/ingest`
 - **@gilbarbara/hooks**: `useMemoDeepCompare`, `useToggle`, `useBreakpoint`, `useSetState`
 
 ## Testing
@@ -220,5 +221,5 @@ Hosted on Dokploy at `lab.colormeup.co` as a **Dockerized Next.js standalone ser
 **Notes:**
 
 - `next build` produces `.next/standalone`; the runner stage copies `public/`, `.next/standalone`, and `.next/static`.
-- The 6 `NEXT_PUBLIC_FIREBASE_*` are inlined into the client bundle at **build time**, so they must be passed as Docker build args (Dokploy) / present for `next build` — not just at runtime.
+- The 6 `NEXT_PUBLIC_FIREBASE_*` and `NEXT_PUBLIC_POSTHOG_KEY` are inlined into the client bundle at **build time**, so they must be passed as Docker build args (Dokploy) / present for `next build` — not just at runtime.
 - Server-rendered routes (`/p/*`, `/og/*`) require the Node server.

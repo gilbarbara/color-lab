@@ -28,6 +28,28 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_APP_VERSION: packageJSON.version,
   },
+  // PostHog uses trailing slashes on its API (e.g. /e/); Next.js would otherwise
+  // redirect and break event capture through the proxy below.
+  skipTrailingSlashRedirect: true,
+  // Reverse-proxy PostHog through our own domain so ad blockers don't drop
+  // analytics. api_host is set to '/ingest' in src/utils/analytics.ts.
+  // Specific rules must precede the catch-all — Next.js matches in order.
+  async rewrites() {
+    return [
+      {
+        source: '/ingest/static/:path*',
+        destination: 'https://us-assets.i.posthog.com/static/:path*',
+      },
+      {
+        source: '/ingest/array/:path*',
+        destination: 'https://us-assets.i.posthog.com/array/:path*',
+      },
+      {
+        source: '/ingest/:path*',
+        destination: 'https://us.i.posthog.com/:path*',
+      },
+    ];
+  },
 };
 
 const sentryConfig = withSentryConfig(nextConfig, {

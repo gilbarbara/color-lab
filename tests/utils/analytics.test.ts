@@ -1,8 +1,24 @@
 const mockCaptureException = vi.fn();
+const mockCapture = vi.fn();
+const mockInit = vi.fn();
 
 vi.mock('@sentry/nextjs', () => ({
   captureException: (...arguments_: unknown[]) => mockCaptureException(...arguments_),
 }));
+
+vi.mock('posthog-js', () => ({
+  default: { init: mockInit, capture: mockCapture },
+}));
+
+async function getBeforeSend() {
+  const { initAnalytics } = await loadAnalytics();
+
+  await initAnalytics();
+
+  return mockInit.mock.calls[0][1].before_send as (
+    event: { properties: Record<string, unknown> } | null,
+  ) => { properties: Record<string, unknown> } | null;
+}
 
 // The module keeps queue/ready state at module scope, so each test loads a fresh
 // copy (vi.resetModules in beforeEach) to control readiness in isolation.
@@ -11,141 +27,225 @@ async function loadAnalytics() {
 }
 
 describe('utils/analytics', () => {
-  const originalUmami = window.umami;
+  const originalEnv = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 
   beforeEach(() => {
     vi.resetModules();
     vi.clearAllMocks();
+    process.env.NEXT_PUBLIC_POSTHOG_KEY = 'phc_test';
   });
 
   afterEach(() => {
-    window.umami = originalUmami;
+    if (originalEnv === undefined) {
+      delete process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    } else {
+      process.env.NEXT_PUBLIC_POSTHOG_KEY = originalEnv;
+    }
+  });
+
+  describe('normalizePathname', () => {
+    it.each([
+      ['/p', '/generator'],
+      ['/p/Primary-50_0.1_120', '/generator'],
+      ['/palettes', '/palettes'],
+      ['/about', '/about'],
+      ['/', '/'],
+    ])('normalizes %s to %s', async (input, expected) => {
+      const { normalizePathname } = await loadAnalytics();
+
+      expect(normalizePathname(input)).toBe(expected);
+    });
+
+    it('returns null for auth routes', async () => {
+      const { normalizePathname } = await loadAnalytics();
+
+      expect(normalizePathname('/auth/callback')).toBeNull();
+    });
+  });
+
+  describe('initAnalytics', () => {
+    it('initializes PostHog with the reverse-proxy + cookieless config', async () => {
+      const { initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+
+      expect(mockInit).toHaveBeenCalledTimes(1);
+      expect(mockInit).toHaveBeenCalledWith(
+        'phc_test',
+        expect.objectContaining({
+          api_host: '/ingest',
+          persistence: 'memory',
+          capture_pageview: false,
+        }),
+      );
+    });
+
+    it('is a no-op when the key is missing', async () => {
+      process.env.NEXT_PUBLIC_POSTHOG_KEY = '';
+
+      const { initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+
+      expect(mockInit).not.toHaveBeenCalled();
+    });
+
+    it('does not re-initialize on a second call', async () => {
+      const { initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+      await initAnalytics();
+
+      expect(mockInit).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not init twice when called concurrently', async () => {
+      const { initAnalytics } = await loadAnalytics();
+
+      await Promise.all([initAnalytics(), initAnalytics()]);
+
+      expect(mockInit).toHaveBeenCalledTimes(1);
+    });
+
+    it('stops forwarding calls after a failed init', async () => {
+      mockInit.mockImplementationOnce(() => {
+        throw new Error('init failed');
+      });
+
+      const { initAnalytics, trackEvent } = await loadAnalytics();
+
+      await initAnalytics();
+      trackEvent('add-color');
+
+      expect(mockCapture).not.toHaveBeenCalled();
+      expect(mockCaptureException).toHaveBeenCalledTimes(1);
+      expect(mockCaptureException).toHaveBeenCalledWith(expect.any(Error), {
+        tags: { source: 'posthog', call: 'init' },
+      });
+    });
+  });
+
+  describe('before_send', () => {
+    it('collapses palette URLs to /generator on every event', async () => {
+      const beforeSend = await getBeforeSend();
+
+      const result = beforeSend({
+        properties: {
+          $current_url: 'https://color-lab.localhost/p/Primary-50_0.1_120/Secondary-40_0.2_260?x=1',
+          $pathname: '/p/Primary-50_0.1_120/Secondary-40_0.2_260',
+        },
+      });
+
+      expect(result?.properties.$pathname).toBe('/generator');
+      expect(result?.properties.$current_url).toBe('https://color-lab.localhost/generator');
+    });
+
+    it('leaves non-palette URLs untouched', async () => {
+      const beforeSend = await getBeforeSend();
+
+      const result = beforeSend({
+        properties: {
+          $current_url: 'https://color-lab.localhost/palettes?sort=name',
+          $pathname: '/palettes',
+        },
+      });
+
+      expect(result?.properties.$pathname).toBe('/palettes');
+      expect(result?.properties.$current_url).toBe(
+        'https://color-lab.localhost/palettes?sort=name',
+      );
+    });
+
+    it('drops auth-route events entirely', async () => {
+      const beforeSend = await getBeforeSend();
+
+      const result = beforeSend({
+        properties: {
+          $current_url: 'https://color-lab.localhost/auth/callback?code=abc',
+          $pathname: '/auth/callback',
+        },
+      });
+
+      expect(result).toBeNull();
+    });
+
+    it('passes through a null event', async () => {
+      const beforeSend = await getBeforeSend();
+
+      expect(beforeSend(null)).toBeNull();
+    });
   });
 
   describe('queue', () => {
-    it('buffers calls made before flush and replays them in order', async () => {
-      const track = vi.fn();
-
-      window.umami = { track };
-
-      const { flushAnalyticsQueue, trackEvent, trackPage } = await loadAnalytics();
+    it('buffers calls made before init and replays them in order', async () => {
+      const { initAnalytics, trackEvent, trackPage } = await loadAnalytics();
 
       // Not ready yet — calls are queued, nothing forwarded.
-      trackPage('/');
+      trackPage();
       trackEvent('add-color');
 
-      expect(track).not.toHaveBeenCalled();
+      expect(mockCapture).not.toHaveBeenCalled();
 
-      flushAnalyticsQueue();
+      await initAnalytics();
 
-      expect(track).toHaveBeenCalledTimes(2);
-
-      const pageCallback = track.mock.calls[0][0] as (
-        props: Record<string, unknown>,
-      ) => Record<string, unknown>;
-
-      expect(pageCallback({})).toEqual({ url: '/' });
-      expect(track.mock.calls[1]).toEqual(['add-color', undefined]);
-    });
-
-    it('sends the entry url captured at call time even when flushed later', async () => {
-      const track = vi.fn();
-
-      window.umami = { track };
-
-      const { flushAnalyticsQueue, trackPage } = await loadAnalytics();
-
-      trackPage('/generator');
-      flushAnalyticsQueue();
-
-      const callback = track.mock.calls[0][0] as (
-        props: Record<string, unknown>,
-      ) => Record<string, unknown>;
-
-      expect(callback({ existing: 1 })).toEqual({ existing: 1, url: '/generator' });
+      expect(mockCapture).toHaveBeenCalledTimes(2);
+      expect(mockCapture.mock.calls[0]).toEqual(['$pageview']);
+      expect(mockCapture.mock.calls[1]).toEqual(['add-color', undefined]);
     });
   });
 
   describe('trackEvent', () => {
-    it('forwards to window.umami.track once ready', async () => {
-      const track = vi.fn();
+    it('forwards to posthog.capture once ready', async () => {
+      const { initAnalytics, trackEvent } = await loadAnalytics();
 
-      window.umami = { track };
-
-      const { flushAnalyticsQueue, trackEvent } = await loadAnalytics();
-
-      flushAnalyticsQueue();
+      await initAnalytics();
       trackEvent('clicked', { value: 1 });
 
-      expect(track).toHaveBeenCalledWith('clicked', { value: 1 });
+      expect(mockCapture).toHaveBeenCalledWith('clicked', { value: 1 });
       expect(mockCaptureException).not.toHaveBeenCalled();
     });
 
-    it('captures to Sentry when umami throws', async () => {
-      window.umami = {
-        track: () => {
-          throw new Error('umami down');
-        },
-      };
+    it('captures to Sentry when posthog throws', async () => {
+      mockCapture.mockImplementationOnce(() => {
+        throw new Error('posthog down');
+      });
 
-      const { flushAnalyticsQueue, trackEvent } = await loadAnalytics();
+      const { initAnalytics, trackEvent } = await loadAnalytics();
 
-      flushAnalyticsQueue();
+      await initAnalytics();
       trackEvent('clicked');
 
       expect(mockCaptureException).toHaveBeenCalledTimes(1);
       expect(mockCaptureException).toHaveBeenCalledWith(expect.any(Error), {
-        tags: { source: 'umami', call: 'trackEvent' },
+        tags: { source: 'posthog', call: 'trackEvent' },
       });
-    });
-
-    it('buffers without throwing when umami is absent', async () => {
-      window.umami = undefined;
-
-      const { flushAnalyticsQueue, trackEvent } = await loadAnalytics();
-
-      flushAnalyticsQueue();
-
-      expect(() => trackEvent('clicked')).not.toThrow();
-      expect(mockCaptureException).not.toHaveBeenCalled();
     });
   });
 
   describe('trackPage', () => {
-    it('forwards a function to window.umami.track once ready', async () => {
-      const track = vi.fn();
+    it('sends a $pageview once ready', async () => {
+      const { initAnalytics, trackPage } = await loadAnalytics();
 
-      window.umami = { track };
+      await initAnalytics();
+      trackPage();
 
-      const { flushAnalyticsQueue, trackPage } = await loadAnalytics();
-
-      flushAnalyticsQueue();
-      trackPage('/about');
-
-      expect(track).toHaveBeenCalledTimes(1);
-
-      const callback = track.mock.calls[0][0] as (
-        props: Record<string, unknown>,
-      ) => Record<string, unknown>;
-
-      expect(callback({ existing: 1 })).toEqual({ existing: 1, url: '/about' });
+      expect(mockCapture).toHaveBeenCalledTimes(1);
+      expect(mockCapture).toHaveBeenCalledWith('$pageview');
     });
 
-    it('captures to Sentry when umami throws', async () => {
-      window.umami = {
-        track: () => {
-          throw new Error('umami down');
-        },
-      };
+    it('captures to Sentry when posthog throws', async () => {
+      mockCapture.mockImplementationOnce(() => {
+        throw new Error('posthog down');
+      });
 
-      const { flushAnalyticsQueue, trackPage } = await loadAnalytics();
+      const { initAnalytics, trackPage } = await loadAnalytics();
 
-      flushAnalyticsQueue();
-      trackPage('/about');
+      await initAnalytics();
+      trackPage();
 
       expect(mockCaptureException).toHaveBeenCalledTimes(1);
       expect(mockCaptureException).toHaveBeenCalledWith(expect.any(Error), {
-        tags: { source: 'umami', call: 'trackPage' },
+        tags: { source: 'posthog', call: 'trackPage' },
       });
     });
   });
