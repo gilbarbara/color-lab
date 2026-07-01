@@ -16,7 +16,7 @@ exports[`pages/Privacy > renders correctly 1`] = `
     <p
       class="text-foreground-500 mb-8"
     >
-      Effective: January 2026
+      Effective: July 2026
     </p>
     <p
       class="mb-8"
@@ -85,9 +85,34 @@ exports[`pages/Privacy > renders correctly 1`] = `
       <p>
         We use 
         <strong>
-          Umami
+          PostHog
         </strong>
-        , a privacy-focused analytics tool, to track page views and basic events (e.g., login method used, palette saves). Umami does not use cookies and does not collect personally identifiable information.
+         for product analytics to understand how the app is used. We track page views and product events (e.g., login method used, palette saves, color edits). Analytics is configured to be 
+        <strong>
+          cookieless
+        </strong>
+         — it uses in-memory persistence and stores nothing on your device.
+      </p>
+      <p>
+        PostHog also records 
+        <strong>
+          session replays
+        </strong>
+         of on-page interactions (input fields are masked by default), 
+        <strong>
+          heatmaps
+        </strong>
+        , and
+         
+        <strong>
+          web performance metrics
+        </strong>
+        . Your IP address is used to derive an approximate location and is not stored long-term. Requests are proxied through
+         
+        <strong>
+          lab.colormeup.co/ingest
+        </strong>
+        , and data is processed by PostHog Cloud (US region).
       </p>
       <h3
         class="text-lg font-semibold mt-4"
@@ -109,11 +134,21 @@ exports[`pages/Privacy > renders correctly 1`] = `
       <p>
         We store your 
         <strong>
-          dark mode preference
+          UI preferences
         </strong>
-         in your browser's local storage. This data stays on your device and is not sent to our servers.
+         (such as dark mode) in your browser's local storage. This data stays on your device and is not sent to our servers. Our analytics uses no device storage.
       </p>
     </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Cookies & Consent
+    </h2>
+    <p
+      class="mb-8"
+    >
+      We do not use cookies or any device storage for analytics. Because no tracking cookies are set, we do not display a cookie consent banner. Our analytics processing relies on a legitimate interest in understanding and improving the service, using the minimal, privacy-preserving configuration described above.
+    </p>
     <h2
       class="text-2xl font-bold mb-4"
     >
@@ -135,7 +170,7 @@ exports[`pages/Privacy > renders correctly 1`] = `
           Display your profile avatar
         </li>
         <li>
-          Understand how the app is used (aggregated analytics)
+          Understand how the app is used (product analytics and session replay)
         </li>
         <li>
           Identify and fix errors
@@ -205,9 +240,18 @@ exports[`pages/Privacy > renders correctly 1`] = `
         </li>
         <li>
           <strong>
-            Umami
+            PostHog
           </strong>
-           — Privacy-focused analytics. No cookies, no personal data collection.
+           — Product analytics, session replay, and heatmaps. Cookieless; US region.
+           
+          <a
+            class="underline"
+            href="https://posthog.com/privacy"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
         </li>
         <li>
           <strong>

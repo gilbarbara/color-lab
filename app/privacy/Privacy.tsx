@@ -4,7 +4,7 @@ export default function Privacy() {
   return (
     <Page data-testid="Privacy">
       <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
-      <p className="text-foreground-500 mb-8">Effective: January 2026</p>
+      <p className="text-foreground-500 mb-8">Effective: July 2026</p>
 
       <p className="mb-8">
         ColorMeUp LAB ("we", "us") is a color palette design tool available at{' '}
@@ -35,9 +35,18 @@ export default function Privacy() {
 
         <h3 className="text-lg font-semibold mt-4">Usage Analytics</h3>
         <p>
-          We use <strong>Umami</strong>, a privacy-focused analytics tool, to track page views and
-          basic events (e.g., login method used, palette saves). Umami does not use cookies and does
-          not collect personally identifiable information.
+          We use <strong>PostHog</strong> for product analytics to understand how the app is used.
+          We track page views and product events (e.g., login method used, palette saves, color
+          edits). Analytics is configured to be <strong>cookieless</strong> — it uses in-memory
+          persistence and stores nothing on your device.
+        </p>
+        <p>
+          PostHog also records <strong>session replays</strong> of on-page interactions (input
+          fields are masked by default), <strong>heatmaps</strong>, and{' '}
+          <strong>web performance metrics</strong>. Your IP address is used to derive an approximate
+          location and is not stored long-term. Requests are proxied through{' '}
+          <strong>lab.colormeup.co/ingest</strong>, and data is processed by PostHog Cloud (US
+          region).
         </p>
 
         <h3 className="text-lg font-semibold mt-4">Error Logs</h3>
@@ -49,10 +58,20 @@ export default function Privacy() {
 
         <h3 className="text-lg font-semibold mt-4">Local Storage</h3>
         <p>
-          We store your <strong>dark mode preference</strong> in your browser's local storage. This
-          data stays on your device and is not sent to our servers.
+          We store your <strong>UI preferences</strong> (such as dark mode) in your browser's local
+          storage. This data stays on your device and is not sent to our servers. Our analytics uses
+          no device storage.
         </p>
       </div>
+
+      <h2 className="text-2xl font-bold mb-4">Cookies &amp; Consent</h2>
+
+      <p className="mb-8">
+        We do not use cookies or any device storage for analytics. Because no tracking cookies are
+        set, we do not display a cookie consent banner. Our analytics processing relies on a
+        legitimate interest in understanding and improving the service, using the minimal,
+        privacy-preserving configuration described above.
+      </p>
 
       <h2 className="text-2xl font-bold mb-4">How We Use Your Information</h2>
 
@@ -61,7 +80,7 @@ export default function Privacy() {
           <li>Authenticate your account and manage sessions</li>
           <li>Save and retrieve your palettes</li>
           <li>Display your profile avatar</li>
-          <li>Understand how the app is used (aggregated analytics)</li>
+          <li>Understand how the app is used (product analytics and session replay)</li>
           <li>Identify and fix errors</li>
         </ul>
         <p className="mt-2">
@@ -110,8 +129,16 @@ export default function Privacy() {
             </a>
           </li>
           <li>
-            <strong>Umami</strong> — Privacy-focused analytics. No cookies, no personal data
-            collection.
+            <strong>PostHog</strong> — Product analytics, session replay, and heatmaps. Cookieless;
+            US region.{' '}
+            <a
+              className="underline"
+              href="https://posthog.com/privacy"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
           </li>
           <li>
             <strong>Sentry</strong> — Error tracking. Captures technical error data only.

@@ -1,17 +1,13 @@
 'use client';
 
-import Script from 'next/script';
+import { useEffect } from 'react';
 
-import { flushAnalyticsQueue } from '~/utils/analytics';
+import { initAnalytics } from '~/utils/analytics';
 
 export default function Analytics() {
-  return (
-    <Script
-      data-auto-track="false"
-      data-website-id="f44523f9-b201-4aa8-bc42-7600dcbf643d"
-      onReady={flushAnalyticsQueue}
-      src="https://cloud.umami.is/script.js"
-      strategy="afterInteractive"
-    />
-  );
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  return null;
 }

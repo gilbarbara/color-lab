@@ -4,9 +4,16 @@ import usePageTracking from '~/hooks/usePageTracking';
 import { setMockRoute } from '~/test-mocks';
 import { trackPage } from '~/utils/analytics';
 
-vi.mock('~/utils/analytics', () => ({
-  trackPage: vi.fn(),
-}));
+// Keep the real normalizePathname (drives the fire/skip + dedup logic); only
+// stub trackPage so we can assert when a pageview is sent.
+vi.mock('~/utils/analytics', async importOriginal => {
+  const actual = await importOriginal<typeof import('~/utils/analytics')>();
+
+  return {
+    ...actual,
+    trackPage: vi.fn(),
+  };
+});
 
 describe('hooks/usePageTracking', () => {
   beforeEach(() => {
@@ -14,21 +21,22 @@ describe('hooks/usePageTracking', () => {
   });
 
   it.each([
-    ['/', '/'],
-    ['/about', '/about'],
-    ['/palettes', '/palettes'],
-    ['/privacy', '/privacy'],
-    ['/terms', '/terms'],
-    ['/custom-color-scales', '/custom-color-scales'],
-    ['/oklch-vs-hsl', '/oklch-vs-hsl'],
-    ['/unknown', '/unknown'],
-    ['/p/Primary-FF0044', '/generator'],
-    ['/p/anything', '/generator'],
-  ])('tracks %s as %s', (pathname, tracked) => {
+    '/',
+    '/about',
+    '/palettes',
+    '/privacy',
+    '/terms',
+    '/custom-color-scales',
+    '/oklch-vs-hsl',
+    '/unknown',
+    '/p/Primary-FF0044',
+    '/p/anything',
+  ])('fires a pageview on %s', pathname => {
     setMockRoute(pathname);
     renderHook(() => usePageTracking());
 
-    expect(trackPage).toHaveBeenCalledWith(tracked);
+    expect(trackPage).toHaveBeenCalledTimes(1);
+    expect(trackPage).toHaveBeenCalledWith();
   });
 
   it.each(['/auth/callback'])('does not track %s', pathname => {
@@ -38,7 +46,7 @@ describe('hooks/usePageTracking', () => {
     expect(trackPage).not.toHaveBeenCalled();
   });
 
-  it('tracks the generator once across palette path changes', () => {
+  it('fires once across palette path changes', () => {
     setMockRoute('/p/Primary-71_0.2_143');
     const { rerender } = renderHook(() => usePageTracking());
 
@@ -46,10 +54,9 @@ describe('hooks/usePageTracking', () => {
     rerender();
 
     expect(trackPage).toHaveBeenCalledTimes(1);
-    expect(trackPage).toHaveBeenCalledWith('/generator');
   });
 
-  it('tracks again when the normalized page changes', () => {
+  it('fires again when the normalized page changes', () => {
     setMockRoute('/p/Primary-71_0.2_143');
     const { rerender } = renderHook(() => usePageTracking());
 
@@ -57,7 +64,5 @@ describe('hooks/usePageTracking', () => {
     rerender();
 
     expect(trackPage).toHaveBeenCalledTimes(2);
-    expect(trackPage).toHaveBeenNthCalledWith(1, '/generator');
-    expect(trackPage).toHaveBeenNthCalledWith(2, '/about');
   });
 });
