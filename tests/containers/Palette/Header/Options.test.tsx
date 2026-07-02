@@ -86,6 +86,29 @@ describe('Options', () => {
       expect(getGeneratorStore().getState().globalOptions.saturationOverride).toBe(true);
     });
 
+    it('resets saturation to default when disabling saturationOverride', () => {
+      const base = createTestPalette(1);
+      const defaultSaturation = base.globalOptions.saturation;
+      const customSaturation = defaultSaturation === 50 ? 60 : 50;
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: {
+          ...base.globalOptions,
+          saturationOverride: true,
+          saturation: customSaturation,
+        },
+      });
+      render(<Options />);
+
+      fireEvent.click(screen.getByRole('switch', { name: /Apply saturation to all colors/ }));
+
+      const { globalOptions } = getGeneratorStore().getState();
+
+      expect(globalOptions.saturationOverride).toBe(false);
+      expect(globalOptions.saturation).toBe(defaultSaturation);
+    });
+
     it('disables saturation slider when saturationOverride is off', () => {
       render(<Options />);
 

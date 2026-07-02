@@ -87,7 +87,13 @@ export default function PaletteOptions() {
 
   const handleToggleSaturationOverride = (value: boolean) => {
     trackEvent('options:saturation_override', { enabled: value });
-    updateGlobalOptions({ saturationOverride: value });
+    // Reset saturation to its default when disabling, so `s=` drops from the URL
+    // (a leftover value has no visual effect while off, but re-applies on re-enable).
+    updateGlobalOptions(
+      value
+        ? { saturationOverride: true }
+        : { saturationOverride: false, saturation: defaultOptions.saturation },
+    );
   };
 
   const variants = useMemo(
