@@ -12,8 +12,12 @@ import Palette from '../Palette';
 import Panel from './Panel';
 
 export default function Generator() {
-  useUrlSync();
+  // Order matters: usePaletteIdSync must run before useUrlSync. On a fresh no-id
+  // navigation it clears the stale in-memory palette identity first, so useUrlSync's
+  // hydrate doesn't resurrect the previous palette's id onto the new URL. Its clear
+  // is synchronous, so useUrlSync (next) reads the already-cleared appStore.
   usePaletteIdSync();
+  useUrlSync();
 
   return (
     <div
