@@ -33,7 +33,7 @@ function AdvancedOptions(props: AdvancedOptionsProps) {
 
   const handleClickReset = () => {
     resetAdvancedOptions();
-    trackEvent('reset-color-options');
+    trackEvent('options:reset_advanced');
   };
 
   return (

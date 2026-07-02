@@ -56,7 +56,7 @@ export default function ColorInfo(props: ColorInfoProps) {
           aria-label="View color info"
           isIconOnly
           onPress={() => {
-            trackEvent('open-color-info');
+            trackEvent('info:open');
             onOpen();
           }}
           size="menu"

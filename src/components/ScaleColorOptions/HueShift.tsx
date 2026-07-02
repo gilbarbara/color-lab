@@ -26,6 +26,7 @@ export default function HueShift(props: HueShiftProps) {
     hueShift,
     onUpdate,
     scheduleUpdate,
+    source,
     start,
   } = props;
 
@@ -41,7 +42,7 @@ export default function HueShift(props: HueShiftProps) {
 
     // Simple→Split keeps the symmetric pair; Split→Simple collapses to the high end.
     onUpdate({ hueShift: key === 'range' ? { low: range.low, high: range.high } : range.high });
-    trackEvent('hue-shift-mode', { mode: key });
+    trackEvent(`${source}:hue_shift_mode`, { mode: key });
   };
 
   const handleChangeScalar = (value: number | number[]) => {
@@ -62,7 +63,7 @@ export default function HueShift(props: HueShiftProps) {
 
   const handleChangeEnd = (value: number | number[]) => {
     end();
-    trackEvent('hue-shift', { value: value as number });
+    trackEvent(`${source}:hue_shift`, { value: value as number });
   };
 
   return (
@@ -84,7 +85,10 @@ export default function HueShift(props: HueShiftProps) {
           }
           disableReset={isSameOptionValue('hueShift', hueShift, defaultHueShift)}
           id={headingId}
-          onReset={() => onUpdate({ hueShift: defaultHueShift })}
+          onReset={() => {
+            onUpdate({ hueShift: defaultHueShift });
+            trackEvent(`${source}:hue_shift_reset`);
+          }}
           size={headingSize}
         >
           Hue Shift

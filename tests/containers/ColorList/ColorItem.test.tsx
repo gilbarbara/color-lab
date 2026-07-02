@@ -351,7 +351,7 @@ describe('ColorItem', () => {
         vi.advanceTimersByTime(16);
       });
 
-      expect(trackEvent).toHaveBeenCalledWith('random-color');
+      expect(trackEvent).toHaveBeenCalledWith('color:randomize');
       expect(getGeneratorStore().getState().colors[0].value).toBe(GREEN);
     });
 
@@ -370,7 +370,7 @@ describe('ColorItem', () => {
 
       fireEvent.click(screen.getByLabelText('Switch to HSL'));
 
-      expect(trackEvent).toHaveBeenCalledWith('color-mode', { value: 'hsl' });
+      expect(trackEvent).toHaveBeenCalledWith('color:mode', { value: 'hsl' });
       // The value input reflects the new mode: hex instead of an oklch() string.
       const input = screen.getByLabelText('Color value') as HTMLInputElement;
 
@@ -382,7 +382,7 @@ describe('ColorItem', () => {
 
       fireEvent.click(screen.getByLabelText('Switch to OKLCH'));
 
-      expect(trackEvent).not.toHaveBeenCalledWith('color-mode', expect.anything());
+      expect(trackEvent).not.toHaveBeenCalledWith('color:mode', expect.anything());
     });
   });
 });

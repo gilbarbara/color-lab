@@ -37,6 +37,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
     minLightness,
     onUpdate,
     scheduleUpdate,
+    source,
     start,
   } = props;
 
@@ -67,7 +68,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
       onUpdate({ lightnessCurve: seed });
     }
 
-    trackEvent('lightness-curve-mode', { mode: key });
+    trackEvent(`${source}:lightness_curve_mode`, { mode: key });
   };
 
   const handleChange = (value: number | number[]) => {
@@ -88,7 +89,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
 
   const handleChangeEnd = (value: number | number[]) => {
     end();
-    trackEvent('lightness-curve', { value: value as number });
+    trackEvent(`${source}:lightness_curve`, { value: value as number });
   };
 
   return (
@@ -108,7 +109,10 @@ export default function LightnessCurve(props: LightnessCurveProps) {
           }
           disableReset={isSameOptionValue('lightnessCurve', lightnessCurve, defaultLightnessCurve)}
           id={headingId}
-          onReset={() => onUpdate({ lightnessCurve: defaultLightnessCurve })}
+          onReset={() => {
+            onUpdate({ lightnessCurve: defaultLightnessCurve });
+            trackEvent(`${source}:lightness_curve_reset`);
+          }}
           size={headingSize}
         >
           Lightness Curve

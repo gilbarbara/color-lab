@@ -79,7 +79,7 @@ export default function UserMenu() {
           key="logout"
           color="danger"
           onPress={() => {
-            trackEvent('logout');
+            trackEvent('auth:logout');
             closeLoginModal();
             logout();
           }}

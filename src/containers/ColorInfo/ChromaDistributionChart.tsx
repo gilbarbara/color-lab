@@ -1,5 +1,7 @@
 import { parseCSS } from 'colorizr';
 
+import { trackEvent } from '~/utils/analytics';
+
 import type { ScaleSteps } from '~/types';
 
 import { SECTION_LABEL } from './constants';
@@ -48,7 +50,10 @@ export default function ChromaDistributionChart({
                 isSelected ? 'ring-1 ring-current/50' : 'hover:opacity-100'
               }`}
               data-testid="ColorInfo-ChromaDistributionChart-Bar"
-              onClick={() => onSelect(step)}
+              onClick={() => {
+                trackEvent('info:select_step', { source: 'chart', step });
+                onSelect(step);
+              }}
               style={{
                 backgroundColor: color,
                 height: `max(${MIN_BAR_HEIGHT}px, ${heightPct}%)`,

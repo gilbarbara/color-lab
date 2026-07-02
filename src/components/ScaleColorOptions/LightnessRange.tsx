@@ -26,6 +26,7 @@ export default function LightnessRange(props: LightnessRangeProps) {
     minLightness,
     onUpdate,
     scheduleUpdate,
+    source,
     start,
   } = props;
 
@@ -47,7 +48,7 @@ export default function LightnessRange(props: LightnessRangeProps) {
     end();
 
     if (Array.isArray(value)) {
-      trackEvent('lightness-range', { min: value[0], max: value[1] });
+      trackEvent(`${source}:lightness_range`, { min: value[0], max: value[1] });
     }
   };
 
@@ -71,9 +72,10 @@ export default function LightnessRange(props: LightnessRangeProps) {
           disableReset={
             minLightness === defaultMinLightness && maxLightness === defaultMaxLightness
           }
-          onReset={() =>
-            onUpdate({ minLightness: defaultMinLightness, maxLightness: defaultMaxLightness })
-          }
+          onReset={() => {
+            onUpdate({ minLightness: defaultMinLightness, maxLightness: defaultMaxLightness });
+            trackEvent(`${source}:lightness_range_reset`);
+          }}
           size={headingSize}
         />
       )}

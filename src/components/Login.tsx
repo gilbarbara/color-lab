@@ -60,12 +60,19 @@ export default function Login() {
     setState({ email: '', magicLinkSent: false, name: '', password: '', tab: 'login' });
   };
 
+  // Fires only on user-initiated close (backdrop/ESC/close button); programmatic closes on
+  // auth success flip `showLoginModal` directly and never reach onClose.
+  const handleDismiss = () => {
+    trackEvent('auth:dismiss');
+    handleClose();
+  };
+
   const handleEmailLogin = async (event: SubmitEvent) => {
     event.preventDefault();
 
     try {
       await loginWithEmail(email, password);
-      trackEvent('login', { provider: 'email' });
+      trackEvent('auth:login', { provider: 'email' });
       handleClose();
     } catch {
       // Error is handled by auth context
@@ -77,7 +84,7 @@ export default function Login() {
 
     try {
       await signupWithEmail(email, password, name || undefined);
-      trackEvent('login', { provider: 'email' });
+      trackEvent('auth:login', { provider: 'email' });
       handleClose();
     } catch {
       // Error is handled by auth context
@@ -89,7 +96,7 @@ export default function Login() {
 
     try {
       await sendMagicLink(email);
-      trackEvent('login', { provider: 'magic-link' });
+      trackEvent('auth:login', { provider: 'magic-link' });
       setState({ magicLinkSent: true });
     } catch {
       // Error is handled by auth context
@@ -97,7 +104,7 @@ export default function Login() {
   };
 
   const handleOAuth = (provider: 'google' | 'github') => {
-    trackEvent('login', { provider });
+    trackEvent('auth:login', { provider });
     loginWithOAuth(provider);
   };
 
@@ -106,7 +113,7 @@ export default function Login() {
   }
 
   return (
-    <Modal isOpen={showLoginModal} onClose={handleClose} size="sm">
+    <Modal isOpen={showLoginModal} onClose={handleDismiss} size="sm">
       <ModalContent>
         <ModalBody data-testid="Login">
           <div className="flex items-center justify-center py-4">
@@ -152,7 +159,10 @@ export default function Login() {
             {/* Tab-based Email Auth */}
             <Tabs
               fullWidth
-              onSelectionChange={key => setState({ tab: key as AuthTab })}
+              onSelectionChange={key => {
+                trackEvent('auth:change_tab', { tab: key as string });
+                setState({ tab: key as AuthTab });
+              }}
               selectedKey={tab}
             >
               <Tab key="login" title="Login">

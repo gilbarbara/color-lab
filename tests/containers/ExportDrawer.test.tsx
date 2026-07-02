@@ -54,7 +54,7 @@ describe('ExportDrawer', () => {
       expect(useAppStore.getState().exportFormatType).toBe('svg');
     });
     expect(useAppStore.getState().exportColorFormat).toBe('hex');
-    expect(mockTrackEvent).toHaveBeenCalledWith('format-type', { value: 'svg' });
+    expect(mockTrackEvent).toHaveBeenCalledWith('export:change_format', { value: 'svg' });
   });
 
   it('hides the color-format tabs for SVG', async () => {
@@ -101,6 +101,6 @@ describe('ExportDrawer', () => {
     await waitFor(() => {
       expect(useAppStore.getState().exportColorFormat).toBe('hex');
     });
-    expect(mockTrackEvent).toHaveBeenCalledWith('color-format', { value: 'hex' });
+    expect(mockTrackEvent).toHaveBeenCalledWith('export:change_color_format', { value: 'hex' });
   });
 });

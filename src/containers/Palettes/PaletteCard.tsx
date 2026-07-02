@@ -51,19 +51,19 @@ export function PaletteCard(props: PaletteCardProps) {
     await onDelete(palette.id);
     setIsDeleting(false);
 
-    trackEvent('delete-saved-palette', { value: palette.name });
+    trackEvent('palette:delete', { name: palette.name });
   };
 
   const handleClickFavorite = () => {
     onToggleFavorite(palette.id);
 
-    trackEvent(palette.isFavorite ? 'unfavorite-palette' : 'favorite-palette', {
-      value: palette.name,
+    trackEvent(palette.isFavorite ? 'palette:unfavorite' : 'palette:favorite', {
+      name: palette.name,
     });
   };
 
   const handleClickLoad = () => {
-    trackEvent('load-saved-palette', { value: palette.name });
+    trackEvent('palette:load', { name: palette.name });
   };
 
   return (

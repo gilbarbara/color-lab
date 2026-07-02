@@ -1,6 +1,7 @@
 import { Button, cn } from '@heroui/react';
 
 import { APCA_LIGHTNESS_CONTRAST } from '~/config/globals';
+import { trackEvent } from '~/utils/analytics';
 
 import {
   APCA_DESCRIPTIONS,
@@ -62,7 +63,13 @@ export default function Sidebar(props: SidebarProps) {
         <div className="flex flex-row md:flex-col gap-1">
           <Button
             className={itemClass(guideline === 'apca')}
-            onPress={() => onChangeGuideline('apca')}
+            onPress={() => {
+              if (guideline !== 'apca') {
+                trackEvent('contrast:change_guideline', { value: 'apca' });
+              }
+
+              onChangeGuideline('apca');
+            }}
             size="sm"
             variant="light"
           >
@@ -70,7 +77,13 @@ export default function Sidebar(props: SidebarProps) {
           </Button>
           <Button
             className={itemClass(guideline === 'wcag2')}
-            onPress={() => onChangeGuideline('wcag2')}
+            onPress={() => {
+              if (guideline !== 'wcag2') {
+                trackEvent('contrast:change_guideline', { value: 'wcag2' });
+              }
+
+              onChangeGuideline('wcag2');
+            }}
             size="sm"
             variant="light"
           >
@@ -89,7 +102,13 @@ export default function Sidebar(props: SidebarProps) {
                 <Button
                   key={value}
                   className={itemClass(wcagThreshold === value)}
-                  onPress={() => onChangeWcagThreshold(value)}
+                  onPress={() => {
+                    if (wcagThreshold !== value) {
+                      trackEvent('contrast:change_threshold', { guideline, value });
+                    }
+
+                    onChangeWcagThreshold(value);
+                  }}
                   size="sm"
                   variant="light"
                 >
@@ -100,7 +119,13 @@ export default function Sidebar(props: SidebarProps) {
                 <Button
                   key={value}
                   className={itemClass(apcaThreshold === value)}
-                  onPress={() => onChangeApcaThreshold(value)}
+                  onPress={() => {
+                    if (apcaThreshold !== value) {
+                      trackEvent('contrast:change_threshold', { guideline, value });
+                    }
+
+                    onChangeApcaThreshold(value);
+                  }}
                   size="sm"
                   variant="light"
                 >

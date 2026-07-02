@@ -99,7 +99,7 @@ describe('Header', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Toggle dark mode' }));
 
       expect(themeState.toggleDarkMode).toHaveBeenCalledOnce();
-      expect(trackEvent).toHaveBeenCalledWith('dark-mode', { enabled: true });
+      expect(trackEvent).toHaveBeenCalledWith('app:theme', { value: 'dark' });
     });
 
     it('mints a fresh palette URL on New Palette click and tracks event', () => {
@@ -110,7 +110,7 @@ describe('Header', () => {
       fireEvent.click(button);
 
       expect(useAppStore.getState().paletteId).toBeNull();
-      expect(trackEvent).toHaveBeenCalledWith('new-palette');
+      expect(trackEvent).toHaveBeenCalledWith('palette:create');
       expect(mockRouter.push).toHaveBeenCalledWith(expect.stringMatching(/^\/p\//));
     });
 
@@ -141,7 +141,7 @@ describe('Header', () => {
       await user.click(signOut);
 
       expect(mockLogout).toHaveBeenCalledOnce();
-      expect(trackEvent).toHaveBeenCalledWith('logout');
+      expect(trackEvent).toHaveBeenCalledWith('auth:logout');
     });
 
     it('resolves provider photo when provider matches providerData entry', () => {

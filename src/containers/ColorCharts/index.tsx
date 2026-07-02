@@ -1,5 +1,7 @@
 import { Tab, Tabs } from '@heroui/react';
 
+import { trackEvent } from '~/utils/analytics';
+
 import ChromaChart from './ChromaChart';
 import HueChart from './HueChart';
 import LightnessChart from './LightnessChart';
@@ -22,6 +24,7 @@ export default function ColorCharts(props: ColorChartsProps) {
           panel: 'p-0 pt-1',
           tabList: 'p-0 overflow-visible',
         }}
+        onSelectionChange={key => trackEvent('charts:change_tab', { chart: key as string })}
         radius="full"
         size="sm"
       >

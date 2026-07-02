@@ -130,7 +130,7 @@ export default function Panel() {
 
     const newId = addColor(nextColor);
 
-    trackEvent('add-color');
+    trackEvent('color:add');
 
     if (newId) requestColorScroll(newId);
   };
@@ -140,19 +140,29 @@ export default function Panel() {
       event.stopPropagation();
       const { id } = event.currentTarget.dataset;
 
-      if (id) scrollToColor(id);
+      if (id) {
+        trackEvent('color:select');
+        scrollToColor(id);
+      }
     },
     [scrollToColor],
   );
+
+  // Single tracked chokepoint for the three user-initiated bottom-bar toggles (tap,
+  // keyboard, swipe). The programmatic toggleBottomBar(false) from Preview stays untracked.
+  const handleToggleBottomBar = useCallback(() => {
+    trackEvent('app:bottombar', { enabled: !showBottomBar });
+    toggleBottomBar();
+  }, [showBottomBar, toggleBottomBar]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        toggleBottomBar();
+        handleToggleBottomBar();
       }
     },
-    [toggleBottomBar],
+    [handleToggleBottomBar],
   );
 
   const handleTouchStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
@@ -167,12 +177,12 @@ export default function Panel() {
       const threshold = 30;
 
       if ((deltaY < -threshold && !showBottomBar) || (deltaY > threshold && showBottomBar)) {
-        toggleBottomBar();
+        handleToggleBottomBar();
       }
 
       dragStartY.current = null;
     },
-    [showBottomBar, toggleBottomBar],
+    [showBottomBar, handleToggleBottomBar],
   );
 
   return (
@@ -198,7 +208,10 @@ export default function Panel() {
           aria-label="Toggle Sidebar"
           className="hidden md:flex absolute top-2 right-2 z-10"
           isIconOnly
-          onPress={() => toggleSidebar()}
+          onPress={() => {
+            trackEvent('app:sidebar', { enabled: !showSidebar });
+            toggleSidebar();
+          }}
           size="sm"
           variant="light"
         >
@@ -214,7 +227,7 @@ export default function Panel() {
         onTouchEnd={handleTouchEnd}
         onTouchStart={handleTouchStart}
         showBottomBar={showBottomBar}
-        toggleBottomBar={toggleBottomBar}
+        toggleBottomBar={handleToggleBottomBar}
       />
 
       {/* Shared content — rendered once */}

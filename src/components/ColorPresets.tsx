@@ -53,12 +53,12 @@ export default function ColorPresets() {
     }
 
     updateGlobalOptions(preset);
-    trackEvent('color-preset', { value: key });
+    trackEvent('preset:apply', { value: key });
   };
 
   const handleReset = () => {
     resetAdvancedOptions();
-    trackEvent('reset-color-options');
+    trackEvent('preset:reset');
   };
 
   const selectedKeys: Selection = activeKey ? new Set([activeKey]) : new Set();
