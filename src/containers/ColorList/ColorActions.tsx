@@ -36,12 +36,12 @@ export default function ColorActions(props: ColorActionsProps) {
 
   const handleClickOptions = () => {
     toggle();
-    trackEvent('open-color-options-overrides');
+    trackEvent('color:options');
   };
 
   const handleResetOptions = () => {
     clearColorOverrides(index);
-    trackEvent('reset-color-options-overrides');
+    trackEvent('color:reset');
   };
 
   const handleUpdateOptions = (updates: Partial<GlobalScaleOptions>) => {
@@ -96,6 +96,7 @@ export default function ColorActions(props: ColorActionsProps) {
           options={{ ...globalOptions, ...colorEntry.overrides }}
           seedColor={colorEntry.value}
           showLock
+          source="color"
         />
       </Collapse>
     </div>

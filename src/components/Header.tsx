@@ -25,13 +25,13 @@ export default function Header() {
   const { clearPalette, sessionPalettePath } = useApp('clearPalette', 'sessionPalettePath');
 
   const handleClickDarkMode = () => {
-    trackEvent('dark-mode', { enabled: !isDarkMode });
+    trackEvent('app:theme', { value: isDarkMode ? 'light' : 'dark' });
     toggleDarkMode();
   };
 
   const handleNewPalette = () => {
     clearPalette();
-    trackEvent('new-palette');
+    trackEvent('palette:create');
     // Mint a fresh palette and make its URL the source of truth; the generator route
     // hydrates the store from it. Works from any route, no reliance on `/`.
     router.push(serializePaletteToUrl(createPalette()));

@@ -137,7 +137,7 @@ describe('ScaleColorOptions', () => {
         minLightness: defaults.minLightness,
         maxLightness: expectedMax,
       });
-      expect(mockTrackEvent).toHaveBeenCalledWith('lightness-range', {
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:lightness_range', {
         min: defaults.minLightness,
         max: expectedMax,
       });
@@ -197,7 +197,7 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ lightnessCurve: expected });
-      expect(mockTrackEvent).toHaveBeenCalledWith('lightness-curve', { value: expected });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:lightness_curve', { value: expected });
     });
 
     it('per-slider Reset button calls onUpdate with default value', () => {
@@ -349,7 +349,7 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{PageUp}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: expected });
-      expect(mockTrackEvent).toHaveBeenCalledWith('chroma-curve', { value: expected });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:chroma_curve', { value: expected });
     });
 
     it('Reset button calls onUpdate with default value', () => {
@@ -656,7 +656,7 @@ describe('ScaleColorOptions', () => {
       expect(onUpdate).toHaveBeenLastCalledWith({
         lock: 500,
       });
-      expect(mockTrackEvent).toHaveBeenCalledWith('lock-color', { value: '500' });
+      expect(mockTrackEvent).toHaveBeenCalledWith('color:lock', { value: '500' });
     });
 
     it('updates to None', async () => {
@@ -687,7 +687,7 @@ describe('ScaleColorOptions', () => {
       expect(onUpdate).toHaveBeenLastCalledWith({
         lock: undefined,
       });
-      expect(mockTrackEvent).toHaveBeenCalledWith('lock-color', { value: 'none' });
+      expect(mockTrackEvent).toHaveBeenCalledWith('color:lock', { value: 'none' });
     });
   });
 });

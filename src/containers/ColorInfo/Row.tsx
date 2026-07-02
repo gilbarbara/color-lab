@@ -1,6 +1,7 @@
 import { LockSimpleIcon, WarningIcon } from '@phosphor-icons/react';
 import { convertCSS, deltaE, readableColor } from 'colorizr';
 
+import { trackEvent } from '~/utils/analytics';
 import { formatOklch } from '~/utils/color';
 
 import CopyText from '~/components/CopyText';
@@ -33,7 +34,10 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
       }`}
       data-step={step}
       data-testid="ColorInfo-Row"
-      onClick={() => onSelect(step)}
+      onClick={() => {
+        trackEvent('info:select_step', { source: 'table', step });
+        onSelect(step);
+      }}
     >
       <td className="py-2 px-2 text-foreground-500 text-sm">
         <div className="flex flex-col items-center gap-0.5 leading-tight">
@@ -86,10 +90,23 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
       <td className="py-2 pr-3 font-mono whitespace-nowrap">
         <div className="flex items-center gap-2 text-sm">
           {displayColor}{' '}
-          <CopyText content="Copy OKLCH" label="Copy OKLCH" showToast value={displayColor} />
+          <CopyText
+            content="Copy OKLCH"
+            label="Copy OKLCH"
+            onCopy={() => trackEvent('info:copy', { format: 'oklch' })}
+            showToast
+            value={displayColor}
+          />
         </div>
         <div className="flex items-center gap-2 text-xs text-foreground-500">
-          {hex} <CopyText content="Copy HEX" label="Copy HEX" showToast value={hex} />
+          {hex}{' '}
+          <CopyText
+            content="Copy HEX"
+            label="Copy HEX"
+            onCopy={() => trackEvent('info:copy', { format: 'hex' })}
+            showToast
+            value={hex}
+          />
         </div>
       </td>
     </tr>

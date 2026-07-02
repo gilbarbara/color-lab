@@ -41,7 +41,7 @@ export default function Contact() {
     setState(defaultState);
     onOpen();
 
-    trackEvent('feedback');
+    trackEvent('feedback:open');
   };
 
   const handleSubmit = async (event: SubmitEvent) => {
@@ -68,7 +68,7 @@ export default function Contact() {
 
       formRef.current?.reset();
 
-      trackEvent('feedback-sent');
+      trackEvent('feedback:send');
     } catch {
       setState({ errorMessage: 'Failed to send. Try again.', status: ASYNC_STATUS.ERROR });
     }

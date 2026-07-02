@@ -50,6 +50,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
     onUpdate,
     scheduleUpdate,
     seedFraction,
+    source,
     start,
   } = props;
 
@@ -91,7 +92,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
       chromaCurve: key === 'scalar' ? defaultScalar : { low: seedFraction, high: seedFraction },
     });
 
-    trackEvent('chroma-curve-mode', { mode: key });
+    trackEvent(`${source}:chroma_curve_mode`, { mode: key });
   };
 
   // Keep emitting the scalar form whenever the peak is centered, so the parabola
@@ -127,7 +128,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
 
   const handleChangeEnd = (value: number | number[]) => {
     end();
-    trackEvent('chroma-curve', { value: value as number });
+    trackEvent(`${source}:chroma_curve`, { value: value as number });
   };
 
   return (
@@ -151,7 +152,10 @@ export default function ChromaCurve(props: ChromaCurveProps) {
           }
           disableReset={isSameOptionValue('chromaCurve', chromaCurve, defaultChromaCurve)}
           id={headingId}
-          onReset={() => onUpdate({ chromaCurve: defaultChromaCurve })}
+          onReset={() => {
+            onUpdate({ chromaCurve: defaultChromaCurve });
+            trackEvent(`${source}:chroma_curve_reset`);
+          }}
           size={headingSize}
         >
           Chroma Curve

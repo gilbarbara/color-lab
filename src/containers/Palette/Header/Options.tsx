@@ -34,13 +34,13 @@ export default function PaletteOptions() {
 
   const handleChangeLock = ({ currentKey }: SharedSelection) => {
     if (!currentKey || currentKey === 'None') {
-      trackEvent('lock', { value: 'none' });
+      trackEvent('options:lock', { value: 'none' });
       updateGlobalOptions({ lock: undefined });
 
       return;
     }
 
-    trackEvent('lock', { value: currentKey });
+    trackEvent('options:lock', { value: currentKey });
     updateGlobalOptions({ lock: parseInt(currentKey, 10) });
   };
 
@@ -62,13 +62,13 @@ export default function PaletteOptions() {
 
   const handleChangeVariant = ({ currentKey }: SharedSelection) => {
     if (!currentKey) {
-      trackEvent('variant', { value: 'none' });
+      trackEvent('options:variant', { value: 'none' });
       updateGlobalOptions({ variant: undefined });
 
       return;
     }
 
-    trackEvent('variant', { value: currentKey });
+    trackEvent('options:variant', { value: currentKey });
     updateGlobalOptions({ variant: currentKey as ScaleOptions['variant'] });
   };
 
@@ -77,16 +77,16 @@ export default function PaletteOptions() {
       Object.fromEntries(PALETTE_OPTION_KEYS.map(key => [key, defaultOptions[key]])),
     );
 
-    trackEvent('reset-palette-options');
+    trackEvent('options:reset_basic');
   };
 
   const handleClickMode = (value: ScaleModeType) => {
-    trackEvent('scale-mode', { value });
+    trackEvent('options:mode', { value });
     updateGlobalOptions({ mode: value });
   };
 
   const handleToggleSaturationOverride = (value: boolean) => {
-    trackEvent('saturation-override', { enabled: value });
+    trackEvent('options:saturation_override', { enabled: value });
     updateGlobalOptions({ saturationOverride: value });
   };
 
@@ -191,7 +191,7 @@ export default function PaletteOptions() {
             onChange={handleChangeSteps}
             onChangeEnd={value => {
               end();
-              trackEvent('steps', { value: value as number });
+              trackEvent('options:steps', { value: value as number });
             }}
             renderLabel={renderProps => (
               <SliderLabel
@@ -203,7 +203,10 @@ export default function PaletteOptions() {
                   </>
                 }
                 disableReset={steps === defaultOptions.steps}
-                onReset={() => updateGlobalOptions({ steps: defaultOptions.steps })}
+                onReset={() => {
+                  updateGlobalOptions({ steps: defaultOptions.steps });
+                  trackEvent('options:steps_reset');
+                }}
                 size="lg"
               />
             )}
@@ -227,18 +230,17 @@ export default function PaletteOptions() {
             onChange={handleChangeSaturation}
             onChangeEnd={value => {
               end();
-              trackEvent('saturation', { value: value as number });
+              trackEvent('options:saturation', { value: value as number });
             }}
             renderLabel={renderProps => (
               <SliderLabel
                 {...renderProps}
                 disableReset={!saturationOverride || saturation === defaultOptions.saturation}
                 isDisabled={!saturationOverride}
-                onReset={() =>
-                  updateGlobalOptions({
-                    saturation: defaultOptions.saturation,
-                  })
-                }
+                onReset={() => {
+                  updateGlobalOptions({ saturation: defaultOptions.saturation });
+                  trackEvent('options:saturation_reset');
+                }}
                 size="lg"
               />
             )}

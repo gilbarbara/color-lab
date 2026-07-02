@@ -58,7 +58,7 @@ describe('ErrorFallback', () => {
       fireEvent.click(screen.getByRole('button', { name: /try again/i }));
 
       expect(resetError).toHaveBeenCalledTimes(1);
-      expect(trackEvent).toHaveBeenCalledWith('error-action', { action: 'reset' });
+      expect(trackEvent).toHaveBeenCalledWith('app:error_action', { action: 'reset' });
     });
 
     it('reloads the page when "Reload page" is clicked', () => {
@@ -75,7 +75,7 @@ describe('ErrorFallback', () => {
       fireEvent.click(screen.getByRole('button', { name: /reload page/i }));
 
       expect(reload).toHaveBeenCalledTimes(1);
-      expect(trackEvent).toHaveBeenCalledWith('error-action', { action: 'reload' });
+      expect(trackEvent).toHaveBeenCalledWith('app:error_action', { action: 'reload' });
 
       Object.defineProperty(window, 'location', {
         configurable: true,

@@ -36,7 +36,7 @@ export default function SaveControls() {
     const palette = await savePalette(nameToSave);
 
     if (palette) {
-      trackEvent('save-palette');
+      trackEvent('palette:save');
       addToast({ title: 'Palette saved', color: 'success' });
     }
 
@@ -55,7 +55,7 @@ export default function SaveControls() {
       const success = await updateCurrentPalette();
 
       if (success) {
-        trackEvent('update-palette');
+        trackEvent('palette:update');
         addToast({ title: 'Palette updated', color: 'success' });
       }
     } else {
@@ -100,7 +100,10 @@ export default function SaveControls() {
         defaultName={name !== DEFAULT_PALETTE_NAME ? name : ''}
         isOpen={isSaveModalOpen}
         isSaving={isSaving}
-        onClose={() => setState({ isSaveModalOpen: false })}
+        onClose={() => {
+          trackEvent('palette:dismiss_save');
+          setState({ isSaveModalOpen: false });
+        }}
         onSave={handleSaveNewPalette}
       />
     </>

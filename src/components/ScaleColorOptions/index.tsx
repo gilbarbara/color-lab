@@ -11,6 +11,7 @@ import HueShift from '~/components/ScaleColorOptions/HueShift';
 import LightnessCurve from '~/components/ScaleColorOptions/LightnessCurve';
 import LightnessRange from '~/components/ScaleColorOptions/LightnessRange';
 import Lock from '~/components/ScaleColorOptions/Lock';
+import type { ScaleColorOptionsSource } from '~/components/ScaleColorOptions/types';
 
 import type { GlobalScaleOptions, OklchString } from '~/types';
 
@@ -26,6 +27,7 @@ interface ScaleColorOptionsProps {
   /** Color whose chroma fraction seeds the endpoints (Range) chroma mode. */
   seedColor: OklchString;
   showLock?: boolean;
+  source?: ScaleColorOptionsSource;
 }
 
 /**
@@ -45,6 +47,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
     options,
     seedColor,
     showLock = false,
+    source = 'options',
   } = props;
   const {
     chromaCurve,
@@ -59,7 +62,7 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
   const scheduleUpdate = useRafCallback(onUpdate);
   const seedFraction = getChromaFraction(seedColor);
 
-  const shared = { end, headingSize, onUpdate, scheduleUpdate, start };
+  const shared = { end, headingSize, onUpdate, scheduleUpdate, source, start };
 
   return (
     <div

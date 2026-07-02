@@ -73,7 +73,7 @@ describe('ColorPresets', () => {
       expect(getGeneratorStore().getState().globalOptions).toMatchObject(
         DESIGN_SYSTEM_PRESETS.material,
       );
-      expect(trackEvent).toHaveBeenCalledWith('color-preset', { value: 'material' });
+      expect(trackEvent).toHaveBeenCalledWith('preset:apply', { value: 'material' });
       await expect(screen.findByRole('button', { name: 'Material' })).resolves.toBeInTheDocument();
     });
 
@@ -105,7 +105,7 @@ describe('ColorPresets', () => {
       CURVE_OPTION_KEYS.forEach(key => {
         expect(globalOptions[key]).toEqual(defaults[key]);
       });
-      expect(trackEvent).toHaveBeenCalledWith('reset-color-options');
+      expect(trackEvent).toHaveBeenCalledWith('preset:reset');
       expect(screen.getByRole('button', { name: 'Apply a preset' })).toBeInTheDocument();
     });
   });

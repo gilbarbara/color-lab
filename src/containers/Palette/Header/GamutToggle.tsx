@@ -26,7 +26,7 @@ export default function PaletteGamutToggle() {
     if (next === gamut) return;
 
     setGamut(next);
-    trackEvent('gamut', { value: next });
+    trackEvent('app:gamut', { value: next });
   };
 
   // The dropdown always renders so P3 stays selectable even when the display gamut

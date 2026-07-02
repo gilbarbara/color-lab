@@ -122,9 +122,20 @@ function ColorItem(props: ColorItemProps) {
     }
   });
 
+  // Fires once per settled edit: onChangeEnd for the picker/sliders (their onChange
+  // streams per-frame), and the validity-gated onChange for the text input. The random
+  // button calls handleChangeColor directly, so it stays 'color:randomize' only.
+  const trackColorEdit = (source: 'picker' | 'sliders' | 'input') =>
+    trackEvent('color:edit', { source, mode });
+
+  const handleInputChange = (value: string) => {
+    trackColorEdit('input');
+    handleChangeColor(value);
+  };
+
   const handleCommitName = (value: string) => {
     updateColor(index, { name: value });
-    trackEvent('edit-color-name', { name: value });
+    trackEvent('color:rename', { name: value });
   };
 
   const handleClickMode = (value: ColorMode) => {
@@ -132,12 +143,12 @@ function ColorItem(props: ColorItemProps) {
       return;
     }
 
-    trackEvent('color-mode', { value });
+    trackEvent('color:mode', { value });
     setState({ mode: value });
   };
 
   const handleClickRandom = () => {
-    trackEvent('random-color');
+    trackEvent('color:randomize');
     const randomColor = getRandomColor(baseSaturation);
 
     handleChangeColor(randomColor);
@@ -187,7 +198,7 @@ function ColorItem(props: ColorItemProps) {
               ref={triggerRef}
               aria-label="Color picker"
               color={color}
-              onClick={() => trackEvent('color-picker')}
+              onClick={() => trackEvent('color:picker')}
               size="lg"
             />
           </PopoverTrigger>
@@ -197,6 +208,7 @@ function ColorItem(props: ColorItemProps) {
               color={color}
               defaultMode={mode}
               onChange={handleChangeColor}
+              onChangeEnd={() => trackColorEdit('picker')}
               showColorInput={false}
               showGlobalHue
               showModeSelector={false}
@@ -226,7 +238,7 @@ function ColorItem(props: ColorItemProps) {
               isDisabled={isOnlyColor || !isActive}
               message="Remove color"
               onConfirm={() => {
-                trackEvent('remove-color');
+                trackEvent('color:remove');
 
                 let nextActiveId: string | null = null;
 
@@ -249,7 +261,7 @@ function ColorItem(props: ColorItemProps) {
             </ConfirmTooltip>
           </div>
 
-          <ColorInput color={color} mode={mode} onChange={handleChangeColor} />
+          <ColorInput color={color} mode={mode} onChange={handleInputChange} />
         </div>
       </div>
 
@@ -303,6 +315,7 @@ function ColorItem(props: ColorItemProps) {
             }}
             mode={mode}
             onChange={handleChangeColor}
+            onChangeEnd={() => trackColorEdit('sliders')}
           />
           <ColorActions
             colorEntry={colorEntry}

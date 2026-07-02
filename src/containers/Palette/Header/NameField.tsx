@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
+import { trackEvent } from '~/utils/analytics';
 import { getPaletteIdFromUrl } from '~/utils/url';
 
 import EditableInput, { type CommitAction } from '~/components/EditableInput';
@@ -35,6 +36,7 @@ export default function NameField() {
       return; // empty not allowed — input reverts to the current name
     }
 
+    trackEvent('palette:rename', { name: trimmed });
     setName(trimmed);
   };
 

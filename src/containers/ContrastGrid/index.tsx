@@ -59,7 +59,7 @@ export default function ContrastGrid(props: ContrastGridProps) {
           aria-label="View Contrast Grid"
           isIconOnly
           onPress={() => {
-            trackEvent('open-contrast-grid');
+            trackEvent('contrast:open');
             onOpen();
           }}
           size="menu"

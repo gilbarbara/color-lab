@@ -24,13 +24,13 @@ export default function Lock(props: LockProps) {
 
   const handleChangeLock = ({ currentKey }: SharedSelection) => {
     if (!currentKey || currentKey === 'None') {
-      trackEvent('lock-color', { value: 'none' });
+      trackEvent('color:lock', { value: 'none' });
       onUpdate({ lock: undefined });
 
       return;
     }
 
-    trackEvent('lock-color', { value: currentKey });
+    trackEvent('color:lock', { value: currentKey });
     onUpdate({ lock: parseInt(currentKey, 10) });
   };
 

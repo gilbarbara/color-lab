@@ -53,7 +53,10 @@ function ScaleItem(props: ScaleItemProps) {
             color={textColor}
             content={`Copy ${name} scale`}
             label={`Copy ${name}`}
-            onCopy={onCopy}
+            onCopy={value => {
+              trackEvent('export:copy_row', { name });
+              onCopy(value);
+            }}
             placement="bottom-start"
             value={code}
           />
@@ -137,9 +140,9 @@ export default function ExportPalette() {
             color="primary"
             isDisabled={selectedIndices.size === 0}
             onPress={() => {
-              trackEvent('copy-export-palette', {
+              trackEvent('export:copy_palette', {
                 format: formatType,
-                colorFormat,
+                color_format: colorFormat,
                 count: selectedIndices.size,
               });
               onCopy(allCode);
@@ -176,7 +179,7 @@ export default function ExportPalette() {
             aria-label="Export All"
             className="@max-xl:button-menu-square"
             onPress={() => {
-              trackEvent('open-export-palette');
+              trackEvent('export:open_palette');
               onOpen();
             }}
             size="menu"

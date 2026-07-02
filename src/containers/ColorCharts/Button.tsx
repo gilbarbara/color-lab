@@ -1,6 +1,7 @@
 import { ChartLineIcon } from '@phosphor-icons/react';
 
 import useGenerator from '~/hooks/useGenerator';
+import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
@@ -32,7 +33,14 @@ export default function ColorChartsButton(props: ColorChartsButtonProps) {
         aria-label="View Charts"
         isIconOnly
         // Shift-click mirrors this button's next state across every color.
-        onPress={event => (event.shiftKey ? setAllCharts(!showGraphs) : toggleChart(id))}
+        onPress={event => {
+          trackEvent('charts:toggle', {
+            scope: event.shiftKey ? 'all' : 'single',
+            enabled: !showGraphs,
+          });
+
+          return event.shiftKey ? setAllCharts(!showGraphs) : toggleChart(id);
+        }}
         size="menu"
         variant={showGraphs ? 'solid' : 'flat'}
       >

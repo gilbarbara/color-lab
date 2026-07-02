@@ -25,12 +25,12 @@ export default function ErrorFallback({
   resetError,
 }: ErrorFallbackProps): JSX.Element {
   const handleReset = (): void => {
-    trackEvent('error-action', { action: 'reset' });
+    trackEvent('app:error_action', { action: 'reset' });
     resetError();
   };
 
   const handleReload = (): void => {
-    trackEvent('error-action', { action: 'reload' });
+    trackEvent('app:error_action', { action: 'reload' });
     window.location.reload();
   };
 

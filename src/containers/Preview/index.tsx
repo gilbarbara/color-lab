@@ -8,6 +8,7 @@ import { animate } from 'framer-motion';
 import { SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
+import { trackEvent } from '~/utils/analytics';
 import { getEffectiveOptions } from '~/utils/generator';
 import { buildPreviewScope } from '~/utils/preview-tokens';
 
@@ -86,7 +87,13 @@ export default function Preview() {
   }, [previewScrollNonce]);
 
   const handleSelect = (selectedId: string) => {
+    trackEvent('preview:select_color');
     setPreviewColor(selectedId);
+  };
+
+  const handleViewChange = (next: PreviewView) => {
+    trackEvent('preview:change_view', { value: next });
+    setView(next);
   };
 
   const activeColor = colors.find(c => c.id === previewColorId) ?? colors[0];
@@ -113,7 +120,10 @@ export default function Preview() {
           aria-expanded={showPreview}
           aria-label={showPreview ? 'Collapse Live preview' : 'Expand Live preview'}
           className="w-full flex items-center justify-between cursor-pointer"
-          onClick={() => togglePreview()}
+          onClick={() => {
+            trackEvent('preview:toggle', { enabled: !showPreview });
+            togglePreview();
+          }}
           type="button"
         >
           <span className="text-sm font-semibold uppercase tracking-wide opacity-60">
@@ -133,12 +143,13 @@ export default function Preview() {
             colors={colors}
             name={activeColor.name}
             onSelect={handleSelect}
-            onThemeChange={next =>
-              setState({ themeOverrides: { ...themeOverrides, [activeColor.id]: next } })
-            }
+            onThemeChange={next => {
+              trackEvent('preview:change_theme', { value: next });
+              setState({ themeOverrides: { ...themeOverrides, [activeColor.id]: next } });
+            }}
             themeMode={mode}
           />
-          <Toolbar onViewChange={setView} view={view} />
+          <Toolbar onViewChange={handleViewChange} view={view} />
           <div className="flex flex-col gap-6">
             <Divider className="bg-(--color-preview)" />
             {view === 'components' ? (

@@ -65,7 +65,7 @@ export default function ExportDrawer(props: ExportDrawerProps) {
 
     setExportFormatType(newFormatType);
 
-    trackEvent('format-type', { value: key as string });
+    trackEvent('export:change_format', { value: key as string });
 
     const newAvailableFormats = getAvailableColorFormats(newFormatType);
 
@@ -77,7 +77,7 @@ export default function ExportDrawer(props: ExportDrawerProps) {
   const handleColorFormatChange = (key: Key) => {
     setExportColorFormat(key as ExportColorFormat);
 
-    trackEvent('color-format', { value: key as string });
+    trackEvent('export:change_color_format', { value: key as string });
   };
 
   const renderProps: ExportRenderProps = {
