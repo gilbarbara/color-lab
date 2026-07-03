@@ -39,6 +39,14 @@ vi.mock('~/utils/firebase', async importOriginal => ({
   getFirebaseAuth: () => ({}),
 }));
 
+const mockIdentifyUser = vi.fn();
+const mockResetUser = vi.fn();
+
+vi.mock('~/utils/analytics', () => ({
+  identifyUser: (...arguments_: unknown[]) => mockIdentifyUser(...arguments_),
+  resetUser: (...arguments_: unknown[]) => mockResetUser(...arguments_),
+}));
+
 const mockFirebaseUser = {
   uid: 'user-123',
   email: 'test@example.com',
@@ -95,6 +103,11 @@ describe('providers/AuthProvider', () => {
         photoURL: null,
         providerData: [{ providerId: 'password', photoURL: undefined }],
       });
+
+      expect(mockIdentifyUser).toHaveBeenCalledWith('user-123', {
+        email: 'test@example.com',
+        name: 'Test User',
+      });
     });
 
     it('sets unauthenticated when no session exists', async () => {
@@ -108,6 +121,8 @@ describe('providers/AuthProvider', () => {
 
       expect(result.current.isAuthenticated).toBe(false);
       expect(result.current.user).toBeNull();
+      expect(mockResetUser).toHaveBeenCalled();
+      expect(mockIdentifyUser).not.toHaveBeenCalled();
     });
   });
 

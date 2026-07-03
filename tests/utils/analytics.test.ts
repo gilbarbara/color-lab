@@ -1,13 +1,15 @@
 const mockCaptureException = vi.fn();
 const mockCapture = vi.fn();
 const mockInit = vi.fn();
+const mockIdentify = vi.fn();
+const mockReset = vi.fn();
 
 vi.mock('@sentry/nextjs', () => ({
   captureException: (...arguments_: unknown[]) => mockCaptureException(...arguments_),
 }));
 
 vi.mock('posthog-js', () => ({
-  default: { init: mockInit, capture: mockCapture },
+  default: { init: mockInit, capture: mockCapture, identify: mockIdentify, reset: mockReset },
 }));
 
 async function getBeforeSend() {
@@ -218,6 +220,58 @@ describe('utils/analytics', () => {
       expect(mockCaptureException).toHaveBeenCalledTimes(1);
       expect(mockCaptureException).toHaveBeenCalledWith(expect.any(Error), {
         tags: { source: 'posthog', call: 'trackEvent' },
+      });
+    });
+  });
+
+  describe('identifyUser', () => {
+    it('forwards the distinct id and properties to posthog.identify once ready', async () => {
+      const { identifyUser, initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+      identifyUser('uid-1', { email: 'a@b.co', name: 'Ada' });
+
+      expect(mockIdentify).toHaveBeenCalledWith('uid-1', { email: 'a@b.co', name: 'Ada' });
+    });
+
+    it('captures to Sentry when posthog throws', async () => {
+      mockIdentify.mockImplementationOnce(() => {
+        throw new Error('posthog down');
+      });
+
+      const { identifyUser, initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+      identifyUser('uid-1');
+
+      expect(mockCaptureException).toHaveBeenCalledWith(expect.any(Error), {
+        tags: { source: 'posthog', call: 'identifyUser' },
+      });
+    });
+  });
+
+  describe('resetUser', () => {
+    it('forwards to posthog.reset once ready', async () => {
+      const { initAnalytics, resetUser } = await loadAnalytics();
+
+      await initAnalytics();
+      resetUser();
+
+      expect(mockReset).toHaveBeenCalledTimes(1);
+    });
+
+    it('captures to Sentry when posthog throws', async () => {
+      mockReset.mockImplementationOnce(() => {
+        throw new Error('posthog down');
+      });
+
+      const { initAnalytics, resetUser } = await loadAnalytics();
+
+      await initAnalytics();
+      resetUser();
+
+      expect(mockCaptureException).toHaveBeenCalledWith(expect.any(Error), {
+        tags: { source: 'posthog', call: 'resetUser' },
       });
     });
   });

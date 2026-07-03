@@ -5,6 +5,7 @@ import type { Auth, AuthError, User } from 'firebase/auth';
 
 import AuthContext, { type AppUser, type OAuthProvider } from '~/contexts/auth';
 import { useAuthStore } from '~/stores/authStore';
+import { identifyUser, resetUser } from '~/utils/analytics';
 import { getAuthErrorMessage } from '~/utils/auth-errors';
 
 interface AuthProviderProps {
@@ -82,10 +83,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             if (firebaseUser) {
               setUser(toAppUser(firebaseUser));
               setProvider(localStorage.getItem(PROVIDER_STORAGE_KEY) as OAuthProvider | null);
+              identifyUser(firebaseUser.uid, {
+                email: firebaseUser.email,
+                name: firebaseUser.displayName,
+              });
             } else {
               setUser(null);
               setProvider(null);
               localStorage.removeItem(PROVIDER_STORAGE_KEY);
+              resetUser();
             }
           });
         })

@@ -23,6 +23,19 @@ function run(call: () => void): void {
   }
 }
 
+export function identifyUser(
+  distinctId: string,
+  properties?: Record<string, string | number | boolean | null>,
+): void {
+  run(() => {
+    try {
+      client?.identify(distinctId, properties);
+    } catch (error_) {
+      Sentry.captureException(error_, { tags: { source: 'posthog', call: 'identifyUser' } });
+    }
+  });
+}
+
 export async function initAnalytics(): Promise<void> {
   // 'starting' is set synchronously below, so a re-entrant call (e.g. React
   // StrictMode's dev double-mount) short-circuits before it can init twice.
@@ -135,6 +148,16 @@ export function normalizePathname(pathname: string): string | null {
   }
 
   return pathname;
+}
+
+export function resetUser(): void {
+  run(() => {
+    try {
+      client?.reset();
+    } catch (error_) {
+      Sentry.captureException(error_, { tags: { source: 'posthog', call: 'resetUser' } });
+    }
+  });
 }
 
 export function trackEvent(name: string, data?: Record<string, string | number | boolean>): void {
