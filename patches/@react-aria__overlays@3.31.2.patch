@@ -1,0 +1,39 @@
+diff --git a/dist/Overlay.main.js b/dist/Overlay.main.js
+index ec868f36e5b241d346a3fe70992595bf16ccc56a..7d2591f8fa9aa91df806cedb7781bc1215d38a4f 100644
+--- a/dist/Overlay.main.js
++++ b/dist/Overlay.main.js
+@@ -37,7 +37,7 @@ $parcel$export(module.exports, "useOverlayFocusContain", () => $745edbb83ab4296f
+ const $745edbb83ab4296f$export$a2200b96afd16271 = /*#__PURE__*/ (0, ($parcel$interopDefault($kxJqT$react))).createContext(null);
+ function $745edbb83ab4296f$export$c6fdb837b070b4ff(props) {
+     let isSSR = (0, $kxJqT$reactariassr.useIsSSR)();
+-    let { portalContainer: portalContainer = isSSR ? null : document.body, isExiting: isExiting } = props;
++    let { portalContainer: portalContainer = isSSR ? null : (document.getElementById('overlay-root') || document.body), isExiting: isExiting } = props;
+     let [contain, setContain] = (0, $kxJqT$react.useState)(false);
+     let contextValue = (0, $kxJqT$react.useMemo)(()=>({
+             contain: contain,
+diff --git a/dist/Overlay.mjs b/dist/Overlay.mjs
+index 56cc9c1e761330d0ce50d614a4a3dbc6ee24fbe9..44e73c4163a9330a18f0cd55ab3782493c739332 100644
+--- a/dist/Overlay.mjs
++++ b/dist/Overlay.mjs
+@@ -26,7 +26,7 @@ import {useLayoutEffect as $1CM7W$useLayoutEffect} from "@react-aria/utils";
+ const $337b884510726a0d$export$a2200b96afd16271 = /*#__PURE__*/ (0, $1CM7W$react).createContext(null);
+ function $337b884510726a0d$export$c6fdb837b070b4ff(props) {
+     let isSSR = (0, $1CM7W$useIsSSR)();
+-    let { portalContainer: portalContainer = isSSR ? null : document.body, isExiting: isExiting } = props;
++    let { portalContainer: portalContainer = isSSR ? null : (document.getElementById('overlay-root') || document.body), isExiting: isExiting } = props;
+     let [contain, setContain] = (0, $1CM7W$useState)(false);
+     let contextValue = (0, $1CM7W$useMemo)(()=>({
+             contain: contain,
+diff --git a/dist/Overlay.module.js b/dist/Overlay.module.js
+index 783a079400a84d69ec06d063cac1ee0740bc8b68..c7f3596bd1b777f334c3085e2ed8f7dfb6712587 100644
+--- a/dist/Overlay.module.js
++++ b/dist/Overlay.module.js
+@@ -26,7 +26,7 @@ import {useLayoutEffect as $1CM7W$useLayoutEffect} from "@react-aria/utils";
+ const $337b884510726a0d$export$a2200b96afd16271 = /*#__PURE__*/ (0, $1CM7W$react).createContext(null);
+ function $337b884510726a0d$export$c6fdb837b070b4ff(props) {
+     let isSSR = (0, $1CM7W$useIsSSR)();
+-    let { portalContainer: portalContainer = isSSR ? null : document.body, isExiting: isExiting } = props;
++    let { portalContainer: portalContainer = isSSR ? null : (document.getElementById('overlay-root') || document.body), isExiting: isExiting } = props;
+     let [contain, setContain] = (0, $1CM7W$useState)(false);
+     let contextValue = (0, $1CM7W$useMemo)(()=>({
+             contain: contain,
