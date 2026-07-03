@@ -11,6 +11,7 @@ overrides:
   postcss: 8.5.10
 
 patchedDependencies:
+  '@react-aria/overlays@3.31.2': ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34
   '@react-stately/slider@3.7.5': 2df54214531a333d90ec43fc35ee64b0fa7d2d93430d7f10266c08dd90576828
 
 importers:
@@ -6928,7 +6929,7 @@ snapshots:
       '@heroui/use-viewport-size': 2.0.1(react@19.2.7)
       '@react-aria/dialog': 3.5.34(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/focus': 3.21.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-stately/overlays': 3.6.23(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       framer-motion: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
@@ -6949,7 +6950,7 @@ snapshots:
       '@react-aria/button': 3.14.5(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/focus': 3.21.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/interactions': 3.27.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-stately/toggle': 3.9.5(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-stately/utils': 3.11.0(react@19.2.7)
       framer-motion: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -7014,7 +7015,7 @@ snapshots:
       '@heroui/use-safe-layout-effect': 2.1.8(react@19.2.7)
       '@react-aria/dialog': 3.5.34(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/focus': 3.21.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-stately/overlays': 3.6.23(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-types/overlays': 3.9.4(react@19.2.7)
       framer-motion: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -7162,7 +7163,7 @@ snapshots:
       '@react-aria/focus': 3.21.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/form': 3.1.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/interactions': 3.27.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/visually-hidden': 3.8.31(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-types/shared': 3.35.0(react@19.2.7)
       framer-motion: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -7270,7 +7271,7 @@ snapshots:
       '@heroui/react-utils': 2.1.14(react@19.2.7)
       '@heroui/system-rsc': 2.3.24(@heroui/theme@2.4.26(tailwindcss@4.3.2))(react@19.2.7)
       '@react-aria/i18n': 3.12.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/utils': 3.33.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       framer-motion: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
@@ -7360,7 +7361,7 @@ snapshots:
       '@heroui/theme': 2.4.26(tailwindcss@4.3.2)
       '@heroui/use-aria-overlay': 2.0.6(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@heroui/use-safe-layout-effect': 2.1.8(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/tooltip': 3.9.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-stately/tooltip': 3.5.11(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-types/overlays': 3.9.4(react@19.2.7)
@@ -7409,7 +7410,7 @@ snapshots:
   '@heroui/use-aria-modal-overlay@2.2.21(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@heroui/use-aria-overlay': 2.0.6(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/utils': 3.33.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-stately/overlays': 3.6.23(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
@@ -7441,7 +7442,7 @@ snapshots:
     dependencies:
       '@react-aria/focus': 3.21.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/interactions': 3.27.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@react-aria/overlays': 3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@react-aria/overlays': 3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-types/shared': 3.35.0(react@19.2.7)
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
@@ -8160,7 +8161,7 @@ snapshots:
     transitivePeerDependencies:
       - '@react-spectrum/provider'
 
-  '@react-aria/overlays@3.31.2(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@react-aria/overlays@3.31.2(patch_hash=ea2c272d7f31f1d19252ab3adea98ac3b4ba83c1448ce6592b61c1c8ff827b34)(@react-spectrum/provider@3.11.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@react-aria/focus': 3.22.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@react-aria/i18n': 3.13.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)

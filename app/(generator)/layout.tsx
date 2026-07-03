@@ -17,6 +17,10 @@ export default function GeneratorLayout({ children }: { children: ReactNode }) {
     <GeneratorStoreProvider fallbackPalette={fallbackPalette}>
       <ScrollLock />
       {children}
+      {/* Viewport-fixed portal target for HeroUI overlays (patched default in
+          @react-aria/overlays). Keeps overlay flip math viewport-relative while
+          ScrollLock pins `body`, which would otherwise offset it. See docs/palette.md. */}
+      <div className="overlay-root" id="overlay-root" />
     </GeneratorStoreProvider>
   );
 }

@@ -113,3 +113,18 @@ body {
 @utility preview-bg-auto {
   @apply bg-[#f7f7f7] text-black dark:bg-[#181818] dark:text-white;
 }
+
+/* Viewport-fixed portal target for HeroUI overlays (see app/(generator)/layout.tsx).
+   `position: fixed` makes it a viewport-sized offsetParent immune to ScrollLock's
+   `body { position: fixed }` pin, so overlay flip (`bottom:`) math stays viewport-relative.
+   The layer is click-through; portaled overlay content re-enables pointer events. */
+.overlay-root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.overlay-root > * {
+  pointer-events: auto;
+}

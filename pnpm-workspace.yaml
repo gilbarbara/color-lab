@@ -7,6 +7,7 @@ overrides:
 # PageUp/PageDown stepped by (max-min)/10, so the jump varied wildly per slider
 # (10x, 18, or nothing). Patch makes calcPageSize use step*10 for a consistent jump.
 patchedDependencies:
+  '@react-aria/overlays@3.31.2': patches/@react-aria__overlays@3.31.2.patch
   '@react-stately/slider@3.7.5': patches/@react-stately__slider@3.7.5.patch
 allowBuilds:
   '@firebase/util': true
