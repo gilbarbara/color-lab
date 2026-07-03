@@ -1,6 +1,6 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { hasColor, hasParams, scrollBottomBarToTop } from './__setup__/utils';
+import { hasColor, hasParams, scrollPanelToTop } from './__setup__/utils';
 import { collapseDuration, collapsibleMenuDuration } from './fixtures/constants';
 
 let screenshotCount = 0;
@@ -172,7 +172,7 @@ test('mobile', async () => {
 
     // Adding a color auto-scrolls the bar to the new color; reset to top so
     // the screenshot starts from Advanced Options + Primary.
-    await scrollBottomBarToTop(page);
+    await scrollPanelToTop(page);
 
     await expect(page).toHaveScreenshot(getScreenshotName('two-colors.png'));
   });
@@ -183,7 +183,7 @@ test('mobile', async () => {
     await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
 
     await page.waitForTimeout(collapseDuration);
-    await scrollBottomBarToTop(page);
+    await scrollPanelToTop(page);
 
     await expect(page).toHaveScreenshot(getScreenshotName('advanced-options.png'));
   });
@@ -202,7 +202,7 @@ test('mobile', async () => {
     await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
 
     await page.waitForTimeout(collapseDuration);
-    await scrollBottomBarToTop(page);
+    await scrollPanelToTop(page);
 
     await expect(page).toHaveScreenshot(getScreenshotName('post-advanced-color-options.png'));
   });
@@ -436,7 +436,7 @@ test('mobile', async () => {
     // remove button's first click is lost. Selecting also auto-opens the bottom bar.
     await page.getByRole('button', { name: 'Select Secondary' }).click();
     await page.waitForTimeout(collapseDuration);
-    await scrollBottomBarToTop(page);
+    await scrollPanelToTop(page);
 
     const ColorItem = page.getByTestId('ColorItem').nth(1);
 

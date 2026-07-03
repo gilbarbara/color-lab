@@ -9,6 +9,7 @@ import {
   hasParams,
   lacksColor,
   lacksParams,
+  scrollPanelToTop,
 } from './__setup__/utils';
 import { collapseDuration, scrollOffset } from './fixtures/constants';
 
@@ -24,6 +25,9 @@ function getScreenshotName(name: string) {
 // fill() fires react-aria's onChange but never onChangeEnd, so the interaction never
 // releases and useUrlSync stays paused, suppressing later URL writes.
 let page: Page;
+
+// The clean single-color palette URL captured mid-flow, replayed by the color-spacing steps.
+let savedColorUrl = '';
 
 test.use({
   ...devices['Desktop Chrome'],
@@ -78,6 +82,38 @@ test.beforeAll(async ({ browser }) => {
 test.afterAll(async () => {
   await page.close();
 });
+
+// Replay the saved single-color palette, pick a spacing, and add 5 colors (6 total). Each new
+// color rotates the previous hue by the spacing's angle, so the swatches fan out progressively
+// wider from Even (36°) to Golden (137.5°).
+async function addSpacedColors(spacing: string, screenshot: string) {
+  await page.goto(savedColorUrl);
+  await page.waitForLoadState('networkidle');
+
+  // The sidebar is persisted open (Select Primary auto-opened it); assert before driving it.
+  await expect(page.locator('html')).toHaveAttribute('data-sidebar', 'open');
+
+  const ColorItem = page.getByTestId('ColorItem');
+
+  await expect(ColorItem).toHaveCount(1);
+
+  // The trigger's accessible name is compound and changes with the selection, so target its id.
+  await page.locator('#color-spacing-value').click();
+  await page.getByRole('menuitemradio', { name: spacing }).click();
+  await expect(page.locator('#color-spacing-value')).toContainText(spacing);
+
+  const addColor = page.getByRole('button', { name: 'Add Color' });
+
+  for (let count = 2; count <= 6; count++) {
+    await addColor.click();
+    await expect(ColorItem).toHaveCount(count);
+  }
+
+  await scrollPanelToTop(page);
+  await page.evaluate(() => window.scrollTo(0, 0));
+
+  await expect(page).toHaveScreenshot(getScreenshotName(screenshot));
+}
 
 test('desktop', async () => {
   await test.step('displays main elements on initial load', async () => {
@@ -761,6 +797,22 @@ test('desktop', async () => {
     }
 
     await expect(ColorItem).toHaveCount(1);
+
+    // Save the URL so the color-spacing steps can replay it.
+    savedColorUrl = page.url();
+
     await expect(page).toHaveScreenshot(getScreenshotName('history-final.png'));
   });
+
+  await test.step('add tight spaced colors', () =>
+    addSpacedColors('Tight', 'tight-spaced-colors.png'));
+
+  await test.step('add even spaced colors', () =>
+    addSpacedColors('Even', 'even-spaced-colors.png'));
+
+  await test.step('add wide spaced colors', () =>
+    addSpacedColors('Wide', 'wide-spaced-colors.png'));
+
+  await test.step('add golden spaced colors', () =>
+    addSpacedColors('Golden', 'golden-spaced-colors.png'));
 });

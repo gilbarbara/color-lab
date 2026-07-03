@@ -2,6 +2,7 @@ import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { initialState, useAppStore } from '~/stores/appStore';
 
 const PERSISTED_KEYS = [
+  'colorSpacing',
   'exportColorFormat',
   'exportFormatType',
   'gamut',
@@ -9,7 +10,7 @@ const PERSISTED_KEYS = [
   'showPaletteOptionsPanel',
   'showPreview',
   'showSidebar',
-].sort();
+];
 
 function readPersistedState(): { state: Record<string, unknown>; version: number } | null {
   const raw = localStorage.getItem('color-lab');
@@ -199,6 +200,16 @@ describe('stores/appStore', () => {
       expect(state.paletteId).toBe(null);
       expect(state.paletteName).toBe(DEFAULT_PALETTE_NAME);
       expect(state.lastSavedUrl).toBe(null);
+    });
+  });
+
+  describe('setColorSpacing', () => {
+    it('updates colorSpacing from the wide default', () => {
+      expect(useAppStore.getState().colorSpacing).toBe('wide');
+
+      useAppStore.getState().setColorSpacing('golden');
+
+      expect(useAppStore.getState().colorSpacing).toBe('golden');
     });
   });
 
@@ -435,12 +446,14 @@ describe('stores/appStore', () => {
     it('persists whitelisted keys after mutation', () => {
       useAppStore.getState().setGamut('srgb');
       useAppStore.getState().setExportColorFormat('hex');
+      useAppStore.getState().setColorSpacing('golden');
       useAppStore.getState().toggleSidebar();
 
       const persisted = readPersistedState();
 
       expect(persisted?.state.gamut).toBe('srgb');
       expect(persisted?.state.exportColorFormat).toBe('hex');
+      expect(persisted?.state.colorSpacing).toBe('golden');
       expect(persisted?.state.showSidebar).toBe(false);
     });
 

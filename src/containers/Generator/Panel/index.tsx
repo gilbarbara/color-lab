@@ -8,21 +8,20 @@ import {
 } from 'react';
 import { useBreakpoint, useIsomorphicLayoutEffect } from '@gilbarbara/hooks';
 import { cn, Divider } from '@heroui/react';
-import { PlusIcon, SidebarSimpleIcon } from '@phosphor-icons/react';
+import { SidebarSimpleIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS, OFFSET, SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { trackEvent } from '~/utils/analytics';
-import { getRandomColor, rotateOklchHue } from '~/utils/color';
-import { MAX_COLORS } from '~/utils/generator';
 import { scrollToSelector } from '~/utils/scroll';
 
 import AppIntro from '~/components/AppIntro';
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
 import ColorList from '~/containers/ColorList';
+import PanelAddColor from '~/containers/Generator/Panel/AddColor';
 
 import AdvancedOptions from '../AdvancedOptions';
 
@@ -38,19 +37,15 @@ import BottomBar from './BottomBar';
  * because no JS branch on viewport.
  */
 export default function Panel() {
-  const { addColor, baseSaturation, colors, defaultOptions, globalOptions, updateGlobalOptions } =
-    useGenerator(
-      'addColor',
-      'baseSaturation',
-      'colors',
-      'defaultOptions',
-      'globalOptions',
-      'updateGlobalOptions',
-    );
+  const { colors, defaultOptions, globalOptions, updateGlobalOptions } = useGenerator(
+    'colors',
+    'defaultOptions',
+    'globalOptions',
+    'updateGlobalOptions',
+  );
   const {
     collapseAnimationCount,
     colorScrollRequest,
-    requestColorScroll,
     showBottomBar,
     showSidebar,
     toggleBottomBar,
@@ -58,7 +53,6 @@ export default function Panel() {
   } = useApp(
     'collapseAnimationCount',
     'colorScrollRequest',
-    'requestColorScroll',
     'showBottomBar',
     'showSidebar',
     'toggleBottomBar',
@@ -121,19 +115,6 @@ export default function Panel() {
 
     el.inert = isMobile ? !showBottomBar : !showSidebar;
   }, [isMobile, showBottomBar, showSidebar]);
-
-  const handleAddColor = () => {
-    const lastColor = colors.at(-1);
-    const nextColor = lastColor
-      ? rotateOklchHue(lastColor.value, 30)
-      : getRandomColor(baseSaturation);
-
-    const newId = addColor(nextColor);
-
-    trackEvent('color:add');
-
-    if (newId) requestColorScroll(newId);
-  };
 
   const handleClickColorBox = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
@@ -254,17 +235,7 @@ export default function Panel() {
         />
         <ColorList />
         <Divider />
-        <div className="p-4">
-          <Button
-            color="primary"
-            fullWidth
-            isDisabled={colors.length >= MAX_COLORS}
-            onPress={handleAddColor}
-            startContent={<PlusIcon />}
-          >
-            Add Color
-          </Button>
-        </div>
+        <PanelAddColor />
       </div>
     </aside>
   );

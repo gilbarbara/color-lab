@@ -63,19 +63,24 @@ export function lacksParams(...keys: string[]) {
   return (url: URL) => keys.every(key => !url.searchParams.has(key));
 }
 
-export async function scrollBottomBarToTop(page: Page): Promise<void> {
-  // Adding or selecting a color triggers an async scroll-to-color (a rAF gated
-  // by collapse animations, and a 500ms timeout when the bar opens). Under load
-  // that scroll can fire after a one-shot reset and offset the screenshot. Pin
-  // the panel to the top, re-zeroing on any late movement, until it holds for a
-  // sustained window so the capture is deterministic.
+export async function scrollPanelToTop(page: Page): Promise<void> {
+  // Adding a color re-activates the new color, which closes the previously active
+  // color's Collapse and opens the new one. The scroll-to-color is gated behind
+  // those collapse animations, then runs a 400ms tween on the panel's scrollTop.
+  // During the collapse phase the panel is still at the top, so waiting only for
+  // stillness can resolve *before* the deferred scroll starts — it then fires into
+  // the screenshot. Pin the panel to the top (re-zeroing on any movement, which
+  // also absorbs the tween's trailing sub-pixel writes), but only accept the quiet
+  // streak once we've actually observed the scroll move, so we can't exit in the
+  // gap before it begins.
   await page.getByTestId('GeneratorPanel').evaluate(
     el =>
       new Promise<void>(resolve => {
         const QUIET_FRAMES = 12; // ~200ms of no movement
-        const MAX_FRAMES = 180; // ~3s safety cap
+        const MAX_FRAMES = 240; // ~4s safety cap
         let quiet = 0;
         let frames = 0;
+        let moved = false;
 
         const tick = () => {
           frames += 1;
@@ -83,11 +88,12 @@ export async function scrollBottomBarToTop(page: Page): Promise<void> {
           if (el.scrollTop !== 0) {
             el.scrollTop = 0;
             quiet = 0;
+            moved = true;
           } else {
             quiet += 1;
           }
 
-          if (quiet >= QUIET_FRAMES || frames >= MAX_FRAMES) {
+          if ((moved && quiet >= QUIET_FRAMES) || frames >= MAX_FRAMES) {
             resolve();
           } else {
             requestAnimationFrame(tick);
