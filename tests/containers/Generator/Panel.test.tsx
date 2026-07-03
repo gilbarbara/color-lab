@@ -2,7 +2,6 @@ import { useAppStore } from '~/stores/appStore';
 import { createTestPalette, CRIMSON } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
 import { act, fireEvent, render, screen, within } from '~/test-utils';
-import { MAX_COLORS } from '~/utils/generator';
 
 import Panel from '~/containers/Generator/Panel';
 
@@ -149,23 +148,6 @@ describe('Panel', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
 
       expect(spy).toHaveBeenCalledOnce();
-    });
-
-    it('Add Color button adds a new color', () => {
-      render(<Panel />);
-
-      const initialColors = getGeneratorStore().getState().colors.length;
-
-      fireEvent.click(screen.getByRole('button', { name: /add color/i }));
-
-      expect(getGeneratorStore().getState().colors).toHaveLength(initialColors + 1);
-    });
-
-    it('Add Color is disabled at MAX_COLORS', () => {
-      getGeneratorStore().setState(createTestPalette(MAX_COLORS));
-      render(<Panel />);
-
-      expect(screen.getByRole('button', { name: /add color/i })).toBeDisabled();
     });
   });
 

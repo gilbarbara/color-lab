@@ -1,3 +1,5 @@
+import type { ColorSpacingOptions } from '~/types';
+
 export const APCA_LIGHTNESS_CONTRAST = (
   <span>
     L<sup>c</sup>
@@ -5,6 +7,29 @@ export const APCA_LIGHTNESS_CONTRAST = (
 );
 
 export const BREAKPOINTS = { xs: 0, sm: 360, md: 768, lg: 1024, xl: 1280 };
+
+export const COLOR_SPACING: ColorSpacingOptions = {
+  tight: {
+    angle: 30,
+    description: 'Small steps, close hues (30°)',
+    label: 'Tight',
+  },
+  even: {
+    angle: 36,
+    description: 'Equal spread, full wheel (36°)',
+    label: 'Even',
+  },
+  wide: {
+    angle: 77,
+    description: 'Wide spread, still cohesive (77°)',
+    label: 'Wide',
+  },
+  golden: {
+    angle: 137.5,
+    description: 'Max spread, golden angle (137.5°)',
+    label: 'Golden',
+  },
+};
 
 export const DEFAULT_COLOR_NAMES = [
   'Primary',

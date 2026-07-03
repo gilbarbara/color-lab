@@ -4,11 +4,12 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { detectInitialGamut } from '~/utils/gamut';
 
-import type { ExportColorFormat, ExportFormatType, Gamut } from '~/types';
+import type { ColorSpacing, ExportColorFormat, ExportFormatType, Gamut } from '~/types';
 
 interface AppState {
   collapseAnimationCount: number;
   colorScrollRequest: { id: string; nonce: number } | null;
+  colorSpacing: ColorSpacing;
   exportColorFormat: ExportColorFormat;
   exportFormatType: ExportFormatType;
   gamut: Gamut;
@@ -36,6 +37,7 @@ export interface AppStateWithActions extends AppState {
   openLoginModal: () => void;
   requestColorScroll: (id: string) => void;
   requestPreviewScroll: () => void;
+  setColorSpacing: (value: ColorSpacing) => void;
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
   setGamut: (gamut: Gamut) => void;
@@ -51,6 +53,7 @@ export interface AppStateWithActions extends AppState {
 export const initialState: AppState = {
   collapseAnimationCount: 0,
   colorScrollRequest: null,
+  colorSpacing: 'wide',
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
   gamut: detectInitialGamut(),
@@ -134,6 +137,10 @@ export const useAppStore = create<AppStateWithActions>()(
         });
       },
 
+      setColorSpacing: value => {
+        set({ colorSpacing: value });
+      },
+
       setSessionPalettePath: url => {
         set({ sessionPalettePath: url });
       },
@@ -179,6 +186,7 @@ export const useAppStore = create<AppStateWithActions>()(
         exportColorFormat: state.exportColorFormat,
         exportFormatType: state.exportFormatType,
         gamut: state.gamut,
+        colorSpacing: state.colorSpacing,
         showColorOptionsPanel: state.showColorOptionsPanel,
         showPaletteOptionsPanel: state.showPaletteOptionsPanel,
         showPreview: state.showPreview,

@@ -1,5 +1,9 @@
 import type { ScaleChromaPeak, ScaleOptions as ScaleOptionsBase, ScaleRange } from 'colorizr';
 
+export type ColorSpacing = 'tight' | 'even' | 'wide' | 'golden';
+export type ColorSpacingOption = { angle: number; description: string; label: string };
+export type ColorSpacingOptions = Record<ColorSpacing, ColorSpacingOption>;
+
 export type EffectiveScaleOptions = SetOptional<
   Required<ScaleOptions>,
   'lock' | 'saturation' | 'variant'
