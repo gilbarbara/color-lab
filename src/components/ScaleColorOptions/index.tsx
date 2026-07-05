@@ -53,11 +53,14 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
     chromaCurve,
     hueShift,
     lightnessCurve,
-    lock: defaultLock,
+    lock: effectiveLock,
     maxLightness,
     minLightness,
     steps,
   } = options;
+  // A color has its own lock override only when the effective lock differs from the global
+  // (default) one — `setColorOverride` strips overrides equal to global, so this is exact.
+  const hasLockOverride = effectiveLock !== defaultOptions.lock;
   const { end, ref: interactionRef, start } = useSliderInteraction();
   const scheduleUpdate = useRafCallback(onUpdate);
   const seedFraction = getChromaFraction(seedColor);
@@ -105,7 +108,15 @@ export default function ScaleColorOptions(props: ScaleColorOptionsProps) {
           'justify-between': showLock,
         })}
       >
-        {showLock && <Lock lock={defaultLock} onUpdate={onUpdate} steps={steps} />}
+        {showLock && (
+          <Lock
+            hasOverride={hasLockOverride}
+            lock={effectiveLock}
+            onUpdate={onUpdate}
+            showNone={defaultOptions.lock === undefined}
+            steps={steps}
+          />
+        )}
         <Button
           isDisabled={disableReset}
           onPress={onReset}

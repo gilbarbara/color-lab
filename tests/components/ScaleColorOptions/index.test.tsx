@@ -689,5 +689,81 @@ describe('ScaleColorOptions', () => {
       });
       expect(mockTrackEvent).toHaveBeenCalledWith('color:lock', { value: 'none' });
     });
+
+    it('omits "None" when a global lock is set (a per-color unlock is unrepresentable)', async () => {
+      const user = userEvent.setup();
+      const defaults: GlobalScaleOptions = { ...getDefaultGlobalOptions(CRIMSON), lock: 500 };
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, lock: 500 },
+          })}
+          showLock
+        />,
+      );
+
+      const trigger = screen.getByTestId('ColorLockOptions');
+
+      await user.click(trigger);
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+
+      expect(screen.queryByRole('option', { name: 'None' })).not.toBeInTheDocument();
+      expect(screen.getByRole('option', { name: '500' })).toBeInTheDocument();
+    });
+
+    it('offers "None" when there is no global lock (clears the per-color override)', async () => {
+      const user = userEvent.setup();
+
+      render(<ScaleColorOptions {...createDefaultProps()} showLock />);
+
+      const trigger = screen.getByTestId('ColorLockOptions');
+
+      await user.click(trigger);
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+
+      expect(screen.getByRole('option', { name: 'None' })).toBeInTheDocument();
+    });
+
+    it('hides the badge when the lock is inherited from global (no color override)', () => {
+      const defaults: GlobalScaleOptions = { ...getDefaultGlobalOptions(CRIMSON), lock: 500 };
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, lock: 500 },
+          })}
+          showLock
+        />,
+      );
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('ColorLock').querySelector('span[data-invisible]')).toHaveAttribute(
+        'data-invisible',
+        'true',
+      );
+    });
+
+    it('shows the badge when the color has its own lock override', () => {
+      const defaults = getDefaultGlobalOptions(CRIMSON);
+
+      render(
+        <ScaleColorOptions
+          {...createDefaultProps({
+            defaultOptions: defaults,
+            options: { ...defaults, lock: 300 },
+          })}
+          showLock
+        />,
+      );
+
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(screen.getByTestId('ColorLock').querySelector('span[data-invisible]')).toHaveAttribute(
+        'data-invisible',
+        'false',
+      );
+    });
   });
 });
