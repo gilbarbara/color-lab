@@ -29,7 +29,7 @@ export default function ExportScale(props: ExportScaleProps) {
             className="w-full"
             color="primary"
             onPress={() => {
-              trackEvent('export:copy_scale', { format: formatType, color_format: colorFormat });
+              trackEvent('scale:export_copy', { format: formatType, color_format: colorFormat });
               onCopy(code);
             }}
             startContent={<CopyIcon className="text-lg" />}
@@ -45,7 +45,7 @@ export default function ExportScale(props: ExportScaleProps) {
             aria-label="Export scale"
             isIconOnly
             onPress={() => {
-              trackEvent('export:open_scale');
+              trackEvent('scale:export');
               onOpen();
             }}
             size="menu"

@@ -64,7 +64,7 @@ function Scale(props: ScaleProps) {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <PreviewButton id={colorEntry.id} />
+          <PreviewButton id={colorEntry.id} source="scale" />
           <CollapsibleMenu label="More scale tools">
             <ColorChartsButton id={colorEntry.id} />
             <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />

@@ -34,7 +34,7 @@ export default function ColorChartsButton(props: ColorChartsButtonProps) {
         isIconOnly
         // Shift-click mirrors this button's next state across every color.
         onPress={event => {
-          trackEvent('charts:toggle', {
+          trackEvent('scale:charts', {
             scope: event.shiftKey ? 'all' : 'single',
             enabled: !showGraphs,
           });

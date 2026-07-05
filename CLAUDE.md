@@ -121,6 +121,10 @@ Additional UI surfaces:
 - `src/utils/url.ts`: URL encoding/decoding for shareable palettes
 - `src/config/presets.ts`: `DESIGN_SYSTEM_PRESETS` (tailwind/material/bootstrap/opencolor) lightness/chroma/hueShift configs applied by `ColorPresets`
 
+### Analytics
+
+PostHog, autocapture off — every event is manual via `trackEvent(name, data)` (`src/utils/analytics.ts`). **Read `docs/events.md` before adding, renaming, or moving any event** — it is the authority for the `domain:action` naming, the domain taxonomy, and property keys. `.agent/event-migration.md` is a historical migration record, not the current spec.
+
 ## Key Dependencies
 
 - **colorizr**: Color manipulation, `scale()` function for generating tone steps
