@@ -30,7 +30,7 @@ function Swatch(props: SwatchProps) {
   const displayColor = gamut === 'srgb' ? hex : oklch;
 
   const handleClick = () => {
-    trackEvent('app:copy_swatch');
+    trackEvent('scale:copy_swatch');
     navigator.clipboard
       .writeText(displayColor)
       .then(() => {

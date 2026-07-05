@@ -140,7 +140,7 @@ export default function ExportPalette() {
             color="primary"
             isDisabled={selectedIndices.size === 0}
             onPress={() => {
-              trackEvent('export:copy_palette', {
+              trackEvent('palette:export_copy', {
                 format: formatType,
                 color_format: colorFormat,
                 count: selectedIndices.size,
@@ -179,7 +179,7 @@ export default function ExportPalette() {
             aria-label="Export All"
             className="@max-xl:button-menu-square"
             onPress={() => {
-              trackEvent('export:open_palette');
+              trackEvent('palette:export');
               onOpen();
             }}
             size="menu"

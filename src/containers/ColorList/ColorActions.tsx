@@ -57,6 +57,7 @@ export default function ColorActions(props: ColorActionsProps) {
           <PreviewButton
             id={colorEntry.id}
             onPreview={() => toggleBottomBar(false)}
+            source="color"
             variant="light"
           />
           <Tooltip content="Random Color" delay={250} placement="bottom-end">
