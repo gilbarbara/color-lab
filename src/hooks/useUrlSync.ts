@@ -120,9 +120,15 @@ export default function useUrlSync() {
       window.history.replaceState(null, '', serializePaletteToUrl(generatorStoreApi.getState()));
     }
 
-    // Bare `/p` is the 200 indexable anchor — it stays put (no client flip). `/`
-    // server-redirects real visitors straight to `/p/Primary-{random}`, so bare `/p` is
-    // only hit directly or by crawlers, where a stable single-title page is what we want.
+    // Bare `/p` is the stable target `/` redirects to. Reflect the server-seeded random palette in
+    // the URL so the visitor lands on a concrete, shareable `/p/<slug>`. This is URL-only — a
+    // replaceState does not re-run `generateMetadata` (server-only), so head tags stay as SSR'd
+    // (`canonical=/p`, no per-palette `og:`): no content/head flip, just the URL. Keeping this out of
+    // the server redirect is what stops crawlers being fed a fresh palette URL per hit (the Search
+    // Console flood) — Googlebot hitting `/` now always lands on the stable `/p`.
+    if (pathname === '/p') {
+      window.history.replaceState(null, '', serializePaletteToUrl(generatorStoreApi.getState()));
+    }
   }, [pathname, searchParams, generatorStoreApi]);
 
   const isPaused = useRef(false);

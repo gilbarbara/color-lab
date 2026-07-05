@@ -146,14 +146,18 @@ describe('hooks/useUrlSync', () => {
   });
 
   describe('URL navigation', () => {
-    it('does not navigate on bare entry with no palette in the URL', () => {
-      // `/` and bare `/p` are the indexable anchors — `/` server-redirects visitors to a
-      // palette URL, so the hook must not client-flip here (that's what duplicated tags).
+    it('reflects the seeded palette in the URL on bare entry', () => {
+      // `/` redirects to the stable `/p`; the hook then writes the concrete, shareable `/p/<slug>`
+      // for the server-seeded palette. URL-only replaceState — no head/content flip.
       setMockRoute('/p');
 
       renderHook(() => useUrlSync());
 
-      expect(historyReplace).not.toHaveBeenCalled();
+      expect(historyReplace).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(/^\/p\/Primary-[\d._]+$/),
+      );
       expect(historyPush).not.toHaveBeenCalled();
     });
 
