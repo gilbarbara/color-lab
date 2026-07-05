@@ -48,7 +48,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
           class="w-full flex flex-col md:flex-row flex-wrap items-center gap-1 mb-4"
         >
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(90% 0.053 259.82); --gamut-bg-hex: #cadfff; color: rgb(0, 0, 0);"
           >
             <span
@@ -58,7 +58,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(83% 0.093 259.82); --gamut-bg-hex: #a4c9ff; color: rgb(0, 0, 0);"
           >
             <span
@@ -68,7 +68,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(76% 0.134 259.82); --gamut-bg-hex: #7eb1ff; color: rgb(0, 0, 0);"
           >
             <span
@@ -78,7 +78,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(69% 0.177 259.82); --gamut-bg-hex: #5598ff; color: rgb(255, 255, 255);"
           >
             <span
@@ -88,7 +88,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(62% 0.214 259.82); --gamut-bg-hex: #2a7eff; color: rgb(255, 255, 255);"
           >
             <span
@@ -98,7 +98,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(55% 0.214 259.82); --gamut-bg-hex: #0c67eb; color: rgb(255, 255, 255);"
           >
             <span
@@ -108,7 +108,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(48% 0.214 259.82); --gamut-bg-hex: #0050d3; color: rgb(255, 255, 255);"
           >
             <span
@@ -118,7 +118,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(41% 0.209 259.82); --gamut-bg-hex: #003ab8; color: rgb(255, 255, 255);"
           >
             <span
@@ -128,7 +128,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(34% 0.173 259.82); --gamut-bg-hex: #002b8f; color: rgb(255, 255, 255);"
           >
             <span
@@ -138,7 +138,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(27% 0.137 259.82); --gamut-bg-hex: #001c67; color: rgb(255, 255, 255);"
           >
             <span
@@ -148,7 +148,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(20% 0.102 259.82); --gamut-bg-hex: #000f43; color: rgb(255, 255, 255);"
           >
             <span
@@ -212,7 +212,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             class="w-full flex flex-col md:flex-row flex-wrap items-center gap-1 mb-4"
           >
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(90% 0.053 259.82); --gamut-bg-hex: #cadfff; color: rgb(0, 0, 0);"
             >
               <span
@@ -222,7 +222,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(87.74% 0.066 259.82); --gamut-bg-hex: #bed8ff; color: rgb(0, 0, 0);"
             >
               <span
@@ -232,7 +232,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(84.45% 0.084 259.82); --gamut-bg-hex: #acceff; color: rgb(0, 0, 0);"
             >
               <span
@@ -242,7 +242,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(80.59% 0.107 259.82); --gamut-bg-hex: #97c1ff; color: rgb(0, 0, 0);"
             >
               <span
@@ -252,7 +252,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(76.33% 0.132 259.82); --gamut-bg-hex: #7fb2ff; color: rgb(0, 0, 0);"
             >
               <span
@@ -262,7 +262,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(71.72% 0.160 259.82); --gamut-bg-hex: #65a2ff; color: rgb(255, 255, 255);"
             >
               <span
@@ -272,7 +272,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(66.84% 0.190 259.82); --gamut-bg-hex: #4890ff; color: rgb(255, 255, 255);"
             >
               <span
@@ -282,7 +282,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(61.7% 0.214 259.82); --gamut-bg-hex: #297dff; color: rgb(255, 255, 255);"
             >
               <span
@@ -292,7 +292,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(56.33% 0.214 259.82); --gamut-bg-hex: #136bf0; color: rgb(255, 255, 255);"
             >
               <span
@@ -302,7 +302,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(50.76% 0.214 259.82); --gamut-bg-hex: #0059dc; color: rgb(255, 255, 255);"
             >
               <span
@@ -312,7 +312,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
               </span>
             </div>
             <div
-              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
+              class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 h-auto! transition-colors duration-500"
               style="--gamut-bg-oklch: oklch(45% 0.214 259.82); --gamut-bg-hex: #0046c8; color: rgb(255, 255, 255);"
             >
               <span
@@ -1019,7 +1019,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
           class="w-full flex flex-col md:flex-row flex-wrap items-center gap-1 mb-4"
         >
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(99% 0.004 259.82); --gamut-bg-hex: #fafcfe; color: rgb(0, 0, 0);"
           >
             <span
@@ -1029,7 +1029,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(95.23% 0.020 259.82); --gamut-bg-hex: #e8f0fd; color: rgb(0, 0, 0);"
           >
             <span
@@ -1039,7 +1039,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(89.5% 0.047 259.82); --gamut-bg-hex: #cbdefc; color: rgb(0, 0, 0);"
           >
             <span
@@ -1049,7 +1049,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(82.76% 0.083 259.82); --gamut-bg-hex: #a7c8fd; color: rgb(0, 0, 0);"
           >
             <span
@@ -1059,7 +1059,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(75.36% 0.128 259.82); --gamut-bg-hex: #7eafff; color: rgb(0, 0, 0);"
           >
             <span
@@ -1069,7 +1069,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(67.55% 0.181 259.82); --gamut-bg-hex: #4f93ff; color: rgb(255, 255, 255);"
           >
             <span
@@ -1079,7 +1079,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(59.54% 0.225 259.82); --gamut-bg-hex: #1874ff; color: rgb(255, 255, 255);"
           >
             <span
@@ -1089,7 +1089,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(51.47% 0.240 259.82); --gamut-bg-hex: #0056ed; color: rgb(255, 255, 255);"
           >
             <span
@@ -1099,7 +1099,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(43.45% 0.196 259.82); --gamut-bg-hex: #0045ba; color: rgb(255, 255, 255);"
           >
             <span
@@ -1109,7 +1109,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(35.6% 0.156 259.82); --gamut-bg-hex: #00338b; color: rgb(255, 255, 255);"
           >
             <span
@@ -1119,7 +1119,7 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
             </span>
           </div>
           <div
-            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-md text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 rounded-lg text-center bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full py-2 transition-colors duration-500"
             style="--gamut-bg-oklch: oklch(28% 0.118 259.82); --gamut-bg-hex: #002361; color: rgb(255, 255, 255);"
           >
             <span
