@@ -86,7 +86,7 @@ body {
     --color-preview-900: var(--color-preview-900-light-hex);
   }
 
-  .dark [data-gamut='srgb'] .preview-scope {
+  .dark[data-gamut='srgb'] .preview-scope {
     --color-preview: var(--color-preview-dark-hex);
     --color-preview-foreground: var(--color-preview-foreground-dark-hex);
     --color-preview-50: var(--color-preview-50-dark-hex);

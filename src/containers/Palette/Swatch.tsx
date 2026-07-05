@@ -63,7 +63,7 @@ function Swatch(props: SwatchProps) {
   const sharedClassName = cn(
     'relative flex-1 min-w-9 @xl:h-22',
     'flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2',
-    'px-2 py-4 rounded-md text-center',
+    'px-2 py-4 rounded-lg text-center',
     interactive && 'cursor-pointer',
     'bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)',
     className,

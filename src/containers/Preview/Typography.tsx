@@ -70,7 +70,7 @@ function PreviewTypography({ name }: PreviewTypographyProps) {
           </div>
 
           <div>
-            <p className="text-lg font-semibold text-(--color-preview)">Primary Heading</p>
+            <p className="text-lg font-semibold text-(--color-preview)">{name} Heading</p>
             <p>Used for highlights and callouts</p>
           </div>
 

@@ -2464,7 +2464,8 @@ exports[`Preview > Render > renders the Typography view 1`] = `
                   <p
                     class="text-lg font-semibold text-(--color-preview)"
                   >
-                    Primary Heading
+                    Primary
+                     Heading
                   </p>
                   <p>
                     Used for highlights and callouts
