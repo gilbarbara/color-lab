@@ -22,8 +22,8 @@ happens inside.
 
 **Subjects** (act on the object):
 
-- `palette` — the saved-palette record (save, share, rename, delete, favorite) and the
-  palette-wide export.
+- `palette` — palette-wide actions: any-user actions (create, share, export, view) plus
+  saved-record operations (save, rename, delete, favorite).
 - `color` — a color card in the left sidebar: its value, name, and per-color option
   overrides, and its preview.
 - `scale` — a generated ramp row in the palette view, and the tools invoked on it
@@ -79,7 +79,8 @@ normalizes `$current_url`/`$pathname` and drops all `/auth/*` events.
 
 ## palette
 
-The saved-palette record and the palette-wide export.
+Palette-wide actions — create, share, export, and view (available to any user), plus
+saved-record operations (save, rename, delete, favorite).
 
 | Event | Trigger | Props | Location |
 |---|---|---|---|
@@ -96,6 +97,7 @@ The saved-palette record and the palette-wide export.
 | `palette:export` | Open the Export All drawer | — | `ExportPalette.tsx` |
 | `palette:export_copy` | Copy All in the palette drawer | `{ format, color_format, count }` | `ExportPalette.tsx` |
 | `palette:color_spacing` | Change color spacing | `{ value }` | `Generator/Panel/AddColor.tsx` |
+| `palette:view` | Switch palette view (List/Grid/Preview) | `{ value }` | `Palette/Options/View.tsx` |
 
 ## color
 
@@ -145,20 +147,20 @@ Tools invoked on a single generated ramp row in the palette view.
 ## options
 
 Global generation config — the settings that produce every scale. Split across two
-panels for progressive disclosure (`Palette/Header/Options.tsx` = primary,
+panels for progressive disclosure (`Palette/Options/index.tsx` = primary,
 `Generator/AdvancedOptions.tsx` = "Advanced Options"); `basic`/`advanced` name the two
 bulk resets, not a real category boundary.
 
 | Event | Trigger | Props | Location |
 |---|---|---|---|
-| `options:steps` | Steps slider | `{ value }` | `Palette/Header/Options.tsx` |
-| `options:steps_reset` | Reset Steps field | — | `Palette/Header/Options.tsx` |
-| `options:saturation` | Saturation slider | `{ value }` | `Palette/Header/Options.tsx` |
-| `options:saturation_reset` | Reset Saturation field | — | `Palette/Header/Options.tsx` |
-| `options:saturation_override` | Apply-to-all toggle | `{ enabled }` | `Palette/Header/Options.tsx` |
-| `options:mode` | Scale mode select | `{ value }` | `Palette/Header/Options.tsx` |
-| `options:variant` | Variant select | `{ value }` | `Palette/Header/Options.tsx` |
-| `options:lock` | Palette-level step lock | `{ value }` | `Palette/Header/Options.tsx` |
+| `options:steps` | Steps slider | `{ value }` | `Palette/Options/index.tsx` |
+| `options:steps_reset` | Reset Steps field | — | `Palette/Options/index.tsx` |
+| `options:saturation` | Saturation slider | `{ value }` | `Palette/Options/index.tsx` |
+| `options:saturation_reset` | Reset Saturation field | — | `Palette/Options/index.tsx` |
+| `options:saturation_override` | Apply-to-all toggle | `{ enabled }` | `Palette/Options/index.tsx` |
+| `options:mode` | Scale mode select | `{ value }` | `Palette/Options/index.tsx` |
+| `options:variant` | Variant select | `{ value }` | `Palette/Options/index.tsx` |
+| `options:lock` | Palette-level step lock | `{ value }` | `Palette/Options/index.tsx` |
 | `options:chroma_curve` | Chroma curve | `{ value }` | `ScaleColorOptions/ChromaCurve.tsx` |
 | `options:chroma_curve_mode` | Chroma curve mode | `{ mode }` | `ScaleColorOptions/ChromaCurve.tsx` |
 | `options:chroma_curve_reset` | Reset Chroma Curve field | — | `ScaleColorOptions/ChromaCurve.tsx` |
@@ -170,7 +172,7 @@ bulk resets, not a real category boundary.
 | `options:hue_shift` | Hue shift | `{ value }` | `ScaleColorOptions/HueShift.tsx` |
 | `options:hue_shift_mode` | Hue shift mode | `{ mode }` | `ScaleColorOptions/HueShift.tsx` |
 | `options:hue_shift_reset` | Reset Hue Shift field | — | `ScaleColorOptions/HueShift.tsx` |
-| `options:reset_basic` | Reset steps/saturation/mode/variant/lock (bulk) | — | `Palette/Header/Options.tsx` |
+| `options:reset_basic` | Reset steps/saturation/mode/variant/lock (bulk) | — | `Palette/Options/index.tsx` |
 | `options:reset_advanced` | Reset curves/range/hue shift (bulk) | — | `Generator/AdvancedOptions.tsx` |
 
 ## preset

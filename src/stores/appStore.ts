@@ -4,7 +4,13 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { detectInitialGamut } from '~/utils/gamut';
 
-import type { ColorSpacing, ExportColorFormat, ExportFormatType, Gamut } from '~/types';
+import type {
+  ColorSpacing,
+  ExportColorFormat,
+  ExportFormatType,
+  Gamut,
+  GeneratorView,
+} from '~/types';
 
 interface AppState {
   collapseAnimationCount: number;
@@ -27,6 +33,7 @@ interface AppState {
   showPaletteOptionsPanel: boolean;
   showPreview: boolean;
   showSidebar: boolean;
+  view: GeneratorView;
 }
 
 export interface AppStateWithActions extends AppState {
@@ -43,6 +50,7 @@ export interface AppStateWithActions extends AppState {
   setGamut: (gamut: Gamut) => void;
   setPalette: (id: string | null, name: string | null, url: string | null) => void;
   setSessionPalettePath: (url: string | null) => void;
+  setView: (view: GeneratorView) => void;
   toggleBottomBar: (toggle?: boolean) => void;
   toggleColorOptionsPanel: () => void;
   togglePaletteOptionsPanel: () => void;
@@ -68,6 +76,7 @@ export const initialState: AppState = {
   showPaletteOptionsPanel: false,
   showPreview: true,
   showSidebar: true,
+  view: 'list',
 };
 
 export const useAppStore = create<AppStateWithActions>()(
@@ -117,6 +126,10 @@ export const useAppStore = create<AppStateWithActions>()(
         set(state => ({ previewScrollNonce: state.previewScrollNonce + 1 }));
       },
 
+      setColorSpacing: value => {
+        set({ colorSpacing: value });
+      },
+
       setExportColorFormat: format => {
         set({ exportColorFormat: format });
       },
@@ -137,12 +150,12 @@ export const useAppStore = create<AppStateWithActions>()(
         });
       },
 
-      setColorSpacing: value => {
-        set({ colorSpacing: value });
-      },
-
       setSessionPalettePath: url => {
         set({ sessionPalettePath: url });
+      },
+
+      setView: value => {
+        set({ showPreview: true, view: value });
       },
 
       toggleBottomBar: force => {
@@ -191,6 +204,7 @@ export const useAppStore = create<AppStateWithActions>()(
         showPaletteOptionsPanel: state.showPaletteOptionsPanel,
         showPreview: state.showPreview,
         showSidebar: state.showSidebar,
+        view: state.view,
       }),
     },
   ),

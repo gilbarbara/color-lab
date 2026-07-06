@@ -26,6 +26,7 @@ exports[`stores/appStore > initial state > has correct defaults 1`] = `
   "setGamut": [Function],
   "setPalette": [Function],
   "setSessionPalettePath": [Function],
+  "setView": [Function],
   "showBottomBar": false,
   "showColorOptionsPanel": false,
   "showLoginModal": false,
@@ -37,5 +38,6 @@ exports[`stores/appStore > initial state > has correct defaults 1`] = `
   "togglePaletteOptionsPanel": [Function],
   "togglePreview": [Function],
   "toggleSidebar": [Function],
+  "view": "list",
 }
 `;

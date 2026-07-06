@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event';
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
-import { fireEvent, render, screen, waitFor } from '~/test-utils';
+import { act, fireEvent, render, screen, waitFor } from '~/test-utils';
 
-import Options from '~/containers/Palette/Header/Options';
+import Options from '~/containers/Palette/Options';
 
 vi.mock('~/hooks/useRafCallback', () => ({
   default: (callback: unknown) => callback,
@@ -48,32 +48,9 @@ describe('Options', () => {
 
       expect(container).toMatchSnapshot();
     });
-
-    it('reflects the selected mode', () => {
-      const base = createTestPalette(1);
-
-      getGeneratorStore().setState({
-        ...base,
-        globalOptions: { ...base.globalOptions, mode: 'dark' },
-      });
-      render(<Options />);
-
-      expect(screen.getByRole('radio', { name: 'Dark' })).toBeChecked();
-      expect(screen.getByRole('radio', { name: 'Light' })).not.toBeChecked();
-    });
   });
 
   describe('Behavior', () => {
-    it('toggles mode via the button group', () => {
-      render(<Options />);
-
-      fireEvent.click(screen.getByRole('radio', { name: 'Dark' }));
-      expect(getGeneratorStore().getState().globalOptions.mode).toBe('dark');
-
-      fireEvent.click(screen.getByRole('radio', { name: 'Reversed' }));
-      expect(getGeneratorStore().getState().globalOptions.mode).toBe('reversed');
-    });
-
     it('toggles saturationOverride via Switch', () => {
       render(<Options />);
 
@@ -182,6 +159,135 @@ describe('Options', () => {
       const trigger = screen.getByRole('button', { name: 'Select variant Variant' });
 
       expect(trigger).toHaveAttribute('data-disabled', 'true');
+    });
+
+    it('wires the mode button group to the store', () => {
+      render(<Options />);
+
+      fireEvent.click(screen.getByRole('radio', { name: 'Dark' }));
+
+      expect(getGeneratorStore().getState().globalOptions.mode).toBe('dark');
+    });
+
+    it('updates saturation via the slider when override is on', () => {
+      const base = createTestPalette(1);
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: { ...base.globalOptions, saturationOverride: true },
+      });
+      render(<Options />);
+
+      fireEvent.change(screen.getByRole('slider', { name: 'Saturation' }), {
+        target: { value: '40' },
+      });
+
+      expect(getGeneratorStore().getState().globalOptions.saturation).toBe(40);
+    });
+
+    it('commits steps on keyboard change (onChangeEnd)', async () => {
+      const user = userEvent.setup();
+      const base = createTestPalette(1);
+
+      render(<Options />);
+
+      act(() => screen.getByRole('slider', { name: 'Steps' }).focus());
+      await user.keyboard('{ArrowRight}');
+
+      expect(getGeneratorStore().getState().globalOptions.steps).toBe(base.globalOptions.steps + 1);
+    });
+
+    it('commits saturation on keyboard change (onChangeEnd)', async () => {
+      const user = userEvent.setup();
+      const base = createTestPalette(1);
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: { ...base.globalOptions, saturationOverride: true },
+      });
+      render(<Options />);
+
+      act(() => screen.getByRole('slider', { name: 'Saturation' }).focus());
+      await user.keyboard('{ArrowRight}');
+
+      expect(getGeneratorStore().getState().globalOptions.saturation).not.toBe(
+        base.globalOptions.saturation,
+      );
+    });
+
+    it('clears the variant via the None option', async () => {
+      const user = userEvent.setup();
+      const base = createTestPalette(1);
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: { ...base.globalOptions, variant: 'vibrant' },
+      });
+      render(<Options />);
+
+      const trigger = screen.getByTestId('VariantOptions');
+
+      await user.click(trigger);
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+
+      await user.click(await screen.findByRole('option', { name: 'None' }));
+
+      expect(getGeneratorStore().getState().globalOptions.variant).toBeUndefined();
+    });
+
+    it('clears the lock via the None option', async () => {
+      const user = userEvent.setup();
+      const base = createTestPalette(1);
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: { ...base.globalOptions, lock: 500 },
+      });
+      render(<Options />);
+
+      const trigger = screen.getByTestId('LockOptions');
+
+      await user.click(trigger);
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+
+      await user.click(await screen.findByRole('option', { name: 'None' }));
+
+      expect(getGeneratorStore().getState().globalOptions.lock).toBeUndefined();
+    });
+
+    it('resets steps to default via the slider reset button', () => {
+      const base = createTestPalette(1);
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: { ...base.globalOptions, steps: 15 },
+      });
+      render(<Options />);
+
+      fireEvent.click(screen.getByRole('button', { name: 'Reset Steps to default' }));
+
+      expect(getGeneratorStore().getState().globalOptions.steps).toBe(base.globalOptions.steps);
+    });
+
+    it('resets saturation to default via the slider reset button', () => {
+      const base = createTestPalette(1);
+      const customSaturation = base.globalOptions.saturation === 40 ? 50 : 40;
+
+      getGeneratorStore().setState({
+        ...base,
+        globalOptions: {
+          ...base.globalOptions,
+          saturationOverride: true,
+          saturation: customSaturation,
+        },
+      });
+      render(<Options />);
+
+      fireEvent.click(screen.getByRole('button', { name: 'Reset Saturation to default' }));
+
+      expect(getGeneratorStore().getState().globalOptions.saturation).toBe(
+        base.globalOptions.saturation,
+      );
     });
 
     it('resets palette options to defaults', () => {

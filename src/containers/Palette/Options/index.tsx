@@ -11,13 +11,15 @@ import { trackEvent } from '~/utils/analytics';
 import { PALETTE_OPTION_KEYS } from '~/utils/generator';
 
 import Button from '~/components/Button';
-import ScaleMode from '~/components/ScaleMode';
 import SliderLabel from '~/components/SliderLabel';
 import SliderValue from '~/components/SliderValue';
 import Switch from '~/components/Switch';
 import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ScaleOptions } from '~/types';
+
+import Mode from './Mode';
+import View from './View';
 
 export default function PaletteOptions() {
   const { defaultOptions, globalOptions, hasCustomPaletteOptions, updateGlobalOptions } =
@@ -80,7 +82,7 @@ export default function PaletteOptions() {
     trackEvent('options:reset_basic');
   };
 
-  const handleClickMode = (value: ScaleModeType) => {
+  const handleChangeMode = (value: ScaleModeType) => {
     trackEvent('options:mode', { value });
     updateGlobalOptions({ mode: value });
   };
@@ -279,8 +281,11 @@ export default function PaletteOptions() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col @xl:flex-row items-start @xl:items-center justify-start @xl:justify-between gap-4 mt-4 @xl:mt-2">
-        <ScaleMode mode={mode} onClick={handleClickMode} />
+      <div className="flex flex-col @xl:flex-row items-start @xl:items-end justify-start @xl:justify-between gap-4 mt-4">
+        <Mode mode={mode} onChange={handleChangeMode} />
+        <View />
+      </div>
+      <div className="flex mt-4 @xl:mt-2 @xl:justify-end">
         <div>
           <Button
             isDisabled={!hasCustomPaletteOptions}

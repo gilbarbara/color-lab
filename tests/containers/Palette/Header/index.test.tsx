@@ -1,6 +1,6 @@
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
-import { getGeneratorStore, mockAddToast } from '~/test-mocks';
+import { getGeneratorStore, mockAddToast, mockClipboard } from '~/test-mocks';
 import { act, fireEvent, render, screen, waitFor, within } from '~/test-utils';
 
 import Header from '~/containers/Palette/Header';
@@ -62,13 +62,6 @@ describe('PaletteHeader', () => {
       savedPalettesState.paletteId = 'p1';
       savedPalettesState.hasUnsavedChanges = true;
       act(() => getGeneratorStore().getState().setName('My Palette'));
-      render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
-
-      expect(screen.getByTestId('PaletteHeader')).toMatchSnapshot();
-    });
-
-    it('renders with options panel open', () => {
-      useAppStore.setState({ showPaletteOptionsPanel: true });
       render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
 
       expect(screen.getByTestId('PaletteHeader')).toMatchSnapshot();
@@ -136,6 +129,23 @@ describe('PaletteHeader', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Palette Options' }));
 
       expect(useAppStore.getState().showPaletteOptionsPanel).toBe(true);
+    });
+
+    it('copies the palette URL when Share is clicked', async () => {
+      mockClipboard.writeText.mockResolvedValue(undefined);
+
+      render(<Header />, { authState: { isAuthenticated: true, user: { uid: 'u1' } } });
+
+      fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+
+      expect(mockClipboard.writeText).toHaveBeenCalledWith(window.location.href);
+
+      await waitFor(() => {
+        expect(mockAddToast).toHaveBeenCalledWith({
+          title: 'Palette URL copied!',
+          color: 'success',
+        });
+      });
     });
 
     it('opens login modal when unauthenticated user clicks Save', () => {
