@@ -1,13 +1,9 @@
-import type { ColorEntry } from '~/types';
+import useGenerator from '~/hooks/useGenerator';
 
 import Swatch from './Swatch';
 
-interface PaletteGridProps {
-  colors: ColorEntry[];
-}
-
-export default function PaletteGrid(props: PaletteGridProps) {
-  const { colors } = props;
+export default function PaletteGrid() {
+  const { colors } = useGenerator('colors');
 
   return (
     <div

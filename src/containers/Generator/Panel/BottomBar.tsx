@@ -2,12 +2,11 @@ import { type KeyboardEvent, memo, type MouseEvent, type TouchEvent } from 'reac
 import { cn } from '@heroui/react';
 import { CaretUpIcon } from '@phosphor-icons/react';
 
+import useGenerator from '~/hooks/useGenerator';
+
 import ColorBox from '~/components/ColorBox';
 
-import type { ColorEntry } from '~/types';
-
 interface PanelBottomBarProps {
-  colors: ColorEntry[];
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => void;
   onTouchEnd: (event: TouchEvent<HTMLDivElement>) => void;
@@ -34,8 +33,10 @@ function getStripSpacing(count: number): string {
 }
 
 function PanelBottomBar(props: PanelBottomBarProps) {
-  const { colors, onClick, onKeyDown, onTouchEnd, onTouchStart, showBottomBar, toggleBottomBar } =
-    props;
+  const { onClick, onKeyDown, onTouchEnd, onTouchStart, showBottomBar, toggleBottomBar } = props;
+  // Self-subscribe to `colors` (the color strip) so a color edit re-renders just this bar, not
+  // the Panel shell it lives in.
+  const { colors } = useGenerator('colors');
 
   return (
     <div

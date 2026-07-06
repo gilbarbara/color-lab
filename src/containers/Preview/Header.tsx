@@ -2,17 +2,15 @@ import type { CSSProperties } from 'react';
 import { cn } from '@heroui/react';
 import { convertCSS } from 'colorizr';
 
+import useGenerator from '~/hooks/useGenerator';
 import { formatOklch } from '~/utils/color';
 
 import Tooltip from '~/components/Tooltip';
-
-import type { ColorEntry } from '~/types';
 
 import ThemeToggle, { type PreviewThemeMode } from './ThemeToggle';
 
 interface HeaderProps {
   activeId: string;
-  colors: ColorEntry[];
   name: string;
   onSelect: (id: string) => void;
   onThemeChange: (next: PreviewThemeMode) => void;
@@ -20,7 +18,8 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-  const { activeId, colors, name, onSelect, onThemeChange, themeMode } = props;
+  const { activeId, name, onSelect, onThemeChange, themeMode } = props;
+  const { colors } = useGenerator('colors');
 
   return (
     <div

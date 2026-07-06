@@ -21,9 +21,9 @@ function ColorList() {
           <ColorItem
             key={colorEntry.id}
             colorEntry={colorEntry}
-            globalOptions={globalOptions}
             index={index}
             isOnlyColor={colors.length === 1}
+            saturationOverride={globalOptions.saturationOverride}
           />
         ))}
       </div>
