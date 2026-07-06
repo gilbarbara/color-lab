@@ -76,7 +76,7 @@ test.beforeAll(async ({ browser }) => {
     });
   });
 
-  await page.goto('/p/Primary-73.0_0.12745_321');
+  await page.goto('/p/Primary-73.0_0.23001_321');
 });
 
 test.afterAll(async () => {
@@ -135,7 +135,7 @@ test('desktop', async () => {
   });
 
   await test.step('encodes palette state in URL', async () => {
-    await expect(page).toHaveURL(hasColor('Primary', '73_0.127_321'));
+    await expect(page).toHaveURL(hasColor('Primary', '73_0.23_321'));
   });
 
   await test.step('toggles dark mode', async () => {
@@ -162,38 +162,32 @@ test('desktop', async () => {
 
     await expect(lightnessSlider).toHaveValue('0.73');
 
-    await lightnessSlider.fill('0.5');
-    await expect(lightnessSlider).toHaveValue('0.5');
+    await lightnessSlider.fill('0.6');
+    await expect(lightnessSlider).toHaveValue('0.6');
 
-    await expect(page).toHaveURL(hasColor('Primary', '50'));
+    await expect(page).toHaveURL(hasColor('Primary', '60'));
     await expect(page).toHaveScreenshot(getScreenshotName('update-primary-lightness.png'));
   });
 
   await test.step('modifies chroma slider and updates URL', async () => {
     const chromaSlider = page.getByRole('slider', { exact: true, name: 'Chroma' });
 
-    await chromaSlider.fill('0.2');
+    await chromaSlider.fill('0.21');
 
-    // Gamut may clamp the value, so assert the URL numerically against the value the
-    // slider actually settled on rather than the requested one.
-    const value = await chromaSlider.inputValue();
-
-    expect(parseFloat(value)).toBeGreaterThan(0);
-    await expect(page).toHaveURL(url => {
-      const c = url.pathname.match(/Primary-[\d.]+_([\d.]+)_/)?.[1];
-
-      return c !== undefined && Math.abs(parseFloat(c) - parseFloat(value)) < 0.02;
-    });
+    await expect(page).toHaveURL(hasColor('Primary', '60_0.21'));
 
     await expect(page).toHaveScreenshot(getScreenshotName('update-primary-chroma.png'));
   });
 
-  await test.step('modifies hue slider', async () => {
+  await test.step('modifies hue slider (and recalibrate chroma)', async () => {
     const hueSlider = page.getByRole('slider', { exact: true, name: 'Hue' });
+    const chromaSlider = page.getByRole('slider', { exact: true, name: 'Chroma' });
 
-    await hueSlider.fill('180');
+    await hueSlider.fill('150');
+    await expect(page).toHaveURL(/150/);
 
-    await expect(page).toHaveURL(/180/);
+    await chromaSlider.fill('0.21');
+    await expect(page).toHaveURL(hasColor('Primary', '60_0.21_150'));
 
     await expect(page).toHaveScreenshot(getScreenshotName('update-primary-hue.png'));
   });
@@ -210,7 +204,7 @@ test('desktop', async () => {
     await expect(page.getByRole('tab', { name: 'Tailwind 4' })).not.toBeVisible();
   });
 
-  await test.step('adds a new color', async () => {
+  await test.step('adds a secondary color', async () => {
     const addColorButton = page.getByRole('button', { name: 'Add Color' });
     const ColorItem = page.getByTestId('ColorItem');
 
@@ -226,7 +220,26 @@ test('desktop', async () => {
 
     await expect(page).toHaveURL(hasColor('Secondary'));
 
-    await expect(page).toHaveScreenshot(getScreenshotName('add-secondary-color.png'));
+    await expect(page).toHaveScreenshot(getScreenshotName('secondary-color.png'));
+  });
+
+  await test.step('adds a third color', async () => {
+    const addColorButton = page.getByRole('button', { name: 'Add Color' });
+    const ColorItem = page.getByTestId('ColorItem');
+
+    await expect(ColorItem.nth(1)).toHaveAttribute('aria-current', 'true');
+
+    await addColorButton.click();
+
+    await page.waitForTimeout(collapseDuration);
+
+    await expect(ColorItem).toHaveCount(3);
+    await expect(ColorItem.nth(1)).toHaveAttribute('aria-current', 'false');
+    await expect(ColorItem.nth(2)).toHaveAttribute('aria-current', 'true');
+
+    await expect(page).toHaveURL(hasColor('Tertiary'));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('third-color.png'));
   });
 
   await test.step('apply the "Tailwind" preset', async () => {
@@ -406,7 +419,7 @@ test('desktop', async () => {
     await expect(page).toHaveScreenshot(getScreenshotName('advanced-color-split-options.png'));
   });
 
-  await test.step('close Advance Options', async () => {
+  await test.step('close Advanced Options', async () => {
     await page.getByRole('button', { name: 'Advanced Options' }).click();
 
     await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
@@ -415,8 +428,8 @@ test('desktop', async () => {
     await expect(page).toHaveScreenshot(getScreenshotName('post-advanced-color-options.png'));
   });
 
-  await test.step('show and update color options', async () => {
-    const colorItem = page.getByTestId('ColorItem').nth(1);
+  await test.step('show Tertiary color options and update them', async () => {
+    const colorItem = page.getByTestId('ColorItem').nth(2);
 
     await colorItem.getByRole('button', { name: 'Change color options' }).click();
     await page.waitForTimeout(collapseDuration);
@@ -442,20 +455,20 @@ test('desktop', async () => {
     await page.keyboard.press('PageDown');
 
     await expect(lightnessCurveSlider).toHaveValue('1.2');
-    await expect(page).toHaveURL(hasColorOptions('Secondary', { f: '1.2' }));
+    await expect(page).toHaveURL(hasColorOptions('Tertiary', { f: '1.2' }));
 
     await page.getByTestId('ColorLockOptions').click();
 
     await page.getByRole('option', { name: '400', exact: true }).click();
 
     await expect(page.getByTestId('ColorLockOptions')).toHaveText('400');
-    await expect(page).toHaveURL(hasColorOptions('Secondary', { f: '1.2', k: 400 }));
+    await expect(page).toHaveURL(hasColorOptions('Tertiary', { f: '1.2', k: 400 }));
 
     await expect(page).toHaveScreenshot(getScreenshotName('color-options.png'));
   });
 
-  await test.step('closes color options', async () => {
-    const colorItem = page.getByTestId('ColorItem').nth(1);
+  await test.step('closes Tertiary color options', async () => {
+    const colorItem = page.getByTestId('ColorItem').nth(2);
 
     await colorItem.getByRole('button', { name: 'Change color options' }).click();
 
@@ -555,7 +568,7 @@ test('desktop', async () => {
     await expect(page).toHaveURL(lacksParams('i', 'o', 's', 'v'));
   });
 
-  await test.step('enable lock 500 and close the palette options', async () => {
+  await test.step('enable lock 500 and switch to grid', async () => {
     await page.getByRole('button', { name: /^select lock/i }).click();
 
     await page.getByRole('option', { name: '500', exact: true }).click();
@@ -563,6 +576,28 @@ test('desktop', async () => {
     await expect(page.getByRole('button', { name: /^500 lock/i })).toBeVisible();
     await expect(page).toHaveURL(hasParams({ k: 500 }));
 
+    await expect(page).toHaveScreenshot(getScreenshotName('lock-500.png'));
+  });
+
+  await test.step('switch views and return to "list"', async () => {
+    const listRadio = page.getByRole('radio', { name: 'List' });
+    const gridRadio = page.getByRole('radio', { name: 'Grid' });
+    const previewRadio = page.getByRole('radio', { name: 'Preview' });
+
+    await expect(gridRadio).toBeVisible();
+
+    await gridRadio.click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('grid-view.png'));
+
+    await previewRadio.click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preview-view.png'));
+
+    await listRadio.click();
+  });
+
+  await test.step('close the palette options', async () => {
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
     await expect(page.locator('html')).toHaveAttribute('data-palette-options', 'closed');
@@ -731,6 +766,33 @@ test('desktop', async () => {
 
     await page.getByLabel('closeButton').click();
     await expect(page.getByLabel('closeButton')).toHaveCount(0);
+  });
+
+  await test.step('removes the third color with confirmation', async () => {
+    await page.getByRole('button', { name: 'Select Tertiary' }).click();
+
+    const ColorItem = page.getByTestId('ColorItem').nth(2);
+
+    await expect(ColorItem).toHaveAttribute('aria-current', 'true');
+
+    const removeButton = ColorItem.getByRole('button', { name: 'Remove color' });
+
+    await removeButton.click();
+    await page.waitForTimeout(100);
+
+    // Confirm the removal
+    await removeButton.click();
+
+    await page.waitForTimeout(collapseDuration);
+
+    // The Secondary segment is dropped, but the palette identity and global options are kept.
+    await expect(page).toHaveURL(lacksColor('Tertiary'));
+    await expect(page).toHaveURL(hasColor('Primary'));
+    await expect(page).toHaveURL(hasColor('Secondary'));
+    await expect(page).toHaveURL(hasParams({ k: 500 }));
+    await expect(page).toHaveURL(hasParams({ name: 'My Palette' }));
+
+    await expect(page).toHaveScreenshot(getScreenshotName('two-colors.png'));
   });
 
   await test.step('removes the second color with confirmation', async () => {
