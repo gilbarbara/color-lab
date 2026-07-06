@@ -4,7 +4,7 @@ import { createTestPalette, CRIMSON } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
 import { fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
-import { rotateOklchHue } from '~/utils/color';
+import { generateOklchColor } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/generator';
 
 import PanelAddColor from '~/containers/Generator/Panel/AddColor';
@@ -52,7 +52,7 @@ describe('PanelAddColor', () => {
 
       const { colors } = getGeneratorStore().getState();
       const last = colors[colors.length - 1];
-      const expected = rotateOklchHue(last.value, COLOR_SPACING.wide.angle);
+      const expected = generateOklchColor(last.value, COLOR_SPACING.wide.angle);
 
       fireEvent.click(screen.getByRole('button', { name: /add color/i }));
 

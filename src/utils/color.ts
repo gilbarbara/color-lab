@@ -51,6 +51,21 @@ export function formatOklchUrl(value: string | OklchValues): string {
 }
 
 /**
+ * Rotate an OKLCH color's hue by `deltaDeg`, rescaling chroma to preserve the
+ * input's fraction of the P3 max chroma at the new hue.
+ */
+export function generateOklchColor(value: OklchString, deltaDeg: number): OklchString {
+  const { c, h, l } = parseCSS(value, 'oklch');
+
+  const maxInput = getP3MaxChroma({ l, c: 0, h });
+  const chromaFraction = maxInput === 0 ? 0 : c / maxInput;
+  const nextHue = (((h + deltaDeg) % 360) + 360) % 360;
+  const nextChroma = getP3MaxChroma({ l, c: 0, h: nextHue }) * chromaFraction;
+
+  return formatOklch({ c: nextChroma, h: nextHue, l }) as OklchString;
+}
+
+/**
  * Convert OKLCH chroma to a 0-100 percentage based on max chroma.
  * This provides a consistent "saturation" value that reaches 100
  * when chroma is at its maximum for the given lightness/hue.
@@ -99,13 +114,12 @@ export function isValidColorValue(value: string): boolean {
 
 /**
  * Rotate an OKLCH color's hue by `deltaDeg`, staying in OKLCH space.
- * Avoids colorizr's `rotate` which round-trips through HSL (lossy + gamut-clipping).
  */
 export function rotateOklchHue(value: OklchString, deltaDeg: number): OklchString {
   const { c, h, l } = parseCSS(value, 'oklch');
-  const nextH = (((h + deltaDeg) % 360) + 360) % 360;
+  const nextHue = (((h + deltaDeg) % 360) + 360) % 360;
 
-  return formatOklch({ c, h: nextH, l }) as OklchString;
+  return formatOklch({ c, h: nextHue, l }) as OklchString;
 }
 
 /**

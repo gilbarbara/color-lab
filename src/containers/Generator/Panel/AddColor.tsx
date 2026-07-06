@@ -12,7 +12,7 @@ import { COLOR_SPACING } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
-import { getRandomColor, rotateOklchHue } from '~/utils/color';
+import { generateOklchColor, getRandomColor } from '~/utils/color';
 import { MAX_COLORS } from '~/utils/generator';
 
 import Button from '~/components/Button';
@@ -39,7 +39,7 @@ export default function PanelAddColor() {
   const handleClickAddColor = () => {
     const lastColor = colors.at(-1);
     const nextColor = lastColor
-      ? rotateOklchHue(lastColor.value, COLOR_SPACING[colorSpacing].angle)
+      ? generateOklchColor(lastColor.value, COLOR_SPACING[colorSpacing].angle)
       : getRandomColor(baseSaturation);
 
     const newId = addColor(nextColor);

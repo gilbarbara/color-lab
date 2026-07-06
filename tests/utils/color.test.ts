@@ -5,6 +5,7 @@ import {
   clampOklchToP3,
   formatOklch,
   formatOklchUrl,
+  generateOklchColor,
   getChromaAsPercentage,
   getRandomColor,
   isInRangeOklch,
@@ -52,6 +53,40 @@ describe('utils/color', () => {
 
     it('accepts OklchValues object directly', () => {
       expect(formatOklchUrl({ l: 0.5, c: 0.1, h: 120 })).toBe('50_0.1_120');
+    });
+  });
+
+  describe('generateOklchColor', () => {
+    it('rotates hue by positive delta', () => {
+      expect(generateOklchColor('oklch(50% 0.1 30)' as OklchString, 30)).toMatch(/ 60(\.\d+)?\)/);
+    });
+
+    it('wraps past 360', () => {
+      expect(generateOklchColor('oklch(50% 0.1 350)' as OklchString, 30)).toMatch(/ 20(\.\d+)?\)/);
+    });
+
+    it('wraps negative delta below 0', () => {
+      expect(generateOklchColor('oklch(50% 0.1 10)' as OklchString, -30)).toMatch(/ 340(\.\d+)?\)/);
+    });
+
+    it('preserves lightness', () => {
+      expect(generateOklchColor('oklch(63.6% 0.291 29.23)' as OklchString, 30)).toContain('63.6%');
+    });
+
+    it('rescales chroma to keep the input saturation at the new hue', () => {
+      const input = 'oklch(81.85% 0.167 134.85)' as OklchString;
+      const result = generateOklchColor(input, 90);
+
+      // The new hue (224.85, blue) has a smaller P3 gamut, so absolute chroma
+      // drops even though the relative saturation is preserved.
+      expect(getChromaAsPercentage(result)).toBeCloseTo(getChromaAsPercentage(input), 0);
+      expect(result).not.toContain('0.167');
+    });
+
+    it('360 rotation is identity (modulo precision)', () => {
+      const input = 'oklch(50% 0.1 120)' as OklchString;
+
+      expect(generateOklchColor(input, 360)).toBe(formatOklch(input));
     });
   });
 
