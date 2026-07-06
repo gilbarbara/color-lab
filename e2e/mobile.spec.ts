@@ -41,7 +41,7 @@ test.beforeAll(async ({ browser }) => {
     };
   });
 
-  await page.goto('/p/Primary-73.0_0.12745_321');
+  await page.goto('/p/Primary-73.0_0.23001_321');
 });
 
 test.afterAll(async () => {
@@ -66,6 +66,9 @@ test('mobile', async () => {
     await expect(page.getByRole('button', { name: '500', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: '950', exact: true })).toBeVisible();
 
+    await expect(page.locator('html')).toHaveAttribute('data-gamut', 'p3');
+    await expect(page.locator('html')).toHaveAttribute('data-p3-supported', 'true');
+
     await expect(page).toHaveScreenshot(getScreenshotName('initial.png'));
   });
 
@@ -74,7 +77,7 @@ test('mobile', async () => {
   });
 
   await test.step('encodes palette state in URL', async () => {
-    await expect(page).toHaveURL(hasColor('Primary', '73_0.127_321'));
+    await expect(page).toHaveURL(hasColor('Primary', '73_0.23_321'));
   });
 
   await test.step('toggles dark mode', async () => {
@@ -132,28 +135,30 @@ test('mobile', async () => {
 
     await expect(lightnessSlider).toHaveValue('0.73');
 
-    await lightnessSlider.fill('0.5');
-    await expect(lightnessSlider).toHaveValue('0.5');
+    await lightnessSlider.fill('0.6');
+    await expect(lightnessSlider).toHaveValue('0.6');
 
-    await expect(page).toHaveURL(hasColor('Primary', '50'));
+    await expect(page).toHaveURL(hasColor('Primary', '60'));
   });
 
   await test.step('modifies chroma slider', async () => {
     const chromaSlider = page.getByRole('slider', { exact: true, name: 'Chroma' });
 
-    await chromaSlider.fill('0.2');
+    await chromaSlider.fill('0.21');
 
-    const value = await chromaSlider.inputValue();
-
-    expect(parseFloat(value)).toBeGreaterThan(0);
+    await expect(page).toHaveURL(hasColor('Primary', '60_0.21'));
   });
 
   await test.step('modifies hue slider', async () => {
     const hueSlider = page.getByRole('slider', { exact: true, name: 'Hue' });
+    const chromaSlider = page.getByRole('slider', { exact: true, name: 'Chroma' });
 
-    await hueSlider.fill('180');
+    await hueSlider.fill('150');
+    await expect(page).toHaveURL(/150/);
+    await page.waitForTimeout(100);
 
-    await expect(page).toHaveURL(/180/);
+    await chromaSlider.fill('0.21');
+    await expect(page).toHaveURL(hasColor('Primary', '60_0.21_150'));
   });
 
   await test.step('adds a new color', async () => {

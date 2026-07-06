@@ -41,7 +41,7 @@ test.beforeAll(async ({ browser }) => {
     };
   });
 
-  await page.goto('/p/Primary-73.0_0.12745_321');
+  await page.goto('/p/Primary-73.0_0.23001_321');
   // Wait for Firebase auth to finish restoring the (logged-out) session before driving the
   // flow. The Sign In button renders a spinner while auth is loading; clicking during that
   // window races the loading->ready re-render and React Aria drops the press.
