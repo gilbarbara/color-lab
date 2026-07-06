@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import useApp from '~/hooks/useApp';
-import useGenerator from '~/hooks/useGenerator';
 
 import CollapsePanel from '~/components/CollapsePanel';
 import Footer from '~/components/Footer';
@@ -13,7 +12,6 @@ import List from './List';
 import Options from './Options';
 
 function Palette() {
-  const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
   const { showPaletteOptionsPanel, view } = useApp('showPaletteOptionsPanel', 'view');
 
   return (
@@ -35,10 +33,10 @@ function Palette() {
             <Options />
           </CollapsePanel>
         </div>
-        {view === 'grid' && <Grid colors={colors} />}
+        {view === 'grid' && <Grid />}
         {view === 'list' && (
           <>
-            <List colors={colors} globalOptions={globalOptions} />
+            <List />
             <Preview />
           </>
         )}

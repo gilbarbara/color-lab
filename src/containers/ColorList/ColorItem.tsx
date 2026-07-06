@@ -8,6 +8,7 @@ import { ChannelSliders, type ColorMode, ColorPicker } from '@transience/color-p
 
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
+import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import useRafCallback from '~/hooks/useRafCallback';
 import { trackEvent } from '~/utils/analytics';
 import { getChromaAsPercentage, getRandomColor, toOklch } from '~/utils/color';
@@ -20,7 +21,7 @@ import ConfirmTooltip from '~/components/ConfirmTooltip';
 import EditableInput from '~/components/EditableInput';
 import TooltipClickable from '~/components/TooltipClickable';
 
-import type { ColorEntry, GlobalScaleOptions } from '~/types';
+import type { ColorEntry } from '~/types';
 
 import ColorActions from './ColorActions';
 
@@ -35,9 +36,9 @@ const saturationTooltip = (
 
 interface ColorItemProps {
   colorEntry: ColorEntry;
-  globalOptions: GlobalScaleOptions;
   index: number;
   isOnlyColor: boolean;
+  saturationOverride: boolean;
 }
 
 interface ColorItemState {
@@ -45,22 +46,19 @@ interface ColorItemState {
 }
 
 function ColorItem(props: ColorItemProps) {
-  const { colorEntry, globalOptions, index, isOnlyColor } = props;
-  const {
-    activeColorId,
-    baseSaturation,
-    removeColor,
-    setActiveColor,
-    updateColor,
-    updateGlobalOptions,
-  } = useGenerator(
-    'activeColorId',
-    'baseSaturation',
-    'removeColor',
-    'setActiveColor',
-    'updateColor',
-    'updateGlobalOptions',
-  );
+  const { colorEntry, index, isOnlyColor, saturationOverride } = props;
+  const { activeColorId, removeColor, setActiveColor, updateColor, updateGlobalOptions } =
+    useGenerator(
+      'activeColorId',
+      'removeColor',
+      'setActiveColor',
+      'updateColor',
+      'updateGlobalOptions',
+    );
+  // Read the base saturation lazily (only when Random is clicked) instead of subscribing to
+  // it. It derives from the seed (colors[0].value), so subscribing would re-render every
+  // ColorItem on any base-color edit — the exact churn this component is trying to avoid.
+  const storeApi = useGeneratorStoreApi();
   const { decrementCollapseAnimation, incrementCollapseAnimation, requestColorScroll } = useApp(
     'decrementCollapseAnimation',
     'incrementCollapseAnimation',
@@ -149,7 +147,8 @@ function ColorItem(props: ColorItemProps) {
 
   const handleClickRandom = () => {
     trackEvent('color:randomize');
-    const randomColor = getRandomColor(baseSaturation);
+    const seed = storeApi.getState().colors[0]?.value;
+    const randomColor = getRandomColor(seed ? getChromaAsPercentage(seed) : undefined);
 
     handleChangeColor(randomColor);
   };
@@ -276,10 +275,10 @@ function ColorItem(props: ColorItemProps) {
           <ChannelSliders
             channels={{
               s: {
-                disabled: globalOptions.saturationOverride,
+                disabled: saturationOverride,
               },
               c: {
-                disabled: globalOptions.saturationOverride,
+                disabled: saturationOverride,
               },
             }}
             color={color}
@@ -291,7 +290,7 @@ function ColorItem(props: ColorItemProps) {
                       aria-label="Saturation Override"
                       classNames={{ base: '-ml-3' }}
                       content={saturationTooltip}
-                      isDisabled={!globalOptions.saturationOverride}
+                      isDisabled={!saturationOverride}
                     >
                       S
                     </TooltipClickable>
@@ -305,7 +304,7 @@ function ColorItem(props: ColorItemProps) {
                       aria-label="Saturation Override"
                       classNames={{ base: '-ml-3' }}
                       content={saturationTooltip}
-                      isDisabled={!globalOptions.saturationOverride}
+                      isDisabled={!saturationOverride}
                     >
                       C
                     </TooltipClickable>

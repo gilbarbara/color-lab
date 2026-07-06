@@ -8,6 +8,7 @@ import { animate } from 'framer-motion';
 import { SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
+import useGeneratorStore from '~/hooks/useGeneratorStore';
 import { trackEvent } from '~/utils/analytics';
 import { getEffectiveOptions } from '~/utils/generator';
 import { buildPreviewScope } from '~/utils/preview-tokens';
@@ -35,11 +36,9 @@ function autoBgUtility(color: string): string {
 }
 
 export default function Preview() {
-  const { colors, globalOptions, previewColorId, setPreviewColor } = useGenerator(
-    'colors',
-    'globalOptions',
-    'previewColorId',
-    'setPreviewColor',
+  const { globalOptions, setPreviewColor } = useGenerator('globalOptions', 'setPreviewColor');
+  const activeColor = useGeneratorStore(
+    state => state.colors.find(c => c.id === state.previewColorId) ?? state.colors[0],
   );
   const {
     previewScrollNonce,
@@ -97,7 +96,6 @@ export default function Preview() {
     setView(next);
   };
 
-  const activeColor = colors.find(c => c.id === previewColorId) ?? colors[0];
   const showHeader = paletteView !== 'preview';
 
   if (!activeColor) {
@@ -148,7 +146,6 @@ export default function Preview() {
         >
           <Header
             activeId={activeColor.id}
-            colors={colors}
             name={activeColor.name}
             onSelect={handleSelect}
             onThemeChange={next => {

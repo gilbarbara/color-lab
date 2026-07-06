@@ -9,7 +9,7 @@ import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
 import ColorItem from '~/containers/ColorList/ColorItem';
 
-import type { ColorEntry, GlobalScaleOptions } from '~/types';
+import type { ColorEntry } from '~/types';
 
 vi.mock('~/utils/analytics', () => ({
   trackEvent: vi.fn(),
@@ -29,13 +29,11 @@ vi.mock('@sentry/nextjs', async importOriginal => {
 vi.mock('~/utils/color', { spy: true });
 
 function createDefaultProps(overrides: Partial<Parameters<typeof ColorItem>[0]> = {}) {
-  const globalOptions: GlobalScaleOptions = getDefaultGlobalOptions(CRIMSON);
-
   return {
     colorEntry: createColorEntry('Primary', CRIMSON),
-    globalOptions,
     index: 0,
     isOnlyColor: false,
+    saturationOverride: getDefaultGlobalOptions(CRIMSON).saturationOverride,
     ...overrides,
   };
 }

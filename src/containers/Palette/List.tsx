@@ -1,16 +1,10 @@
+import useGenerator from '~/hooks/useGenerator';
 import { getEffectiveOptions } from '~/utils/generator';
-
-import type { ColorEntry, GlobalScaleOptions } from '~/types';
 
 import Scale from './Scale';
 
-interface PaletteListProps {
-  colors: ColorEntry[];
-  globalOptions: GlobalScaleOptions;
-}
-
-export default function PaletteList(props: PaletteListProps) {
-  const { colors, globalOptions } = props;
+export default function PaletteList() {
+  const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
 
   return (
     <div className="flex flex-col items-start gap-8">

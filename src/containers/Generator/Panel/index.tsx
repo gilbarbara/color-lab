@@ -12,7 +12,6 @@ import { SidebarSimpleIcon } from '@phosphor-icons/react';
 
 import { BREAKPOINTS, OFFSET, SCROLL_OFFSET } from '~/config/globals';
 import useApp from '~/hooks/useApp';
-import useGenerator from '~/hooks/useGenerator';
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { trackEvent } from '~/utils/analytics';
 import { scrollToSelector } from '~/utils/scroll';
@@ -37,12 +36,6 @@ import BottomBar from './BottomBar';
  * because no JS branch on viewport.
  */
 export default function Panel() {
-  const { colors, defaultOptions, globalOptions, updateGlobalOptions } = useGenerator(
-    'colors',
-    'defaultOptions',
-    'globalOptions',
-    'updateGlobalOptions',
-  );
   const {
     collapseAnimationCount,
     colorScrollRequest,
@@ -202,7 +195,6 @@ export default function Panel() {
 
       {/* Draggable handle with color circles — mobile only */}
       <BottomBar
-        colors={colors}
         onClick={handleClickColorBox}
         onKeyDown={handleKeyDown}
         onTouchEnd={handleTouchEnd}
@@ -228,11 +220,7 @@ export default function Panel() {
         <div className="hidden md:block">
           <AppIntro />
         </div>
-        <AdvancedOptions
-          defaultOptions={defaultOptions}
-          globalOptions={globalOptions}
-          updateGlobalOptions={updateGlobalOptions}
-        />
+        <AdvancedOptions />
         <ColorList />
         <Divider />
         <PanelAddColor />
