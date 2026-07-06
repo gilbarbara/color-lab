@@ -1,0 +1,742 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Palette > renders the grid view 1`] = `
+<div
+  class="@container w-full flex flex-col md:border-l md:border-default"
+  data-testid="Palette"
+>
+  <div
+    class="flex-1 flex flex-col gap-8 p-4 md:min-h-[calc(100vh-4rem)]"
+  >
+    <h2
+      class="sr-only"
+    >
+      Color palette
+    </h2>
+    <div>
+      <div
+        data-testid="Header"
+      />
+      <div
+        class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-in-out palette-options-open:grid-rows-[1fr] palette-options-open:opacity-100"
+        data-open="false"
+      >
+        <div
+          class="overflow-hidden"
+          inert=""
+        >
+          <div
+            data-testid="Options"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-full grid grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 px-4 gap-8"
+      data-testid="PaletteGrid"
+    >
+      <button
+        class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full aspect-square p-4! h-auto! flex-col! items-end! justify-end!"
+        style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38; color: rgb(255, 255, 255);"
+        type="button"
+      >
+        <span
+          class="text-base/4 @xl:order-2 text-right"
+        >
+          Primary
+        </span>
+      </button>
+      <button
+        class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full aspect-square p-4! h-auto! flex-col! items-end! justify-end!"
+        style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00; color: rgb(255, 255, 255);"
+        type="button"
+      >
+        <span
+          class="text-base/4 @xl:order-2 text-right"
+        >
+          Secondary
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    data-testid="Footer"
+  />
+</div>
+`;
+
+exports[`Palette > renders the list view 1`] = `
+<div
+  class="@container w-full flex flex-col md:border-l md:border-default"
+  data-testid="Palette"
+>
+  <div
+    class="flex-1 flex flex-col gap-8 p-4 md:min-h-[calc(100vh-4rem)]"
+  >
+    <h2
+      class="sr-only"
+    >
+      Color palette
+    </h2>
+    <div>
+      <div
+        data-testid="Header"
+      />
+      <div
+        class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-in-out palette-options-open:grid-rows-[1fr] palette-options-open:opacity-100"
+        data-open="false"
+      >
+        <div
+          class="overflow-hidden"
+          inert=""
+        >
+          <div
+            data-testid="Options"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex flex-col items-start gap-8"
+    >
+      <div
+        class="w-full flex flex-col gap-4"
+        data-testid="Scale"
+      >
+        <div
+          class="flex items-center justify-between"
+        >
+          <div
+            class="flex items-center gap-2"
+          >
+            <button
+              aria-label="Select Primary"
+              class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small cursor-pointer"
+              data-color="oklch(70.2% 0.236 30)"
+              data-testid="ColorBox"
+              style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38;"
+              type="button"
+            />
+            <h3
+              class="font-semibold text-lg leading-none"
+            >
+              Primary
+            </h3>
+            <p
+              class="hidden lg:block text-foreground-500 font-mono text-sm"
+            >
+              oklch(70.2% 0.236 30)
+            </p>
+          </div>
+          <div
+            class="flex items-center gap-2"
+          >
+            <button
+              aria-label="View Live Preview"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              <svg
+                class="text-lg"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+                />
+              </svg>
+            </button>
+            <div
+              class="relative flex items-center"
+            >
+              <button
+                aria-controls="_r_1_"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="More scale tools"
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8 xsm:hidden"
+                data-react-aria-pressable="true"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  class="text-lg"
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 256 256"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128ZM60,112a16,16,0,1,0,16,16A16,16,0,0,0,60,112Zm136,0a16,16,0,1,0,16,16A16,16,0,0,0,196,112Z"
+                  />
+                </svg>
+              </button>
+              <div
+                aria-label="More scale tools"
+                class="absolute right-0 top-full z-20 mt-1 flex items-center gap-2 rounded-medium bg-content1 p-1 shadow-medium invisible opacity-0 transition-[opacity,visibility] duration-200 data-[open=true]:visible data-[open=true]:opacity-100 xsm:static xsm:visible xsm:opacity-100 xsm:z-auto xsm:mt-0 xsm:bg-transparent xsm:p-0 xsm:shadow-none"
+                data-open="false"
+                id="_r_1_"
+                role="group"
+              >
+                <button
+                  aria-label="View Charts"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    class="text-lg"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0v94.37L90.73,98a8,8,0,0,1,10.07-.38l58.81,44.11L218.73,90a8,8,0,1,1,10.54,12l-64,56a8,8,0,0,1-10.07.38L96.39,114.29,40,163.63V200H224A8,8,0,0,1,232,208Z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  aria-label="View color info"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    class="text-lg"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72h72a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm88,48H40a8,8,0,0,0,0,16h88a8,8,0,0,0,0-16Zm109.66,13.66a8,8,0,0,1-11.32,0L206,177.36A40,40,0,1,1,217.36,166l20.3,20.3A8,8,0,0,1,237.66,197.66ZM184,168a24,24,0,1,0-24-24A24,24,0,0,0,184,168Z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  aria-label="View Contrast Grid"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    class="text-lg"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM40,128a88.1,88.1,0,0,1,88-88V216A88.1,88.1,0,0,1,40,128Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <button
+              aria-label="Export scale"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              <svg
+                class="text-lg"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          class="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto"
+        >
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(97% 0.019 30); --gamut-bg-hex: #fff1ee; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              50
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(93.44% 0.043 30); --gamut-bg-hex: #ffdfd8; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              100
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(88.24% 0.081 30); --gamut-bg-hex: #ffc5b9; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              200
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(82.16% 0.129 30); --gamut-bg-hex: #ffa492; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              300
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(75.43% 0.189 30); --gamut-bg-hex: #ff7863; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              400
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(68.16% 0.236 30); --gamut-bg-hex: #ff4531; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              500
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(60.45% 0.236 30); --gamut-bg-hex: #ee1f0d; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              600
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(52.34% 0.235 30); --gamut-bg-hex: #cf0000; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              700
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(43.88% 0.197 30); --gamut-bg-hex: #a40000; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              800
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(35.09% 0.157 30); --gamut-bg-hex: #780000; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              900
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(26% 0.117 30); --gamut-bg-hex: #4e0000; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              950
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        class="w-full flex flex-col gap-4"
+        data-testid="Scale"
+      >
+        <div
+          class="flex items-center justify-between"
+        >
+          <div
+            class="flex items-center gap-2"
+          >
+            <button
+              aria-label="Select Secondary"
+              class="shrink-0 bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) size-8 rounded-small cursor-pointer"
+              data-color="oklch(70.2% 0.183 60)"
+              data-testid="ColorBox"
+              style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00;"
+              type="button"
+            />
+            <h3
+              class="font-semibold text-lg leading-none"
+            >
+              Secondary
+            </h3>
+            <p
+              class="hidden lg:block text-foreground-500 font-mono text-sm"
+            >
+              oklch(70.2% 0.183 60)
+            </p>
+          </div>
+          <div
+            class="flex items-center gap-2"
+          >
+            <button
+              aria-label="View Live Preview"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              <svg
+                class="text-lg"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+                />
+              </svg>
+            </button>
+            <div
+              class="relative flex items-center"
+            >
+              <button
+                aria-controls="_r_r_"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="More scale tools"
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8 xsm:hidden"
+                data-react-aria-pressable="true"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  class="text-lg"
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 256 256"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128ZM60,112a16,16,0,1,0,16,16A16,16,0,0,0,60,112Zm136,0a16,16,0,1,0,16,16A16,16,0,0,0,196,112Z"
+                  />
+                </svg>
+              </button>
+              <div
+                aria-label="More scale tools"
+                class="absolute right-0 top-full z-20 mt-1 flex items-center gap-2 rounded-medium bg-content1 p-1 shadow-medium invisible opacity-0 transition-[opacity,visibility] duration-200 data-[open=true]:visible data-[open=true]:opacity-100 xsm:static xsm:visible xsm:opacity-100 xsm:z-auto xsm:mt-0 xsm:bg-transparent xsm:p-0 xsm:shadow-none"
+                data-open="false"
+                id="_r_r_"
+                role="group"
+              >
+                <button
+                  aria-label="View Charts"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    class="text-lg"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0v94.37L90.73,98a8,8,0,0,1,10.07-.38l58.81,44.11L218.73,90a8,8,0,1,1,10.54,12l-64,56a8,8,0,0,1-10.07.38L96.39,114.29,40,163.63V200H224A8,8,0,0,1,232,208Z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  aria-label="View color info"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    class="text-lg"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72h72a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm88,48H40a8,8,0,0,0,0,16h88a8,8,0,0,0,0-16Zm109.66,13.66a8,8,0,0,1-11.32,0L206,177.36A40,40,0,1,1,217.36,166l20.3,20.3A8,8,0,0,1,237.66,197.66ZM184,168a24,24,0,1,0-24-24A24,24,0,0,0,184,168Z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  aria-label="View Contrast Grid"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <svg
+                    class="text-lg"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM40,128a88.1,88.1,0,0,1,88-88V216A88.1,88.1,0,0,1,40,128Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <button
+              aria-label="Export scale"
+              class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
+              data-react-aria-pressable="true"
+              tabindex="0"
+              type="button"
+            >
+              <svg
+                class="text-lg"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          class="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto"
+        >
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(97% 0.024 60); --gamut-bg-hex: #fff2e6; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              50
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(93.44% 0.053 60); --gamut-bg-hex: #ffe2c7; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              100
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(88.24% 0.098 60); --gamut-bg-hex: #ffc996; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              200
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(82.16% 0.156 60); --gamut-bg-hex: #ffaa50; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              300
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(75.43% 0.183 60); --gamut-bg-hex: #ff8d00; color: rgb(0, 0, 0);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              400
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(68.16% 0.183 60); --gamut-bg-hex: #e77600; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              500
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(60.45% 0.162 60); --gamut-bg-hex: #c56400; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              600
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(52.34% 0.140 60); --gamut-bg-hex: #a25100; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              700
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(43.88% 0.118 60); --gamut-bg-hex: #7f3e00; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              800
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(35.09% 0.094 60); --gamut-bg-hex: #5d2c00; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              900
+            </span>
+          </button>
+          <button
+            class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
+            style="--gamut-bg-oklch: oklch(26% 0.070 60); --gamut-bg-hex: #3b1a00; color: rgb(255, 255, 255);"
+            type="button"
+          >
+            <span
+              class="text-base/4 @xl:order-2"
+            >
+              950
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      data-testid="Preview"
+    />
+  </div>
+  <div
+    data-testid="Footer"
+  />
+</div>
+`;
+
+exports[`Palette > renders the preview view 1`] = `
+<div
+  class="@container w-full flex flex-col md:border-l md:border-default"
+  data-testid="Palette"
+>
+  <div
+    class="flex-1 flex flex-col gap-8 p-4 md:min-h-[calc(100vh-4rem)]"
+  >
+    <h2
+      class="sr-only"
+    >
+      Color palette
+    </h2>
+    <div>
+      <div
+        data-testid="Header"
+      />
+      <div
+        class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-in-out palette-options-open:grid-rows-[1fr] palette-options-open:opacity-100"
+        data-open="false"
+      >
+        <div
+          class="overflow-hidden"
+          inert=""
+        >
+          <div
+            data-testid="Options"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      data-testid="Preview"
+    />
+  </div>
+  <div
+    data-testid="Footer"
+  />
+</div>
+`;

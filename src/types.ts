@@ -16,6 +16,8 @@ export type ExportFormatType = 'tailwind3' | 'tailwind4' | 'css' | 'scss' | 'svg
 
 export type Gamut = 'p3' | 'srgb';
 
+export type GeneratorView = 'list' | 'grid' | 'preview';
+
 export type GetPaletteResult =
   | { kind: 'success'; palette: SavedPalette }
   | { kind: 'not-found' }

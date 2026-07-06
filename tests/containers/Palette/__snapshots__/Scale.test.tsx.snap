@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Scale > renders correctly 1`] = `
+exports[`Scale > Render > renders correctly 1`] = `
 <div
   class="w-full flex flex-col gap-4"
   data-testid="Scale"

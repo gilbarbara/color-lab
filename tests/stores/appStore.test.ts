@@ -10,6 +10,7 @@ const PERSISTED_KEYS = [
   'showPaletteOptionsPanel',
   'showPreview',
   'showSidebar',
+  'view',
 ];
 
 function readPersistedState(): { state: Record<string, unknown>; version: number } | null {
@@ -222,6 +223,24 @@ describe('stores/appStore', () => {
       useAppStore.getState().setSessionPalettePath(null);
 
       expect(useAppStore.getState().sessionPalettePath).toBe(null);
+    });
+  });
+
+  describe('setView', () => {
+    it('updates view from the list default', () => {
+      expect(useAppStore.getState().view).toBe('list');
+
+      useAppStore.getState().setView('grid');
+
+      expect(useAppStore.getState().view).toBe('grid');
+    });
+
+    it('forces showPreview to true when switching view', () => {
+      useAppStore.setState({ showPreview: false });
+
+      useAppStore.getState().setView('preview');
+
+      expect(useAppStore.getState().showPreview).toBe(true);
     });
   });
 

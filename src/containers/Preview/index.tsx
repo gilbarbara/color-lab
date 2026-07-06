@@ -41,11 +41,12 @@ export default function Preview() {
     'previewColorId',
     'setPreviewColor',
   );
-  const { previewScrollNonce, showPreview, togglePreview } = useApp(
-    'previewScrollNonce',
-    'showPreview',
-    'togglePreview',
-  );
+  const {
+    previewScrollNonce,
+    showPreview,
+    togglePreview,
+    view: paletteView,
+  } = useApp('previewScrollNonce', 'showPreview', 'togglePreview', 'view');
 
   const [{ themeOverrides }, setState] = useSetState<PreviewState>({
     themeOverrides: {},
@@ -97,6 +98,7 @@ export default function Preview() {
   };
 
   const activeColor = colors.find(c => c.id === previewColorId) ?? colors[0];
+  const showHeader = paletteView !== 'preview';
 
   if (!activeColor) {
     return null;
@@ -115,29 +117,35 @@ export default function Preview() {
       data-testid="Preview"
       style={scope}
     >
-      <div className="w-full flex items-center justify-between p-4">
-        <button
-          aria-expanded={showPreview}
-          aria-label={showPreview ? 'Collapse Live preview' : 'Expand Live preview'}
-          className="w-full flex items-center justify-between cursor-pointer"
-          onClick={() => {
-            trackEvent('preview:toggle', { enabled: !showPreview });
-            togglePreview();
-          }}
-          type="button"
-        >
-          <span className="text-sm font-semibold uppercase tracking-wide opacity-60">
-            Live preview
-          </span>
-          <span>{showPreview ? <CaretUpIcon /> : <CaretDownIcon />}</span>
-        </button>
-      </div>
+      {showHeader && (
+        <div className="w-full p-4">
+          <button
+            aria-expanded={showPreview}
+            aria-label={showPreview ? 'Collapse Live preview' : 'Expand Live preview'}
+            className="w-full flex items-center justify-between cursor-pointer"
+            onClick={() => {
+              trackEvent('preview:toggle', { enabled: !showPreview });
+              togglePreview();
+            }}
+            type="button"
+          >
+            <span className="text-sm font-semibold uppercase tracking-wide opacity-60">
+              Live preview
+            </span>
+            <span>{showPreview ? <CaretUpIcon /> : <CaretDownIcon />}</span>
+          </button>
+        </div>
+      )}
       <CollapsePanel
         className="duration-500"
         isOpen={showPreview}
         openClassName="preview-open:grid-rows-[1fr] preview-open:opacity-100"
       >
-        <div className="flex flex-col gap-2 p-4 pt-0">
+        <div
+          className={cn('flex flex-col gap-2 p-4', {
+            'pt-0': showHeader,
+          })}
+        >
           <Header
             activeId={activeColor.id}
             colors={colors}
