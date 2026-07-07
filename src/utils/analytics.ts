@@ -77,6 +77,8 @@ export async function initAnalytics(): Promise<void> {
       // Product events are instrumented explicitly via trackEvent; skip the
       // heavier DOM autocapture.
       autocapture: false,
+      disable_surveys: true,
+      disable_session_recording: true,
       // Normalize the URL on EVERY event (custom, $pageview, $web_vitals,
       // $pageleave, ...) so palette variants don't explode URL cardinality.
       before_send: event => {
