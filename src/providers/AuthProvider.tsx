@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import type { Auth, AuthError, User } from 'firebase/auth';
 
@@ -65,6 +65,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // off the first-load path. `setStatus('loading')` stays synchronous so the
   // saved-palette id flow (usePaletteIdSync) keeps waiting — status must never
   // read `unauthenticated` before onAuthStateChanged has run once.
+  // Tracks whether we've seen an authenticated user, so resetUser() only runs on
+  // a real logout (identified → null). The initial anonymous callback must not
+  // reset: posthog.reset() rotates the session id and would orphan the already-sent
+  // $pageview into a separate session from every later event.
+  const wasAuthenticatedRef = useRef(false);
+
   useEffect(() => {
     setStatus('loading');
 
@@ -81,6 +87,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
           unsubscribe = sdk.onAuthStateChanged(auth, firebaseUser => {
             if (firebaseUser) {
+              wasAuthenticatedRef.current = true;
               setUser(toAppUser(firebaseUser));
               setProvider(localStorage.getItem(PROVIDER_STORAGE_KEY) as OAuthProvider | null);
               identifyUser(firebaseUser.uid, {
@@ -91,7 +98,13 @@ export default function AuthProvider({ children }: AuthProviderProps) {
               setUser(null);
               setProvider(null);
               localStorage.removeItem(PROVIDER_STORAGE_KEY);
-              resetUser();
+
+              // Only reset on a genuine logout — never on the initial anonymous
+              // state, which would split the pageview into its own session.
+              if (wasAuthenticatedRef.current) {
+                wasAuthenticatedRef.current = false;
+                resetUser();
+              }
             }
           });
         })

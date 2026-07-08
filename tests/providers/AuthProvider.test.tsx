@@ -121,8 +121,41 @@ describe('providers/AuthProvider', () => {
 
       expect(result.current.isAuthenticated).toBe(false);
       expect(result.current.user).toBeNull();
-      expect(mockResetUser).toHaveBeenCalled();
+      // Initial anonymous state must NOT reset — that would rotate the posthog
+      // session id and orphan the already-sent $pageview.
+      expect(mockResetUser).not.toHaveBeenCalled();
       expect(mockIdentifyUser).not.toHaveBeenCalled();
+    });
+
+    it('resets analytics only on a genuine logout, not the initial anonymous state', async () => {
+      let capturedCallback: (user: unknown) => void = () => {};
+
+      mockOnAuthStateChanged.mockImplementation(
+        (_auth: unknown, callback: (user: unknown) => void) => {
+          capturedCallback = callback;
+          callback(mockFirebaseUser);
+
+          return vi.fn();
+        },
+      );
+
+      const { result } = renderHook(() => useAuth(), { wrapper });
+
+      await waitFor(() => {
+        expect(result.current.isAuthenticated).toBe(true);
+      });
+
+      expect(mockResetUser).not.toHaveBeenCalled();
+
+      act(() => {
+        capturedCallback(null);
+      });
+
+      await waitFor(() => {
+        expect(result.current.user).toBeNull();
+      });
+
+      expect(mockResetUser).toHaveBeenCalled();
     });
   });
 

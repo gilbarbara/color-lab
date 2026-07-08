@@ -96,8 +96,11 @@ export async function initAnalytics(): Promise<void> {
           const parsed = new URL(currentUrl);
           const normalized = normalizePathname(parsed.pathname);
 
-          // Auth routes carry no analytics value — drop the event, matching
-          // usePageTracking which suppresses their pageviews.
+          // Auth callback URLs carry the Firebase magic-link `oobCode` (and OAuth
+          // codes) in the query string, so DROP EVERY event on /auth/* — otherwise
+          // $current_url would ship that single-use credential to PostHog. This is
+          // stricter than usePageTracking (which only suppresses the pageview) on
+          // purpose; do not loosen it to pageview-only.
           if (normalized === null) {
             return null;
           }
