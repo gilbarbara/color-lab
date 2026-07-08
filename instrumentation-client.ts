@@ -11,6 +11,31 @@ const isBot =
     navigator.userAgent,
   );
 
+// Firebase magic-link callbacks put a single-use `oobCode` in the query string.
+// Strip query + hash from any /auth/* URL so that credential never reaches Sentry
+// via `event.request.url` — which, unlike `request.query_string`/breadcrumbs/spans,
+// is NOT covered by Sentry's server-side scrubbing. The structured surfaces (and
+// Session Replay) are handled by the `oobCode` entry in the project's
+// Additional Sensitive Fields (Sentry → Security & Privacy → Data Scrubbing).
+function scrubAuthUrl(url: string | undefined): string | undefined {
+  if (!url) {
+    return url;
+  }
+
+  try {
+    const isAbsolute = /^https?:\/\//.test(url);
+    const parsed = new URL(url, 'http://placeholder');
+
+    if (parsed.pathname.startsWith('/auth')) {
+      return isAbsolute ? parsed.origin + parsed.pathname : parsed.pathname;
+    }
+  } catch {
+    // Unparseable value — leave it untouched.
+  }
+
+  return url;
+}
+
 if (process.env.NODE_ENV === 'production' && !isBot) {
   Sentry.init({
     dsn: 'https://741e6611f536afcbb507dc8ff10c4553@o23412.ingest.us.sentry.io/4510694826508288',
@@ -39,6 +64,10 @@ if (process.env.NODE_ENV === 'production' && !isBot) {
 
       if (frames.some(frame => frame.filename?.includes('extension://'))) {
         return null;
+      }
+
+      if (event.request?.url) {
+        event.request.url = scrubAuthUrl(event.request.url);
       }
 
       return event;
