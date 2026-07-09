@@ -6,7 +6,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'html',
   // Each spec is a single long flow (~30s); give it headroom so slower CI runs
   // don't time out mid-flow. actionTimeout/expect keep individual failures fast.
   timeout: 60000,
