@@ -3,6 +3,7 @@ const mockCapture = vi.fn();
 const mockInit = vi.fn();
 const mockIdentify = vi.fn();
 const mockReset = vi.fn();
+const mockFetch = vi.fn();
 
 vi.mock('@sentry/nextjs', () => ({
   captureException: (...arguments_: unknown[]) => mockCaptureException(...arguments_),
@@ -35,9 +36,14 @@ describe('utils/analytics', () => {
     vi.resetModules();
     vi.clearAllMocks();
     process.env.NEXT_PUBLIC_POSTHOG_KEY = 'phc_test';
+    // Default: /vid resolves with no id, so init runs without bootstrap unless a test overrides it.
+    mockFetch.mockResolvedValue({ ok: true, json: async () => ({ distinctID: null }) });
+    vi.stubGlobal('fetch', mockFetch);
   });
 
   afterEach(() => {
+    vi.unstubAllGlobals();
+
     if (originalEnv === undefined) {
       delete process.env.NEXT_PUBLIC_POSTHOG_KEY;
     } else {
@@ -80,6 +86,41 @@ describe('utils/analytics', () => {
           capture_pageview: false,
         }),
       );
+    });
+
+    it('bootstraps the server-derived distinct id when /vid returns one', async () => {
+      mockFetch.mockResolvedValueOnce({ ok: true, json: async () => ({ distinctID: 'hash-123' }) });
+
+      const { initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+
+      expect(mockFetch).toHaveBeenCalledWith('/vid', { cache: 'no-store' });
+      expect(mockInit).toHaveBeenCalledWith(
+        'phc_test',
+        expect.objectContaining({
+          bootstrap: { distinctID: 'hash-123', isIdentifiedID: false },
+        }),
+      );
+    });
+
+    it('initializes without bootstrap when /vid returns null', async () => {
+      const { initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+
+      expect(mockInit.mock.calls[0][1]).not.toHaveProperty('bootstrap');
+    });
+
+    it('initializes without bootstrap when the /vid fetch rejects', async () => {
+      mockFetch.mockRejectedValueOnce(new Error('network'));
+
+      const { initAnalytics } = await loadAnalytics();
+
+      await initAnalytics();
+
+      expect(mockInit).toHaveBeenCalledTimes(1);
+      expect(mockInit.mock.calls[0][1]).not.toHaveProperty('bootstrap');
     });
 
     it('is a no-op when the key is missing', async () => {

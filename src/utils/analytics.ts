@@ -56,6 +56,23 @@ export async function initAnalytics(): Promise<void> {
   try {
     const { default: posthog } = await import('posthog-js');
 
+    // Anonymous, cookieless returning-visitor id computed server-side (see app/vid/route.ts).
+    // Bootstrapped as an ANONYMOUS id (isIdentifiedID: false) so identifyUser() on login still
+    // overrides and stitches it. On any failure, fall through to init without it (today's
+    // per-session behavior — no crash).
+    let distinctID: string | undefined;
+
+    try {
+      const response = await fetch('/vid', { cache: 'no-store' });
+
+      if (response.ok) {
+        distinctID =
+          ((await response.json()) as { distinctID: string | null }).distinctID ?? undefined;
+      }
+    } catch {
+      // Ignore — init without bootstrap.
+    }
+
     posthog.init(key, {
       // PostHog persists debug mode in localStorage (`ph_debug`); passing false
       // explicitly clears a stuck flag so verbose logging can't linger in a dev's
@@ -65,10 +82,12 @@ export async function initAnalytics(): Promise<void> {
       // dodge ad blockers. ui_host must stay PostHog's real host for toolbar links.
       api_host: '/ingest',
       ui_host: 'https://us.posthog.com',
-      // Cookieless: avoids a GDPR consent banner at the cost of cross-session
-      // identity. Fine for an anonymous tool.
+      // Cookieless: nothing is stored on the device, so no GDPR consent banner. Stable
+      // cross-visit identity comes from the server-derived weekly hash (bootstrap) above,
+      // not from browser storage.
       persistence: 'memory',
       person_profiles: 'identified_only',
+      ...(distinctID ? { bootstrap: { distinctID, isIdentifiedID: false } } : {}),
       // We send pageviews manually (usePageTracking); before_send handles URL
       // normalization for all events.
       capture_pageview: false,

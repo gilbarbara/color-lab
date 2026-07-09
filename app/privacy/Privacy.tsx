@@ -38,13 +38,14 @@ export default function Privacy() {
           We use <strong>PostHog</strong> for product analytics to understand how the app is used.
           We track page views and product events (e.g., login method used, palette saves, color
           edits). Analytics is configured to be <strong>cookieless</strong> — it uses in-memory
-          persistence and stores nothing on your device.
+          persistence and stores nothing on your device. To recognize returning visits without
+          cookies, we derive a <strong>rotating, anonymous identifier</strong> on our server from a
+          salted hash of your IP address and browser; it rotates weekly and is never stored on your
+          device.
         </p>
         <p>
-          PostHog also records <strong>session replays</strong> of on-page interactions (input
-          fields are masked by default), <strong>heatmaps</strong>, and{' '}
-          <strong>web performance metrics</strong>. Your IP address is used to derive an approximate
-          location and is not stored long-term. Requests are proxied through{' '}
+          Your IP address is used to derive an approximate location and to compute the anonymous
+          identifier described above, and is not stored long-term. Requests are proxied through{' '}
           <strong>lab.colormeup.co/ingest</strong>, and data is processed by PostHog Cloud (US
           region).
         </p>
@@ -80,7 +81,7 @@ export default function Privacy() {
           <li>Authenticate your account and manage sessions</li>
           <li>Save and retrieve your palettes</li>
           <li>Display your profile avatar</li>
-          <li>Understand how the app is used (product analytics and session replay)</li>
+          <li>Understand how the app is used (product analytics)</li>
           <li>Identify and fix errors</li>
         </ul>
         <p className="mt-2">
@@ -129,8 +130,7 @@ export default function Privacy() {
             </a>
           </li>
           <li>
-            <strong>PostHog</strong> — Product analytics, session replay, and heatmaps. Cookieless;
-            US region.{' '}
+            <strong>PostHog</strong> — Product analytics. Cookieless; US region.{' '}
             <a
               className="underline"
               href="https://posthog.com/privacy"

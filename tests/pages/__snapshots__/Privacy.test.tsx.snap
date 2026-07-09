@@ -91,23 +91,14 @@ exports[`pages/Privacy > renders correctly 1`] = `
         <strong>
           cookieless
         </strong>
-         — it uses in-memory persistence and stores nothing on your device.
+         — it uses in-memory persistence and stores nothing on your device. To recognize returning visits without cookies, we derive a 
+        <strong>
+          rotating, anonymous identifier
+        </strong>
+         on our server from a salted hash of your IP address and browser; it rotates weekly and is never stored on your device.
       </p>
       <p>
-        PostHog also records 
-        <strong>
-          session replays
-        </strong>
-         of on-page interactions (input fields are masked by default), 
-        <strong>
-          heatmaps
-        </strong>
-        , and
-         
-        <strong>
-          web performance metrics
-        </strong>
-        . Your IP address is used to derive an approximate location and is not stored long-term. Requests are proxied through
+        Your IP address is used to derive an approximate location and to compute the anonymous identifier described above, and is not stored long-term. Requests are proxied through
          
         <strong>
           lab.colormeup.co/ingest
@@ -170,7 +161,7 @@ exports[`pages/Privacy > renders correctly 1`] = `
           Display your profile avatar
         </li>
         <li>
-          Understand how the app is used (product analytics and session replay)
+          Understand how the app is used (product analytics)
         </li>
         <li>
           Identify and fix errors
@@ -242,7 +233,7 @@ exports[`pages/Privacy > renders correctly 1`] = `
           <strong>
             PostHog
           </strong>
-           — Product analytics, session replay, and heatmaps. Cookieless; US region.
+           — Product analytics. Cookieless; US region.
            
           <a
             class="underline"
