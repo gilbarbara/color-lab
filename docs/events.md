@@ -109,6 +109,7 @@ generation config (via the `source` discriminator — see Conventions).
 | `color:add` | Add color | — | `Generator/Panel/AddColor.tsx` |
 | `color:select` | Activate a color from the sidebar/bottom-bar strip | — | `Generator/Panel/index.tsx` |
 | `color:remove` | Remove color (confirmed) | — | `ColorList/ColorItem.tsx` |
+| `color:reorder` | Reorder colors (drag, committed on drop) | — | `ReorderColors.tsx` |
 | `color:randomize` | Randomize one color | — | `ColorList/ColorItem.tsx` |
 | `color:edit` | Change color value | `{ source, mode }` | `ColorList/ColorItem.tsx` |
 | `color:rename` | Commit color name | `{ name }` | `ColorList/ColorItem.tsx` |

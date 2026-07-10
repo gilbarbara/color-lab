@@ -9,6 +9,7 @@ import {
   getEffectiveOptions,
   MAX_COLORS,
   removeColor,
+  reorderColors,
   resetGlobalOptions,
   resetPalette,
   setColorOverride,
@@ -131,6 +132,62 @@ describe('utils/generator', () => {
       expect(result.colors).toHaveLength(2);
       expect(result.colors[0].name).toBe('Secondary');
       expect(result.colors[1].name).toBe('Tertiary');
+    });
+  });
+
+  describe('reorderColors', () => {
+    it('reorders colors to match the given ids', () => {
+      const initial = createTestPalette(3);
+      const [first, second, third] = initial.colors;
+      const result = reorderColors(initial, [second.id, third.id, first.id]);
+
+      expect(result.colors.map(c => c.name)).toEqual(['Secondary', 'Tertiary', 'Primary']);
+      // Same objects moved (ids ride along) — cheap re-render, stable React keys.
+      expect(result.colors[0]).toBe(second);
+      expect(result.colors[2]).toBe(first);
+    });
+
+    it('changes the base (colors[0]) when a color moves to the front', () => {
+      const initial = createTestPalette(3);
+      const [first, second, third] = initial.colors;
+      const result = reorderColors(initial, [third.id, first.id, second.id]);
+
+      expect(result.colors[0]).toBe(third);
+    });
+
+    it('returns the same state reference when order is unchanged', () => {
+      const initial = createTestPalette(3);
+      const ids = initial.colors.map(c => c.id);
+
+      expect(reorderColors(initial, ids)).toBe(initial);
+    });
+
+    it('ignores unknown ids', () => {
+      const initial = createTestPalette(2);
+      const [first, second] = initial.colors;
+      const result = reorderColors(initial, ['missing', second.id, first.id]);
+
+      expect(result.colors.map(c => c.name)).toEqual(['Secondary', 'Primary']);
+    });
+
+    it('appends colors absent from the id list in original order', () => {
+      const initial = createTestPalette(3);
+      const [first, second, third] = initial.colors;
+      // Only reference the last color; the rest must be appended, order preserved.
+      const result = reorderColors(initial, [third.id]);
+
+      expect(result.colors.map(c => c.name)).toEqual(['Tertiary', 'Primary', 'Secondary']);
+      expect(result.colors[1]).toBe(first);
+      expect(result.colors[2]).toBe(second);
+    });
+
+    it('never drops or duplicates colors', () => {
+      const initial = createTestPalette(3);
+      const ids = initial.colors.map(c => c.id);
+      const result = reorderColors(initial, [ids[1], ids[1], ids[0], ids[2]]);
+
+      expect(result.colors).toHaveLength(3);
+      expect(new Set(result.colors.map(c => c.id)).size).toBe(3);
     });
   });
 

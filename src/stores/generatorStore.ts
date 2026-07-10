@@ -6,6 +6,7 @@ import {
   clearColorOverrides as clearColorOverridesFn,
   createPalette,
   removeColor as removeColorFn,
+  reorderColors as reorderColorsFn,
   resetAdvancedOptions as resetAdvancedOptionsFn,
   resetGlobalOptions as resetGlobalOptionsFn,
   resetPalette as resetPaletteFn,
@@ -142,6 +143,20 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
 
       return nextActiveId;
     },
+
+    reorderColors: orderedIds =>
+      set(state => {
+        const next = reorderColorsFn(
+          { colors: state.colors, globalOptions: state.globalOptions },
+          orderedIds,
+        );
+
+        // No-op guard: reorderColorsFn is called with a fresh literal, so on a
+        // no-op it returns a new object with the same colors ref. Return the
+        // original state to keep the top-level reference stable and spare
+        // whole-state subscribers a re-render.
+        return next.colors === state.colors ? state : next;
+      }),
 
     resetAdvancedOptions: () =>
       set(state =>

@@ -3,6 +3,7 @@ import { memo } from 'react';
 import useGenerator from '~/hooks/useGenerator';
 
 import ColorPresets from '~/components/ColorPresets';
+import ReorderColors from '~/containers/ReorderColors';
 
 import ColorItem from './ColorItem';
 
@@ -27,6 +28,7 @@ function ColorList() {
           />
         ))}
       </div>
+      <ReorderColors />
     </div>
   );
 }

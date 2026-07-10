@@ -67,6 +67,7 @@ export interface GeneratorActions {
   addColor: (value: OklchString, name?: string) => string | null;
   clearColorOverrides: (index: number) => void;
   removeColor: (index: number) => string | null;
+  reorderColors: (orderedIds: string[]) => void;
   resetAdvancedOptions: () => void;
   resetGlobalOptions: () => void;
   resetPalette: () => void;
