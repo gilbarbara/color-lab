@@ -1,4 +1,5 @@
 import { type KeyboardEvent, type ReactNode, useId } from 'react';
+import { cn } from '@heroui/react';
 
 import Button from '~/components/Button';
 
@@ -8,11 +9,13 @@ interface ToggleGroupItem<T extends string> {
 }
 
 interface ToggleGroupProps<T extends string> {
+  className?: string;
   /** Optional node rendered between the label and the buttons (e.g. a tooltip). */
   info?: ReactNode;
   items: Array<ToggleGroupItem<T>>;
   label: string;
   onChange: (value: T) => void;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   value: T;
 }
 
@@ -21,7 +24,7 @@ interface ToggleGroupProps<T extends string> {
  * Keyboard nav uses a roving tabindex (single tab stop; arrows move selection + focus).
  */
 export default function ToggleGroup<T extends string>(props: ToggleGroupProps<T>) {
-  const { info, items, label, onChange, value } = props;
+  const { className, info, items, label, onChange, size = 'xs', value } = props;
 
   const labelId = useId();
 
@@ -54,7 +57,7 @@ export default function ToggleGroup<T extends string>(props: ToggleGroupProps<T>
   };
 
   return (
-    <div className="w-full flex items-center gap-2">
+    <div className={cn('w-full flex items-center gap-2', className)}>
       <span id={labelId}>{label}</span>
       {info}
       <div
@@ -71,7 +74,7 @@ export default function ToggleGroup<T extends string>(props: ToggleGroupProps<T>
             className="px-3 rounded-full"
             onPress={() => onChange(item.value)}
             role="radio"
-            size="xs"
+            size={size}
             tabIndex={value === item.value ? 0 : -1}
             variant={value === item.value ? 'solid' : 'light'}
           >
