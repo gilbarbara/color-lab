@@ -251,13 +251,14 @@ card (`color:preview`).
 
 Global UI + error boundary.
 
-| Event | Trigger | Props | Location |
-|---|---|---|---|
-| `app:theme` | Dark mode toggle | `{ value: 'dark' \| 'light' }` | `Header.tsx` |
-| `app:sidebar` | Toggle the color-list sidebar | `{ enabled }` | `Generator/Panel/index.tsx` |
-| `app:bottombar` | Toggle the mobile bottom bar | `{ enabled }` | `Generator/Panel/index.tsx` |
-| `app:gamut` | sRGB / P3 toggle | `{ value }` | `Palette/Header/GamutToggle.tsx` |
-| `app:error_action` | Error boundary reset / reload | `{ action }` | `ErrorFallback.tsx` |
+| Event | Trigger                                                     | Props | Location |
+|---|-------------------------------------------------------------|---|---|
+| `app:theme` | Dark mode toggle                                            | `{ value: 'dark' \| 'light' }` | `Header.tsx` |
+| `app:sidebar` | Toggle the color-list sidebar                               | `{ enabled }` | `Generator/Panel/index.tsx` |
+| `app:bottombar` | Toggle the mobile bottom bar                                | `{ enabled }` | `Generator/Panel/index.tsx` |
+| `app:gamut` | sRGB / P3 toggle                                            | `{ value }` | `Palette/Header/GamutToggle.tsx` |
+| `app:display` | Session start (display P3 capability, once per page load) ¡ | `{ p3_supported }` | `Analytics.tsx` |
+| `app:error_action` | Error boundary reset / reload                               | `{ action }` | `ErrorFallback.tsx` |
 
 ---
 
