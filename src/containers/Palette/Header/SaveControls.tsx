@@ -77,10 +77,9 @@ export default function SaveControls() {
   });
 
   return (
-    <>
+    <div className="ml-auto">
       <Button
         aria-label={paletteId ? 'Update palette' : 'Save palette'}
-        className="@max-2xl:button-menu-square"
         color={hasUnsavedChanges ? 'warning' : 'primary'}
         isDisabled={isSaving || (!!paletteId && !hasUnsavedChanges)}
         onPress={handleClickSave}
@@ -94,7 +93,7 @@ export default function SaveControls() {
         }
         variant="faded"
       >
-        <span className="hidden @2xl:inline">{paletteId ? 'Update' : 'Save'}</span>
+        <span>{paletteId ? 'Update' : 'Save'}</span>
       </Button>
       <SavePaletteModal
         defaultName={name !== DEFAULT_PALETTE_NAME ? name : ''}
@@ -106,6 +105,6 @@ export default function SaveControls() {
         }}
         onSave={handleSaveNewPalette}
       />
-    </>
+    </div>
   );
 }

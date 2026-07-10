@@ -11,7 +11,7 @@ export default function ShareButton() {
     <Tooltip content="Share Palette URL">
       <Button
         aria-label="Share"
-        className="hidden @3xl:inline-flex @max-4xl:button-menu-square"
+        className="@max-xl:button-menu-square"
         onPress={() => {
           trackEvent('palette:share');
           copyToClipboard(window.location.href, { title: 'Palette URL copied!' });
@@ -20,7 +20,7 @@ export default function ShareButton() {
         startContent={<ShareIcon className="text-xl" weight="bold" />}
         variant="light"
       >
-        <span className="hidden @4xl:inline">Share</span>
+        <span className="hidden @xl:inline">Share</span>
       </Button>
     </Tooltip>
   );

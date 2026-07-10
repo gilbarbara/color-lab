@@ -1,7 +1,7 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
 import { hasColor, hasParams, scrollPanelToTop } from './__setup__/utils';
-import { collapseDuration, collapsibleMenuDuration } from './fixtures/constants';
+import { collapseDuration } from './fixtures/constants';
 
 let screenshotCount = 0;
 
@@ -279,18 +279,8 @@ test('mobile', async () => {
     await expect(page).toHaveScreenshot(getScreenshotName('rename-palette.png'));
   });
 
-  await test.step('opens palette tools menu', async () => {
-    await page.getByRole('button', { name: 'More palette tools' }).click();
-    await page.waitForTimeout(collapsibleMenuDuration);
-
-    await expect(page).toHaveScreenshot(getScreenshotName('palette-tools-menu.png'));
-  });
-
   await test.step('opens palette options panel', async () => {
     await page.getByRole('button', { name: 'Palette Options' }).click();
-
-    await page.getByRole('button', { name: 'More palette tools' }).click();
-    await page.waitForTimeout(collapsibleMenuDuration);
 
     await expect(page).toHaveScreenshot(getScreenshotName('palette-options.png'));
   });
@@ -316,20 +306,13 @@ test('mobile', async () => {
 
     await expect(page.getByRole('button', { name: /^500 lock/i })).toBeVisible();
 
-    await page.getByRole('button', { name: 'More palette tools' }).click();
-
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
     await expect(page).toHaveScreenshot(getScreenshotName('post-palette-options.png'));
-
-    await page.getByRole('button', { name: 'More palette tools' }).click();
   });
 
   await test.step('opens color charts', async () => {
-    await page.getByRole('button', { name: 'More scale tools' }).first().click();
-    await page.waitForTimeout(collapsibleMenuDuration);
-
-    await page.getByRole('button', { name: 'View Charts' }).click();
+    await page.getByRole('button', { name: 'View Charts' }).first().click();
     await page.waitForTimeout(collapseDuration);
 
     await page.getByRole('tab', { name: 'Chroma' }).click();
@@ -346,9 +329,6 @@ test('mobile', async () => {
   });
 
   await test.step('opens color info', async () => {
-    await page.getByRole('button', { name: 'More scale tools' }).first().click();
-    await page.waitForTimeout(collapsibleMenuDuration);
-
     await page.getByRole('button', { name: 'View color info' }).first().click();
 
     await expect(page.getByRole('columnheader', { name: 'APCA LC' })).toBeVisible();
