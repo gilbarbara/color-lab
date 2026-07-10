@@ -4,7 +4,7 @@ import { DEFAULT_COLOR_NAMES } from '~/config/globals';
 import { toOklch } from '~/utils/color';
 import { createPalette } from '~/utils/generator';
 
-import type { ColorEntry, GeneratorState, ScaleSteps } from '~/types';
+import type { ColorEntry, GeneratorState, OklchString, ScaleSteps } from '~/types';
 
 // Storage invariant: ColorEntry.value is always an OKLCH CSS string.
 // These constants are the literal formatCSS(parseCSS(<hex>, 'oklch'), { format: 'oklch' })
@@ -50,10 +50,17 @@ export function createColorEntry(
   };
 }
 
-export function createTestPalette(colorCount: number = 1): GeneratorState {
+export function createTestPalette(colors: number | string[] = 1): GeneratorState {
+  if (Array.isArray(colors)) {
+    return {
+      ...createPalette(colors[0] as OklchString),
+      colors: colors.map((color, index) => createColorEntry(`Color ${index + 1}`, color)),
+    };
+  }
+
   return {
     ...createPalette(PALETTE[0]),
-    colors: Array.from({ length: colorCount }, (_, index) =>
+    colors: Array.from({ length: colors }, (_, index) =>
       createColorEntry(DEFAULT_COLOR_NAMES[index] || `Color ${index + 1}`, PALETTE[index]),
     ),
   };

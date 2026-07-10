@@ -8,6 +8,7 @@ import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 import { generateExport, generatePaletteExport } from '~/utils/export';
+import { getEffectiveOptions } from '~/utils/generator';
 
 import Button from '~/components/Button';
 import CheckboxToggle from '~/components/CheckboxToggle';
@@ -87,7 +88,7 @@ export default function ExportPalette() {
     return colors.map(color => ({
       name: color.name,
       mainColor: color.value,
-      steps: scale(color.value, { ...globalOptions, ...color.overrides }),
+      steps: scale(color.value, getEffectiveOptions(color, globalOptions)),
     }));
   }, [colors, globalOptions]);
 

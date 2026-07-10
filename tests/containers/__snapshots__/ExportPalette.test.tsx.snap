@@ -1,79 +1,733 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`ExportPalette > Render > renders correctly 1`] = `
-<div>
-  <div
-    data-overlay-container="true"
-  >
-    <button
-      aria-label="Export All"
-      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium @max-xl:button-menu-square"
-      data-react-aria-pressable="true"
-      tabindex="0"
-      type="button"
+<body>
+  <div>
+    <div
+      data-overlay-container="true"
     >
-      <svg
-        aria-hidden="true"
-        class="text-xl shrink-0"
-        fill="currentColor"
-        focusable="false"
-        height="1em"
-        viewBox="0 0 256 256"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
+      <button
+        aria-label="Export All"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium @max-xl:button-menu-square"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
       >
-        <path
-          d="M220,112v96a20,20,0,0,1-20,20H56a20,20,0,0,1-20-20V112A20,20,0,0,1,56,92H76a12,12,0,0,1,0,24H60v88H196V116H180a12,12,0,0,1,0-24h20A20,20,0,0,1,220,112ZM96.49,72.49,116,53v83a12,12,0,0,0,24,0V53l19.51,19.52a12,12,0,1,0,17-17l-40-40a12,12,0,0,0-17,0l-40,40a12,12,0,1,0,17,17Z"
-        />
-      </svg>
-      <span
-        class="hidden @xl:inline-flex"
-      >
-        Export All
-      </span>
-    </button>
+        <svg
+          aria-hidden="true"
+          class="text-xl shrink-0"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M220,112v96a20,20,0,0,1-20,20H56a20,20,0,0,1-20-20V112A20,20,0,0,1,56,92H76a12,12,0,0,1,0,24H60v88H196V116H180a12,12,0,0,1,0-24h20A20,20,0,0,1,220,112ZM96.49,72.49,116,53v83a12,12,0,0,0,24,0V53l19.51,19.52a12,12,0,1,0,17-17l-40-40a12,12,0,0,0-17,0l-40,40a12,12,0,1,0,17,17Z"
+          />
+        </svg>
+        <span
+          class="hidden @xl:inline-flex"
+        >
+          Export All
+        </span>
+      </button>
+    </div>
   </div>
-</div>
+</body>
 `;
 
 exports[`ExportPalette > Render > renders modal correctly when open 1`] = `
-<div
-  aria-hidden="true"
->
+<body>
   <div
-    data-overlay-container="true"
+    aria-hidden="true"
   >
-    <button
-      aria-label="Export All"
-      class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium @max-xl:button-menu-square"
-      data-react-aria-pressable="true"
-      tabindex="0"
-      type="button"
+    <div
+      data-overlay-container="true"
     >
-      <svg
-        aria-hidden="true"
-        class="text-xl shrink-0"
-        fill="currentColor"
-        focusable="false"
-        height="1em"
-        viewBox="0 0 256 256"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
+      <button
+        aria-label="Export All"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium @max-xl:button-menu-square"
+        data-react-aria-pressable="true"
+        tabindex="0"
+        type="button"
       >
-        <path
-          d="M220,112v96a20,20,0,0,1-20,20H56a20,20,0,0,1-20-20V112A20,20,0,0,1,56,92H76a12,12,0,0,1,0,24H60v88H196V116H180a12,12,0,0,1,0-24h20A20,20,0,0,1,220,112ZM96.49,72.49,116,53v83a12,12,0,0,0,24,0V53l19.51,19.52a12,12,0,1,0,17-17l-40-40a12,12,0,0,0-17,0l-40,40a12,12,0,1,0,17,17Z"
+        <svg
+          aria-hidden="true"
+          class="text-xl shrink-0"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M220,112v96a20,20,0,0,1-20,20H56a20,20,0,0,1-20-20V112A20,20,0,0,1,56,92H76a12,12,0,0,1,0,24H60v88H196V116H180a12,12,0,0,1,0-24h20A20,20,0,0,1,220,112ZM96.49,72.49,116,53v83a12,12,0,0,0,24,0V53l19.51,19.52a12,12,0,1,0,17-17l-40-40a12,12,0,0,0-17,0l-40,40a12,12,0,1,0,17,17Z"
+          />
+        </svg>
+        <span
+          class="hidden @xl:inline-flex"
+        >
+          Export All
+        </span>
+        <span
+          class="heroui-ripple"
+          style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
         />
-      </svg>
-      <span
-        class="hidden @xl:inline-flex"
-      >
-        Export All
-      </span>
-      <span
-        class="heroui-ripple"
-        style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
-      />
-    </button>
+      </button>
+    </div>
   </div>
-</div>
+  <span
+    aria-hidden="true"
+    data-focus-scope-start="true"
+    hidden=""
+  />
+  <div
+    tabindex="-1"
+  >
+    <div
+      aria-hidden="true"
+      class="z-50 backdrop-blur-md backdrop-saturate-150 bg-overlay/30 w-screen h-screen fixed inset-0"
+      style="opacity: 0;"
+    />
+    <div
+      class="flex w-screen fixed inset-0 z-50 overflow-x-auto justify-center h-(--visual-viewport-height) items-end sm:items-center [--scale-enter:100%] [--scale-exit:100%] [--slide-enter:0px] [--slide-exit:80px] sm:[--scale-enter:100%] sm:[--scale-exit:103%] sm:[--slide-enter:0px] sm:[--slide-exit:0px]"
+      data-slot="wrapper"
+      style="--visual-viewport-height: 768px; transform: translateX(100%);"
+    >
+      <section
+        aria-describedby="_r_8_"
+        aria-labelledby="_r_7_"
+        aria-modal="true"
+        class="flex flex-col z-50 w-full box-border bg-content1 outline-solid outline-transparent rounded-large shadow-small absolute m-0 sm:m-0 overflow-y-auto max-w-lg inset-y-0 right-0 max-h-[none] rounded-r-none"
+        data-dismissable="true"
+        data-open="true"
+        data-placement="right"
+        id="_r_6_"
+        role="dialog"
+        tabindex="-1"
+      >
+        <div
+          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        >
+          <button
+            aria-label="Dismiss"
+            id="react-aria-_r_c_"
+            style="width: 1px; height: 1px;"
+            tabindex="-1"
+          />
+        </div>
+        <button
+          aria-label="Close"
+          class="absolute appearance-none select-none top-1 end-1 p-2 text-foreground-500 rounded-full hover:bg-default-100 active:bg-default-200 tap-highlight-transparent outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2"
+          data-react-aria-pressable="true"
+          role="button"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="fill-current"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="presentation"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              d="M18 6L6 18M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <header
+          class="flex py-4 px-6 flex-initial font-semibold text-lg/3"
+          id="_r_7_"
+        >
+          Export All
+        </header>
+        <hr
+          class="shrink-0 bg-divider border-none w-full h-divider"
+          role="separator"
+        />
+        <div
+          class="flex shrink-0 flex-col gap-3 px-4 py-3"
+        >
+          <div
+            aria-label="Format type"
+            class="inline-flex w-full"
+            data-slot="base"
+          >
+            <div
+              aria-label="Format type"
+              aria-orientation="horizontal"
+              class="relative flex p-1 h-fit gap-2 items-center flex-nowrap overflow-x-scroll scrollbar-hide bg-default-100 rounded-medium w-full"
+              data-collection="react-aria-_r_d_"
+              data-slot="tabList"
+              id="react-aria-_r_e_"
+              role="tablist"
+            >
+              <span
+                class="absolute z-0 will-change-[transform,width,height] invisible data-[initialized=true]:visible data-[animated=true]:transition-[left,top,width,height] data-[animated=true]:duration-250 data-[animated=true]:ease-out rounded-small bg-primary text-primary-foreground"
+                data-slot="cursor"
+              />
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_d_"
+                data-key="tailwind4"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_e_-tab-tailwind4"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  Tailwind 4
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_d_"
+                data-key="tailwind3"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_e_-tab-tailwind3"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  Tailwind 3
+                </div>
+              </button>
+              <button
+                aria-selected="true"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_d_"
+                data-key="css"
+                data-react-aria-pressable="true"
+                data-selected="true"
+                data-slot="tab"
+                id="react-aria-_r_e_-tab-css"
+                role="tab"
+                tabindex="0"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  CSS
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_d_"
+                data-key="scss"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_e_-tab-scss"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  SCSS
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-8 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_d_"
+                data-key="svg"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_e_-tab-svg"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  SVG / Figma
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            aria-label="Color format"
+            class="inline-flex w-full"
+            data-slot="base"
+          >
+            <div
+              aria-label="Color format"
+              aria-orientation="horizontal"
+              class="relative flex p-1 h-fit gap-2 items-center flex-nowrap overflow-x-scroll scrollbar-hide bg-default-100 rounded-medium w-full"
+              data-collection="react-aria-_r_q_"
+              data-slot="tabList"
+              id="react-aria-_r_r_"
+              role="tablist"
+            >
+              <span
+                class="absolute z-0 will-change-[transform,width,height] invisible data-[initialized=true]:visible data-[animated=true]:transition-[left,top,width,height] data-[animated=true]:duration-250 data-[animated=true]:ease-out rounded-small bg-primary text-primary-foreground"
+                data-slot="cursor"
+              />
+              <button
+                aria-selected="true"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_q_"
+                data-key="oklch"
+                data-react-aria-pressable="true"
+                data-selected="true"
+                data-slot="tab"
+                id="react-aria-_r_r_-tab-oklch"
+                role="tab"
+                tabindex="0"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  OKLCH
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_q_"
+                data-key="hex"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_r_-tab-hex"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  Hex
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_q_"
+                data-key="hsl"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_r_-tab-hsl"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  HSL
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_q_"
+                data-key="rgb"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_r_-tab-rgb"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  RGB
+                </div>
+              </button>
+              <button
+                aria-selected="false"
+                class="z-0 w-full py-1 flex group relative justify-center items-center cursor-pointer transition-opacity tap-highlight-transparent data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-30 data-[hover-unselected=true]:opacity-disabled outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 h-7 rounded-small px-2 text-sm"
+                data-collection="react-aria-_r_q_"
+                data-key="rgb-channels"
+                data-react-aria-pressable="true"
+                data-slot="tab"
+                id="react-aria-_r_r_-tab-rgb-channels"
+                role="tab"
+                tabindex="-1"
+                type="button"
+              >
+                <div
+                  class="relative z-10 whitespace-nowrap transition-colors text-default-500 group-data-[selected=true]:text-primary-foreground"
+                  data-slot="tabContent"
+                >
+                  RGB channels
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shrink-0 border-t border-default-200 px-4 py-2"
+        >
+          <div
+            class="flex items-center justify-between"
+          >
+            <div
+              class="flex items-center gap-2"
+            >
+              <button
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 text-tiny gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover"
+                data-react-aria-pressable="true"
+                tabindex="0"
+                type="button"
+              >
+                Select All
+              </button>
+              <button
+                class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 text-tiny gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover"
+                data-react-aria-pressable="true"
+                tabindex="0"
+                type="button"
+              >
+                Select None
+              </button>
+            </div>
+            <span
+              class="text-sm text-foreground-500"
+            >
+              3
+               of 
+              3
+               selected
+            </span>
+          </div>
+        </div>
+        <div
+          class="flex flex-col gap-3 min-h-0 flex-1 overflow-auto p-4 border-t border-default"
+          id="_r_8_"
+        >
+          <div
+            class="flex flex-col gap-4"
+          >
+            <div
+              class="flex flex-wrap gap-2"
+            >
+              <div
+                class="flex items-center gap-1"
+              >
+                <label
+                  class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none"
+                  data-selected="true"
+                >
+                  <div
+                    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                  >
+                    <input
+                      aria-label="Color 1"
+                      aria-labelledby="_r_17_"
+                      checked=""
+                      class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      title=""
+                      type="checkbox"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="max-w-fit min-w-min inline-flex items-center justify-between box-border whitespace-nowrap h-7 rounded-full bg-default px-2 relative text-foreground select-none text-medium transition-colors-opacity before:transition-width motion-reduce:transition-none"
+                    id="_r_17_"
+                    style="background-color: oklch(0.702 0.236 30); color: rgb(255, 255, 255);"
+                  >
+                    <svg
+                      class="max-h-[80%]"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex-1 text-inherit px-2 pl-1 pr-1 font-medium text-small"
+                    >
+                      Color 1
+                    </span>
+                    <button
+                      aria-label="Copy Color 1"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        style="color: rgb(255, 255, 255);"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </label>
+              </div>
+              <div
+                class="flex items-center gap-1"
+              >
+                <label
+                  class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none"
+                  data-selected="true"
+                >
+                  <div
+                    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                  >
+                    <input
+                      aria-label="Color 2"
+                      aria-labelledby="_r_1b_"
+                      checked=""
+                      class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      title=""
+                      type="checkbox"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="max-w-fit min-w-min inline-flex items-center justify-between box-border whitespace-nowrap h-7 rounded-full bg-default px-2 relative text-foreground select-none text-medium transition-colors-opacity before:transition-width motion-reduce:transition-none"
+                    id="_r_1b_"
+                    style="background-color: oklch(0.702 0.168 180); color: rgb(0, 0, 0);"
+                  >
+                    <svg
+                      class="max-h-[80%]"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex-1 text-inherit px-2 pl-1 pr-1 font-medium text-small"
+                    >
+                      Color 2
+                    </span>
+                    <button
+                      aria-label="Copy Color 2"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        style="color: rgb(0, 0, 0);"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </label>
+              </div>
+              <div
+                class="flex items-center gap-1"
+              >
+                <label
+                  class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none"
+                  data-selected="true"
+                >
+                  <div
+                    style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                  >
+                    <input
+                      aria-label="Color 3"
+                      aria-labelledby="_r_1f_"
+                      checked=""
+                      class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+                      data-react-aria-pressable="true"
+                      tabindex="0"
+                      title=""
+                      type="checkbox"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="max-w-fit min-w-min inline-flex items-center justify-between box-border whitespace-nowrap h-7 rounded-full bg-default px-2 relative text-foreground select-none text-medium transition-colors-opacity before:transition-width motion-reduce:transition-none"
+                    id="_r_1f_"
+                    style="background-color: oklch(0.5999 0 none); color: rgb(255, 255, 255);"
+                  >
+                    <svg
+                      class="max-h-[80%]"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex-1 text-inherit px-2 pl-1 pr-1 font-medium text-small"
+                    >
+                      Color 3
+                    </span>
+                    <button
+                      aria-label="Copy Color 3"
+                      class="inline-flex items-center gap-1"
+                      type="button"
+                    >
+                      <svg
+                        class="text-base"
+                        fill="currentColor"
+                        height="1em"
+                        style="color: rgb(255, 255, 255);"
+                        viewBox="0 0 256 256"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <pre
+              class="overflow-auto rounded-lg bg-surface-alt p-4 font-mono text-sm"
+            >
+              <code>
+                /* Color 1 */
+--color-color-1-50: oklch(97% 0.015 30);
+--color-color-1-100: oklch(92.97% 0.039 30);
+--color-color-1-200: oklch(88.92% 0.066 30);
+--color-color-1-300: oklch(84.8% 0.098 30);
+--color-color-1-400: oklch(80.53% 0.135 30);
+--color-color-1-500: oklch(76.04% 0.180 30);
+--color-color-1-600: oklch(71.26% 0.215 30);
+--color-color-1-700: oklch(66.13% 0.253 30);
+--color-color-1-800: oklch(60.58% 0.229 30);
+--color-color-1-900: oklch(54.56% 0.195 30);
+--color-color-1-950: oklch(48% 0.161 30);
+
+/* Color 2 */
+--color-color-2-50: oklch(97% 0.038 180);
+--color-color-2-100: oklch(92.97% 0.099 180);
+--color-color-2-200: oklch(88.92% 0.174 180);
+--color-color-2-300: oklch(84.8% 0.189 180);
+--color-color-2-400: oklch(80.53% 0.186 180);
+--color-color-2-500: oklch(76.04% 0.182 180);
+--color-color-2-600: oklch(71.26% 0.163 180);
+--color-color-2-700: oklch(66.13% 0.144 180);
+--color-color-2-800: oklch(60.58% 0.125 180);
+--color-color-2-900: oklch(54.56% 0.107 180);
+--color-color-2-950: oklch(48% 0.089 180);
+
+/* Color 3 */
+--color-color-3-50: oklch(97% 0.017 0);
+--color-color-3-100: oklch(92.97% 0.032 0);
+--color-color-3-200: oklch(88.92% 0.040 0);
+--color-color-3-300: oklch(84.8% 0.038 0);
+--color-color-3-400: oklch(80.53% 0.025 0);
+--color-color-3-500: oklch(76.04% 0 none);
+--color-color-3-600: oklch(71.26% 0.038 0);
+--color-color-3-700: oklch(66.13% 0.091 0);
+--color-color-3-800: oklch(60.58% 0.124 0);
+--color-color-3-900: oklch(54.56% 0.149 0);
+--color-color-3-950: oklch(48% 0.164 0);
+              </code>
+            </pre>
+          </div>
+        </div>
+        <footer
+          class="flex flex-row gap-2 px-6 py-4 justify-end shrink-0"
+        >
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-4 min-w-20 h-10 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover w-full"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="text-lg"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+              />
+            </svg>
+            Copy All (
+            3
+            )
+          </button>
+        </footer>
+        <div
+          style="border: 0px; clip: rect(0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+        >
+          <button
+            aria-label="Dismiss"
+            id="react-aria-_r_1j_"
+            style="width: 1px; height: 1px;"
+            tabindex="-1"
+          />
+        </div>
+      </section>
+    </div>
+  </div>
+  <span
+    aria-hidden="true"
+    data-focus-scope-end="true"
+    hidden=""
+  />
+</body>
 `;

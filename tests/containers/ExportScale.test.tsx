@@ -25,7 +25,7 @@ describe('ExportScale', () => {
     });
 
     it('renders modal correctly when open', async () => {
-      const { container } = render(<ExportScale {...defaultProps} />);
+      const { baseElement } = render(<ExportScale {...defaultProps} />);
 
       fireEvent.click(screen.getByRole('button', { name: /export/i }));
 
@@ -33,7 +33,7 @@ describe('ExportScale', () => {
         expect(screen.getByRole('dialog')).toBeInTheDocument();
       });
 
-      expect(container).toMatchSnapshot();
+      expect(baseElement).toMatchSnapshot();
     });
   });
 
