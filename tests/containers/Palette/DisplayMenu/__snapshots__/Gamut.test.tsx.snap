@@ -1,0 +1,118 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Gamut > Render > renders default state 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="flex flex-col gap-2 mt-4"
+    >
+      <div
+        aria-label="Color gamut options"
+        aria-orientation="vertical"
+        class="relative flex flex-col gap-2 w-full"
+        id="react-aria-_r_0_"
+        role="radiogroup"
+      >
+        <span
+          class="relative text-foreground"
+        >
+          Color gamut options
+        </span>
+        <div
+          class="flex flex-col flex-wrap gap-2 data-[orientation=horizontal]:flex-row"
+          data-orientation="vertical"
+          role="presentation"
+        >
+          <label
+            class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none gap-1"
+            data-selected="true"
+          >
+            <input
+              aria-describedby="_r_7_ react-aria-_r_3_"
+              aria-labelledby="_r_6_"
+              checked=""
+              class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+              data-react-aria-pressable="true"
+              name="react-aria-_r_5_"
+              tabindex="0"
+              title=""
+              type="radio"
+              value="p3"
+            />
+            <span
+              aria-hidden="true"
+              class="relative inline-flex items-center justify-center shrink-0 overflow-hidden border-solid border-medium box-border border-default rounded-full group-data-[hover-unselected=true]:bg-default-100 outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:border-primary w-4 h-4 group-data-[pressed=true]:scale-95 transition-transform-colors motion-reduce:transition-none"
+            >
+              <span
+                class="z-10 opacity-0 scale-0 origin-center rounded-full group-data-[selected=true]:opacity-100 group-data-[selected=true]:scale-100 bg-primary text-primary-foreground w-1.5 h-1.5 transition-transform-opacity motion-reduce:transition-none"
+              />
+            </span>
+            <div
+              class="flex flex-col ml-1"
+            >
+              <span
+                class="relative text-foreground select-none text-small transition-colors motion-reduce:transition-none"
+                id="_r_6_"
+              >
+                P3
+              </span>
+              <span
+                class="relative text-foreground-400 text-tiny transition-colors motion-reduce:transition-none"
+                id="_r_7_"
+              >
+                Wide gamut. Vivid colors.
+              </span>
+            </div>
+          </label>
+          <label
+            class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none gap-1"
+          >
+            <input
+              aria-describedby="_r_9_ react-aria-_r_3_"
+              aria-labelledby="_r_8_"
+              class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+              data-react-aria-pressable="true"
+              name="react-aria-_r_5_"
+              tabindex="-1"
+              title=""
+              type="radio"
+              value="srgb"
+            />
+            <span
+              aria-hidden="true"
+              class="relative inline-flex items-center justify-center shrink-0 overflow-hidden border-solid border-medium box-border border-default rounded-full group-data-[hover-unselected=true]:bg-default-100 outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:border-primary w-4 h-4 group-data-[pressed=true]:scale-95 transition-transform-colors motion-reduce:transition-none"
+            >
+              <span
+                class="z-10 opacity-0 scale-0 origin-center rounded-full group-data-[selected=true]:opacity-100 group-data-[selected=true]:scale-100 bg-primary text-primary-foreground w-1.5 h-1.5 transition-transform-opacity motion-reduce:transition-none"
+              />
+            </span>
+            <div
+              class="flex flex-col ml-1"
+            >
+              <span
+                class="relative text-foreground select-none text-small transition-colors motion-reduce:transition-none"
+                id="_r_8_"
+              >
+                SRGB
+              </span>
+              <span
+                class="relative text-foreground-400 text-tiny transition-colors motion-reduce:transition-none"
+                id="_r_9_"
+              >
+                Standard gamut. Universal compatibility.
+              </span>
+            </div>
+          </label>
+        </div>
+      </div>
+      <span
+        class="hidden p3-unsupported:block text-xs text-foreground-500"
+      >
+        We couldn’t verify P3 support on your display.
+      </span>
+    </div>
+  </div>
+</div>
+`;

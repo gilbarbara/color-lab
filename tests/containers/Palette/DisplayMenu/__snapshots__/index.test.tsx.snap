@@ -1,0 +1,206 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DisplayMenu > Render > renders the popover 1`] = `
+<div
+  class="w-64 text-md"
+  data-testid="DisplayMenu"
+>
+  <div
+    class="w-full flex gap-2 flex-col items-start"
+  >
+    <span
+      id="_r_c_"
+    >
+      View
+    </span>
+    <div
+      aria-labelledby="_r_c_"
+      class="flex items-center gap-1 bg-default-100 rounded-full"
+      role="radiogroup"
+      tabindex="-1"
+    >
+      <button
+        aria-checked="true"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover px-3 rounded-full"
+        data-react-aria-pressable="true"
+        role="radio"
+        tabindex="0"
+        type="button"
+      >
+        List
+      </button>
+      <button
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-3 rounded-full"
+        data-react-aria-pressable="true"
+        role="radio"
+        tabindex="-1"
+        type="button"
+      >
+        Grid
+      </button>
+      <button
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 h-8 text-tiny gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-3 rounded-full"
+        data-react-aria-pressable="true"
+        role="radio"
+        tabindex="-1"
+        type="button"
+      >
+        Preview
+      </button>
+    </div>
+  </div>
+  <div
+    class="flex flex-col gap-2 mt-4"
+  >
+    <div
+      aria-label="Color gamut options"
+      aria-orientation="vertical"
+      class="relative flex flex-col gap-2 w-full"
+      id="react-aria-_r_d_"
+      role="radiogroup"
+    >
+      <span
+        class="relative text-foreground"
+      >
+        Color gamut options
+      </span>
+      <div
+        class="flex flex-col flex-wrap gap-2 data-[orientation=horizontal]:flex-row"
+        data-orientation="vertical"
+        role="presentation"
+      >
+        <label
+          class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none gap-1"
+          data-selected="true"
+        >
+          <input
+            aria-describedby="_r_k_ react-aria-_r_g_"
+            aria-labelledby="_r_j_"
+            checked=""
+            class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+            data-react-aria-pressable="true"
+            name="react-aria-_r_i_"
+            tabindex="0"
+            title=""
+            type="radio"
+            value="p3"
+          />
+          <span
+            aria-hidden="true"
+            class="relative inline-flex items-center justify-center shrink-0 overflow-hidden border-solid border-medium box-border border-default rounded-full group-data-[hover-unselected=true]:bg-default-100 outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:border-primary w-4 h-4 group-data-[pressed=true]:scale-95 transition-transform-colors motion-reduce:transition-none"
+          >
+            <span
+              class="z-10 opacity-0 scale-0 origin-center rounded-full group-data-[selected=true]:opacity-100 group-data-[selected=true]:scale-100 bg-primary text-primary-foreground w-1.5 h-1.5 transition-transform-opacity motion-reduce:transition-none"
+            />
+          </span>
+          <div
+            class="flex flex-col ml-1"
+          >
+            <span
+              class="relative text-foreground select-none text-small transition-colors motion-reduce:transition-none"
+              id="_r_j_"
+            >
+              P3
+            </span>
+            <span
+              class="relative text-foreground-400 text-tiny transition-colors motion-reduce:transition-none"
+              id="_r_k_"
+            >
+              Wide gamut. Vivid colors.
+            </span>
+          </div>
+        </label>
+        <label
+          class="group relative max-w-fit inline-flex items-center justify-start cursor-pointer tap-highlight-transparent p-2 -m-2 select-none gap-1"
+        >
+          <input
+            aria-describedby="_r_m_ react-aria-_r_g_"
+            aria-labelledby="_r_l_"
+            class="font-inherit text-[100%] leading-[1.15] m-0 p-0 overflow-visible box-border absolute top-0 w-full h-full opacity-[0.0001] z-[1] cursor-pointer disabled:cursor-default"
+            data-react-aria-pressable="true"
+            name="react-aria-_r_i_"
+            tabindex="-1"
+            title=""
+            type="radio"
+            value="srgb"
+          />
+          <span
+            aria-hidden="true"
+            class="relative inline-flex items-center justify-center shrink-0 overflow-hidden border-solid border-medium box-border border-default rounded-full group-data-[hover-unselected=true]:bg-default-100 outline-solid outline-transparent group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background group-data-[selected=true]:border-primary w-4 h-4 group-data-[pressed=true]:scale-95 transition-transform-colors motion-reduce:transition-none"
+          >
+            <span
+              class="z-10 opacity-0 scale-0 origin-center rounded-full group-data-[selected=true]:opacity-100 group-data-[selected=true]:scale-100 bg-primary text-primary-foreground w-1.5 h-1.5 transition-transform-opacity motion-reduce:transition-none"
+            />
+          </span>
+          <div
+            class="flex flex-col ml-1"
+          >
+            <span
+              class="relative text-foreground select-none text-small transition-colors motion-reduce:transition-none"
+              id="_r_l_"
+            >
+              SRGB
+            </span>
+            <span
+              class="relative text-foreground-400 text-tiny transition-colors motion-reduce:transition-none"
+              id="_r_m_"
+            >
+              Standard gamut. Universal compatibility.
+            </span>
+          </div>
+        </label>
+      </div>
+    </div>
+    <span
+      class="hidden p3-unsupported:block text-xs text-foreground-500"
+    >
+      We couldn’t verify P3 support on your display.
+    </span>
+  </div>
+</div>
+`;
+
+exports[`DisplayMenu > Render > renders the trigger 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <div
+      class="max-w-fit"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        aria-label="Display Options"
+        class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased @max-4xl:button-menu-square"
+        data-react-aria-pressable="true"
+        data-slot="trigger"
+        tabindex="0"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="text-xl"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M208,36H48A28,28,0,0,0,20,64V176a28,28,0,0,0,28,28H208a28,28,0,0,0,28-28V64A28,28,0,0,0,208,36Zm4,140a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V64a4,4,0,0,1,4-4H208a4,4,0,0,1,4,4Zm-40,52a12,12,0,0,1-12,12H96a12,12,0,0,1,0-24h64A12,12,0,0,1,172,228Z"
+          />
+        </svg>
+        <span
+          class="hidden @4xl:inline"
+        >
+          Display
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

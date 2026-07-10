@@ -97,7 +97,7 @@ saved-record operations (save, rename, delete, favorite).
 | `palette:export` | Open the Export All drawer | — | `ExportPalette.tsx` |
 | `palette:export_copy` | Copy All in the palette drawer | `{ format, color_format, count }` | `ExportPalette.tsx` |
 | `palette:color_spacing` | Change color spacing | `{ value }` | `Generator/Panel/AddColor.tsx` |
-| `palette:view` | Switch palette view (List/Grid/Preview) | `{ value }` | `Palette/Options/View.tsx` |
+| `palette:view` | Switch palette view (List/Grid/Preview) | `{ value }` | `Palette/DisplayMenu/View.tsx` |
 
 ## color
 
@@ -252,14 +252,15 @@ card (`color:preview`).
 
 Global UI + error boundary.
 
-| Event | Trigger                                                     | Props | Location |
-|---|-------------------------------------------------------------|---|---|
-| `app:theme` | Dark mode toggle                                            | `{ value: 'dark' \| 'light' }` | `Header.tsx` |
-| `app:sidebar` | Toggle the color-list sidebar                               | `{ enabled }` | `Generator/Panel/index.tsx` |
-| `app:bottombar` | Toggle the mobile bottom bar                                | `{ enabled }` | `Generator/Panel/index.tsx` |
-| `app:gamut` | sRGB / P3 toggle                                            | `{ value }` | `Palette/Header/GamutToggle.tsx` |
-| `app:display` | Session start (display P3 capability, once per page load) ¡ | `{ p3_supported }` | `Analytics.tsx` |
-| `app:error_action` | Error boundary reset / reload                               | `{ action }` | `ErrorFallback.tsx` |
+| Event | Trigger                                                     | Props | Location                        |
+|---|-------------------------------------------------------------|---|---------------------------------|
+| `app:theme` | Dark mode toggle                                            | `{ value: 'dark' \| 'light' }` | `Header.tsx`                    |
+| `app:sidebar` | Toggle the color-list sidebar                               | `{ enabled }` | `Generator/Panel/index.tsx`     |
+| `app:bottombar` | Toggle the mobile bottom bar                                | `{ enabled }` | `Generator/Panel/index.tsx`     |
+| `app:display_menu` | Open the display menu (view & gamut)                        | — | `Palette/DisplayMenu/index.tsx` |
+| `app:gamut` | sRGB / P3 toggle                                            | `{ value }` | `Palette/DisplayMenu/Gamut.tsx` |
+| `app:display` | Session start (display P3 capability, once per page load) ¡ | `{ p3_supported }` | `Analytics.tsx`                 |
+| `app:error_action` | Error boundary reset / reload                               | `{ action }` | `ErrorFallback.tsx`             |
 
 ---
 
