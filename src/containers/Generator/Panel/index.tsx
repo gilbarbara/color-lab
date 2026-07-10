@@ -20,10 +20,10 @@ import AppIntro from '~/components/AppIntro';
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
 import ColorList from '~/containers/ColorList';
-import PanelAddColor from '~/containers/Generator/Panel/AddColor';
 
 import AdvancedOptions from '../AdvancedOptions';
 
+import AddColor from './AddColor';
 import BottomBar from './BottomBar';
 
 /**
@@ -223,7 +223,7 @@ export default function Panel() {
         <AdvancedOptions />
         <ColorList />
         <Divider />
-        <PanelAddColor />
+        <AddColor />
       </div>
     </aside>
   );

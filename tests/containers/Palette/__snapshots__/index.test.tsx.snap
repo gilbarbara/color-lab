@@ -32,7 +32,7 @@ exports[`Palette > renders the grid view 1`] = `
       </div>
     </div>
     <div
-      class="w-full grid grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 px-4 gap-8"
+      class="w-full grid grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 gap-8"
       data-testid="PaletteGrid"
     >
       <button
