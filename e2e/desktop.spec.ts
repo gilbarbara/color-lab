@@ -768,10 +768,80 @@ test('desktop', async () => {
     await expect(page.getByLabel('closeButton')).toHaveCount(0);
   });
 
-  await test.step('removes the third color with confirmation', async () => {
+  await test.step('reorders colors to Tertiary first and Primary last', async () => {
+    const reorderButton = page.getByRole('button', { name: 'Reorder colors' });
+
+    await reorderButton.scrollIntoViewIfNeeded();
+    await reorderButton.click();
+
+    const panel = page.getByTestId('ReorderColors');
+    const rows = panel.getByRole('listitem');
+
+    await expect(rows).toHaveCount(3);
+
+    await expect(page).toHaveScreenshot(getScreenshotName('reorder-menu.png'));
+
+    // framer-motion Reorder needs a real pointer gesture: press, a small nudge to start
+    // the drag, then a stepped move to the destination edge. Two drags turn
+    // [Primary, Secondary, Tertiary] into [Tertiary, Secondary, Primary]: Tertiary up to
+    // the top, then Primary down to the bottom.
+    async function dragRow(name: string, edge: 'top' | 'bottom') {
+      const box = await rows.filter({ hasText: name }).boundingBox();
+      const first = await rows.first().boundingBox();
+      const last = await rows.last().boundingBox();
+
+      if (!box || !first || !last) {
+        throw new Error(`Reorder row "${name}" is not measurable`);
+      }
+
+      const centerX = box.x + box.width / 2;
+      const centerY = box.y + box.height / 2;
+      const targetY = edge === 'top' ? first.y - 6 : last.y + last.height + 6;
+
+      await page.mouse.move(centerX, centerY);
+      await page.mouse.down();
+      await page.mouse.move(centerX, centerY + Math.sign(targetY - centerY) * 6, { steps: 3 });
+      await page.mouse.move(centerX, targetY, { steps: 24 });
+      await page.mouse.up();
+    }
+
+    await dragRow('Tertiary', 'top');
+    await expect(page.locator('input[name="color-name-0"]')).toHaveValue('Tertiary');
+
+    // Let the layout animation settle before measuring rows for the second drag.
+    await page.waitForTimeout(collapseDuration);
+
+    await dragRow('Primary', 'bottom');
+
+    // Commit-on-drop reorders the store, re-basing the palette on Tertiary and
+    // re-rendering the main list in the new order.
+    await expect(page.locator('input[name="color-name-0"]')).toHaveValue('Tertiary');
+    await expect(page.locator('input[name="color-name-1"]')).toHaveValue('Secondary');
+    await expect(page.locator('input[name="color-name-2"]')).toHaveValue('Primary');
+
+    // The URL path segments follow the new order (Tertiary is now the base).
+    await expect(page).toHaveURL(url => {
+      const segments = url.pathname.split('/').filter(Boolean);
+      const positions = ['Tertiary', 'Secondary', 'Primary'].map(name =>
+        segments.findIndex(segment => segment.startsWith(`${name}-`)),
+      );
+
+      return positions.every(
+        (value, index) => value !== -1 && (index === 0 || positions[index - 1] < value),
+      );
+    });
+
+    await page.keyboard.press('Escape');
+    await expect(panel).toBeHidden();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('reordered-colors.png'));
+  });
+
+  await test.step('removes the Tertiary color with confirmation', async () => {
     await page.getByRole('button', { name: 'Select Tertiary' }).click();
 
-    const ColorItem = page.getByTestId('ColorItem').nth(2);
+    // Tertiary is first after the reorder above.
+    const ColorItem = page.getByTestId('ColorItem').nth(0);
 
     await expect(ColorItem).toHaveAttribute('aria-current', 'true');
 
@@ -785,20 +855,21 @@ test('desktop', async () => {
 
     await page.waitForTimeout(collapseDuration);
 
-    // The Secondary segment is dropped, but the palette identity and global options are kept.
+    // The Tertiary segment is dropped, but the palette identity and global options are kept.
     await expect(page).toHaveURL(lacksColor('Tertiary'));
     await expect(page).toHaveURL(hasColor('Primary'));
     await expect(page).toHaveURL(hasColor('Secondary'));
     await expect(page).toHaveURL(hasParams({ k: 500 }));
     await expect(page).toHaveURL(hasParams({ name: 'My Palette' }));
 
-    await expect(page).toHaveScreenshot(getScreenshotName('two-colors.png'));
+    await expect(page).toHaveScreenshot(getScreenshotName('remove-tertiary.png'));
   });
 
-  await test.step('removes the second color with confirmation', async () => {
+  await test.step('removes the Secondary color with confirmation', async () => {
     await page.getByRole('button', { name: 'Select Secondary' }).click();
 
-    const ColorItem = page.getByTestId('ColorItem').nth(1);
+    // Secondary is first after Tertiary's removal (order is [Secondary, Primary]).
+    const ColorItem = page.getByTestId('ColorItem').nth(0);
 
     await expect(ColorItem).toHaveAttribute('aria-current', 'true');
 
@@ -818,7 +889,7 @@ test('desktop', async () => {
     await expect(page).toHaveURL(hasParams({ k: 500 }));
     await expect(page).toHaveURL(hasParams({ name: 'My Palette' }));
 
-    await expect(page).toHaveScreenshot(getScreenshotName('single-color.png'));
+    await expect(page).toHaveScreenshot(getScreenshotName('remove-secondary.png'));
   });
 
   await test.step('walks the palette history back and forward', async () => {

@@ -139,6 +139,48 @@ export function removeColor(state: GeneratorState, index: number): GeneratorStat
 }
 
 /**
+ * Reorder the palette to match `orderedIds`. Ids are matched to existing
+ * colors; unknown ids are skipped, and any color whose id is absent from
+ * `orderedIds` is appended in its original relative order (safety net so a
+ * stale caller can never drop a color). Returns the same state reference when
+ * the resulting order is identical, so callers — and the URL subscription —
+ * treat it as a no-op.
+ */
+export function reorderColors(state: GeneratorState, orderedIds: string[]): GeneratorState {
+  const byId = new Map(state.colors.map(color => [color.id, color]));
+  const seen = new Set<string>();
+  const ordered: ColorEntry[] = [];
+
+  for (const id of orderedIds) {
+    const color = byId.get(id);
+
+    if (color && !seen.has(id)) {
+      seen.add(id);
+      ordered.push(color);
+    }
+  }
+
+  for (const color of state.colors) {
+    if (!seen.has(color.id)) {
+      ordered.push(color);
+    }
+  }
+
+  const unchanged =
+    ordered.length === state.colors.length &&
+    ordered.every((color, index) => color === state.colors[index]);
+
+  if (unchanged) {
+    return state;
+  }
+
+  return {
+    ...state,
+    colors: ordered,
+  };
+}
+
+/**
  * Reset only the advanced (curve) options to their seed-derived defaults,
  * leaving palette options (saturation, steps, mode, …) untouched.
  */
