@@ -579,30 +579,34 @@ test('desktop', async () => {
     await expect(page).toHaveScreenshot(getScreenshotName('lock-500.png'));
   });
 
-  await test.step('switch views and return to "list"', async () => {
-    const listRadio = page.getByRole('radio', { name: 'List' });
-    const gridRadio = page.getByRole('radio', { name: 'Grid' });
-    const previewRadio = page.getByRole('radio', { name: 'Preview' });
-
-    await expect(gridRadio).toBeVisible();
-
-    await gridRadio.click();
-
-    await expect(page).toHaveScreenshot(getScreenshotName('grid-view.png'));
-
-    await previewRadio.click();
-
-    await expect(page).toHaveScreenshot(getScreenshotName('preview-view.png'));
-
-    await listRadio.click();
-  });
-
   await test.step('close the palette options', async () => {
     await page.getByRole('button', { name: 'Palette Options' }).click();
 
     await expect(page.locator('html')).toHaveAttribute('data-palette-options', 'closed');
 
     await expect(page).toHaveScreenshot(getScreenshotName('post-palette-options.png'));
+  });
+
+  await test.step('switch views', async () => {
+    await page.getByRole('button', { name: 'Display Options' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('display-menu.png'));
+
+    await page.getByRole('radio', { name: 'Grid' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('grid-view.png'));
+
+    // Switch to Preview
+    await page.getByRole('button', { name: 'Display Options' }).click();
+    await page.getByRole('radio', { name: 'Preview' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('preview-view.png'));
+
+    // Switch to list
+    await page.getByRole('button', { name: 'Display Options' }).click();
+    await page.getByRole('radio', { name: 'List' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('list-view.png'));
   });
 
   await test.step('opens color charts', async () => {
