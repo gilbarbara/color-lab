@@ -197,7 +197,13 @@ function ColorItem(props: ColorItemProps) {
               ref={triggerRef}
               aria-label="Color picker"
               color={color}
-              onClick={() => trackEvent('color:picker')}
+              onClick={() => {
+                if (isOpen) {
+                  return;
+                }
+
+                trackEvent('color:picker');
+              }}
               size="lg"
             />
           </PopoverTrigger>

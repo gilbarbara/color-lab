@@ -7,7 +7,7 @@ export default function PaletteGrid() {
 
   return (
     <div
-      className="w-full grid grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 px-4 gap-8"
+      className="w-full grid grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 gap-8"
       data-testid="PaletteGrid"
     >
       {colors.map(color => (
