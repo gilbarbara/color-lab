@@ -35,12 +35,12 @@ export default function PaletteDisplayMenu() {
           <PopoverTrigger>
             <Button
               aria-label="Display Options"
-              className="@max-4xl:button-menu-square"
+              className="@max-2xl:button-menu-square"
               size="menu"
               startContent={<MonitorIcon className="text-xl" weight="bold" />}
               variant="light"
             >
-              <span className="hidden @4xl:inline">Display</span>
+              <span className="hidden @2xl:inline">Display</span>
             </Button>
           </PopoverTrigger>
         </div>

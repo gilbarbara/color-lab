@@ -143,6 +143,7 @@ Tools invoked on a single generated ramp row in the palette view.
 | `scale:contrast` | Open the contrast grid | — | `ContrastGrid/index.tsx` |
 | `scale:export` | Open the scale export drawer | — | `ExportScale.tsx` |
 | `scale:export_copy` | Copy the whole scale export | `{ format, color_format }` | `ExportScale.tsx` |
+| `scale:copy` | Copy the color value | — | `Palette/Scale.tsx` |
 | `scale:copy_swatch` | Copy a tone swatch value | — | `Palette/Swatch.tsx` |
 
 ## options

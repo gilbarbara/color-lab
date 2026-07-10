@@ -101,7 +101,6 @@ Additional UI surfaces:
 - `src/containers/ColorCharts/`: Per-color chroma/lightness/hue distribution charts; open state in `generatorStore` (`toggleChart`/`setAllCharts`).
 - `src/components/ColorPresets.tsx`: Applies `DESIGN_SYSTEM_PRESETS` from `src/config/presets.ts`.
 - `src/containers/Preview/Typography.tsx`: Typography tab in Preview.
-- `src/components/CollapsibleMenu.tsx`: CSS-only responsive collapse (inline at `xsm`+, dropdown below 400px).
 
 ### Key Types
 

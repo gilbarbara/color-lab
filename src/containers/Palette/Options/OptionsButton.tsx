@@ -7,7 +7,7 @@ import Badge from '~/components/Badge';
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
 
-export default function OptionsToggle() {
+export default function OptionsButton() {
   const { hasCustomPaletteOptions } = useGenerator('hasCustomPaletteOptions');
   const { showPaletteOptionsPanel, togglePaletteOptionsPanel } = useApp(
     'showPaletteOptionsPanel',
@@ -18,7 +18,7 @@ export default function OptionsToggle() {
     <Tooltip content="Palette Options" placement="bottom">
       <Button
         aria-label="Palette Options"
-        className="@max-2xl:button-menu-square"
+        className="@max-lg:button-menu-square"
         onPress={togglePaletteOptionsPanel}
         size="menu"
         startContent={
@@ -28,7 +28,7 @@ export default function OptionsToggle() {
         }
         variant={showPaletteOptionsPanel ? 'solid' : 'light'}
       >
-        <span className="hidden @2xl:inline-flex">Options</span>
+        <span className="hidden @lg:inline-flex">Options</span>
       </Button>
     </Tooltip>
   );

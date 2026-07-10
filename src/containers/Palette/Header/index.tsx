@@ -1,28 +1,26 @@
-import CollapsibleMenu from '~/components/CollapsibleMenu';
 import ExportPalette from '~/containers/ExportPalette';
 
 import DisplayMenu from '../DisplayMenu';
+import OptionsButton from '../Options/OptionsButton';
 
 import NameField from './NameField';
-import OptionsToggle from './OptionsToggle';
 import SaveControls from './SaveControls';
 import ShareButton from './ShareButton';
 
 export default function PaletteHeader() {
   return (
-    <div data-testid="PaletteHeader">
-      <div className="flex items-center justify-between">
-        <NameField />
+    <div
+      className="flex flex-col @4xl:flex-row @4xl:items-center @4xl:justify-between gap-1"
+      data-testid="PaletteHeader"
+    >
+      <NameField />
 
-        <div className="flex items-center gap-1 md:gap-2">
-          <CollapsibleMenu label="More palette tools">
-            <DisplayMenu />
-            <OptionsToggle />
-          </CollapsibleMenu>
-          <ExportPalette />
-          <ShareButton />
-          <SaveControls />
-        </div>
+      <div className="flex items-center gap-1 md:gap-2">
+        <DisplayMenu />
+        <OptionsButton />
+        <ExportPalette />
+        <ShareButton />
+        <SaveControls />
       </div>
     </div>
   );
