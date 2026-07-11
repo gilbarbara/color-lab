@@ -157,6 +157,28 @@ test('desktop', async () => {
     await expect(page.locator('html')).toHaveClass(/dark/);
   });
 
+  await test.step('switch color item mode to HSL', async () => {
+    await page.getByRole('button', { name: /color mode/i }).click();
+
+    await page.getByRole('menuitemradio', { name: 'HSL' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('mode-hsl.png'));
+  });
+
+  await test.step('switch color item mode to RGB', async () => {
+    await page.getByRole('button', { name: /color mode/i }).click();
+
+    await page.getByRole('menuitemradio', { name: 'RGB' }).click();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('mode-rgb.png'));
+  });
+
+  await test.step('switch color item mode back to OKLCH', async () => {
+    await page.getByRole('button', { name: /color mode/i }).click();
+
+    await page.getByRole('menuitemradio', { name: 'OKLCH' }).click();
+  });
+
   await test.step('modifies color via lightness slider and updates URL', async () => {
     const lightnessSlider = page.getByRole('slider', { exact: true, name: 'Lightness' });
 
@@ -239,7 +261,7 @@ test('desktop', async () => {
 
     await expect(page).toHaveURL(hasColor('Tertiary'));
 
-    await expect(page).toHaveScreenshot(getScreenshotName('third-color.png'));
+    await expect(page).toHaveScreenshot(getScreenshotName('tertiary-color.png'));
   });
 
   await test.step('apply the "Tailwind" preset', async () => {

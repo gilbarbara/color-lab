@@ -60,7 +60,7 @@ exports[`ColorItem > Render > renders correctly in HSL mode 1`] = `
                       data-filled="true"
                       data-filled-within="true"
                       data-slot="input"
-                      id="react-aria-_r_m_"
+                      id="react-aria-_r_r_"
                       name="color-name-0"
                       tabindex="0"
                       title=""
@@ -119,7 +119,7 @@ exports[`ColorItem > Render > renders correctly in HSL mode 1`] = `
                     data-filled-within="true"
                     data-slot="input"
                     data-type="text"
-                    id="react-aria-_r_s_"
+                    id="react-aria-_r_11_"
                     tabindex="0"
                     title=""
                     type="text"
@@ -310,37 +310,36 @@ exports[`ColorItem > Render > renders correctly in HSL mode 1`] = `
               class="flex items-center justify-between"
             >
               <div
-                class="flex items-center"
-                data-testid="ModeSelector"
-              >
-                <button
-                  aria-label="Switch to OKLCH"
-                  aria-pressed="false"
-                  class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                  type="button"
-                >
-                  OKLCH
-                </button>
-                <button
-                  aria-label="Switch to HSL"
-                  aria-pressed="true"
-                  class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
-                  type="button"
-                >
-                  HSL
-                </button>
-                <button
-                  aria-label="Switch to RGB"
-                  aria-pressed="false"
-                  class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                  type="button"
-                >
-                  RGB
-                </button>
-              </div>
-              <div
                 class="flex items-center gap-1"
               >
+                <button
+                  aria-label="Change color options"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <div
+                    class="relative inline-flex shrink-0"
+                  >
+                    <svg
+                      class="text-base"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
+                      data-invisible="true"
+                    />
+                  </div>
+                </button>
                 <button
                   aria-label="View Live Preview"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
@@ -381,33 +380,39 @@ exports[`ColorItem > Render > renders correctly in HSL mode 1`] = `
                     />
                   </svg>
                 </button>
+              </div>
+              <div
+                class="max-w-fit"
+              >
                 <button
-                  aria-label="Change color options"
-                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Color mode: HSL"
+                  class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
                   data-react-aria-pressable="true"
+                  data-slot="trigger"
+                  id="react-aria-_r_1c_"
                   tabindex="0"
                   type="button"
                 >
-                  <div
-                    class="relative inline-flex shrink-0"
+                  HSL
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      class="text-base"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
-                      />
-                    </svg>
-                    <span
-                      class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
-                      data-invisible="true"
+                    <path
+                      d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
                     />
-                  </div>
+                  </svg>
+                  <span
+                    class="heroui-ripple"
+                    style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
+                  />
                 </button>
               </div>
             </div>
@@ -730,37 +735,36 @@ exports[`ColorItem > Render > renders correctly in OKLCH mode 1`] = `
               class="flex items-center justify-between"
             >
               <div
-                class="flex items-center"
-                data-testid="ModeSelector"
-              >
-                <button
-                  aria-label="Switch to OKLCH"
-                  aria-pressed="true"
-                  class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
-                  type="button"
-                >
-                  OKLCH
-                </button>
-                <button
-                  aria-label="Switch to HSL"
-                  aria-pressed="false"
-                  class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                  type="button"
-                >
-                  HSL
-                </button>
-                <button
-                  aria-label="Switch to RGB"
-                  aria-pressed="false"
-                  class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                  type="button"
-                >
-                  RGB
-                </button>
-              </div>
-              <div
                 class="flex items-center gap-1"
               >
+                <button
+                  aria-label="Change color options"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <div
+                    class="relative inline-flex shrink-0"
+                  >
+                    <svg
+                      class="text-base"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
+                      data-invisible="true"
+                    />
+                  </div>
+                </button>
                 <button
                   aria-label="View Live Preview"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
@@ -801,33 +805,35 @@ exports[`ColorItem > Render > renders correctly in OKLCH mode 1`] = `
                     />
                   </svg>
                 </button>
+              </div>
+              <div
+                class="max-w-fit"
+              >
                 <button
-                  aria-label="Change color options"
-                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Color mode: OKLCH"
+                  class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
                   data-react-aria-pressable="true"
+                  data-slot="trigger"
+                  id="react-aria-_r_j_"
                   tabindex="0"
                   type="button"
                 >
-                  <div
-                    class="relative inline-flex shrink-0"
+                  OKLCH
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      class="text-base"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
-                      />
-                    </svg>
-                    <span
-                      class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
-                      data-invisible="true"
+                    <path
+                      d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
                     />
-                  </div>
+                  </svg>
                 </button>
               </div>
             </div>
@@ -899,7 +905,7 @@ exports[`ColorItem > Render > renders correctly in RGB mode 1`] = `
                       data-filled="true"
                       data-filled-within="true"
                       data-slot="input"
-                      id="react-aria-_r_1b_"
+                      id="react-aria-_r_2a_"
                       name="color-name-0"
                       tabindex="0"
                       title=""
@@ -958,7 +964,7 @@ exports[`ColorItem > Render > renders correctly in RGB mode 1`] = `
                     data-filled-within="true"
                     data-slot="input"
                     data-type="text"
-                    id="react-aria-_r_1h_"
+                    id="react-aria-_r_2g_"
                     tabindex="0"
                     title=""
                     type="text"
@@ -1144,37 +1150,36 @@ exports[`ColorItem > Render > renders correctly in RGB mode 1`] = `
               class="flex items-center justify-between"
             >
               <div
-                class="flex items-center"
-                data-testid="ModeSelector"
-              >
-                <button
-                  aria-label="Switch to OKLCH"
-                  aria-pressed="false"
-                  class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                  type="button"
-                >
-                  OKLCH
-                </button>
-                <button
-                  aria-label="Switch to HSL"
-                  aria-pressed="false"
-                  class="flex items-center justify-center outline-none bg-black/10 dark:bg-white/10 hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10"
-                  type="button"
-                >
-                  HSL
-                </button>
-                <button
-                  aria-label="Switch to RGB"
-                  aria-pressed="true"
-                  class="flex items-center justify-center outline-none hover:bg-black/15 dark:hover:bg-white/15 focus-visible:ring-2 focus:ring-black/30 dark:focus:ring-white/30 h-8 px-3 text-xs leading-none first:rounded-l-sm last:rounded-r-sm text-neutral-900 dark:text-neutral-50 focus-visible:relative focus-visible:z-10 bg-black/20 dark:bg-white/20"
-                  type="button"
-                >
-                  RGB
-                </button>
-              </div>
-              <div
                 class="flex items-center gap-1"
               >
+                <button
+                  aria-label="Change color options"
+                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  data-react-aria-pressable="true"
+                  tabindex="0"
+                  type="button"
+                >
+                  <div
+                    class="relative inline-flex shrink-0"
+                  >
+                    <svg
+                      class="text-base"
+                      fill="currentColor"
+                      height="1em"
+                      viewBox="0 0 256 256"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
+                      data-invisible="true"
+                    />
+                  </div>
+                </button>
                 <button
                   aria-label="View Live Preview"
                   class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
@@ -1215,33 +1220,39 @@ exports[`ColorItem > Render > renders correctly in RGB mode 1`] = `
                     />
                   </svg>
                 </button>
+              </div>
+              <div
+                class="max-w-fit"
+              >
                 <button
-                  aria-label="Change color options"
-                  class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Color mode: RGB"
+                  class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased"
                   data-react-aria-pressable="true"
+                  data-slot="trigger"
+                  id="react-aria-_r_2r_"
                   tabindex="0"
                   type="button"
                 >
-                  <div
-                    class="relative inline-flex shrink-0"
+                  RGB
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      class="text-base"
-                      fill="currentColor"
-                      height="1em"
-                      viewBox="0 0 256 256"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"
-                      />
-                    </svg>
-                    <span
-                      class="flex z-10 flex-wrap absolute box-border rounded-full whitespace-nowrap place-content-center origin-center items-center select-none font-regular scale-100 opacity-100 subpixel-antialiased data-[invisible=true]:scale-0 data-[invisible=true]:opacity-0 transition-transform-opacity !ease-soft-spring !duration-300 border-transparent border-0 bg-secondary text-secondary-foreground top-[5%] right-[5%] translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 min-w-2.5 min-h-2.5"
-                      data-invisible="true"
+                    <path
+                      d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
                     />
-                  </div>
+                  </svg>
+                  <span
+                    class="heroui-ripple"
+                    style="position: absolute; background-color: currentcolor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0px; z-index: 0; width: 0px; height: 0px; transform: translate(0px, 0px) scale(0); opacity: 0.35;"
+                  />
                 </button>
               </div>
             </div>

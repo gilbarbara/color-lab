@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
+import userEvent from '@testing-library/user-event';
 
 import { BLUE, createColorEntry, CRIMSON, GREEN } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
@@ -46,6 +47,18 @@ function renderActive(propsOverrides: Partial<Parameters<typeof ColorItem>[0]> =
   return { ...render(<ColorItem {...props} />), props };
 }
 
+// The color mode lives behind a HeroUI Dropdown whose menu opens asynchronously.
+// Its findByRole polling can't advance under vitest fake timers, so switch to real
+// timers and drive the menu with userEvent (the next test's beforeEach restores fake timers).
+async function selectMode(name: 'OKLCH' | 'HSL' | 'RGB') {
+  vi.useRealTimers();
+
+  const user = userEvent.setup();
+
+  await user.click(screen.getByRole('button', { name: /color mode/i }));
+  await user.click(await screen.findByRole('menuitemradio', { name }));
+}
+
 function setupStore(colors: ColorEntry[], activeIndex: number | null = 0) {
   const palette = createPalette(CRIMSON);
 
@@ -74,18 +87,18 @@ describe('ColorItem', () => {
       expect(container).toMatchSnapshot();
     });
 
-    it('renders correctly in HSL mode', () => {
+    it('renders correctly in HSL mode', async () => {
       const { container } = renderActive();
 
-      fireEvent.click(screen.getByLabelText('Switch to HSL'));
+      await selectMode('HSL');
 
       expect(container).toMatchSnapshot();
     });
 
-    it('renders correctly in RGB mode', () => {
+    it('renders correctly in RGB mode', async () => {
       const { container } = renderActive();
 
-      fireEvent.click(screen.getByLabelText('Switch to RGB'));
+      await selectMode('RGB');
 
       expect(container).toMatchSnapshot();
     });
@@ -95,7 +108,7 @@ describe('ColorItem', () => {
     it('starts in OKLCH mode', () => {
       renderActive();
 
-      expect(screen.getByLabelText('Switch to OKLCH')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /color mode/i })).toHaveTextContent('OKLCH');
     });
 
     it('updates color name on Enter key', () => {
@@ -203,14 +216,12 @@ describe('ColorItem', () => {
       expect(removeButton).toBeDisabled();
     });
 
-    it('opens options popover on gear click', () => {
+    it('opens options on gear click and tracks the event', () => {
       renderActive();
 
-      const optionsButton = screen.getByRole('button', { name: /change color options/i });
+      fireEvent.click(screen.getByRole('button', { name: /change color options/i }));
 
-      fireEvent.click(optionsButton);
-
-      expect(optionsButton).toBeInTheDocument();
+      expect(trackEvent).toHaveBeenCalledWith('color:options');
     });
 
     it('activates color in store on first click of inactive item', () => {
@@ -356,17 +367,17 @@ describe('ColorItem', () => {
     it('sets the preview color and tracks the event', () => {
       const spy = vi.spyOn(getGeneratorStore().getState(), 'setPreviewColor');
 
-      renderActive();
+      const { props } = renderActive();
 
       fireEvent.click(screen.getByRole('button', { name: /view live preview/i }));
 
-      expect(spy).toHaveBeenCalledExactlyOnceWith('test-uuid-1');
+      expect(spy).toHaveBeenCalledExactlyOnceWith(props.colorEntry.id);
     });
 
-    it('switches the color mode and tracks the change', () => {
+    it('switches the color mode and tracks the change', async () => {
       renderActive();
 
-      fireEvent.click(screen.getByLabelText('Switch to HSL'));
+      await selectMode('HSL');
 
       expect(trackEvent).toHaveBeenCalledWith('color:mode', { value: 'hsl' });
       // The value input reflects the new mode: hex instead of an oklch() string.
@@ -375,10 +386,10 @@ describe('ColorItem', () => {
       expect(input.value).not.toContain('oklch');
     });
 
-    it('ignores a click on the already-active mode', () => {
+    it('ignores a click on the already-active mode', async () => {
       renderActive();
 
-      fireEvent.click(screen.getByLabelText('Switch to OKLCH'));
+      await selectMode('OKLCH');
 
       expect(trackEvent).not.toHaveBeenCalledWith('color:mode', expect.anything());
     });
