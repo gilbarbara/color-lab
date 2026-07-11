@@ -1,7 +1,14 @@
 import { useToggle } from '@gilbarbara/hooks';
-import { Divider } from '@heroui/react';
-import { ArrowsClockwiseIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
-import { type ColorMode, ModeSelector } from '@transience/color-picker';
+import {
+  Divider,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+} from '@heroui/react';
+import { ArrowsClockwiseIcon, CaretDownIcon, SlidersHorizontalIcon } from '@phosphor-icons/react';
+import { type ColorMode } from '@transience/color-picker';
 
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
@@ -48,30 +55,15 @@ export default function ColorActions(props: ColorActionsProps) {
     setColorOverride(index, updates);
   };
 
+  const handleAction = (key: string | number) => {
+    onClickMode(key as ColorMode);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between">
-        <ModeSelector mode={mode} onClick={onClickMode} />
-
         <div className="flex items-center gap-1">
-          <PreviewButton
-            id={colorEntry.id}
-            onPreview={() => toggleBottomBar(false)}
-            source="color"
-            variant="light"
-          />
-          <Tooltip content="Random Color" delay={250} placement="bottom-end">
-            <Button
-              aria-label="Random color"
-              isIconOnly
-              onPress={onClickRandom}
-              size="sm"
-              variant="light"
-            >
-              <ArrowsClockwiseIcon className="text-base" />
-            </Button>
-          </Tooltip>
-          <Tooltip content="Color options" delay={250} placement="bottom-end">
+          <Tooltip content="Color options">
             <Button
               aria-label="Change color options"
               isIconOnly
@@ -84,7 +76,54 @@ export default function ColorActions(props: ColorActionsProps) {
               </Badge>
             </Button>
           </Tooltip>
+          <PreviewButton
+            id={colorEntry.id}
+            onPreview={() => toggleBottomBar(false)}
+            placement="bottom-start"
+            source="color"
+            variant="light"
+          />
+          <Tooltip content="Random color" placement="bottom">
+            <Button
+              aria-label="Random color"
+              isIconOnly
+              onPress={onClickRandom}
+              size="sm"
+              variant="light"
+            >
+              <ArrowsClockwiseIcon className="text-base" />
+            </Button>
+          </Tooltip>
         </div>
+        <Dropdown>
+          <Tooltip content="Color mode" placement="bottom">
+            <div className="max-w-fit">
+              <DropdownTrigger>
+                <Button
+                  aria-label={`Color mode: ${mode.toUpperCase()}`}
+                  endContent={<CaretDownIcon />}
+                  size="menu"
+                  variant="flat"
+                >
+                  {mode.toUpperCase()}
+                </Button>
+              </DropdownTrigger>
+            </div>
+          </Tooltip>
+          <DropdownMenu
+            aria-label="Color modes"
+            onAction={handleAction}
+            selectedKeys={[mode]}
+            selectionMode="single"
+            variant="flat"
+          >
+            <DropdownSection classNames={{ base: 'mb-0' }} title="COLOR MODE">
+              <DropdownItem key="oklch">OKLCH</DropdownItem>
+              <DropdownItem key="hsl">HSL</DropdownItem>
+              <DropdownItem key="rgb">RGB</DropdownItem>
+            </DropdownSection>
+          </DropdownMenu>
+        </Dropdown>
       </div>
       <Collapse isOpen={showColorOptions}>
         <Divider className="my-4" />
