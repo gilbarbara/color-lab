@@ -15,6 +15,8 @@ export default defineConfig({
   expect: {
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.025,
+      // Blank the build version in the Footer so version bumps don't churn snapshots.
+      stylePath: './e2e/__setup__/screenshot.css',
     },
   },
   projects: [

@@ -1,4 +1,5 @@
 import { cn } from '@heroui/react';
+import { BugIcon } from '@phosphor-icons/react';
 import Link from 'next/link';
 
 import Contact from '~/components/Contact';
@@ -7,6 +8,8 @@ interface FooterProps {
   className?: string;
   innerClassName?: string;
 }
+
+const version = process.env.NEXT_PUBLIC_APP_VERSION;
 
 export default function Footer(props: FooterProps) {
   const { className, innerClassName } = props;
@@ -32,6 +35,15 @@ export default function Footer(props: FooterProps) {
           <Contact />
           <a
             className="inline-flex items-center gap-2"
+            href="https://github.com/gilbarbara/color-lab/issues"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <BugIcon />
+            Report a problem
+          </a>
+          <a
+            className="inline-flex items-center gap-2"
             href="https://github.com/gilbarbara/color-lab"
             rel="noopener noreferrer"
             target="_blank"
@@ -48,6 +60,11 @@ export default function Footer(props: FooterProps) {
           >
             colorizr
           </a>
+          {version && (
+            <span className="text-foreground-500" data-testid="app-version">
+              v{version}
+            </span>
+          )}
         </div>
       </div>
     </footer>
