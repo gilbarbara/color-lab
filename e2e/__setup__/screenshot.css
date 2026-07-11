@@ -1,0 +1,5 @@
+/* Blank the build version in visual snapshots so version bumps don't churn them.
+   visibility:hidden keeps layout intact (no pixel shift beyond the hidden text). */
+[data-testid='app-version'] {
+  visibility: hidden;
+}
