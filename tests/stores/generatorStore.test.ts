@@ -81,7 +81,7 @@ describe('stores/generatorStore', () => {
 
         const removedId = store.getState().colors[1].id;
 
-        store.getState().removeColor(1);
+        store.getState().removeColor(removedId);
 
         expect(store.getState().chartColorIds.has(removedId)).toBe(false);
       });

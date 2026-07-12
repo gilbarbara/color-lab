@@ -251,10 +251,10 @@ Called once alongside `useUrlSync`; owns the `?id=` query only (colors are `useU
 | `getDefaultColorName(index)` | Default name for new color slots (`Primary`, `Secondary`, …, `Color N`) |
 | `getEffectiveOptions(color, global)` | Merge global + per-color overrides |
 | `addColor(state, value, name?)` | Add color (max 10) |
-| `removeColor(state, index)` | Remove color (min 1) |
-| `updateColor(state, index, updates)` | Update color entry |
-| `updateColorOverrides(state, index, overrides)` | Merge per-color overrides |
-| `clearColorOverrides(state, index)` | Remove all per-color overrides |
+| `removeColor(state, id)` | Remove color (min 1) |
+| `updateColor(state, id, updates)` | Update color entry |
+| `setColorOverride(state, id, updates)` | Merge per-color overrides (strips keys equal to global) |
+| `clearColorOverrides(state, id)` | Remove all per-color overrides |
 | `updateGlobalOptions(state, updates)` | Update global options |
 | `resetGlobalOptions(state)` | Reset to defaults (keeps colors) |
 | `resetPalette()` | Full reset (new random color) |

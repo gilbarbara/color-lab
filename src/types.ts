@@ -65,19 +65,19 @@ export interface ExportOptions {
 
 export interface GeneratorActions {
   addColor: (value: OklchString, name?: string) => string | null;
-  clearColorOverrides: (index: number) => void;
-  removeColor: (index: number) => string | null;
+  clearColorOverrides: (id: string) => void;
+  removeColor: (id: string) => string | null;
   reorderColors: (orderedIds: string[]) => void;
   resetAdvancedOptions: () => void;
   resetGlobalOptions: () => void;
   resetPalette: () => void;
   setActiveColor: (id: string) => void;
   setAllCharts: (open: boolean) => void;
-  setColorOverride: (index: number, updates: Partial<ScaleOptions>) => void;
+  setColorOverride: (id: string, updates: Partial<ScaleOptions>) => void;
   setName: (name: string) => void;
   setPreviewColor: (id: string) => void;
   toggleChart: (id: string) => void;
-  updateColor: (index: number, updates: Partial<ColorEntry>) => void;
+  updateColor: (id: string, updates: Partial<Omit<ColorEntry, 'id'>>) => void;
   updateGlobalOptions: (updates: Partial<GlobalScaleOptions>) => void;
 }
 

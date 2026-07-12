@@ -96,19 +96,22 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
       return newId;
     },
 
-    clearColorOverrides: index =>
+    clearColorOverrides: id =>
       set(state =>
-        clearColorOverridesFn({ colors: state.colors, globalOptions: state.globalOptions }, index),
+        clearColorOverridesFn({ colors: state.colors, globalOptions: state.globalOptions }, id),
       ),
 
-    removeColor: index => {
+    removeColor: id => {
       let nextActiveId: string | null = null;
 
       set(state => {
+        // The neighbor that inherits the active/preview selection is positional,
+        // so resolve the slot before the color is gone.
+        const index = state.colors.findIndex(color => color.id === id);
         const removed = state.colors[index];
         const next = removeColorFn(
           { colors: state.colors, globalOptions: state.globalOptions },
-          index,
+          id,
         );
 
         if (next.colors === state.colors) {
@@ -224,16 +227,16 @@ export function createGeneratorStore(initialState?: GeneratorInitialState) {
         return { previewColorId: id };
       }),
 
-    updateColor: (index, updates) =>
+    updateColor: (id, updates) =>
       set(state =>
-        updateColorFn({ colors: state.colors, globalOptions: state.globalOptions }, index, updates),
+        updateColorFn({ colors: state.colors, globalOptions: state.globalOptions }, id, updates),
       ),
 
-    setColorOverride: (index, updates) =>
+    setColorOverride: (id, updates) =>
       set(state =>
         setColorOverrideFn(
           { colors: state.colors, globalOptions: state.globalOptions },
-          index,
+          id,
           updates,
         ),
       ),

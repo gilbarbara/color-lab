@@ -111,7 +111,7 @@ function ColorItem(props: ColorItemProps) {
       return;
     }
 
-    updateColor(index, { value: branded });
+    updateColor(colorEntry.id, { value: branded });
 
     if (index === 0) {
       updateGlobalOptions({
@@ -132,7 +132,7 @@ function ColorItem(props: ColorItemProps) {
   };
 
   const handleCommitName = (value: string) => {
-    updateColor(index, { name: value });
+    updateColor(colorEntry.id, { name: value });
     trackEvent('color:rename', { name: value });
   };
 
@@ -248,7 +248,7 @@ function ColorItem(props: ColorItemProps) {
                 let nextActiveId: string | null = null;
 
                 flushSync(() => {
-                  nextActiveId = removeColor(index);
+                  nextActiveId = removeColor(colorEntry.id);
                 });
 
                 if (nextActiveId) requestColorScroll(nextActiveId);
@@ -324,7 +324,6 @@ function ColorItem(props: ColorItemProps) {
           />
           <ColorActions
             colorEntry={colorEntry}
-            index={index}
             mode={mode}
             onClickMode={handleClickMode}
             onClickRandom={handleClickRandom}
