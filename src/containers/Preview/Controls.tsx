@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import {
   Avatar,
   Checkbox,
@@ -13,13 +13,16 @@ import { UserIcon } from '@phosphor-icons/react';
 
 import Button from '~/components/Button';
 
-function PreviewControls() {
-  const [progress, setProgress] = useState(33);
+// The section is `inert`, so nothing here can be operated: the slider and the ring are a
+// static composition, not a live control. Keep the two values in step by hand.
+const PROGRESS = 33;
 
+function PreviewControls() {
   return (
     <section
       className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4"
       data-testid="Preview-Controls"
+      inert
     >
       <div className="flex flex-col items-center lg:items-start gap-6">
         <div className="flex flex-wrap items-end gap-2">
@@ -150,7 +153,7 @@ function PreviewControls() {
             color="primary"
             showValueLabel
             size="lg"
-            value={progress}
+            value={PROGRESS}
           />
           <Slider
             aria-label="Volume"
@@ -161,8 +164,7 @@ function PreviewControls() {
               thumb: 'bg-(--color-preview)',
             }}
             color="primary"
-            defaultValue={progress}
-            onChange={value => setProgress(value as number)}
+            defaultValue={PROGRESS}
             size="lg"
           />
         </div>
