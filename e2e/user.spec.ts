@@ -1,16 +1,11 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { getParam, waitForScrollEnd } from './__setup__/utils';
-import { collapseDuration } from './fixtures/constants';
-import { FirebaseMockState, setupFirebaseMocks } from './fixtures/firebase-mock';
+import { collapseDuration, seedSingle } from './__setup__/constants';
+import { FirebaseMockState, setupFirebaseMocks } from './__setup__/firebase-mock';
+import { createPage } from './__setup__/page';
+import { createScreenshotNamer, getParam, waitForScrollEnd } from './__setup__/utils';
 
-let screenshotCount = 0;
-
-function getScreenshotName(name: string) {
-  screenshotCount += 1;
-
-  return `${screenshotCount.toString().padStart(3, '0')}-${name}`;
-}
+const getScreenshotName = createScreenshotNamer();
 
 let page: Page;
 let mockState: FirebaseMockState;
@@ -25,23 +20,12 @@ test.use({
 
 test.beforeAll(async ({ browser }) => {
   mockState = new FirebaseMockState();
-  page = await browser.newPage();
 
-  await setupFirebaseMocks(page, mockState);
-
-  await page.addInitScript(() => {
-    const original = window.matchMedia;
-
-    window.matchMedia = (q: string) => {
-      if (q === '(color-gamut: p3)') {
-        return { ...original.call(window, q), matches: true } as MediaQueryList;
-      }
-
-      return original.call(window, q);
-    };
+  page = await createPage(browser, {
+    setup: target => setupFirebaseMocks(target, mockState),
+    url: seedSingle,
   });
 
-  await page.goto('/p/Primary-73.0_0.23001_321');
   // Wait for Firebase auth to finish restoring the (logged-out) session before driving the
   // flow. The Sign In button renders a spinner while auth is loading; clicking during that
   // window races the loading->ready re-render and React Aria drops the press.
