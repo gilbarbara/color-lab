@@ -10,6 +10,7 @@ function PreviewCards() {
     <section
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
       data-testid="Preview-Cards"
+      inert
     >
       <Card className="bg-(--color-preview) text-(--color-preview-foreground)">
         <CardHeader className="flex flex-col items-start gap-3">

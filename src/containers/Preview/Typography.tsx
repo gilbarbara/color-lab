@@ -8,6 +8,8 @@ const stop = (event: { preventDefault: () => void }) => event.preventDefault();
 
 function PreviewTypography({ name }: PreviewTypographyProps) {
   return (
+    // Not `inert`, unlike the other Preview sections: `inert` forces `user-select: none`, which
+    // would stop the `selection:*` colors below from ever painting — and demoing them is the point.
     <section
       className="@container selection:bg-(--color-preview) selection:text-(--color-preview-foreground)"
       data-testid="Preview-Typography"
