@@ -1,4 +1,6 @@
-import { type Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
+
+import { collapseDuration } from './constants';
 
 type ParamValue = string | number;
 
@@ -12,6 +14,59 @@ function parseColorOptions(url: URL, name: string): Record<string, string> {
   }
 
   return Object.fromEntries(last.split(',').map(pair => pair.split(':') as [string, string]));
+}
+
+export async function closeToast(page: Page) {
+  await page.getByLabel('closeButton').click();
+  await expect(page.getByLabel('closeButton')).toHaveCount(0);
+}
+
+/**
+ * Numbered screenshot names (`001-initial.png`), so the baseline directory reads in flow order.
+ * One namer per spec.
+ */
+export function createScreenshotNamer() {
+  let count = 0;
+
+  return (name: string) => {
+    count += 1;
+
+    return `${count.toString().padStart(3, '0')}-${name}`;
+  };
+}
+
+/**
+ * Drag a row in the Reorder panel to the top or bottom edge.
+ *
+ * framer-motion's Reorder needs a real pointer gesture: press, a small nudge to start the
+ * drag, then a stepped move to the destination. fill()/dispatchEvent won't start it.
+ */
+export async function dragReorderRow(page: Page, name: string, edge: 'bottom' | 'top') {
+  const rows = page.getByTestId('ReorderColors').getByRole('listitem');
+  const box = await rows.filter({ hasText: name }).boundingBox();
+  const first = await rows.first().boundingBox();
+  const last = await rows.last().boundingBox();
+
+  if (!box || !first || !last) {
+    throw new Error(`Reorder row "${name}" is not measurable`);
+  }
+
+  const centerX = box.x + box.width / 2;
+  const centerY = box.y + box.height / 2;
+  const targetY = edge === 'top' ? first.y - 6 : last.y + last.height + 6;
+
+  await page.mouse.move(centerX, centerY);
+  await page.mouse.down();
+  await page.mouse.move(centerX, centerY + Math.sign(targetY - centerY) * 6, { steps: 3 });
+  await page.mouse.move(centerX, targetY, { steps: 24 });
+  await page.mouse.up();
+}
+
+/** The toast is asserted loosely: in headless it may say "copied" or "failed to copy". */
+export async function expectToast(page: Page) {
+  const toast = page.locator('[data-slot="toast"]').or(page.getByRole('alert'));
+
+  await expect(toast.first()).toBeVisible({ timeout: 2000 });
 }
 
 /** Read a single query param from a URL string (null when absent). */
@@ -61,6 +116,26 @@ export function lacksColor(name: string) {
 /** None of the given query params are present. */
 export function lacksParams(...keys: string[]) {
   return (url: URL) => keys.every(key => !url.searchParams.has(key));
+}
+
+/** Remove a color. The button is a click-again-to-confirm control. */
+export async function removeColor(page: Page, index: number) {
+  const removeButton = page
+    .getByTestId('ColorItem')
+    .nth(index)
+    .getByRole('button', { name: 'Remove color' });
+
+  await removeButton.click();
+  await page.waitForTimeout(100);
+  await removeButton.click();
+  await page.waitForTimeout(collapseDuration);
+}
+
+/** Scroll the generator panel (the sidebar's own scroll container, not the window). */
+export async function scrollPanelTo(page: Page, top: number) {
+  await page.getByTestId('GeneratorPanel').evaluate((el, scrollTop) => {
+    el.scrollTo({ top: scrollTop, behavior: 'instant' });
+  }, top);
 }
 
 export async function scrollPanelToTop(page: Page): Promise<void> {

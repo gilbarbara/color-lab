@@ -1,19 +1,17 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { hasColor, hasParams, scrollPanelToTop } from './__setup__/utils';
-import { collapseDuration } from './fixtures/constants';
+import { collapseDuration, seedSingle } from './__setup__/constants';
+import { createPage } from './__setup__/page';
+import {
+  createScreenshotNamer,
+  hasColor,
+  hasParams,
+  lacksColor,
+  scrollPanelToTop,
+} from './__setup__/utils';
 
-let screenshotCount = 0;
+const getScreenshotName = createScreenshotNamer();
 
-function getScreenshotName(name: string) {
-  screenshotCount += 1;
-
-  return `${screenshotCount.toString().padStart(3, '0')}-${name}`;
-}
-
-// HeroUI sliders must be driven by keyboard (focus + Arrow/Page/Home/End), not fill():
-// fill() fires react-aria's onChange but never onChangeEnd, so the interaction never
-// releases and useUrlSync stays paused, suppressing later URL writes.
 let page: Page;
 
 test.setTimeout(60_000);
@@ -27,21 +25,7 @@ test.use({
 });
 
 test.beforeAll(async ({ browser }) => {
-  page = await browser.newPage();
-
-  await page.addInitScript(() => {
-    const original = window.matchMedia;
-
-    window.matchMedia = (q: string) => {
-      if (q === '(color-gamut: p3)') {
-        return { ...original.call(window, q), matches: true } as MediaQueryList;
-      }
-
-      return original.call(window, q);
-    };
-  });
-
-  await page.goto('/p/Primary-73.0_0.23001_321');
+  page = await createPage(browser, { url: seedSingle });
 });
 
 test.afterAll(async () => {
@@ -53,6 +37,11 @@ async function toggleBottomBar() {
   await page.waitForTimeout(collapseDuration);
 }
 
+/**
+ * HeroUI sliders must be driven by keyboard (focus + Arrow/Page/Home/End), not fill(): fill()
+ * fires react-aria's onChange but never onChangeEnd, so the interaction never releases and
+ * useUrlSync stays paused, suppressing later URL writes.
+ */
 test('mobile', async () => {
   await test.step('displays main elements on initial load', async () => {
     await expect(page.getByRole('link', { name: /colormeup/i })).toBeVisible();
@@ -437,6 +426,11 @@ test('mobile', async () => {
     await expect(page.getByTestId('ColorItem')).toHaveCount(1);
 
     await page.waitForTimeout(collapseDuration);
+
+    // The Secondary segment is dropped, but the palette identity and global options are kept.
+    await expect(page).toHaveURL(lacksColor('Secondary'));
+    await expect(page).toHaveURL(hasColor('Primary'));
+    await expect(page).toHaveURL(hasParams({ k: 500, name: 'My Palette' }));
 
     await expect(page).toHaveScreenshot(getScreenshotName('single-color.png'));
   });
