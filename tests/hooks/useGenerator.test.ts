@@ -6,6 +6,9 @@ import { getGeneratorStore } from '~/test-mocks';
 import { getChromaAsPercentage } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
+/** Id of the color at `index` in the shared per-test store. */
+const colorIdAt = (index = 0) => getGeneratorStore().getState().colors[index].id;
+
 describe('hooks/useGenerator', () => {
   beforeEach(() => {
     const palette = createPalette(CRIMSON);
@@ -32,7 +35,7 @@ describe('hooks/useGenerator', () => {
       const initialSaturation = result.current.baseSaturation;
 
       act(() => {
-        result.current.updateColor(0, { value: GREEN });
+        result.current.updateColor(colorIdAt(), { value: GREEN });
       });
 
       expect(result.current.baseSaturation).toBe(getChromaAsPercentage(GREEN));
@@ -43,7 +46,7 @@ describe('hooks/useGenerator', () => {
       const { result } = renderHook(() => useGenerator('defaultOptions', 'updateColor'));
 
       act(() => {
-        result.current.updateColor(0, { value: BLUE });
+        result.current.updateColor(colorIdAt(), { value: BLUE });
       });
 
       expect(result.current.defaultOptions).toEqual(getDefaultGlobalOptions(BLUE));
@@ -121,7 +124,7 @@ describe('hooks/useGenerator', () => {
       expect(result.current.colors).toHaveLength(2);
 
       act(() => {
-        result.current.removeColor(0);
+        result.current.removeColor(colorIdAt());
       });
 
       expect(result.current.colors).toHaveLength(1);
@@ -132,7 +135,7 @@ describe('hooks/useGenerator', () => {
       const { result } = renderHook(() => useGenerator('colors', 'updateColor'));
 
       act(() => {
-        result.current.updateColor(0, { name: 'New Name' });
+        result.current.updateColor(colorIdAt(), { name: 'New Name' });
       });
 
       expect(result.current.colors[0].name).toBe('New Name');
@@ -142,7 +145,7 @@ describe('hooks/useGenerator', () => {
       const { result } = renderHook(() => useGenerator('colors', 'setColorOverride'));
 
       act(() => {
-        result.current.setColorOverride(0, { maxLightness: 0.9 });
+        result.current.setColorOverride(colorIdAt(), { maxLightness: 0.9 });
       });
 
       expect(result.current.colors[0].overrides).toEqual({ maxLightness: 0.9 });
@@ -154,13 +157,13 @@ describe('hooks/useGenerator', () => {
       );
 
       act(() => {
-        result.current.setColorOverride(0, { maxLightness: 0.9 });
+        result.current.setColorOverride(colorIdAt(), { maxLightness: 0.9 });
       });
 
       expect(result.current.colors[0].overrides).toBeDefined();
 
       act(() => {
-        result.current.clearColorOverrides(0);
+        result.current.clearColorOverrides(colorIdAt());
       });
 
       expect(result.current.colors[0].overrides).toBeUndefined();
@@ -289,7 +292,7 @@ describe('hooks/useGenerator', () => {
       let returnedId: string | null = null;
 
       act(() => {
-        returnedId = result.current.removeColor(1);
+        returnedId = result.current.removeColor(middleId);
       });
 
       expect(result.current.activeColorId).toBe(lastId);
@@ -315,7 +318,7 @@ describe('hooks/useGenerator', () => {
       let returnedId: string | null = null;
 
       act(() => {
-        returnedId = result.current.removeColor(1);
+        returnedId = result.current.removeColor(lastId);
       });
 
       expect(result.current.activeColorId).toBe(firstId);
@@ -332,6 +335,7 @@ describe('hooks/useGenerator', () => {
       });
 
       const firstId = result.current.colors[0].id;
+      const lastId = result.current.colors[1].id;
 
       act(() => {
         result.current.setActiveColor(firstId);
@@ -340,7 +344,7 @@ describe('hooks/useGenerator', () => {
       let returnedId: string | null = null;
 
       act(() => {
-        returnedId = result.current.removeColor(1);
+        returnedId = result.current.removeColor(lastId);
       });
 
       expect(result.current.activeColorId).toBe(firstId);
@@ -382,7 +386,7 @@ describe('hooks/useGenerator', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        getGeneratorStore().getState().updateColor(0, { name: 'Renamed' });
+        getGeneratorStore().getState().updateColor(colorIdAt(), { name: 'Renamed' });
       });
       expect(renderCount).toBe(1);
 
@@ -417,7 +421,7 @@ describe('hooks/useGenerator', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        getGeneratorStore().getState().updateColor(0, { value: GREEN });
+        getGeneratorStore().getState().updateColor(colorIdAt(), { value: GREEN });
       });
       expect(renderCount).toBe(2);
       expect(result.current.generatorUrl).not.toBe(initialUrl);
@@ -463,7 +467,7 @@ describe('hooks/useGenerator', () => {
       expect(renderCount).toBe(1);
 
       act(() => {
-        getGeneratorStore().getState().updateColor(0, { value: GREEN });
+        getGeneratorStore().getState().updateColor(colorIdAt(), { value: GREEN });
       });
       expect(renderCount).toBe(2);
       expect(result.current.baseSaturation).not.toBe(initial);

@@ -63,8 +63,8 @@ export function addColor(state: GeneratorState, value: OklchString, name?: strin
 /**
  * Clear all overrides for a specific color
  */
-export function clearColorOverrides(state: GeneratorState, index: number): GeneratorState {
-  return updateColor(state, index, { overrides: undefined });
+export function clearColorOverrides(state: GeneratorState, id: string): GeneratorState {
+  return updateColor(state, id, { overrides: undefined });
 }
 
 /**
@@ -124,17 +124,23 @@ export function getEffectiveOptions(
 }
 
 /**
- * Remove a color from the palette by index
+ * Remove a color from the palette by id
  * Returns unchanged state if trying to remove the last color (min 1 required)
  */
-export function removeColor(state: GeneratorState, index: number): GeneratorState {
-  if (state.colors.length <= 1 || index < 0 || index >= state.colors.length) {
+export function removeColor(state: GeneratorState, id: string): GeneratorState {
+  if (state.colors.length <= 1) {
+    return state;
+  }
+
+  const colors = state.colors.filter(color => color.id !== id);
+
+  if (colors.length === state.colors.length) {
     return state;
   }
 
   return {
     ...state,
-    colors: state.colors.filter((_, index_) => index_ !== index),
+    colors,
   };
 }
 
@@ -217,10 +223,10 @@ export function resetPalette(): GeneratorState {
  */
 export function setColorOverride(
   state: GeneratorState,
-  index: number,
+  id: string,
   updates: Partial<ScaleOptions>,
 ): GeneratorState {
-  const currentColor = state.colors[index];
+  const currentColor = state.colors.find(color => color.id === id);
 
   if (!currentColor) {
     return state;
@@ -234,26 +240,26 @@ export function setColorOverride(
     }
   }
 
-  return updateColor(state, index, {
+  return updateColor(state, id, {
     overrides: objectKeys(merged).length ? merged : undefined,
   });
 }
 
 /**
- * Update a color entry by index
+ * Update a color entry by id
  */
 export function updateColor(
   state: GeneratorState,
-  index: number,
-  updates: Partial<ColorEntry>,
+  id: string,
+  updates: Partial<Omit<ColorEntry, 'id'>>,
 ): GeneratorState {
-  if (index < 0 || index >= state.colors.length) {
+  if (!state.colors.some(color => color.id === id)) {
     return state;
   }
 
   return {
     ...state,
-    colors: state.colors.map((c, index_) => (index_ === index ? { ...c, ...updates } : c)),
+    colors: state.colors.map(color => (color.id === id ? { ...color, ...updates } : color)),
   };
 }
 

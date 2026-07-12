@@ -25,14 +25,13 @@ import type { ColorEntry, GlobalScaleOptions } from '~/types';
 
 interface ColorActionsProps {
   colorEntry: ColorEntry;
-  index: number;
   mode: ColorMode;
   onClickMode: (value: ColorMode) => void;
   onClickRandom: () => void;
 }
 
 export default function ColorActions(props: ColorActionsProps) {
-  const { colorEntry, index, mode, onClickMode, onClickRandom } = props;
+  const { colorEntry, mode, onClickMode, onClickRandom } = props;
   const { clearColorOverrides, globalOptions, setColorOverride } = useGenerator(
     'clearColorOverrides',
     'globalOptions',
@@ -47,12 +46,12 @@ export default function ColorActions(props: ColorActionsProps) {
   };
 
   const handleResetOptions = () => {
-    clearColorOverrides(index);
+    clearColorOverrides(colorEntry.id);
     trackEvent('color:reset');
   };
 
   const handleUpdateOptions = (updates: Partial<GlobalScaleOptions>) => {
-    setColorOverride(index, updates);
+    setColorOverride(colorEntry.id, updates);
   };
 
   const handleAction = (key: string | number) => {

@@ -101,25 +101,24 @@ describe('utils/generator', () => {
   });
 
   describe('removeColor', () => {
-    it('removes color by index', () => {
+    it('removes color by id', () => {
       const initial = createTestPalette(3);
-      const result = removeColor(initial, 1);
+      const result = removeColor(initial, initial.colors[1].id);
 
       expect(result.colors).toHaveLength(2);
       expect(result.colors[0].name).toBe('Primary');
       expect(result.colors[1].name).toBe('Tertiary');
     });
 
-    it('returns unchanged state for invalid index', () => {
+    it('returns unchanged state for an unknown id', () => {
       const initial = createTestPalette(2);
 
-      expect(removeColor(initial, -1)).toBe(initial);
-      expect(removeColor(initial, 5)).toBe(initial);
+      expect(removeColor(initial, 'nope')).toBe(initial);
     });
 
     it('returns unchanged state when only one color remains', () => {
       const initial = createTestPalette(1);
-      const result = removeColor(initial, 0);
+      const result = removeColor(initial, initial.colors[0].id);
 
       expect(result).toBe(initial);
       expect(result.colors).toHaveLength(1);
@@ -127,7 +126,7 @@ describe('utils/generator', () => {
 
     it('preserves other colors', () => {
       const initial = createTestPalette(3);
-      const result = removeColor(initial, 0);
+      const result = removeColor(initial, initial.colors[0].id);
 
       expect(result.colors).toHaveLength(2);
       expect(result.colors[0].name).toBe('Secondary');
@@ -194,7 +193,7 @@ describe('utils/generator', () => {
   describe('updateColor', () => {
     it('updates color name', () => {
       const initial = createTestPalette(1);
-      const result = updateColor(initial, 0, { name: 'New Name' });
+      const result = updateColor(initial, initial.colors[0].id, { name: 'New Name' });
 
       expect(result.colors[0].name).toBe('New Name');
       expect(result.colors[0].value).toBe(initial.colors[0].value);
@@ -202,17 +201,23 @@ describe('utils/generator', () => {
 
     it('updates color value', () => {
       const initial = createTestPalette(1);
-      const result = updateColor(initial, 0, { value: WHITE });
+      const result = updateColor(initial, initial.colors[0].id, { value: WHITE });
 
       expect(result.colors[0].value).toBe(WHITE);
       expect(result.colors[0].name).toBe(initial.colors[0].name);
     });
 
-    it('returns unchanged state for invalid index', () => {
+    it('returns unchanged state for an unknown id', () => {
       const initial = createTestPalette(1);
 
-      expect(updateColor(initial, -1, { name: 'Test' })).toBe(initial);
-      expect(updateColor(initial, 5, { name: 'Test' })).toBe(initial);
+      expect(updateColor(initial, 'nope', { name: 'Test' })).toBe(initial);
+    });
+
+    it('updates the target color, not its neighbors', () => {
+      const initial = createTestPalette(3);
+      const result = updateColor(initial, initial.colors[2].id, { name: 'New Name' });
+
+      expect(result.colors.map(c => c.name)).toEqual(['Primary', 'Secondary', 'New Name']);
     });
 
     it('preserves other fields when updating', () => {
@@ -220,7 +225,7 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
-      const result = updateColor(initial, 0, { name: 'New Name' });
+      const result = updateColor(initial, initial.colors[0].id, { name: 'New Name' });
 
       expect(result.colors[0].overrides).toEqual({ steps: 9 });
     });
@@ -229,7 +234,7 @@ describe('utils/generator', () => {
   describe('setColorOverride', () => {
     it('sets overrides that differ from global', () => {
       const initial = createTestPalette(1);
-      const result = setColorOverride(initial, 0, { maxLightness: 0.9 });
+      const result = setColorOverride(initial, initial.colors[0].id, { maxLightness: 0.9 });
 
       expect(result.colors[0].overrides).toEqual({ maxLightness: 0.9 });
     });
@@ -239,7 +244,7 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
-      const result = setColorOverride(initial, 0, { maxLightness: 0.9 });
+      const result = setColorOverride(initial, initial.colors[0].id, { maxLightness: 0.9 });
 
       expect(result.colors[0].overrides).toEqual({ steps: 9, maxLightness: 0.9 });
     });
@@ -250,7 +255,9 @@ describe('utils/generator', () => {
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
       const globalMaxLightness = initial.globalOptions.maxLightness;
-      const result = setColorOverride(initial, 0, { maxLightness: globalMaxLightness });
+      const result = setColorOverride(initial, initial.colors[0].id, {
+        maxLightness: globalMaxLightness,
+      });
 
       expect(result.colors[0].overrides).toBeUndefined();
     });
@@ -260,15 +267,17 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9, maxLightness: 0.5 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
-      const result = setColorOverride(initial, 0, { steps: initial.globalOptions.steps });
+      const result = setColorOverride(initial, initial.colors[0].id, {
+        steps: initial.globalOptions.steps,
+      });
 
       expect(result.colors[0].overrides).toEqual({ maxLightness: 0.5 });
     });
 
-    it('returns unchanged state for invalid index', () => {
+    it('returns unchanged state for an unknown id', () => {
       const initial = createTestPalette(1);
 
-      expect(setColorOverride(initial, 5, { steps: 9 })).toBe(initial);
+      expect(setColorOverride(initial, 'nope', { steps: 9 })).toBe(initial);
     });
 
     it('strips a deep-equal object override', () => {
@@ -276,7 +285,9 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON)],
         globalOptions: { ...getDefaultGlobalOptions(CRIMSON), hueShift: { low: -15, high: 20 } },
       };
-      const result = setColorOverride(initial, 0, { hueShift: { low: -15, high: 20 } });
+      const result = setColorOverride(initial, initial.colors[0].id, {
+        hueShift: { low: -15, high: 20 },
+      });
 
       expect(result.colors[0].overrides).toBeUndefined();
     });
@@ -286,7 +297,9 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON)],
         globalOptions: { ...getDefaultGlobalOptions(CRIMSON), lightnessCurve: 1.3 },
       };
-      const result = setColorOverride(initial, 0, { lightnessCurve: { low: 1.3, high: 1.3 } });
+      const result = setColorOverride(initial, initial.colors[0].id, {
+        lightnessCurve: { low: 1.3, high: 1.3 },
+      });
 
       expect(result.colors[0].overrides).toEqual({ lightnessCurve: { low: 1.3, high: 1.3 } });
     });
@@ -296,7 +309,9 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON)],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
-      const result = setColorOverride(initial, 0, { hueShift: { low: 0, high: 0 } });
+      const result = setColorOverride(initial, initial.colors[0].id, {
+        hueShift: { low: 0, high: 0 },
+      });
 
       expect(result.colors[0].overrides).toEqual({ hueShift: { low: 0, high: 0 } });
     });
@@ -308,15 +323,15 @@ describe('utils/generator', () => {
         colors: [createColorEntry('Primary', CRIMSON, { steps: 9 })],
         globalOptions: getDefaultGlobalOptions(CRIMSON),
       };
-      const result = clearColorOverrides(initial, 0);
+      const result = clearColorOverrides(initial, initial.colors[0].id);
 
       expect(result.colors[0].overrides).toBeUndefined();
     });
 
-    it('returns unchanged state for invalid index', () => {
+    it('returns unchanged state for an unknown id', () => {
       const initial = createTestPalette(1);
 
-      expect(clearColorOverrides(initial, 5)).toBe(initial);
+      expect(clearColorOverrides(initial, 'nope')).toBe(initial);
     });
   });
 
