@@ -32,6 +32,24 @@ describe('Swatch', () => {
 
       expect(screen.getByRole('button')).toMatchSnapshot();
     });
+
+    it('names the swatch with the color name when given one', () => {
+      render(<Swatch color={CRIMSON} name="Primary" step="500" />);
+
+      expect(screen.getByRole('button')).toHaveAccessibleName('Copy Primary 500');
+    });
+
+    it('falls back to the step alone without a name', () => {
+      render(<Swatch color={CRIMSON} step="500" />);
+
+      expect(screen.getByRole('button')).toHaveAccessibleName('Copy 500');
+    });
+
+    it('announces the lock state, which the icon alone does not convey', () => {
+      render(<Swatch color={CRIMSON} lock={500} name="Primary" step="500" />);
+
+      expect(screen.getByRole('button')).toHaveAccessibleName('Copy Primary 500, locked');
+    });
   });
 
   describe('Behavior', () => {

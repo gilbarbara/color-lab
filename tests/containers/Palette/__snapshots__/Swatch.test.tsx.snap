@@ -2,6 +2,7 @@
 
 exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
 <button
+  aria-label="Copy 500"
   class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
   style="--gamut-bg-oklch: oklch(63.27% 0.254 19.9); --gamut-bg-hex: #ff0044; color: rgb(255, 255, 255);"
   type="button"
@@ -16,6 +17,7 @@ exports[`Swatch > Render > renders OKLCH background when gamut is p3 1`] = `
 
 exports[`Swatch > Render > renders hex background when gamut is srgb 1`] = `
 <button
+  aria-label="Copy 500"
   class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
   style="--gamut-bg-oklch: oklch(63.27% 0.254 19.9); --gamut-bg-hex: #ff0044; color: rgb(255, 255, 255);"
   type="button"
@@ -30,6 +32,7 @@ exports[`Swatch > Render > renders hex background when gamut is srgb 1`] = `
 
 exports[`Swatch > Render > renders with lock icon and step className 1`] = `
 <button
+  aria-label="Copy 500, locked"
   class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
   style="--gamut-bg-oklch: oklch(63.27% 0.254 19.9); --gamut-bg-hex: #ff0044; color: rgb(255, 255, 255);"
   type="button"

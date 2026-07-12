@@ -17,6 +17,7 @@ export default function OptionsButton() {
   return (
     <Tooltip content="Palette Options" placement="bottom">
       <Button
+        aria-expanded={showPaletteOptionsPanel}
         aria-label="Palette Options"
         className="@max-lg:button-menu-square"
         onPress={togglePaletteOptionsPanel}

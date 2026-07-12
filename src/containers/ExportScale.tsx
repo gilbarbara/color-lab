@@ -42,7 +42,7 @@ export default function ExportScale(props: ExportScaleProps) {
       trigger={onOpen => (
         <Tooltip content="Export scale" placement="bottom-end">
           <Button
-            aria-label="Export scale"
+            aria-label={`Export scale for ${name}`}
             isIconOnly
             onPress={() => {
               trackEvent('scale:export');

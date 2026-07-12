@@ -64,7 +64,8 @@ export default function ColorActions(props: ColorActionsProps) {
         <div className="flex items-center gap-1">
           <Tooltip content="Color options">
             <Button
-              aria-label="Change color options"
+              aria-expanded={showColorOptions}
+              aria-label={`Change color options for ${colorEntry.name}`}
               isIconOnly
               onPress={handleClickOptions}
               size="sm"
@@ -76,7 +77,7 @@ export default function ColorActions(props: ColorActionsProps) {
             </Button>
           </Tooltip>
           <PreviewButton
-            id={colorEntry.id}
+            colorEntry={colorEntry}
             onPreview={() => toggleBottomBar(false)}
             placement="bottom-start"
             source="color"
@@ -84,7 +85,7 @@ export default function ColorActions(props: ColorActionsProps) {
           />
           <Tooltip content="Random color" placement="bottom">
             <Button
-              aria-label="Random color"
+              aria-label={`Random color for ${colorEntry.name}`}
               isIconOnly
               onPress={onClickRandom}
               size="sm"
@@ -99,7 +100,7 @@ export default function ColorActions(props: ColorActionsProps) {
             <div className="max-w-fit">
               <DropdownTrigger>
                 <Button
-                  aria-label={`Color mode: ${mode.toUpperCase()}`}
+                  aria-label={`Color mode for ${colorEntry.name}: ${mode.toUpperCase()}`}
                   endContent={<CaretDownIcon />}
                   size="menu"
                   variant="flat"

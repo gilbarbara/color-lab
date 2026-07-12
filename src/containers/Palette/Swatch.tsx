@@ -15,12 +15,13 @@ interface SwatchProps {
   /** Click-to-copy + button semantics. Disable for presentational swatches (e.g. docs). */
   interactive?: boolean;
   lock?: number;
+  name?: string;
   step: string;
   stepClassName?: string;
 }
 
 function Swatch(props: SwatchProps) {
-  const { className, color, interactive = true, lock, step, stepClassName } = props;
+  const { className, color, interactive = true, lock, name, step, stepClassName } = props;
   // Store gamut drives clipboard text and tooltip content (post-mount user
   // preference). The painted background uses CSS vars instead — see below.
   const { gamut } = useApp('gamut');
@@ -50,9 +51,12 @@ function Swatch(props: SwatchProps) {
       });
   };
 
+  // The lock icon has no accessible text, so the state only reaches AT via the label.
+  const isLocked = parseInt(step, 10) === lock;
+
   let icon: ReactNode;
 
-  if (parseInt(step, 10) === lock) {
+  if (isLocked) {
     icon = (
       <span className="mb-auto @xl:mt-2 @xl:order-1">
         <LockSimpleIcon className="text-base" weight="bold" />
@@ -85,7 +89,13 @@ function Swatch(props: SwatchProps) {
   return (
     <Tooltip content={displayColor} placement="bottom" size="lg">
       {interactive ? (
-        <button className={sharedClassName} onClick={handleClick} style={style} type="button">
+        <button
+          aria-label={`Copy ${name ? `${name} ${step}` : step}${isLocked ? ', locked' : ''}`}
+          className={sharedClassName}
+          onClick={handleClick}
+          style={style}
+          type="button"
+        >
           {content}
         </button>
       ) : (

@@ -8,12 +8,13 @@ import Row from './Row';
 
 interface GridProps {
   guideline: Guideline;
+  name: string;
   steps: ScaleSteps;
   threshold: ApcaThreshold | WcagThreshold;
 }
 
 export default function Grid(props: GridProps) {
-  const { guideline, steps, threshold } = props;
+  const { guideline, name, steps, threshold } = props;
 
   const entries = useMemo(() => Object.entries(steps), [steps]);
 
@@ -27,7 +28,15 @@ export default function Grid(props: GridProps) {
 
   return (
     <div className="min-w-0 flex-1 overflow-auto max-h-[70vh]" data-testid="ContrastGrid-Grid">
+      {/* `display: contents` on each row keeps the flat CSS grid layout while still exposing
+          row semantics — without it the cells have no row to belong to and the whole matrix is
+          unreadable to a screen reader.
+          `table`, not `grid`: `grid` is a composite widget whose contract includes managed focus and
+          two-dimensional arrow-key navigation. No cell here is focusable, so `grid` would promise an
+          interaction that does not exist. */}
       <div
+        aria-label={`Contrast grid for ${name}. Rows are text, columns are background.`}
+        role="table"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${entries.length + 1}, 48px)`,
@@ -35,15 +44,23 @@ export default function Grid(props: GridProps) {
           width: 'max-content',
         }}
       >
-        <div className={`${cellBase} ${stickyBase} sticky top-0 left-0 z-30`} />
-        {entries.map(([step]) => (
+        <div role="row" style={{ display: 'contents' }}>
           <div
-            key={`col-${step}`}
-            className={cn(cellBase, stickyBase, 'sticky top-0 z-20 rounded-none')}
-          >
-            {step}
-          </div>
-        ))}
+            aria-label="Step"
+            className={`${cellBase} ${stickyBase} sticky top-0 left-0 z-30`}
+            role="columnheader"
+          />
+          {entries.map(([step]) => (
+            <div
+              key={`col-${step}`}
+              aria-label={`Background ${step}`}
+              className={cn(cellBase, stickyBase, 'sticky top-0 z-20 rounded-none')}
+              role="columnheader"
+            >
+              {step}
+            </div>
+          ))}
+        </div>
 
         {entries.map(([rowStep, rowColor]) => (
           <Row

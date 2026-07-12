@@ -1,11 +1,4 @@
-import {
-  type KeyboardEvent,
-  type MouseEvent,
-  type TouchEvent,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import { type MouseEvent, type TouchEvent, useCallback, useEffect, useRef } from 'react';
 import { useBreakpoint, useIsomorphicLayoutEffect } from '@gilbarbara/hooks';
 import { cn, Divider } from '@heroui/react';
 import { SidebarSimpleIcon } from '@phosphor-icons/react';
@@ -124,20 +117,11 @@ export default function Panel() {
 
   // Single tracked chokepoint for the three user-initiated bottom-bar toggles (tap,
   // keyboard, swipe). The programmatic toggleBottomBar(false) from Preview stays untracked.
+  // The caret is a native button, so Enter/Space arrive here as a click — no key handler.
   const handleToggleBottomBar = useCallback(() => {
     trackEvent('app:bottombar', { enabled: !showBottomBar });
     toggleBottomBar();
   }, [showBottomBar, toggleBottomBar]);
-
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        handleToggleBottomBar();
-      }
-    },
-    [handleToggleBottomBar],
-  );
 
   const handleTouchStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
     dragStartY.current = event.touches[0].clientY;
@@ -179,6 +163,7 @@ export default function Panel() {
       {/* Corner toggle — desktop only */}
       <Tooltip content="Toggle Sidebar">
         <Button
+          aria-expanded={showSidebar}
           aria-label="Toggle Sidebar"
           className="hidden md:flex absolute top-2 right-2 z-10"
           isIconOnly
@@ -196,7 +181,6 @@ export default function Panel() {
       {/* Draggable handle with color circles — mobile only */}
       <BottomBar
         onClick={handleClickColorBox}
-        onKeyDown={handleKeyDown}
         onTouchEnd={handleTouchEnd}
         onTouchStart={handleTouchStart}
         showBottomBar={showBottomBar}

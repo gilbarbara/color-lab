@@ -6,953 +6,1427 @@ exports[`ContrastGrid > Render > render correctly > grid 1`] = `
   data-testid="ContrastGrid-Grid"
 >
   <div
+    aria-label="Contrast grid for Primary. Rows are text, columns are background."
+    role="table"
     style="display: grid; grid-template-columns: repeat(12, 48px); gap: 4px; width: max-content;"
   >
     <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 left-0 z-30"
-    />
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      50
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      100
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      200
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      300
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      400
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      500
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      600
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      700
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      800
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      900
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
-    >
-      950
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      50
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(69.78% 0.183 240); --gamut-bg-hex: #00a8ff; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
-    >
-      49
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(61.21% 0.183 240); --gamut-bg-hex: #008de5; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
-    >
-      61
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
-    >
-      74
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
-    >
-      86
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
-    >
-      95
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
-    >
-      100
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      100
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(61.21% 0.183 240); --gamut-bg-hex: #008de5; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
-    >
-      56
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
-    >
-      69
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
-    >
-      81
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
-    >
-      90
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
-    >
-      95
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      200
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(61.21% 0.183 240); --gamut-bg-hex: #008de5; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
-    >
-      47
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
-    >
-      60
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
-    >
-      71
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
-    >
-      81
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
-    >
-      86
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      300
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
-    >
-      49
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
-    >
-      60
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
-    >
-      70
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
-    >
-      75
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      400
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(77.52% 0.139 240); --gamut-fg-hex: #55c1ff;"
-    >
-      48
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(77.52% 0.139 240); --gamut-fg-hex: #55c1ff;"
-    >
-      57
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(77.52% 0.139 240); --gamut-fg-hex: #55c1ff;"
-    >
-      63
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      500
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(69.78% 0.183 240); --gamut-fg-hex: #00a8ff;"
-    >
-      45
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(69.78% 0.183 240); --gamut-fg-hex: #00a8ff;"
-    >
-      51
-    </div>
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      600
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(61.21% 0.183 240); --gamut-fg-hex: #008de5;"
-    >
-      56
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(61.21% 0.183 240); --gamut-fg-hex: #008de5;"
-    >
-      52
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      700
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
-    >
-      69
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
-    >
-      65
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
-    >
-      56
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
-    >
-      46
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      800
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
-    >
-      82
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
-    >
-      77
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
-    >
-      69
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
-    >
-      58
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(77.52% 0.139 240); --gamut-bg-hex: #55c1ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
-    >
-      47
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      900
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
-    >
-      92
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
-    >
-      88
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
-    >
-      79
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
-    >
-      69
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(77.52% 0.139 240); --gamut-bg-hex: #55c1ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
-    >
-      57
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(69.78% 0.183 240); --gamut-bg-hex: #00a8ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
-    >
-      46
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
-    >
-      950
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
-    >
-      99
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
-    >
-      94
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
-    >
-      85
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
-    >
-      75
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(77.52% 0.139 240); --gamut-bg-hex: #55c1ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
-    >
-      64
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
-      data-state="pass"
-      data-testid="ContrastGrid-Cell"
-      style="--gamut-bg-oklch: oklch(69.78% 0.183 240); --gamut-bg-hex: #00a8ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
-    >
-      52
-    </div>
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium"
-      data-state="fail"
-      data-testid="ContrastGrid-Cell"
-      style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
-    />
-    <div
-      class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
-      data-state="identity"
-      data-testid="ContrastGrid-Cell"
-    >
-      —
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Step"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 left-0 z-30"
+        role="columnheader"
+      />
+      <div
+        aria-label="Background 50"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        50
+      </div>
+      <div
+        aria-label="Background 100"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        100
+      </div>
+      <div
+        aria-label="Background 200"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        200
+      </div>
+      <div
+        aria-label="Background 300"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        300
+      </div>
+      <div
+        aria-label="Background 400"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        400
+      </div>
+      <div
+        aria-label="Background 500"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        500
+      </div>
+      <div
+        aria-label="Background 600"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        600
+      </div>
+      <div
+        aria-label="Background 700"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        700
+      </div>
+      <div
+        aria-label="Background 800"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        800
+      </div>
+      <div
+        aria-label="Background 900"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        900
+      </div>
+      <div
+        aria-label="Background 950"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky top-0 z-20 rounded-none"
+        role="columnheader"
+      >
+        950
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 50"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        50
+      </div>
+      <div
+        aria-label="Text 50 on background 50: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 50 on background 100: Lc 0, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        0
+      </div>
+      <div
+        aria-label="Text 50 on background 200: Lc 13, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        13
+      </div>
+      <div
+        aria-label="Text 50 on background 300: Lc 24, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        24
+      </div>
+      <div
+        aria-label="Text 50 on background 400: Lc 37, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        37
+      </div>
+      <div
+        aria-label="Text 50 on background 500: Lc 49, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(69.78% 0.183 240); --gamut-bg-hex: #00a8ff; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
+      >
+        49
+      </div>
+      <div
+        aria-label="Text 50 on background 600: Lc 61, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(61.21% 0.183 240); --gamut-bg-hex: #008de5; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
+      >
+        61
+      </div>
+      <div
+        aria-label="Text 50 on background 700: Lc 74, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
+      >
+        74
+      </div>
+      <div
+        aria-label="Text 50 on background 800: Lc 86, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
+      >
+        86
+      </div>
+      <div
+        aria-label="Text 50 on background 900: Lc 95, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
+      >
+        95
+      </div>
+      <div
+        aria-label="Text 50 on background 950: Lc 100, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(97% 0.017 240); --gamut-fg-hex: #ebf7ff;"
+      >
+        100
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 100"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        100
+      </div>
+      <div
+        aria-label="Text 100 on background 50: Lc 0, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        0
+      </div>
+      <div
+        aria-label="Text 100 on background 100: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 100 on background 200: Lc 8, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        8
+      </div>
+      <div
+        aria-label="Text 100 on background 300: Lc 19, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        19
+      </div>
+      <div
+        aria-label="Text 100 on background 400: Lc 32, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        32
+      </div>
+      <div
+        aria-label="Text 100 on background 500: Lc 44, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        44
+      </div>
+      <div
+        aria-label="Text 100 on background 600: Lc 56, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(61.21% 0.183 240); --gamut-bg-hex: #008de5; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
+      >
+        56
+      </div>
+      <div
+        aria-label="Text 100 on background 700: Lc 69, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
+      >
+        69
+      </div>
+      <div
+        aria-label="Text 100 on background 800: Lc 81, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
+      >
+        81
+      </div>
+      <div
+        aria-label="Text 100 on background 900: Lc 90, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
+      >
+        90
+      </div>
+      <div
+        aria-label="Text 100 on background 950: Lc 95, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(94.57% 0.032 240); --gamut-fg-hex: #dbf1ff;"
+      >
+        95
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 200"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        200
+      </div>
+      <div
+        aria-label="Text 200 on background 50: Lc 11, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        11
+      </div>
+      <div
+        aria-label="Text 200 on background 100: Lc 0, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        0
+      </div>
+      <div
+        aria-label="Text 200 on background 200: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 200 on background 300: Lc 10, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        10
+      </div>
+      <div
+        aria-label="Text 200 on background 400: Lc 22, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        22
+      </div>
+      <div
+        aria-label="Text 200 on background 500: Lc 34, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        34
+      </div>
+      <div
+        aria-label="Text 200 on background 600: Lc 47, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(61.21% 0.183 240); --gamut-bg-hex: #008de5; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
+      >
+        47
+      </div>
+      <div
+        aria-label="Text 200 on background 700: Lc 60, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
+      >
+        60
+      </div>
+      <div
+        aria-label="Text 200 on background 800: Lc 71, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
+      >
+        71
+      </div>
+      <div
+        aria-label="Text 200 on background 900: Lc 81, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
+      >
+        81
+      </div>
+      <div
+        aria-label="Text 200 on background 950: Lc 86, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(90.11% 0.059 240); --gamut-fg-hex: #bce4ff;"
+      >
+        86
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 300"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        300
+      </div>
+      <div
+        aria-label="Text 300 on background 50: Lc 21, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        21
+      </div>
+      <div
+        aria-label="Text 300 on background 100: Lc 17, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        17
+      </div>
+      <div
+        aria-label="Text 300 on background 200: Lc 8, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        8
+      </div>
+      <div
+        aria-label="Text 300 on background 300: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 300 on background 400: Lc 11, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        11
+      </div>
+      <div
+        aria-label="Text 300 on background 500: Lc 23, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        23
+      </div>
+      <div
+        aria-label="Text 300 on background 600: Lc 36, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        36
+      </div>
+      <div
+        aria-label="Text 300 on background 700: Lc 49, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(51.9% 0.155 240); --gamut-bg-hex: #0070b7; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
+      >
+        49
+      </div>
+      <div
+        aria-label="Text 300 on background 800: Lc 60, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
+      >
+        60
+      </div>
+      <div
+        aria-label="Text 300 on background 900: Lc 70, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
+      >
+        70
+      </div>
+      <div
+        aria-label="Text 300 on background 950: Lc 75, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(84.35% 0.095 240); --gamut-fg-hex: #92d4ff;"
+      >
+        75
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 400"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        400
+      </div>
+      <div
+        aria-label="Text 400 on background 50: Lc 33, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        33
+      </div>
+      <div
+        aria-label="Text 400 on background 100: Lc 28, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        28
+      </div>
+      <div
+        aria-label="Text 400 on background 200: Lc 20, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        20
+      </div>
+      <div
+        aria-label="Text 400 on background 300: Lc 9, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        9
+      </div>
+      <div
+        aria-label="Text 400 on background 400: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 400 on background 500: Lc 11, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        11
+      </div>
+      <div
+        aria-label="Text 400 on background 600: Lc 24, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        24
+      </div>
+      <div
+        aria-label="Text 400 on background 700: Lc 37, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        37
+      </div>
+      <div
+        aria-label="Text 400 on background 800: Lc 48, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(41.9% 0.125 240); --gamut-bg-hex: #005289; --gamut-fg-oklch: oklch(77.52% 0.139 240); --gamut-fg-hex: #55c1ff;"
+      >
+        48
+      </div>
+      <div
+        aria-label="Text 400 on background 900: Lc 57, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(77.52% 0.139 240); --gamut-fg-hex: #55c1ff;"
+      >
+        57
+      </div>
+      <div
+        aria-label="Text 400 on background 950: Lc 63, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(77.52% 0.139 240); --gamut-fg-hex: #55c1ff;"
+      >
+        63
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 500"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        500
+      </div>
+      <div
+        aria-label="Text 500 on background 50: Lc 44, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        44
+      </div>
+      <div
+        aria-label="Text 500 on background 100: Lc 40, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        40
+      </div>
+      <div
+        aria-label="Text 500 on background 200: Lc 31, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        31
+      </div>
+      <div
+        aria-label="Text 500 on background 300: Lc 21, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        21
+      </div>
+      <div
+        aria-label="Text 500 on background 400: Lc 9, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        9
+      </div>
+      <div
+        aria-label="Text 500 on background 500: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 500 on background 600: Lc 12, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        12
+      </div>
+      <div
+        aria-label="Text 500 on background 700: Lc 25, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        25
+      </div>
+      <div
+        aria-label="Text 500 on background 800: Lc 36, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        36
+      </div>
+      <div
+        aria-label="Text 500 on background 900: Lc 45, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(31.26% 0.094 240); --gamut-bg-hex: #00355b; --gamut-fg-oklch: oklch(69.78% 0.183 240); --gamut-fg-hex: #00a8ff;"
+      >
+        45
+      </div>
+      <div
+        aria-label="Text 500 on background 950: Lc 51, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(20% 0.060 240); --gamut-bg-hex: #00182e; --gamut-fg-oklch: oklch(69.78% 0.183 240); --gamut-fg-hex: #00a8ff;"
+      >
+        51
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 600"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        600
+      </div>
+      <div
+        aria-label="Text 600 on background 50: Lc 56, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(61.21% 0.183 240); --gamut-fg-hex: #008de5;"
+      >
+        56
+      </div>
+      <div
+        aria-label="Text 600 on background 100: Lc 52, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(61.21% 0.183 240); --gamut-fg-hex: #008de5;"
+      >
+        52
+      </div>
+      <div
+        aria-label="Text 600 on background 200: Lc 43, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        43
+      </div>
+      <div
+        aria-label="Text 600 on background 300: Lc 33, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        33
+      </div>
+      <div
+        aria-label="Text 600 on background 400: Lc 21, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        21
+      </div>
+      <div
+        aria-label="Text 600 on background 500: Lc 10, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        10
+      </div>
+      <div
+        aria-label="Text 600 on background 600: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 600 on background 700: Lc 12, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        12
+      </div>
+      <div
+        aria-label="Text 600 on background 800: Lc 24, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        24
+      </div>
+      <div
+        aria-label="Text 600 on background 900: Lc 33, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        33
+      </div>
+      <div
+        aria-label="Text 600 on background 950: Lc 38, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        38
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 700"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        700
+      </div>
+      <div
+        aria-label="Text 700 on background 50: Lc 69, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
+      >
+        69
+      </div>
+      <div
+        aria-label="Text 700 on background 100: Lc 65, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
+      >
+        65
+      </div>
+      <div
+        aria-label="Text 700 on background 200: Lc 56, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
+      >
+        56
+      </div>
+      <div
+        aria-label="Text 700 on background 300: Lc 46, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(51.9% 0.155 240); --gamut-fg-hex: #0070b7;"
+      >
+        46
+      </div>
+      <div
+        aria-label="Text 700 on background 400: Lc 35, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        35
+      </div>
+      <div
+        aria-label="Text 700 on background 500: Lc 23, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        23
+      </div>
+      <div
+        aria-label="Text 700 on background 600: Lc 11, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        11
+      </div>
+      <div
+        aria-label="Text 700 on background 700: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 700 on background 800: Lc 11, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        11
+      </div>
+      <div
+        aria-label="Text 700 on background 900: Lc 20, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        20
+      </div>
+      <div
+        aria-label="Text 700 on background 950: Lc 25, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        25
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 800"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        800
+      </div>
+      <div
+        aria-label="Text 800 on background 50: Lc 82, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
+      >
+        82
+      </div>
+      <div
+        aria-label="Text 800 on background 100: Lc 77, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
+      >
+        77
+      </div>
+      <div
+        aria-label="Text 800 on background 200: Lc 69, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
+      >
+        69
+      </div>
+      <div
+        aria-label="Text 800 on background 300: Lc 58, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
+      >
+        58
+      </div>
+      <div
+        aria-label="Text 800 on background 400: Lc 47, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(77.52% 0.139 240); --gamut-bg-hex: #55c1ff; --gamut-fg-oklch: oklch(41.9% 0.125 240); --gamut-fg-hex: #005289;"
+      >
+        47
+      </div>
+      <div
+        aria-label="Text 800 on background 500: Lc 35, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        35
+      </div>
+      <div
+        aria-label="Text 800 on background 600: Lc 24, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        24
+      </div>
+      <div
+        aria-label="Text 800 on background 700: Lc 10, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        10
+      </div>
+      <div
+        aria-label="Text 800 on background 800: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 800 on background 900: Lc 8, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        8
+      </div>
+      <div
+        aria-label="Text 800 on background 950: Lc 13, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        13
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 900"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        900
+      </div>
+      <div
+        aria-label="Text 900 on background 50: Lc 92, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
+      >
+        92
+      </div>
+      <div
+        aria-label="Text 900 on background 100: Lc 88, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
+      >
+        88
+      </div>
+      <div
+        aria-label="Text 900 on background 200: Lc 79, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
+      >
+        79
+      </div>
+      <div
+        aria-label="Text 900 on background 300: Lc 69, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
+      >
+        69
+      </div>
+      <div
+        aria-label="Text 900 on background 400: Lc 57, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(77.52% 0.139 240); --gamut-bg-hex: #55c1ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
+      >
+        57
+      </div>
+      <div
+        aria-label="Text 900 on background 500: Lc 46, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(69.78% 0.183 240); --gamut-bg-hex: #00a8ff; --gamut-fg-oklch: oklch(31.26% 0.094 240); --gamut-fg-hex: #00355b;"
+      >
+        46
+      </div>
+      <div
+        aria-label="Text 900 on background 600: Lc 34, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        34
+      </div>
+      <div
+        aria-label="Text 900 on background 700: Lc 21, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        21
+      </div>
+      <div
+        aria-label="Text 900 on background 800: Lc 8, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        8
+      </div>
+      <div
+        aria-label="Text 900 on background 900: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
+      <div
+        aria-label="Text 900 on background 950: Lc 0, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        0
+      </div>
+    </div>
+    <div
+      role="row"
+      style="display: contents;"
+    >
+      <div
+        aria-label="Text 950"
+        class="size-12 flex items-center justify-center text-xs font-medium bg-content1 sticky left-0 z-10 rounded-none"
+        role="rowheader"
+      >
+        950
+      </div>
+      <div
+        aria-label="Text 950 on background 50: Lc 99, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(97% 0.017 240); --gamut-bg-hex: #ebf7ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
+      >
+        99
+      </div>
+      <div
+        aria-label="Text 950 on background 100: Lc 94, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(94.57% 0.032 240); --gamut-bg-hex: #dbf1ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
+      >
+        94
+      </div>
+      <div
+        aria-label="Text 950 on background 200: Lc 85, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(90.11% 0.059 240); --gamut-bg-hex: #bce4ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
+      >
+        85
+      </div>
+      <div
+        aria-label="Text 950 on background 300: Lc 75, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(84.35% 0.095 240); --gamut-bg-hex: #92d4ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
+      >
+        75
+      </div>
+      <div
+        aria-label="Text 950 on background 400: Lc 64, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(77.52% 0.139 240); --gamut-bg-hex: #55c1ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
+      >
+        64
+      </div>
+      <div
+        aria-label="Text 950 on background 500: Lc 52, pass"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-fg-hex)"
+        data-state="pass"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="--gamut-bg-oklch: oklch(69.78% 0.183 240); --gamut-bg-hex: #00a8ff; --gamut-fg-oklch: oklch(20% 0.060 240); --gamut-fg-hex: #00182e;"
+      >
+        52
+      </div>
+      <div
+        aria-label="Text 950 on background 600: Lc 40, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        40
+      </div>
+      <div
+        aria-label="Text 950 on background 700: Lc 27, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        27
+      </div>
+      <div
+        aria-label="Text 950 on background 800: Lc 15, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        15
+      </div>
+      <div
+        aria-label="Text 950 on background 900: Lc 0, fail"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="fail"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+        style="background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 4px, transparent 4px 8px);"
+      >
+        0
+      </div>
+      <div
+        aria-label="Text 950 on background 950: same color"
+        class="size-12 rounded-md flex items-center justify-center text-xs font-medium text-foreground-400"
+        data-state="identity"
+        data-testid="ContrastGrid-Cell"
+        role="cell"
+      >
+        —
+      </div>
     </div>
   </div>
 </div>
@@ -983,38 +1457,49 @@ exports[`ContrastGrid > Render > render correctly > sidebar 1`] = `
   class="shrink-0 w-full md:w-44 flex flex-col text-sm"
   data-testid="ContrastGrid-Sidebar"
 >
-  <section>
-    <p
-      class="text-foreground-500 uppercase text-xs tracking-wide mb-2"
+  <div
+    class="w-full flex flex-col items-start gap-2"
+  >
+    <span
+      class="text-foreground-500 uppercase text-xs tracking-wide"
+      id="_r_g_"
     >
       Guidelines
-    </p>
+    </span>
     <div
-      class="flex flex-row md:flex-col gap-1"
+      aria-labelledby="_r_g_"
+      class="w-full flex flex-row md:flex-col gap-1"
+      role="radiogroup"
+      tabindex="-1"
     >
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-default-200 text-foreground"
+        aria-checked="true"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
+        role="radio"
         tabindex="0"
         type="button"
       >
         WCAG 3 · APCA
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         WCAG 2
       </button>
     </div>
-  </section>
-  <section
-    class="mt-6"
+  </div>
+  <div
+    class="w-full flex flex-col items-start gap-2 mt-6"
   >
-    <p
-      class="text-foreground-500 uppercase text-xs tracking-wide mb-2"
+    <span
+      class="text-foreground-500 uppercase text-xs tracking-wide"
+      id="_r_h_"
     >
       <span>
         APCA 
@@ -1025,68 +1510,85 @@ exports[`ContrastGrid > Render > render correctly > sidebar 1`] = `
           </sup>
         </span>
       </span>
-    </p>
+    </span>
     <div
-      class="flex flex-row flex-wrap md:flex-col gap-1 overflow-x-auto"
+      aria-labelledby="_r_h_"
+      class="w-full flex flex-row flex-wrap md:flex-col gap-1 overflow-x-auto"
+      role="radiogroup"
+      tabindex="-1"
     >
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         Decorative 15+
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         Non-content 30+
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-default-200 text-foreground"
+        aria-checked="true"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default text-default-foreground data-[hover=true]:opacity-hover md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
+        role="radio"
         tabindex="0"
         type="button"
       >
         Large min 45+
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         UI / Small 60+
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         Body min 75+
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         Body pref 90+
       </button>
       <button
-        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md bg-transparent text-foreground-500"
+        aria-checked="false"
+        class="z-0 group relative inline-flex items-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 min-w-16 gap-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 md:w-full justify-start h-8 px-3 text-sm rounded-md"
         data-react-aria-pressable="true"
-        tabindex="0"
+        role="radio"
+        tabindex="-1"
         type="button"
       >
         All
       </button>
     </div>
-  </section>
+  </div>
   <p
     class="text-foreground-500 italic text-sm leading-snug mt-2"
   >

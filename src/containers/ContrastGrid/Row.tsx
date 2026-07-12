@@ -59,17 +59,30 @@ export default function Row(props: RowProps) {
   const rowOklch = formatOklch(rowColor);
   const rowHex = convertCSS(rowColor, 'hex');
 
+  const unit = guideline === 'wcag2' ? 'ratio' : 'Lc';
+  // `all` shows every pair without grading any of them, so `passes` returns true across the board.
+  // Announcing that as "pass" would claim a verdict the UI never makes — an Lc 0 pair is not a pass.
+  const grades = threshold !== 'all';
+
   return (
-    <>
-      <div className={cn(cellBase, stickyBase, 'sticky left-0 z-10 rounded-none')}>{step}</div>
+    <div role="row" style={{ display: 'contents' }}>
+      <div
+        aria-label={`Text ${step}`}
+        className={cn(cellBase, stickyBase, 'sticky left-0 z-10 rounded-none')}
+        role="rowheader"
+      >
+        {step}
+      </div>
       {entries.map(([colStep, colColor]) => {
         if (rowColor === colColor) {
           return (
             <div
               key={`cell-${colStep}`}
+              aria-label={`Text ${step} on background ${colStep}: same color`}
               className={`${cellBase} text-foreground-400`}
               data-state="identity"
               data-testid="ContrastGrid-Cell"
+              role="cell"
             >
               —
             </div>
@@ -77,26 +90,36 @@ export default function Row(props: RowProps) {
         }
 
         const ok = passes(guideline, threshold, rowColor, colColor);
+        const value = getContrastValue(guideline, rowColor, colColor);
+        const score = formatContrast(guideline, value);
+        const outcome = grades ? `, ${ok ? 'pass' : 'fail'}` : '';
+        const label = `Text ${step} on background ${colStep}: ${unit} ${score}${outcome}`;
 
+        // A failing cell still renders its score — it used to be an empty striped div, which made
+        // the failing pairs unreadable to everyone, not only to a screen reader.
         if (!ok) {
           return (
             <div
               key={`cell-${colStep}`}
-              className={cellBase}
+              aria-label={label}
+              className={cn(cellBase, 'text-foreground-400')}
               data-state="fail"
               data-testid="ContrastGrid-Cell"
+              role="cell"
               style={failBg}
-            />
+            >
+              {score}
+            </div>
           );
         }
 
-        const value = getContrastValue(guideline, rowColor, colColor);
         const colOklch = formatOklch(colColor);
         const colHex = convertCSS(colColor, 'hex');
 
         return (
           <div
             key={`cell-${colStep}`}
+            aria-label={label}
             className={cn(
               cellBase,
               'bg-(--gamut-bg-oklch) text-(--gamut-fg-oklch)',
@@ -104,6 +127,7 @@ export default function Row(props: RowProps) {
             )}
             data-state="pass"
             data-testid="ContrastGrid-Cell"
+            role="cell"
             style={
               {
                 '--gamut-bg-oklch': colOklch,
@@ -113,10 +137,10 @@ export default function Row(props: RowProps) {
               } as CSSProperties
             }
           >
-            {formatContrast(guideline, value)}
+            {score}
           </div>
         );
       })}
-    </>
+    </div>
   );
 }

@@ -510,11 +510,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 50"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     50
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -659,11 +662,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 100"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     100
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -808,11 +814,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 200"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     200
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -957,11 +966,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 300"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     300
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -1106,11 +1118,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 400"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     400
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -1255,8 +1270,11 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 500, locked"
+                    aria-pressed="true"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     500
                     <svg
@@ -1271,7 +1289,7 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                         d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Z"
                       />
                     </svg>
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -1416,11 +1434,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 600"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     600
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -1565,11 +1586,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 700"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     700
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -1714,11 +1738,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 800"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     800
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -1863,11 +1890,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 900"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     900
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"
@@ -2012,11 +2042,14 @@ exports[`ColorInfo > Render > renders correctly 1`] = `
                 <td
                   class="py-2 px-2 text-foreground-500 text-sm"
                 >
-                  <div
-                    class="flex flex-col items-center gap-0.5 leading-tight"
+                  <button
+                    aria-label="Step 950"
+                    aria-pressed="false"
+                    class="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+                    type="button"
                   >
                     950
-                  </div>
+                  </button>
                 </td>
                 <td
                   class="py-2 pr-3"

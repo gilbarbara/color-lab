@@ -7,8 +7,14 @@ import ColorInput from '~/components/ColorInput';
 
 const onChange = vi.fn();
 
+function getInput() {
+  return screen.getByLabelText('Color value for Primary');
+}
+
 function setup(props: Partial<Parameters<typeof ColorInput>[0]> = {}) {
-  return render(<ColorInput color={CRIMSON} mode="oklch" onChange={onChange} {...props} />);
+  return render(
+    <ColorInput color={CRIMSON} mode="oklch" name="Primary" onChange={onChange} {...props} />,
+  );
 }
 
 describe('ColorInput', () => {
@@ -26,29 +32,29 @@ describe('ColorInput', () => {
     it('shows 3-decimal chroma in OKLCH mode', () => {
       setup();
 
-      expect(screen.getByLabelText('Color value')).toHaveValue(CRIMSON);
+      expect(getInput()).toHaveValue(CRIMSON);
     });
 
     it('shows hex in HSL mode', () => {
       setup({ mode: 'hsl' });
 
-      expect(screen.getByLabelText('Color value')).toHaveValue('#ff0044');
+      expect(getInput()).toHaveValue('#ff0044');
     });
 
     it('shows hex in RGB mode', () => {
       setup({ mode: 'rgb' });
 
-      expect(screen.getByLabelText('Color value')).toHaveValue('#ff0044');
+      expect(getInput()).toHaveValue('#ff0044');
     });
 
     it('display follows mode prop when not editing', () => {
       const { rerender } = setup();
 
-      expect(screen.getByLabelText('Color value')).toHaveValue(CRIMSON);
+      expect(getInput()).toHaveValue(CRIMSON);
 
-      rerender(<ColorInput color={CRIMSON} mode="hsl" onChange={vi.fn()} />);
+      rerender(<ColorInput color={CRIMSON} mode="hsl" name="Primary" onChange={vi.fn()} />);
 
-      expect(screen.getByLabelText('Color value')).toHaveValue('#ff0044');
+      expect(getInput()).toHaveValue('#ff0044');
     });
   });
 
@@ -56,7 +62,7 @@ describe('ColorInput', () => {
     it('emits prefixed hex for bare hex', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: 'ff0044' } });
+      fireEvent.change(getInput(), { target: { value: 'ff0044' } });
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith('#ff0044');
@@ -65,7 +71,7 @@ describe('ColorInput', () => {
     it('emits prefixed hex unchanged', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: '#ff0044' } });
+      fireEvent.change(getInput(), { target: { value: '#ff0044' } });
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith('#ff0044');
@@ -74,7 +80,7 @@ describe('ColorInput', () => {
     it('emits raw OKLCH paste', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), {
+      fireEvent.change(getInput(), {
         target: { value: 'oklch(0.7 0.15 180)' },
       });
 
@@ -85,7 +91,7 @@ describe('ColorInput', () => {
     it('does not emit for garbage input', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: 'not-a-color' } });
+      fireEvent.change(getInput(), { target: { value: 'not-a-color' } });
 
       expect(onChange).not.toHaveBeenCalled();
     });
@@ -93,7 +99,7 @@ describe('ColorInput', () => {
     it('does not emit for 4-char hex (alpha channel)', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: '#ff00' } });
+      fireEvent.change(getInput(), { target: { value: '#ff00' } });
 
       expect(onChange).not.toHaveBeenCalled();
     });
@@ -101,7 +107,7 @@ describe('ColorInput', () => {
     it('does not emit for 8-char hex (alpha channel)', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), {
+      fireEvent.change(getInput(), {
         target: { value: '#ff004400' },
       });
 
@@ -111,7 +117,7 @@ describe('ColorInput', () => {
     it('does not emit for out-of-range OKLCH (L > 100%)', () => {
       setup();
 
-      fireEvent.change(screen.getByLabelText('Color value'), {
+      fireEvent.change(getInput(), {
         target: { value: 'oklch(164.9% 0.24196 300.54)' },
       });
 
@@ -124,7 +130,7 @@ describe('ColorInput', () => {
 
       setup();
 
-      const input = screen.getByLabelText('Color value');
+      const input = getInput();
 
       await user.click(input);
       fireEvent.change(input, { target: { value: '#ff0044' } });

@@ -7,6 +7,10 @@ import Preview from '~/containers/Preview';
 
 import type { GeneratorState } from '~/types';
 
+function getColorRadioGroup(): HTMLElement {
+  return screen.getByRole('radiogroup', { name: 'Preview color' });
+}
+
 function getToggleButton(): HTMLButtonElement {
   const section = screen.getByTestId('Preview');
   const button = section.querySelector('button');
@@ -76,43 +80,78 @@ describe('Preview', () => {
   });
 
   describe('Behavior', () => {
-    it('omits color buttons with single color', () => {
+    it('omits the color radiogroup with a single color', () => {
       setupPalette(1);
       render(<Preview />);
 
-      expect(screen.queryByRole('button', { name: /use .* as primary/i })).not.toBeInTheDocument();
+      // Scoped by name: the Controls demo renders its own unrelated radiogroup.
+      expect(screen.queryByRole('radiogroup', { name: 'Preview color' })).not.toBeInTheDocument();
     });
 
-    it('shows color buttons with multiple colors', () => {
+    it('shows a radio per color, with the preview color checked', () => {
       setupPalette(3);
       render(<Preview />);
 
-      const buttons = screen.getAllByRole('button', { name: /use .* as primary/i });
+      const radios = within(getColorRadioGroup()).getAllByRole('radio');
 
-      expect(buttons).toHaveLength(3);
-      expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
-      expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
-      expect(buttons[2]).toHaveAttribute('aria-pressed', 'false');
+      expect(radios).toHaveLength(3);
+      expect(radios[0]).toHaveAccessibleName('Primary');
+      expect(radios[0]).toBeChecked();
+      expect(radios[1]).not.toBeChecked();
+      expect(radios[2]).not.toBeChecked();
     });
 
     it('clicking a color updates previewColorId', () => {
       render(<Preview />);
 
-      const secondaryButton = screen.getByRole('button', { name: 'Use Secondary as primary' });
-
-      fireEvent.click(secondaryButton);
+      fireEvent.click(screen.getByRole('radio', { name: 'Secondary' }));
 
       const secondaryId = getGeneratorStore().getState().colors[1].id;
 
       expect(getGeneratorStore().getState().previewColorId).toBe(secondaryId);
-      expect(screen.getByRole('button', { name: 'Use Secondary as primary' })).toHaveAttribute(
-        'aria-pressed',
-        'true',
+      expect(screen.getByRole('radio', { name: 'Secondary' })).toBeChecked();
+      expect(screen.getByRole('radio', { name: 'Primary' })).not.toBeChecked();
+    });
+
+    it('exposes the radiogroup as a single tab stop', () => {
+      setupPalette(3);
+      render(<Preview />);
+
+      const radios = within(getColorRadioGroup()).getAllByRole('radio');
+
+      // Roving tabindex: only the checked radio is reachable with Tab.
+      expect(radios[0]).toHaveAttribute('tabindex', '0');
+      expect(radios[1]).toHaveAttribute('tabindex', '-1');
+      expect(radios[2]).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('arrow keys move the selection and focus', () => {
+      render(<Preview />);
+
+      fireEvent.keyDown(screen.getByRole('radio', { name: 'Primary' }), { key: 'ArrowRight' });
+
+      const secondary = screen.getByRole('radio', { name: 'Secondary' });
+
+      expect(secondary).toBeChecked();
+      expect(secondary).toHaveFocus();
+      expect(getGeneratorStore().getState().previewColorId).toBe(
+        getGeneratorStore().getState().colors[1].id,
       );
-      expect(screen.getByRole('button', { name: 'Use Primary as primary' })).toHaveAttribute(
-        'aria-pressed',
-        'false',
-      );
+    });
+
+    it('arrow keys wrap around at both ends', () => {
+      render(<Preview />);
+
+      // Forward past the last radio wraps to the first.
+      fireEvent.keyDown(screen.getByRole('radio', { name: 'Primary' }), { key: 'ArrowRight' });
+      fireEvent.keyDown(screen.getByRole('radio', { name: 'Secondary' }), { key: 'ArrowRight' });
+
+      expect(screen.getByRole('radio', { name: 'Primary' })).toBeChecked();
+
+      // Backward past the first radio wraps to the last.
+      fireEvent.keyDown(screen.getByRole('radio', { name: 'Primary' }), { key: 'ArrowLeft' });
+
+      expect(screen.getByRole('radio', { name: 'Secondary' })).toBeChecked();
     });
 
     it('toggle button flips showPreview in store', () => {

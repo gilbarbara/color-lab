@@ -158,7 +158,7 @@ describe('ColorItem', () => {
     it('shows remove confirmation on first click', () => {
       renderActive();
 
-      const removeButton = screen.getByRole('button', { name: /remove color/i });
+      const removeButton = screen.getByRole('button', { name: /remove primary color/i });
       const initialCount = getGeneratorStore().getState().colors.length;
 
       fireEvent.click(removeButton);
@@ -173,7 +173,7 @@ describe('ColorItem', () => {
 
       render(<ColorItem {...createDefaultProps({ colorEntry: colors[0] })} />);
 
-      const removeButton = screen.getByRole('button', { name: /remove color/i });
+      const removeButton = screen.getByRole('button', { name: /remove primary color/i });
 
       fireEvent.click(removeButton);
 
@@ -191,7 +191,7 @@ describe('ColorItem', () => {
 
       render(<ColorItem {...createDefaultProps({ colorEntry: colors[0] })} />);
 
-      const removeButton = screen.getByRole('button', { name: /remove color/i });
+      const removeButton = screen.getByRole('button', { name: /remove primary color/i });
 
       fireEvent.click(removeButton);
 
@@ -211,7 +211,7 @@ describe('ColorItem', () => {
     it('disables remove when isOnlyColor is true', () => {
       renderActive({ isOnlyColor: true });
 
-      const removeButton = screen.getByRole('button', { name: /remove color/i });
+      const removeButton = screen.getByRole('button', { name: /remove primary color/i });
 
       expect(removeButton).toBeDisabled();
     });
@@ -219,8 +219,13 @@ describe('ColorItem', () => {
     it('opens options on gear click and tracks the event', () => {
       renderActive();
 
-      fireEvent.click(screen.getByRole('button', { name: /change color options/i }));
+      const toggle = screen.getByRole('button', { name: /change color options/i });
 
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(toggle);
+
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
       expect(trackEvent).toHaveBeenCalledWith('color:options');
     });
 
@@ -289,7 +294,7 @@ describe('ColorItem', () => {
     it('updates the color and syncs global saturation when editing the first color', () => {
       renderActive();
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: '00ff00' } });
+      fireEvent.change(screen.getByLabelText(/color value/i), { target: { value: '00ff00' } });
 
       act(() => {
         vi.advanceTimersByTime(16);
@@ -311,7 +316,7 @@ describe('ColorItem', () => {
 
       const initialSaturation = getGeneratorStore().getState().globalOptions.saturation;
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: '00ff00' } });
+      fireEvent.change(screen.getByLabelText(/color value/i), { target: { value: '00ff00' } });
 
       act(() => {
         vi.advanceTimersByTime(16);
@@ -334,7 +339,7 @@ describe('ColorItem', () => {
         throw new Error('bad color');
       });
 
-      fireEvent.change(screen.getByLabelText('Color value'), { target: { value: '00ff00' } });
+      fireEvent.change(screen.getByLabelText(/color value/i), { target: { value: '00ff00' } });
 
       act(() => {
         vi.advanceTimersByTime(16);
@@ -381,7 +386,7 @@ describe('ColorItem', () => {
 
       expect(trackEvent).toHaveBeenCalledWith('color:mode', { value: 'hsl' });
       // The value input reflects the new mode: hex instead of an oklch() string.
-      const input = screen.getByLabelText('Color value') as HTMLInputElement;
+      const input = screen.getByLabelText(/color value/i) as HTMLInputElement;
 
       expect(input.value).not.toContain('oklch');
     });

@@ -56,7 +56,7 @@ export default function ContrastGrid(props: ContrastGridProps) {
     <>
       <Tooltip content="View Contrast Grid" placement="bottom-end">
         <Button
-          aria-label="View Contrast Grid"
+          aria-label={`View Contrast Grid for ${colorEntry.name}`}
           isIconOnly
           onPress={() => {
             trackEvent('scale:contrast');
@@ -92,7 +92,12 @@ export default function ContrastGrid(props: ContrastGridProps) {
                 onChangeWcagThreshold={value => setState({ wcagThreshold: value })}
                 wcagThreshold={wcagThreshold}
               />
-              <Grid guideline={guideline} steps={steps} threshold={threshold} />
+              <Grid
+                guideline={guideline}
+                name={colorEntry.name}
+                steps={steps}
+                threshold={threshold}
+              />
             </div>
           </ModalBody>
         </ModalContent>

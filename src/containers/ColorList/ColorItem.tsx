@@ -195,7 +195,7 @@ function ColorItem(props: ColorItemProps) {
           <PopoverTrigger>
             <ColorBox
               ref={triggerRef}
-              aria-label="Color picker"
+              aria-label={`Color picker for ${colorEntry.name}`}
               color={color}
               onClick={() => {
                 if (isOpen) {
@@ -241,7 +241,6 @@ function ColorItem(props: ColorItemProps) {
             <ConfirmTooltip
               confirmMessage="Click again to remove"
               isDisabled={isOnlyColor || !isActive}
-              message="Remove color"
               onConfirm={() => {
                 trackEvent('color:remove');
 
@@ -255,7 +254,7 @@ function ColorItem(props: ColorItemProps) {
               }}
             >
               <Button
-                aria-label="Remove color"
+                aria-label={`Remove ${colorEntry.name} color`}
                 isDisabled={isOnlyColor || !isActive}
                 isIconOnly
                 size="xs"
@@ -266,7 +265,12 @@ function ColorItem(props: ColorItemProps) {
             </ConfirmTooltip>
           </div>
 
-          <ColorInput color={color} mode={mode} onChange={handleInputChange} />
+          <ColorInput
+            color={color}
+            mode={mode}
+            name={colorEntry.name}
+            onChange={handleInputChange}
+          />
         </div>
       </div>
 

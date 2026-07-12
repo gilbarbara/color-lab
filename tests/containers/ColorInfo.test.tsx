@@ -3,11 +3,14 @@ import { convertCSS, scale } from 'colorizr';
 import { VIOLET } from '~/test-fixtures';
 import { mockClipboard } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
-import { toOklch } from '~/utils/color';
+import { trackEvent } from '~/utils/analytics';
+import { formatOklch, toOklch } from '~/utils/color';
 
 import ColorInfo from '~/containers/ColorInfo';
 
 import type { ColorEntry, ScaleOptions } from '~/types';
+
+vi.mock('~/utils/analytics');
 
 const scrollIntoViewMock = vi.fn();
 
@@ -123,6 +126,37 @@ describe('ColorInfo', () => {
       expect(within(definition).getByText('0.469')).toBeInTheDocument();
     });
 
+    it('exposes each row step as a pressable button', async () => {
+      await openColorInfo();
+
+      // The row itself can't be the control (its cells hold their own buttons), so the step cell
+      // carries a real button — otherwise a step is unselectable by keyboard and silent to AT.
+      const step = screen.getByRole('button', { name: 'Step 800' });
+
+      expect(step).toHaveAttribute('aria-pressed', 'false');
+
+      fireEvent.click(step);
+
+      expect(screen.getByRole('button', { name: 'Step 800' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      );
+      expect(getBarForStep('800')).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('fires a single select event when the step button is clicked', async () => {
+      await openColorInfo();
+
+      vi.mocked(trackEvent).mockClear();
+      fireEvent.click(screen.getByRole('button', { name: 'Step 800' }));
+
+      // The button's click must not also bubble into the row's own handler.
+      expect(trackEvent).toHaveBeenCalledExactlyOnceWith('info:select_step', {
+        source: 'table',
+        step: '800',
+      });
+    });
+
     it('scrolls selected row into view when the table is its own scroller', async () => {
       await openColorInfo();
 
@@ -181,6 +215,39 @@ describe('ColorInfo', () => {
       await waitFor(() => {
         expect(mockClipboard.writeText).toHaveBeenCalledWith(expectedHex);
       });
+    });
+
+    it('does not move the selected step when copying from another row', async () => {
+      await openColorInfo();
+
+      fireEvent.click(screen.getByRole('button', { name: 'Step 800' }));
+      expect(screen.getByRole('button', { name: 'Step 800' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      );
+
+      vi.mocked(trackEvent).mockClear();
+
+      const row = getRowForStep('50');
+
+      fireEvent.click(within(row).getAllByRole('button', { name: /copy oklch/i })[0]);
+
+      // The copy button's click must not bubble into the row's own select handler — copying is not
+      // selecting, and a hijacked selection also fires a bogus `info:select_step`.
+      // The row copies its *displayed* value, so compare against the same formatter it renders with.
+      await waitFor(() => {
+        expect(mockClipboard.writeText).toHaveBeenCalledWith(formatOklch(steps[50]));
+      });
+
+      expect(screen.getByRole('button', { name: 'Step 800' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      );
+      expect(screen.getByRole('button', { name: 'Step 50' })).toHaveAttribute(
+        'aria-pressed',
+        'false',
+      );
+      expect(trackEvent).not.toHaveBeenCalledWith('info:select_step', expect.anything());
     });
 
     it('renders lock icon only on locked step', async () => {

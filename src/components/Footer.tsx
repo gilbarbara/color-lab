@@ -48,8 +48,8 @@ export default function Footer(props: FooterProps) {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <img alt="GitHub" className="size-3 block dark:hidden" src="/icons/github.svg" />
-            <img alt="GitHub" className="size-3 hidden dark:block" src="/icons/github-dark.svg" />
+            <img alt="" className="size-3 block dark:hidden" src="/icons/github.svg" />
+            <img alt="" className="size-3 hidden dark:block" src="/icons/github-dark.svg" />
             GitHub
           </a>
           <a

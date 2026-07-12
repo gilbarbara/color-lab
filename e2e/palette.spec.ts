@@ -112,13 +112,13 @@ test('palette', async () => {
   await test.step('opens contrast grid', async () => {
     await page.getByRole('button', { name: 'View Contrast Grid' }).first().click();
 
-    await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'WCAG 3 · APCA' })).toBeChecked();
 
     await expect(page).toHaveScreenshot(screenshotName('contrast-grid.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
-    await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
+    await expect(page.getByRole('radio', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
   });
 
   await test.step('select first color', async () => {
@@ -131,7 +131,10 @@ test('palette', async () => {
   });
 
   await test.step('shows toast when clicking swatch to copy', async () => {
-    await page.getByRole('button', { name: '500', exact: true }).first().click();
+    await page
+      .getByRole('button', { name: /^copy .* 500(,|$)/i })
+      .first()
+      .click();
 
     await expectToast(page);
 

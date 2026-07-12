@@ -6,18 +6,20 @@ import { trackEvent } from '~/utils/analytics';
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
 
+import type { ColorEntry } from '~/types';
+
 interface ColorChartsButtonProps {
-  id: string;
+  colorEntry: ColorEntry;
 }
 
 export default function ColorChartsButton(props: ColorChartsButtonProps) {
-  const { id } = props;
+  const { colorEntry } = props;
   const { chartColorIds, setAllCharts, toggleChart } = useGenerator(
     'chartColorIds',
     'setAllCharts',
     'toggleChart',
   );
-  const showGraphs = chartColorIds.has(id);
+  const showGraphs = chartColorIds.has(colorEntry.id);
 
   return (
     <Tooltip
@@ -30,7 +32,8 @@ export default function ColorChartsButton(props: ColorChartsButtonProps) {
       placement="bottom"
     >
       <Button
-        aria-label="View Charts"
+        aria-expanded={showGraphs}
+        aria-label={`View Charts for ${colorEntry.name}`}
         isIconOnly
         // Shift-click mirrors this button's next state across every color.
         onPress={event => {
@@ -39,7 +42,7 @@ export default function ColorChartsButton(props: ColorChartsButtonProps) {
             enabled: !showGraphs,
           });
 
-          return event.shiftKey ? setAllCharts(!showGraphs) : toggleChart(id);
+          return event.shiftKey ? setAllCharts(!showGraphs) : toggleChart(colorEntry.id);
         }}
         size="menu"
         variant={showGraphs ? 'solid' : 'flat'}

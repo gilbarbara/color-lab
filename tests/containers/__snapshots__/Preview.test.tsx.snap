@@ -59,7 +59,7 @@ exports[`Preview > Render > renders collapsed 1`] = `
               Primary
             </p>
             <button
-              aria-label="Toggle preview theme"
+              aria-label="Preview theme: Auto"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 text-md"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -79,20 +79,26 @@ exports[`Preview > Render > renders collapsed 1`] = `
             </button>
           </div>
           <div
+            aria-label="Preview color"
             class="flex items-center gap-2 px-1"
+            role="radiogroup"
           >
             <button
-              aria-label="Use Primary as primary"
-              aria-pressed="true"
+              aria-checked="true"
+              aria-label="Primary"
               class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) ring-2 ring-current ring-offset-2 ring-offset-content1"
+              role="radio"
               style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38;"
+              tabindex="0"
               type="button"
             />
             <button
-              aria-label="Use Secondary as primary"
-              aria-pressed="false"
+              aria-checked="false"
+              aria-label="Secondary"
               class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) hover:scale-110"
+              role="radio"
               style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00;"
+              tabindex="-1"
               type="button"
             />
           </div>
@@ -1331,7 +1337,7 @@ exports[`Preview > Render > renders expanded > header 1`] = `
       Primary
     </p>
     <button
-      aria-label="Toggle preview theme"
+      aria-label="Preview theme: Auto"
       class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 text-md"
       data-react-aria-pressable="true"
       tabindex="0"
@@ -1351,20 +1357,26 @@ exports[`Preview > Render > renders expanded > header 1`] = `
     </button>
   </div>
   <div
+    aria-label="Preview color"
     class="flex items-center gap-2 px-1"
+    role="radiogroup"
   >
     <button
-      aria-label="Use Primary as primary"
-      aria-pressed="true"
+      aria-checked="true"
+      aria-label="Primary"
       class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) ring-2 ring-current ring-offset-2 ring-offset-content1"
+      role="radio"
       style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38;"
+      tabindex="0"
       type="button"
     />
     <button
-      aria-label="Use Secondary as primary"
-      aria-pressed="false"
+      aria-checked="false"
+      aria-label="Secondary"
       class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) hover:scale-110"
+      role="radio"
       style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00;"
+      tabindex="-1"
       type="button"
     />
   </div>
@@ -1496,7 +1508,7 @@ exports[`Preview > Render > renders expanded 1`] = `
               Primary
             </p>
             <button
-              aria-label="Toggle preview theme"
+              aria-label="Preview theme: Auto"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 text-md"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -1516,20 +1528,26 @@ exports[`Preview > Render > renders expanded 1`] = `
             </button>
           </div>
           <div
+            aria-label="Preview color"
             class="flex items-center gap-2 px-1"
+            role="radiogroup"
           >
             <button
-              aria-label="Use Primary as primary"
-              aria-pressed="true"
+              aria-checked="true"
+              aria-label="Primary"
               class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) ring-2 ring-current ring-offset-2 ring-offset-content1"
+              role="radio"
               style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38;"
+              tabindex="0"
               type="button"
             />
             <button
-              aria-label="Use Secondary as primary"
-              aria-pressed="false"
+              aria-checked="false"
+              aria-label="Secondary"
               class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) hover:scale-110"
+              role="radio"
               style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00;"
+              tabindex="-1"
               type="button"
             />
           </div>
@@ -2240,7 +2258,7 @@ exports[`Preview > Render > renders the Typography view 1`] = `
               Primary
             </p>
             <button
-              aria-label="Toggle preview theme"
+              aria-label="Preview theme: Auto"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8 text-md"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -2260,20 +2278,26 @@ exports[`Preview > Render > renders the Typography view 1`] = `
             </button>
           </div>
           <div
+            aria-label="Preview color"
             class="flex items-center gap-2 px-1"
+            role="radiogroup"
           >
             <button
-              aria-label="Use Primary as primary"
-              aria-pressed="true"
+              aria-checked="true"
+              aria-label="Primary"
               class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) ring-2 ring-current ring-offset-2 ring-offset-content1"
+              role="radio"
               style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38;"
+              tabindex="0"
               type="button"
             />
             <button
-              aria-label="Use Secondary as primary"
-              aria-pressed="false"
+              aria-checked="false"
+              aria-label="Secondary"
               class="size-5 rounded-full transition-transform bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) gamut-srgb:text-(--gamut-bg-hex) hover:scale-110"
+              role="radio"
               style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00;"
+              tabindex="-1"
               type="button"
             />
           </div>

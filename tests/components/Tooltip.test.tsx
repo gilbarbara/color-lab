@@ -11,10 +11,13 @@ const CLOSE_DELAY = 150;
 // that need the keyboard-focus path flip it via stubFocusVisible.
 const originalMatches = Element.prototype.matches;
 let focusVisibleResult = false;
+// Scopes the match to a single element, so a test can assert that only the focused
+// element is :focus-visible — never an ancestor. Null means "any element".
+let focusVisibleElement: Element | null = null;
 
 Element.prototype.matches = function matches(this: Element, selector: string) {
   if (selector === ':focus-visible') {
-    return focusVisibleResult;
+    return focusVisibleResult && (!focusVisibleElement || this === focusVisibleElement);
   }
 
   return originalMatches.call(this, selector);
@@ -33,8 +36,9 @@ function setHoverCapable(matches: boolean) {
   }));
 }
 
-function stubFocusVisible(value: boolean) {
+function stubFocusVisible(value: boolean, element: Element | null = null) {
   focusVisibleResult = value;
+  focusVisibleElement = element;
 }
 
 describe('Tooltip', () => {
@@ -42,7 +46,7 @@ describe('Tooltip', () => {
     vi.clearAllMocks();
     vi.useRealTimers();
     setHoverCapable(true);
-    focusVisibleResult = false;
+    stubFocusVisible(false);
   });
 
   describe('Render', () => {
@@ -82,6 +86,100 @@ describe('Tooltip', () => {
 
       expect(describedBy).toBeTruthy();
       expect(screen.getByTestId('Tooltip')).toHaveAttribute('id', describedBy);
+    });
+
+    // A tooltip that restates the trigger's name must not also describe it — screen
+    // readers would announce the same words twice (name, then description).
+    describe('redundant content', () => {
+      it('does not describe when the content restates the aria-label', () => {
+        render(
+          <Tooltip content="View Charts" isOpen>
+            <button aria-label="View Charts for Primary" type="button" />
+          </Tooltip>,
+        );
+
+        expect(screen.getByRole('button')).not.toHaveAttribute('aria-describedby');
+        expect(screen.getByTestId('Tooltip')).toHaveAttribute('aria-hidden', 'true');
+      });
+
+      it('does not describe when the content restates the visible text', () => {
+        render(
+          <Tooltip content="Trigger" isOpen>
+            <button type="button">Trigger</button>
+          </Tooltip>,
+        );
+
+        expect(screen.getByRole('button')).not.toHaveAttribute('aria-describedby');
+      });
+
+      it('ignores case and whitespace when comparing', () => {
+        render(
+          <Tooltip content="  export   SCALE  " isOpen>
+            <button aria-label="Export scale for Primary" type="button" />
+          </Tooltip>,
+        );
+
+        expect(screen.getByRole('button')).not.toHaveAttribute('aria-describedby');
+      });
+
+      it('sees through cosmetic markup around the content', () => {
+        render(
+          <Tooltip content={<span className="font-bold">View Charts</span>} isOpen>
+            <button aria-label="View Charts for Primary" type="button" />
+          </Tooltip>,
+        );
+
+        expect(screen.getByRole('button')).not.toHaveAttribute('aria-describedby');
+      });
+
+      it('still describes when the content adds information', () => {
+        render(
+          <Tooltip
+            content={
+              <>
+                <p>View Charts</p>
+                <p>Shift-click to toggle all</p>
+              </>
+            }
+            isOpen
+          >
+            <button aria-label="View Charts for Primary" type="button" />
+          </Tooltip>,
+        );
+
+        const panel = screen.getByTestId('Tooltip');
+
+        expect(screen.getByRole('button')).toHaveAttribute('aria-describedby', panel.id);
+        expect(panel).not.toHaveAttribute('aria-hidden');
+      });
+
+      it('still describes content unrelated to the name', () => {
+        render(
+          <Tooltip content="#ff0044" isOpen>
+            <button aria-label="Copy Primary 500" type="button" />
+          </Tooltip>,
+        );
+
+        expect(screen.getByRole('button')).toHaveAttribute('aria-describedby');
+      });
+
+      // HeroUI's Dropdown/Popover triggers drop a cloned ref (heroui#1265), so call sites
+      // wrap them in a positioning div. The name still has to come from the button inside.
+      it('reads the name through a wrapper element', () => {
+        render(
+          <Tooltip content="Color mode" isOpen>
+            <div className="max-w-fit">
+              <button aria-label="Color mode for Primary: OKLCH" type="button">
+                OKLCH
+              </button>
+            </div>
+          </Tooltip>,
+        );
+
+        expect(screen.getByRole('button')).not.toHaveAttribute('aria-describedby');
+        expect(screen.getByRole('button').parentElement).not.toHaveAttribute('aria-describedby');
+        expect(screen.getByTestId('Tooltip')).toHaveAttribute('aria-hidden', 'true');
+      });
     });
 
     it('renders an arrow by default and omits it when showArrow is false', () => {
@@ -199,6 +297,25 @@ describe('Tooltip', () => {
       await waitFor(() => {
         expect(screen.queryByText(content)).not.toBeInTheDocument();
       });
+    });
+
+    it('opens on keyboard focus when the trigger sits inside a wrapper', async () => {
+      // Regression: with a wrapper child (heroui#1265) the focus handler lands on the
+      // wrapper, which is never :focus-visible — only the button inside it is.
+      render(
+        <Tooltip content={content}>
+          <div className="max-w-fit">
+            <button type="button">Trigger</button>
+          </div>
+        </Tooltip>,
+      );
+
+      const trigger = screen.getByRole('button');
+
+      stubFocusVisible(true, trigger);
+      fireEvent.focus(trigger);
+
+      await expect(screen.findByText(content)).resolves.toBeInTheDocument();
     });
 
     it('stays closed on non-focus-visible focus (mouse/programmatic restore)', async () => {
