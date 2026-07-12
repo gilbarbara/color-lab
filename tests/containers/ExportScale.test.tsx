@@ -6,7 +6,7 @@ import { fireEvent, render, screen, waitFor } from '~/test-utils';
 import ExportScale from '~/containers/ExportScale';
 
 const defaultProps = {
-  name: 'primary',
+  name: 'Primary',
   steps: CRIMSON_SCALE,
 };
 

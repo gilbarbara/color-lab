@@ -67,51 +67,56 @@ exports[`Header > Render > renders authenticated state at desktop breakpoint 1`]
           New Palette
         </span>
       </button>
-      <div
-        class="hidden sm:contents"
+      <nav
+        aria-label="Main"
+        class="contents"
       >
-        <a
-          class="text-sm text-foreground-500"
-          href="/palettes"
+        <div
+          class="hidden sm:contents"
         >
-          My Palettes
-        </a>
-        <a
-          class="text-sm text-foreground-500"
-          href="/about"
-        >
-          About
-        </a>
-      </div>
-      <div
-        class="contents sm:hidden"
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
-          data-react-aria-pressable="true"
-          data-slot="trigger"
-          id="react-aria-_r_3_"
-          tabindex="0"
-          type="button"
-        >
-          Menu
-          <svg
-            aria-hidden="true"
-            fill="currentColor"
-            focusable="false"
-            height="1em"
-            viewBox="0 0 256 256"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+          <a
+            class="text-sm text-foreground-500"
+            href="/palettes"
           >
-            <path
-              d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
-            />
-          </svg>
-        </button>
-      </div>
+            My Palettes
+          </a>
+          <a
+            class="text-sm text-foreground-500"
+            href="/about"
+          >
+            About
+          </a>
+        </div>
+        <div
+          class="contents sm:hidden"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
+            data-react-aria-pressable="true"
+            data-slot="trigger"
+            id="react-aria-_r_3_"
+            tabindex="0"
+            type="button"
+          >
+            Menu
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </div>
     <div
       class="flex items-center gap-2 ml-auto"
@@ -274,51 +279,56 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
           New Palette
         </span>
       </button>
-      <div
-        class="hidden sm:contents"
+      <nav
+        aria-label="Main"
+        class="contents"
       >
-        <a
-          class="text-sm text-foreground-500"
-          href="/palettes"
+        <div
+          class="hidden sm:contents"
         >
-          My Palettes
-        </a>
-        <a
-          class="text-sm text-foreground-500"
-          href="/about"
-        >
-          About
-        </a>
-      </div>
-      <div
-        class="contents sm:hidden"
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
-          data-react-aria-pressable="true"
-          data-slot="trigger"
-          id="react-aria-_r_9_"
-          tabindex="0"
-          type="button"
-        >
-          Menu
-          <svg
-            aria-hidden="true"
-            fill="currentColor"
-            focusable="false"
-            height="1em"
-            viewBox="0 0 256 256"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+          <a
+            class="text-sm text-foreground-500"
+            href="/palettes"
           >
-            <path
-              d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
-            />
-          </svg>
-        </button>
-      </div>
+            My Palettes
+          </a>
+          <a
+            class="text-sm text-foreground-500"
+            href="/about"
+          >
+            About
+          </a>
+        </div>
+        <div
+          class="contents sm:hidden"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
+            data-react-aria-pressable="true"
+            data-slot="trigger"
+            id="react-aria-_r_9_"
+            tabindex="0"
+            type="button"
+          >
+            Menu
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </div>
     <div
       class="flex items-center gap-2 ml-auto"
@@ -449,51 +459,56 @@ exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1
           New Palette
         </span>
       </button>
-      <div
-        class="hidden sm:contents"
+      <nav
+        aria-label="Main"
+        class="contents"
       >
-        <a
-          class="text-sm text-foreground-500"
-          href="/palettes"
+        <div
+          class="hidden sm:contents"
         >
-          My Palettes
-        </a>
-        <a
-          class="text-sm text-foreground-500"
-          href="/about"
-        >
-          About
-        </a>
-      </div>
-      <div
-        class="contents sm:hidden"
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
-          data-react-aria-pressable="true"
-          data-slot="trigger"
-          id="react-aria-_r_0_"
-          tabindex="0"
-          type="button"
-        >
-          Menu
-          <svg
-            aria-hidden="true"
-            fill="currentColor"
-            focusable="false"
-            height="1em"
-            viewBox="0 0 256 256"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+          <a
+            class="text-sm text-foreground-500"
+            href="/palettes"
           >
-            <path
-              d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
-            />
-          </svg>
-        </button>
-      </div>
+            My Palettes
+          </a>
+          <a
+            class="text-sm text-foreground-500"
+            href="/about"
+          >
+            About
+          </a>
+        </div>
+        <div
+          class="contents sm:hidden"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-3 min-w-16 h-8 gap-2 rounded-small [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 z-10 aria-expanded:scale-[0.97] aria-expanded:opacity-70 subpixel-antialiased text-sm text-foreground-500"
+            data-react-aria-pressable="true"
+            data-slot="trigger"
+            id="react-aria-_r_0_"
+            tabindex="0"
+            type="button"
+          >
+            Menu
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </div>
     <div
       class="flex items-center gap-2 ml-auto"

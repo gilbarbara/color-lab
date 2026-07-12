@@ -7,8 +7,10 @@ import { trackEvent } from '~/utils/analytics';
 import Button, { type ButtonProps } from '~/components/Button';
 import Tooltip, { type TooltipProps } from '~/components/Tooltip';
 
+import type { ColorEntry } from '~/types';
+
 interface PreviewButtonProps {
-  id: string;
+  colorEntry: ColorEntry;
   onPreview?: () => void;
   placement?: TooltipProps['placement'];
   source: 'scale' | 'color';
@@ -16,19 +18,19 @@ interface PreviewButtonProps {
 }
 
 export default function PreviewButton(props: PreviewButtonProps) {
-  const { id, onPreview, placement = 'bottom', source, variant = 'flat' } = props;
+  const { colorEntry, onPreview, placement = 'bottom', source, variant = 'flat' } = props;
   const { setActiveColor, setPreviewColor } = useGenerator('setActiveColor', 'setPreviewColor');
   const { requestPreviewScroll, togglePreview } = useApp('requestPreviewScroll', 'togglePreview');
 
   return (
     <Tooltip content="View Live Preview" placement={placement}>
       <Button
-        aria-label="View Live Preview"
+        aria-label={`View Live Preview for ${colorEntry.name}`}
         isIconOnly
         onPress={() => {
           trackEvent(`${source}:preview`);
-          setActiveColor(id);
-          setPreviewColor(id);
+          setActiveColor(colorEntry.id);
+          setPreviewColor(colorEntry.id);
           togglePreview(true);
           onPreview?.();
           requestPreviewScroll();

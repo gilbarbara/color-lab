@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { type CSSProperties, type KeyboardEvent, useRef } from 'react';
 import { cn } from '@heroui/react';
 import { convertCSS } from 'colorizr';
 
@@ -20,6 +20,33 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
   const { activeId, name, onSelect, onThemeChange, themeMode } = props;
   const { colors } = useGenerator('colors');
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  // Roving tabindex: the group is a single tab stop. Fall back to the first color so the
+  // group stays reachable if activeId doesn't match one (Preview defaults to colors[0]).
+  const activeIndex = colors.findIndex(color => color.id === activeId);
+  const tabbableIndex = activeIndex === -1 ? 0 : activeIndex;
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex: number;
+
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        nextIndex = (index + 1) % colors.length;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        nextIndex = (index - 1 + colors.length) % colors.length;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    onSelect(colors[nextIndex].id);
+    groupRef.current?.querySelectorAll<HTMLButtonElement>('[role="radio"]')[nextIndex]?.focus();
+  };
 
   return (
     <div
@@ -31,8 +58,13 @@ export default function Header(props: HeaderProps) {
         <ThemeToggle mode={themeMode} onChange={onThemeChange} />
       </div>
       {colors.length > 1 && (
-        <div className="flex items-center gap-2 px-1">
-          {colors.map(color => {
+        <div
+          ref={groupRef}
+          aria-label="Preview color"
+          className="flex items-center gap-2 px-1"
+          role="radiogroup"
+        >
+          {colors.map((color, index) => {
             const isActive = color.id === activeId;
             const oklch = formatOklch(color.value);
             const hex = convertCSS(color.value, 'hex');
@@ -40,8 +72,8 @@ export default function Header(props: HeaderProps) {
             return (
               <Tooltip key={color.id} content={color.name} placement="bottom">
                 <button
-                  aria-label={`Use ${color.name} as primary`}
-                  aria-pressed={isActive}
+                  aria-checked={isActive}
+                  aria-label={color.name}
                   className={cn(
                     'size-5 rounded-full transition-transform',
                     'bg-(--gamut-bg-oklch) text-(--gamut-bg-oklch)',
@@ -52,12 +84,15 @@ export default function Header(props: HeaderProps) {
                     },
                   )}
                   onClick={() => onSelect(color.id)}
+                  onKeyDown={event => handleKeyDown(event, index)}
+                  role="radio"
                   style={
                     {
                       '--gamut-bg-oklch': oklch,
                       '--gamut-bg-hex': hex,
                     } as CSSProperties
                   }
+                  tabIndex={index === tabbableIndex ? 0 : -1}
                   type="button"
                 />
               </Tooltip>

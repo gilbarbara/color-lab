@@ -27,6 +27,11 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
 
   const displayColor = formatOklch(color);
 
+  const handleSelect = () => {
+    trackEvent('info:select_step', { source: 'table', step });
+    onSelect(step);
+  };
+
   return (
     <tr
       className={`border-t border-default-100 cursor-pointer scroll-mt-10 ${
@@ -34,16 +39,25 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
       }`}
       data-step={step}
       data-testid="ColorInfo-Row"
-      onClick={() => {
-        trackEvent('info:select_step', { source: 'table', step });
-        onSelect(step);
-      }}
+      onClick={handleSelect}
     >
       <td className="py-2 px-2 text-foreground-500 text-sm">
-        <div className="flex flex-col items-center gap-0.5 leading-tight">
+        {/* The row's click is a pointer convenience only — it can't be the control, because the
+            cells below hold their own buttons. This is the keyboard- and AT-reachable one. */}
+        <button
+          aria-label={`Step ${step}${isLocked ? ', locked' : ''}`}
+          aria-pressed={isSelected}
+          className="w-full flex flex-col items-center gap-0.5 leading-tight cursor-pointer"
+          onClick={event => {
+            // Stop the row's own handler from firing a second `info:select_step`.
+            event.stopPropagation();
+            handleSelect();
+          }}
+          type="button"
+        >
           {step}
           {isLocked && <LockSimpleIcon data-testid="ColorInfo-Row-Lock" weight="bold" />}
-        </div>
+        </button>
       </td>
       <td className="py-2 pr-3">
         <div className="flex items-center gap-2">
@@ -77,7 +91,10 @@ export default function Row({ color, isLocked, isSelected, onSelect, step }: Row
             style={{ backgroundColor: hex }}
             title={`Hex · ${hex}`}
           >
-            <TooltipClickable content={`Hex roundtrip drift · ΔE ${delta.toFixed(3)}`}>
+            <TooltipClickable
+              classNames={{ base: 'z-200' }}
+              content={`Hex roundtrip drift · ΔE ${delta.toFixed(3)}`}
+            >
               <WarningIcon
                 color={readableColor(color, 'apca')}
                 style={{ opacity: gamutOpacity }}

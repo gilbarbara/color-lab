@@ -64,7 +64,7 @@ export default function UserMenu() {
           src={imageUrl}
         />
       </DropdownTrigger>
-      <DropdownMenu aria-label="User menu">
+      <DropdownMenu aria-label="User menu options">
         <DropdownItem
           key="profile"
           className="h-14 gap-2"

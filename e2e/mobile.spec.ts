@@ -51,9 +51,10 @@ test('mobile', async () => {
 
     await expect(page.getByRole('button', { name: /export all/i })).toBeVisible();
 
-    await expect(page.getByRole('button', { name: '50', exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: '500', exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: '950', exact: true })).toBeVisible();
+    // The trailing group tolerates the ", locked" suffix a locked swatch carries.
+    await expect(page.getByRole('button', { name: /^copy .* 50(,|$)/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /^copy .* 500(,|$)/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /^copy .* 950(,|$)/i })).toBeVisible();
 
     await expect(page.locator('html')).toHaveAttribute('data-gamut', 'p3');
     await expect(page.locator('html')).toHaveAttribute('data-p3-supported', 'true');
@@ -332,17 +333,21 @@ test('mobile', async () => {
   await test.step('opens contrast grid', async () => {
     await page.getByRole('button', { name: 'View Contrast Grid' }).first().click();
 
-    await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).toBeVisible();
+    await expect(page.getByRole('radio', { name: 'WCAG 3 · APCA' })).toBeChecked();
 
     await expect(page).toHaveScreenshot(getScreenshotName('contrast-grid.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
-    await expect(page.getByRole('button', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
+    await expect(page.getByRole('radio', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
   });
 
   await test.step('select first color', async () => {
-    await page.getByRole('button', { name: 'Select Primary' }).click();
+    // `Select Primary` also names the scale swatch — scope to the strip.
+    await page
+      .getByRole('group', { name: 'Color strip' })
+      .getByRole('button', { name: 'Select Primary' })
+      .click();
 
     // Select Primary auto-opens the bottom bar; let the animation settle
     await page.waitForTimeout(collapseDuration);
@@ -388,7 +393,10 @@ test('mobile', async () => {
   });
 
   await test.step('shows toast when clicking swatch to copy', async () => {
-    await page.getByRole('button', { name: '500', exact: true }).first().click();
+    await page
+      .getByRole('button', { name: /^copy .* 500(,|$)/i })
+      .first()
+      .click();
 
     const toast = page.getByRole('alertdialog', { name: 'toast' });
 
@@ -408,7 +416,11 @@ test('mobile', async () => {
 
     // An inactive color swallows its first click to activate, so select it first or the
     // remove button's first click is lost. Selecting also auto-opens the bottom bar.
-    await page.getByRole('button', { name: 'Select Secondary' }).click();
+    // `Select Secondary` also names the scale swatch — scope to the strip.
+    await page
+      .getByRole('group', { name: 'Color strip' })
+      .getByRole('button', { name: 'Select Secondary' })
+      .click();
     await page.waitForTimeout(collapseDuration);
     await scrollPanelToTop(page);
 
@@ -416,7 +428,7 @@ test('mobile', async () => {
 
     await expect(ColorItem).toHaveAttribute('aria-current', 'true');
 
-    const removeButton = ColorItem.getByRole('button', { name: 'Remove color' });
+    const removeButton = ColorItem.getByRole('button', { name: /^remove .* color$/i });
 
     // First click shows confirmation; second click within 2s confirms.
     await removeButton.click();

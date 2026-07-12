@@ -36,6 +36,7 @@ exports[`Palette > renders the grid view 1`] = `
       data-testid="PaletteGrid"
     >
       <button
+        aria-label="Copy Primary"
         class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full aspect-square p-4! h-auto! flex-col! items-end! justify-end!"
         style="--gamut-bg-oklch: oklch(70.2% 0.236 30); --gamut-bg-hex: #ff4d38; color: rgb(255, 255, 255);"
         type="button"
@@ -47,6 +48,7 @@ exports[`Palette > renders the grid view 1`] = `
         </span>
       </button>
       <button
+        aria-label="Copy Secondary"
         class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex) w-full aspect-square p-4! h-auto! flex-col! items-end! justify-end!"
         style="--gamut-bg-oklch: oklch(70.2% 0.183 60); --gamut-bg-hex: #ee7d00; color: rgb(255, 255, 255);"
         type="button"
@@ -123,6 +125,7 @@ exports[`Palette > renders the list view 1`] = `
               Primary
             </h3>
             <button
+              aria-label="Copy OKLCH code for Primary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -146,7 +149,7 @@ exports[`Palette > renders the list view 1`] = `
             class="flex items-center gap-2"
           >
             <button
-              aria-label="View Live Preview"
+              aria-label="View Live Preview for Primary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -166,7 +169,8 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="View Charts"
+              aria-expanded="false"
+              aria-label="View Charts for Primary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -186,7 +190,7 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="View color info"
+              aria-label="View Color Info for Primary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -206,7 +210,7 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="View Contrast Grid"
+              aria-label="View Contrast Grid for Primary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -226,7 +230,7 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="Export scale"
+              aria-label="Export scale for Primary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -251,6 +255,7 @@ exports[`Palette > renders the list view 1`] = `
           class="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto"
         >
           <button
+            aria-label="Copy Primary 50"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(97% 0.019 30); --gamut-bg-hex: #fff1ee; color: rgb(0, 0, 0);"
             type="button"
@@ -262,6 +267,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 100"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(93.44% 0.043 30); --gamut-bg-hex: #ffdfd8; color: rgb(0, 0, 0);"
             type="button"
@@ -273,6 +279,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 200"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(88.24% 0.081 30); --gamut-bg-hex: #ffc5b9; color: rgb(0, 0, 0);"
             type="button"
@@ -284,6 +291,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 300"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(82.16% 0.129 30); --gamut-bg-hex: #ffa492; color: rgb(0, 0, 0);"
             type="button"
@@ -295,6 +303,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 400"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(75.43% 0.189 30); --gamut-bg-hex: #ff7863; color: rgb(255, 255, 255);"
             type="button"
@@ -306,6 +315,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 500"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(68.16% 0.236 30); --gamut-bg-hex: #ff4531; color: rgb(255, 255, 255);"
             type="button"
@@ -317,6 +327,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 600"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(60.45% 0.236 30); --gamut-bg-hex: #ee1f0d; color: rgb(255, 255, 255);"
             type="button"
@@ -328,6 +339,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 700"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(52.34% 0.235 30); --gamut-bg-hex: #cf0000; color: rgb(255, 255, 255);"
             type="button"
@@ -339,6 +351,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 800"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(43.88% 0.197 30); --gamut-bg-hex: #a40000; color: rgb(255, 255, 255);"
             type="button"
@@ -350,6 +363,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 900"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(35.09% 0.157 30); --gamut-bg-hex: #780000; color: rgb(255, 255, 255);"
             type="button"
@@ -361,6 +375,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Primary 950"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(26% 0.117 30); --gamut-bg-hex: #4e0000; color: rgb(255, 255, 255);"
             type="button"
@@ -397,6 +412,7 @@ exports[`Palette > renders the list view 1`] = `
               Secondary
             </h3>
             <button
+              aria-label="Copy OKLCH code for Secondary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-tiny gap-2 rounded-small px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-transparent text-default-foreground data-[hover=true]:bg-default/40 min-w-8 w-8 h-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -420,7 +436,7 @@ exports[`Palette > renders the list view 1`] = `
             class="flex items-center gap-2"
           >
             <button
-              aria-label="View Live Preview"
+              aria-label="View Live Preview for Secondary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -440,7 +456,8 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="View Charts"
+              aria-expanded="false"
+              aria-label="View Charts for Secondary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -460,7 +477,7 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="View color info"
+              aria-label="View Color Info for Secondary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -480,7 +497,7 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="View Contrast Grid"
+              aria-label="View Contrast Grid for Secondary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -500,7 +517,7 @@ exports[`Palette > renders the list view 1`] = `
               </svg>
             </button>
             <button
-              aria-label="Export scale"
+              aria-label="Export scale for Secondary"
               class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 text-default-700 data-[hover=true]:opacity-hover h-8 text-small gap-2 rounded-medium px-0 min-w-8 w-8"
               data-react-aria-pressable="true"
               tabindex="0"
@@ -525,6 +542,7 @@ exports[`Palette > renders the list view 1`] = `
           class="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto"
         >
           <button
+            aria-label="Copy Secondary 50"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(97% 0.024 60); --gamut-bg-hex: #fff2e6; color: rgb(0, 0, 0);"
             type="button"
@@ -536,6 +554,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 100"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(93.44% 0.053 60); --gamut-bg-hex: #ffe2c7; color: rgb(0, 0, 0);"
             type="button"
@@ -547,6 +566,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 200"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(88.24% 0.098 60); --gamut-bg-hex: #ffc996; color: rgb(0, 0, 0);"
             type="button"
@@ -558,6 +578,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 300"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(82.16% 0.156 60); --gamut-bg-hex: #ffaa50; color: rgb(0, 0, 0);"
             type="button"
@@ -569,6 +590,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 400"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(75.43% 0.183 60); --gamut-bg-hex: #ff8d00; color: rgb(0, 0, 0);"
             type="button"
@@ -580,6 +602,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 500"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(68.16% 0.183 60); --gamut-bg-hex: #e77600; color: rgb(255, 255, 255);"
             type="button"
@@ -591,6 +614,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 600"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(60.45% 0.162 60); --gamut-bg-hex: #c56400; color: rgb(255, 255, 255);"
             type="button"
@@ -602,6 +626,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 700"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(52.34% 0.140 60); --gamut-bg-hex: #a25100; color: rgb(255, 255, 255);"
             type="button"
@@ -613,6 +638,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 800"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(43.88% 0.118 60); --gamut-bg-hex: #7f3e00; color: rgb(255, 255, 255);"
             type="button"
@@ -624,6 +650,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 900"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(35.09% 0.094 60); --gamut-bg-hex: #5d2c00; color: rgb(255, 255, 255);"
             type="button"
@@ -635,6 +662,7 @@ exports[`Palette > renders the list view 1`] = `
             </span>
           </button>
           <button
+            aria-label="Copy Secondary 950"
             class="relative flex-1 min-w-9 @xl:h-22 flex flex-row @xl:flex-col items-center justify-between @xl:justify-end gap-2 px-2 py-4 rounded-lg text-center cursor-pointer bg-(--gamut-bg-oklch) gamut-srgb:bg-(--gamut-bg-hex)"
             style="--gamut-bg-oklch: oklch(26% 0.070 60); --gamut-bg-hex: #3b1a00; color: rgb(255, 255, 255);"
             type="button"

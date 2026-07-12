@@ -31,7 +31,9 @@ export default function ThemeToggle({ mode, onChange }: ThemeToggleProps) {
   return (
     <Tooltip content={`Preview theme: ${LABELS[mode]}`} placement="bottom">
       <Button
-        aria-label="Toggle preview theme"
+        // A 3-state cycle, so `aria-pressed` doesn't apply — the current mode has to live in the
+        // name, or the control is silent about which theme it's on.
+        aria-label={`Preview theme: ${LABELS[mode]}`}
         className="text-md"
         isIconOnly
         onPress={() => onChange(next)}

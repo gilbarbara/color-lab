@@ -25,19 +25,9 @@ export interface ConfirmTooltipProps {
    */
   confirmMessage?: string;
   /**
-   * Tooltip delay in ms.
-   * @default 250
-   */
-  delay?: number;
-  /**
    * Disable the confirmation trigger.
    */
   isDisabled?: boolean;
-  /**
-   * Default tooltip message.
-   * @default "Click to confirm"
-   */
-  message?: string;
   /**
    * Callback executed on second click (confirmation).
    */
@@ -59,9 +49,7 @@ export default function ConfirmTooltip(props: ConfirmTooltipProps) {
     children,
     confirmColor = 'danger',
     confirmMessage = 'Click again to confirm',
-    delay = 250,
     isDisabled = false,
-    message = 'Click to confirm',
     onConfirm,
     placement = 'bottom-end',
     timeout = 2000,
@@ -103,8 +91,7 @@ export default function ConfirmTooltip(props: ConfirmTooltipProps) {
   return (
     <Tooltip
       color={needsConfirm ? confirmColor : 'tooltip'}
-      content={needsConfirm ? confirmMessage : message}
-      delay={delay}
+      content={confirmMessage}
       isDisabled={isDisabled}
       isOpen={needsConfirm}
       placement={placement}

@@ -51,9 +51,9 @@ export default function ColorInfo(props: ColorInfoProps) {
 
   return (
     <>
-      <Tooltip content="View color info" placement="bottom">
+      <Tooltip content="View Color Info" placement="bottom">
         <Button
-          aria-label="View color info"
+          aria-label={`View Color Info for ${colorEntry.name}`}
           isIconOnly
           onPress={() => {
             trackEvent('scale:info');

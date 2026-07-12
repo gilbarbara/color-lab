@@ -7,7 +7,11 @@ import ColorChartsButton from '~/containers/ColorCharts/Button';
 import type { GeneratorState } from '~/types';
 
 function getButton(): HTMLButtonElement {
-  return screen.getByRole('button', { name: 'View Charts' });
+  return screen.getByRole('button', { name: 'View Charts for Primary' });
+}
+
+function getColors() {
+  return getGeneratorStore().getState().colors;
 }
 
 function setupPalette(colors: number): GeneratorState {
@@ -32,9 +36,9 @@ describe('ColorCharts/Button', () => {
 
   describe('Render', () => {
     it('renders correctly', () => {
-      const { id } = getGeneratorStore().getState().colors[0];
+      const [colorEntry] = getColors();
 
-      render(<ColorChartsButton id={id} />);
+      render(<ColorChartsButton colorEntry={colorEntry} />);
 
       expect(getButton()).toMatchSnapshot();
     });
@@ -42,37 +46,34 @@ describe('ColorCharts/Button', () => {
 
   describe('Behavior', () => {
     it('toggles only this color on a plain click', () => {
-      const [first, second] = getGeneratorStore()
-        .getState()
-        .colors.map(color => color.id);
+      const [first, second] = getColors();
 
-      render(<ColorChartsButton id={first} />);
+      render(<ColorChartsButton colorEntry={first} />);
 
       fireEvent.click(getButton());
 
       const { chartColorIds } = getGeneratorStore().getState();
 
-      expect(chartColorIds.has(first)).toBe(true);
-      expect(chartColorIds.has(second)).toBe(false);
+      expect(chartColorIds.has(first.id)).toBe(true);
+      expect(chartColorIds.has(second.id)).toBe(false);
     });
 
     it('toggles off on a second click', () => {
-      const { id } = getGeneratorStore().getState().colors[0];
+      const [colorEntry] = getColors();
 
-      render(<ColorChartsButton id={id} />);
+      render(<ColorChartsButton colorEntry={colorEntry} />);
 
       fireEvent.click(getButton());
       fireEvent.click(getButton());
 
-      expect(getGeneratorStore().getState().chartColorIds.has(id)).toBe(false);
+      expect(getGeneratorStore().getState().chartColorIds.has(colorEntry.id)).toBe(false);
     });
 
     it('shift-click opens every color when this one is closed', () => {
-      const ids = getGeneratorStore()
-        .getState()
-        .colors.map(color => color.id);
+      const colors = getColors();
+      const ids = colors.map(color => color.id);
 
-      render(<ColorChartsButton id={ids[0]} />);
+      render(<ColorChartsButton colorEntry={colors[0]} />);
 
       fireEvent.click(getButton(), { shiftKey: true });
 
@@ -83,13 +84,11 @@ describe('ColorCharts/Button', () => {
     });
 
     it('shift-click closes every color when this one is open', () => {
-      const ids = getGeneratorStore()
-        .getState()
-        .colors.map(color => color.id);
+      const colors = getColors();
 
-      getGeneratorStore().setState({ chartColorIds: new Set(ids) });
+      getGeneratorStore().setState({ chartColorIds: new Set(colors.map(color => color.id)) });
 
-      render(<ColorChartsButton id={ids[0]} />);
+      render(<ColorChartsButton colorEntry={colors[0]} />);
 
       fireEvent.click(getButton(), { shiftKey: true });
 

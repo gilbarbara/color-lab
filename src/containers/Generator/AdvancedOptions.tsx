@@ -41,6 +41,7 @@ function AdvancedOptions() {
     <div>
       <div className="px-4 py-2 text-sm/3">
         <Button
+          aria-expanded={showColorOptionsPanel}
           className="text-foreground-600"
           onPress={toggleColorOptionsPanel}
           size="menu"

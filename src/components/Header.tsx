@@ -50,36 +50,38 @@ export default function Header() {
         <span className="hidden xs:inline-flex sm:hidden">New</span>
         <span className="hidden sm:inline-flex">New Palette</span>
       </Button>
-      <div className="hidden sm:contents">
-        <NavLink className={navLinkClassName} to="/palettes">
-          My Palettes
-        </NavLink>
-        <NavLink className={navLinkClassName} to="/about">
-          About
-        </NavLink>
-      </div>
-      <div className="contents sm:hidden">
-        <Dropdown placement="bottom">
-          <DropdownTrigger>
-            <Button
-              className="text-sm text-foreground-500"
-              endContent={<CaretDownIcon />}
-              size="sm"
-              variant="light"
-            >
-              Menu
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu>
-            <DropdownItem key="palettes" href="/palettes">
-              My Palettes
-            </DropdownItem>
-            <DropdownItem key="about" href="/about">
-              About
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </div>
+      <nav aria-label="Main" className="contents">
+        <div className="hidden sm:contents">
+          <NavLink className={navLinkClassName} to="/palettes">
+            My Palettes
+          </NavLink>
+          <NavLink className={navLinkClassName} to="/about">
+            About
+          </NavLink>
+        </div>
+        <div className="contents sm:hidden">
+          <Dropdown placement="bottom">
+            <DropdownTrigger>
+              <Button
+                className="text-sm text-foreground-500"
+                endContent={<CaretDownIcon />}
+                size="sm"
+                variant="light"
+              >
+                Menu
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu>
+              <DropdownItem key="palettes" href="/palettes">
+                My Palettes
+              </DropdownItem>
+              <DropdownItem key="about" href="/about">
+                About
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </nav>
     </div>
   );
 

@@ -70,29 +70,38 @@ describe('Panel', () => {
       expect(useAppStore.getState().showBottomBar).toBe(false);
     });
 
-    it('toggles bottom bar on Enter key', () => {
+    it('toggles bottom bar from the caret button, and reports its state', () => {
       render(<Panel />);
 
-      fireEvent.keyDown(screen.getByTestId('GeneratorPanel-Handle'), { key: 'Enter' });
+      // The handle wraps the color strip's buttons, so it can't be the control itself. The caret
+      // is the focusable one, and it's a native button — Enter/Space arrive as a click.
+      const toggle = screen.getByRole('button', { name: 'Toggle Bottom Bar' });
+
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(toggle);
 
       expect(useAppStore.getState().showBottomBar).toBe(true);
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+      fireEvent.click(toggle);
+
+      expect(useAppStore.getState().showBottomBar).toBe(false);
     });
 
-    it('toggles bottom bar on Space key', () => {
-      render(<Panel />);
-
-      fireEvent.keyDown(screen.getByTestId('GeneratorPanel-Handle'), { key: ' ' });
-
-      expect(useAppStore.getState().showBottomBar).toBe(true);
-    });
-
-    it('displays a color box per color in the handle', () => {
+    it('displays a color box per color in the handle, each named for its color', () => {
       getGeneratorStore().setState(createTestPalette(3));
       render(<Panel />);
 
       const handle = screen.getByTestId('GeneratorPanel-Handle');
+      const boxes = within(handle).getAllByTestId('ColorBox');
 
-      expect(within(handle).getAllByTestId('ColorBox')).toHaveLength(3);
+      expect(boxes).toHaveLength(3);
+
+      // Every dot used to fall back to ColorBox's default "Color Box", so none was distinguishable.
+      for (const box of boxes) {
+        expect(box).toHaveAccessibleName(/^Select /);
+      }
     });
 
     it('toggle the bottom bar when clicking a color box', () => {
@@ -120,13 +129,17 @@ describe('Panel', () => {
 
       const toggle = screen.getByRole('button', { name: 'Toggle Sidebar' });
 
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
       fireEvent.click(toggle);
 
       expect(useAppStore.getState().showSidebar).toBe(false);
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
 
       fireEvent.click(toggle);
 
       expect(useAppStore.getState().showSidebar).toBe(true);
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('toggles Advanced Color Options', async () => {
@@ -136,8 +149,11 @@ describe('Panel', () => {
 
       const toggle = screen.getByRole('button', { name: 'Advanced Options' });
 
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
       fireEvent.click(toggle);
 
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
       expect(spy).not.toHaveBeenCalledOnce();
 
       // Reset is disabled until the curves differ from defaults.

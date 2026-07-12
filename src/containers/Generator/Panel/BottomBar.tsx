@@ -1,4 +1,4 @@
-import { type KeyboardEvent, memo, type MouseEvent, type TouchEvent } from 'react';
+import { memo, type MouseEvent, type TouchEvent } from 'react';
 import { cn } from '@heroui/react';
 import { CaretUpIcon } from '@phosphor-icons/react';
 
@@ -8,7 +8,6 @@ import ColorBox from '~/components/ColorBox';
 
 interface PanelBottomBarProps {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => void;
   onTouchEnd: (event: TouchEvent<HTMLDivElement>) => void;
   onTouchStart: (event: TouchEvent<HTMLDivElement>) => void;
   showBottomBar: boolean;
@@ -33,34 +32,40 @@ function getStripSpacing(count: number): string {
 }
 
 function PanelBottomBar(props: PanelBottomBarProps) {
-  const { onClick, onKeyDown, onTouchEnd, onTouchStart, showBottomBar, toggleBottomBar } = props;
+  const { onClick, onTouchEnd, onTouchStart, showBottomBar, toggleBottomBar } = props;
   // Self-subscribe to `colors` (the color strip) so a color edit re-renders just this bar, not
   // the Panel shell it lives in.
   const { colors } = useGenerator('colors');
 
   return (
+    // The handle can't be the control: it wraps the color strip's buttons, and interactive
+    // descendants of a `role="button"` are not reachable. So tap and swipe here stay a pointer-only
+    // affordance, and the caret below is the real focusable control — which is why this div needs
+    // no role, tabindex, or key handler.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      aria-label="Toggle Bottom Bar"
       className="md:hidden sticky top-0 h-16 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
       data-testid="GeneratorPanel-Handle"
       onClick={() => toggleBottomBar()}
-      onKeyDown={onKeyDown}
       onTouchEnd={onTouchEnd}
       onTouchStart={onTouchStart}
-      role="button"
-      tabIndex={0}
     >
       {!showBottomBar && (
         <div className="h-1 w-8 absolute top-0 left-1/2 -translate-x-1/2 z-30 bg-foreground rounded-full" />
       )}
+      {/* The dots share their names with the scale swatches — same action, different place. The
+          group names them collectively so the two sets are tellable apart. */}
       <div
+        aria-label="Color strip"
         className={cn('w-full flex items-center', {
           'mask-r-from-90%': colors.length >= 3,
         })}
+        role="group"
       >
         {colors.map(color => (
           <ColorBox
             key={color.id}
+            aria-label={`Select ${color.name}`}
             className={cn('first:ms-0', getStripSpacing(colors.length))}
             color={color.value}
             data-id={color.id}
@@ -69,13 +74,23 @@ function PanelBottomBar(props: PanelBottomBarProps) {
           />
         ))}
       </div>
-      <span className="p-2 -mr-2 shrink-0">
+      <button
+        aria-expanded={showBottomBar}
+        aria-label="Toggle Bottom Bar"
+        className="p-2 -mr-2 shrink-0 cursor-pointer"
+        onClick={event => {
+          // The wrapper's own onClick already toggles; without this the bar would toggle twice.
+          event.stopPropagation();
+          toggleBottomBar();
+        }}
+        type="button"
+      >
         <CaretUpIcon
           className={cn('transition-transform text-base', {
             'rotate-180': showBottomBar,
           })}
         />
-      </span>
+      </button>
     </div>
   );
 }

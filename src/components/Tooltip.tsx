@@ -2,6 +2,7 @@ import {
   Children,
   cloneElement,
   type FocusEvent,
+  isValidElement,
   type MouseEvent,
   type PointerEvent,
   type ReactElement,
@@ -140,6 +141,57 @@ function getAlignment(placement: TooltipPlacement): '' | '-end' | '-start' {
   if (placement.endsWith('-end')) return '-end';
 
   return '';
+}
+
+// Flatten a ReactNode to its text, so a tooltip whose markup is purely cosmetic
+// (<span>View Charts</span>) is still recognized as a restatement of the name.
+// The Tooltip's child isn't always the trigger: HeroUI's Dropdown/Popover triggers drop a
+// cloned ref (heroui#1265), so call sites wrap them in a positioning div. Look through the
+// wrapper for the labelled element rather than reading the div's flattened text.
+function getAriaLabel(node: ReactNode): string | undefined {
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      const label = getAriaLabel(item);
+
+      if (label) {
+        return label;
+      }
+    }
+
+    return undefined;
+  }
+
+  if (!isValidElement(node)) {
+    return undefined;
+  }
+
+  const childProps = node.props as { 'aria-label'?: string; children?: ReactNode };
+
+  return childProps['aria-label'] ?? getAriaLabel(childProps.children);
+}
+
+function getNodeText(node: ReactNode): string {
+  if (node === null || node === undefined || typeof node === 'boolean') {
+    return '';
+  }
+
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(getNodeText).join(' ');
+  }
+
+  if (isValidElement(node)) {
+    return getNodeText((node.props as { children?: ReactNode }).children);
+  }
+
+  return '';
+}
+
+function normalize(value: string) {
+  return value.toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
 function resolvePlacement(
@@ -303,6 +355,8 @@ export default function Tooltip(props: TooltipProps) {
 
   const child = Children.only(children) as ReactElement<{
     'aria-describedby'?: string;
+    'aria-label'?: string;
+    children?: ReactNode;
     onBlur?: (event: FocusEvent) => void;
     onClick?: (event: MouseEvent) => void;
     onFocus?: (event: FocusEvent) => void;
@@ -325,11 +379,19 @@ export default function Tooltip(props: TooltipProps) {
     [childRef],
   );
 
+  // A tooltip that only restates the trigger's accessible name is a visual affordance:
+  // describing with it makes screen readers announce the same words twice. Only wire
+  // aria-describedby when the tooltip carries something the name doesn't already have.
+  const triggerName = getAriaLabel(child) ?? getNodeText(child.props.children);
+  const tooltipText = getNodeText(content);
+  const describes = !!tooltipText && !normalize(triggerName).includes(normalize(tooltipText));
+
   const triggerProps: Record<string, unknown> = {
     ref: mergedRef,
-    'aria-describedby': isOpen
-      ? (child.props['aria-describedby'] ?? id)
-      : child.props['aria-describedby'],
+    'aria-describedby':
+      describes && isOpen
+        ? (child.props['aria-describedby'] ?? id)
+        : child.props['aria-describedby'],
   };
 
   if (useHover) {
@@ -358,8 +420,10 @@ export default function Tooltip(props: TooltipProps) {
     // Open on keyboard focus only. Mouse/programmatic focus restoration (e.g. an
     // overlay returning focus to its trigger on close) is not :focus-visible, and
     // must not pop the tooltip back open (WCAG 1.4.13 was for hover/focus intent).
+    // Test `target`, not `currentTarget`: when the child is a wrapper (heroui#1265) the
+    // handler sits on the wrapper, which is never focused — only the button inside is.
     triggerProps.onFocus = chain(child.props.onFocus, (event: FocusEvent) => {
-      if (event.currentTarget.matches(':focus-visible')) {
+      if (event.target.matches(':focus-visible')) {
         setUncontrolledOpen(true);
       }
     });
@@ -381,6 +445,7 @@ export default function Tooltip(props: TooltipProps) {
         createPortal(
           <div
             ref={contentRef}
+            aria-hidden={!describes || undefined}
             className={cn(
               'fixed z-50 w-max transition-opacity duration-150',
               'max-w-64 rounded-small shadow-lg',

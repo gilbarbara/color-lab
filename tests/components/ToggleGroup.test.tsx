@@ -52,6 +52,44 @@ describe('ToggleGroup', () => {
 
       expect(screen.getByText('info-slot')).toBeInTheDocument();
     });
+
+    it('renders vertical orientation', () => {
+      const { container } = render(
+        <ToggleGroup
+          classNames={{ group: 'custom-group', item: 'custom-item', label: 'custom-label' }}
+          items={ITEMS}
+          label="Test"
+          onChange={vi.fn()}
+          orientation="vertical"
+          value="one"
+        />,
+      );
+
+      // `orientation` is layout-only. It must not emit `aria-orientation` — consumers override the
+      // axis via `classNames.group` (ContrastGrid's sidebar is `flex-row` below `md`), which would
+      // leave the announced axis contradicting the rendered one.
+      expect(screen.getByRole('radiogroup', { name: 'Test' })).not.toHaveAttribute(
+        'aria-orientation',
+      );
+      expect(container).toMatchSnapshot();
+    });
+
+    it('names the group from a node label', () => {
+      render(
+        <ToggleGroup
+          items={ITEMS}
+          label={
+            <span>
+              APCA L<sup>c</sup>
+            </span>
+          }
+          onChange={vi.fn()}
+          value="one"
+        />,
+      );
+
+      expect(screen.getByRole('radiogroup', { name: 'APCA Lc' })).toBeInTheDocument();
+    });
   });
 
   describe('Behavior', () => {

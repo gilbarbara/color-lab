@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import { CopyIcon } from '@phosphor-icons/react';
 
 import { copyToClipboard } from '~/utils/clipboard';
@@ -28,7 +28,11 @@ export default function CopyText(props: CopyTextProps) {
     value,
   } = props;
 
-  const handleCopyToClipboard = async () => {
+  const handleCopyToClipboard = async (event: MouseEvent<HTMLButtonElement>) => {
+    // Copying is not selecting. Without this the click bubbles into an ancestor's handler —
+    // ColorInfo's row `onClick` moves the selected step — so a copy silently hijacks the selection.
+    event.stopPropagation();
+
     if (await copyToClipboard(value, { showToast })) {
       onCopy?.(value);
     }

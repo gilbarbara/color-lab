@@ -70,14 +70,20 @@ function Scale(props: ScaleProps) {
             {colorEntry.name}
           </h3>
           <Tooltip content="Copy OKLCH code">
-            <Button isIconOnly onPress={handleClickCopy} size="sm" variant="light">
+            <Button
+              aria-label={`Copy OKLCH code for ${colorEntry.name}`}
+              isIconOnly
+              onPress={handleClickCopy}
+              size="sm"
+              variant="light"
+            >
               <CopyIcon className="text-lg text-foreground-500" />
             </Button>
           </Tooltip>
         </div>
         <div className="flex items-center gap-2">
-          <PreviewButton id={colorEntry.id} source="scale" />
-          <ColorChartsButton id={colorEntry.id} />
+          <PreviewButton colorEntry={colorEntry} source="scale" />
+          <ColorChartsButton colorEntry={colorEntry} />
           <ColorInfo colorEntry={colorEntry} options={options} steps={steps} />
           <ContrastGrid colorEntry={colorEntry} steps={steps} />
           <ExportScale name={colorEntry.name} steps={steps} />
@@ -85,7 +91,7 @@ function Scale(props: ScaleProps) {
       </div>
       <div className="w-full flex flex-col @xl:flex-row flex-wrap gap-1 overflow-x-auto">
         {Object.entries(steps).map(([step, color]) => (
-          <Swatch key={step} color={color} lock={options.lock} step={step} />
+          <Swatch key={step} color={color} lock={options.lock} name={colorEntry.name} step={step} />
         ))}
       </div>
       <Collapse isOpen={showGraphs}>

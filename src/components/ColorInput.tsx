@@ -8,6 +8,7 @@ import { formatOklch, isValidColorValue } from '~/utils/color';
 interface ColorInputProps {
   color: string;
   mode: ColorMode;
+  name: string;
   onChange: (value: string) => void;
 }
 
@@ -17,7 +18,7 @@ interface ColorInputState {
 }
 
 export default function ColorInput(props: ColorInputProps) {
-  const { color, mode, onChange } = props;
+  const { color, mode, name, onChange } = props;
   const [{ editInput, isEditingInput }, setState] = useSetState<ColorInputState>({
     editInput: '',
     isEditingInput: false,
@@ -65,7 +66,7 @@ export default function ColorInput(props: ColorInputProps) {
 
   return (
     <Input
-      aria-label="Color value"
+      aria-label={`Color value for ${name}`}
       classNames={{
         inputWrapper: 'h-8 min-h-8 px-2',
       }}

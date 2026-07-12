@@ -43,17 +43,25 @@ test('preview', async () => {
   });
 
   await test.step('cycles the preview theme', async () => {
-    const themeToggle = page.getByRole('button', { name: 'Toggle preview theme' });
+    // The accessible name carries the current mode — it's a 3-state cycle, so the name is the
+    // only thing that tells you (and a screen reader) which theme is active.
+    const themeToggle = page.getByRole('button', { name: /^Preview theme:/ });
+
+    await expect(themeToggle).toHaveAccessibleName('Preview theme: Auto');
 
     await themeToggle.click();
 
+    await expect(themeToggle).toHaveAccessibleName('Preview theme: Light');
     await page.waitForTimeout(100);
 
     await expect(page).toHaveScreenshot(screenshotName('preview-light-theme.png'));
 
     // cycle back to auto (light -> dark -> auto)
     await themeToggle.click();
+    await expect(themeToggle).toHaveAccessibleName('Preview theme: Dark');
+
     await themeToggle.click();
+    await expect(themeToggle).toHaveAccessibleName('Preview theme: Auto');
   });
 
   await test.step('switches to the Typography tab', async () => {
@@ -76,9 +84,9 @@ test('preview', async () => {
   });
 
   await test.step('uses Secondary as the preview primary', async () => {
-    await page.getByRole('button', { name: 'Use Secondary as primary' }).click();
-    await expect(page.getByRole('button', { name: 'Use Secondary as primary' })).toHaveAttribute(
-      'aria-pressed',
+    await page.getByRole('radio', { name: 'Secondary' }).click();
+    await expect(page.getByRole('radio', { name: 'Secondary' })).toHaveAttribute(
+      'aria-checked',
       'true',
     );
 

@@ -76,12 +76,12 @@ exports[`Footer > renders correctly 1`] = `
         target="_blank"
       >
         <img
-          alt="GitHub"
+          alt=""
           class="size-3 block dark:hidden"
           src="/icons/github.svg"
         />
         <img
-          alt="GitHub"
+          alt=""
           class="size-3 hidden dark:block"
           src="/icons/github-dark.svg"
         />

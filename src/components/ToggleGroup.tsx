@@ -10,11 +10,22 @@ interface ToggleGroupItem<T extends string> {
 
 interface ToggleGroupProps<T extends string> {
   className?: string;
+  /** Overrides for the label, the radiogroup wrapper and the items, when the pill row doesn't fit. */
+  classNames?: {
+    group?: string;
+    item?: string;
+    label?: string;
+  };
   /** Optional node rendered between the label and the buttons (e.g. a tooltip). */
   info?: ReactNode;
   items: Array<ToggleGroupItem<T>>;
-  label: string;
+  /**
+   * Visible label. Also the group's accessible name, via `aria-labelledby` — so a node resolves
+   * to its text content (`<span>APCA L<sup>c</sup></span>` names the group "APCA Lc").
+   */
+  label: ReactNode;
   onChange: (value: T) => void;
+  orientation?: 'horizontal' | 'vertical';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   value: T;
 }
@@ -24,9 +35,20 @@ interface ToggleGroupProps<T extends string> {
  * Keyboard nav uses a roving tabindex (single tab stop; arrows move selection + focus).
  */
 export default function ToggleGroup<T extends string>(props: ToggleGroupProps<T>) {
-  const { className, info, items, label, onChange, size = 'xs', value } = props;
+  const {
+    className,
+    classNames,
+    info,
+    items,
+    label,
+    onChange,
+    orientation = 'horizontal',
+    size = 'xs',
+    value,
+  } = props;
 
   const labelId = useId();
+  const isVertical = orientation === 'vertical';
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const current = items.findIndex(item => item.value === value);
@@ -57,12 +79,27 @@ export default function ToggleGroup<T extends string>(props: ToggleGroupProps<T>
   };
 
   return (
-    <div className={cn('w-full flex items-center gap-2', className)}>
-      <span id={labelId}>{label}</span>
+    <div
+      className={cn(
+        isVertical ? 'w-full flex flex-col items-start gap-2' : 'w-full flex items-center gap-2',
+        className,
+      )}
+    >
+      <span className={classNames?.label} id={labelId}>
+        {label}
+      </span>
       {info}
+      {/* No `aria-orientation`: `orientation` drives layout only, and a consumer that overrides the
+          axis via `classNames.group` (the sidebar is `flex-row` below `md`) would desync the two.
+          The key handler accepts both arrow axes regardless. */}
       <div
         aria-labelledby={labelId}
-        className="flex items-center gap-1 bg-default-100 rounded-full"
+        className={cn(
+          isVertical
+            ? 'w-full flex flex-col gap-1'
+            : 'flex items-center gap-1 bg-default-100 rounded-full',
+          classNames?.group,
+        )}
         onKeyDown={handleKeyDown}
         role="radiogroup"
         tabIndex={-1}
@@ -71,7 +108,7 @@ export default function ToggleGroup<T extends string>(props: ToggleGroupProps<T>
           <Button
             key={item.value}
             aria-checked={value === item.value}
-            className="px-3 rounded-full"
+            className={cn(isVertical ? 'justify-start' : 'px-3 rounded-full', classNames?.item)}
             onPress={() => onChange(item.value)}
             role="radio"
             size={size}

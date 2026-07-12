@@ -123,7 +123,7 @@ export async function removeColor(page: Page, index: number) {
   const removeButton = page
     .getByTestId('ColorItem')
     .nth(index)
-    .getByRole('button', { name: 'Remove color' });
+    .getByRole('button', { name: /^remove .* color$/i });
 
   await removeButton.click();
   await page.waitForTimeout(100);
