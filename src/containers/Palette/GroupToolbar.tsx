@@ -1,11 +1,9 @@
-import { useMemo } from 'react';
 import { TagIcon, XCircleIcon } from '@phosphor-icons/react';
 
 import { COLOR_GROUPS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
-import { getUsedGroups } from '~/utils/generator';
 
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
@@ -18,7 +16,7 @@ export default function PaletteGroupToolbar() {
     'setGroupFilter',
     'toggleGroupFilter',
   );
-  const { colors } = useGenerator('colors');
+  const { usedGroups } = useGenerator('usedGroups');
 
   const handleClickToggle = (group: ColorGroup) => {
     toggleGroupFilter(group);
@@ -30,9 +28,7 @@ export default function PaletteGroupToolbar() {
     trackEvent('palette:group_clear');
   };
 
-  const colorGroups = useMemo(() => getUsedGroups(colors), [colors]);
-
-  if (!colorGroups.length) {
+  if (!usedGroups.length) {
     return null;
   }
 
@@ -45,7 +41,7 @@ export default function PaletteGroupToolbar() {
         className="flex flex-1 flex-wrap items-center gap-2"
         role="group"
       >
-        {colorGroups.map(group => (
+        {usedGroups.map(group => (
           <Tooltip key={group} content={`Filter by ${COLOR_GROUPS[group].label}`}>
             <Button
               aria-label={`Filter by ${COLOR_GROUPS[group].label}`}
