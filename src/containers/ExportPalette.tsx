@@ -84,12 +84,22 @@ export default function ExportPalette() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors.length]);
 
-  const scalesData = useMemo(() => {
-    return colors.map(color => ({
-      name: color.name,
-      mainColor: color.value,
-      steps: scale(color.value, getEffectiveOptions(color, globalOptions)),
-    }));
+  // Only ExportDrawer's render props read this, and they run only while the drawer is open.
+  // Computing it eagerly ran `scale()` — the heaviest call in the app, ~0.32ms — once per color
+  // on every palette edit, so a slider drag burned it N times a frame with the drawer shut.
+  // Defer it behind an accessor; the result is cached until the palette or options change.
+  const getScalesData = useMemo(() => {
+    let cached: Array<ScaleExportData & { mainColor: string }> | null = null;
+
+    return () => {
+      cached ??= colors.map(color => ({
+        name: color.name,
+        mainColor: color.value,
+        steps: scale(color.value, getEffectiveOptions(color, globalOptions)),
+      }));
+
+      return cached;
+    };
   }, [colors, globalOptions]);
 
   const handleSelectionChange = (index: number, selected: boolean) => {
@@ -123,7 +133,7 @@ export default function ExportPalette() {
     colorFormat,
     formatType,
   }: Pick<ExportRenderProps, 'colorFormat' | 'formatType'>): string => {
-    const selectedScales: ScaleExportData[] = scalesData
+    const selectedScales: ScaleExportData[] = getScalesData()
       .filter((_, index) => selectedIndices.has(index))
       .map(({ name, steps }) => ({ name, steps }));
 
@@ -167,7 +177,7 @@ export default function ExportPalette() {
                   </Button>
                 </div>
                 <span className="text-sm text-foreground-500">
-                  {selectedIndices.size} of {scalesData.length} selected
+                  {selectedIndices.size} of {colors.length} selected
                 </span>
               </div>
             )
@@ -199,7 +209,7 @@ export default function ExportPalette() {
           <div className="flex flex-col gap-4">
             {showSelection && (
               <div className="flex flex-wrap gap-2">
-                {scalesData.map((scaleData, index) => (
+                {getScalesData().map((scaleData, index) => (
                   <ScaleItem
                     key={scaleData.name}
                     colorFormat={colorFormat}

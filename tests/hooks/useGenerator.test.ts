@@ -81,6 +81,30 @@ describe('hooks/useGenerator', () => {
       expect(result.current.hasCustomCurves).toBe(true);
     });
 
+    it('returns usedGroups in COLOR_GROUPS order, deduped', () => {
+      act(() => {
+        getGeneratorStore().getState().addColor(GREEN);
+        getGeneratorStore().getState().addColor(BLUE);
+      });
+
+      const { result } = renderHook(() => useGenerator('usedGroups', 'updateColor'));
+
+      act(() => {
+        result.current.updateColor(colorIdAt(0), { group: 'semantic' });
+        result.current.updateColor(colorIdAt(1), { group: 'brand' });
+        result.current.updateColor(colorIdAt(2), { group: 'semantic' });
+      });
+
+      expect(result.current.usedGroups).toEqual(['brand', 'semantic']);
+    });
+
+    // The projection is a joined string, and `''.split(',')` yields `['']`, not `[]`.
+    it('returns an empty usedGroups when no color has a group', () => {
+      const { result } = renderHook(() => useGenerator('usedGroups'));
+
+      expect(result.current.usedGroups).toEqual([]);
+    });
+
     it('hasCustomCurves is true for a non-zero hueShift', () => {
       const { result } = renderHook(() => useGenerator('hasCustomCurves', 'updateGlobalOptions'));
 
@@ -471,6 +495,78 @@ describe('hooks/useGenerator', () => {
       });
       expect(renderCount).toBe(2);
       expect(result.current.baseSaturation).not.toBe(initial);
+    });
+
+    it('colorCount consumer ignores color edits', () => {
+      let renderCount = 0;
+      const { result } = renderHook(() => {
+        renderCount++;
+
+        return useGenerator('colorCount');
+      });
+
+      expect(result.current.colorCount).toBe(1);
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        getGeneratorStore().getState().updateColor(colorIdAt(), { value: GREEN });
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        getGeneratorStore().getState().addColor(BLUE);
+      });
+      expect(renderCount).toBe(2);
+      expect(result.current.colorCount).toBe(2);
+
+      act(() => {
+        getGeneratorStore().getState().removeColor(colorIdAt(1));
+      });
+      expect(renderCount).toBe(3);
+      expect(result.current.colorCount).toBe(1);
+    });
+
+    it('usedGroups consumer ignores color edits and only re-renders when the group set changes', () => {
+      act(() => {
+        getGeneratorStore().getState().addColor(GREEN);
+      });
+
+      let renderCount = 0;
+      const { result } = renderHook(() => {
+        renderCount++;
+
+        return useGenerator('usedGroups');
+      });
+
+      const initial = result.current.usedGroups;
+
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        getGeneratorStore().getState().updateColor(colorIdAt(), { value: BLUE });
+      });
+      expect(renderCount).toBe(1);
+
+      act(() => {
+        getGeneratorStore().getState().updateGlobalOptions({ lightnessCurve: 2 });
+      });
+      expect(renderCount).toBe(1);
+
+      // Same array identity across unrelated edits — the consumer can use it as a hook dep.
+      expect(result.current.usedGroups).toBe(initial);
+
+      act(() => {
+        getGeneratorStore().getState().updateColor(colorIdAt(0), { group: 'brand' });
+      });
+      expect(renderCount).toBe(2);
+      expect(result.current.usedGroups).toEqual(['brand']);
+
+      // A second color joining a group already in use leaves the set unchanged.
+      act(() => {
+        getGeneratorStore().getState().updateColor(colorIdAt(1), { group: 'brand' });
+      });
+      expect(renderCount).toBe(2);
+      expect(result.current.usedGroups).toEqual(['brand']);
     });
 
     it('returned object stays shallow-stable across unrelated mutations', () => {

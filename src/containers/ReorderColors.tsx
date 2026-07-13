@@ -1,9 +1,10 @@
-import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react';
+import { type KeyboardEvent, memo, useEffect, useId, useRef, useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@heroui/react';
 import { ArrowsDownUpIcon, DotsSixVerticalIcon } from '@phosphor-icons/react';
 import { Reorder } from 'framer-motion';
 
 import useGenerator from '~/hooks/useGenerator';
+import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { trackEvent } from '~/utils/analytics';
 
 import Button from '~/components/Button';
@@ -11,12 +12,15 @@ import ColorBox from '~/components/ColorBox';
 
 import type { ColorEntry } from '~/types';
 
-export default function ReorderColors() {
-  const { colors, reorderColors } = useGenerator('colors', 'reorderColors');
+function ReorderColors() {
+  // Only the count is needed to render. The entries themselves are read from the store on open
+  // and on commit, so a color edit — every frame of a slider drag — doesn't re-render this.
+  const { colorCount, reorderColors } = useGenerator('colorCount', 'reorderColors');
+  const storeApi = useGeneratorStoreApi();
   const { isOpen, onOpenChange } = useDisclosure();
   // Local order drives the drag list. The store stays untouched mid-drag, so the
   // main color list doesn't re-render on every pointer move — only on commit.
-  const [ordered, setOrdered] = useState<ColorEntry[]>(colors);
+  const [ordered, setOrdered] = useState<ColorEntry[]>(() => storeApi.getState().colors);
   const [announcement, setAnnouncement] = useState('');
   const listRef = useRef<HTMLUListElement>(null);
   const titleId = useId();
@@ -41,7 +45,7 @@ export default function ReorderColors() {
     // Re-seed from the store on open so the list reflects any add/remove/edit
     // that happened while the popover was closed.
     if (open) {
-      setOrdered(colors);
+      setOrdered(storeApi.getState().colors);
       setAnnouncement('');
     }
 
@@ -53,6 +57,8 @@ export default function ReorderColors() {
   // ends where it started reaches this with an unchanged order; bail out so it
   // doesn't report a reorder that never happened.
   const commit = (list: ColorEntry[]) => {
+    const { colors } = storeApi.getState();
+
     if (list.every((color, index) => color.id === colors[index]?.id)) {
       return;
     }
@@ -94,7 +100,7 @@ export default function ReorderColors() {
     handleMove(index, to);
   };
 
-  if (colors.length === 1) {
+  if (colorCount === 1) {
     return null;
   }
 
@@ -169,3 +175,7 @@ export default function ReorderColors() {
     </div>
   );
 }
+
+// No props, so this never needs to re-render from its parent — and ColorList, which renders it,
+// re-renders on every color edit. Its own narrowed subscription (`colorCount`) drives it instead.
+export default memo(ReorderColors);

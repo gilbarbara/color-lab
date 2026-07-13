@@ -11,6 +11,7 @@ import { CaretDownIcon, PlusIcon } from '@phosphor-icons/react';
 import { COLOR_SPACING, MAX_COLORS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
+import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { trackEvent } from '~/utils/analytics';
 import { generateOklchColor, getRandomColor } from '~/utils/color';
 
@@ -25,7 +26,11 @@ export default function PanelAddColor() {
     'resetGroupFilter',
     'setColorSpacing',
   );
-  const { addColor, baseSaturation, colors } = useGenerator('addColor', 'baseSaturation', 'colors');
+  // Only the count is rendered. The colors themselves are needed solely when the button is
+  // pressed, so they are read from the store at click time — selecting them (or `baseSaturation`,
+  // which derives from `colors[0].value`) would re-render this on every edit of the first color.
+  const { addColor, colorCount } = useGenerator('addColor', 'colorCount');
+  const storeApi = useGeneratorStoreApi();
 
   const handleSelectionChange = (keys: SharedSelection) => {
     if (keys === 'all') return;
@@ -37,10 +42,11 @@ export default function PanelAddColor() {
   };
 
   const handleClickAddColor = () => {
-    const lastColor = colors.at(-1);
+    // No last color means an empty palette, where `baseSaturation` was `undefined` anyway.
+    const lastColor = storeApi.getState().colors.at(-1);
     const nextColor = lastColor
       ? generateOklchColor(lastColor.value, COLOR_SPACING[colorSpacing].angle)
-      : getRandomColor(baseSaturation);
+      : getRandomColor();
 
     const newId = addColor(nextColor);
 
@@ -52,7 +58,7 @@ export default function PanelAddColor() {
     if (newId) requestColorScroll(newId);
   };
 
-  const isDisabled = colors.length >= MAX_COLORS;
+  const isDisabled = colorCount >= MAX_COLORS;
 
   return (
     <div className="p-4">
