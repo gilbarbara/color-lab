@@ -2,8 +2,6 @@ import { getScaleStepKeys, parseCSS } from 'colorizr';
 
 import type { ScaleSteps } from '~/types';
 
-export const PAD_Y = 5;
-
 export interface ParsedStep {
   c: number;
   h: number;

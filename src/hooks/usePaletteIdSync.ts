@@ -5,7 +5,7 @@ import { addToast } from '@heroui/react';
 import * as Sentry from '@sentry/nextjs';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';

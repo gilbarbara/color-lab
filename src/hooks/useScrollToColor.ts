@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
 
-import { BREAKPOINTS } from '~/config/globals';
+import { BREAKPOINTS } from '~/config/ui';
 
 import useApp from './useApp';
 import useGenerator from './useGenerator';

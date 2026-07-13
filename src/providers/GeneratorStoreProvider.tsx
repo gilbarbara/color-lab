@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { createContext, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
+import { PALETTE_PATH_PREFIX } from '~/config/globals';
 import { createGeneratorStore, type GeneratorStoreApi } from '~/stores/generatorStore';
 import { parsePaletteFromUrl } from '~/utils/url';
 
@@ -31,7 +32,7 @@ export default function GeneratorStoreProvider({
     // serialized random palette) instead of each rolling their own.
     const search = searchParams.toString();
     const url = `${pathname}${search ? `?${search}` : ''}`;
-    const parsed = pathname.startsWith('/p/') ? parsePaletteFromUrl(url) : null;
+    const parsed = pathname.startsWith(`${PALETTE_PATH_PREFIX}/`) ? parsePaletteFromUrl(url) : null;
 
     storeRef.current = createGeneratorStore(parsed?.state ?? fallbackPalette);
   }

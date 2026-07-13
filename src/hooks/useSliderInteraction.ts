@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 
-const ATTR = 'data-interacting';
+import { DATA_INTERACTING_ATTR } from '~/config/ui';
 
 /**
  * Tags a wrapper element with `data-interacting="true"` while a slider is
@@ -17,16 +17,16 @@ export default function useSliderInteraction() {
       return;
     }
 
-    nodeRef.current?.removeAttribute(ATTR);
+    nodeRef.current?.removeAttribute(DATA_INTERACTING_ATTR);
     nodeRef.current = null;
   }, []);
 
   const start = useCallback(() => {
-    nodeRef.current?.setAttribute(ATTR, 'true');
+    nodeRef.current?.setAttribute(DATA_INTERACTING_ATTR, 'true');
   }, []);
 
   const end = useCallback(() => {
-    nodeRef.current?.removeAttribute(ATTR);
+    nodeRef.current?.removeAttribute(DATA_INTERACTING_ATTR);
   }, []);
 
   return { ref, start, end };

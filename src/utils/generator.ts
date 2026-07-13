@@ -1,8 +1,9 @@
 import { objectKeys, uuid } from '@gilbarbara/helpers';
 
-import { DEFAULT_COLOR_NAMES, DEFAULT_PALETTE_NAME } from '~/config/globals';
+import { DEFAULT_COLOR_NAMES, DEFAULT_PALETTE_NAME, MAX_COLORS } from '~/config/globals';
 import {
   CHROMA_CURVE_DEFAULT,
+  CURVE_OPTION_KEYS,
   HUE_SHIFT_DEFAULT,
   LIGHTNESS_CURVE_DEFAULT,
   LIGHTNESS_RANGE_MAX_DEFAULT,
@@ -22,25 +23,6 @@ import type {
   OklchString,
   ScaleOptions,
 } from '~/types';
-
-export const MAX_COLORS = 10;
-
-export const CURVE_OPTION_KEYS = [
-  'minLightness',
-  'maxLightness',
-  'lightnessCurve',
-  'chromaCurve',
-  'hueShift',
-] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
-
-export const PALETTE_OPTION_KEYS = [
-  'lock',
-  'mode',
-  'saturation',
-  'saturationOverride',
-  'steps',
-  'variant',
-] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
 
 /**
  * Add a new color to the palette

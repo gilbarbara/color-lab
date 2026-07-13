@@ -5,7 +5,7 @@ import { CaretDownIcon, CaretUpIcon } from '@phosphor-icons/react';
 import { parseCSS } from 'colorizr';
 import { animate } from 'framer-motion';
 
-import { SCROLL_OFFSET } from '~/config/globals';
+import { SCROLL_OFFSET } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import useGeneratorStore from '~/hooks/useGeneratorStore';

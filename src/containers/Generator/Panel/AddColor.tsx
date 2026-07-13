@@ -8,12 +8,11 @@ import {
 } from '@heroui/react';
 import { CaretDownIcon, PlusIcon } from '@phosphor-icons/react';
 
-import { COLOR_SPACING } from '~/config/globals';
+import { COLOR_SPACING, MAX_COLORS } from '~/config/globals';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
 import { generateOklchColor, getRandomColor } from '~/utils/color';
-import { MAX_COLORS } from '~/utils/generator';
 
 import Button from '~/components/Button';
 

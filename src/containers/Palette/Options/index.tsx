@@ -3,12 +3,17 @@ import { cn, Select, SelectItem, type SharedSelection, Slider } from '@heroui/re
 import { EraserIcon } from '@phosphor-icons/react';
 import { getScaleStepKeys, type ScaleMode as ScaleModeType } from 'colorizr';
 
-import { SATURATION_MAX, SATURATION_MIN, STEPS_MAX, STEPS_MIN } from '~/config/scale';
+import {
+  PALETTE_OPTION_KEYS,
+  SATURATION_MAX,
+  SATURATION_MIN,
+  STEPS_MAX,
+  STEPS_MIN,
+} from '~/config/scale';
 import useGenerator from '~/hooks/useGenerator';
 import useRafCallback from '~/hooks/useRafCallback';
 import useSliderInteraction from '~/hooks/useSliderInteraction';
 import { trackEvent } from '~/utils/analytics';
-import { PALETTE_OPTION_KEYS } from '~/utils/generator';
 
 import Button from '~/components/Button';
 import SliderLabel from '~/components/SliderLabel';

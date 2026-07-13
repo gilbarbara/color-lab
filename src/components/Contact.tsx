@@ -4,6 +4,7 @@ import { useSetState } from '@gilbarbara/hooks';
 import { Button, Divider, useDisclosure } from '@heroui/react';
 import { CheckCircleIcon, WarningCircleIcon, XCircleIcon } from '@phosphor-icons/react';
 
+import { CONTACT_FORM_ENDPOINT } from '~/config/globals';
 import useAuth from '~/hooks/useAuth';
 import { trackEvent } from '~/utils/analytics';
 
@@ -60,7 +61,7 @@ export default function Contact() {
     setState({ errorMessage: undefined, messageLengthError: null, status: ASYNC_STATUS.PENDING });
 
     try {
-      await request('https://submit-form.com/OsJcU0zeI', {
+      await request(CONTACT_FORM_ENDPOINT, {
         method: 'POST',
         body: { email: email.value, message: message.value },
       });

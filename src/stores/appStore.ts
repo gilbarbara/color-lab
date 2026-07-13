@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { DEFAULT_PALETTE_NAME } from '~/config/globals';
+import { DEFAULT_PALETTE_NAME, STORAGE_KEY } from '~/config/globals';
 import { detectInitialGamut } from '~/utils/gamut';
 
 import type {
@@ -185,7 +185,7 @@ export const useAppStore = create<AppStateWithActions>()(
       },
     }),
     {
-      name: 'color-lab',
+      name: STORAGE_KEY,
       version: 1,
       storage: createJSONStorage(() =>
         typeof window === 'undefined' ? (undefined as unknown as Storage) : localStorage,

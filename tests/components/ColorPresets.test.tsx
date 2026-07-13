@@ -1,9 +1,10 @@
 import { DESIGN_SYSTEM_PRESETS } from '~/config/presets';
+import { CURVE_OPTION_KEYS } from '~/config/scale';
 import { CRIMSON } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
 import { act, fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
-import { createPalette, CURVE_OPTION_KEYS, getDefaultGlobalOptions } from '~/utils/generator';
+import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
 import ColorPresets from '~/components/ColorPresets';
 

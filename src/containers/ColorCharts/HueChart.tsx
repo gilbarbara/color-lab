@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 import { parseCSS } from 'colorizr';
 
+import { CHART_PAD_Y } from '~/config/ui';
+
 import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ScaleChartComponentProps } from './types';
-import { PAD_Y, parseSteps, unwrapHues } from './utils';
+import { parseSteps, unwrapHues } from './utils';
 
 // Minimum visible span (degrees) so a flat curve (hueShift 0) still renders a
 // centered line with sensible axis numbers instead of dividing by zero.
@@ -19,7 +21,7 @@ function normalizeHue(value: number) {
 function yFor(value: number, minY: number, maxY: number) {
   const span = maxY - minY || 1;
 
-  return PAD_Y + (1 - (value - minY) / span) * (100 - 2 * PAD_Y);
+  return CHART_PAD_Y + (1 - (value - minY) / span) * (100 - 2 * CHART_PAD_Y);
 }
 
 /**

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import useGenerator from '~/hooks/useGenerator';

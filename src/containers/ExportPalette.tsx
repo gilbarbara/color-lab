@@ -3,7 +3,7 @@ import { useBreakpoint } from '@gilbarbara/hooks';
 import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor, scale } from 'colorizr';
 
-import { BREAKPOINTS } from '~/config/globals';
+import { BREAKPOINTS } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';

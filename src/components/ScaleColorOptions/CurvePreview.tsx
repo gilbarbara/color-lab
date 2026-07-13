@@ -1,12 +1,12 @@
 import { cn } from '@heroui/react';
 
+import { CHART_PAD_Y } from '~/config/ui';
+
 interface CurvePreviewProps {
   className?: string;
   compute: (t: number) => number;
   samples?: number;
 }
-
-const PAD_Y = 5;
 
 export default function CurvePreview(props: CurvePreviewProps) {
   const { className, compute, samples = 24 } = props;
@@ -15,7 +15,7 @@ export default function CurvePreview(props: CurvePreviewProps) {
     const t = index / samples;
     const y = Math.min(1, Math.max(0, compute(t)));
 
-    return `${t * 100},${PAD_Y + (1 - y) * (100 - 2 * PAD_Y)}`;
+    return `${t * 100},${CHART_PAD_Y + (1 - y) * (100 - 2 * CHART_PAD_Y)}`;
   }).join(' ');
 
   return (

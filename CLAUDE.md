@@ -109,6 +109,12 @@ Additional UI surfaces:
 
 ### Core Utilities
 
+Constants live in `src/config/`. Put a new one in the file that matches its kind — never inline it in a component or util:
+
+- `src/config/globals.tsx`: Palette domain (`COLOR_GROUPS`, `COLOR_SPACING`, `DEFAULT_*`, `MAX_COLORS`), `PALETTE_PATH_PREFIX`, storage/auth keys (`STORAGE_KEY`, `AUTH_*`), third-party endpoints
+- `src/config/ui.ts`: Layout + DOM mechanics (`BREAKPOINTS`, `HEADER_HEIGHT`, `SCROLL_OFFSET`, `MODAL_*`, `CHART_PAD_Y`, `ROUTER_NAVIGATION_OPTIONS`)
+- `src/config/scale.ts`: Scale bounds/defaults/steps + `CURVE_OPTION_KEYS` / `PALETTE_OPTION_KEYS`
+- `src/config/metadata.ts`: `SITE_*` metadata
 - `src/config/firebase.ts`: `firebaseConfig` (from `NEXT_PUBLIC_FIREBASE_*` env vars) + `PALETTES_COLLECTION`
 - `src/utils/firebase.ts`: Firebase app init, `auth` + `db` exports (Firestore Lite); reads config from `src/config/firebase.ts`
 - `src/services/palettes.ts`: Firestore CRUD for saved palettes

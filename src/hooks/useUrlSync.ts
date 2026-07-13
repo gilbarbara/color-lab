@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef } from 'react';
 import { addToast } from '@heroui/react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
+import { PALETTE_PATH_PREFIX } from '~/config/globals';
+import { DATA_INTERACTING_ATTR } from '~/config/ui';
 import { useGeneratorStoreApi } from '~/hooks/useGeneratorStore';
 import { useAppStore } from '~/stores/appStore';
 import {
@@ -72,7 +74,7 @@ export default function useUrlSync() {
       return;
     }
 
-    if (pathname.startsWith('/p/')) {
+    if (pathname.startsWith(`${PALETTE_PATH_PREFIX}/`)) {
       const parsed = parsePaletteFromUrl(currentUrl);
 
       if (parsed) {
@@ -126,7 +128,7 @@ export default function useUrlSync() {
     // (`canonical=/p`, no per-palette `og:`): no content/head flip, just the URL. Keeping this out of
     // the server redirect is what stops crawlers being fed a fresh palette URL per hit (the Search
     // Console flood) — Googlebot hitting `/` now always lands on the stable `/p`.
-    if (pathname === '/p') {
+    if (pathname === PALETTE_PATH_PREFIX) {
       window.history.replaceState(null, '', serializePaletteToUrl(generatorStoreApi.getState()));
     }
   }, [pathname, searchParams, generatorStoreApi]);
@@ -141,7 +143,7 @@ export default function useUrlSync() {
     let wasInteracting = false;
 
     const observer = new MutationObserver(() => {
-      const isInteracting = document.querySelector('[data-interacting="true"]') !== null;
+      const isInteracting = document.querySelector(`[${DATA_INTERACTING_ATTR}="true"]`) !== null;
 
       if (isInteracting === wasInteracting) return;
       wasInteracting = isInteracting;
@@ -159,7 +161,7 @@ export default function useUrlSync() {
 
     observer.observe(document.body, {
       attributes: true,
-      attributeFilter: ['data-interacting'],
+      attributeFilter: [DATA_INTERACTING_ATTR],
       subtree: true,
     });
 

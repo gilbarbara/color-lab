@@ -1,3 +1,5 @@
+import type { GlobalScaleOptions } from '~/types';
+
 // Chroma Curve
 export const CHROMA_CURVE_DEFAULT = 0;
 export const CHROMA_CURVE_MAX = 1;
@@ -36,3 +38,19 @@ export const SATURATION_MAX = 100;
 export const STEPS_DEFAULT = 11;
 export const STEPS_MIN = 3;
 export const STEPS_MAX = 20;
+
+export const CURVE_OPTION_KEYS = [
+  'minLightness',
+  'maxLightness',
+  'lightnessCurve',
+  'chromaCurve',
+  'hueShift',
+] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;
+export const PALETTE_OPTION_KEYS = [
+  'lock',
+  'mode',
+  'saturation',
+  'saturationOverride',
+  'steps',
+  'variant',
+] as const satisfies ReadonlyArray<keyof GlobalScaleOptions>;

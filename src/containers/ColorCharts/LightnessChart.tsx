@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
 
+import { CHART_PAD_Y } from '~/config/ui';
+
 import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ScaleChartComponentProps } from './types';
-import { PAD_Y, parseSteps } from './utils';
+import { parseSteps } from './utils';
 
 const Y_TICKS = [0, 50, 100];
 
 /** Vertical position (0–100) for a lightness percentage on a fixed 0–100 scale. */
 function yFor(lightness: number) {
-  return PAD_Y + (1 - lightness / 100) * (100 - 2 * PAD_Y);
+  return CHART_PAD_Y + (1 - lightness / 100) * (100 - 2 * CHART_PAD_Y);
 }
 
 /**
