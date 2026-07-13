@@ -113,6 +113,15 @@ export function lacksColor(name: string) {
   return (url: URL) => !url.pathname.includes(`${name}-`);
 }
 
+/** The color segment for `name` carries none of the given path option keys. */
+export function lacksColorOptions(name: string, ...keys: string[]) {
+  return (url: URL) => {
+    const options = parseColorOptions(url, name);
+
+    return keys.every(key => !(key in options));
+  };
+}
+
 /** None of the given query params are present. */
 export function lacksParams(...keys: string[]) {
   return (url: URL) => keys.every(key => !url.searchParams.has(key));
@@ -178,6 +187,36 @@ export async function scrollPanelToTop(page: Page): Promise<void> {
         requestAnimationFrame(tick);
       }),
   );
+}
+
+/**
+ * Assign (or clear, with `None`) a color's group from the palette's Scale row or the
+ * sidebar's color card — the two surfaces ColorGroupMenu renders on.
+ *
+ * The trigger is scrolled into view *before* the menu opens: the open menu is anchored to the
+ * trigger, so a scroll underneath it re-positions it every frame and the click never lands.
+ * The menu itself is portaled to the body, so its items can't be scoped to the container.
+ */
+export async function setColorGroup(
+  page: Page,
+  name: string,
+  group: 'Brand' | 'Decorative' | 'Neutral' | 'None' | 'Semantic',
+  surface: 'card' | 'scale' = 'scale',
+) {
+  const container = page.getByRole('group', {
+    name: `${name} ${surface === 'card' ? 'settings' : 'scale'}`,
+  });
+  const trigger = container.getByRole('button', { name: 'Color group' });
+
+  await trigger.scrollIntoViewIfNeeded();
+  await waitForScrollEnd(page);
+  await trigger.click();
+
+  const item = page.getByRole('menuitemradio', { name: group, exact: true });
+
+  await expect(item).toBeVisible();
+  await item.click();
+  await expect(page.getByRole('menu')).toBeHidden();
 }
 
 export function waitForScrollEnd(page: Page, containerSelector?: string) {

@@ -41,11 +41,13 @@ export function createColorEntry(
   name: string,
   value: string,
   overrides?: ColorEntry['overrides'],
+  group?: ColorEntry['group'],
 ): ColorEntry {
   return {
     id: crypto.randomUUID(),
     name,
     value: toOklch(value),
+    ...(group && { group }),
     ...(overrides && { overrides }),
   };
 }

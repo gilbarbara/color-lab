@@ -1,10 +1,17 @@
-import type { ColorSpacingOptions } from '~/types';
+import type { ColorGroupOptions, ColorSpacingOptions } from '~/types';
 
 export const APCA_LIGHTNESS_CONTRAST = (
   <span>
     L<sup>c</sup>
   </span>
 );
+
+export const COLOR_GROUPS: ColorGroupOptions = {
+  brand: { code: 'b', description: 'Your signature identity colors', label: 'Brand' },
+  neutral: { code: 'n', description: 'Text, borders, surfaces, backgrounds', label: 'Neutral' },
+  semantic: { code: 's', description: 'Success, warning, error, info', label: 'Semantic' },
+  decorative: { code: 'd', description: 'Accents, charts, and highlights', label: 'Decorative' },
+};
 
 export const COLOR_SPACING: ColorSpacingOptions = {
   tight: {

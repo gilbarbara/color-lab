@@ -25,7 +25,7 @@ React 19 + Next.js 16 (App Router) app for generating color palettes using the [
 
 Zustand stores:
 
-- **appStore** (`src/stores/appStore.ts`): Global UI state (export format, gamut, panel visibility, saved-palette `paletteId`/`paletteName`, `sessionPalettePath`) — localStorage-guarded for SSR
+- **appStore** (`src/stores/appStore.ts`): Global UI state (export format, gamut, panel visibility, saved-palette `paletteId`/`paletteName`, `sessionPalettePath`, `groupFilter`) — localStorage-guarded for SSR
 - **authStore** (`src/stores/authStore.ts`): Authentication state (user, status, error)
 - **generatorStore** (`src/stores/generatorStore.ts`): Colors array + global scale options + transient per-session chart view-state (`toggleChart`/`setAllCharts`; `resetAdvancedOptions` resets curves). **Not a global singleton** — a per-request store factory (`createGeneratorStore(initialState?)`) provided via Context, consumed via `useGeneratorStoreApi()` / `useGenerator()`. Seeded from the URL — see [URL State](#url-state--the-url-is-the-single-source-of-truth).
 - **palettesStore** (`src/stores/palettesStore.ts`): Saved-palettes list state
@@ -35,6 +35,8 @@ Zustand stores:
 - **useAuth** (`src/hooks/useAuth.ts`): Authentication context consumer (user, login/logout methods)
 - **useGenerator** (`src/hooks/useGenerator.ts`): Primary hook for palette state + actions + computed values (baseSaturation, defaultOptions)
 - **useGeneratorStore** (`src/hooks/useGeneratorStore.ts`): Consumes the per-request generatorStore from `GeneratorStoreContext`
+- **useGroupFilteredColors** (`src/hooks/useGroupFilteredColors.ts`): Colors narrowed to the active group filter — read by `Palette/Grid` and `Palette/List` only — see [Color Groups](#color-groups)
+- **useGroupFilterSync** (`src/hooks/useGroupFilterSync.ts`): Retires group filters whose group left the palette, called once in Generator — see [Color Groups](#color-groups)
 - **useTheme** (`src/hooks/useTheme.ts`): Dark mode via `next-themes` (`resolvedTheme`/`setTheme`) with an `isMounted` hydration guard
 - **useUrlSync** (`src/hooks/useUrlSync.ts`): Bidirectional URL ↔ generator-store sync, called once in Generator — see [URL State](#url-state--the-url-is-the-single-source-of-truth)
 - **usePaletteIdSync** (`src/hooks/usePaletteIdSync.ts`): Validates the saved-palette `?id=` and manages palette identity — see [URL State](#url-state--the-url-is-the-single-source-of-truth)
@@ -58,7 +60,7 @@ A Cloud Function (`cloud-functions/src/index.js`) runs `beforeUserCreated` to se
 
 The palette lives in the URL; the store follows it, never a competing persisted copy. **Read `docs/palette.md` (Runtime Sync &amp; Identity) before touching palette/navigation behavior** — it is the authority for store seeding, the `useUrlSync` / `usePaletteIdSync` lifecycle, and the history/router split.
 
-- **URL shape**: `/p/{name}-{value}[-{overrides}]/...?{globalOpts}&id={savedId}` — colors (OKLCH `L_C_H`) in the path, global options + `id` in the query. All encode/decode lives in `src/utils/url.ts`; that file + `docs/palette.md` are the authority for keys/format — don't re-derive them.
+- **URL shape**: `/p/{name}-{value}[-{overrides},{group}]/...?{globalOpts}&id={savedId}` — colors (OKLCH `L_C_H`) in the path, global options + `id` in the query. All encode/decode lives in `src/utils/url.ts`; that file + `docs/palette.md` are the authority for keys/format — don't re-derive them.
 - **Routes**: `/` and `/p/*` are `force-dynamic` and the only routes that mount `GeneratorStoreProvider` (`app/(generator)/layout.tsx`). Static pages must stay out of that subtree (the provider calls `useSearchParams`).
 - **Sync hooks**, called once in Generator: `useUrlSync` (URL ↔ store) and `usePaletteIdSync` (saved-palette `?id=`).
 - **In-place palette edits commit via `window.history.pushState`/`replaceState` (`useUrlSync`), NOT `router.*`** — router navigation does a server round-trip on these force-dynamic routes that desyncs mid-edit UI; do not change these to router calls. New Palette (`Header.tsx`) uses `router.push` (genuine navigation); identity strips use `router.replace`.
@@ -101,10 +103,21 @@ Additional UI surfaces:
 - `src/containers/ColorCharts/`: Per-color chroma/lightness/hue distribution charts; open state in `generatorStore` (`toggleChart`/`setAllCharts`).
 - `src/components/ColorPresets.tsx`: Applies `DESIGN_SYSTEM_PRESETS` from `src/config/presets.ts`.
 - `src/containers/Preview/Typography.tsx`: Typography tab in Preview.
+- `src/containers/ColorGroupMenu.tsx` + `src/containers/Palette/GroupToolbar.tsx`: Color groups — see [Color Groups](#color-groups).
+
+### Color Groups
+
+An optional label on a color (`brand` | `neutral` | `semantic` | `decorative`, defined in `COLOR_GROUPS` in `src/config/globals.tsx`). No effect on scale generation. **Read `docs/palette.md` (Color Groups) before touching group behavior.**
+
+- **Assigned** in `ColorGroupMenu`, rendered on two surfaces (`ColorList/ColorActions` and `Palette/Scale`) with a `source` prop for analytics. Stored on `ColorEntry.group`, serialized to the URL as `g:{code}`.
+- **Filtered** by the chips in `Palette/GroupToolbar` → `appStore.groupFilter` (in-memory only). The filter is a **view lens**: only `Palette/Grid` and `Palette/List` read it (via `useGroupFilteredColors`). Export, Share, and the sidebar color list always act on the whole palette.
+- **Reset to All** on reload, New Palette, adding a color (`Panel/AddColor`), and loading a different palette (`useGroupFilterSync` on mount — a new generator store means a new palette). Both go through `appStore.resetGroupFilter()`.
+- **Self-healing**: `useGroupFilteredColors` masks a group that has left the palette; `useGroupFilterSync` (in Generator, not GroupToolbar — that unmounts in preview view) retires it from the store.
+- `resetGroupFilter`/`pruneGroupFilter` are bookkeeping — they must never touch `showPreview` (persisted), unlike `setGroupFilter`/`toggleGroupFilter`.
 
 ### Key Types
 
-- **ColorEntry**: `{ id, name, value, overrides? }`
+- **ColorEntry**: `{ id, name, value, group?, overrides? }`
 - **GlobalScaleOptions**: `{ steps, saturation, saturationOverride, mode, chromaCurve, lightnessCurve, hueShift, minLightness, maxLightness }`. `chromaCurve`/`lightnessCurve`/`hueShift` are scalar **or** object: scalar = Simple mode, `{ low, high }` = Range, `chromaCurve` also accepts a movable peak. See `src/types.ts` (`GlobalScaleOptions`, `DefaultScaleOptions`, `EffectiveScaleOptions`).
 
 ### Core Utilities

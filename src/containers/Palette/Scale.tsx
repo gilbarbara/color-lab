@@ -13,6 +13,7 @@ import ColorBox from '~/components/ColorBox';
 import Tooltip from '~/components/Tooltip';
 import ColorCharts from '~/containers/ColorCharts';
 import ColorChartsButton from '~/containers/ColorCharts/Button';
+import ColorGroupMenu from '~/containers/ColorGroupMenu';
 import ColorInfo from '~/containers/ColorInfo';
 import ContrastGrid from '~/containers/ContrastGrid';
 import ExportScale from '~/containers/ExportScale';
@@ -57,9 +58,14 @@ function Scale(props: ScaleProps) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-4" data-testid="Scale">
-      <div className="flex flex-col @xl:flex-row @xl:items-center @xl:justify-between gap-1">
-        <div className="flex items-center gap-2">
+    <div
+      aria-label={`${colorEntry.name} scale`}
+      className="w-full flex flex-col gap-4"
+      data-testid="Scale"
+      role="group"
+    >
+      <div className="flex flex-col @2xl:flex-row @2xl:items-center @2xl:justify-between gap-1">
+        <div className="flex items-center gap-2 overflow-x-auto">
           <ColorBox
             aria-label={`Select ${colorEntry.name}`}
             color={colorEntry.value}
@@ -80,6 +86,12 @@ function Scale(props: ScaleProps) {
               <CopyIcon className="text-lg text-foreground-500" />
             </Button>
           </Tooltip>
+          <ColorGroupMenu
+            className={colorEntry.group ? 'text-foreground' : 'text-foreground-500'}
+            colorEntry={colorEntry}
+            source="scale"
+            variant="solid"
+          />
         </div>
         <div className="flex items-center gap-2">
           <PreviewButton colorEntry={colorEntry} source="scale" />

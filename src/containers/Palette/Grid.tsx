@@ -1,9 +1,9 @@
-import useGenerator from '~/hooks/useGenerator';
+import useGroupFilteredColors from '~/hooks/useGroupFilteredColors';
 
 import Swatch from './Swatch';
 
 export default function PaletteGrid() {
-  const { colors } = useGenerator('colors');
+  const colors = useGroupFilteredColors();
 
   return (
     <div

@@ -1,5 +1,9 @@
 import type { ScaleChromaPeak, ScaleOptions as ScaleOptionsBase, ScaleRange } from 'colorizr';
 
+export type ColorGroup = 'brand' | 'neutral' | 'semantic' | 'decorative';
+export type ColorGroupOption = { code: string; description: string; label: string };
+export type ColorGroupOptions = Record<ColorGroup, ColorGroupOption>;
+
 export type ColorSpacing = 'tight' | 'even' | 'wide' | 'golden';
 export type ColorSpacingOption = { angle: number; description: string; label: string };
 export type ColorSpacingOptions = Record<ColorSpacing, ColorSpacingOption>;
@@ -39,6 +43,7 @@ export type ScaleSteps = Record<string, string>;
 export type SetOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export interface ColorEntry {
+  group?: ColorGroup;
   id: string;
   name: string;
   overrides?: Partial<ScaleOptions>;
