@@ -2,12 +2,13 @@ import { useMemo } from 'react';
 import { clamp } from '@gilbarbara/helpers';
 import { getP3MaxChroma, parseCSS } from 'colorizr';
 
+import { CHART_PAD_Y } from '~/config/ui';
 import { normalizeChromaCurve, parabolicScale } from '~/utils/scale-options';
 
 import TooltipClickable from '~/components/TooltipClickable';
 
 import type { ScaleChartComponentProps } from './types';
-import { getAnchorT, PAD_Y, parseSteps, rangeFractionAt } from './utils';
+import { getAnchorT, parseSteps, rangeFractionAt } from './utils';
 
 // Chroma gridline intervals; the smallest one that keeps ≤4 lines is used.
 const TICK_INTERVALS = [0.05, 0.1, 0.2, 0.25, 0.5];
@@ -25,7 +26,7 @@ function getChromaTicks(maxY: number) {
 
 /** Vertical position (0–100) for a chroma value, matching the polyline mapping. */
 function yFor(value: number, maxY: number) {
-  return PAD_Y + (1 - value / maxY) * (100 - 2 * PAD_Y);
+  return CHART_PAD_Y + (1 - value / maxY) * (100 - 2 * CHART_PAD_Y);
 }
 
 /**

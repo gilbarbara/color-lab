@@ -1,11 +1,10 @@
-import { COLOR_SPACING } from '~/config/globals';
+import { COLOR_SPACING, MAX_COLORS } from '~/config/globals';
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette, CRIMSON } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
 import { fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
 import { generateOklchColor } from '~/utils/color';
-import { MAX_COLORS } from '~/utils/generator';
 
 import PanelAddColor from '~/containers/Generator/Panel/AddColor';
 

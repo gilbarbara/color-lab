@@ -3,22 +3,22 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import type { Auth, AuthError, User } from 'firebase/auth';
 
+import { AUTH_PROVIDER_KEY, AUTH_RETURN_URL_KEY, EMAIL_FOR_SIGN_IN_KEY } from '~/config/globals';
 import AuthContext, { type AppUser, type OAuthProvider } from '~/contexts/auth';
 import { useAuthStore } from '~/stores/authStore';
 import { identifyUser, resetUser } from '~/utils/analytics';
 import { getAuthErrorMessage } from '~/utils/auth-errors';
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-const PROVIDER_STORAGE_KEY = 'colorLabAuthProvider';
 
 // Load the Firebase auth SDK + our auth instance lazily, off the first-load
 // bundle. Memoized so every consumer (session-restore effect + each sign-in
 // callback) shares one import. `firebase/auth` and `~/utils/firebase` are only
 // ever reached through this dynamic import on the generator path.
 type AuthSdk = typeof import('firebase/auth');
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
 let authBundle: Promise<{ auth: Auth; sdk: AuthSdk }> | undefined;
 
 function loadAuth() {
@@ -89,7 +89,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             if (firebaseUser) {
               wasAuthenticatedRef.current = true;
               setUser(toAppUser(firebaseUser));
-              setProvider(localStorage.getItem(PROVIDER_STORAGE_KEY) as OAuthProvider | null);
+              setProvider(localStorage.getItem(AUTH_PROVIDER_KEY) as OAuthProvider | null);
               identifyUser(firebaseUser.uid, {
                 email: firebaseUser.email,
                 name: firebaseUser.displayName,
@@ -97,7 +97,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             } else {
               setUser(null);
               setProvider(null);
-              localStorage.removeItem(PROVIDER_STORAGE_KEY);
+              localStorage.removeItem(AUTH_PROVIDER_KEY);
 
               // Only reset on a genuine logout — never on the initial anonymous
               // state, which would split the pageview into its own session.
@@ -181,7 +181,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // OAuth Login (Google/GitHub)
   const loginWithOAuth = useCallback(
     async (oauthProvider: OAuthProvider) => {
-      localStorage.setItem(PROVIDER_STORAGE_KEY, oauthProvider);
+      localStorage.setItem(AUTH_PROVIDER_KEY, oauthProvider);
 
       let sdk: AuthSdk;
       let auth: Auth;
@@ -189,7 +189,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       try {
         ({ auth, sdk } = await loadAuth());
       } catch (error_) {
-        localStorage.removeItem(PROVIDER_STORAGE_KEY);
+        localStorage.removeItem(AUTH_PROVIDER_KEY);
         setError(getAuthErrorMessage(error_, 'OAuth login failed'));
 
         return;
@@ -235,7 +235,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           }
         }
 
-        localStorage.removeItem(PROVIDER_STORAGE_KEY);
+        localStorage.removeItem(AUTH_PROVIDER_KEY);
         setError(getAuthErrorMessage(error_, 'OAuth login failed'));
       }
     },
@@ -254,8 +254,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           handleCodeInApp: true,
         };
 
-        sessionStorage.setItem('authReturnUrl', window.location.pathname + window.location.search);
-        localStorage.setItem('emailForSignIn', email);
+        sessionStorage.setItem(
+          AUTH_RETURN_URL_KEY,
+          window.location.pathname + window.location.search,
+        );
+        localStorage.setItem(EMAIL_FOR_SIGN_IN_KEY, email);
         await sdk.sendSignInLinkToEmail(auth, email, actionCodeSettings);
       } catch (error_) {
         setError(getAuthErrorMessage(error_, 'Failed to send magic link'));
@@ -272,7 +275,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       await sdk.signOut(auth);
     } finally {
-      localStorage.removeItem(PROVIDER_STORAGE_KEY);
+      localStorage.removeItem(AUTH_PROVIDER_KEY);
       setUser(null);
     }
   }, [setUser]);

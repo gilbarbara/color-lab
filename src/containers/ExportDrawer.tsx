@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from '@heroui/react';
 
-import { BREAKPOINTS } from '~/config/globals';
+import { BREAKPOINTS } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 import { trackEvent } from '~/utils/analytics';
 import { copyToClipboard } from '~/utils/clipboard';

@@ -3,7 +3,7 @@ import { useBreakpoint } from '@gilbarbara/hooks';
 import { Divider, useDisclosure } from '@heroui/react';
 import { ListMagnifyingGlassIcon } from '@phosphor-icons/react';
 
-import { BREAKPOINTS, MODAL_BODY_PADDING, MODAL_GAP } from '~/config/globals';
+import { BREAKPOINTS, MODAL_BODY_PADDING, MODAL_GAP } from '~/config/ui';
 import { trackEvent } from '~/utils/analytics';
 import { getModalMaxWidth } from '~/utils/layout';
 

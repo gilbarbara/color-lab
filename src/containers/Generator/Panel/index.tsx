@@ -3,7 +3,7 @@ import { useBreakpoint, useIsomorphicLayoutEffect } from '@gilbarbara/hooks';
 import { cn, Divider } from '@heroui/react';
 import { SidebarSimpleIcon } from '@phosphor-icons/react';
 
-import { BREAKPOINTS, OFFSET, SCROLL_OFFSET } from '~/config/globals';
+import { BREAKPOINTS, OFFSET, SCROLL_OFFSET } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { trackEvent } from '~/utils/analytics';

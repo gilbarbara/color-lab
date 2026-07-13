@@ -1,6 +1,8 @@
 import * as Sentry from '@sentry/nextjs';
 import type { PostHog } from 'posthog-js';
 
+import { PALETTE_PATH_PREFIX, POSTHOG_UI_HOST } from '~/config/globals';
+
 type Status = 'idle' | 'starting' | 'ready' | 'disabled';
 
 let client: PostHog | null = null;
@@ -81,7 +83,7 @@ export async function initAnalytics(): Promise<void> {
       // Reverse-proxied through our own domain (see next.config.mjs rewrites) to
       // dodge ad blockers. ui_host must stay PostHog's real host for toolbar links.
       api_host: '/ingest',
-      ui_host: 'https://us.posthog.com',
+      ui_host: POSTHOG_UI_HOST,
       // Cookieless: nothing is stored on the device, so no GDPR consent banner. Stable
       // cross-visit identity comes from the server-derived weekly hash (bootstrap) above,
       // not from browser storage.
@@ -162,7 +164,7 @@ export async function initAnalytics(): Promise<void> {
  * $pageleave).
  */
 export function normalizePathname(pathname: string): string | null {
-  if (pathname === '/p' || pathname.startsWith('/p/')) {
+  if (pathname === PALETTE_PATH_PREFIX || pathname.startsWith(`${PALETTE_PATH_PREFIX}/`)) {
     return '/generator';
   }
 

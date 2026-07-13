@@ -9,9 +9,9 @@ import {
 import { CaretDownIcon, EraserIcon, PaintBrushIcon } from '@phosphor-icons/react';
 
 import { DESIGN_SYSTEM_PRESETS } from '~/config/presets';
+import { CURVE_OPTION_KEYS } from '~/config/scale';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
-import { CURVE_OPTION_KEYS } from '~/utils/generator';
 import { isSameOptionValue } from '~/utils/scale-options';
 
 import Button from '~/components/Button';

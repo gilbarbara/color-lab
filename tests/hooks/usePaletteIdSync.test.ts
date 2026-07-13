@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import { ROUTER_NAVIGATION_OPTIONS } from '~/config/globals';
+import { ROUTER_NAVIGATION_OPTIONS } from '~/config/ui';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import { useAppStore } from '~/stores/appStore';
 import { usePalettesStore } from '~/stores/palettesStore';

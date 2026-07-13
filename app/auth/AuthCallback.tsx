@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/nextjs';
 import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
+import { AUTH_RETURN_URL_KEY, EMAIL_FOR_SIGN_IN_KEY } from '~/config/globals';
 import { useAuthStore } from '~/stores/authStore';
 import { getFirebaseAuth } from '~/utils/firebase';
 
@@ -16,7 +17,7 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const navigateBack = () => {
-      const stored = sessionStorage.getItem('authReturnUrl');
+      const stored = sessionStorage.getItem(AUTH_RETURN_URL_KEY);
       const safe = stored && stored.startsWith('/') && !stored.startsWith('//') ? stored : '/';
 
       router.replace(safe);
@@ -29,7 +30,7 @@ export default function AuthCallback() {
       if (isSignInWithEmailLink(auth, window.location.href)) {
         setMessage('Verifying magic link...');
 
-        const email = localStorage.getItem('emailForSignIn');
+        const email = localStorage.getItem(EMAIL_FOR_SIGN_IN_KEY);
 
         if (!email) {
           setError('Please enter your email to complete sign-in');
@@ -40,7 +41,7 @@ export default function AuthCallback() {
 
         try {
           await signInWithEmailLink(auth, email, window.location.href);
-          localStorage.removeItem('emailForSignIn');
+          localStorage.removeItem(EMAIL_FOR_SIGN_IN_KEY);
         } catch (error_) {
           Sentry.captureException(error_, { tags: { auth: 'magic-link' } });
           setError(error_ instanceof Error ? error_.message : 'Magic link verification failed');

@@ -6,8 +6,6 @@ export const APCA_LIGHTNESS_CONTRAST = (
   </span>
 );
 
-export const BREAKPOINTS = { xs: 0, sm: 360, md: 768, lg: 1024, xl: 1280 };
-
 export const COLOR_SPACING: ColorSpacingOptions = {
   tight: {
     angle: 30,
@@ -45,12 +43,18 @@ export const DEFAULT_COLOR_NAMES = [
 ];
 export const DEFAULT_PALETTE_NAME = 'Color Palette';
 
-export const HEADER_HEIGHT = 64;
-export const OFFSET = 16;
-export const SCROLL_OFFSET = HEADER_HEIGHT + OFFSET;
+export const MAX_COLORS = 10;
 
-export const MODAL_GAP = 24;
-export const MODAL_BODY_PADDING = 32;
-export const MODAL_MIN_WIDTH = 480;
+export const PALETTE_PATH_PREFIX = '/p';
 
-export const ROUTER_NAVIGATION_OPTIONS = { scroll: false } as const;
+// Storage
+export const STORAGE_KEY = 'color-lab';
+
+// Auth
+export const AUTH_PROVIDER_KEY = 'colorLabAuthProvider';
+export const AUTH_RETURN_URL_KEY = 'authReturnUrl';
+export const EMAIL_FOR_SIGN_IN_KEY = 'emailForSignIn';
+
+// Third-party
+export const CONTACT_FORM_ENDPOINT = 'https://submit-form.com/OsJcU0zeI';
+export const POSTHOG_UI_HOST = 'https://us.posthog.com';

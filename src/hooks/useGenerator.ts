@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
+import { CURVE_OPTION_KEYS, PALETTE_OPTION_KEYS } from '~/config/scale';
 import useGeneratorStore from '~/hooks/useGeneratorStore';
 import { type GeneratorStore } from '~/stores/generatorStore';
 import { getChromaAsPercentage } from '~/utils/color';
-import { CURVE_OPTION_KEYS, getDefaultGlobalOptions, PALETTE_OPTION_KEYS } from '~/utils/generator';
+import { getDefaultGlobalOptions } from '~/utils/generator';
 import { isSameOptionValue } from '~/utils/scale-options';
 import { serializePaletteToUrl } from '~/utils/url';
 

@@ -1,13 +1,13 @@
+import { MAX_COLORS } from '~/config/globals';
+import { CURVE_OPTION_KEYS } from '~/config/scale';
 import { createColorEntry, createTestPalette, CRIMSON, GREEN, SLATE, WHITE } from '~/test-fixtures';
 import {
   addColor,
   clearColorOverrides,
   createPalette,
-  CURVE_OPTION_KEYS,
   getDefaultColorName,
   getDefaultGlobalOptions,
   getEffectiveOptions,
-  MAX_COLORS,
   removeColor,
   reorderColors,
   resetGlobalOptions,

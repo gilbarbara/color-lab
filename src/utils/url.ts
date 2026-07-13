@@ -9,7 +9,7 @@ import {
   type ScaleVariant,
 } from 'colorizr';
 
-import { DEFAULT_PALETTE_NAME } from '~/config/globals';
+import { DEFAULT_PALETTE_NAME, PALETTE_PATH_PREFIX } from '~/config/globals';
 import {
   CHROMA_PEAK_MAX,
   CHROMA_PEAK_MIN,
@@ -635,7 +635,7 @@ function urlToColorValue(urlValue: string): OklchString | null {
  * flattening array-valued search params back into repeated keys.
  */
 export function buildUrl(slug: string[], searchParams: Record<string, string | string[]>): string {
-  const path = `/p/${slug.join('/')}`;
+  const path = `${PALETTE_PATH_PREFIX}/${slug.join('/')}`;
   const flatParams = new URLSearchParams();
 
   for (const [key, value] of Object.entries(searchParams)) {
@@ -749,8 +749,9 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
   // Split path and query string
   const [pathPart, queryPart] = url.split('?');
 
-  // Strip /p/ prefix if present
-  const segmentPath = pathPart.startsWith('/p/') ? pathPart.slice(3) : pathPart;
+  // Strip the palette route prefix if present
+  const prefix = `${PALETTE_PATH_PREFIX}/`;
+  const segmentPath = pathPart.startsWith(prefix) ? pathPart.slice(prefix.length) : pathPart;
   const pathSegments = segmentPath.split('/').filter(Boolean);
 
   if (pathSegments.length === 0) {
@@ -830,7 +831,7 @@ export function serializePaletteToUrl(state: GeneratorState): string {
     return part;
   });
 
-  const path = `/p/${colorParts.join('/')}`;
+  const path = `${PALETTE_PATH_PREFIX}/${colorParts.join('/')}`;
   const query = serializeGlobalOptions(state.globalOptions, defaults);
   const base = query ? `${path}?${query}` : path;
 

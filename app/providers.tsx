@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import { usePathname } from 'next/navigation';
 
+import { PALETTE_PATH_PREFIX } from '~/config/globals';
 import useAuth from '~/hooks/useAuth';
 import usePageTracking from '~/hooks/usePageTracking';
 import AuthProvider from '~/providers/AuthProvider';
@@ -24,7 +25,10 @@ function AppShell({ children }: { children: ReactNode }) {
 
   usePageTracking();
 
-  const routeKey = pathname === '/p' || pathname.startsWith('/p/') ? 'generator' : pathname;
+  const routeKey =
+    pathname === PALETTE_PATH_PREFIX || pathname.startsWith(`${PALETTE_PATH_PREFIX}/`)
+      ? 'generator'
+      : pathname;
 
   return (
     <div className="flex flex-col items-stretch min-h-screen">

@@ -2,7 +2,7 @@
 
 import { useBreakpoint, useIsomorphicLayoutEffect } from '@gilbarbara/hooks';
 
-import { BREAKPOINTS } from '~/config/globals';
+import { BREAKPOINTS } from '~/config/ui';
 import useApp from '~/hooks/useApp';
 
 /**

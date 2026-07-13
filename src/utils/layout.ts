@@ -1,4 +1,4 @@
-import { MODAL_MIN_WIDTH } from '~/config/globals';
+import { MODAL_MIN_WIDTH } from '~/config/ui';
 
 /**
  * Responsive `maxWidth` for the info/contrast modals: clamp the content's
