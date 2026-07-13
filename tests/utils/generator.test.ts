@@ -5,9 +5,11 @@ import {
   addColor,
   clearColorOverrides,
   createPalette,
+  filterColorsByGroups,
   getDefaultColorName,
   getDefaultGlobalOptions,
   getEffectiveOptions,
+  getUsedGroups,
   removeColor,
   reorderColors,
   resetGlobalOptions,
@@ -188,6 +190,20 @@ describe('utils/generator', () => {
       expect(result.colors).toHaveLength(3);
       expect(new Set(result.colors.map(c => c.id)).size).toBe(3);
     });
+
+    it('preserves each color group across a reorder', () => {
+      const initial: GeneratorState = {
+        colors: [
+          createColorEntry('Brand', CRIMSON, undefined, 'brand'),
+          createColorEntry('Neutral', SLATE, undefined, 'neutral'),
+        ],
+        globalOptions: getDefaultGlobalOptions(CRIMSON),
+      };
+      const [brand, neutral] = initial.colors;
+      const result = reorderColors(initial, [neutral.id, brand.id]);
+
+      expect(result.colors.map(c => c.group)).toEqual(['neutral', 'brand']);
+    });
   });
 
   describe('updateColor', () => {
@@ -228,6 +244,19 @@ describe('utils/generator', () => {
       const result = updateColor(initial, initial.colors[0].id, { name: 'New Name' });
 
       expect(result.colors[0].overrides).toEqual({ steps: 9 });
+    });
+
+    it('sets and preserves the color group', () => {
+      const initial = createTestPalette(1);
+      const grouped = updateColor(initial, initial.colors[0].id, { group: 'brand' });
+
+      expect(grouped.colors[0].group).toBe('brand');
+
+      // A later unrelated update keeps the group.
+      const renamed = updateColor(grouped, initial.colors[0].id, { name: 'Renamed' });
+
+      expect(renamed.colors[0].group).toBe('brand');
+      expect(renamed.colors[0].name).toBe('Renamed');
     });
   });
 
@@ -403,6 +432,66 @@ describe('utils/generator', () => {
       const result = getEffectiveOptions(color, globalOptions);
 
       expect(result.maxLightness).toBe(0.8);
+    });
+
+    it('never includes group in the effective options (stays out of scale())', () => {
+      const color = createColorEntry('Primary', CRIMSON, { steps: 15 }, 'brand');
+      const globalOptions = getDefaultGlobalOptions(CRIMSON);
+      const result = getEffectiveOptions(color, globalOptions);
+
+      expect((result as Record<string, unknown>).group).toBeUndefined();
+      expect(result.steps).toBe(15);
+    });
+  });
+
+  describe('getUsedGroups', () => {
+    it('returns an empty array when no color has a group', () => {
+      const colors = [createColorEntry('One', CRIMSON), createColorEntry('Two', GREEN)];
+
+      expect(getUsedGroups(colors)).toEqual([]);
+    });
+
+    it('returns distinct groups in canonical order regardless of color order', () => {
+      const colors = [
+        createColorEntry('D', GREEN, undefined, 'decorative'),
+        createColorEntry('S', CRIMSON, undefined, 'semantic'),
+        createColorEntry('B', SLATE, undefined, 'brand'),
+        createColorEntry('B2', WHITE, undefined, 'brand'),
+      ];
+
+      // Canonical order (brand → neutral → semantic → decorative), deduped.
+      expect(getUsedGroups(colors)).toEqual(['brand', 'semantic', 'decorative']);
+    });
+  });
+
+  describe('filterColorsByGroups', () => {
+    const colors = [
+      createColorEntry('Brand', CRIMSON, undefined, 'brand'),
+      createColorEntry('Neutral', SLATE, undefined, 'neutral'),
+      createColorEntry('Semantic', GREEN, undefined, 'semantic'),
+      createColorEntry('Ungrouped', WHITE),
+    ];
+
+    it('returns all colors (same reference) when the selection is empty (All)', () => {
+      expect(filterColorsByGroups(colors, [])).toBe(colors);
+    });
+
+    it('keeps only colors in the selected groups', () => {
+      const result = filterColorsByGroups(colors, ['brand', 'neutral']);
+
+      expect(result.map(color => color.name)).toEqual(['Brand', 'Neutral']);
+    });
+
+    it('excludes ungrouped colors when a filter is active', () => {
+      const result = filterColorsByGroups(colors, ['semantic']);
+
+      expect(result.map(color => color.name)).toEqual(['Semantic']);
+    });
+
+    it('preserves input order, not selection order', () => {
+      const result = filterColorsByGroups(colors, ['semantic', 'brand']);
+
+      expect(result.map(color => color.name)).toEqual(['Brand', 'Semantic']);
     });
   });
 

@@ -56,6 +56,11 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 | `m`   | mode               | `l`/`d`  | `l` (light)  |
 | `k`   | lock               | string   | -            |
 | `v`   | variant            | string   | -            |
+| `g`   | group              | `b`/`n`/`s`/`d` | - (ungrouped) |
+
+`g` rides in the same chunk but is **not a scale option**: it is organizational metadata
+(see [Color Groups](#color-groups)), parsed by `parseGroup` and never routed through
+`OPTION_KEYS` or fed to `scale()`. An unknown code parses as ungrouped.
 
 ### URL Examples
 
@@ -73,6 +78,9 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 
 # Spaces in names
 /p/Brand+Primary-63.269_0.25404_19.902/Brand+Secondary-65.133_0.13204_265.764
+
+# Color groups (metadata, same chunk as the options)
+/p/Primary-63.269_0.25404_19.902-g:b/Gray-37.91_0_0-x:0.96,g:n
 ```
 
 **Legacy input form** (still parsed for back-compat — rewritten to canonical OKLCH in the address bar on load):
@@ -96,6 +104,7 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 
 ```typescript
 interface ColorEntry {
+  group?: ColorGroup;               // 'brand' | 'neutral' | 'semantic' | 'decorative'
   id: string;                       // UUID, assigned on creation
   name: string;
   overrides?: Partial<ScaleOptions>;
@@ -247,6 +256,8 @@ Called once alongside `useUrlSync`; owns the `?id=` query only (colors are `useU
 | Function | Purpose |
 |----------|---------|
 | `createPalette(color?)` | Create fresh palette (random color if none) |
+| `filterColorsByGroups(colors, groups)` | Narrow colors to the selected groups (empty selection = all; ungrouped excluded otherwise) |
+| `getUsedGroups(colors)` | Distinct groups present in the palette, in `COLOR_GROUPS` key order |
 | `getDefaultGlobalOptions(color)` | Compute defaults from color's saturation |
 | `getDefaultColorName(index)` | Default name for new color slots (`Primary`, `Secondary`, …, `Color N`) |
 | `getEffectiveOptions(color, global)` | Merge global + per-color overrides |
@@ -287,6 +298,28 @@ The `saturationOverride` flag controls saturation handling:
 - **`saturationOverride: true`**: All colors use the global `saturation` value, overriding their natural saturation.
 
 The `saturation` value is initialized from the first color's chroma (converted to 0-100 percentage).
+
+---
+
+## Color Groups
+
+An optional organizational label on a color — `brand`, `neutral`, `semantic`, or `decorative` (`COLOR_GROUPS` in `../src/config/globals.tsx` owns the labels, descriptions, and URL codes). It has no effect on scale generation.
+
+**Assignment** happens in `ColorGroupMenu`, which renders on two surfaces — the sidebar color card (`ColorList/ColorActions.tsx`) and the palette scale row (`Palette/Scale.tsx`) — discriminated by a `source` prop for analytics. Re-picking the current group, or picking `None`, unassigns. The group is palette state: it lives on `ColorEntry.group` and round-trips through the URL as `g:{code}`.
+
+**Filtering** is a *view lens*, not a selection. `appStore.groupFilter` (a `ColorGroup[]`, in-memory only — never persisted, so a reload starts at "All") is toggled by the chips in `Palette/GroupToolbar.tsx`, which only renders groups actually in use. `useGroupFilteredColors` applies it to `Palette/Grid` and `Palette/List`. Nothing else reads it: **Export All, Share, and the sidebar color list always act on the whole palette.**
+
+The filter drops back to "All" on: a reload, New Palette (`clearPalette`), **adding a color**, and **loading a different palette**. The last two go through `appStore.resetGroupFilter()`:
+
+- **Adding a color** (`Generator/Panel/AddColor.tsx`) — the new color is ungrouped, and an active filter excludes ungrouped colors, so it would land in the sidebar but never appear in the palette view.
+- **Loading a different palette** (`useGroupFilterSync`, on mount) — `appStore` is a module singleton, but the generator store is per-palette (created in a ref by `GeneratorStoreProvider`), so a new store instance means a newly loaded palette. Without this, filtering `Brand` on palette A and then opening palette B from `/palettes` (a `next/link` client-side nav, so the store survives) would render B silently filtered if B also uses `Brand`.
+
+`resetGroupFilter` and `pruneGroupFilter` are bookkeeping, not user actions: unlike `setGroupFilter`/`toggleGroupFilter` they must **not** touch `showPreview` (which is persisted), or an unrelated edit would collapse the live preview across sessions.
+
+The filter also self-heals in two layers, because a group can vanish from the palette (its last color was unassigned or removed) while the filter still names it:
+
+- `useGroupFilteredColors` intersects the filter with the used groups, so an all-vanished filter collapses back to "show all" instead of rendering an empty view the user can't recover from (the chip is already gone).
+- `useGroupFilterSync` (called in `Generator`, alongside the other sync hooks) then *retires* the dead group from `appStore` via `pruneGroupFilter`. Without it, re-assigning that group to any color would silently re-apply a filter the user believes they cleared. It lives in `Generator` rather than `GroupToolbar` because the toolbar unmounts in the preview view, which would leave the filter unpruned.
 
 ---
 

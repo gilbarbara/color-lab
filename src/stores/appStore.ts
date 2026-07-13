@@ -5,6 +5,7 @@ import { DEFAULT_PALETTE_NAME, STORAGE_KEY } from '~/config/globals';
 import { detectInitialGamut } from '~/utils/gamut';
 
 import type {
+  ColorGroup,
   ColorSpacing,
   ExportColorFormat,
   ExportFormatType,
@@ -19,6 +20,10 @@ interface AppState {
   exportColorFormat: ExportColorFormat;
   exportFormatType: ExportFormatType;
   gamut: Gamut;
+  // Which groups the palette view is filtered to. [] = All (no filter). In-memory
+  // only (never persisted): a group filter is palette-relative, so it resets to All
+  // on reload rather than carrying a stale selection into a different palette.
+  groupFilter: ColorGroup[];
   lastSavedUrl: string | null;
   paletteId: string | null;
   paletteName: string;
@@ -42,17 +47,21 @@ export interface AppStateWithActions extends AppState {
   decrementCollapseAnimation: () => void;
   incrementCollapseAnimation: () => void;
   openLoginModal: () => void;
+  pruneGroupFilter: (usedGroups: ColorGroup[]) => void;
   requestColorScroll: (id: string) => void;
   requestPreviewScroll: () => void;
+  resetGroupFilter: () => void;
   setColorSpacing: (value: ColorSpacing) => void;
   setExportColorFormat: (format: ExportColorFormat) => void;
   setExportFormatType: (format: ExportFormatType) => void;
   setGamut: (gamut: Gamut) => void;
+  setGroupFilter: (groups: ColorGroup[]) => void;
   setPalette: (id: string | null, name: string | null, url: string | null) => void;
   setSessionPalettePath: (url: string | null) => void;
   setView: (view: GeneratorView) => void;
   toggleBottomBar: (toggle?: boolean) => void;
   toggleColorOptionsPanel: () => void;
+  toggleGroupFilter: (group: ColorGroup) => void;
   togglePaletteOptionsPanel: () => void;
   togglePreview: (toggle?: boolean) => void;
   toggleSidebar: (toggle?: boolean) => void;
@@ -65,6 +74,7 @@ export const initialState: AppState = {
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
   gamut: detectInitialGamut(),
+  groupFilter: [],
   lastSavedUrl: null,
   paletteId: null,
   paletteName: DEFAULT_PALETTE_NAME,
@@ -86,6 +96,7 @@ export const useAppStore = create<AppStateWithActions>()(
 
       clearPalette: () => {
         set({
+          groupFilter: [],
           lastSavedUrl: null,
           paletteId: null,
           paletteName: DEFAULT_PALETTE_NAME,
@@ -122,8 +133,24 @@ export const useAppStore = create<AppStateWithActions>()(
         }));
       },
 
+      // Bookkeeping, not a user action: unlike setGroupFilter/toggleGroupFilter it must not
+      // touch showPreview, or retiring a vanished group would collapse the live preview.
+      pruneGroupFilter: usedGroups => {
+        set(state => {
+          const next = state.groupFilter.filter(group => usedGroups.includes(group));
+
+          return next.length === state.groupFilter.length ? state : { groupFilter: next };
+        });
+      },
+
       requestPreviewScroll: () => {
         set(state => ({ previewScrollNonce: state.previewScrollNonce + 1 }));
+      },
+
+      // Bookkeeping, like pruneGroupFilter: the filter is a lens on the current palette, so
+      // loading another one or adding a color drops it. Must not touch showPreview.
+      resetGroupFilter: () => {
+        set(state => (state.groupFilter.length ? { groupFilter: [] } : state));
       },
 
       setColorSpacing: value => {
@@ -140,6 +167,10 @@ export const useAppStore = create<AppStateWithActions>()(
 
       setGamut: gamut => {
         set({ gamut });
+      },
+
+      setGroupFilter: groups => {
+        set({ groupFilter: groups, showPreview: false });
       },
 
       setPalette: (id, name, url) => {
@@ -166,6 +197,15 @@ export const useAppStore = create<AppStateWithActions>()(
 
       toggleColorOptionsPanel: () => {
         set(state => ({ showColorOptionsPanel: !state.showColorOptionsPanel }));
+      },
+
+      toggleGroupFilter: group => {
+        set(state => ({
+          groupFilter: state.groupFilter.includes(group)
+            ? state.groupFilter.filter(current => current !== group)
+            : [...state.groupFilter, group],
+          showPreview: false,
+        }));
       },
 
       togglePaletteOptionsPanel: () => {

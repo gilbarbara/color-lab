@@ -33,6 +33,12 @@ describe('Scale', () => {
       expect(screen.getByTestId('Scale')).toMatchSnapshot();
     });
 
+    it('renders with group', () => {
+      render(<Scale colorEntry={{ ...colorEntry, group: 'brand' }} options={options} />);
+
+      expect(screen.getByTestId('Scale')).toMatchSnapshot();
+    });
+
     it('renders the charts when the color is toggled on', () => {
       getGeneratorStore().setState({ chartColorIds: new Set([colorEntry.id]) });
 

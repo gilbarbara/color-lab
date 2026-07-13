@@ -19,6 +19,7 @@ import Button from '~/components/Button';
 import Collapse from '~/components/Collapse';
 import ScaleColorOptions from '~/components/ScaleColorOptions';
 import Tooltip from '~/components/Tooltip';
+import ColorGroupMenu from '~/containers/ColorGroupMenu';
 import PreviewButton from '~/containers/Preview/Button';
 
 import type { ColorEntry, GlobalScaleOptions } from '~/types';
@@ -54,7 +55,7 @@ export default function ColorActions(props: ColorActionsProps) {
     setColorOverride(colorEntry.id, updates);
   };
 
-  const handleAction = (key: string | number) => {
+  const handleModeAction = (key: string | number) => {
     onClickMode(key as ColorMode);
   };
 
@@ -94,6 +95,7 @@ export default function ColorActions(props: ColorActionsProps) {
               <ArrowsClockwiseIcon className="text-base" />
             </Button>
           </Tooltip>
+          <ColorGroupMenu colorEntry={colorEntry} source="color" />
         </div>
         <Dropdown>
           <Tooltip content="Color mode" placement="bottom">
@@ -112,7 +114,7 @@ export default function ColorActions(props: ColorActionsProps) {
           </Tooltip>
           <DropdownMenu
             aria-label="Color modes"
-            onAction={handleAction}
+            onAction={handleModeAction}
             selectedKeys={[mode]}
             selectionMode="single"
             variant="flat"

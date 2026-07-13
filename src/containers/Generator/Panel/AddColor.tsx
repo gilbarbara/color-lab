@@ -19,9 +19,10 @@ import Button from '~/components/Button';
 import type { ColorSpacing } from '~/types';
 
 export default function PanelAddColor() {
-  const { colorSpacing, requestColorScroll, setColorSpacing } = useApp(
+  const { colorSpacing, requestColorScroll, resetGroupFilter, setColorSpacing } = useApp(
     'colorSpacing',
     'requestColorScroll',
+    'resetGroupFilter',
     'setColorSpacing',
   );
   const { addColor, baseSaturation, colors } = useGenerator('addColor', 'baseSaturation', 'colors');
@@ -44,6 +45,9 @@ export default function PanelAddColor() {
     const newId = addColor(nextColor);
 
     trackEvent('color:add');
+
+    // A new color is ungrouped, so an active filter would hide it from the palette view.
+    resetGroupFilter();
 
     if (newId) requestColorScroll(newId);
   };

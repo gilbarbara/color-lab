@@ -9,7 +9,7 @@ import {
   type ScaleVariant,
 } from 'colorizr';
 
-import { DEFAULT_PALETTE_NAME, PALETTE_PATH_PREFIX } from '~/config/globals';
+import { COLOR_GROUPS, DEFAULT_PALETTE_NAME, PALETTE_PATH_PREFIX } from '~/config/globals';
 import {
   CHROMA_PEAK_MAX,
   CHROMA_PEAK_MIN,
@@ -29,6 +29,7 @@ import { isCurvePeak, isSameOptionValue } from '~/utils/scale-options';
 
 import type {
   ColorEntry,
+  ColorGroup,
   GeneratorState,
   GlobalScaleOptions,
   OklchString,
@@ -74,6 +75,14 @@ const MODE_SHORT = { light: 'l', dark: 'd', reversed: 'r' } as const satisfies R
 >;
 const MODE_LONG: Record<string, ScaleMode> = Object.fromEntries(
   objectEntries(MODE_SHORT).map(([k, v]) => [v, k]),
+);
+
+// Reverse map (URL code → group) for parsing; serialization reads
+// COLOR_GROUPS[group].code directly. Group is organizational metadata, NOT a scale
+// option — never routed through OPTION_KEYS or fed to scale(). Bad codes drop to
+// ungrouped, like other invalid URL values.
+const GROUP_LONG: Record<string, ColorGroup> = Object.fromEntries(
+  objectEntries(COLOR_GROUPS).map(([group, { code }]) => [code, group]),
 );
 
 // Whitelisted enum values for narrowing — bad values from URLs/query strings
@@ -178,7 +187,21 @@ function parseColorSegment(
   const color: ColorEntry = { id: colorId(segment, index), name, value };
 
   if (optionsString !== undefined) {
-    color.overrides = parseOptions(optionsString);
+    const group = parseGroup(optionsString);
+
+    if (group) {
+      color.group = group;
+    }
+
+    // Assign overrides unless a group-only chunk (e.g. 'g:b') produced an empty
+    // object — `g` is metadata parseOptions ignores, and a group shouldn't leave
+    // behind `overrides: {}`. Keyless/invalid chunks without a group keep their
+    // existing empty-object result.
+    const overrides = parseOptions(optionsString);
+
+    if (!group || Object.keys(overrides).length > 0) {
+      color.overrides = overrides;
+    }
   }
 
   return { color };
@@ -243,6 +266,23 @@ function parseGlobalOptions(searchParams: URLSearchParams): Partial<GlobalScaleO
   }
 
   return result;
+}
+
+/**
+ * Extract the color group from an options chunk (e.g. 'x:0.95,g:b' → 'brand').
+ * Group is metadata, not a scale option — parsed here and kept out of parseOptions.
+ * Unknown/missing codes yield undefined (ungrouped).
+ */
+function parseGroup(optString: string): ColorGroup | undefined {
+  for (const part of optString.split(',')) {
+    const [key, value] = part.split(':');
+
+    if (key === 'g') {
+      return value && Object.hasOwn(GROUP_LONG, value) ? GROUP_LONG[value] : undefined;
+    }
+  }
+
+  return undefined;
 }
 
 function parseLock(value?: string): number | undefined {
@@ -822,10 +862,14 @@ export function serializePaletteToUrl(state: GeneratorState): string {
     const encodedName = encodeName(color.name);
     let part = `${encodedName}-${colorValueToUrl(color.value)}`;
 
+    // serializeOptions is group-unaware (iterates OPTION_KEYS only); append the
+    // group metadata to the same chunk here so it rides in the color segment.
     const options = serializeOptions(color.overrides, state.globalOptions);
+    const group = color.group ? `g:${COLOR_GROUPS[color.group].code}` : '';
+    const optionsChunk = [options, group].filter(Boolean).join(',');
 
-    if (options) {
-      part += `-${options}`;
+    if (optionsChunk) {
+      part += `-${optionsChunk}`;
     }
 
     return part;

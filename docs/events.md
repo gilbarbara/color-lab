@@ -49,7 +49,11 @@ happens inside.
   both globally (Advanced Options) and per-color; a `source` discriminator
   (`'options' | 'color'`) routes the same control to `options:*` or `color:*`. That's why
   those events appear in both domains from one component. `PreviewButton` uses the same
-  pattern (`source: 'scale' | 'color'`) to emit `scale:preview` / `color:preview`.
+  pattern (`source: 'scale' | 'color'`) to emit `scale:preview` / `color:preview`, and
+  `ColorGroupMenu` uses it to emit `scale:group` / `color:group`.
+- **Color groups** span two domains because they are two actions: *assigning* a group is an
+  edit to one color (`color:group` / `scale:group`, by the surface it was assigned from),
+  while *filtering* the palette view by group acts on the palette (`palette:group`).
 
 **Other domains:** `preset`, `auth`, `feedback`, `app`.
 
@@ -98,6 +102,8 @@ saved-record operations (save, rename, delete, favorite).
 | `palette:export_copy` | Copy All in the palette drawer | `{ format, color_format, count }` | `ExportPalette.tsx` |
 | `palette:color_spacing` | Change color spacing | `{ value }` | `Generator/Panel/AddColor.tsx` |
 | `palette:view` | Switch palette view (List/Grid/Preview) | `{ value }` | `Palette/DisplayMenu/View.tsx` |
+| `palette:group` | Toggle a group filter chip | `{ value, enabled }` | `Palette/GroupToolbar.tsx` |
+| `palette:group_clear` | Clear all group filters | — | `Palette/GroupToolbar.tsx` |
 
 ## color
 
@@ -109,11 +115,12 @@ generation config (via the `source` discriminator — see Conventions).
 | `color:add` | Add color | — | `Generator/Panel/AddColor.tsx` |
 | `color:select` | Activate a color from the sidebar/bottom-bar strip | — | `Generator/Panel/index.tsx` |
 | `color:remove` | Remove color (confirmed) | — | `ColorList/ColorItem.tsx` |
-| `color:reorder` | Reorder colors (drag, committed on drop) | — | `ReorderColors.tsx` |
+| `color:reorder` | Reorder colors — once per drop on drag, once per keypress on the arrow/Home/End path | — | `ReorderColors.tsx` |
 | `color:randomize` | Randomize one color | — | `ColorList/ColorItem.tsx` |
 | `color:edit` | Change color value | `{ source, mode }` | `ColorList/ColorItem.tsx` |
 | `color:rename` | Commit color name | `{ name }` | `ColorList/ColorItem.tsx` |
 | `color:mode` | Toggle SRGB/OKLCH view | `{ value }` | `ColorList/ColorItem.tsx` |
+| `color:group` | Set a group from the sidebar card (`value: 'none'` unassigns) | `{ value }` | `ColorGroupMenu.tsx` (`source="color"`) |
 | `color:picker` | Open native picker | — | `ColorList/ColorItem.tsx` |
 | `color:preview` | Preview the color (sidebar card) | — | `Preview/Button.tsx` (`source="color"`) |
 | `color:options` | Open per-color overrides | — | `ColorList/ColorActions.tsx` |
@@ -138,6 +145,7 @@ Tools invoked on a single generated ramp row in the palette view.
 | Event | Trigger | Props | Location |
 |---|---|---|---|
 | `scale:preview` | View live preview of the scale | — | `Preview/Button.tsx` (`source="scale"`) |
+| `scale:group` | Set a group from the scale row (`value: 'none'` unassigns) | `{ value }` | `ColorGroupMenu.tsx` (`source="scale"`) |
 | `scale:charts` | Toggle distribution charts (shift = all) | `{ scope, enabled }` | `ColorCharts/Button.tsx` |
 | `scale:info` | Open the Color Info modal | — | `ColorInfo/index.tsx` |
 | `scale:contrast` | Open the contrast grid | — | `ContrastGrid/index.tsx` |

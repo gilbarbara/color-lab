@@ -7,6 +7,7 @@ import Footer from '~/components/Footer';
 import Preview from '~/containers/Preview';
 
 import Grid from './Grid';
+import GroupToolbar from './GroupToolbar';
 import Header from './Header';
 import List from './List';
 import Options from './Options';
@@ -32,6 +33,7 @@ function Palette() {
           >
             <Options />
           </CollapsePanel>
+          {view !== 'preview' && <GroupToolbar />}
         </div>
         {view === 'grid' && <Grid />}
         {view === 'list' && (

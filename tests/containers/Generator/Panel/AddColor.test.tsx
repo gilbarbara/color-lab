@@ -45,6 +45,17 @@ describe('PanelAddColor', () => {
       expect(getGeneratorStore().getState().colors).toHaveLength(initial + 1);
     });
 
+    // The new color is ungrouped, so an active filter would exclude it from the palette view.
+    it('clears an active group filter without collapsing the preview', () => {
+      useAppStore.setState({ groupFilter: ['brand'], showPreview: true });
+      render(<PanelAddColor />);
+
+      fireEvent.click(screen.getByRole('button', { name: /add color/i }));
+
+      expect(useAppStore.getState().groupFilter).toEqual([]);
+      expect(useAppStore.getState().showPreview).toBe(true);
+    });
+
     it('rotates the last color by the selected spacing angle', () => {
       useAppStore.setState({ colorSpacing: 'wide' });
       render(<PanelAddColor />);

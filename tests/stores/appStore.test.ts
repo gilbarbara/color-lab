@@ -1,6 +1,8 @@
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { initialState, useAppStore } from '~/stores/appStore';
 
+import type { ColorGroup } from '~/types';
+
 const PERSISTED_KEYS = [
   'colorSpacing',
   'exportColorFormat',
@@ -44,6 +46,13 @@ describe('stores/appStore', () => {
       expect(state.lastSavedUrl).toBe(null);
       expect(state.sessionPalettePath).toBe(null);
     });
+
+    it('resets the group filter', () => {
+      useAppStore.setState({ groupFilter: ['brand', 'neutral'] });
+      useAppStore.getState().clearPalette();
+
+      expect(useAppStore.getState().groupFilter).toEqual([]);
+    });
   });
 
   describe('closeLoginModal', () => {
@@ -63,6 +72,73 @@ describe('stores/appStore', () => {
       useAppStore.getState().openLoginModal();
 
       expect(useAppStore.getState().showLoginModal).toBe(true);
+    });
+  });
+
+  describe('pruneGroupFilter', () => {
+    it('drops groups that are no longer used', () => {
+      useAppStore.setState({ groupFilter: ['brand', 'semantic'] });
+
+      useAppStore.getState().pruneGroupFilter(['brand']);
+
+      expect(useAppStore.getState().groupFilter).toEqual(['brand']);
+    });
+
+    it('empties the filter when every selected group has vanished', () => {
+      useAppStore.setState({ groupFilter: ['semantic'] });
+
+      useAppStore.getState().pruneGroupFilter([]);
+
+      expect(useAppStore.getState().groupFilter).toEqual([]);
+    });
+
+    // Unlike setGroupFilter/toggleGroupFilter, pruning is bookkeeping: it must not
+    // collapse the live preview as a side effect.
+    it('leaves showPreview untouched', () => {
+      useAppStore.setState({ groupFilter: ['semantic'], showPreview: true });
+
+      useAppStore.getState().pruneGroupFilter([]);
+
+      expect(useAppStore.getState().showPreview).toBe(true);
+    });
+
+    it('keeps the same array reference when nothing is stale', () => {
+      const groupFilter: ColorGroup[] = ['brand'];
+
+      useAppStore.setState({ groupFilter });
+
+      useAppStore.getState().pruneGroupFilter(['brand', 'neutral']);
+
+      expect(useAppStore.getState().groupFilter).toBe(groupFilter);
+    });
+  });
+
+  describe('resetGroupFilter', () => {
+    it('drops every selected group', () => {
+      useAppStore.setState({ groupFilter: ['brand', 'semantic'] });
+
+      useAppStore.getState().resetGroupFilter();
+
+      expect(useAppStore.getState().groupFilter).toEqual([]);
+    });
+
+    // Same contract as pruneGroupFilter: bookkeeping, not a user action on the palette view.
+    it('leaves showPreview untouched', () => {
+      useAppStore.setState({ groupFilter: ['semantic'], showPreview: true });
+
+      useAppStore.getState().resetGroupFilter();
+
+      expect(useAppStore.getState().showPreview).toBe(true);
+    });
+
+    it('keeps the same array reference when the filter is already empty', () => {
+      const groupFilter: ColorGroup[] = [];
+
+      useAppStore.setState({ groupFilter });
+
+      useAppStore.getState().resetGroupFilter();
+
+      expect(useAppStore.getState().groupFilter).toBe(groupFilter);
     });
   });
 
@@ -456,6 +532,39 @@ describe('stores/appStore', () => {
     });
   });
 
+  describe('setGroupFilter', () => {
+    it('replaces the group filter selection', () => {
+      useAppStore.getState().setGroupFilter(['brand', 'neutral']);
+
+      expect(useAppStore.getState().groupFilter).toEqual(['brand', 'neutral']);
+    });
+
+    it('clears the selection with an empty array (All)', () => {
+      useAppStore.getState().setGroupFilter(['brand']);
+      useAppStore.getState().setGroupFilter([]);
+
+      expect(useAppStore.getState().groupFilter).toEqual([]);
+    });
+  });
+
+  describe('toggleGroupFilter', () => {
+    it('adds a group when absent', () => {
+      useAppStore.getState().toggleGroupFilter('brand');
+
+      expect(useAppStore.getState().groupFilter).toEqual(['brand']);
+    });
+
+    it('removes a group when already present, leaving the rest', () => {
+      const { toggleGroupFilter } = useAppStore.getState();
+
+      toggleGroupFilter('brand');
+      toggleGroupFilter('neutral');
+      toggleGroupFilter('brand');
+
+      expect(useAppStore.getState().groupFilter).toEqual(['neutral']);
+    });
+  });
+
   describe('persistence', () => {
     beforeEach(() => {
       localStorage.clear();
@@ -497,6 +606,14 @@ describe('stores/appStore', () => {
       const persisted = readPersistedState();
 
       expect(persisted?.state).not.toHaveProperty('sessionPalettePath');
+    });
+
+    it('does not persist groupFilter', () => {
+      useAppStore.getState().setGroupFilter(['brand']);
+
+      const persisted = readPersistedState();
+
+      expect(persisted?.state).not.toHaveProperty('groupFilter');
     });
 
     it('does not persist paletteName, paletteId, or lastSavedUrl', () => {

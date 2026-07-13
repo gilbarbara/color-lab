@@ -2,6 +2,7 @@
 
 import { Divider } from '@heroui/react';
 
+import useGroupFilterSync from '~/hooks/useGroupFilterSync';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
 import useUrlSync from '~/hooks/useUrlSync';
 
@@ -18,6 +19,9 @@ export default function Generator() {
   // is synchronous, so useUrlSync (next) reads the already-cleared appStore.
   usePaletteIdSync();
   useUrlSync();
+  // Retires group filters whose group no longer exists — runs here, not in GroupToolbar,
+  // because that unmounts in preview view and the filter would survive unpruned.
+  useGroupFilterSync();
 
   return (
     <div

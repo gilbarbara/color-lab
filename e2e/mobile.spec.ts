@@ -5,9 +5,11 @@ import { createPage } from './__setup__/page';
 import {
   createScreenshotNamer,
   hasColor,
+  hasColorOptions,
   hasParams,
   lacksColor,
   scrollPanelToTop,
+  setColorGroup,
 } from './__setup__/utils';
 
 const getScreenshotName = createScreenshotNamer();
@@ -445,5 +447,30 @@ test('mobile', async () => {
     await expect(page).toHaveURL(hasParams({ k: 500, name: 'My Palette' }));
 
     await expect(page).toHaveScreenshot(getScreenshotName('single-color.png'));
+  });
+
+  // === Bar CLOSED: color group ===
+
+  await test.step('assigns a color group and filters by it', async () => {
+    await toggleBottomBar();
+
+    // The scale header scrolls horizontally at this width, so the menu trigger may start
+    // off-screen — setColorGroup brings it into view before opening the menu.
+    await setColorGroup(page, 'Primary', 'Brand');
+
+    await expect(page).toHaveURL(hasColorOptions('Primary', { g: 'b' }));
+
+    const chip = page
+      .getByRole('group', { name: 'Filter by color group' })
+      .getByRole('button', { name: 'Filter by Brand', exact: true });
+
+    await expect(chip).toBeVisible();
+
+    await expect(page).toHaveScreenshot(getScreenshotName('color-group.png'));
+
+    await chip.click();
+
+    await expect(chip).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('Scale')).toHaveCount(1);
   });
 });

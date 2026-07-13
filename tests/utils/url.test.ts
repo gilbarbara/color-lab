@@ -595,6 +595,98 @@ describe('utils/url', () => {
     });
   });
 
+  describe('color group (g:x)', () => {
+    it('parses each group code into the group field', () => {
+      const cases: Array<[string, ColorEntry['group']]> = [
+        ['b', 'brand'],
+        ['n', 'neutral'],
+        ['s', 'semantic'],
+        ['d', 'decorative'],
+      ];
+
+      for (const [code, group] of cases) {
+        const result = parsePaletteFromUrl(`/p/Primary-FF0044-g:${code}`);
+
+        expect(result!.state.colors[0].group).toBe(group);
+      }
+    });
+
+    it('leaves group undefined for an invalid code', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-g:Z');
+
+      expect(result).not.toBeNull();
+      expect(result!.state.colors[0].group).toBeUndefined();
+    });
+
+    it('drops inherited-prototype codes to ungrouped (no injection)', () => {
+      for (const code of ['constructor', 'toString', '__proto__', 'hasOwnProperty']) {
+        const result = parsePaletteFromUrl(`/p/Primary-FF0044-g:${code}`);
+
+        expect(result!.state.colors[0].group).toBeUndefined();
+        // must not throw when serialized back
+        expect(() => serializePaletteToUrl(result!.state)).not.toThrow();
+      }
+    });
+
+    it('a group-only chunk does not create an empty overrides object', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-g:b');
+
+      expect(result!.state.colors[0].group).toBe('brand');
+      expect(result!.state.colors[0].overrides).toBeUndefined();
+    });
+
+    it('parses group alongside overrides without polluting overrides (g stays out of scale options)', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-x:0.95,g:b');
+
+      expect(result!.state.colors[0].group).toBe('brand');
+      expect(result!.state.colors[0].overrides).toEqual({ maxLightness: 0.95 });
+    });
+
+    it('serializes the group as a g:X token in the segment', () => {
+      const state: GeneratorState = {
+        colors: [createColorEntry('Primary', hex, undefined, 'brand')],
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
+      };
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}-g:b`);
+    });
+
+    it('serializes group after scale overrides in the same chunk', () => {
+      const state: GeneratorState = {
+        colors: [createColorEntry('Primary', hex, { maxLightness: 0.95 }, 'neutral')],
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
+      };
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}-x:0.95,g:n`);
+    });
+
+    it('omits the group token when ungrouped', () => {
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
+      };
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}`);
+    });
+
+    it('round-trips group through serialize + parse', () => {
+      const state: GeneratorState = {
+        colors: [
+          createColorEntry('Primary', 'oklch(0.64 0.142 329)', { maxLightness: 0.95 }, 'brand'),
+          createColorEntry('Neutral', 'oklch(0.7 0.02 120)', undefined, 'neutral'),
+        ],
+        globalOptions: getDefaultGlobalOptions(toOklch('oklch(0.64 0.142 329)')),
+      };
+
+      const parsed = parsePaletteFromUrl(serializePaletteToUrl(state));
+
+      expect(parsed!.state.colors[0].group).toBe('brand');
+      expect(parsed!.state.colors[0].overrides).toEqual({ maxLightness: 0.95 });
+      expect(parsed!.state.colors[1].group).toBe('neutral');
+      expect(parsed!.state.colors[1].overrides).toBeUndefined();
+    });
+  });
+
   describe('decoratePaletteUrl', () => {
     describe('id', () => {
       it('adds ID to URL without query params', () => {
@@ -1076,6 +1168,33 @@ describe('utils/url', () => {
 
       it('keeps a valid lock', () => {
         expect(parseGlobal(`k=${validLock}`).lock).toBe(validLock);
+      });
+    });
+
+    // The example URLs in docs/palette.md ("URL Examples") are the contract we publish. Pin them
+    // here so a codec change can't silently make the documented grammar wrong.
+    describe('documented URL examples (docs/palette.md)', () => {
+      const color = 'Primary-63.269_0.25404_19.902';
+
+      it('parses the reversed-mode example', () => {
+        expect(parsePaletteFromUrl(`/p/${color}?m=r`)!.state.globalOptions.mode).toBe('reversed');
+      });
+
+      it('parses the curve-shapes example (scalar, range, peak)', () => {
+        const { globalOptions } = parsePaletteFromUrl(
+          `/p/${color}?f=1.8&h=0.2_0.8&c=p0.3_0.5`,
+        )!.state;
+
+        expect(globalOptions.lightnessCurve).toBe(1.8);
+        expect(globalOptions.hueShift).toEqual({ low: 0.2, high: 0.8 });
+        expect(globalOptions.chromaCurve).toEqual({ amount: 0.3, peak: 0.5 });
+      });
+
+      it('parses the lock + variant example', () => {
+        const { globalOptions } = parsePaletteFromUrl(`/p/${color}?k=500&v=vibrant`)!.state;
+
+        expect(globalOptions.lock).toBe(500);
+        expect(globalOptions.variant).toBe('vibrant');
       });
     });
 

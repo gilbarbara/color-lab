@@ -168,6 +168,7 @@ function ColorItem(props: ColorItemProps) {
   return (
     <div
       aria-current={isActive}
+      aria-label={`${colorEntry.name} settings`}
       className={cn('flex flex-col bg-default-50 p-4 rounded-xl', {
         'bg-default-100': isActive,
       })}
@@ -175,7 +176,7 @@ function ColorItem(props: ColorItemProps) {
       id={colorEntry.id}
       onClickCapture={handleCaptureInactive}
       onPointerDownCapture={handleCaptureInactive}
-      role="presentation"
+      role="group"
     >
       <div className="flex items-start gap-2">
         <Popover

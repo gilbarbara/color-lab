@@ -1,6 +1,11 @@
 import { objectKeys, uuid } from '@gilbarbara/helpers';
 
-import { DEFAULT_COLOR_NAMES, DEFAULT_PALETTE_NAME, MAX_COLORS } from '~/config/globals';
+import {
+  COLOR_GROUPS,
+  DEFAULT_COLOR_NAMES,
+  DEFAULT_PALETTE_NAME,
+  MAX_COLORS,
+} from '~/config/globals';
 import {
   CHROMA_CURVE_DEFAULT,
   CURVE_OPTION_KEYS,
@@ -16,6 +21,7 @@ import { isStructurallyEqualOption } from '~/utils/scale-options';
 
 import type {
   ColorEntry,
+  ColorGroup,
   DefaultScaleOptions,
   EffectiveScaleOptions,
   GeneratorState,
@@ -63,6 +69,21 @@ export function createPalette(initialColor?: OklchString): GeneratorState {
 }
 
 /**
+ * Filter colors to the selected groups. An empty selection means "All" — no filter,
+ * every color returned. Otherwise keep only colors whose group is in the selection;
+ * ungrouped colors are excluded. Preserves input order (a lens, not a reorder).
+ */
+export function filterColorsByGroups(colors: ColorEntry[], groups: ColorGroup[]): ColorEntry[] {
+  if (groups.length === 0) {
+    return colors;
+  }
+
+  const selected = new Set(groups);
+
+  return colors.filter(color => color.group !== undefined && selected.has(color.group));
+}
+
+/**
  * Get default color name for a given index
  */
 export function getDefaultColorName(index: number): string {
@@ -103,6 +124,17 @@ export function getEffectiveOptions(
     ...(saturationOverride ? { saturation } : {}),
     ...color.overrides,
   };
+}
+
+/**
+ * Distinct color groups present in the palette, in canonical order (COLOR_GROUPS
+ * key order). Empty array = no groups assigned. Ungrouped colors are not listed.
+ * The `.length` answers "any groups?", the array "which".
+ */
+export function getUsedGroups(colors: ColorEntry[]): ColorGroup[] {
+  const present = new Set(colors.map(color => color.group));
+
+  return objectKeys(COLOR_GROUPS).filter(group => present.has(group));
 }
 
 /**
