@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
 import { CopyIcon, ExportIcon } from '@phosphor-icons/react';
 import { convertCSS, readableColor, scale } from 'colorizr';
@@ -20,11 +20,11 @@ import type { ScaleExportData } from '~/types';
 import ExportDrawer, { type ExportRenderProps } from './ExportDrawer';
 
 interface ScaleItemProps extends ExportRenderProps {
-  index: number;
+  id: string;
   isSelected: boolean;
   mainColor: string;
   name: string;
-  onSelectionChange: (index: number, selected: boolean) => void;
+  onSelectionChange: (id: string, selected: boolean) => void;
   steps: Record<string, string>;
 }
 
@@ -32,7 +32,7 @@ function ScaleItem(props: ScaleItemProps) {
   const {
     colorFormat,
     formatType,
-    index,
+    id,
     isSelected,
     mainColor,
     name,
@@ -63,7 +63,7 @@ function ScaleItem(props: ScaleItemProps) {
           />
         }
         isSelected={isSelected}
-        onValueChange={checked => onSelectionChange(index, checked)}
+        onValueChange={checked => onSelectionChange(id, checked)}
         style={{ backgroundColor: displayMainColor, color: textColor }}
       >
         {name}
@@ -74,25 +74,26 @@ function ScaleItem(props: ScaleItemProps) {
 
 export default function ExportPalette() {
   const { colors, globalOptions } = useGenerator('colors', 'globalOptions');
-  const [selectedIndices, setSelectedIndices] = useState<Set<number>>(
-    () => new Set(colors.map((_, index) => index)),
-  );
+  // Keyed by color id, not index: a reorder leaves the palette the same length, so an
+  // index-keyed selection silently follows the position and exports the wrong colors.
+  // Tracking the *deselected* ids rather than the selected ones also means a newly added
+  // color is selected by default, with no reconciliation against `colors`.
+  // Ids aren't airtight: `useUrlSync` re-attaches them by position, so navigating back over a
+  // reorder permutes them and this set names a different color. Left alone — the drawer shows
+  // the selection before Copy, so it's visible and one click to fix.
+  const [deselectedIds, setDeselectedIds] = useState<Set<string>>(() => new Set());
   const { min } = useBreakpoint(BREAKPOINTS);
-
-  useEffect(() => {
-    setSelectedIndices(new Set(colors.map((_, index) => index)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [colors.length]);
 
   // Only ExportDrawer's render props read this, and they run only while the drawer is open.
   // Computing it eagerly ran `scale()` — the heaviest call in the app, ~0.32ms — once per color
   // on every palette edit, so a slider drag burned it N times a frame with the drawer shut.
   // Defer it behind an accessor; the result is cached until the palette or options change.
   const getScalesData = useMemo(() => {
-    let cached: Array<ScaleExportData & { mainColor: string }> | null = null;
+    let cached: Array<ScaleExportData & { id: string; mainColor: string }> | null = null;
 
     return () => {
       cached ??= colors.map(color => ({
+        id: color.id,
         name: color.name,
         mainColor: color.value,
         steps: scale(color.value, getEffectiveOptions(color, globalOptions)),
@@ -102,14 +103,14 @@ export default function ExportPalette() {
     };
   }, [colors, globalOptions]);
 
-  const handleSelectionChange = (index: number, selected: boolean) => {
-    setSelectedIndices(previous => {
+  const handleSelectionChange = (id: string, selected: boolean) => {
+    setDeselectedIds(previous => {
       const next = new Set(previous);
 
       if (selected) {
-        next.add(index);
+        next.delete(id);
       } else {
-        next.delete(index);
+        next.add(id);
       }
 
       return next;
@@ -117,15 +118,20 @@ export default function ExportPalette() {
   };
 
   const handleSelectAll = () => {
-    setSelectedIndices(new Set(colors.map((_, index) => index)));
+    setDeselectedIds(new Set());
   };
 
   const handleSelectNone = () => {
-    setSelectedIndices(new Set());
+    setDeselectedIds(new Set(colors.map(color => color.id)));
   };
 
   const isLarge = min('lg');
   const showSelection = colors.length > 1;
+  // Deselections are never reconciled against `colors`, but the selection UI only exists above one
+  // color — so a deselection left over from a larger palette would strand the drawer with nothing
+  // to export and no control to re-select with. Ignore it while that UI is gone.
+  const isDeselected = (id: string) => showSelection && deselectedIds.has(id);
+  const selectedCount = colors.reduce((acc, color) => (isDeselected(color.id) ? acc : acc + 1), 0);
 
   // Both render props (footer + body) need the export of the selected scales for
   // the current format. Build it once here so the two stay in sync.
@@ -134,7 +140,7 @@ export default function ExportPalette() {
     formatType,
   }: Pick<ExportRenderProps, 'colorFormat' | 'formatType'>): string => {
     const selectedScales: ScaleExportData[] = getScalesData()
-      .filter((_, index) => selectedIndices.has(index))
+      .filter(({ id }) => !isDeselected(id))
       .map(({ name, steps }) => ({ name, steps }));
 
     return generatePaletteExport(selectedScales, { colorFormat, formatType });
@@ -149,18 +155,18 @@ export default function ExportPalette() {
           <Button
             className="w-full"
             color="primary"
-            isDisabled={selectedIndices.size === 0}
+            isDisabled={selectedCount === 0}
             onPress={() => {
               trackEvent('palette:export_copy', {
                 format: formatType,
                 color_format: colorFormat,
-                count: selectedIndices.size,
+                count: selectedCount,
               });
               onCopy(allCode);
             }}
             startContent={<CopyIcon className="text-lg" />}
           >
-            Copy All ({selectedIndices.size})
+            Copy All ({selectedCount})
           </Button>
         );
       }}
@@ -177,7 +183,7 @@ export default function ExportPalette() {
                   </Button>
                 </div>
                 <span className="text-sm text-foreground-500">
-                  {selectedIndices.size} of {colors.length} selected
+                  {selectedCount} of {colors.length} selected
                 </span>
               </div>
             )
@@ -209,13 +215,13 @@ export default function ExportPalette() {
           <div className="flex flex-col gap-4">
             {showSelection && (
               <div className="flex flex-wrap gap-2">
-                {getScalesData().map((scaleData, index) => (
+                {getScalesData().map(scaleData => (
                   <ScaleItem
-                    key={scaleData.name}
+                    key={scaleData.id}
                     colorFormat={colorFormat}
                     formatType={formatType}
-                    index={index}
-                    isSelected={selectedIndices.has(index)}
+                    id={scaleData.id}
+                    isSelected={!isDeselected(scaleData.id)}
                     mainColor={scaleData.mainColor}
                     name={scaleData.name}
                     onCopy={onCopy}
@@ -225,7 +231,7 @@ export default function ExportPalette() {
                 ))}
               </div>
             )}
-            {selectedIndices.size === 0 ? (
+            {selectedCount === 0 ? (
               <div className="rounded-lg bg-surface-alt p-4 text-sm text-foreground-500">
                 Select at least one color to preview the export.
               </div>
