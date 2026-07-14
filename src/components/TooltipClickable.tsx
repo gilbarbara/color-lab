@@ -61,6 +61,10 @@ export default function TooltipClickable(props: TooltipClickableProps) {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        // Consume the key so it dismisses only this tooltip. Without this the
+        // Escape keeps propagating and an enclosing overlay (the ColorInfo
+        // modal) closes on the same keypress.
+        event.stopPropagation();
         close();
       }
     };

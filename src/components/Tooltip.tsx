@@ -342,15 +342,19 @@ export default function Tooltip(props: TooltipProps) {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        // Consume the key so it dismisses only this tooltip. Capture phase, so
+        // it lands before an enclosing overlay's own Escape handler and the two
+        // don't close on the same keypress.
+        event.stopPropagation();
         clearTimeout(openTimer.current);
         clearTimeout(closeTimer.current);
         setUncontrolledOpen(false);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown, true);
 
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown, true);
   }, [isOpen, isControlled]);
 
   const child = Children.only(children) as ReactElement<{
