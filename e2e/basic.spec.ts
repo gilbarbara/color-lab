@@ -8,6 +8,7 @@ import {
   hasColor,
   lacksColor,
   removeColor,
+  scrollPanelToTop,
 } from './__setup__/utils';
 
 const screenshotName = createScreenshotNamer();
@@ -16,19 +17,15 @@ let page: Page;
 
 const sessionStack = [
   '/p/Primary-73_0.23_321',
-  '/p/Primary-60_0.276_321?s=89.2',
   '/p/Primary-60_0.276_321',
-  '/p/Primary-60_0.21_321?s=89.3',
   '/p/Primary-60_0.21_321',
-  '/p/Primary-60_0.157_150?s=67.9',
   '/p/Primary-60_0.157_150',
-  '/p/Primary-60_0.21_150?s=68.1',
   '/p/Primary-60_0.21_150',
   '/p/Primary-60_0.21_150/Secondary-60_0.139_227',
   '/p/Primary-60_0.21_150/Secondary-60_0.139_227/Tertiary-60_0.266_304',
-  '/p/Tertiary-60_0.266_304/Primary-60_0.21_150/Secondary-60_0.139_227?s=91.1',
-  '/p/Tertiary-60_0.266_304/Secondary-60_0.139_227/Primary-60_0.21_150?s=91.1',
-  '/p/Secondary-60_0.139_227/Primary-60_0.21_150?s=91.1',
+  '/p/Tertiary-60_0.266_304/Primary-60_0.21_150/Secondary-60_0.139_227',
+  '/p/Tertiary-60_0.266_304/Secondary-60_0.139_227/Primary-60_0.21_150',
+  '/p/Secondary-60_0.139_227/Primary-60_0.21_150',
   '/p/Primary-60_0.21_150',
 ];
 
@@ -239,6 +236,9 @@ test('basic', async () => {
     await expect(page).toHaveURL(hasColor('Primary'));
     await expect(page).toHaveURL(hasColor('Secondary'));
 
+    await page.waitForTimeout(collapseDuration);
+    await scrollPanelToTop(page);
+
     await expect(page).toHaveScreenshot(screenshotName('remove-tertiary.png'));
   });
 
@@ -265,8 +265,9 @@ test('basic', async () => {
       () => (window as unknown as { __historyStack: string[] }).__historyStack,
     );
 
-    expect(stack.length).toBe(15);
+    expect(stack.length).toBe(11);
     expect(JSON.stringify(sessionStack)).toBe(JSON.stringify(stack));
+
     await expect(page).toHaveURL(url => url.pathname + url.search === stack.at(-1));
 
     // Mid-walk screenshot checkpoint, derived from the actual stack length so it stays the

@@ -4,6 +4,13 @@ export type ColorGroup = 'brand' | 'neutral' | 'semantic' | 'decorative';
 export type ColorGroupOption = { code: string; description: string; label: string };
 export type ColorGroupOptions = Record<ColorGroup, ColorGroupOption>;
 
+/**
+ * A color's per-color scale overrides. `saturation` is excluded on purpose: it is a palette-wide
+ * concept gated by `saturationOverride` (see `GlobalScaleOptions`), so a per-color copy would have
+ * to be de-duplicated against a global that is dead state while the override is off.
+ */
+export type ColorOverrides = Omit<Partial<ScaleOptions>, 'saturation'>;
+
 export type ColorSpacing = 'tight' | 'even' | 'wide' | 'golden';
 export type ColorSpacingOption = { angle: number; description: string; label: string };
 export type ColorSpacingOptions = Record<ColorSpacing, ColorSpacingOption>;
@@ -46,7 +53,7 @@ export interface ColorEntry {
   group?: ColorGroup;
   id: string;
   name: string;
-  overrides?: Partial<ScaleOptions>;
+  overrides?: ColorOverrides;
   value: OklchString;
 }
 
@@ -78,7 +85,7 @@ export interface GeneratorActions {
   resetPalette: () => void;
   setActiveColor: (id: string) => void;
   setAllCharts: (open: boolean) => void;
-  setColorOverride: (id: string, updates: Partial<ScaleOptions>) => void;
+  setColorOverride: (id: string, updates: ColorOverrides) => void;
   setName: (name: string) => void;
   setPreviewColor: (id: string) => void;
   toggleChart: (id: string) => void;
@@ -117,6 +124,14 @@ export interface GlobalScaleOptions extends ScaleOptions {
   maxLightness: number;
   minLightness: number;
   mode: NonNullable<ScaleOptionsBase['mode']>;
+  /**
+   * Only live while `saturationOverride` is true — it is seeded from the first color when the
+   * override is enabled, and nothing keeps it in sync afterwards. With the override off it is dead
+   * state (a value left by a since-removed or reordered first color), so never read it unguarded:
+   * derive the baseline from the current first color via `getDefaultGlobalOptions(colors[0].value)`.
+   * The URL boundary sanitizes it on the way in (`reconcileSaturation`) and drops it on the way out,
+   * so only an in-session first-color change can leave a stale value behind.
+   */
   saturation: number;
   saturationOverride: boolean;
   steps: number;

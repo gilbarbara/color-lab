@@ -93,13 +93,12 @@ export default function PaletteOptions() {
 
   const handleToggleSaturationOverride = (value: boolean) => {
     trackEvent('options:saturation_override', { enabled: value });
-    // Reset saturation to its default when disabling, so `s=` drops from the URL
-    // (a leftover value has no visual effect while off, but re-applies on re-enable).
-    updateGlobalOptions(
-      value
-        ? { saturationOverride: true }
-        : { saturationOverride: false, saturation: defaultOptions.saturation },
-    );
+    // `saturation` only becomes live state when the override is on, so seed it from the current
+    // first color at that moment rather than holding a baseline that goes stale on remove/reorder.
+    updateGlobalOptions({
+      saturation: defaultOptions.saturation,
+      saturationOverride: value,
+    });
   };
 
   const variants = useMemo(
@@ -261,7 +260,7 @@ export default function PaletteOptions() {
             )}
             size="sm"
             step={0.1}
-            value={saturation}
+            value={saturationOverride ? saturation : defaultOptions.saturation}
           />
           <div className="flex items-center gap-2 mt-1">
             <Switch

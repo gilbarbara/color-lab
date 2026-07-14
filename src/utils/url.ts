@@ -30,6 +30,7 @@ import { isCurvePeak, isSameOptionValue } from '~/utils/scale-options';
 import type {
   ColorEntry,
   ColorGroup,
+  ColorOverrides,
   GeneratorState,
   GlobalScaleOptions,
   OklchString,
@@ -67,6 +68,15 @@ const OPTION_KEYS = {
 const OPTION_KEYS_REVERSE = Object.fromEntries(
   objectEntries(OPTION_KEYS).map(([k, v]) => [v, k]),
 ) as Record<string, keyof typeof OPTION_KEYS>;
+
+// The per-color segment grammar is a strict subset: saturation is palette-wide (gated by
+// saturationOverride, which only exists on GlobalScaleOptions), so a color may not carry either.
+// See `ColorOverrides`.
+const COLOR_OPTION_KEYS = Object.fromEntries(
+  objectEntries(OPTION_KEYS).filter(
+    ([key]) => key !== 'saturation' && key !== 'saturationOverride',
+  ),
+) as Omit<typeof OPTION_KEYS, 'saturation' | 'saturationOverride'>;
 
 // Mode short values — single source of truth; MODE_LONG and VALID_MODES derive from this.
 const MODE_SHORT = { light: 'l', dark: 'd', reversed: 'r' } as const satisfies Record<
@@ -193,13 +203,13 @@ function parseColorSegment(
       color.group = group;
     }
 
-    // Assign overrides unless a group-only chunk (e.g. 'g:b') produced an empty
-    // object — `g` is metadata parseOptions ignores, and a group shouldn't leave
-    // behind `overrides: {}`. Keyless/invalid chunks without a group keep their
-    // existing empty-object result.
+    // Empty stays undefined, never `{}` — `setColorOverride` normalizes the same way, and the UI
+    // reads `overrides` as a boolean ("this color is customized"), so a truthy empty object shows
+    // the ColorActions badge and enables its Reset for a color with nothing overridden. Chunks that
+    // parse to nothing (a group-only `g:b`, an unknown key, an out-of-range value) land here.
     const overrides = parseOptions(optionsString);
 
-    if (!group || Object.keys(overrides).length > 0) {
+    if (Object.keys(overrides).length > 0) {
       color.overrides = overrides;
     }
   }
@@ -343,8 +353,8 @@ function parseOklchUrlValue(urlValue: string): OklchString | null {
  * Parse options from URL format
  * Input: 'x:0.95,m:d'
  */
-function parseOptions(optString: string): Partial<ScaleOptions> {
-  const result: Partial<ScaleOptions> = {};
+function parseOptions(optString: string): ColorOverrides {
+  const result: ColorOverrides = {};
 
   if (!optString) {
     return result;
@@ -359,7 +369,8 @@ function parseOptions(optString: string): Partial<ScaleOptions> {
 
     const fullKey = OPTION_KEYS_REVERSE[key];
 
-    if (!fullKey) {
+    // Unknown key, or one the per-color grammar does not carry (`s:` / `o:`).
+    if (!fullKey || !(fullKey in COLOR_OPTION_KEYS)) {
       continue;
     }
 
@@ -532,6 +543,24 @@ function reconcileLock<T extends { lock?: number }>(options: T, steps: number): 
   return next;
 }
 
+/**
+ * Drop an `s=` that arrived without `o=1`. `saturation` is only live while the override is on, and
+ * `serializeGlobalOptions` refuses to write it otherwise — so accepting one here would leave the
+ * store holding a value the URL cannot express. Pre-existing URLs carry these: the old code mirrored
+ * the first color's chroma into `saturation` and leaked it once a remove/reorder re-based the
+ * default. Runs on the merged object, not per key — `s` can precede `o` in the query string.
+ */
+function reconcileSaturation(
+  options: GlobalScaleOptions,
+  defaults: GlobalScaleOptions,
+): GlobalScaleOptions {
+  if (options.saturationOverride || options.saturation === defaults.saturation) {
+    return options;
+  }
+
+  return { ...options, saturation: defaults.saturation };
+}
+
 /** Non-curve per-color option (mode/variant/lock or a plain number) as a fragment to merge. */
 function scalarOptionEntry(
   key: Exclude<keyof typeof OPTION_KEYS, CurveOptionKey>,
@@ -580,6 +609,13 @@ function serializeGlobalOptions(options: GlobalScaleOptions, defaults: GlobalSca
   const params = new URLSearchParams();
 
   for (const [key, shortKey] of objectEntries(OPTION_KEYS)) {
+    // Mirror getEffectiveOptions: `saturation` is only read when overridden. Its default is
+    // derived from colors[0], so without this gate any edit that changes which color is first
+    // (remove, reorder) moves the default out from under the held value and leaks an inert `s=`.
+    if (key === 'saturation' && !options.saturationOverride) {
+      continue;
+    }
+
     const value = options[key as keyof GlobalScaleOptions];
     const defaultValue = defaults[key];
 
@@ -609,7 +645,7 @@ function serializeGlobalOptions(options: GlobalScaleOptions, defaults: GlobalSca
  * Returns: 'x:0.95,m:d' or empty string
  */
 function serializeOptions(
-  options: Partial<ScaleOptions> | undefined,
+  options: ColorOverrides | undefined,
   defaults: GlobalScaleOptions,
 ): string {
   if (!options) {
@@ -618,8 +654,8 @@ function serializeOptions(
 
   const parts: string[] = [];
 
-  for (const [key, shortKey] of objectEntries(OPTION_KEYS)) {
-    const value = options[key as keyof ScaleOptions];
+  for (const [key, shortKey] of objectEntries(COLOR_OPTION_KEYS)) {
+    const value = options[key as keyof ColorOverrides];
     const defaultValue = defaults[key];
 
     if (value !== undefined && !isSameOptionValue(key, value, defaultValue)) {
@@ -818,11 +854,13 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
   const defaults = getDefaultGlobalOptions(colors[0].value);
 
   // Parse global options, then sanitize the cross-field invariants that per-key range checks
-  // can't catch (minLightness < maxLightness, lock ∈ valid step keys) so scale() never throws.
+  // can't catch (minLightness < maxLightness, lock ∈ valid step keys, saturation without its
+  // override) so scale() never throws and the store never holds what the URL can't express.
   const globalOverrides = reconcileLightnessBounds(parseGlobalOptions(searchParams), defaults);
   let globalOptions = { ...defaults, ...globalOverrides };
 
   globalOptions = reconcileLock(globalOptions, globalOptions.steps);
+  globalOptions = reconcileSaturation(globalOptions, defaults);
 
   for (const color of colors) {
     if (!color.overrides) {
@@ -830,8 +868,11 @@ export function parsePaletteFromUrl(url: string): ParsedPalette | null {
     }
 
     const reconciled = reconcileLightnessBounds(color.overrides, globalOptions);
+    const locked = reconcileLock(reconciled, reconciled.steps ?? globalOptions.steps);
 
-    color.overrides = reconcileLock(reconciled, reconciled.steps ?? globalOptions.steps);
+    // Both reconcilers drop keys, so a color that arrived with overrides can end up with none —
+    // back to undefined rather than `{}` (see parseColorSegment).
+    color.overrides = Object.keys(locked).length > 0 ? locked : undefined;
   }
 
   return {

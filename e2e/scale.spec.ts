@@ -343,6 +343,17 @@ test('scale', async () => {
 
     await expect(page).toHaveScreenshot(screenshotName('saturation-override.png'));
 
+    // With the override on, Color Info surfaces the global saturation as a row (hidden otherwise).
+    await page.getByRole('button', { name: 'View color info' }).first().click();
+
+    const scaleOptions = page.getByTestId('ColorInfo-ScaleOptions');
+
+    await expect(scaleOptions.getByText('Saturation')).toBeVisible();
+    await expect(scaleOptions.getByText('100%')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Close' }).click();
+    await expect(scaleOptions).not.toBeVisible();
+
     // Reset clears only the palette options (steps/variant/saturation), leaving the curves.
     await paletteOptions.getByRole('button', { name: 'Reset', exact: true }).click();
 

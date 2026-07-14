@@ -47,14 +47,12 @@ interface ColorItemState {
 
 function ColorItem(props: ColorItemProps) {
   const { colorEntry, index, isOnlyColor, saturationOverride } = props;
-  const { activeColorId, removeColor, setActiveColor, updateColor, updateGlobalOptions } =
-    useGenerator(
-      'activeColorId',
-      'removeColor',
-      'setActiveColor',
-      'updateColor',
-      'updateGlobalOptions',
-    );
+  const { activeColorId, removeColor, setActiveColor, updateColor } = useGenerator(
+    'activeColorId',
+    'removeColor',
+    'setActiveColor',
+    'updateColor',
+  );
   // Read the base saturation lazily (only when Random is clicked) instead of subscribing to
   // it. It derives from the seed (colors[0].value), so subscribing would re-render every
   // ColorItem on any base-color edit — the exact churn this component is trying to avoid.
@@ -112,12 +110,6 @@ function ColorItem(props: ColorItemProps) {
     }
 
     updateColor(colorEntry.id, { value: branded });
-
-    if (index === 0) {
-      updateGlobalOptions({
-        saturation: getChromaAsPercentage(branded),
-      });
-    }
   });
 
   // Fires once per settled edit: onChangeEnd for the picker/sliders (their onChange

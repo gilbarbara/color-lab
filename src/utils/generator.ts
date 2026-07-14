@@ -22,12 +22,12 @@ import { isStructurallyEqualOption } from '~/utils/scale-options';
 import type {
   ColorEntry,
   ColorGroup,
+  ColorOverrides,
   DefaultScaleOptions,
   EffectiveScaleOptions,
   GeneratorState,
   GlobalScaleOptions,
   OklchString,
-  ScaleOptions,
 } from '~/types';
 
 /**
@@ -238,7 +238,7 @@ export function resetPalette(): GeneratorState {
 export function setColorOverride(
   state: GeneratorState,
   id: string,
-  updates: Partial<ScaleOptions>,
+  updates: ColorOverrides,
 ): GeneratorState {
   const currentColor = state.colors.find(color => color.id === id);
 
@@ -246,7 +246,7 @@ export function setColorOverride(
     return state;
   }
 
-  const merged: Partial<ScaleOptions> = { ...currentColor.overrides, ...updates };
+  const merged: ColorOverrides = { ...currentColor.overrides, ...updates };
 
   for (const key of objectKeys(merged)) {
     if (isStructurallyEqualOption(merged[key], state.globalOptions[key])) {

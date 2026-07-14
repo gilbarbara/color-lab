@@ -3,7 +3,7 @@ import { getScaleStepKeys, parseCSS, scale } from 'colorizr';
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
 import { createColorEntry } from '~/test-fixtures';
 import { toOklch } from '~/utils/color';
-import { getDefaultGlobalOptions } from '~/utils/generator';
+import { getDefaultGlobalOptions, removeColor, reorderColors } from '~/utils/generator';
 import {
   buildUrl,
   canonicalizeUrl,
@@ -111,7 +111,7 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-z:unknown');
 
       expect(result).not.toBeNull();
-      expect(result!.state.colors[0].overrides).toEqual({});
+      expect(result!.state.colors[0].overrides).toBeUndefined();
     });
 
     it('ignores malformed option parts', () => {
@@ -132,7 +132,7 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-x:abc');
 
       expect(result).not.toBeNull();
-      expect(result!.state.colors[0].overrides).toEqual({});
+      expect(result!.state.colors[0].overrides).toBeUndefined();
     });
 
     it('ignores non-numeric global option values', () => {
@@ -152,7 +152,7 @@ describe('utils/url', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-m:custom');
 
       expect(result).not.toBeNull();
-      expect(result!.state.colors[0].overrides).toEqual({});
+      expect(result!.state.colors[0].overrides).toBeUndefined();
     });
 
     it('parses multiple colors', () => {
@@ -207,6 +207,37 @@ describe('utils/url', () => {
 
       expect(result).not.toBeNull();
       expect(result!.state.globalOptions.saturationOverride).toBe(true);
+    });
+
+    it('keeps saturation when the override is on', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?s=25&o=1');
+
+      expect(result!.state.globalOptions.saturation).toBe(25);
+    });
+
+    it('drops saturation when the override is off', () => {
+      // Legacy URLs carry an inert `s=` (the old code leaked one when a remove/reorder re-based
+      // the color-derived default). Keeping it would let the store hold what the URL can't express.
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?s=25');
+      const expectedDefaults = getDefaultGlobalOptions(result!.state.colors[0].value);
+
+      expect(result!.state.globalOptions.saturation).toBe(expectedDefaults.saturation);
+    });
+
+    it('drops saturation regardless of param order', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044?s=25&o=0');
+      const expectedDefaults = getDefaultGlobalOptions(result!.state.colors[0].value);
+
+      expect(result!.state.globalOptions.saturation).toBe(expectedDefaults.saturation);
+    });
+
+    it('ignores a per-color saturation override (not part of the color grammar)', () => {
+      const result = parsePaletteFromUrl('/p/Primary-FF0044-s:25/Secondary-698CE0-x:0.95');
+
+      // `s:` is dropped like any unknown key, leaving the same empty `overrides` an invalid chunk
+      // produces (see 'scalar range (per-color path)').
+      expect(result!.state.colors[0].overrides).toBeUndefined();
+      expect(result!.state.colors[1].overrides).toEqual({ maxLightness: 0.95 });
     });
 
     it('decodes name with + to space', () => {
@@ -368,7 +399,7 @@ describe('utils/url', () => {
 
       expect(result).not.toBeNull();
       expect(result!.state.colors[0].name).toBe('Primary');
-      expect(result!.state.colors[0].overrides).toEqual({});
+      expect(result!.state.colors[0].overrides).toBeUndefined();
     });
 
     it('drops with correct label when value is missing (options-only)', () => {
@@ -418,7 +449,7 @@ describe('utils/url', () => {
     it('drops invalid mode value (per-color)', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-m:garbage');
 
-      expect(result!.state.colors[0].overrides).toEqual({});
+      expect(result!.state.colors[0].overrides).toBeUndefined();
     });
 
     it('accepts valid mode short form', () => {
@@ -430,7 +461,7 @@ describe('utils/url', () => {
     it('drops invalid variant value', () => {
       const result = parsePaletteFromUrl('/p/Primary-FF0044-v:notreal');
 
-      expect(result!.state.colors[0].overrides).toEqual({});
+      expect(result!.state.colors[0].overrides).toBeUndefined();
     });
 
     it('accepts valid variant value', () => {
@@ -536,14 +567,61 @@ describe('utils/url', () => {
       expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}`);
     });
 
-    it('serializes saturation when it differs from color default', () => {
+    it('serializes saturation when overridden and it differs from the color default', () => {
       const defaults = getDefaultGlobalOptions(toOklch(hex));
       const state: GeneratorState = {
         colors: [oklchEntry('Primary', hex)],
-        globalOptions: { ...defaults, saturation: 25 },
+        globalOptions: { ...defaults, saturation: 25, saturationOverride: true },
       };
 
-      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}?s=25`);
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}?s=25&o=1`);
+    });
+
+    it('does not serialize saturation when the override is off, even if it differs', () => {
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: { ...defaults, saturation: 25, saturationOverride: false },
+      };
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Primary-${urlFor(hex)}`);
+    });
+
+    it('does not leak a stale saturation when the first color is removed', () => {
+      const initial: GeneratorState = {
+        colors: [oklchEntry('Primary', hex), oklchEntry('Secondary', hexAlt)],
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
+      };
+      // globalOptions.saturation is still Primary's — the default baseline now derives from Secondary.
+      const state = removeColor(initial, initial.colors[0].id);
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Secondary-${urlFor(hexAlt)}`);
+    });
+
+    it('does not leak a stale saturation when a color is reordered into first position', () => {
+      const initial: GeneratorState = {
+        colors: [oklchEntry('Primary', hex), oklchEntry('Secondary', hexAlt)],
+        globalOptions: getDefaultGlobalOptions(toOklch(hex)),
+      };
+      const state = reorderColors(initial, [initial.colors[1].id, initial.colors[0].id]);
+
+      expect(serializePaletteToUrl(state)).toBe(
+        `/p/Secondary-${urlFor(hexAlt)}/Primary-${urlFor(hex)}`,
+      );
+    });
+
+    it('keeps an explicit saturation override when the first color is removed', () => {
+      const initial: GeneratorState = {
+        colors: [oklchEntry('Primary', hex), oklchEntry('Secondary', hexAlt)],
+        globalOptions: {
+          ...getDefaultGlobalOptions(toOklch(hex)),
+          saturation: 25,
+          saturationOverride: true,
+        },
+      };
+      const state = removeColor(initial, initial.colors[0].id);
+
+      expect(serializePaletteToUrl(state)).toBe(`/p/Secondary-${urlFor(hexAlt)}?s=25&o=1`);
     });
 
     it('does not serialize saturationOverride when false (default)', () => {
@@ -873,6 +951,28 @@ describe('utils/url', () => {
       expect(canonicalizeUrl(canonical)).toBe(canonical);
     });
 
+    it('drops an inert saturation param', () => {
+      const canonical = canonicalizeUrl('/p/Primary-FF0044?s=25');
+
+      expect(canonical).not.toContain('s=25');
+    });
+
+    it('round-trips an enabled override back to the color-derived default', () => {
+      const defaults = getDefaultGlobalOptions(toOklch(hex));
+      const state: GeneratorState = {
+        colors: [oklchEntry('Primary', hex)],
+        globalOptions: { ...defaults, saturationOverride: true },
+      };
+      const url = serializePaletteToUrl(state);
+      const parsed = parsePaletteFromUrl(url);
+
+      // saturation === the default, so only `o=1` is written; parse re-derives it from the color.
+      expect(url).toContain('o=1');
+      expect(url).not.toContain('s=');
+      expect(parsed!.state.globalOptions.saturation).toBe(defaults.saturation);
+      expect(parsed!.state.globalOptions.saturationOverride).toBe(true);
+    });
+
     it('returns input unchanged when URL is empty', () => {
       expect(canonicalizeUrl('')).toBe('');
     });
@@ -1082,14 +1182,16 @@ describe('utils/url', () => {
         expect(parseGlobal(query).steps).toBe(baseDefaults.steps);
       });
 
+      // Saturation carries `o=1` here: without the override it is dropped by reconcileSaturation
+      // before the range check can be observed (see the saturationOverride describe below).
       it('drops out-of-range saturation, maxLightness, minLightness', () => {
-        expect(parseGlobal('s=999').saturation).toBe(baseDefaults.saturation);
+        expect(parseGlobal('s=999&o=1').saturation).toBe(baseDefaults.saturation);
         expect(parseGlobal('x=5').maxLightness).toBe(baseDefaults.maxLightness);
         expect(parseGlobal('n=-2').minLightness).toBe(baseDefaults.minLightness);
       });
 
       it('keeps valid scalars', () => {
-        const result = parseGlobal('i=15&x=0.9&n=0.1&s=42');
+        const result = parseGlobal('i=15&x=0.9&n=0.1&s=42&o=1');
 
         expect(result.steps).toBe(15);
         expect(result.maxLightness).toBe(0.9);
@@ -1100,7 +1202,7 @@ describe('utils/url', () => {
 
     describe('scalar range (per-color path)', () => {
       it.each(['i:99999', 'x:5', 'n:-2'])('drops out-of-range override %s', chunk => {
-        expect(parseOverrides(chunk)).toEqual({});
+        expect(parseOverrides(chunk)).toBeUndefined();
       });
 
       it('keeps a valid override', () => {
@@ -1121,7 +1223,7 @@ describe('utils/url', () => {
       );
 
       it.each(['n:0.9,x:0.1', 'x:0.1'])('reverts an inverted per-color override %s', chunk => {
-        expect(parseOverrides(chunk)).toEqual({});
+        expect(parseOverrides(chunk)).toBeUndefined();
       });
     });
 
@@ -1163,7 +1265,7 @@ describe('utils/url', () => {
       });
 
       it('drops an invalid per-color lock', () => {
-        expect(parseOverrides('k:999')).toEqual({});
+        expect(parseOverrides('k:999')).toBeUndefined();
       });
 
       it('keeps a valid lock', () => {

@@ -5,7 +5,7 @@ import { BLUE, createColorEntry, CRIMSON, GREEN } from '~/test-fixtures';
 import { getGeneratorStore } from '~/test-mocks';
 import { act, fireEvent, render, screen } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
-import { getChromaAsPercentage, getRandomColor, toOklch } from '~/utils/color';
+import { getRandomColor, toOklch } from '~/utils/color';
 import { createPalette, getDefaultGlobalOptions } from '~/utils/generator';
 
 import ColorItem from '~/containers/ColorList/ColorItem';
@@ -291,28 +291,8 @@ describe('ColorItem', () => {
       expect(screen.getByDisplayValue('Foo')).toBeInTheDocument();
     });
 
-    it('updates the color and syncs global saturation when editing the first color', () => {
+    it('updates the color without writing global saturation when editing the first color', () => {
       renderActive();
-
-      fireEvent.change(screen.getByLabelText(/color value/i), { target: { value: '00ff00' } });
-
-      act(() => {
-        vi.advanceTimersByTime(16);
-      });
-
-      const expected = toOklch('#00ff00');
-      const state = getGeneratorStore().getState();
-
-      expect(state.colors[0].value).toBe(expected);
-      expect(state.globalOptions.saturation).toBe(getChromaAsPercentage(expected));
-    });
-
-    it('does not sync global saturation when editing a non-first color', () => {
-      const colors = [createColorEntry('Primary', CRIMSON), createColorEntry('Secondary', BLUE)];
-
-      setupStore(colors, 1);
-
-      render(<ColorItem {...createDefaultProps({ colorEntry: colors[1], index: 1 })} />);
 
       const initialSaturation = getGeneratorStore().getState().globalOptions.saturation;
 
@@ -324,8 +304,35 @@ describe('ColorItem', () => {
 
       const state = getGeneratorStore().getState();
 
-      expect(state.colors[1].value).toBe(toOklch('#00ff00'));
+      expect(state.colors[0].value).toBe(toOklch('#00ff00'));
+      // While the override is off, `saturation` is dead state that no reader touches — the
+      // baseline is derived from the live first color, not mirrored into the store.
       expect(state.globalOptions.saturation).toBe(initialSaturation);
+    });
+
+    it('preserves an explicit saturation override when editing the first color', () => {
+      const colorEntry = createColorEntry('Primary', CRIMSON);
+
+      setupStore([colorEntry]);
+
+      const { globalOptions } = getGeneratorStore().getState();
+
+      getGeneratorStore().setState({
+        globalOptions: { ...globalOptions, saturation: 25, saturationOverride: true },
+      });
+
+      render(<ColorItem {...createDefaultProps({ colorEntry, saturationOverride: true })} />);
+
+      fireEvent.change(screen.getByLabelText(/color value/i), { target: { value: '00ff00' } });
+
+      act(() => {
+        vi.advanceTimersByTime(16);
+      });
+
+      const state = getGeneratorStore().getState();
+
+      expect(state.colors[0].value).toBe(toOklch('#00ff00'));
+      expect(state.globalOptions.saturation).toBe(25);
     });
 
     it('captures invalid color values via Sentry without mutating the store', () => {
