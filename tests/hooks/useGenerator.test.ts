@@ -81,6 +81,34 @@ describe('hooks/useGenerator', () => {
       expect(result.current.hasCustomCurves).toBe(true);
     });
 
+    it('hasCustomPaletteOptions ignores saturation while the override is off', () => {
+      const { result } = renderHook(() =>
+        useGenerator('hasCustomPaletteOptions', 'updateGlobalOptions'),
+      );
+
+      expect(result.current.hasCustomPaletteOptions).toBe(false);
+
+      // A saturation left behind by a removed/reordered first color is dead state, not a
+      // customization — it must not light up the Reset button.
+      act(() => {
+        result.current.updateGlobalOptions({ saturation: 25 });
+      });
+
+      expect(result.current.hasCustomPaletteOptions).toBe(false);
+    });
+
+    it('hasCustomPaletteOptions is true when saturation is overridden', () => {
+      const { result } = renderHook(() =>
+        useGenerator('hasCustomPaletteOptions', 'updateGlobalOptions'),
+      );
+
+      act(() => {
+        result.current.updateGlobalOptions({ saturation: 25, saturationOverride: true });
+      });
+
+      expect(result.current.hasCustomPaletteOptions).toBe(true);
+    });
+
     it('returns usedGroups in COLOR_GROUPS order, deduped', () => {
       act(() => {
         getGeneratorStore().getState().addColor(GREEN);

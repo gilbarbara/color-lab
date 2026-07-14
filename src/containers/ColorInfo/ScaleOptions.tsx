@@ -6,11 +6,18 @@ import { CHROMA_PEAK_DEFAULT } from '~/config/scale';
 import useGenerator from '~/hooks/useGenerator';
 import { isCurvePeak, isSameOptionValue } from '~/utils/scale-options';
 
-import type { ColorEntry, GlobalScaleOptions, ScaleOptions as ScaleOptionsType } from '~/types';
+import type {
+  ColorEntry,
+  ColorOverrides,
+  GlobalScaleOptions,
+  ScaleOptions as ScaleOptionsType,
+} from '~/types';
 
 import { SECTION_LABEL } from './constants';
 
 type OptionKey = keyof ScaleOptionsType;
+/** The keys a color can actually override — `saturation` is palette-wide, so it is not one. */
+type OverridableKey = keyof ColorOverrides;
 type RowStatus = 'custom' | 'default' | 'override';
 
 interface Row {
@@ -20,7 +27,8 @@ interface Row {
 }
 
 interface RowPart {
-  keys: ReadonlyArray<OptionKey>;
+  /** Per-color keys backing this value; they derive the status unless `status` is given. */
+  keys: ReadonlyArray<OverridableKey>;
   status?: RowStatus;
   value: string;
 }
@@ -83,7 +91,7 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
   const resolve = <K extends OptionKey>(key: K): GlobalScaleOptions[K] =>
     (options[key] as GlobalScaleOptions[K] | undefined) ?? globalOptions[key];
 
-  const computeStatus = (keys: ReadonlyArray<OptionKey>): RowStatus => {
+  const computeStatus = (keys: ReadonlyArray<OverridableKey>): RowStatus => {
     if (keys.some(k => overrides[k] !== undefined)) {
       return 'override';
     }
@@ -95,8 +103,8 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
     return 'default';
   };
 
-  const showSaturation = globalOptions.saturationOverride || overrides.saturation !== undefined;
-  const saturationValue = overrides.saturation ?? globalOptions.saturation;
+  // Saturation is palette-wide only (no per-color override), and dead state unless overridden.
+  const showSaturation = globalOptions.saturationOverride;
   const mode = resolve('mode');
   const variant = resolve('variant');
   const lock = resolve('lock');
@@ -129,13 +137,10 @@ export default function ScaleOptions({ colorEntry, options }: ScaleOptionsProps)
   if (showSaturation) {
     rows.push({
       label: 'Saturation',
-      parts: [
-        {
-          keys: ['saturation'],
-          status: overrides.saturation !== undefined ? 'override' : 'custom',
-          value: `${saturationValue}%`,
-        },
-      ],
+      // No backing keys: `ColorOverrides` has no `saturation`, so there is nothing per-color to
+      // compare. The row only shows when `saturationOverride` is on, which is itself a departure
+      // from the default — hence a fixed 'custom' rather than a computed status.
+      parts: [{ keys: [], status: 'custom', value: `${globalOptions.saturation}%` }],
     });
   }
 

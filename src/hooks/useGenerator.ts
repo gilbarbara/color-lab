@@ -153,7 +153,11 @@ export default function useGenerator<K extends UsePaletteKey>(
     () =>
       globalOptions && defaultOptions
         ? PALETTE_OPTION_KEYS.some(
-            key => !isSameOptionValue(key, globalOptions[key], defaultOptions[key]),
+            key =>
+              // `saturation` is only live while overridden (see GlobalScaleOptions); a value left
+              // behind by a since-removed first color is dead state, not a customization.
+              (key !== 'saturation' || globalOptions.saturationOverride) &&
+              !isSameOptionValue(key, globalOptions[key], defaultOptions[key]),
           )
         : (undefined as never),
     [globalOptions, defaultOptions],

@@ -63,6 +63,48 @@ describe('Options', () => {
       expect(getGeneratorStore().getState().globalOptions.saturationOverride).toBe(true);
     });
 
+    describe('with a stale saturation left by a removed/reordered first color', () => {
+      const base = createTestPalette(1);
+      const defaultSaturation = base.globalOptions.saturation;
+      const staleSaturation = defaultSaturation === 50 ? 60 : 50;
+
+      beforeEach(() => {
+        getGeneratorStore().setState({
+          ...base,
+          globalOptions: {
+            ...base.globalOptions,
+            saturation: staleSaturation,
+            saturationOverride: false,
+          },
+        });
+      });
+
+      it('shows the current first color saturation, not the stale value', () => {
+        render(<Options />);
+
+        expect(screen.getByRole('slider', { name: /saturation/i })).toHaveValue(
+          String(defaultSaturation),
+        );
+      });
+
+      it('keeps the palette reset disabled', () => {
+        render(<Options />);
+
+        expect(screen.getByRole('button', { name: 'Reset' })).toBeDisabled();
+      });
+
+      it('seeds saturation from the current first color when enabling the override', () => {
+        render(<Options />);
+
+        fireEvent.click(screen.getByRole('switch', { name: /Apply saturation to all colors/ }));
+
+        const { globalOptions } = getGeneratorStore().getState();
+
+        expect(globalOptions.saturationOverride).toBe(true);
+        expect(globalOptions.saturation).toBe(defaultSaturation);
+      });
+    });
+
     it('resets saturation to default when disabling saturationOverride', () => {
       const base = createTestPalette(1);
       const defaultSaturation = base.globalOptions.saturation;

@@ -1,0 +1,133 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ColorInfo/ScaleOptions > Render > renders the default rows 1`] = `
+<div>
+  <div
+    data-overlay-container="true"
+  >
+    <section
+      data-testid="ColorInfo-ScaleOptions"
+    >
+      <p
+        class="text-foreground-500 text-xs uppercase tracking-wide mb-3"
+      >
+        Scale options
+      </p>
+      <dl
+        class="grid grid-cols-2 gap-x-6"
+      >
+        <div
+          class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
+        >
+          <dt
+            class="text-sm text-foreground-600 leading-tight"
+          >
+            Steps
+          </dt>
+          <dd
+            class="flex items-center text-sm text-right gap-1"
+          >
+            <span
+              class="text-foreground"
+            >
+              11
+            </span>
+          </dd>
+        </div>
+        <div
+          class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
+        >
+          <dt
+            class="text-sm text-foreground-600 leading-tight"
+          >
+            Lightness range
+          </dt>
+          <dd
+            class="flex items-center text-sm text-right gap-1"
+          >
+            <span
+              class="text-foreground"
+            >
+              0.26
+            </span>
+            <span
+              class="text-foreground"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="text-foreground"
+            >
+              0.97
+            </span>
+          </dd>
+        </div>
+        <div
+          class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
+        >
+          <dt
+            class="text-sm text-foreground-600 leading-tight"
+          >
+            Lightness curve
+          </dt>
+          <dd
+            class="flex items-center text-sm text-right gap-1"
+          >
+            <span
+              class="text-foreground"
+            >
+              1.3
+            </span>
+          </dd>
+        </div>
+        <div
+          class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
+        >
+          <dt
+            class="text-sm text-foreground-600 leading-tight"
+          >
+            Chroma curve
+          </dt>
+          <dd
+            class="flex items-center text-sm text-right gap-1"
+          >
+            <span
+              class="text-foreground"
+            >
+              0
+            </span>
+          </dd>
+        </div>
+        <div
+          class="flex items-center justify-between gap-1 py-2 border-t border-default-100"
+        >
+          <dt
+            class="text-sm text-foreground-600 leading-tight"
+          >
+            Mode
+          </dt>
+          <dd
+            class="flex items-center text-sm text-right gap-1"
+          >
+            <span
+              class="text-foreground"
+            >
+              light
+            </span>
+          </dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+</div>
+`;
