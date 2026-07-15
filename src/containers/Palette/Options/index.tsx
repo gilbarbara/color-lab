@@ -114,6 +114,8 @@ export default function PaletteOptions() {
 
   const locks = useMemo(() => ['None', ...getScaleStepKeys(steps).map(d => `${d}`)], [steps]);
 
+  const hasInvalidLock = lock && !locks.includes(`${lock}`);
+
   return (
     <div className="border border-default p-4 mt-4 rounded-xl" data-testid="PaletteOptions">
       <div className="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8">
@@ -172,14 +174,20 @@ export default function PaletteOptions() {
             classNames={{
               trigger: cn({
                 'bg-default-200 data-[hover=true]:bg-default-400': !!lock,
+                'bg-warning-400 data-[hover=true]:bg-warning-500 text-black': hasInvalidLock,
+              }),
+              value: cn({
+                'text-black': hasInvalidLock,
               }),
             }}
             data-testid="LockOptions"
             id="lock-select"
             name="lock"
             onSelectionChange={handleChangeLock}
-            placeholder="Select lock"
-            selectedKeys={lock ? [lock.toString()] : []}
+            placeholder={hasInvalidLock ? `${lock} • not in ${steps} steps` : 'Select lock'}
+            // An out-of-range lock isn't in the collection; select nothing (the placeholder
+            // surfaces it) rather than pass a key HeroUI can't resolve — that logs a warning.
+            selectedKeys={lock && !hasInvalidLock ? [lock.toString()] : []}
             size="sm"
           >
             {locks.map(v => (
