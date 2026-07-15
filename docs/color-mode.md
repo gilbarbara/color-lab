@@ -23,7 +23,7 @@ HSL/RGB/HEX are **input affordances and display surfaces**, not storage formats.
 | Axis | Scope | Drives | Persisted in URL? |
 | --- | --- | --- | --- |
 | **Input mode** | per ColorItem (UI ephemeral) | Sliders + text input format | No |
-| **Gamut mode** | global, app-wide | Swatch rendering, tooltip, clipboard copy | No (session-only; see open questions) |
+| **Gamut mode** | global, app-wide | Swatch rendering, tooltip, clipboard copy | No — persisted per-device in `localStorage` |
 | **URL format** | global, fixed | URL path serialization | N/A — always OKLCH |
 
 Each axis is independent. None reads from another. Conflating them is the root cause of past regressions.
@@ -56,20 +56,25 @@ Each axis is independent. None reads from another. Conflating them is the root c
 
 ## 2. Gamut mode
 
-**Location:** Palette header, sibling to the `Options` button.
+**Location:** Palette header → the **Display** popover (`Display Options` trigger), alongside the view switch.
 
 **Values:** `p3` | `srgb`
 
 **Two coupled concepts:**
 
-- **Capability** — static, derived from `window.matchMedia('(color-gamut: p3)')`. Computed once at module load via `isP3Supported()` in `src/utils/gamut.ts`. Never changes within a session.
-- **Active gamut** — user-toggleable when capability is `p3`. Locked to `srgb` when capability is `srgb`. Lives in `appStore.gamut`, initialized to detected capability.
+- **Capability** — static, derived from `window.matchMedia('(color-gamut: p3)')`. Computed once at module load via `isP3Supported()` in `src/utils/gamut.ts`. Never changes within a session. Surfaced as `data-p3-supported` on `<html>`.
+- **Active gamut** — always user-selectable, regardless of capability. Lives in `appStore.gamut` and is persisted. Surfaced as `data-gamut` on `<html>`.
+
+Capability and active gamut are independent: an unverified-P3 display can still be switched to `p3`. Capability only seeds the default and drives an advisory message — it does not gate the control.
 
 **What it controls:**
 
-- `Swatch` `backgroundColor` — raw OKLCH in `p3` mode, sRGB-clipped hex in `srgb` mode
-- Clipboard format on swatch click — `oklch(...)` in `p3` mode, `#RRGGBB` in `srgb` mode
-- Swatch tooltip — same as clipboard
+Painting is **CSS-only**. Every color surface emits both an OKLCH and a hex custom property, and a Tailwind variant picks one — so there is no JS branch on the render path, and therefore no hydration mismatch. Surfaces: `Palette/Swatch.tsx`, `ColorBox.tsx`, `Preview/Header.tsx`, `ContrastGrid/Row.tsx`.
+
+A small number of readers do consume `appStore.gamut` in JS, for text rather than paint:
+
+- `Swatch` — clipboard payload on click, and the tooltip: `oklch(...)` in `p3`, `#RRGGBB` in `srgb`
+- `ExportPalette` — the per-color chip in the selection list (display only; **not** the exported code)
 
 **What it does NOT control:**
 
@@ -77,16 +82,18 @@ Each axis is independent. None reads from another. Conflating them is the root c
 - Input mode in the sidebar (axis #1)
 - URL output (axis #3 — always OKLCH)
 - Generated scale (always OKLCH internally)
+- Export output — the drawer has its own color-format setting (OKLCH / Hex / HSL / RGB), independent of both other axes
 - Color Info modal (always shows side-by-side OKLCH/hex comparison regardless of mode)
 
 **Scope:** Global to the app. All palettes and routes read the same value.
 
-**Default:** Matches detected capability. P3-capable display → `p3`. sRGB-only display → `srgb`.
+**Default:** A persisted `appStore.gamut` wins. With nothing persisted, it matches detected capability — P3-capable display → `p3`, otherwise `srgb`. The pre-paint script in `app/layout.tsx` applies this before React mounts, so the first paint is already correct.
 
-**Toggle UI** (`src/containers/Palette/Header/GamutToggle.tsx`):
+**Toggle UI** (`src/containers/Palette/DisplayMenu/Gamut.tsx`):
 
-- Capability `p3` — `MonitorIcon` button opens a `Dropdown` with `P3` and `SRGB` items (each with a one-line description). Active mode reflected via warning color + exclamation overlay when `srgb`.
-- Capability `srgb` — Inline warning badge `SRGB gamut` with `WarningIcon` and a clickable tooltip explaining the device limitation. No interactive toggle (locked).
+A `RadioGroup` labelled `Color gamut options`, with `P3` ("Wide gamut. Vivid colors.") and `SRGB` ("Standard gamut. Universal compatibility.").
+
+Both options always render and stay enabled. When capability is `srgb`, an advisory line — "We couldn't verify P3 support on your display." — appears below, shown purely in CSS via the `p3-unsupported:` variant (`src/index.css`). It informs; it does not restrict.
 
 **Lossy behavior:** In `srgb` mode, any stored OKLCH outside sRGB is clipped to its nearest sRGB hex at render time. Stored value is unchanged — flipping back to `p3` restores the original wide-gamut color.
 
@@ -141,14 +148,15 @@ Consequences:
 - `src/utils/url.ts` — must never emit HEX form for colors. Always OKLCH. Decoder may continue to _accept_ legacy HEX and 0–1 OKLCH URLs and convert to OKLCH on load (one-way back-compat). `useUrlSync` rewrites the address bar to the canonical OKLCH form on hydration via `window.history.replaceState(null, '', canonicalUrl)` so shared legacy links self-heal.
 
 ---
-
+  
 ## Open questions
 
 These are deferred to follow-up PRs. Doc will be updated when answered.
 
-1. **Should Gamut mode persist?** Today: re-detected on every load. Possible future: URL param (`?g=srgb`) so shared links respect sender's view. Capability is per-device, so localStorage is a poor fit.
-2. **Gamut warning threshold.** Strict (any out-of-sRGB) or perceptual (deltaE > N)? Color Info modal currently flags any out-of-gamut. Inline surface may want to be quieter — flag only clearly visible clipping (deltaE > 2 or > 5).
-3. **Other consumers of `appStore.gamut`.** Currently only `Swatch` responds. Future candidates: ColorItem input row, slider chroma cap, scale generation chroma cap, export-format default. Each is opt-in.
+1. **Gamut warning threshold.** Strict (any out-of-sRGB) or perceptual (deltaE > N)? The Color Info modal currently flags any out-of-gamut step. An inline surface may want to be quieter — flag only clearly visible clipping (deltaE > 2 or > 5).
+2. **Should the gamut travel in the URL?** It persists per-device today, which is right for a display capability. A `?g=srgb` param would additionally let a shared link carry the sender's view. Unresolved because the two intents conflict: the recipient's display is the one that matters.
+
+**Resolved:** gamut persistence. It is persisted (`appStore` `partialize`) and re-applied pre-paint by the bootstrap script in `app/layout.tsx`, so a reload keeps the user's choice rather than re-detecting.
 
 ---
 

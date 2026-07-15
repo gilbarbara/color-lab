@@ -25,11 +25,13 @@ Technical reference for the multi-color palette system.
 |------|---------|
 | `/` | Between colors |
 | `-` | Between name, value, options |
-| `_` | Between L, C, H in OKLCH values |
+| `_` | **Inside** a value only — between L, C, H in OKLCH, and between the components of a curve range/peak |
 | `:` | Between key:value in per-color options |
 | `,` | Between multiple per-color options |
 | `?` | Global options (query params) |
 | `+` | Space in color names |
+
+`_` never appears as a top-level separator, which is what keeps it from colliding with the `,`/`:`/`-` option delimiters.
 
 ### Color Values
 
@@ -46,21 +48,44 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 
 | Short | Full Name          | Type     | Default      |
 |-------|--------------------|----------|--------------|
-| `i`   | steps              | number   | 11           |
-| `n`   | minLightness       | number   | 0.26         |
-| `x`   | maxLightness       | number   | 0.97         |
-| `f`   | lightnessCurve     | number   | 1.3          |
-| `c`   | chromaCurve        | number   | 0            |
-| `s`   | saturation         | number   | (from color) |
+| `i`   | steps              | number (3–20) | 11      |
+| `n`   | minLightness       | number (0–1) | 0.26     |
+| `x`   | maxLightness       | number (0–1) | 0.97     |
+| `f`   | lightnessCurve     | curve (0.1–5) | 1.3     |
+| `c`   | chromaCurve        | curve (0–1)  | 0        |
+| `h`   | hueShift           | curve (±90)  | 0        |
+| `s`   | saturation         | number (0–100) | (from color) |
 | `o`   | saturationOverride | boolean  | false        |
-| `m`   | mode               | `l`/`d`  | `l` (light)  |
-| `k`   | lock               | string   | -            |
-| `v`   | variant            | string   | -            |
+| `m`   | mode               | `l`/`d`/`r` | `l` (light) |
+| `k`   | lock               | number   | -            |
+| `v`   | variant            | enum     | -            |
 | `g`   | group              | `b`/`n`/`s`/`d` | - (ungrouped) |
+
+All keys except `s` and `o` are valid in both places they can appear: the query string (global) and a color segment (per-color override). `s`/`o` are query-only — saturation is palette-wide, so `ColorOverrides` has no such key and a `s:` chunk in a color segment is ignored.
+
+**`m` (mode)** — `l` = light, `d` = dark, `r` = reversed. `MODE_SHORT` in `../src/utils/url.ts` is the single source of truth; `MODE_LONG` and `VALID_MODES` derive from it.
+
+**`s` (saturation)** — only emitted when `o=1`, and only then does it survive a parse (`reconcileSaturation`). With the override off it has no effect on the scale, so writing it would let the store hold a value the URL cannot express. Legacy URLs carrying an inert `s=` are silently dropped on load.
+
+**`k` (lock)** — a step key, not a free string. Reconciled against `getScaleStepKeys(steps)` on parse (`reconcileLock`) and dropped if it isn't one of them, so a lock that doesn't exist at the current step count can never reach `scale()`.
+
+**`v` (variant)** — one of `deep`, `neutral`, `pastel`, `subtle`, `vibrant` (`VALID_VARIANTS`). Anything else drops.
+
+**Curve values (`f`, `c`, `h`)** — all three accept the same three shapes; the shape carries the UI mode (Simple vs Split / movable peak):
+
+| Shape | URL form | Example | Parses to |
+|-------|----------|---------|-----------|
+| scalar | `NUMBER` | `f=1.8` | `number` (Simple) |
+| range | `LOW_HIGH` | `h=0.2_0.8` | `ScaleRange` (Split) |
+| peak | `pAMOUNT_PEAK` | `c=p0.3_0.5` | `ScaleChromaPeak` (**`c` only**) |
+
+For `h` (hueShift), a scalar means symmetric drift. See `serializeCurveOptionValue` / the curve parser in `../src/utils/url.ts`.
 
 `g` rides in the same chunk but is **not a scale option**: it is organizational metadata
 (see [Color Groups](#color-groups)), parsed by `parseGroup` and never routed through
 `OPTION_KEYS` or fed to `scale()`. An unknown code parses as ungrouped.
+
+Out-of-range and unparseable values are dropped silently rather than clamped, so a hand-edited URL can never put type-violating state into the store.
 
 ### URL Examples
 
@@ -81,6 +106,15 @@ OKLCH lightness in URLs is a percentage (`64` = `64%`). The legacy `0_1` form (`
 
 # Color groups (metadata, same chunk as the options)
 /p/Primary-63.269_0.25404_19.902-g:b/Gray-37.91_0_0-x:0.96,g:n
+
+# Reversed mode
+/p/Primary-63.269_0.25404_19.902?m=r
+
+# Curve options: scalar, range (Split), peak (chromaCurve only)
+/p/Primary-63.269_0.25404_19.902?f=1.8&h=0.2_0.8&c=p0.3_0.5
+
+# Locked step + variant
+/p/Primary-63.269_0.25404_19.902?k=500&v=vibrant
 ```
 
 **Legacy input form** (still parsed for back-compat — rewritten to canonical OKLCH in the address bar on load):
@@ -180,12 +214,11 @@ interface GeneratorState {
                                   read ↑↓ act
                                           │
                                  ┌────────▼─────────┐
-                                 │   useGenerator()   │  thin wrapper +
-                                 │                  │  derived values:
-                                 │                  │  - baseSaturation
-                                 │                  │  - defaultOptions
-                                 │                  │  - generatorUrl
-                                 │                  │  - activeColorId
+                                 │   useGenerator() │  keyed selector:
+                                 │                  │  - store fields + actions
+                                 │                  │  - computed values, each
+                                 │                  │    subscribing only to the
+                                 │                  │    slice it needs
                                  └────────┬─────────┘
                                           │
                                           ▼
@@ -196,6 +229,14 @@ interface GeneratorState {
 ```
 
 Components never read `generatorStore` directly — always via `useGenerator`.
+
+### Narrowed subscriptions
+
+`colors` gets a new array identity on every edit — including every frame of a slider drag — so a component that selects it re-renders constantly, even when all it needed was a narrow fact about the palette. `useGenerator` (`../src/hooks/useGenerator.ts`) closes that gap by projecting `colors` down to primitives — the seed value, the color count, the used groups — and deriving each computed value back from its projection. A consumer that needs only the fact subscribes to the fact, not the array, and a value-only edit never reaches it.
+
+`generatorUrl` is the exception: it serializes every color, so it genuinely depends on `colors`.
+
+`COLOR_PROJECTIONS` and `COMPUTED_DEPS` in that file are the source of truth for which keys exist and what each subscribes to — read them rather than a list here. A component that needs the colors only *at click time*, never to render, should skip the subscription entirely and read them from `useGeneratorStoreApi().getState()`, as `AddColor` and `ReorderColors` do.
 
 ### Active color tracking
 
@@ -263,6 +304,7 @@ Called once alongside `useUrlSync`; owns the `?id=` query only (colors are `useU
 | `getEffectiveOptions(color, global)` | Merge global + per-color overrides |
 | `addColor(state, value, name?)` | Add color (max 10) |
 | `removeColor(state, id)` | Remove color (min 1) |
+| `reorderColors(state, orderedIds)` | Reorder by id — unknown ids skipped, ids missing from the list appended; returns the same ref on a no-op |
 | `updateColor(state, id, updates)` | Update color entry |
 | `setColorOverride(state, id, updates)` | Merge per-color overrides (strips keys equal to global) |
 | `clearColorOverrides(state, id)` | Remove all per-color overrides |
@@ -270,7 +312,7 @@ Called once alongside `useUrlSync`; owns the `?id=` query only (colors are `useU
 | `resetGlobalOptions(state)` | Reset to defaults (keeps colors) |
 | `resetPalette()` | Full reset (new random color) |
 
-Also exports the constant `MAX_COLORS = 10`.
+Enforces `MAX_COLORS` (defined in `../src/config/globals.tsx`, imported here — not re-exported).
 
 ### `src/utils/url.ts`
 
@@ -297,7 +339,9 @@ The `saturationOverride` flag controls saturation handling:
 
 - **`saturationOverride: true`**: All colors use the global `saturation` value, overriding their natural saturation.
 
-The `saturation` value is initialized from the first color's chroma (converted to 0-100 percentage).
+`saturation` is seeded from the first color's chroma (as a 0–100 percentage) at the moment the override is enabled, and nothing keeps it in sync afterwards. **Treat it as live only while the override is on.** With the override off it is dead state — a remove or reorder re-bases the color-derived default out from under it — so never read it unguarded; derive the baseline from the current first color via `getDefaultGlobalOptions(colors[0].value)`.
+
+The boundaries enforce this so no reader has to: the URL drops `s=` on serialize and on parse unless `o=1` is set, and `ColorOverrides` has no `saturation` key, so a color can never carry one to de-duplicate against.
 
 ---
 
@@ -326,7 +370,7 @@ The filter also self-heals in two layers, because a group can vanish from the pa
 ## Constraints
 
 - **Min colors**: 1 (cannot remove last color)
-- **Max colors**: 10 (`MAX_COLORS` in `../src/utils/generator.ts`)
+- **Max colors**: 10 (`MAX_COLORS` in `../src/config/globals.tsx`)
 - **Steps range**: Determined by colorizr (typically 3-21)
 - **Lightness range**: 0-1 (minLightness < maxLightness)
 - **Color IDs**: UUIDs assigned by `addColor` / `createPalette`. Not user-facing, not in URLs.
