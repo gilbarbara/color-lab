@@ -105,6 +105,31 @@ describe('Options', () => {
       });
     });
 
+    describe('with a lock that is not a step at the current step count', () => {
+      const base = createTestPalette(1);
+
+      beforeEach(() => {
+        // 300 is a valid step at 11 (the default) but not at 7. Dropping steps leaves the lock
+        // out of range: it stays in state and is surfaced as a warning rather than silently cleared.
+        getGeneratorStore().setState({
+          ...base,
+          globalOptions: { ...base.globalOptions, lock: 300, steps: 7 },
+        });
+      });
+
+      it('flags the out-of-range lock with the step count instead of showing it selected', () => {
+        render(<Options />);
+
+        expect(screen.getByTestId('LockOptions')).toHaveTextContent('300 • not in 7 steps');
+      });
+
+      it('applies the warning styling to the lock trigger', () => {
+        render(<Options />);
+
+        expect(screen.getByTestId('LockOptions')).toHaveClass('bg-warning-400');
+      });
+    });
+
     it('resets saturation to default when disabling saturationOverride', () => {
       const base = createTestPalette(1);
       const defaultSaturation = base.globalOptions.saturation;

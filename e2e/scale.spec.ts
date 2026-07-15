@@ -360,6 +360,39 @@ test('scale', async () => {
     await expect(page).toHaveURL(lacksParams('i', 'o', 's', 'v'));
   });
 
+  await test.step("enable lock 300 and set steps thet don't have it", async () => {
+    await page.getByRole('button', { name: /^select lock/i }).click();
+    await page.getByRole('option', { name: '300', exact: true }).click();
+
+    await expect(page.getByRole('button', { name: /^300 lock/i })).toBeVisible();
+    await expect(page).toHaveURL(hasParams({ k: 300 }));
+
+    const steps = page.locator('input[name="steps"]');
+
+    await steps.press('ArrowLeft');
+    await expect(steps).toHaveValue('10');
+    await expect(page).toHaveURL(hasParams({ i: 10 }));
+
+    await steps.press('ArrowLeft');
+    await expect(steps).toHaveValue('9');
+    await expect(page).toHaveURL(hasParams({ i: 9 }));
+
+    await steps.press('ArrowLeft');
+    await expect(steps).toHaveValue('8');
+    await expect(page).toHaveURL(hasParams({ i: 8 }));
+
+    await steps.press('ArrowLeft');
+    await expect(steps).toHaveValue('7');
+    await expect(page).toHaveURL(hasParams({ i: 7 }));
+
+    await expect(page).toHaveScreenshot(screenshotName('invalid-lock-300.png'));
+
+    await page
+      .getByTestId('PaletteOptions')
+      .getByRole('button', { name: 'Reset', exact: true })
+      .click();
+  });
+
   await test.step('enable lock 500', async () => {
     await page.getByRole('button', { name: /^select lock/i }).click();
     await page.getByRole('option', { name: '500', exact: true }).click();
