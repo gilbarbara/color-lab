@@ -2,16 +2,50 @@
 
 > Generate perceptually uniform OKLCH color scales with multiple colors and contrast checks. Export to Tailwind, CSS, SCSS & SVG. Free and open-source.
 
-ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps are perceptually uniform rather than converted from hex or HSL. It previews colors in wide-gamut P3, supports multiple base colors per palette, checks contrast, and exports to Tailwind, CSS, SCSS, SVG, and other formats. Every feature is free — there is no paywall. The palette lives in the URL, so any palette is shareable by link.
+ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps are perceptually uniform rather than converted from hex or HSL. It previews colors in wide-gamut P3, supports multiple base colors per palette, checks contrast, and exports to code. Every feature is free — there is no paywall. The palette lives in the URL, so any palette is shareable by link.
 
 ## Pages
 
-- [Color palette generator](https://lab.colormeup.co/): The main tool — create and fine-tune OKLCH color scales with control over lightness range, lightness curve, and chroma curve.
+- [Color palette generator](https://lab.colormeup.co/p): The main tool — create and fine-tune OKLCH color scales with control over lightness range, lightness curve, and chroma curve.
+- [OKLCH vs HSL](https://lab.colormeup.co/oklch-vs-hsl): Why OKLCH produces better scales than HSL.
+- [Custom color scales](https://lab.colormeup.co/custom-color-scales): Building custom color scales for a design system.
 - [About](https://lab.colormeup.co/about): What the tool is, how it works, and the OKLCH approach.
 
 ## Key facts
 
 - Color space: OKLCH (perceptually uniform), with wide-gamut P3 preview.
 - Pricing: free and open-source, no account required to use the generator.
-- Outputs: Tailwind, CSS, SCSS, SVG, and more.
+- Export targets: Tailwind 4, Tailwind 3, CSS, SCSS, and SVG — each in OKLCH, HEX, HSL, or RGB notation.
+- Contrast: WCAG 2 and APCA (WCAG 3) contrast grid.
+- Scale presets: Tailwind, Material, Bootstrap, and Open Color.
+- Also: color groups, live component and typography preview, per-color curve overrides, and saved palettes with an account.
 - Built with the [colorizr](https://github.com/gilbarbara/colorizr) library.
+
+## Palette URLs
+
+A palette is fully encoded in the URL — one path segment per color, in order:
+
+```
+https://lab.colormeup.co/p/{Name}-{L}_{C}_{H}/{Name}-{L}_{C}_{H}
+```
+
+`L` is lightness 0–100, `C` is chroma, `H` is hue 0–360 (OKLCH). Example:
+
+```
+https://lab.colormeup.co/p/Primary-60_0.21_150/Secondary-60_0.139_227/Tertiary-60_0.266_304
+```
+
+Optional query params — all have defaults, and invalid values are ignored:
+
+- `i` — steps, 3–20 (default 11)
+- `m` — mode: `l` light (default), `d` dark, `r` reversed
+- `v` — variant: `deep`, `neutral`, `pastel`, `subtle`, `vibrant`
+- `f` — lightness curve, 0.1–5 (default 1.3)
+- `c` — chroma curve, 0–1 (default 0)
+- `h` — hue shift, -90 to 90 (default 0)
+- `n` / `x` — min/max lightness, 0–1 (defaults 0.26 / 0.97)
+- `s` — saturation, 0–100, with `o=1` to apply it to all colors
+- `k` — lock a step, e.g. `k=500`
+- `name` — palette name
+
+The same short keys override options for a single color, comma-separated on that color's segment: `/p/Primary-60_0.21_150-x:0.95,m:d`. Color groups use `g:` with the codes `b` (brand), `n` (neutral), `s` (semantic), and `d` (decorative).

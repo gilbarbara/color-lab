@@ -38,3 +38,5 @@ coverage
 
 # Environment files
 .env
+
+!.claude/*
