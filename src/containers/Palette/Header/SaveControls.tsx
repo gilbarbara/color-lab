@@ -45,6 +45,7 @@ export default function SaveControls() {
 
   const handleClickSave = async () => {
     if (!isAuthenticated) {
+      trackEvent('auth:open', { source: 'save' });
       openLoginModal();
 
       return;

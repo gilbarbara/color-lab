@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import useApp from '~/hooks/useApp';
 import useAuth from '~/hooks/useAuth';
 import { useSavedPalettesList } from '~/hooks/useSavedPalettes';
+import { trackEvent } from '~/utils/analytics';
 import { createPalette } from '~/utils/generator';
 import { serializePaletteToUrl } from '~/utils/url';
 
@@ -58,7 +59,10 @@ export default function Palettes() {
       <Feedback description="Sign in to view your saved palettes" type={null}>
         <Button
           color="primary"
-          onPress={openLoginModal}
+          onPress={() => {
+            trackEvent('auth:open', { source: 'palettes' });
+            openLoginModal();
+          }}
           startContent={<SignInIcon className="text-lg" />}
         >
           Sign In

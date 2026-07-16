@@ -39,7 +39,10 @@ export default function UserMenu() {
         aria-label="Sign In"
         isIconOnly
         isLoading={loading}
-        onPress={openLoginModal}
+        onPress={() => {
+          trackEvent('auth:open', { source: 'menu' });
+          openLoginModal();
+        }}
         size="sm"
         startContent={!loading && <SignInIcon className="h-5 w-5" />}
         variant="light"

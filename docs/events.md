@@ -245,6 +245,7 @@ card (`color:preview`).
 
 | Event | Trigger | Props | Location |
 |---|---|---|---|
+| `auth:open` | Open the login modal | `{ source: 'menu' \| 'save' \| 'palettes' }` | `UserMenu.tsx`, `SaveControls.tsx`, `Palettes/index.tsx` |
 | `auth:login` | Login (any provider) | `{ provider }` | `Login.tsx` |
 | `auth:logout` | Logout | — | `UserMenu.tsx` |
 | `auth:change_tab` | Login / Signup / Magic Link tab | `{ tab }` | `Login.tsx` |
