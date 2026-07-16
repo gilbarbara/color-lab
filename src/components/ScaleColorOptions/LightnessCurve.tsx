@@ -87,9 +87,16 @@ export default function LightnessCurve(props: LightnessCurveProps) {
     }
   };
 
-  const handleChangeEnd = (value: number | number[]) => {
+  const handleChangeEndScalar = (value: number | number[]) => {
     end();
-    trackEvent(`${source}:lightness_curve`, { value: value as number });
+    trackEvent(`${source}:lightness_curve`, { mode: 'scalar', value: value as number });
+  };
+
+  const handleChangeEndHalf = (half: 'low' | 'high') => (value: number | number[]) => {
+    end();
+    const next = { ...range, [half]: value as number };
+
+    trackEvent(`${source}:lightness_curve`, { mode: 'range', low: next.low, high: next.high });
   };
 
   return (
@@ -143,7 +150,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
           minValue={LIGHTNESS_CURVE_MIN}
           name="lightnessCurve"
           onChange={handleChange}
-          onChangeEnd={handleChangeEnd}
+          onChangeEnd={handleChangeEndScalar}
           renderLabel={renderProps => <SliderLabel {...renderProps} />}
           renderValue={renderProps => (
             <SliderValue {...renderProps} defaultValues={[defaultRange.low]} />
@@ -162,7 +169,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
             minValue={LIGHTNESS_CURVE_MIN}
             name="lightnessCurveLow"
             onChange={handleChangeHalf('low')}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndHalf('low')}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[defaultRange.low]} />
@@ -178,7 +185,7 @@ export default function LightnessCurve(props: LightnessCurveProps) {
             minValue={LIGHTNESS_CURVE_MIN}
             name="lightnessCurveHigh"
             onChange={handleChangeHalf('high')}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndHalf('high')}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[defaultRange.high]} />

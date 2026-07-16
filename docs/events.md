@@ -126,15 +126,15 @@ generation config (via the `source` discriminator — see Conventions).
 | `color:options` | Open per-color overrides | — | `ColorList/ColorActions.tsx` |
 | `color:reset` | Reset per-color overrides | — | `ColorList/ColorActions.tsx` |
 | `color:lock` | Lock a step (per-color override) | `{ value }` | `ScaleColorOptions/Lock.tsx` |
-| `color:chroma_curve` | Chroma curve override | `{ value }` | `ScaleColorOptions/ChromaCurve.tsx` |
+| `color:chroma_curve` | Chroma curve override | `{ mode, amount, peak }` (scalar) or `{ mode, low, high }` (range) | `ScaleColorOptions/ChromaCurve.tsx` |
 | `color:chroma_curve_mode` | Chroma curve mode override | `{ mode }` | `ScaleColorOptions/ChromaCurve.tsx` |
 | `color:chroma_curve_reset` | Reset chroma curve field | — | `ScaleColorOptions/ChromaCurve.tsx` |
-| `color:lightness_curve` | Lightness curve override | `{ value }` | `ScaleColorOptions/LightnessCurve.tsx` |
+| `color:lightness_curve` | Lightness curve override | `{ mode, value }` (scalar) or `{ mode, low, high }` (range) | `ScaleColorOptions/LightnessCurve.tsx` |
 | `color:lightness_curve_mode` | Lightness curve mode override | `{ mode }` | `ScaleColorOptions/LightnessCurve.tsx` |
 | `color:lightness_curve_reset` | Reset lightness curve field | — | `ScaleColorOptions/LightnessCurve.tsx` |
 | `color:lightness_range` | Lightness range override | `{ min, max }` | `ScaleColorOptions/LightnessRange.tsx` |
 | `color:lightness_range_reset` | Reset lightness range field | — | `ScaleColorOptions/LightnessRange.tsx` |
-| `color:hue_shift` | Hue shift override | `{ value }` | `ScaleColorOptions/HueShift.tsx` |
+| `color:hue_shift` | Hue shift override | `{ mode, value }` (scalar) or `{ mode, low, high }` (range) | `ScaleColorOptions/HueShift.tsx` |
 | `color:hue_shift_mode` | Hue shift mode override | `{ mode }` | `ScaleColorOptions/HueShift.tsx` |
 | `color:hue_shift_reset` | Reset hue shift field | — | `ScaleColorOptions/HueShift.tsx` |
 
@@ -171,15 +171,15 @@ bulk resets, not a real category boundary.
 | `options:mode` | Scale mode select | `{ value }` | `Palette/Options/index.tsx` |
 | `options:variant` | Variant select | `{ value }` | `Palette/Options/index.tsx` |
 | `options:lock` | Palette-level step lock | `{ value }` | `Palette/Options/index.tsx` |
-| `options:chroma_curve` | Chroma curve | `{ value }` | `ScaleColorOptions/ChromaCurve.tsx` |
+| `options:chroma_curve` | Chroma curve | `{ mode, amount, peak }` (scalar) or `{ mode, low, high }` (range) | `ScaleColorOptions/ChromaCurve.tsx` |
 | `options:chroma_curve_mode` | Chroma curve mode | `{ mode }` | `ScaleColorOptions/ChromaCurve.tsx` |
 | `options:chroma_curve_reset` | Reset Chroma Curve field | — | `ScaleColorOptions/ChromaCurve.tsx` |
-| `options:lightness_curve` | Lightness curve | `{ value }` | `ScaleColorOptions/LightnessCurve.tsx` |
+| `options:lightness_curve` | Lightness curve | `{ mode, value }` (scalar) or `{ mode, low, high }` (range) | `ScaleColorOptions/LightnessCurve.tsx` |
 | `options:lightness_curve_mode` | Lightness curve mode | `{ mode }` | `ScaleColorOptions/LightnessCurve.tsx` |
 | `options:lightness_curve_reset` | Reset Lightness Curve field | — | `ScaleColorOptions/LightnessCurve.tsx` |
 | `options:lightness_range` | Lightness range | `{ min, max }` | `ScaleColorOptions/LightnessRange.tsx` |
 | `options:lightness_range_reset` | Reset Lightness Range field | — | `ScaleColorOptions/LightnessRange.tsx` |
-| `options:hue_shift` | Hue shift | `{ value }` | `ScaleColorOptions/HueShift.tsx` |
+| `options:hue_shift` | Hue shift | `{ mode, value }` (scalar) or `{ mode, low, high }` (range) | `ScaleColorOptions/HueShift.tsx` |
 | `options:hue_shift_mode` | Hue shift mode | `{ mode }` | `ScaleColorOptions/HueShift.tsx` |
 | `options:hue_shift_reset` | Reset Hue Shift field | — | `ScaleColorOptions/HueShift.tsx` |
 | `options:reset_basic` | Reset steps/saturation/mode/variant/lock (bulk) | — | `Palette/Options/index.tsx` |

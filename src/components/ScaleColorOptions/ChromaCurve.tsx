@@ -126,9 +126,38 @@ export default function ChromaCurve(props: ChromaCurveProps) {
     }
   };
 
-  const handleChangeEnd = (value: number | number[]) => {
+  const handleChangeEndAmount = (value: number | number[]) => {
     end();
-    trackEvent(`${source}:chroma_curve`, { value: value as number });
+
+    if (norm.type === 'parabola') {
+      trackEvent(`${source}:chroma_curve`, {
+        mode: 'scalar',
+        amount: value as number,
+        peak: norm.peak,
+      });
+    }
+  };
+
+  const handleChangeEndPeak = (value: number | number[]) => {
+    end();
+
+    if (norm.type === 'parabola') {
+      trackEvent(`${source}:chroma_curve`, {
+        mode: 'scalar',
+        amount: norm.amount,
+        peak: value as number,
+      });
+    }
+  };
+
+  const handleChangeEndRange = (half: 'low' | 'high') => (value: number | number[]) => {
+    end();
+
+    if (norm.type === 'range') {
+      const next = { low: norm.low, high: norm.high, [half]: value as number };
+
+      trackEvent(`${source}:chroma_curve`, { mode: 'range', low: next.low, high: next.high });
+    }
   };
 
   return (
@@ -186,7 +215,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
             maxValue={CHROMA_CURVE_MAX}
             name="chromaAmount"
             onChange={handleChangeAmount}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndAmount}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[defaultScalar]} />
@@ -204,7 +233,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
             minValue={CHROMA_PEAK_MIN}
             name="chromaPeak"
             onChange={handleChangePeak}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndPeak}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[CHROMA_PEAK_DEFAULT]} />
@@ -224,7 +253,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
             maxValue={CHROMA_CURVE_MAX}
             name="chromaLow"
             onChange={handleChangeRange('low')}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndRange('low')}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[rangeDefaults.low]} />
@@ -239,7 +268,7 @@ export default function ChromaCurve(props: ChromaCurveProps) {
             maxValue={CHROMA_CURVE_MAX}
             name="chromaHigh"
             onChange={handleChangeRange('high')}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndRange('high')}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[rangeDefaults.high]} />

@@ -197,7 +197,10 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ lightnessCurve: expected });
-      expect(mockTrackEvent).toHaveBeenCalledWith('options:lightness_curve', { value: expected });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:lightness_curve', {
+        mode: 'scalar',
+        value: expected,
+      });
     });
 
     it('per-slider Reset button calls onUpdate with default value', () => {
@@ -315,6 +318,11 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ lightnessCurve: { low: 1.01, high: 1.5 } });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:lightness_curve', {
+        mode: 'range',
+        low: 1.01,
+        high: 1.5,
+      });
     });
   });
 
@@ -349,7 +357,11 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{PageUp}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: expected });
-      expect(mockTrackEvent).toHaveBeenCalledWith('options:chroma_curve', { value: expected });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:chroma_curve', {
+        mode: 'scalar',
+        amount: expected,
+        peak: 0.5,
+      });
     });
 
     it('Reset button calls onUpdate with default value', () => {
@@ -416,6 +428,11 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{PageUp}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: { amount: 0.4, peak: 0.6 } });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:chroma_curve', {
+        mode: 'scalar',
+        amount: 0.4,
+        peak: 0.6,
+      });
     });
 
     it('Amount keeps the scalar form while the peak is centered', async () => {
@@ -482,6 +499,11 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ chromaCurve: { low: 0.21, high: 0.8 } });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:chroma_curve', {
+        mode: 'range',
+        low: 0.21,
+        high: 0.8,
+      });
     });
 
     it('Reset flips the tab back to Simple (scalar default)', () => {
@@ -534,6 +556,10 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ hueShift: 1 });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:hue_shift', {
+        mode: 'scalar',
+        value: 1,
+      });
     });
 
     it('Simple→Split seeds the symmetric { low, high } pair', async () => {
@@ -634,6 +660,11 @@ describe('ScaleColorOptions', () => {
       await user.keyboard('{ArrowRight}');
 
       expect(onUpdate).toHaveBeenLastCalledWith({ hueShift: { low: 1, high: 0 } });
+      expect(mockTrackEvent).toHaveBeenCalledWith('options:hue_shift', {
+        mode: 'range',
+        low: 1,
+        high: 0,
+      });
     });
   });
 
