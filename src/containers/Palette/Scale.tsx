@@ -69,7 +69,10 @@ function Scale(props: ScaleProps) {
           <ColorBox
             aria-label={`Select ${colorEntry.name}`}
             color={colorEntry.value}
-            onClick={() => scrollToColor(colorEntry.id)}
+            onClick={() => {
+              trackEvent('scale:select');
+              scrollToColor(colorEntry.id);
+            }}
             size="sm"
           />
           <h3 className="font-semibold text-lg leading-none whitespace-nowrap">

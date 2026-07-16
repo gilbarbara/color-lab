@@ -166,6 +166,7 @@ Tools invoked on a single generated ramp row in the palette view.
 
 | Event | Trigger | Props | Location |
 |---|---|---|---|
+| `scale:select` | Activate a color from its scale-row swatch | — | `Palette/Scale.tsx` |
 | `scale:preview` | View live preview of the scale | — | `Preview/Button.tsx` (`source="scale"`) |
 | `scale:group` | Set a group from the scale row (`value: 'none'` unassigns) | `{ value }` | `ColorGroupMenu.tsx` (`source="scale"`) |
 | `scale:charts` | Toggle distribution charts (shift = all) | `{ scope, enabled }` | `ColorCharts/Button.tsx` |
