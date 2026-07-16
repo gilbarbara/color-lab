@@ -61,9 +61,16 @@ export default function HueShift(props: HueShiftProps) {
     }
   };
 
-  const handleChangeEnd = (value: number | number[]) => {
+  const handleChangeEndScalar = (value: number | number[]) => {
     end();
-    trackEvent(`${source}:hue_shift`, { value: value as number });
+    trackEvent(`${source}:hue_shift`, { mode: 'scalar', value: value as number });
+  };
+
+  const handleChangeEndHalf = (half: 'low' | 'high') => (value: number | number[]) => {
+    end();
+    const next = { ...range, [half]: value as number };
+
+    trackEvent(`${source}:hue_shift`, { mode: 'range', low: next.low, high: next.high });
   };
 
   return (
@@ -120,7 +127,7 @@ export default function HueShift(props: HueShiftProps) {
           minValue={-HUE_SHIFT_LIMIT}
           name="hueShift"
           onChange={handleChangeScalar}
-          onChangeEnd={handleChangeEnd}
+          onChangeEnd={handleChangeEndScalar}
           renderLabel={renderProps => <SliderLabel {...renderProps} />}
           renderValue={renderProps => (
             <SliderValue {...renderProps} defaultValues={[defaultRange.high]} />
@@ -139,7 +146,7 @@ export default function HueShift(props: HueShiftProps) {
             minValue={-HUE_SHIFT_LIMIT}
             name="hueShiftLow"
             onChange={handleChangeHalf('low')}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndHalf('low')}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[defaultRange.low]} />
@@ -156,7 +163,7 @@ export default function HueShift(props: HueShiftProps) {
             minValue={-HUE_SHIFT_LIMIT}
             name="hueShiftHigh"
             onChange={handleChangeHalf('high')}
-            onChangeEnd={handleChangeEnd}
+            onChangeEnd={handleChangeEndHalf('high')}
             renderLabel={renderProps => <SliderLabel {...renderProps} />}
             renderValue={renderProps => (
               <SliderValue {...renderProps} defaultValues={[defaultRange.high]} />
