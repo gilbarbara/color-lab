@@ -17,11 +17,15 @@ PostHog, autocapture **off** — every event is manual and curated. All events g
 
 ### Domains
 
-A domain is either a **subject** the action acts on, or the **tool** an interaction acts on
+A domain is either a **subject** the action acts on, or the **tool** an interaction
 happens inside.
 
 **Subjects** (act on the object):
 
+- `app` — global UI chrome and app-level state: theme, layout and panel/menu
+  visibility (sidebar, bottom bar, options panels, display menu), gamut, display
+  capability, and the error boundary. Opening a panel/menu is `app:*`; the controls
+  inside keep their own domain (`options:*`, `palette:view`).
 - `palette` — palette-wide actions: any-user actions (create, share, export, view) plus
   saved-record operations (save, rename, delete, favorite).
 - `color` — a color card in the left sidebar: its value, name, and per-color option
@@ -55,7 +59,7 @@ happens inside.
   edit to one color (`color:group` / `scale:group`, by the surface it was assigned from),
   while *filtering* the palette view by group acts on the palette (`palette:group`).
 
-**Other domains:** `preset`, `auth`, `feedback`, `app`.
+**Other domains:** `preset`, `auth`, `feedback`.
 
 ### Property keys
 
@@ -80,6 +84,24 @@ happens inside.
 normalizes `$current_url`/`$pathname` and drops all `/auth/*` events.
 
 ---
+
+## app
+
+Global UI chrome — theme, layout, and panel/menu visibility — plus display
+capability and the error boundary. Opening a panel is `app:*`; its inner controls
+belong to their own domain.
+
+| Event | Trigger                                                     | Props | Location                        |
+|---|-------------------------------------------------------------|---|---------------------------------|
+| `app:theme` | Dark mode toggle                                            | `{ value: 'dark' \| 'light' }` | `Header.tsx`                    |
+| `app:sidebar` | Toggle the color-list sidebar                               | `{ enabled }` | `Generator/Panel/index.tsx`     |
+| `app:bottombar` | Toggle the mobile bottom bar                                | `{ enabled }` | `Generator/Panel/index.tsx`     |
+| `app:display_menu` | Open the display menu (view & gamut)                        | — | `Palette/DisplayMenu/index.tsx` |
+| `app:palette_options` | Open the Palette Options panel                              | — | `Palette/Options/OptionsButton.tsx` |
+| `app:advanced_options` | Open the Advanced Options panel                             | — | `Generator/AdvancedOptions.tsx` |
+| `app:gamut` | sRGB / P3 toggle                                            | `{ value }` | `Palette/DisplayMenu/Gamut.tsx` |
+| `app:display` | Session start (display P3 capability, once per page load) ¡ | `{ p3_supported }` | `Analytics.tsx`                 |
+| `app:error_action` | Error boundary reset / reload                               | `{ action }` | `ErrorFallback.tsx`             |
 
 ## palette
 
@@ -257,20 +279,6 @@ card (`color:preview`).
 |---|---|---|---|
 | `feedback:open` | Open feedback | — | `Contact.tsx` |
 | `feedback:send` | Feedback sent (POST ok) | — | `Contact.tsx` |
-
-## app
-
-Global UI + error boundary.
-
-| Event | Trigger                                                     | Props | Location                        |
-|---|-------------------------------------------------------------|---|---------------------------------|
-| `app:theme` | Dark mode toggle                                            | `{ value: 'dark' \| 'light' }` | `Header.tsx`                    |
-| `app:sidebar` | Toggle the color-list sidebar                               | `{ enabled }` | `Generator/Panel/index.tsx`     |
-| `app:bottombar` | Toggle the mobile bottom bar                                | `{ enabled }` | `Generator/Panel/index.tsx`     |
-| `app:display_menu` | Open the display menu (view & gamut)                        | — | `Palette/DisplayMenu/index.tsx` |
-| `app:gamut` | sRGB / P3 toggle                                            | `{ value }` | `Palette/DisplayMenu/Gamut.tsx` |
-| `app:display` | Session start (display P3 capability, once per page load) ¡ | `{ p3_supported }` | `Analytics.tsx`                 |
-| `app:error_action` | Error boundary reset / reload                               | `{ action }` | `ErrorFallback.tsx`             |
 
 ---
 

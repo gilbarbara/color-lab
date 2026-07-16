@@ -2,6 +2,7 @@ import { PaletteIcon } from '@phosphor-icons/react';
 
 import useApp from '~/hooks/useApp';
 import useGenerator from '~/hooks/useGenerator';
+import { trackEvent } from '~/utils/analytics';
 
 import Badge from '~/components/Badge';
 import Button from '~/components/Button';
@@ -14,13 +15,21 @@ export default function OptionsButton() {
     'togglePaletteOptionsPanel',
   );
 
+  const handleToggle = () => {
+    if (!showPaletteOptionsPanel) {
+      trackEvent('app:palette_options');
+    }
+
+    togglePaletteOptionsPanel();
+  };
+
   return (
     <Tooltip content="Palette Options" placement="bottom">
       <Button
         aria-expanded={showPaletteOptionsPanel}
         aria-label="Palette Options"
         className="@max-lg:button-menu-square"
-        onPress={togglePaletteOptionsPanel}
+        onPress={handleToggle}
         size="menu"
         startContent={
           <Badge content="" isInvisible={!hasCustomPaletteOptions}>
