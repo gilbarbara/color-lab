@@ -32,6 +32,14 @@ function AdvancedOptions() {
     'updateGlobalOptions',
   );
 
+  const handleToggle = () => {
+    if (!showColorOptionsPanel) {
+      trackEvent('app:advanced_options');
+    }
+
+    toggleColorOptionsPanel();
+  };
+
   const handleClickReset = () => {
     resetAdvancedOptions();
     trackEvent('options:reset_advanced');
@@ -43,7 +51,7 @@ function AdvancedOptions() {
         <Button
           aria-expanded={showColorOptionsPanel}
           className="text-foreground-600"
-          onPress={toggleColorOptionsPanel}
+          onPress={handleToggle}
           size="menu"
           startContent={
             <Badge content="" isInvisible={!hasCustomCurves}>
