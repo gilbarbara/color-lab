@@ -1,4 +1,5 @@
 import { MAX_COLORS } from '~/config/globals';
+import { DESIGN_SYSTEM_PRESETS } from '~/config/presets';
 import { CURVE_OPTION_KEYS } from '~/config/scale';
 import { createColorEntry, createTestPalette, CRIMSON, GREEN, SLATE, WHITE } from '~/test-fixtures';
 import {
@@ -6,6 +7,7 @@ import {
   clearColorOverrides,
   createPalette,
   filterColorsByGroups,
+  getActivePreset,
   getDefaultColorName,
   getDefaultGlobalOptions,
   getEffectiveOptions,
@@ -19,7 +21,7 @@ import {
   updateGlobalOptions,
 } from '~/utils/generator';
 
-import type { GeneratorState } from '~/types';
+import type { GeneratorState, GlobalScaleOptions } from '~/types';
 
 describe('utils/generator', () => {
   describe('getDefaultGlobalOptions', () => {
@@ -31,6 +33,31 @@ describe('utils/generator', () => {
   describe('CURVE_OPTION_KEYS', () => {
     it('includes hueShift', () => {
       expect(CURVE_OPTION_KEYS).toContain('hueShift');
+    });
+  });
+
+  describe('getActivePreset', () => {
+    it('returns null for default options', () => {
+      expect(getActivePreset(getDefaultGlobalOptions(CRIMSON))).toBeNull();
+    });
+
+    it('matches a preset when its curve config is applied', () => {
+      const globalOptions = {
+        ...getDefaultGlobalOptions(CRIMSON),
+        ...DESIGN_SYSTEM_PRESETS.tailwind,
+      } as GlobalScaleOptions;
+
+      expect(getActivePreset(globalOptions)).toBe('tailwind');
+    });
+
+    it('drops the match when a curve key is edited off the preset', () => {
+      const globalOptions = {
+        ...getDefaultGlobalOptions(CRIMSON),
+        ...DESIGN_SYSTEM_PRESETS.tailwind,
+        hueShift: 42,
+      } as GlobalScaleOptions;
+
+      expect(getActivePreset(globalOptions)).toBeNull();
     });
   });
 

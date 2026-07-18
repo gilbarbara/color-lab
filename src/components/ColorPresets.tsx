@@ -8,16 +8,13 @@ import {
 } from '@heroui/react';
 import { CaretDownIcon, EraserIcon, PaintBrushIcon } from '@phosphor-icons/react';
 
-import { DESIGN_SYSTEM_PRESETS } from '~/config/presets';
-import { CURVE_OPTION_KEYS } from '~/config/scale';
+import { DESIGN_SYSTEM_PRESETS, type PresetKey } from '~/config/presets';
 import useGenerator from '~/hooks/useGenerator';
 import { trackEvent } from '~/utils/analytics';
-import { isSameOptionValue } from '~/utils/scale-options';
+import { getActivePreset } from '~/utils/generator';
 
 import Button from '~/components/Button';
 import Tooltip from '~/components/Tooltip';
-
-type PresetKey = keyof typeof DESIGN_SYSTEM_PRESETS;
 
 const presetLabels: Record<PresetKey, string> = {
   tailwind: 'Tailwind',
@@ -35,15 +32,7 @@ export default function ColorPresets() {
 
   // The active preset is derived, not stored: the URL/options stay the single
   // source of truth, so editing any curve key drops the match automatically.
-  const activeKey = useMemo(
-    () =>
-      (Object.keys(DESIGN_SYSTEM_PRESETS) as PresetKey[]).find(name =>
-        CURVE_OPTION_KEYS.every(key =>
-          isSameOptionValue(key, globalOptions[key], DESIGN_SYSTEM_PRESETS[name][key]),
-        ),
-      ) ?? null,
-    [globalOptions],
-  );
+  const activeKey = useMemo(() => getActivePreset(globalOptions), [globalOptions]);
 
   const handleAction = (key: string | number) => {
     const preset = DESIGN_SYSTEM_PRESETS[key as PresetKey];

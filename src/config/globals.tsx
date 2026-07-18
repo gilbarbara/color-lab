@@ -1,4 +1,4 @@
-import type { ColorGroupOptions, ColorSpacingOptions } from '~/types';
+import type { ColorGroupOptions, ColorSpacing, ColorSpacingOptions } from '~/types';
 
 export const APCA_LIGHTNESS_CONTRAST = (
   <span>
@@ -36,6 +36,8 @@ export const COLOR_SPACING: ColorSpacingOptions = {
   },
 };
 
+export const COLOR_SPACING_DEFAULT: ColorSpacing = 'wide';
+
 export const DEFAULT_COLOR_NAMES = [
   'Primary',
   'Secondary',
@@ -49,6 +51,11 @@ export const DEFAULT_COLOR_NAMES = [
   'Color 10',
 ];
 export const DEFAULT_PALETTE_NAME = 'Color Palette';
+
+// How long the app must sit untouched before the idle backstop fires. Covers sessions
+// that never emit a leave signal (tab kill, long-lived tab). Re-arms on every edit, so it
+// fires once a burst of edits has settled rather than on each one.
+export const IDLE_SESSION_MS = 10_000;
 
 export const MAX_COLORS = 10;
 

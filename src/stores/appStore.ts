@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { DEFAULT_PALETTE_NAME, STORAGE_KEY } from '~/config/globals';
+import { COLOR_SPACING_DEFAULT, DEFAULT_PALETTE_NAME, STORAGE_KEY } from '~/config/globals';
 import { detectInitialGamut } from '~/utils/gamut';
 
 import type {
@@ -70,7 +70,7 @@ export interface AppStateWithActions extends AppState {
 export const initialState: AppState = {
   collapseAnimationCount: 0,
   colorScrollRequest: null,
-  colorSpacing: 'wide',
+  colorSpacing: COLOR_SPACING_DEFAULT,
   exportColorFormat: 'oklch',
   exportFormatType: 'tailwind4',
   gamut: detectInitialGamut(),
