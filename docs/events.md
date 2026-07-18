@@ -70,8 +70,24 @@ Global UI chrome — theme, layout, and panel/menu visibility — plus display c
 | **app:error_action** | Error boundary reset / reload | `{ action }` | `ErrorFallback.tsx` |
 | **app:gamut** | sRGB / P3 toggle | `{ value }` | `Palette/DisplayMenu/Gamut.tsx` |
 | **app:palette_options** | Open the Palette Options panel | — | `Palette/Options/OptionsButton.tsx` |
+| **app:session** | Non-interaction snapshot (see below) | _config + UI state_ | `hooks/useSessionSnapshot.ts` |
 | **app:sidebar** | Toggle the color-list sidebar | `{ enabled }` | `Generator/Panel/index.tsx` |
 | **app:theme** | Dark mode toggle | `{ value: 'dark' \| 'light' }` | `Header.tsx` |
+
+### app:session — effective session snapshot
+
+Fires on leave (`pagehide` / tab hidden) with a long-idle backstop that re-arms on each edit, so an engaged session emits **once per distinct settled config** — identical consecutive payloads are deduped (leave + idle don't double-send), but a session that rests on several distinct configs emits one per config. Collapse to the last per `$session_id` in PostHog for session-level counts. Gated to sessions that touched the tool (custom config, overrides, extra colors, or groups) so pure browsers never emit. Endpoint semantics: the *settled* config + which persistent surfaces are still in use — a resting-state photograph, deliberately **not** a re-encoding of the interaction events.
+
+Props are built by `buildSessionSnapshotProps` (`utils/sessionSnapshot.ts`), flattened to scalars:
+
+- **Scale config** (raw values) — `steps`, `mode`, `min_lightness`, `max_lightness`, `lock?`, `variant?`, `saturation_override`, `saturation?`; curves as `{chroma_curve,lightness_curve,hue_shift}_mode` (`scalar`/`range`) with the shape's values (`chroma_curve_amount`/`chroma_curve_peak` or `*_low`/`*_high`, `*_value`).
+- **Customization adoption** (global config vs default — the `options:*` axis) — a `<feature>_customized` boolean per config feature (`steps`, `mode`, `lock`, `variant`, `lightness_range`, `lightness_curve`, `chroma_curve`, `hue_shift`, `color_spacing`). `lightness_range` collapses both bounds (one two-handle control → one flag/one count unit, so it isn't weighted double). Plus `customized_count` (how many knobs moved off default; saturation counts via `saturation_override`) and `has_customizations` (`customized_count > 0`, paralleling `has_overrides`). These are the "which features are actually used" flags — a knob is *used* only when it differs from its default, so query `<knob>_customized = true`, not the raw value. **Caveat:** the flag is frozen at capture time against the then-current defaults; changing a default later creates a discontinuity on that flag (the raw values above are the escape hatch to recompute uniformly — except `saturation`, whose default is per-color and not in the payload).
+- **Override adoption** (per-color overrides, not values — the `color:*` axis) — `has_overrides`, `overridden_color_count` (how many colors), `overridden_count` (total override entries — a color overriding two knobs counts twice, the per-color depth analog to `customized_count`), and `<knob>_overridden` booleans over the knobs the per-color UI can actually override (`chroma_curve`, `hue_shift`, `lightness_curve`, `lock`, `min_lightness`, `max_lightness`). `steps`/`mode`/`variant` are palette-wide (no per-color override surface), so they get no `_overridden` flag even though the URL grammar can technically carry them. Distinct from `_customized`: a global slider change sets `_customized`, overriding a single color card sets `_overridden`.
+- **Composition** — `color_count`, `has_groups`, `group_count`, `color_spacing`, `active_preset` (`none` when unmatched).
+- **Persistent UI** ("effectively using") — `view`, `gamut`, `theme`, and a `<surface>_shown` boolean per toggleable surface (`sidebar`, `bottom_bar`, `preview`, `advanced_options`, `palette_options`, `charts`), plus `group_filter_active` (a filter engaged, not a shown surface).
+- **Context** — `palette_saved`, `is_authenticated`.
+
+Transient surfaces (contrast, info, export, menus) are never open at leave, so their usage stays answerable from their own open-events, session-scoped.
 
 ## auth
 

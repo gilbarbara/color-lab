@@ -30,3 +30,5 @@ export const DESIGN_SYSTEM_PRESETS = {
     hueShift: 0,
   },
 } satisfies Record<string, Partial<GlobalScaleOptions>>;
+
+export type PresetKey = keyof typeof DESIGN_SYSTEM_PRESETS;

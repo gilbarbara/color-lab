@@ -4,6 +4,7 @@ import { Divider } from '@heroui/react';
 
 import useGroupFilterSync from '~/hooks/useGroupFilterSync';
 import usePaletteIdSync from '~/hooks/usePaletteIdSync';
+import useSessionSnapshot from '~/hooks/useSessionSnapshot';
 import useUrlSync from '~/hooks/useUrlSync';
 
 import AppIntro from '~/components/AppIntro';
@@ -22,6 +23,8 @@ export default function Generator() {
   // Retires group filters whose group no longer exists — runs here, not in GroupToolbar,
   // because that unmounts in preview view and the filter would survive unpruned.
   useGroupFilterSync();
+  // Emits the once-per-engaged-session `app:session` config/UI snapshot on leave.
+  useSessionSnapshot();
 
   return (
     <div

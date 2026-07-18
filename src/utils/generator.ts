@@ -6,6 +6,7 @@ import {
   DEFAULT_PALETTE_NAME,
   MAX_COLORS,
 } from '~/config/globals';
+import { DESIGN_SYSTEM_PRESETS, type PresetKey } from '~/config/presets';
 import {
   CHROMA_CURVE_DEFAULT,
   CURVE_OPTION_KEYS,
@@ -17,7 +18,7 @@ import {
   STEPS_DEFAULT,
 } from '~/config/scale';
 import { getChromaAsPercentage, getRandomColor } from '~/utils/color';
-import { isStructurallyEqualOption } from '~/utils/scale-options';
+import { isSameOptionValue, isStructurallyEqualOption } from '~/utils/scale-options';
 
 import type {
   ColorEntry,
@@ -81,6 +82,21 @@ export function filterColorsByGroups(colors: ColorEntry[], groups: ColorGroup[])
   const selected = new Set(groups);
 
   return colors.filter(color => color.group !== undefined && selected.has(color.group));
+}
+
+/**
+ * The design-system preset whose curve config the palette currently matches, or null.
+ * Derived, not stored: editing any curve key drops the match (the URL/options stay the
+ * single source of truth). Presets only define CURVE_OPTION_KEYS.
+ */
+export function getActivePreset(globalOptions: GlobalScaleOptions): PresetKey | null {
+  return (
+    (objectKeys(DESIGN_SYSTEM_PRESETS) as PresetKey[]).find(name =>
+      CURVE_OPTION_KEYS.every(key =>
+        isSameOptionValue(key, globalOptions[key], DESIGN_SYSTEM_PRESETS[name][key]),
+      ),
+    ) ?? null
+  );
 }
 
 /**
