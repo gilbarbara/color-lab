@@ -17,6 +17,7 @@ export default defineConfig({
       include: ['src/**'],
       exclude: [
         'src/index.css',
+        'src/types/**/*',
         'src/**/types.ts',
         'src/components/Field/**/*',
         'src/containers/Generator/index.tsx',
