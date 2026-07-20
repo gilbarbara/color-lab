@@ -8,6 +8,11 @@ exports[`pages/About > renders correctly 1`] = `
   <div
     class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8"
   >
+    <script
+      type="application/ld+json"
+    >
+      {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ColorMeUp LAB","applicationCategory":"DesignApplication","operatingSystem":"Web","description":"Open-source design tool for creating perceptual color scales in OKLCH, with control over lightness, chroma, steps, and curves.","url":"https://lab.colormeup.co","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"sameAs":["https://github.com/gilbarbara/color-lab"]}
+    </script>
     <h1
       class="text-4xl font-bold mb-8"
     >
@@ -27,7 +32,15 @@ exports[`pages/About > renders correctly 1`] = `
         It’s built for designers and developers who need control over how a scale behaves: lightness range and distribution, chroma handling, hue shift, number of steps, and how a scale responds to constraints like locks and curves. You shape the scale directly and see the impact of each adjustment in real time.
       </p>
       <p>
-        See
+        It builds color scales, not palettes —
+         
+        <a
+          class="underline"
+          href="/color-scale-vs-palette"
+        >
+          what’s the difference
+        </a>
+        ? See
          
         <a
           class="underline"

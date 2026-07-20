@@ -1,10 +1,31 @@
 import Link from 'next/link';
 
+import { SITE_NAME, SITE_URL } from '~/config/metadata';
+
 import Page from '~/components/Page';
+
+// JSON-LD describing the app itself; keep name/description in sync with the visible copy and page metadata.
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: SITE_NAME,
+  applicationCategory: 'DesignApplication',
+  operatingSystem: 'Web',
+  description:
+    'Open-source design tool for creating perceptual color scales in OKLCH, with control over lightness, chroma, steps, and curves.',
+  url: SITE_URL,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
+  sameAs: ['https://github.com/gilbarbara/color-lab'],
+};
+
+const jsonLdHtml = JSON.stringify(JSON_LD);
 
 export default function About() {
   return (
     <Page data-testid="About">
+      {/* eslint-disable-next-line react/no-danger */}
+      <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
       <h1 className="text-4xl font-bold mb-8">ColorMeUp LAB</h1>
 
       <p className="mb-6">A design tool for creating and fine-tuning perceptual color scales.</p>
@@ -18,7 +39,11 @@ export default function About() {
         </p>
 
         <p>
-          See{' '}
+          It builds color scales, not palettes —{' '}
+          <Link className="underline" href="/color-scale-vs-palette">
+            what’s the difference
+          </Link>
+          ? See{' '}
           <Link className="underline" href="/custom-color-scales">
             Custom Color Scales
           </Link>{' '}

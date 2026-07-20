@@ -11,7 +11,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
     <script
       type="application/ld+json"
     >
-      [{"@context":"https://schema.org","@type":"TechArticle","headline":"OKLCH vs HSL","description":"Why OKLCH beats HSL for color scales: perceptual lightness, hue stability, and cleaner gradients, compared side by side.","about":["OKLCH","HSL","perceptual color","color scales"],"mainEntityOfPage":"https://lab.colormeup.co/oklch-vs-hsl","url":"https://lab.colormeup.co/oklch-vs-hsl","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-06-10","dateModified":"2026-06-23"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is OKLCH better than HSL?","acceptedAnswer":{"@type":"Answer","text":"For building color scales, yes — OKLCH keeps lightness and hue predictable, so the steps look evenly spaced. For a quick one-off tweak, HSL is still perfectly fine. They solve different problems."}},{"@type":"Question","name":"Do all browsers support OKLCH?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every major browser has supported the oklch() CSS function since 2023 (Chrome and Edge 111, Safari 15.4, Firefox 113). For older browsers you can ship a hex or RGB fallback alongside it."}},{"@type":"Question","name":"Can I use OKLCH with Tailwind CSS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tailwind CSS v4 already defines its default palette in OKLCH, and you can drop oklch() values straight into your theme. This tool exports scales as Tailwind config, CSS variables, SCSS, and SVG."}}]}]
+      [{"@context":"https://schema.org","@type":"TechArticle","headline":"OKLCH vs HSL","description":"Why OKLCH beats HSL for color scales: perceptual lightness, hue stability, and cleaner gradients, compared side by side.","about":["OKLCH","HSL","perceptual color","color scales"],"mainEntityOfPage":"https://lab.colormeup.co/oklch-vs-hsl","url":"https://lab.colormeup.co/oklch-vs-hsl","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-06-10","dateModified":"2026-07-20"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is OKLCH better than HSL?","acceptedAnswer":{"@type":"Answer","text":"For building color scales, yes — OKLCH keeps lightness and hue predictable, so the steps look evenly spaced. For a quick one-off tweak, HSL is still perfectly fine. They solve different problems."}},{"@type":"Question","name":"Do all browsers support OKLCH?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every major browser has supported the oklch() CSS function since 2023 (Chrome and Edge 111, Safari 15.4, Firefox 113). For older browsers you can ship a hex or RGB fallback alongside it."}},{"@type":"Question","name":"Can I use OKLCH with Tailwind CSS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tailwind CSS v4 already defines its default palette in OKLCH, and you can drop oklch() values straight into your theme. This tool exports scales as Tailwind config, CSS variables, SCSS, and SVG."}}]}]
     </script>
     <h1
       class="text-4xl font-bold mb-8"
@@ -534,6 +534,20 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
         </a>
          
         for shaping it into something with character.
+      </p>
+      <p
+        class="mt-4"
+      >
+        New to the distinction?
+         
+        <a
+          class="underline"
+          href="/color-scale-vs-palette"
+        >
+          Color Scale vs Palette
+        </a>
+         
+        explains what a scale is and compares the tools that build one.
       </p>
     </div>
     <h2
