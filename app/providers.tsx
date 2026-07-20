@@ -34,7 +34,7 @@ function AppShell({ children }: { children: ReactNode }) {
     <div className="flex flex-col items-stretch min-h-screen">
       <AppStoreSync />
       <Header />
-      <main className="flex flex-col pt-16 items-stretch flex-1">
+      <main className="flex flex-col not-print:pt-16 items-stretch flex-1">
         <Sentry.ErrorBoundary
           key={routeKey}
           fallback={({ error, eventId, resetError }) => (

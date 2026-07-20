@@ -87,7 +87,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
+      className="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default print:hidden"
       data-testid="Header"
     >
       <div className="flex items-center w-full max-w-432 mx-auto px-4">
