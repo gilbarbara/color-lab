@@ -74,7 +74,7 @@ const JSON_LD = [
     author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
     publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
     datePublished: '2026-06-10',
-    dateModified: '2026-06-23',
+    dateModified: '2026-07-20',
   },
   {
     '@context': 'https://schema.org',
@@ -269,6 +269,13 @@ export default function OklchVsHsl() {
             Custom Color Scales
           </Link>{' '}
           for shaping it into something with character.
+        </p>
+        <p className="mt-4">
+          New to the distinction?{' '}
+          <Link className="underline" href="/color-scale-vs-palette">
+            Color Scale vs Palette
+          </Link>{' '}
+          explains what a scale is and compares the tools that build one.
         </p>
       </div>
 

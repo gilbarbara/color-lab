@@ -27,6 +27,11 @@ exports[`Footer > renders correctly 1`] = `
         Custom Color Scales
       </a>
       <a
+        href="/color-scale-vs-palette"
+      >
+        Color Scale vs Palette
+      </a>
+      <a
         href="/privacy"
       >
         Privacy

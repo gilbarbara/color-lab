@@ -11,13 +11,18 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
     <script
       type="application/ld+json"
     >
-      {"@context":"https://schema.org","@type":"TechArticle","headline":"Color Scales That Don't Look Generated","description":"Shape color scales in OKLCH: control lightness range, lightness and chroma curves, and hue shift to build palettes with character — not flat, generated tints.","about":["OKLCH","color scales","lightness range","lightness curve","chroma curve","hue shift","design systems"],"mainEntityOfPage":"https://lab.colormeup.co/custom-color-scales","url":"https://lab.colormeup.co/custom-color-scales","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-06-22","dateModified":"2026-06-25"}
+      {"@context":"https://schema.org","@type":"TechArticle","headline":"Custom Color Scales in OKLCH","description":"Build custom color scales in OKLCH — shape lightness range, chroma and hue curves for perceptually even palettes, not flat generated tints.","about":["OKLCH","color scales","perceptually uniform","lightness range","lightness curve","chroma curve","hue shift","design systems"],"mainEntityOfPage":"https://lab.colormeup.co/custom-color-scales","url":"https://lab.colormeup.co/custom-color-scales","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-06-22","dateModified":"2026-07-20"}
     </script>
     <h1
-      class="text-3xl lg:text-4xl font-bold mb-8"
+      class="text-3xl lg:text-4xl font-bold mb-2"
     >
-      Color Scales That Don't Look Generated
+      Custom Color Scales in OKLCH
     </h1>
+    <p
+      class="text-xl text-foreground mb-8"
+    >
+      Scales that don't look generated
+    </p>
     <div
       class="space-y-3 mb-8"
     >
@@ -1189,7 +1194,23 @@ exports[`pages/CustomColorScales > renders correctly 1`] = `
         </i>
          one. That's where taste lives, and where the fun is.
         <br />
-        The real playground is the generator.
+        The real playground is the
+         
+        <a
+          class="underline"
+          href="/p/Primary-62.3_0.214_259.82"
+        >
+          OKLCH color palette generator
+        </a>
+        , or step back to
+         
+        <a
+          class="underline"
+          href="/color-scale-vs-palette"
+        >
+          Color Scale vs Palette
+        </a>
+        .
       </p>
     </div>
     <p>

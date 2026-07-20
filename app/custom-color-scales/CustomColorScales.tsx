@@ -25,12 +25,13 @@ const PAGE_URL = `${SITE_URL}/custom-color-scales`;
 const JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
-  headline: "Color Scales That Don't Look Generated",
+  headline: 'Custom Color Scales in OKLCH',
   description:
-    'Shape color scales in OKLCH: control lightness range, lightness and chroma curves, and hue shift to build palettes with character — not flat, generated tints.',
+    'Build custom color scales in OKLCH — shape lightness range, chroma and hue curves for perceptually even palettes, not flat generated tints.',
   about: [
     'OKLCH',
     'color scales',
+    'perceptually uniform',
     'lightness range',
     'lightness curve',
     'chroma curve',
@@ -42,7 +43,7 @@ const JSON_LD = {
   author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
   publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
   datePublished: '2026-06-22',
-  dateModified: '2026-06-25',
+  dateModified: '2026-07-20',
 };
 
 const jsonLdHtml = JSON.stringify(JSON_LD);
@@ -52,9 +53,8 @@ export default function CustomColorScales() {
     <Page className="@container" data-testid="CustomColorScales">
       {/* eslint-disable-next-line react/no-danger */}
       <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
-      <h1 className="text-3xl lg:text-4xl font-bold mb-8">
-        Color Scales That Don't Look Generated
-      </h1>
+      <h1 className="text-3xl lg:text-4xl font-bold mb-2">Custom Color Scales in OKLCH</h1>
+      <p className="text-xl text-foreground mb-8">Scales that don't look generated</p>
 
       <div className="space-y-3 mb-8">
         <p>
@@ -195,7 +195,15 @@ export default function CustomColorScales() {
           So the goal was never to <i>generate</i> a scale, but to <i>make</i> one. That's where
           taste lives, and where the fun is.
           <br />
-          The real playground is the generator.
+          The real playground is the{' '}
+          <Link className="underline" href={generatorHref}>
+            OKLCH color palette generator
+          </Link>
+          , or step back to{' '}
+          <Link className="underline" href="/color-scale-vs-palette">
+            Color Scale vs Palette
+          </Link>
+          .
         </p>
       </div>
 

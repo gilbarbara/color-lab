@@ -1,0 +1,2000 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`pages/ColorScaleVsPalette > renders correctly 1`] = `
+<div
+  class="flex flex-col flex-1"
+  data-testid="ColorScaleVsPalette"
+>
+  <div
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8"
+  >
+    <script
+      type="application/ld+json"
+    >
+      {"@context":"https://schema.org","@type":"TechArticle","headline":"Color Scale vs Palette: 6 scale generators, compared","description":"What a color scale is, how it differs from a palette, and how six tools that build one (tints.dev, uicolors, Leonardo, Huetone, hihayk, ColorMeUp Lab) compare.","about":["color scale generator","color scale vs palette","OKLCH","50-950","design systems","Tailwind CSS","WCAG","APCA"],"mainEntityOfPage":"https://lab.colormeup.co/color-scale-vs-palette","url":"https://lab.colormeup.co/color-scale-vs-palette","author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"publisher":{"@type":"Organization","name":"ColorMeUp LAB","url":"https://lab.colormeup.co"},"datePublished":"2026-07-20","dateModified":"2026-07-20"}
+    </script>
+    <h1
+      class="text-3xl lg:text-4xl font-bold mb-1"
+    >
+      Color scale vs palette
+    </h1>
+    <p
+      class="text-xl text-foreground mb-4"
+    >
+      A palette is a set of colors. A scale is one color, in every tone you need.
+    </p>
+    <div
+      class="mb-4"
+    >
+      <p>
+        Search "color scale generator" and half the results hand you a 
+        <em>
+          palette
+        </em>
+         tool: a set of pretty, unrelated colors. That’s a different job.
+      </p>
+      <p>
+        This guide covers the tools that do the real one, each run through the same brief, with the facts side by side.
+      </p>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      A scale is not a palette
+    </h2>
+    <div
+      class="space-y-3 mb-6"
+    >
+      <p>
+        A 
+        <strong>
+          color scale
+        </strong>
+         is one hue resolved into an ordered ramp of tones: the
+         
+        <span
+          class="font-mono text-sm"
+        >
+          50, 100, … 900, 950
+        </span>
+         steps you assign to backgrounds, borders, text, and states. A 
+        <strong>
+          palette
+        </strong>
+         picks colors that sit
+         
+        <em>
+          beside
+        </em>
+         each other. A scale generates tones that sit 
+        <em>
+          along
+        </em>
+         one. Theme an app or build a design system and you need scales, and far fewer tools make them well.
+      </p>
+    </div>
+    <div
+      class="space-y-4 mb-8"
+    >
+      <div>
+        <p
+          class="font-semibold mb-2"
+        >
+          Scale: one hue, ordered by tone
+        </p>
+        <div
+          class="grid grid-cols-11 gap-1"
+        >
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.97 0.02 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.92 0.05 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.84 0.1 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.74 0.16 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.64 0.21 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.55 0.22 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.48 0.19 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.4 0.16 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.33 0.13 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.26 0.1 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.2 0.07 264);"
+          />
+        </div>
+      </div>
+      <div>
+        <p
+          class="font-semibold mb-2"
+        >
+          Palette: distinct hues, side by side
+        </p>
+        <div
+          class="grid grid-cols-6 gap-1 sm:max-w-[55%]"
+        >
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.62 0.21 264);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.7 0.14 195);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.75 0.16 150);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.82 0.15 90);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.65 0.2 30);"
+          />
+          <div
+            class="aspect-square rounded-md"
+            style="background: oklch(0.55 0.2 330);"
+          />
+        </div>
+      </div>
+    </div>
+    <p
+      class="mb-8"
+    >
+      A palette isn’t the wrong tool, just the answer to a different question: picking brand accents, art-directing an illustration, setting a mood, where distinct hues are the whole point. A scale takes over the moment one of those colors has to become a full, usable range.
+    </p>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      What a good scale demands
+    </h2>
+    <div
+      class="space-y-6 mb-8"
+    >
+      <div>
+        <p>
+          <strong>
+            Perceptual evenness.
+          </strong>
+           Steps that look equally spaced to the eye, not just even on paper.
+        </p>
+        <p>
+          OKLCH gets this right where HSL falls apart: a yellow and a blue at the same "lightness" look nothing alike.
+           
+          <a
+            class="underline"
+            href="/oklch-vs-hsl"
+          >
+            Why OKLCH wins
+          </a>
+          .
+        </p>
+      </div>
+      <div>
+        <p>
+          <strong>
+            Character, on purpose.
+          </strong>
+           Evenness is only the floor.
+        </p>
+        <p>
+          Shape the scale past it with lightness range and curve, chroma, and a little hue shift, or it comes out mechanical.
+           
+          <a
+            class="underline"
+            href="/custom-color-scales"
+          >
+            How to shape one
+          </a>
+          .
+        </p>
+      </div>
+      <div>
+        <p>
+          <strong>
+            Contrast you can trust.
+          </strong>
+           Your text has to clear a real threshold.
+        </p>
+        <p>
+          WCAG 2 is the legal floor, but it overstates contrast near black, exactly where dark-mode ramps live, so a step can pass WCAG and still fail APCA. Check both.
+        </p>
+      </div>
+      <div>
+        <p>
+          <strong>
+            Survival on a real screen.
+          </strong>
+           OKLCH lets you pick vivid colors that reach into P3, past what most sRGB monitors show.
+        </p>
+        <p>
+          Skip the gamut check and a step that looks great on your laptop clips and shifts on someone else’s screen.
+        </p>
+      </div>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      The tools that do this
+    </h2>
+    <div
+      class="space-y-1 mb-8"
+    >
+      <p>
+        These six build scales, not palettes. Each went through the same brief: a primary, a neutral, and an error scale from a single seed.
+      </p>
+      <p>
+        The differences below come from the tool, not the task.
+      </p>
+    </div>
+    <div
+      class="flex flex-col gap-12 mb-8"
+    >
+      <article
+        class="flex flex-col xl:flex-row gap-4"
+      >
+        <figure
+          class="xl:w-1/2 shrink-0 border border-default rounded-large overflow-hidden"
+        >
+          <img
+            alt="tints.dev on first load"
+            class="w-full h-auto block"
+            data-nimg="1"
+            decoding="async"
+            height="475"
+            loading="lazy"
+            src="/_next/image?url=%2Fimages%2Fcomparison%2Ftints.png&w=1920&q=75"
+            srcset="/_next/image?url=%2Fimages%2Fcomparison%2Ftints.png&w=1080&q=75 1x, /_next/image?url=%2Fimages%2Fcomparison%2Ftints.png&w=1920&q=75 2x"
+            style="color: transparent;"
+            width="960"
+          />
+        </figure>
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="underline"
+              href="https://www.tints.dev/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              tints.dev
+            </a>
+          </h3>
+          <div
+            class="mb-2"
+          >
+            <p>
+              A Tailwind-first generator with a public API: paste a color, get an 11-step 50–950 ramp, and pull it into a build over HTTP.
+            </p>
+            <p>
+              It works in a perceptual mode and outputs Tailwind 3 config or Tailwind 4 @theme in oklch, hex, p3, or hsl, with several named palettes at once. Open source, free, and about as fast as this gets.
+            </p>
+          </div>
+          <p>
+            <strong>
+              Speed over checks.
+            </strong>
+             
+            No contrast or gamut tooling, and you judge the ramp as swatches and a distribution plot, never on your own interface.
+          </p>
+        </div>
+      </article>
+      <article
+        class="flex flex-col xl:flex-row gap-4"
+      >
+        <figure
+          class="xl:w-1/2 shrink-0 border border-default rounded-large overflow-hidden"
+        >
+          <img
+            alt="uicolors on first load"
+            class="w-full h-auto block"
+            data-nimg="1"
+            decoding="async"
+            height="475"
+            loading="lazy"
+            src="/_next/image?url=%2Fimages%2Fcomparison%2Fuicolors.png&w=1920&q=75"
+            srcset="/_next/image?url=%2Fimages%2Fcomparison%2Fuicolors.png&w=1080&q=75 1x, /_next/image?url=%2Fimages%2Fcomparison%2Fuicolors.png&w=1920&q=75 2x"
+            style="color: transparent;"
+            width="960"
+          />
+        </figure>
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="underline"
+              href="https://uicolors.app/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              uicolors
+            </a>
+          </h3>
+          <div
+            class="mb-2"
+          >
+            <p>
+              A polished Tailwind generator with the best previews in the set: your ramp rendered live across cards, dashboards, marketing layouts, and shadcn/ui components.
+            </p>
+            <p>
+              It anchors your color to the nearest step and splits work into Brand, Neutral, and Status scales with semantic naming. It looks like a full multi-scale system, and on the free tier you can see most of it without building it.
+            </p>
+          </div>
+          <p>
+            <strong>
+              Most of it is Pro.
+            </strong>
+             
+            A second scale, the contrast matrix, and CSS/oklch export are paywalled, so the free tier is one good-looking ramp.
+          </p>
+        </div>
+      </article>
+      <article
+        class="flex flex-col xl:flex-row gap-4"
+      >
+        <figure
+          class="xl:w-1/2 shrink-0 border border-default rounded-large overflow-hidden"
+        >
+          <img
+            alt="Leonardo on first load"
+            class="w-full h-auto block"
+            data-nimg="1"
+            decoding="async"
+            height="475"
+            loading="lazy"
+            src="/_next/image?url=%2Fimages%2Fcomparison%2Fleonardo.png&w=1920&q=75"
+            srcset="/_next/image?url=%2Fimages%2Fcomparison%2Fleonardo.png&w=1080&q=75 1x, /_next/image?url=%2Fimages%2Fcomparison%2Fleonardo.png&w=1920&q=75 2x"
+            style="color: transparent;"
+            width="960"
+          />
+        </figure>
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="underline"
+              href="https://leonardocolor.io/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Leonardo
+            </a>
+          </h3>
+          <div
+            class="mb-2"
+          >
+            <p>
+              Adobe-born and open source, Leonardo runs the process backwards: instead of picking colors and checking them, you set a WCAG contrast target for each step and it solves the color that hits it against a chosen background.
+            </p>
+            <p>
+              It interpolates through key colors in CAM02, Lab, or OKLCH, and exports CSS custom properties, W3C design tokens, or JS. The same engine also ships as an npm library.
+            </p>
+          </div>
+          <p>
+            <strong>
+              You think like a color scientist.
+            </strong>
+             
+            It works in key colors, interpolation curves, and steps named by contrast rather than 50–950, and you judge the result on charts instead of a live interface.
+          </p>
+        </div>
+      </article>
+      <article
+        class="flex flex-col xl:flex-row gap-4"
+      >
+        <figure
+          class="xl:w-1/2 shrink-0 border border-default rounded-large overflow-hidden"
+        >
+          <img
+            alt="Huetone on first load"
+            class="w-full h-auto block"
+            data-nimg="1"
+            decoding="async"
+            height="475"
+            loading="lazy"
+            src="/_next/image?url=%2Fimages%2Fcomparison%2Fhuetone.png&w=1920&q=75"
+            srcset="/_next/image?url=%2Fimages%2Fcomparison%2Fhuetone.png&w=1080&q=75 1x, /_next/image?url=%2Fimages%2Fcomparison%2Fhuetone.png&w=1920&q=75 2x"
+            style="color: transparent;"
+            width="960"
+          />
+        </figure>
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="underline"
+              href="https://huetone.ardov.me/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Huetone
+            </a>
+          </h3>
+          <div
+            class="mb-2"
+          >
+            <p>
+              A perceptual-tuning workbench built around one big matrix: every hue is a row and every tone a column, and you hand-draw the lightness, chroma, and hue curves while WCAG and APCA update on every cell.
+            </p>
+            <p>
+              It works across sRGB, P3, and Rec.2020, and exports CSS variables and Figma tokens. No tool here gives you finer control over the exact shape of a ramp.
+            </p>
+          </div>
+          <p>
+            <strong>
+              Control behind a wall.
+            </strong>
+             
+            A hue matrix and four curve editors greet you before you’ve done anything, a lot to face for a first ramp.
+          </p>
+        </div>
+      </article>
+      <article
+        class="flex flex-col xl:flex-row gap-4"
+      >
+        <figure
+          class="xl:w-1/2 shrink-0 border border-default rounded-large overflow-hidden"
+        >
+          <img
+            alt="hihayk Scale on first load"
+            class="w-full h-auto block"
+            data-nimg="1"
+            decoding="async"
+            height="475"
+            loading="lazy"
+            src="/_next/image?url=%2Fimages%2Fcomparison%2Fhihayk.png&w=1920&q=75"
+            srcset="/_next/image?url=%2Fimages%2Fcomparison%2Fhihayk.png&w=1080&q=75 1x, /_next/image?url=%2Fimages%2Fcomparison%2Fhihayk.png&w=1920&q=75 2x"
+            style="color: transparent;"
+            width="960"
+          />
+        </figure>
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="underline"
+              href="https://hihayk.github.io/scale/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              hihayk Scale
+            </a>
+          </h3>
+          <div
+            class="mb-2"
+          >
+            <p>
+              The minimalist: a base color, eight knobs that push the light and dark ends on their own (amount, darkness, lightness, hue angle, saturation), and a live row of swatches that redraws as you drag.
+            </p>
+            <p>
+              Copy the result as a hex list or an SVG. There is almost nothing to configure, which is the point.
+            </p>
+          </div>
+          <p>
+            <strong>
+              A sketchpad, not a system.
+            </strong>
+             
+            No step names, no contrast, one scale at a time, but the fastest way to a rough ramp.
+          </p>
+        </div>
+      </article>
+      <article
+        class="flex flex-col xl:flex-row gap-4"
+      >
+        <figure
+          class="xl:w-1/2 shrink-0 border border-default rounded-large overflow-hidden"
+        >
+          <img
+            alt="ColorMeUp Lab on first load"
+            class="w-full h-auto block"
+            data-nimg="1"
+            decoding="async"
+            height="475"
+            loading="lazy"
+            src="/_next/image?url=%2Fimages%2Fcomparison%2Fcolormeup-lab.png&w=1920&q=75"
+            srcset="/_next/image?url=%2Fimages%2Fcomparison%2Fcolormeup-lab.png&w=1080&q=75 1x, /_next/image?url=%2Fimages%2Fcomparison%2Fcolormeup-lab.png&w=1920&q=75 2x"
+            style="color: transparent;"
+            width="960"
+          />
+        </figure>
+        <div>
+          <h3
+            class="text-xl font-bold mb-2"
+          >
+            <a
+              class="underline"
+              href="/"
+            >
+              ColorMeUp Lab
+            </a>
+            <span
+              class="align-middle text-xs font-mono uppercase tracking-wide text-primary"
+            >
+               
+              mine
+            </span>
+          </h3>
+          <div
+            class="mb-2"
+          >
+            <p>
+              An OKLCH scale generator that turns one seed color into a coherent primary, neutral, and error system, verified against WCAG and APCA and gamut-checked step by step.
+            </p>
+            <p>
+              Paste a color and the full scale plus a live component preview land on the first screen, with the curves, gamut view, and contrast matrix behind Advanced Options. Export is paste-ready to Tailwind, CSS, or oklch(), and it’s free and open source.
+            </p>
+          </div>
+          <p>
+            <strong>
+              Capable without the cockpit.
+            </strong>
+             
+            The only tool here pairing a gamut-honest, contrast-verified system with a UI you don’t have to study first, free and open source. Where it loses is in the table below: no generating to a contrast target, no color-blind simulation.
+          </p>
+        </div>
+      </article>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      The facts, side by side
+    </h2>
+    <div
+      class="relative overflow-x-auto rounded-medium border border-default-200 mb-3"
+    >
+      <table
+        class="w-full min-w-180 text-sm border-collapse"
+      >
+        <thead>
+          <tr>
+            <th
+              class="sticky left-0 z-10 text-left font-mono text-sm font-semibold p-3 bg-default-100"
+            >
+              Capability
+            </th>
+            <th
+              class="text-center font-mono text-sm font-semibold p-3 bg-default-100 whitespace-nowrap"
+            >
+              tints.dev
+            </th>
+            <th
+              class="text-center font-mono text-sm font-semibold p-3 bg-default-100 whitespace-nowrap"
+            >
+              uicolors
+            </th>
+            <th
+              class="text-center font-mono text-sm font-semibold p-3 bg-default-100 whitespace-nowrap"
+            >
+              Leonardo
+            </th>
+            <th
+              class="text-center font-mono text-sm font-semibold p-3 bg-default-100 whitespace-nowrap"
+            >
+              Huetone
+            </th>
+            <th
+              class="text-center font-mono text-sm font-semibold p-3 bg-default-100 whitespace-nowrap"
+            >
+              hihayk
+            </th>
+            <th
+              class="text-center font-mono text-sm font-semibold p-3 bg-default-100 whitespace-nowrap"
+            >
+              ColorMeUp Lab
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Color model
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              HSL → oklch
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              HSL
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              CAM02 / Lab
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              CIE Lab
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              HSL
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              OKLCH
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Steps · naming
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              11 · 50–950
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              11 · 50–950
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              contrast-derived
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              9 · 50–800
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              adjustable
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 font-mono text-sm text-foreground-500 whitespace-nowrap"
+            >
+              11 · 50–950
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              WCAG contrast
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              APCA
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Generate to a contrast target
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Color-blind simulation
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Per-tone curve control
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Gamut check (P3 / sRGB)
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Multiple scales at once
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Tailwind export
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              oklch() export
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Public / hosted API
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Open source
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="no"
+            >
+              <span
+                aria-hidden="true"
+                class="text-foreground-400"
+              >
+                –
+              </span>
+              <span
+                class="sr-only"
+              >
+                no
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="sticky left-0 z-10 bg-background text-left font-normal text-foreground-500 p-3 whitespace-nowrap border-t border-default-200"
+              scope="row"
+            >
+              Free (core unlocked)
+            </th>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="partial / paid"
+            >
+              <span
+                aria-hidden="true"
+                class="text-warning font-bold"
+              >
+                ~
+              </span>
+              <span
+                class="sr-only"
+              >
+                partial / paid
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+            <td
+              class="text-center p-2 border-t border-l border-default-200 text-lg"
+              title="yes"
+            >
+              <span
+                aria-hidden="true"
+                class="text-success font-bold"
+              >
+                ✓
+              </span>
+              <span
+                class="sr-only"
+              >
+                yes
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p
+      class="text-sm text-foreground-400 font-mono mb-8"
+    >
+      <span
+        class="text-success font-bold"
+      >
+        ✓
+      </span>
+       yes ·
+       
+      <span
+        class="text-warning font-bold"
+      >
+        ~
+      </span>
+       partial / paid ·
+       
+      <span
+        class="text-foreground-400 font-bold"
+      >
+        –
+      </span>
+       no · tested 2026-07-18
+    </p>
+    <p
+      class="bg-default-50 text-foreground-600 border border-default-300 rounded-medium p-4 mb-8"
+    >
+      I build one of these (ColorMeUp Lab), which is why you won’t find a "top 10" here or any scores. ColorMeUp Lab’s gaps sit in the same rows as everyone else’s.
+    </p>
+    <div
+      class="mb-8"
+    >
+      <p>
+        Whichever tool you land on, hold it to the four demands above: perceptual evenness, character on purpose, contrast you can trust, survival on a real screen.
+      </p>
+      <p>
+        The Generator is where you check all four at once.
+      </p>
+    </div>
+    <p>
+      <a
+        class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+        href="/p/Primary-62.3_0.214_259.82"
+      >
+        Open the Generator
+      </a>
+    </p>
+  </div>
+</div>
+`;
