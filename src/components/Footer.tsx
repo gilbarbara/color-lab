@@ -18,7 +18,7 @@ export default function Footer(props: FooterProps) {
     <footer
       className={cn(
         'w-full px-4 pb-8 pt-4',
-        'border-t border-default-200 text-foreground-600',
+        'border-t border-default-200 text-foreground-600 print:hidden',
         className,
       )}
       data-testid="Footer"
@@ -28,6 +28,7 @@ export default function Footer(props: FooterProps) {
           <Link href="/about">About</Link>
           <Link href="/oklch-vs-hsl">OKLCH vs HSL</Link>
           <Link href="/custom-color-scales">Custom Color Scales</Link>
+          {/*<Link href="/color-scale-vs-palette">Color Scale vs Palette</Link>*/}
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </div>

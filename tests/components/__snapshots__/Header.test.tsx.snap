@@ -2,7 +2,7 @@
 
 exports[`Header > Render > renders authenticated state at desktop breakpoint 1`] = `
 <header
-  class="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
+  class="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default print:hidden"
   data-testid="Header"
 >
   <div
@@ -214,7 +214,7 @@ exports[`Header > Render > renders dark mode sun icon when isDarkMode is true 1`
 
 exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
 <header
-  class="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
+  class="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default print:hidden"
   data-testid="Header"
 >
   <div
@@ -394,7 +394,7 @@ exports[`Header > Render > renders mobile breakpoint with Menu dropdown 1`] = `
 
 exports[`Header > Render > renders unauthenticated state at desktop breakpoint 1`] = `
 <header
-  class="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default"
+  class="fixed top-0 left-0 right-0 h-16 z-20 flex items-center bg-background border-b border-default print:hidden"
   data-testid="Header"
 >
   <div
