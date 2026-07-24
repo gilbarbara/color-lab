@@ -1,5 +1,6 @@
 import { animate } from 'framer-motion';
 
+import { setReducedMotion } from '~/test-mocks';
 import { scrollToSelector } from '~/utils/scroll';
 
 vi.mock('framer-motion', () => ({
@@ -169,6 +170,51 @@ describe('utils/scroll', () => {
         expect(mockAnimate).not.toHaveBeenCalled();
         expect(mockScrollIntoView).not.toHaveBeenCalled();
       });
+    });
+
+    describe('with reduced motion', () => {
+      beforeEach(() => {
+        setReducedMotion(true);
+      });
+
+      it('jumps the container instead of animating', () => {
+        const { container } = setup({ scrollTop: 100, containerTop: 50, targetTop: 300 });
+
+        scrollToSelector('target', container);
+
+        expect(mockAnimate).not.toHaveBeenCalled();
+        expect(container.scrollTo).toHaveBeenCalledWith(0, 350);
+      });
+
+      it('subtracts the offset from the jump destination', () => {
+        const { container } = setup({ scrollTop: 100, containerTop: 50, targetTop: 300 });
+
+        scrollToSelector('target', container, 80);
+
+        expect(container.scrollTo).toHaveBeenCalledWith(0, 270);
+      });
+
+      it('scrolls the document element without smooth behavior', () => {
+        const element = document.createElement('div');
+        const mockScrollIntoView = vi.fn();
+
+        element.id = 'test-element';
+        element.scrollIntoView = mockScrollIntoView;
+        document.body.appendChild(element);
+
+        scrollToSelector('test-element');
+
+        expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'auto', block: 'start' });
+      });
+    });
+
+    it('honors an explicit instant override while motion is allowed', () => {
+      const { container } = setup({ scrollTop: 100, containerTop: 50, targetTop: 300 });
+
+      scrollToSelector('target', container, 0, true);
+
+      expect(mockAnimate).not.toHaveBeenCalled();
+      expect(container.scrollTo).toHaveBeenCalledWith(0, 350);
     });
   });
 });

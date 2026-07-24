@@ -32,6 +32,44 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+/* Reduced-motion blanket. Flattens every CSS transition and keyframe animation in one
+   place — CollapsePanel's grid-rows tween, the sidebar/drawer width+top tweens, the
+   transition-colors/transform utilities, animate-bounce, and HeroUI's own transitions —
+   so no component has to opt in with `motion-reduce:`.
+
+   Safe to use !important on `*` here because nothing in the app listens for transitionend
+   or animationend, so a flattened duration cannot strand a callback. 0.01ms rather than 0s:
+   0s suppresses animationend entirely in some engines. Durations only — never
+   `transition-property: none`, which can stop a class swap committing its final value.
+
+   No effect on framer-motion, which drives WAAPI/rAF rather than CSS; those sites are gated
+   in JS (providers/MotionProvider + utils/motion). `scroll-behavior` here only reaches
+   scrolls whose behavior computes to `auto` — an explicit scrollIntoView({behavior:'smooth'})
+   bypasses it, so those are gated in JS too. It is a guard for future `scroll-smooth`. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Spinners are the only indeterminate-progress signal in the app. Freezing one turns
+     "working" into "broken" — a class of motion the reduced-motion preference is not meant
+     to remove. Slow it instead of stopping it. Class selectors outrank the `*` rule above
+     at equal !important. */
+  .animate-spin,
+  .animate-spinner-ease-spin,
+  .animate-spinner-linear-spin {
+    animation-duration: 1.5s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
 @utility button-menu-square {
   @apply px-0 min-w-8 w-8;
 }

@@ -181,7 +181,7 @@ exports[`PaletteHeader > Render > renders authenticated, no saved palette 1`] = 
       >
         <svg
           aria-hidden="true"
-          class="text-xl shrink-0"
+          class="text-xl"
           fill="currentColor"
           focusable="false"
           height="1em"
@@ -383,7 +383,7 @@ exports[`PaletteHeader > Render > renders custom palette options badge when opti
       >
         <svg
           aria-hidden="true"
-          class="text-xl shrink-0"
+          class="text-xl"
           fill="currentColor"
           focusable="false"
           height="1em"
@@ -585,7 +585,7 @@ exports[`PaletteHeader > Render > renders unauthenticated state 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="text-xl shrink-0"
+          class="text-xl"
           fill="currentColor"
           focusable="false"
           height="1em"
@@ -787,7 +787,7 @@ exports[`PaletteHeader > Render > renders with saved palette and unsaved changes
       >
         <svg
           aria-hidden="true"
-          class="text-xl shrink-0"
+          class="text-xl"
           fill="currentColor"
           focusable="false"
           height="1em"
