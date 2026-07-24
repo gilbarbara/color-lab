@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
+import { SITE_DESCRIPTION } from '~/config/metadata';
 import { buildStaticMetadata } from '~/utils/metadata';
 
 import About from './About';
 
 export const metadata: Metadata = buildStaticMetadata({
   title: 'About',
-  description:
-    'Open-source OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG.',
+  description: SITE_DESCRIPTION,
   path: '/about',
 });
 
