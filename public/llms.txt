@@ -1,14 +1,15 @@
 # ColorMeUp LAB
 
-> Generate perceptually uniform OKLCH color scales with multiple colors and contrast checks. Export to Tailwind, CSS, SCSS & SVG. Free and open-source.
+> OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG. Free and open-source.
 
-ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps are perceptually uniform rather than converted from hex or HSL. It previews colors in wide-gamut P3, supports multiple base colors per palette, checks contrast, and exports to code. Every feature is free — there is no paywall. The palette lives in the URL, so any palette is shareable by link.
+ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps are perceptually uniform rather than converted from hex or HSL. It previews colors in wide-gamut P3, supports up to ten base colors per palette, checks contrast, and exports to code. Every feature is free — there is no paywall. The palette lives in the URL, so any palette is shareable by link.
 
 ## Pages
 
-- [Color palette generator](https://lab.colormeup.co/p): The main tool — create and fine-tune OKLCH color scales with control over lightness range, lightness curve, and chroma curve.
+- [Color palette generator](https://lab.colormeup.co/p): The main tool — create and fine-tune OKLCH color scales with control over lightness range, lightness curve, chroma curve, and hue shift.
 - [OKLCH vs HSL](https://lab.colormeup.co/oklch-vs-hsl): Why OKLCH produces better scales than HSL.
 - [Custom color scales](https://lab.colormeup.co/custom-color-scales): Building custom color scales for a design system.
+- [Color scale vs palette](https://lab.colormeup.co/color-scale-vs-palette): How a scale differs from a palette, and six scale generators compared side by side.
 - [About](https://lab.colormeup.co/about): What the tool is, how it works, and the OKLCH approach.
 
 ## Key facts
@@ -17,6 +18,7 @@ ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps ar
 - Pricing: free and open-source, no account required to use the generator.
 - Export targets: Tailwind 4, Tailwind 3, CSS, SCSS, and SVG — each in OKLCH, HEX, HSL, or RGB notation.
 - Contrast: WCAG 2 and APCA (WCAG 3) contrast grid.
+- Charts: lightness, chroma, and hue plotted per scale, so uneven steps are visible.
 - Scale presets: Tailwind, Material, Bootstrap, and Open Color.
 - Also: color groups, live component and typography preview, per-color curve overrides, and saved palettes with an account.
 - Built with the [colorizr](https://github.com/gilbarbara/colorizr) library.
@@ -48,4 +50,4 @@ Optional query params — all have defaults, and invalid values are ignored:
 - `k` — lock a step, e.g. `k=500`
 - `name` — palette name
 
-The same short keys override options for a single color, comma-separated on that color's segment: `/p/Primary-60_0.21_150-x:0.95,m:d`. Color groups use `g:` with the codes `b` (brand), `n` (neutral), `s` (semantic), and `d` (decorative).
+The same short keys override options for a single color, comma-separated on that color's segment: `/p/Primary-60_0.21_150-x:0.95,m:d,g:b`. Color groups ride in that same chunk under `g:`, with the codes `b` (brand), `n` (neutral), `s` (semantic), and `d` (decorative).
