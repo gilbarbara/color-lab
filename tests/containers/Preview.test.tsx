@@ -1,11 +1,23 @@
+import { animate } from 'framer-motion';
+
 import { useAppStore } from '~/stores/appStore';
 import { createTestPalette } from '~/test-fixtures';
-import { getGeneratorStore } from '~/test-mocks';
-import { fireEvent, render, screen, within } from '~/test-utils';
+import { getGeneratorStore, setReducedMotion } from '~/test-mocks';
+import { act, fireEvent, render, screen, within } from '~/test-utils';
 
 import Preview from '~/containers/Preview';
 
 import type { GeneratorState } from '~/types';
+
+// Partial mock: only the imperative scroll tween is stubbed. `motion`/`Reorder` stay real,
+// since Preview's tree renders them.
+vi.mock('framer-motion', async importOriginal => {
+  const actual = await importOriginal<typeof import('framer-motion')>();
+
+  return { ...actual, animate: vi.fn(() => ({ stop: vi.fn() })) };
+});
+
+const mockAnimate = vi.mocked(animate);
 
 function getColorRadioGroup(): HTMLElement {
   return screen.getByRole('radiogroup', { name: 'Preview color' });
@@ -184,6 +196,49 @@ describe('Preview', () => {
       expect(screen.getByTestId('Preview-Controls')).toBeInTheDocument();
       expect(screen.getByTestId('Preview-Cards')).toBeInTheDocument();
       expect(screen.queryByTestId('Preview-Typography')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('scroll on nonce change', () => {
+    let scrollToSpy: ReturnType<typeof vi.spyOn>;
+    let addEventListenerSpy: ReturnType<typeof vi.spyOn>;
+
+    beforeEach(() => {
+      scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+      addEventListenerSpy = vi.spyOn(window, 'addEventListener');
+    });
+
+    afterEach(() => {
+      scrollToSpy.mockRestore();
+      addEventListenerSpy.mockRestore();
+    });
+
+    it('animates the window scroll', () => {
+      render(<Preview />);
+
+      act(() => {
+        useAppStore.setState({ previewScrollNonce: 1 });
+      });
+
+      expect(mockAnimate).toHaveBeenCalledOnce();
+      expect(scrollToSpy).not.toHaveBeenCalled();
+    });
+
+    it('jumps and skips the cancel listeners when reduced motion is set', () => {
+      setReducedMotion(true);
+      render(<Preview />);
+
+      act(() => {
+        useAppStore.setState({ previewScrollNonce: 1 });
+      });
+
+      expect(mockAnimate).not.toHaveBeenCalled();
+      expect(scrollToSpy).toHaveBeenCalledOnce();
+      expect(addEventListenerSpy).not.toHaveBeenCalledWith(
+        'wheel',
+        expect.any(Function),
+        expect.anything(),
+      );
     });
   });
 });

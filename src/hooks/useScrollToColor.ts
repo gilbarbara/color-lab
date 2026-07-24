@@ -1,12 +1,11 @@
 import { useCallback } from 'react';
 import { useBreakpoint } from '@gilbarbara/hooks';
 
-import { BREAKPOINTS } from '~/config/ui';
+import { BREAKPOINTS, PANEL_TRANSITION_MS } from '~/config/ui';
+import { prefersReducedMotion } from '~/utils/motion';
 
 import useApp from './useApp';
 import useGenerator from './useGenerator';
-
-const OPEN_ANIMATION_MS = 500;
 
 interface ScrollToColorOptions {
   activate?: boolean;
@@ -33,7 +32,15 @@ export default function useScrollToColor() {
       if (needsOpen) {
         if (isSmallScreen) toggleBottomBar(true);
         else toggleSidebar(true);
-        setTimeout(() => requestColorScroll(id), OPEN_ANIMATION_MS);
+
+        // The wait exists only to outlast the panel's open transition before the scroll
+        // measures it. Reduced motion flattens that transition, so waiting would just make
+        // the accessible path feel slower than the animated one.
+        if (prefersReducedMotion()) {
+          requestColorScroll(id);
+        } else {
+          setTimeout(() => requestColorScroll(id), PANEL_TRANSITION_MS);
+        }
       } else {
         requestColorScroll(id);
       }

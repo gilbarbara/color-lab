@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { REDUCED_MOTION_QUERY } from '~/config/ui';
 import type { GeneratorStore, GeneratorStoreApi } from '~/stores/generatorStore';
 
 const navigationMocks = vi.hoisted(() => ({
@@ -111,6 +112,25 @@ vi.mock('~/utils/gamut', async importOriginal => {
   };
 });
 
+// `~/utils/gamut` is module-mocked above, so its matchMedia probe never reaches the global
+// mock installed in vitest.setup. This helper drives the one query that still does:
+// prefersReducedMotion(). Every other query keeps reporting `matches: false`.
+export function setReducedMotion(value: boolean): void {
+  vi.mocked(window.matchMedia).mockImplementation(
+    query =>
+      ({
+        matches: query === REDUCED_MOTION_QUERY ? value : false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }) as unknown as MediaQueryList,
+  );
+}
+
 let uuidCounter = 0;
 const nextUuid = () => `test-uuid-${++uuidCounter}`;
 
@@ -143,6 +163,7 @@ export function getGeneratorStore(): GeneratorStoreApi {
 beforeEach(async () => {
   uuidCounter = 0;
   mockIsP3Supported.mockReturnValue(true);
+  setReducedMotion(false);
   themeMocks.resolvedTheme = 'light';
   themeMocks.setTheme.mockClear();
 

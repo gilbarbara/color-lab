@@ -8,6 +8,7 @@ import { PALETTE_PATH_PREFIX } from '~/config/globals';
 import useAuth from '~/hooks/useAuth';
 import usePageTracking from '~/hooks/usePageTracking';
 import AuthProvider from '~/providers/AuthProvider';
+import MotionProvider from '~/providers/MotionProvider';
 import ThemeProvider from '~/providers/ThemeProvider';
 
 import ErrorFallback from '~/components/ErrorFallback';
@@ -51,10 +52,12 @@ function AppShell({ children }: { children: ReactNode }) {
 
 export default function Providers({ children }: ProvidersProps) {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <AppShell>{children}</AppShell>
-      </AuthProvider>
-    </ThemeProvider>
+    <MotionProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppShell>{children}</AppShell>
+        </AuthProvider>
+      </ThemeProvider>
+    </MotionProvider>
   );
 }

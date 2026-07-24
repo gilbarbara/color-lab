@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { APCA_LIGHTNESS_CONTRAST } from '~/config/globals';
+import { prefersReducedMotion } from '~/utils/motion';
 
 import type { ScaleOptions, ScaleSteps } from '~/types';
 
@@ -27,7 +28,9 @@ export default function Table({ onSelect, options, selectedStep, steps }: TableP
 
     const row = container.querySelector<HTMLElement>(`[data-step="${selectedStep}"]`);
 
-    row?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // An explicit `behavior` wins over the `scroll-behavior` property, so the reduced-motion
+    // blanket in index.css can't reach this one — it has to be gated here.
+    row?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
   }, [selectedStep]);
 
   return (

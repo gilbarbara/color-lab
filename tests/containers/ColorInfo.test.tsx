@@ -1,7 +1,7 @@
 import { convertCSS, scale } from 'colorizr';
 
 import { VIOLET } from '~/test-fixtures';
-import { mockClipboard } from '~/test-mocks';
+import { mockClipboard, setReducedMotion } from '~/test-mocks';
 import { fireEvent, render, screen, waitFor, within } from '~/test-utils';
 import { trackEvent } from '~/utils/analytics';
 import { formatOklch, toOklch } from '~/utils/color';
@@ -172,6 +172,26 @@ describe('ColorInfo', () => {
       await waitFor(() => {
         expect(scrollIntoViewMock).toHaveBeenCalledWith({
           behavior: 'smooth',
+          block: 'center',
+        });
+      });
+    });
+
+    it('jumps to the selected row when reduced motion is set', async () => {
+      setReducedMotion(true);
+      await openColorInfo();
+
+      const container = screen.getByTestId('ColorInfo-Table');
+
+      Object.defineProperty(container, 'scrollHeight', { configurable: true, value: 1000 });
+      Object.defineProperty(container, 'clientHeight', { configurable: true, value: 200 });
+
+      scrollIntoViewMock.mockClear();
+      fireEvent.click(getBarForStep('950'));
+
+      await waitFor(() => {
+        expect(scrollIntoViewMock).toHaveBeenCalledWith({
+          behavior: 'auto',
           block: 'center',
         });
       });

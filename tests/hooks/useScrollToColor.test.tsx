@@ -1,8 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
 
+import { PANEL_TRANSITION_MS } from '~/config/ui';
 import useScrollToColor from '~/hooks/useScrollToColor';
 import { initialState as appInitial, useAppStore } from '~/stores/appStore';
-import { getGeneratorStore } from '~/test-mocks';
+import { getGeneratorStore, setReducedMotion } from '~/test-mocks';
 
 const paletteInitial = getGeneratorStore().getState();
 const COLOR_ID = paletteInitial.colors[0].id;
@@ -19,8 +20,6 @@ vi.mock('@gilbarbara/hooks', async () => {
     useBreakpoint: () => ({ max: breakpointMock.max, min: vi.fn() }),
   };
 });
-
-const OPEN_ANIMATION_MS = 500;
 
 function setDesktop() {
   breakpointMock.max.mockImplementation(() => false);
@@ -70,9 +69,22 @@ describe('hooks/useScrollToColor', () => {
       expect(useAppStore.getState().colorScrollRequest).toBe(null);
 
       act(() => {
-        vi.advanceTimersByTime(OPEN_ANIMATION_MS);
+        vi.advanceTimersByTime(PANEL_TRANSITION_MS);
       });
 
+      expect(useAppStore.getState().colorScrollRequest).toEqual({ id: COLOR_ID, nonce: 1 });
+    });
+
+    it('bumps nonce without waiting when reduced motion is set', () => {
+      setReducedMotion(true);
+      useAppStore.setState({ showSidebar: false });
+      const { result } = renderHook(() => useScrollToColor());
+
+      act(() => {
+        result.current(COLOR_ID);
+      });
+
+      expect(useAppStore.getState().showSidebar).toBe(true);
       expect(useAppStore.getState().colorScrollRequest).toEqual({ id: COLOR_ID, nonce: 1 });
     });
 
@@ -103,9 +115,22 @@ describe('hooks/useScrollToColor', () => {
       expect(useAppStore.getState().colorScrollRequest).toBe(null);
 
       act(() => {
-        vi.advanceTimersByTime(OPEN_ANIMATION_MS);
+        vi.advanceTimersByTime(PANEL_TRANSITION_MS);
       });
 
+      expect(useAppStore.getState().colorScrollRequest).toEqual({ id: COLOR_ID, nonce: 1 });
+    });
+
+    it('bumps nonce without waiting when reduced motion is set', () => {
+      setReducedMotion(true);
+      useAppStore.setState({ showBottomBar: false });
+      const { result } = renderHook(() => useScrollToColor());
+
+      act(() => {
+        result.current(COLOR_ID);
+      });
+
+      expect(useAppStore.getState().showBottomBar).toBe(true);
       expect(useAppStore.getState().colorScrollRequest).toEqual({ id: COLOR_ID, nonce: 1 });
     });
 

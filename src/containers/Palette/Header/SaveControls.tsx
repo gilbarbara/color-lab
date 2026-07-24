@@ -1,5 +1,5 @@
 import { useSetState } from '@gilbarbara/hooks';
-import { addToast, cn } from '@heroui/react';
+import { addToast, Spinner } from '@heroui/react';
 import { HeartIcon, PencilSimpleLineIcon } from '@phosphor-icons/react';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
@@ -73,9 +73,15 @@ export default function SaveControls() {
     }
   };
 
-  const iconClass = cn('text-xl shrink-0', {
-    'animate-bounce': isSaving,
-  });
+  let icon = paletteId ? (
+    <PencilSimpleLineIcon className="text-xl" />
+  ) : (
+    <HeartIcon className="text-xl" />
+  );
+
+  if (isSaving) {
+    icon = <Spinner color="warning" size="sm" variant="simple" />;
+  }
 
   return (
     <div className="ml-auto">
@@ -85,13 +91,7 @@ export default function SaveControls() {
         isDisabled={isSaving || (!!paletteId && !hasUnsavedChanges)}
         onPress={handleClickSave}
         size="menu"
-        startContent={
-          paletteId ? (
-            <PencilSimpleLineIcon className={iconClass} />
-          ) : (
-            <HeartIcon className={iconClass} />
-          )
-        }
+        startContent={icon}
         variant="faded"
       >
         <span>{paletteId ? 'Update' : 'Save'}</span>

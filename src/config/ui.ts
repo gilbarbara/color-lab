@@ -11,6 +11,13 @@ export const MODAL_MIN_WIDTH = 480;
 // DOM
 export const DATA_INTERACTING_ATTR = 'data-interacting';
 
+// Motion
+export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+// How long the sidebar / bottom-drawer CSS transitions run (Generator/Panel). Callers that
+// need the panel to be at its final size before measuring it wait this out.
+export const PANEL_TRANSITION_MS = 500;
+
 // Charts — vertical padding inside the 100x100 viewBox shared by the color charts
 // and the scale-option curve previews.
 export const CHART_PAD_Y = 5;

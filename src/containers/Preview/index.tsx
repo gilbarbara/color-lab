@@ -11,6 +11,7 @@ import useGenerator from '~/hooks/useGenerator';
 import useGeneratorStore from '~/hooks/useGeneratorStore';
 import { trackEvent } from '~/utils/analytics';
 import { getEffectiveOptions } from '~/utils/generator';
+import { prefersReducedMotion } from '~/utils/motion';
 import { buildPreviewScope } from '~/utils/preview-tokens';
 
 import CollapsePanel from '~/components/CollapsePanel';
@@ -67,6 +68,13 @@ export default function Preview() {
 
     const startY = window.scrollY;
     const targetY = startY + el.getBoundingClientRect().top - SCROLL_OFFSET;
+
+    // Nothing to cancel when we jump, so the wheel/touch listeners below are skipped too.
+    if (prefersReducedMotion()) {
+      window.scrollTo(0, targetY);
+
+      return undefined;
+    }
 
     const controls = animate(startY, targetY, {
       duration: 0.5,
