@@ -17,7 +17,7 @@ export default function Page(props: PageProps) {
       <div className={cn('w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8', className)}>
         {children}
       </div>
-      <Footer className="md:px-8" innerClassName="max-w-7xl mx-auto" />
+      <Footer innerClassName="max-w-7xl mx-auto md:px-8" />
     </div>
   );
 }

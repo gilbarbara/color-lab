@@ -10,6 +10,7 @@ import {
   hasParams,
   lacksParams,
   scrollPanelTo,
+  scrollToTop,
 } from './__setup__/utils';
 
 const screenshotName = createScreenshotNamer();
@@ -110,7 +111,7 @@ test('scale', async () => {
     await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('data-color-options', 'open');
 
-    await scrollPanelTo(page, 0);
+    await scrollPanelTo(page);
 
     await expect(page).toHaveScreenshot(screenshotName('advanced-options.png'));
   });
@@ -278,7 +279,7 @@ test('scale', async () => {
   });
 
   await test.step('opens palette options panel', async () => {
-    await page.evaluate(() => window.scrollTo(0, 0));
+    await scrollToTop(page);
 
     await page.getByRole('button', { name: 'Palette Options' }).click();
 

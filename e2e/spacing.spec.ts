@@ -2,7 +2,7 @@ import { devices, expect, type Page, test } from '@playwright/test';
 
 import { seedSingle } from './__setup__/constants';
 import { createPage } from './__setup__/page';
-import { createScreenshotNamer, scrollPanelToTop } from './__setup__/utils';
+import { createScreenshotNamer, scrollPanelToTop, scrollToTop } from './__setup__/utils';
 
 const screenshotName = createScreenshotNamer();
 
@@ -56,7 +56,7 @@ async function addSpacedColors(spacing: string, screenshot: string) {
   }
 
   await scrollPanelToTop(page);
-  await page.evaluate(() => window.scrollTo(0, 0));
+  await scrollToTop(page);
 
   await expect(page).toHaveScreenshot(screenshotName(screenshot));
 }

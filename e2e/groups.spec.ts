@@ -9,6 +9,7 @@ import {
   lacksColorOptions,
   removeColor,
   scrollPanelToTop,
+  scrollToTop,
   setColorGroup,
 } from './__setup__/utils';
 
@@ -42,10 +43,6 @@ async function addColor(expectedCount: number) {
   await expect(page.getByTestId('ColorItem')).toHaveCount(expectedCount);
   await page.waitForTimeout(collapseDuration);
   await scrollPanelToTop(page);
-}
-
-async function scrollToTop() {
-  await page.evaluate(() => window.scrollTo(0, 0));
 }
 
 /**
@@ -83,7 +80,7 @@ test('groups', async () => {
     // One chip per *used* group, not one per group that exists.
     await expect(toolbar().getByRole('button')).toHaveCount(1);
 
-    await scrollToTop();
+    await scrollToTop(page);
     await expect(page).toHaveScreenshot(screenshotName('brand-colors.png'));
   });
 
@@ -122,7 +119,7 @@ test('groups', async () => {
       'Decorative',
     ]);
 
-    await scrollToTop();
+    await scrollToTop(page);
     await expect(page).toHaveScreenshot(screenshotName('all-groups.png'));
   });
 
@@ -142,7 +139,7 @@ test('groups', async () => {
       await expect(chip).toHaveAttribute('aria-pressed', 'true');
       await expect(scales()).toHaveCount(count);
 
-      await scrollToTop();
+      await scrollToTop(page);
       await expect(page).toHaveScreenshot(screenshotName(`filter-${group.toLowerCase()}.png`));
 
       // Toggle off, so each case starts from an unfiltered palette.
@@ -158,7 +155,7 @@ test('groups', async () => {
 
     await expect(scales()).toHaveCount(5);
 
-    await scrollToTop();
+    await scrollToTop(page);
     await expect(page).toHaveScreenshot(screenshotName('filter-multiple.png'));
   });
 
@@ -177,7 +174,7 @@ test('groups', async () => {
 
     await expect(page.getByTestId('PaletteGrid').getByRole('button')).toHaveCount(2);
 
-    await scrollToTop();
+    await scrollToTop(page);
     await expect(page).toHaveScreenshot(screenshotName('filter-grid.png'));
 
     await page.getByRole('button', { name: 'Display Options' }).click();
@@ -218,7 +215,7 @@ test('groups', async () => {
     await expect(toolbar().getByRole('button', { name: 'Filter by Decorative' })).toHaveCount(0);
     await expect(scales()).toHaveCount(9);
 
-    await scrollToTop();
+    await scrollToTop(page);
     await expect(page).toHaveScreenshot(screenshotName('hide-decorative-filter.png'));
   });
 

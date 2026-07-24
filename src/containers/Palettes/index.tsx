@@ -43,35 +43,51 @@ export default function Palettes() {
     }
   };
 
-  // Show loading while checking auth
-  if (isAuthLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
-        <Spinner size="lg" />
-      </div>
-    );
-  }
-
   let content: ReactNode;
 
-  if (!isAuthenticated) {
+  // Show loading while checking auth
+  if (isAuthLoading) {
     content = (
-      <Feedback description="Sign in to view your saved palettes" type={null}>
-        <Button
-          color="primary"
-          onPress={() => {
-            trackEvent('auth:open', { source: 'palettes' });
-            openLoginModal();
-          }}
-          startContent={<SignInIcon className="text-lg" />}
-        >
-          Sign In
-        </Button>
+      <Feedback
+        className="flex flex-col justify-center flex-1"
+        description={<span className="text-foreground-500">Loading...</span>}
+        icon={<Spinner size="lg" />}
+        type={null}
+      />
+    );
+  } else if (!isAuthenticated) {
+    content = (
+      <Feedback
+        className="flex flex-col justify-center flex-1"
+        description="Sign in to view your saved palettes"
+        title="No palettes yet"
+        type="empty"
+      >
+        <div className="flex flex-col items-center gap-2">
+          <Button
+            color="primary"
+            onPress={() => {
+              trackEvent('auth:open', { source: 'palettes' });
+              openLoginModal();
+            }}
+            startContent={<SignInIcon className="text-lg" />}
+          >
+            Sign In
+          </Button>
+          <button
+            className="underline cursor-pointer"
+            onClick={() => router.push(createPaletteUrl())}
+            type="button"
+          >
+            Create Palette
+          </button>
+        </div>
       </Feedback>
     );
   } else if (isLoading) {
     content = (
       <Feedback
+        className="flex flex-col justify-center flex-1"
         description={<span className="text-foreground-500">Loading palettes...</span>}
         icon={<Spinner size="lg" />}
         type={null}
@@ -80,8 +96,9 @@ export default function Palettes() {
   } else if (palettes.length === 0) {
     content = (
       <Feedback
+        className="flex flex-col justify-center flex-1"
         description="Create a color palette and click Save to add it here."
-        title="You have no saved palettes yet."
+        title="You have no saved palettes yet"
         type="empty"
       >
         <Button
@@ -109,7 +126,7 @@ export default function Palettes() {
   }
 
   return (
-    <Page className="text-center" data-testid="Palettes">
+    <Page className="flex flex-col text-center min-h-[calc(100vh-4rem)]" data-testid="Palettes">
       <h1 className="text-4xl font-bold mb-16">My Palettes</h1>
       {content}
     </Page>

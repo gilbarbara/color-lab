@@ -58,7 +58,7 @@ function AdvancedOptions() {
               <SlidersHorizontalIcon className="text-lg" />
             </Badge>
           }
-          variant={showColorOptionsPanel ? 'solid' : 'light'}
+          variant={showColorOptionsPanel ? 'solid' : 'flat'}
         >
           Advanced Options
         </Button>

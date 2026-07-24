@@ -3,7 +3,7 @@ import { devices, expect, type Page, test } from '@playwright/test';
 import { collapseDuration, seedSingle } from './__setup__/constants';
 import { FirebaseMockState, setupFirebaseMocks } from './__setup__/firebase-mock';
 import { createPage } from './__setup__/page';
-import { createScreenshotNamer, getParam, waitForScrollEnd } from './__setup__/utils';
+import { createScreenshotNamer, getParam, scrollToTop } from './__setup__/utils';
 
 const getScreenshotName = createScreenshotNamer();
 
@@ -100,9 +100,7 @@ test('user', async () => {
 
     await expect(page.getByLabel('Export scale')).toHaveCount(4);
 
-    await page.evaluate(() => window.scrollTo(0, 0));
-
-    await waitForScrollEnd(page);
+    await scrollToTop(page);
 
     await expect(page).toHaveScreenshot(getScreenshotName('unsaved-palette.png'));
   });

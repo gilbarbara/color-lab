@@ -6,7 +6,7 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 flex flex-col text-center min-h-[calc(100vh-4rem)]"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -14,7 +14,7 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
       My Palettes
     </h1>
     <div
-      class="mx-auto text-center w-full max-w-150 p-4"
+      class="mx-auto text-center w-full max-w-150 p-4 flex flex-col justify-center flex-1"
       data-testid="Feedback"
     >
       <div
@@ -39,7 +39,7 @@ exports[`Palettes > Render > shows empty state when no palettes 1`] = `
         <h2
           class="font-semibold text-foreground text-xl"
         >
-          You have no saved palettes yet.
+          You have no saved palettes yet
         </h2>
         <p
           class="text-muted mt-1"
@@ -83,7 +83,7 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 flex flex-col text-center min-h-[calc(100vh-4rem)]"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -91,7 +91,7 @@ exports[`Palettes > Render > shows loading spinner when fetching palettes 1`] = 
       My Palettes
     </h1>
     <div
-      class="mx-auto text-center w-full max-w-150 p-4"
+      class="mx-auto text-center w-full max-w-150 p-4 flex flex-col justify-center flex-1"
       data-testid="Feedback"
     >
       <div
@@ -137,7 +137,7 @@ exports[`Palettes > Render > shows palette grid 1`] = `
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 flex flex-col text-center min-h-[calc(100vh-4rem)]"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -352,7 +352,7 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
   data-testid="Palettes"
 >
   <div
-    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 text-center"
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 flex flex-col text-center min-h-[calc(100vh-4rem)]"
   >
     <h1
       class="text-4xl font-bold mb-16"
@@ -360,14 +360,35 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
       My Palettes
     </h1>
     <div
-      class="mx-auto text-center w-full max-w-150 p-4"
+      class="mx-auto text-center w-full max-w-150 p-4 flex flex-col justify-center flex-1"
       data-testid="Feedback"
     >
       <div
-        class=""
+        class="flex items-center justify-center"
       >
+        <svg
+          class="size-16 text-muted"
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"
+          />
+        </svg>
+      </div>
+      <div
+        class="mt-4"
+      >
+        <h2
+          class="font-semibold text-foreground text-xl"
+        >
+          No palettes yet
+        </h2>
         <p
-          class="text-muted "
+          class="text-muted mt-1"
         >
           Sign in to view your saved palettes
         </p>
@@ -375,28 +396,92 @@ exports[`Palettes > Render > shows sign in message when not authenticated 1`] = 
       <div
         class="mt-6"
       >
-        <button
-          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-4 min-w-20 h-10 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover"
-          data-react-aria-pressable="true"
-          tabindex="0"
-          type="button"
+        <div
+          class="flex flex-col items-center gap-2"
         >
-          <svg
-            aria-hidden="true"
-            class="text-lg"
-            fill="currentColor"
-            focusable="false"
-            height="1em"
-            viewBox="0 0 256 256"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
+          <button
+            class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-4 min-w-20 h-10 text-small gap-2 rounded-medium [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover"
+            data-react-aria-pressable="true"
+            tabindex="0"
+            type="button"
           >
-            <path
-              d="M141.66,133.66l-40,40a8,8,0,0,1-11.32-11.32L116.69,136H24a8,8,0,0,1,0-16h92.69L90.34,93.66a8,8,0,0,1,11.32-11.32l40,40A8,8,0,0,1,141.66,133.66ZM200,32H136a8,8,0,0,0,0,16h56V208H136a8,8,0,0,0,0,16h64a8,8,0,0,0,8-8V40A8,8,0,0,0,200,32Z"
+            <svg
+              aria-hidden="true"
+              class="text-lg"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M141.66,133.66l-40,40a8,8,0,0,1-11.32-11.32L116.69,136H24a8,8,0,0,1,0-16h92.69L90.34,93.66a8,8,0,0,1,11.32-11.32l40,40A8,8,0,0,1,141.66,133.66ZM200,32H136a8,8,0,0,0,0,16h56V208H136a8,8,0,0,0,0,16h64a8,8,0,0,0,8-8V40A8,8,0,0,0,200,32Z"
+              />
+            </svg>
+            Sign In
+          </button>
+          <button
+            class="underline cursor-pointer"
+            type="button"
+          >
+            Create Palette
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Palettes > Render > shows spinner while auth is loading 1`] = `
+<div
+  class="flex flex-col flex-1"
+  data-testid="Palettes"
+>
+  <div
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8 flex flex-col text-center min-h-[calc(100vh-4rem)]"
+  >
+    <h1
+      class="text-4xl font-bold mb-16"
+    >
+      My Palettes
+    </h1>
+    <div
+      class="mx-auto text-center w-full max-w-150 p-4 flex flex-col justify-center flex-1"
+      data-testid="Feedback"
+    >
+      <div
+        class="flex items-center justify-center"
+      >
+        <div
+          aria-label="Loading"
+          class="relative inline-flex flex-col gap-2 items-center justify-center"
+        >
+          <div
+            class="relative flex w-10 h-10"
+          >
+            <i
+              class="absolute w-full h-full rounded-full border-3 border-b-primary animate-spinner-ease-spin border-solid border-t-transparent border-l-transparent border-r-transparent"
             />
-          </svg>
-          Sign In
-        </button>
+            <i
+              class="absolute w-full h-full rounded-full border-3 border-b-primary opacity-75 animate-spinner-linear-spin border-dotted border-t-transparent border-l-transparent border-r-transparent"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-4"
+      >
+        <p
+          class="text-muted "
+        >
+          <span
+            class="text-foreground-500"
+          >
+            Loading...
+          </span>
+        </p>
       </div>
     </div>
   </div>

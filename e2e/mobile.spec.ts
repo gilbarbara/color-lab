@@ -1,6 +1,6 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { collapseDuration, seedSingle } from './__setup__/constants';
+import { collapseDuration, scrollOffset, seedSingle } from './__setup__/constants';
 import { createPage } from './__setup__/page';
 import {
   createScreenshotNamer,
@@ -8,6 +8,7 @@ import {
   hasColorOptions,
   hasParams,
   lacksColor,
+  scrollPanelTo,
   scrollPanelToTop,
   setColorGroup,
 } from './__setup__/utils';
@@ -212,9 +213,7 @@ test('mobile', async () => {
 
     const colorItemOffset = await colorItem.evaluate(el => (el as HTMLElement).offsetTop);
 
-    await page.getByTestId('GeneratorPanel').evaluate((el, scrollTop) => {
-      el.scrollTo({ top: scrollTop, behavior: 'instant' });
-    }, colorItemOffset);
+    await scrollPanelTo(page, colorItemOffset - scrollOffset);
 
     const lightnessCurveSlider = colorItem.locator('input[name="lightnessCurve"]');
 
