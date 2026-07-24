@@ -157,10 +157,27 @@ export async function scrollPanelToTop(page: Page): Promise<void> {
   // also absorbs the tween's trailing sub-pixel writes), but only accept the quiet
   // streak once we've actually observed the scroll move, so we can't exit in the
   // gap before it begins.
+  //
+  // Both escapes below exist because that `moved` gate has no natural end: when no scroll
+  // is pending it waits out the whole cap. Reduced-motion specs hit that constantly, since
+  // their scroll — if any — has already landed before this runs.
   await page.getByTestId('GeneratorPanel').evaluate(
     el =>
       new Promise<void>(resolve => {
+        // A panel that doesn't overflow can't scroll, so there is no deferred scroll to
+        // outwait. Without this the `moved` gate below never trips and the loop burns its
+        // full MAX_FRAMES cap — ~4s of dead wait per call.
+        if (el.scrollHeight <= el.clientHeight) {
+          resolve();
+
+          return;
+        }
+
         const QUIET_FRAMES = 12; // ~200ms of no movement
+        // The deferred scroll starts once the collapse settles (~400ms) plus a frame for
+        // Panel's rAF — around frame 27. Past that, a panel still sitting at 0 has no scroll
+        // coming, and waiting on `moved` would otherwise run out the full MAX_FRAMES cap.
+        const MOVE_DEADLINE_FRAMES = 60; // ~1s
         const MAX_FRAMES = 240; // ~4s safety cap
         let quiet = 0;
         let frames = 0;
@@ -177,7 +194,10 @@ export async function scrollPanelToTop(page: Page): Promise<void> {
             quiet += 1;
           }
 
-          if ((moved && quiet >= QUIET_FRAMES) || frames >= MAX_FRAMES) {
+          const settled = moved && quiet >= QUIET_FRAMES;
+          const nothingComing = !moved && frames >= MOVE_DEADLINE_FRAMES;
+
+          if (settled || nothingComing || frames >= MAX_FRAMES) {
             resolve();
           } else {
             requestAnimationFrame(tick);
