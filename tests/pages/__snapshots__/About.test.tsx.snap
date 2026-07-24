@@ -11,7 +11,7 @@ exports[`pages/About > renders correctly 1`] = `
     <script
       type="application/ld+json"
     >
-      {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ColorMeUp LAB","applicationCategory":"DesignApplication","operatingSystem":"Web","description":"Open-source design tool for creating perceptual color scales in OKLCH, with control over lightness, chroma, steps, and curves.","url":"https://lab.colormeup.co","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"sameAs":["https://github.com/gilbarbara/color-lab"]}
+      {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ColorMeUp LAB","applicationCategory":"DesignApplication","operatingSystem":"Web","description":"Open-source OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG.","url":"https://lab.colormeup.co","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Gil Barbara","url":"https://gilbarbara.dev/"},"sameAs":["https://github.com/gilbarbara/color-lab"]}
     </script>
     <h1
       class="text-4xl font-bold mb-8"
@@ -26,30 +26,17 @@ exports[`pages/About > renders correctly 1`] = `
     <div
       class="space-y-2 mb-8"
     >
-      <p
-        class="mb-0"
-      >
-        It’s built for designers and developers who need control over how a scale behaves: lightness range and distribution, chroma handling, hue shift, number of steps, and how a scale responds to constraints like locks and curves. You shape the scale directly and see the impact of each adjustment in real time.
-      </p>
       <p>
-        It builds color scales, not palettes —
+        It’s built for designers and developers who need control over how a
          
         <a
           class="underline"
           href="/color-scale-vs-palette"
         >
-          what’s the difference
-        </a>
-        ? See
-         
-        <a
-          class="underline"
-          href="/custom-color-scales"
-        >
-          Custom Color Scales
+          color scale
         </a>
          
-        to learn how to shape your own.
+        behaves — not a palette of swatches, but one color in every tone you need. You shape it directly and see the impact of each adjustment in real time.
       </p>
       <p>
         All calculations are done in the 
@@ -66,6 +53,208 @@ exports[`pages/About > renders correctly 1`] = `
         </a>
          
         quickly become noticeable.
+      </p>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      What you can do
+    </h2>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M40,92H70.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24H137.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24Zm64-24A12,12,0,1,1,92,80,12,12,0,0,1,104,68Zm112,96H201.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24h94.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24Zm-48,24a12,12,0,1,1,12-12A12,12,0,0,1,168,188Z"
+            />
+          </svg>
+          Shape the scale
+        </h3>
+        <p>
+          Lightness range and curve, chroma curve, hue shift, and 3–20 steps, in light, dark or reversed mode. Lock any step to anchor the ramp.
+        </p>
+        <p>
+          Any color can carry its own curves, range, steps or mode, without touching the rest.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm12,24.87a83.53,83.53,0,0,1,24,7.25V203.88a83.53,83.53,0,0,1-24,7.25ZM44,128a84.12,84.12,0,0,1,72-83.13V211.13A84.12,84.12,0,0,1,44,128Zm144,58.71V69.29a83.81,83.81,0,0,1,0,117.42Z"
+            />
+          </svg>
+          Check contrast
+        </h3>
+        <p>
+          Every step is measured with both WCAG and APCA, with a grid for pairing foreground and background steps.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z"
+            />
+          </svg>
+          Preview it on real UI
+        </h3>
+        <p>
+          Put the palette onto buttons, cards, charts and typography, in light and dark, instead of judging swatches in isolation.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M236,208a12,12,0,0,1-12,12H32a12,12,0,0,1-12-12V48a12,12,0,0,1,24,0v85.55L88.1,95a12,12,0,0,1,15.1-.57l56.22,42.16L216.1,87A12,12,0,1,1,231.9,105l-64,56a12,12,0,0,1-15.1.57L96.58,119.44,44,165.45V196H224A12,12,0,0,1,236,208Z"
+            />
+          </svg>
+          See the curves
+        </h3>
+        <p>
+          Lightness, chroma and hue are plotted, so uneven jumps are visible instead of guessed at.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M236,32a12,12,0,0,0-12-12c-44.78,0-90,48.54-115.9,82a64,64,0,0,0-80,62c0,12-3.1,22.71-9.23,31.76A43,43,0,0,1,9.4,206.05a11.88,11.88,0,0,0-4.91,13.38A12.07,12.07,0,0,0,16.11,228h76A64,64,0,0,0,154,148C187.49,122.05,236,76.8,236,32ZM209.62,46.39c-4,12.92-13.15,27.49-26.92,42.91-3,3.39-6.16,6.7-9.35,9.89a104.31,104.31,0,0,0-16.5-16.51c3.19-3.19,6.49-6.32,9.88-9.35C182.15,59.55,196.71,50.43,209.62,46.39ZM92.07,204H42a80.17,80.17,0,0,0,10.14-40,40,40,0,1,1,40,40Zm38.18-91.32c3.12-3.93,6.55-8.09,10.23-12.35a80.52,80.52,0,0,1,15.23,15.24c-4.26,3.68-8.42,7.11-12.35,10.23A64.43,64.43,0,0,0,130.25,112.68Z"
+            />
+          </svg>
+          Start with presets
+        </h3>
+        <p>
+          Tailwind, Material, Bootstrap and Open Color presets reproduce how those systems distribute lightness and chroma.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M76,64A12,12,0,0,1,88,52H216a12,12,0,0,1,0,24H88A12,12,0,0,1,76,64Zm140,52H88a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Zm0,64H88a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24ZM44,112a16,16,0,1,0,16,16A16,16,0,0,0,44,112Zm0-64A16,16,0,1,0,60,64,16,16,0,0,0,44,48Zm0,128a16,16,0,1,0,16,16A16,16,0,0,0,44,176Z"
+            />
+          </svg>
+          Build multiple scales
+        </h3>
+        <p>
+          Up to ten colors, grouped as brand, neutral, semantic or decorative; kept in wide-gamut P3 where the display supports it.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M220,112v96a20,20,0,0,1-20,20H56a20,20,0,0,1-20-20V112A20,20,0,0,1,56,92H76a12,12,0,0,1,0,24H60v88H196V116H180a12,12,0,0,1,0-24h20A20,20,0,0,1,220,112ZM96.49,72.49,116,53v83a12,12,0,0,0,24,0V53l19.51,19.52a12,12,0,1,0,17-17l-40-40a12,12,0,0,0-17,0l-40,40a12,12,0,1,0,17,17Z"
+            />
+          </svg>
+          Export it
+        </h3>
+        <p>
+          Tailwind 3 and 4, CSS, SCSS and SVG, in the color format you work in. One scale or the whole palette.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="font-bold text-lg flex items-center gap-1"
+        >
+          <svg
+            class="text-lg"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M232.49,112.49l-48,48a12,12,0,0,1-17-17L195,116H165a84,84,0,0,0-81.36,63,12,12,0,1,1-23.24-6A107.94,107.94,0,0,1,165,92H195L167.51,64.48a12,12,0,0,1,17-17l48,48A12,12,0,0,1,232.49,112.49ZM192,204H44V88a12,12,0,0,0-24,0V216a12,12,0,0,0,12,12H192a12,12,0,0,0,0-24Z"
+            />
+          </svg>
+          Share it
+        </h3>
+        <p>
+          Colors and settings both live in the URL, so sharing is copying the address bar. Signing in only adds saving.
+        </p>
+      </div>
+      <p
+        class="mt-4"
+      >
+        See
+         
+        <a
+          class="underline"
+          href="/custom-color-scales"
+        >
+          Custom Color Scales
+        </a>
+         
+        to learn how to shape your own.
       </p>
     </div>
     <h2

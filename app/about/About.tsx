@@ -1,3 +1,15 @@
+// `/ssr` (not the root entry) because this is a server component: the root entry's IconBase
+// calls useContext, which would force `use client` on the whole page for eight static SVGs.
+import {
+  ChartLineIcon,
+  CircleHalfIcon,
+  ExportIcon,
+  EyeIcon,
+  ListBulletsIcon,
+  PaintBrushIcon,
+  ShareIcon,
+  SlidersHorizontalIcon,
+} from '@phosphor-icons/react/ssr';
 import Link from 'next/link';
 
 import { SITE_NAME, SITE_URL } from '~/config/metadata';
@@ -5,14 +17,17 @@ import { SITE_NAME, SITE_URL } from '~/config/metadata';
 import Page from '~/components/Page';
 
 // JSON-LD describing the app itself; keep name/description in sync with the visible copy and page metadata.
+// `softwareVersion` reuses the build-time package version (next.config.mjs), same source as the Footer,
+// so it can't drift; JSON.stringify omits the key entirely when the var is absent.
 const JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: SITE_NAME,
   applicationCategory: 'DesignApplication',
   operatingSystem: 'Web',
+  softwareVersion: process.env.NEXT_PUBLIC_APP_VERSION,
   description:
-    'Open-source design tool for creating perceptual color scales in OKLCH, with control over lightness, chroma, steps, and curves.',
+    'Open-source OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG.',
   url: SITE_URL,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
@@ -31,23 +46,13 @@ export default function About() {
       <p className="mb-6">A design tool for creating and fine-tuning perceptual color scales.</p>
 
       <div className="space-y-2 mb-8">
-        <p className="mb-0">
-          It’s built for designers and developers who need control over how a scale behaves:
-          lightness range and distribution, chroma handling, hue shift, number of steps, and how a
-          scale responds to constraints like locks and curves. You shape the scale directly and see
-          the impact of each adjustment in real time.
-        </p>
-
         <p>
-          It builds color scales, not palettes —{' '}
+          It’s built for designers and developers who need control over how a{' '}
           <Link className="underline" href="/color-scale-vs-palette">
-            what’s the difference
-          </Link>
-          ? See{' '}
-          <Link className="underline" href="/custom-color-scales">
-            Custom Color Scales
+            color scale
           </Link>{' '}
-          to learn how to shape your own.
+          behaves — not a palette of swatches, but one color in every tone you need. You shape it
+          directly and see the impact of each adjustment in real time.
         </p>
 
         <p>
@@ -59,6 +64,109 @@ export default function About() {
             uneven jumps
           </Link>{' '}
           quickly become noticeable.
+        </p>
+      </div>
+
+      <h2 className="text-2xl font-bold mb-4">What you can do</h2>
+
+      <div className="space-y-3 mb-8">
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <SlidersHorizontalIcon className="text-lg" weight="bold" />
+            Shape the scale
+          </h3>
+          <p>
+            Lightness range and curve, chroma curve, hue shift, and 3–20 steps, in light, dark or
+            reversed mode. Lock any step to anchor the ramp.
+          </p>
+          <p>
+            Any color can carry its own curves, range, steps or mode, without touching the rest.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <CircleHalfIcon className="text-lg" weight="bold" />
+            Check contrast
+          </h3>
+          <p>
+            Every step is measured with both WCAG and APCA, with a grid for pairing foreground and
+            background steps.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <EyeIcon className="text-lg" weight="bold" />
+            Preview it on real UI
+          </h3>
+          <p>
+            Put the palette onto buttons, cards, charts and typography, in light and dark, instead
+            of judging swatches in isolation.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <ChartLineIcon className="text-lg" weight="bold" />
+            See the curves
+          </h3>
+          <p>
+            Lightness, chroma and hue are plotted, so uneven jumps are visible instead of guessed
+            at.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <PaintBrushIcon className="text-lg" weight="bold" />
+            Start with presets
+          </h3>
+          <p>
+            Tailwind, Material, Bootstrap and Open Color presets reproduce how those systems
+            distribute lightness and chroma.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <ListBulletsIcon className="text-lg" weight="bold" />
+            Build multiple scales
+          </h3>
+          <p>
+            Up to ten colors, grouped as brand, neutral, semantic or decorative; kept in wide-gamut
+            P3 where the display supports it.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <ExportIcon className="text-lg" weight="bold" />
+            Export it
+          </h3>
+          <p>
+            Tailwind 3 and 4, CSS, SCSS and SVG, in the color format you work in. One scale or the
+            whole palette.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-lg flex items-center gap-1">
+            <ShareIcon className="text-lg" weight="bold" />
+            Share it
+          </h3>
+          <p>
+            Colors and settings both live in the URL, so sharing is copying the address bar. Signing
+            in only adds saving.
+          </p>
+        </div>
+
+        <p className="mt-4">
+          See{' '}
+          <Link className="underline" href="/custom-color-scales">
+            Custom Color Scales
+          </Link>{' '}
+          to learn how to shape your own.
         </p>
       </div>
 
