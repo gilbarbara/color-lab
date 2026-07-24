@@ -7,7 +7,7 @@ import About from './About';
 export const metadata: Metadata = buildStaticMetadata({
   title: 'About',
   description:
-    'Open-source design tool for creating perceptual color scales in OKLCH, with control over lightness, chroma, steps, and curves.',
+    'Open-source OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG.',
   path: '/about',
 });
 
