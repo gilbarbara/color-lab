@@ -1,7 +1,7 @@
 import { Divider } from '@heroui/react';
 import Link from 'next/link';
 
-import { SITE_NAME, SITE_URL } from '~/config/metadata';
+import { buildArticleSchema } from '~/utils/schema';
 
 import Page from '~/components/Page';
 
@@ -19,16 +19,12 @@ import {
   SWING,
 } from './utils';
 
-const PAGE_URL = `${SITE_URL}/custom-color-scales`;
-
 // JSON-LD for the page; keep headline/description in sync with the visible copy when editing.
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'TechArticle',
+const JSON_LD = buildArticleSchema({
   headline: 'Custom Color Scales in OKLCH',
   description:
     'Build custom color scales in OKLCH — shape lightness range, chroma and hue curves for perceptually even palettes, not flat generated tints.',
-  about: [
+  keywords: [
     'OKLCH',
     'color scales',
     'perceptually uniform',
@@ -38,13 +34,11 @@ const JSON_LD = {
     'hue shift',
     'design systems',
   ],
-  mainEntityOfPage: PAGE_URL,
-  url: PAGE_URL,
-  author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
-  publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+  image: '/og-custom-color-scales.png',
+  path: '/custom-color-scales',
   datePublished: '2026-06-22',
   dateModified: '2026-07-20',
-};
+});
 
 const jsonLdHtml = JSON.stringify(JSON_LD);
 

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { DEFAULT_PALETTE_NAME } from '~/config/globals';
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '~/config/metadata';
+import { SHARED_NODES } from '~/config/schema';
 import { getPaletteMeta } from '~/utils/metadata';
 import { buildUrl, parsePaletteFromUrl } from '~/utils/url';
 
@@ -14,27 +14,7 @@ interface PalettePageProps {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebApplication',
-      '@id': `${SITE_URL}/#webapp`,
-      name: SITE_NAME,
-      url: `${SITE_URL}/p`,
-      description: SITE_DESCRIPTION,
-      applicationCategory: 'DesignApplication',
-      operatingSystem: 'Web',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      creator: { '@id': `${SITE_URL}/#creator` },
-      publisher: { '@id': `${SITE_URL}/#creator` },
-    },
-    {
-      '@type': 'Person',
-      '@id': `${SITE_URL}/#creator`,
-      name: 'Gil Barbara',
-      url: 'https://gilbarbara.dev',
-      sameAs: ['https://github.com/gilbarbara'],
-    },
-  ],
+  '@graph': [...SHARED_NODES],
 };
 
 const jsonLdHtml = JSON.stringify(jsonLd);

@@ -6,7 +6,8 @@ import { cn } from '@heroui/react';
 import { scale } from 'colorizr';
 import Link from 'next/link';
 
-import { SITE_NAME, SITE_URL } from '~/config/metadata';
+import { SITE_URL } from '~/config/metadata';
+import { buildArticleSchema } from '~/utils/schema';
 
 import Page from '~/components/Page';
 
@@ -61,31 +62,31 @@ const FAQ = [
 const PAGE_URL = `${SITE_URL}/oklch-vs-hsl`;
 
 // JSON-LD for the page; keep headline/description in sync with the visible copy when editing.
-const JSON_LD = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: 'OKLCH vs HSL',
-    description:
-      'Why OKLCH beats HSL for color scales: perceptual lightness, hue stability, and cleaner gradients, compared side by side.',
-    about: ['OKLCH', 'HSL', 'perceptual color', 'color scales'],
-    mainEntityOfPage: PAGE_URL,
-    url: PAGE_URL,
-    author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
-    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-    datePublished: '2026-06-10',
-    dateModified: '2026-07-20',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: FAQ.map(({ answer, question }) => ({
-      '@type': 'Question',
-      name: question,
-      acceptedAnswer: { '@type': 'Answer', text: answer },
-    })),
-  },
-];
+// The FAQ rides in the same `@graph` as the article rather than a sibling document, so it can
+// declare which article it belongs to. Google restricted FAQ rich results to government and
+// health sites in 2023; this stays for parsers and LLMs, not for a rich result.
+const JSON_LD = buildArticleSchema({
+  headline: 'OKLCH vs HSL',
+  description:
+    'Why OKLCH beats HSL for color scales: perceptual lightness, hue stability, and cleaner gradients, compared side by side.',
+  keywords: ['OKLCH', 'HSL', 'perceptual color', 'color scales'],
+  image: '/og-oklch-vs-hsl.png',
+  path: '/oklch-vs-hsl',
+  datePublished: '2026-06-10',
+  dateModified: '2026-07-20',
+  extraNodes: [
+    {
+      '@type': 'FAQPage',
+      '@id': `${PAGE_URL}#faq`,
+      isPartOf: { '@id': `${PAGE_URL}#article` },
+      mainEntity: FAQ.map(({ answer, question }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    },
+  ],
+});
 
 const jsonLdHtml = JSON.stringify(JSON_LD);
 

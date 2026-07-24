@@ -12,26 +12,15 @@ import {
 } from '@phosphor-icons/react/ssr';
 import Link from 'next/link';
 
-import { SITE_NAME, SITE_URL } from '~/config/metadata';
+import { SHARED_NODES } from '~/config/schema';
 
 import Page from '~/components/Page';
 
-// JSON-LD describing the app itself; keep name/description in sync with the visible copy and page metadata.
-// `softwareVersion` reuses the build-time package version (next.config.mjs), same source as the Footer,
-// so it can't drift; JSON.stringify omits the key entirely when the var is absent.
+// Describes the same `#webapp` entity as `/p`; the nodes live in `~/config/schema` so the two
+// pages can't drift into describing two different products.
 const JSON_LD = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: SITE_NAME,
-  applicationCategory: 'DesignApplication',
-  operatingSystem: 'Web',
-  softwareVersion: process.env.NEXT_PUBLIC_APP_VERSION,
-  description:
-    'Open-source OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG.',
-  url: SITE_URL,
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
-  sameAs: ['https://github.com/gilbarbara/color-lab'],
+  '@graph': [...SHARED_NODES],
 };
 
 const jsonLdHtml = JSON.stringify(JSON_LD);

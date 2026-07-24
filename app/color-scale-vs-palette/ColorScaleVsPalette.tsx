@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SITE_NAME, SITE_URL } from '~/config/metadata';
+import { buildArticleSchema } from '~/utils/schema';
 
 import Page from '~/components/Page';
 
@@ -14,16 +14,12 @@ import {
   TOOLS,
 } from './utils';
 
-const PAGE_URL = `${SITE_URL}/color-scale-vs-palette`;
-
 // JSON-LD for the page; keep headline/description in sync with the visible copy when editing.
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'TechArticle',
+const JSON_LD = buildArticleSchema({
   headline: 'Color Scale vs Palette: 6 scale generators, compared',
   description:
     'What a color scale is, how it differs from a palette, and how six tools that build one (tints.dev, uicolors, Leonardo, Huetone, hihayk, ColorMeUp Lab) compare.',
-  about: [
+  keywords: [
     'color scale generator',
     'color scale vs palette',
     'OKLCH',
@@ -33,13 +29,11 @@ const JSON_LD = {
     'WCAG',
     'APCA',
   ],
-  mainEntityOfPage: PAGE_URL,
-  url: PAGE_URL,
-  author: { '@type': 'Person', name: 'Gil Barbara', url: 'https://gilbarbara.dev/' },
-  publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+  image: '/og-color-scale-vs-palette.png',
+  path: '/color-scale-vs-palette',
   datePublished: '2026-07-20',
   dateModified: '2026-07-20',
-};
+});
 
 const jsonLdHtml = JSON.stringify(JSON_LD);
 
