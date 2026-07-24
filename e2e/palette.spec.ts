@@ -8,6 +8,7 @@ import {
   expectToast,
   hasParams,
   scrollPanelToTop,
+  scrollToTop,
 } from './__setup__/utils';
 
 const screenshotName = createScreenshotNamer();
@@ -42,7 +43,7 @@ test('palette', async () => {
 
     await expect(page.locator('html')).toHaveAttribute('data-sidebar', 'closed');
 
-    await page.evaluate(() => window.scrollTo(0, 0));
+    await scrollToTop(page);
 
     const nameInput = page.locator('input[name="palette-name"]');
 

@@ -79,7 +79,7 @@ describe('Palettes', () => {
 
       render(<Palettes />);
 
-      expect(screen.getByLabelText('Loading')).toBeInTheDocument();
+      expect(screen.getByTestId('Palettes')).toMatchSnapshot();
     });
 
     it('shows sign in message when not authenticated', () => {

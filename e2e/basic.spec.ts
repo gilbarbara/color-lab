@@ -9,6 +9,7 @@ import {
   lacksColor,
   removeColor,
   scrollPanelToTop,
+  scrollToTop,
 } from './__setup__/utils';
 
 const screenshotName = createScreenshotNamer();
@@ -238,6 +239,7 @@ test('basic', async () => {
 
     await page.waitForTimeout(collapseDuration);
     await scrollPanelToTop(page);
+    await scrollToTop(page);
 
     await expect(page).toHaveScreenshot(screenshotName('remove-tertiary.png'));
   });
@@ -252,6 +254,10 @@ test('basic', async () => {
 
     await expect(page).toHaveURL(lacksColor('Secondary'));
     await expect(page).toHaveURL(hasColor('Primary'));
+
+    await page.waitForTimeout(collapseDuration);
+    await scrollPanelToTop(page);
+    await scrollToTop(page);
 
     await expect(page).toHaveScreenshot(screenshotName('remove-secondary.png'));
   });

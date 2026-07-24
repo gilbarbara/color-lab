@@ -97,11 +97,15 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
           >
             Color Scale Generator
           </h1>
-          <p>
-            Perceptual, wide-gamut color palettes for UI.
+          <p
+            class="text-foreground-500"
+          >
+            Perceptual, wide-gamut OKLCH color palettes for UI, with WCAG & APCA contrast checks.
           </p>
-          <p>
-            Exports to Tailwind CSS and other formats.
+          <p
+            class="text-foreground-500"
+          >
+            Exports to Tailwind, CSS and other formats.
           </p>
         </div>
         <hr
@@ -116,7 +120,7 @@ exports[`Panel > Render > renders correctly with panel closed 1`] = `
       >
         <button
           aria-expanded="false"
-          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium text-foreground-600"
+          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium text-foreground-600"
           data-react-aria-pressable="true"
           tabindex="0"
           type="button"
@@ -1981,11 +1985,15 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
           >
             Color Scale Generator
           </h1>
-          <p>
-            Perceptual, wide-gamut color palettes for UI.
+          <p
+            class="text-foreground-500"
+          >
+            Perceptual, wide-gamut OKLCH color palettes for UI, with WCAG & APCA contrast checks.
           </p>
-          <p>
-            Exports to Tailwind CSS and other formats.
+          <p
+            class="text-foreground-500"
+          >
+            Exports to Tailwind, CSS and other formats.
           </p>
         </div>
         <hr
@@ -2000,7 +2008,7 @@ exports[`Panel > Render > renders correctly with panel open 1`] = `
       >
         <button
           aria-expanded="false"
-          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-transparent data-[hover=true]:bg-default/40 px-2 min-w-16 h-8 text-small gap-2 rounded-medium text-foreground-600"
+          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent transform-gpu data-[pressed=true]:scale-[0.97] cursor-pointer outline-solid outline-transparent data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 [&>svg]:max-w-[theme(spacing.8)] transition-transform-colors-opacity motion-reduce:transition-none bg-default/40 data-[hover=true]:opacity-hover px-2 min-w-16 h-8 text-small gap-2 rounded-medium text-foreground-600"
           data-react-aria-pressable="true"
           tabindex="0"
           type="button"

@@ -141,7 +141,7 @@ export async function removeColor(page: Page, index: number) {
 }
 
 /** Scroll the generator panel (the sidebar's own scroll container, not the window). */
-export async function scrollPanelTo(page: Page, top: number) {
+export async function scrollPanelTo(page: Page, top: number = 0) {
   await page.getByTestId('GeneratorPanel').evaluate((el, scrollTop) => {
     el.scrollTo({ top: scrollTop, behavior: 'instant' });
   }, top);
@@ -187,6 +187,10 @@ export async function scrollPanelToTop(page: Page): Promise<void> {
         requestAnimationFrame(tick);
       }),
   );
+}
+
+export async function scrollToTop(page: Page) {
+  await page.evaluate(() => window.scrollTo(0, 0));
 }
 
 /**
