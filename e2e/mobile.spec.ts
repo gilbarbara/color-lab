@@ -1,6 +1,6 @@
 import { devices, expect, type Page, test } from '@playwright/test';
 
-import { collapseDuration, scrollOffset, seedSingle } from './__setup__/constants';
+import { scrollOffset, seedSingle } from './__setup__/constants';
 import { createPage } from './__setup__/page';
 import {
   createScreenshotNamer,
@@ -37,7 +37,6 @@ test.afterAll(async () => {
 
 async function toggleBottomBar() {
   await page.getByRole('button', { name: /toggle bottom bar/i }).click();
-  await page.waitForTimeout(collapseDuration);
 }
 
 /**
@@ -148,6 +147,8 @@ test('mobile', async () => {
 
     await hueSlider.fill('150');
     await expect(page).toHaveURL(/150/);
+    // Not an animation wait: lets useUrlSync flush the hue write before the next slider
+    // interaction pauses it again.
     await page.waitForTimeout(100);
 
     await chromaSlider.fill('0.21');
@@ -161,8 +162,6 @@ test('mobile', async () => {
     await expect(ColorItem.first()).toHaveAttribute('aria-current', 'true');
 
     await addColorButton.click();
-
-    await page.waitForTimeout(collapseDuration);
 
     await expect(ColorItem).toHaveCount(2);
     await expect(ColorItem.first()).toHaveAttribute('aria-current', 'false');
@@ -180,7 +179,6 @@ test('mobile', async () => {
 
     await expect(page.getByTestId('ScaleColorOptions')).toBeVisible();
 
-    await page.waitForTimeout(collapseDuration);
     await scrollPanelToTop(page);
 
     await expect(page).toHaveScreenshot(getScreenshotName('advanced-options.png'));
@@ -199,7 +197,6 @@ test('mobile', async () => {
 
     await expect(page.getByTestId('ColorOptions')).toHaveAttribute('data-open', 'false');
 
-    await page.waitForTimeout(collapseDuration);
     await scrollPanelToTop(page);
 
     await expect(page).toHaveScreenshot(getScreenshotName('post-advanced-color-options.png'));
@@ -209,7 +206,6 @@ test('mobile', async () => {
     const colorItem = page.getByTestId('ColorItem').nth(1);
 
     await colorItem.getByRole('button', { name: 'Change color options' }).click();
-    await page.waitForTimeout(collapseDuration);
 
     const colorItemOffset = await colorItem.evaluate(el => (el as HTMLElement).offsetTop);
 
@@ -304,7 +300,6 @@ test('mobile', async () => {
 
   await test.step('opens color charts', async () => {
     await page.getByRole('button', { name: 'View Charts' }).first().click();
-    await page.waitForTimeout(collapseDuration);
 
     await page.getByRole('tab', { name: 'Chroma' }).click();
 
@@ -350,9 +345,8 @@ test('mobile', async () => {
       .getByRole('button', { name: 'Select Primary' })
       .click();
 
-    // Select Primary auto-opens the bottom bar; let the animation settle
-    await page.waitForTimeout(collapseDuration);
-
+    // Select Primary auto-opens the bottom bar. Under reduced motion that open is instant,
+    // so toHaveScreenshot's own stability check is the only settle needed.
     await expect(page).toHaveScreenshot(getScreenshotName('select-primary.png'));
   });
 
@@ -422,7 +416,6 @@ test('mobile', async () => {
       .getByRole('group', { name: 'Color strip' })
       .getByRole('button', { name: 'Select Secondary' })
       .click();
-    await page.waitForTimeout(collapseDuration);
     await scrollPanelToTop(page);
 
     const ColorItem = page.getByTestId('ColorItem').nth(1);
@@ -437,8 +430,6 @@ test('mobile', async () => {
     await removeButton.click();
 
     await expect(page.getByTestId('ColorItem')).toHaveCount(1);
-
-    await page.waitForTimeout(collapseDuration);
 
     // The Secondary segment is dropped, but the palette identity and global options are kept.
     await expect(page).toHaveURL(lacksColor('Secondary'));

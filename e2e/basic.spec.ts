@@ -42,7 +42,14 @@ test.use({
 });
 
 test.beforeAll(async ({ browser }) => {
-  page = await createPage(browser, { historyStack: true, url: seedSingle });
+  // The one spec that runs with animations on. Reduced motion bypasses the Collapse
+  // open/close, the collapseAnimationCount gate on Panel's deferred scroll, and the panel
+  // scroll tween — if every spec emulated `reduce`, that machinery would be uncovered.
+  page = await createPage(browser, {
+    historyStack: true,
+    reducedMotion: 'no-preference',
+    url: seedSingle,
+  });
 });
 
 test.afterAll(async () => {
