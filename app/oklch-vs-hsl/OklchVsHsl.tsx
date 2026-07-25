@@ -73,7 +73,7 @@ const JSON_LD = buildArticleSchema({
   image: '/og-oklch-vs-hsl.png',
   path: '/oklch-vs-hsl',
   datePublished: '2026-06-10',
-  dateModified: '2026-07-20',
+  dateModified: '2026-07-25',
   extraNodes: [
     {
       '@type': 'FAQPage',

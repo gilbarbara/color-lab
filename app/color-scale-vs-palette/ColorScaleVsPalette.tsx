@@ -32,7 +32,7 @@ const JSON_LD = buildArticleSchema({
   image: '/og-color-scale-vs-palette.png',
   path: '/color-scale-vs-palette',
   datePublished: '2026-07-20',
-  dateModified: '2026-07-20',
+  dateModified: '2026-07-25',
 });
 
 const jsonLdHtml = JSON.stringify(JSON_LD);

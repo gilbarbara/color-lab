@@ -37,7 +37,7 @@ const JSON_LD = buildArticleSchema({
   image: '/og-custom-color-scales.png',
   path: '/custom-color-scales',
   datePublished: '2026-06-22',
-  dateModified: '2026-07-20',
+  dateModified: '2026-07-25',
 });
 
 const jsonLdHtml = JSON.stringify(JSON_LD);
