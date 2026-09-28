@@ -91,7 +91,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(0 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(255, 0, 0);"
+              style="background-color: rgb(255, 0, 0);"
             />
           </div>
           <div
@@ -100,7 +100,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(40 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(255, 170, 0);"
+              style="background-color: rgb(255, 170, 0);"
             />
           </div>
           <div
@@ -109,7 +109,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(80 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(170, 255, 0);"
+              style="background-color: rgb(170, 255, 0);"
             />
           </div>
           <div
@@ -118,7 +118,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(120 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(0, 255, 0);"
+              style="background-color: rgb(0, 255, 0);"
             />
           </div>
           <div
@@ -127,7 +127,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(160 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(0, 255, 170);"
+              style="background-color: rgb(0, 255, 170);"
             />
           </div>
           <div
@@ -136,7 +136,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(200 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(0, 170, 255);"
+              style="background-color: rgb(0, 170, 255);"
             />
           </div>
           <div
@@ -145,7 +145,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(0, 0, 255);"
+              style="background-color: rgb(0, 0, 255);"
             />
           </div>
           <div
@@ -154,7 +154,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(280 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(170, 0, 255);"
+              style="background-color: rgb(170, 0, 255);"
             />
           </div>
           <div
@@ -163,7 +163,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(320 100% 50%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(255, 0, 170);"
+              style="background-color: rgb(255, 0, 170);"
             />
           </div>
         </div>
@@ -188,7 +188,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 0)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 0);"
+              style="background-color: oklch(0.72 0.24 0);"
             />
           </div>
           <div
@@ -197,7 +197,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 40)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 40);"
+              style="background-color: oklch(0.72 0.24 40);"
             />
           </div>
           <div
@@ -206,7 +206,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 80)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 80);"
+              style="background-color: oklch(0.72 0.24 80);"
             />
           </div>
           <div
@@ -215,7 +215,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 120)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 120);"
+              style="background-color: oklch(0.72 0.24 120);"
             />
           </div>
           <div
@@ -224,7 +224,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 160)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 160);"
+              style="background-color: oklch(0.72 0.24 160);"
             />
           </div>
           <div
@@ -233,7 +233,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 200)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 200);"
+              style="background-color: oklch(0.72 0.24 200);"
             />
           </div>
           <div
@@ -242,7 +242,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 240)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 240);"
+              style="background-color: oklch(0.72 0.24 240);"
             />
           </div>
           <div
@@ -251,7 +251,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 280)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 280);"
+              style="background-color: oklch(0.72 0.24 280);"
             />
           </div>
           <div
@@ -260,7 +260,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(0.72 0.24 320)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.72 0.24 320);"
+              style="background-color: oklch(0.72 0.24 320);"
             />
           </div>
         </div>
@@ -288,7 +288,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           <div
             aria-label="hsl(240 100% 50%)"
             class="w-full rounded-md aspect-square md:aspect-video"
-            style="background: rgb(0, 0, 255);"
+            style="background-color: rgb(0, 0, 255);"
           />
           <span
             class="text-sm text-center"
@@ -302,7 +302,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           <div
             aria-label="oklch(0.72 0.16 240)"
             class="w-full rounded-md aspect-square md:aspect-video"
-            style="background: oklch(0.72 0.16 240);"
+            style="background-color: oklch(0.72 0.16 240);"
           />
           <span
             class="text-sm text-center"
@@ -360,7 +360,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 90% 94%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(226, 226, 254);"
+              style="background-color: rgb(226, 226, 254);"
             />
           </div>
           <div
@@ -369,7 +369,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 90% 78%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(148, 148, 249);"
+              style="background-color: rgb(148, 148, 249);"
             />
           </div>
           <div
@@ -378,7 +378,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 90% 66%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(90, 90, 246);"
+              style="background-color: rgb(90, 90, 246);"
             />
           </div>
           <div
@@ -387,7 +387,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 90% 54%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(32, 32, 243);"
+              style="background-color: rgb(32, 32, 243);"
             />
           </div>
           <div
@@ -396,7 +396,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 90% 42%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(11, 11, 204);"
+              style="background-color: rgb(11, 11, 204);"
             />
           </div>
           <div
@@ -405,7 +405,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="hsl(240 90% 21%)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: rgb(5, 5, 102);"
+              style="background-color: rgb(5, 5, 102);"
             />
           </div>
         </div>
@@ -425,7 +425,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(94% 0.03132 264)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.94 0.03132 264);"
+              style="background-color: oklch(0.94 0.03132 264);"
             />
           </div>
           <div
@@ -434,7 +434,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(87.471% 0.06684 264)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.87471 0.06684 264);"
+              style="background-color: oklch(0.87471 0.06684 264);"
             />
           </div>
           <div
@@ -443,7 +443,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(75.532% 0.13571 264)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.75532 0.13571 264);"
+              style="background-color: oklch(0.75532 0.13571 264);"
             />
           </div>
           <div
@@ -452,7 +452,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(60.073% 0.15 264)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.60073 0.15 264);"
+              style="background-color: oklch(0.60073 0.15 264);"
             />
           </div>
           <div
@@ -461,7 +461,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(41.765% 0.15 264)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.41765 0.15 264);"
+              style="background-color: oklch(0.41765 0.15 264);"
             />
           </div>
           <div
@@ -470,7 +470,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
             <div
               aria-label="oklch(21% 0.14449 264)"
               class="w-full rounded-md aspect-square lg:aspect-video"
-              style="background: oklch(0.21 0.14449 264);"
+              style="background-color: oklch(0.21 0.14449 264);"
             />
           </div>
         </div>
