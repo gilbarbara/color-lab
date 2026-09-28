@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useTheme as useNextTheme } from 'next-themes';
+import { useHydrated, useTheme as useThemeContext } from '@wrksz/themes/client';
 
 export interface ThemeContextType {
   isDarkMode: boolean;
@@ -10,12 +9,8 @@ export interface ThemeContextType {
 }
 
 export default function useTheme(): ThemeContextType {
-  const { resolvedTheme, setTheme } = useNextTheme();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const { resolvedTheme, setTheme } = useThemeContext();
+  const isMounted = useHydrated();
 
   const isDarkMode = isMounted && resolvedTheme === 'dark';
 

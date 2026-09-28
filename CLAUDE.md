@@ -53,14 +53,14 @@ Tests in `tests/` mirroring `src/` structure. Use `.test.ts` or `.test.tsx` exte
 - `~/test-utils` → `tests/__setup__/test-utils.tsx`
   - custom render wrapping `ThemeProvider` + `MockAuthProvider`. `next/navigation` is mocked in `~/test-mocks` (no router in the wrapper); `GeneratorStoreProvider` is mocked to a passthrough. Supports `initialEntries` (seeds the mocked route via `setMockRoute`) and `authState` for auth context overrides.
 - `~/test-mocks` → `tests/__setup__/mocks.ts`
-  - mocks `next/navigation`, `next-themes`, and `~/utils/gamut`.
+  - mocks `next/navigation`, `@wrksz/themes/client`, and `~/utils/gamut`.
 
 **Available mocks** (import from `~/test-mocks`):
 
 - `mockClipboard.writeText` — Navigator clipboard
 - `mockAddToast` — HeroUI toast function
 - `mockRouter` / `setMockRoute(url)` — `next/navigation` router + route seeding
-- `mockSetTheme` / `setMockTheme(theme)` — `next-themes` theme control
+- `mockSetTheme` / `setMockTheme(theme)` — `@wrksz/themes` theme control
 - `mockIsP3Supported` — gamut capability toggle (`~/utils/gamut`)
 - `getGeneratorStore()` — handle to the shared per-test generator store
 

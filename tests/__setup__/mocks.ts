@@ -68,18 +68,16 @@ export function setMockRoute(url: string): void {
   navigationMocks.searchParams = new URLSearchParams(search ?? '');
 }
 
-// next-themes' ThemeProvider renders an inline FOUC-prevention <script> into its
-// output, which jsdom captures inside the rendered container and pollutes snapshots.
-// Replace it with a passthrough and expose the theme as controllable state so tests
-// can drive dark mode through the real useTheme hook.
-vi.mock('next-themes', () => ({
-  ThemeProvider: ({ children }: { children: ReactNode }) => children,
+// The theme provider mounts in the server layout, outside the test wrapper, and the real
+// useTheme throws without it. Expose the theme as controllable state so tests can drive
+// dark mode through the app's useTheme hook.
+vi.mock('@wrksz/themes/client', async importOriginal => ({
+  ...(await importOriginal<typeof import('@wrksz/themes/client')>()),
   useTheme: () => ({
     resolvedTheme: themeMocks.resolvedTheme,
     theme: themeMocks.resolvedTheme,
     setTheme: themeMocks.setTheme,
-    themes: ['light', 'dark', 'system'],
-    systemTheme: 'light',
+    themes: ['light', 'dark'],
   }),
 }));
 
