@@ -10,7 +10,7 @@
  *
  * Run (headed, local dev — best rendering):
  *   pnpm dev
- *   node scripts/capture-demo-mobile.mjs
+ *   node scripts/video-capture/mobile-full.mjs
  *
  * Options (env): BASE_URL, HEADLESS, OUT, SLOWMO, START — same as the desktop script.
  */
@@ -22,7 +22,7 @@ import { chromium, devices } from '@playwright/test';
 
 const BASE_URL = process.env.BASE_URL ?? 'https://lab.colormeup.co';
 const HEADLESS = process.env.HEADLESS === '1';
-const OUT = process.env.OUT ?? join(process.cwd(), 'captures');
+const OUT = process.env.OUT ?? join(import.meta.dirname, '../../captures');
 const SLOWMO = Number(process.env.SLOWMO ?? 0);
 const START = process.env.START ?? '/p/Primary-54_0.272_263.1';
 
