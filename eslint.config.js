@@ -3,7 +3,6 @@ import vitest from '@gilbarbara/eslint-config/vitest';
 import testingLibrary from '@gilbarbara/eslint-config/testing-library';
 import playwright from 'eslint-plugin-playwright';
 
-
 export default [
   ...config,
   ...vitest,
