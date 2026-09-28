@@ -32,7 +32,7 @@ const sessionStack = [
 
 // The only spec that boots on the default (light) color scheme: it owns the dark-mode toggle
 // and has to start light to prove the toggle and its persistence. Every other spec seeds
-// `colorScheme: 'dark'` and inherits dark via next-themes' `system` default.
+// `colorScheme: 'dark'` and inherits dark via the theme provider's `system` default.
 test.use({
   ...devices['Desktop Chrome'],
   viewport: {

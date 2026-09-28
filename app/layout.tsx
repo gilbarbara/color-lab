@@ -1,6 +1,7 @@
 import '~/index.css';
 
 import type { ReactNode } from 'react';
+import { ThemeProvider } from '@wrksz/themes/next';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -77,7 +78,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: stateBootstrap }} />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <Providers>{children}</Providers>
+        <ThemeProvider>
+          <Providers>{children}</Providers>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
