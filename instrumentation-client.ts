@@ -1,5 +1,7 @@
 import * as Sentry from '@sentry/nextjs';
 
+import { SENTRY_DATA_COLLECTION } from '~/config/sentry';
+
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION;
 
 // Crawlers (Googlebot, GSC's Google-InspectionTool, Lighthouse/PSI, headless Chrome) execute
@@ -41,6 +43,7 @@ if (process.env.NODE_ENV === 'production' && !isBot) {
     dsn: 'https://741e6611f536afcbb507dc8ff10c4553@o23412.ingest.us.sentry.io/4510694826508288',
     environment: process.env.NODE_ENV,
     release: APP_VERSION ? `v${APP_VERSION}` : undefined,
+    dataCollection: SENTRY_DATA_COLLECTION,
     // Replay is loaded lazily after init (see below) to keep rrweb off the
     // initial bundle / hydration path.
     integrations: [Sentry.browserTracingIntegration()],
