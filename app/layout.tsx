@@ -67,14 +67,14 @@ export const viewport: Viewport = {
   ],
 };
 
-const gamutBootstrap = `(function(){try{var p3=window.matchMedia('(color-gamut: p3)').matches;var state=null;var raw=localStorage.getItem('${STORAGE_KEY}');if(raw){try{state=JSON.parse(raw)?.state;}catch(e){}}var root=document.documentElement;var gamut=(state&&state.gamut)||(p3?'p3':'srgb');root.setAttribute('data-gamut',gamut);root.setAttribute('data-p3-supported',p3?'true':'false');function flag(v,d){return (typeof v==='boolean'?v:d)?'open':'closed';}root.setAttribute('data-sidebar',flag(state&&state.showSidebar,true));root.setAttribute('data-preview',flag(state&&state.showPreview,true));root.setAttribute('data-color-options',flag(state&&state.showColorOptionsPanel,false));root.setAttribute('data-palette-options',flag(state&&state.showPaletteOptionsPanel,false));}catch(e){}})();`;
+const stateBootstrap = `(function(){try{var p3=window.matchMedia('(color-gamut: p3)').matches;var state=null;var raw=localStorage.getItem('${STORAGE_KEY}');if(raw){try{state=JSON.parse(raw)?.state;}catch(e){}}var root=document.documentElement;var gamut=(state&&state.gamut)||(p3?'p3':'srgb');root.setAttribute('data-gamut',gamut);root.setAttribute('data-p3-supported',p3?'true':'false');function flag(v,d){return (typeof v==='boolean'?v:d)?'open':'closed';}root.setAttribute('data-sidebar',flag(state&&state.showSidebar,true));root.setAttribute('data-preview',flag(state&&state.showPreview,true));root.setAttribute('data-color-options',flag(state&&state.showColorOptionsPanel,false));root.setAttribute('data-palette-options',flag(state&&state.showPaletteOptionsPanel,false));}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* eslint-disable-next-line react/no-danger */}
-        <script dangerouslySetInnerHTML={{ __html: gamutBootstrap }} />
+        <script dangerouslySetInnerHTML={{ __html: stateBootstrap }} />
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <Providers>{children}</Providers>
