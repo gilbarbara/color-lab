@@ -108,7 +108,7 @@ function Swatch(props: SwatchProps) {
       <div
         aria-label={label ?? color}
         className={cn('w-full rounded-md aspect-square ', className)}
-        style={{ background: color }}
+        style={{ backgroundColor: color }}
       />
       {label && <span className="text-sm text-center">{label}</span>}
     </div>
