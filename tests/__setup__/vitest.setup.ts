@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 // Import global mocks (runs vi.mock calls and sets up clipboard)
 import './mocks';
 

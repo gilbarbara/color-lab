@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { withSentryConfig } from '@sentry/nextjs';
+import { withSentryConfig } from '@sentry/nextjs/config';
+import type { NextConfig } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants.js';
 
 const packageJSON = JSON.parse(readFileSync('./package.json', 'utf8'));
@@ -21,8 +22,8 @@ const REQUIRED_FIREBASE_ENV = [
   'NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET',
 ];
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
+  agentRules: false,
   output: 'standalone',
   outputFileTracingRoot: ROOT,
   env: {
@@ -63,11 +64,10 @@ const sentryConfig = withSentryConfig(nextConfig, {
   // release by git SHA, minting a fresh, event-less release on every build.
   release: { name: `v${packageJSON.version}` },
   widenClientFileUpload: true,
-  hideSourceMaps: true,
-  disableLogger: true,
+  webpack: { treeshake: { removeDebugLogging: true } },
 });
 
-export default phase => {
+export default (phase: string) => {
   if (phase === PHASE_PRODUCTION_BUILD) {
     const missing = REQUIRED_FIREBASE_ENV.filter(key => !process.env[key]);
 

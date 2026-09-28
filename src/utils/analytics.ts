@@ -80,7 +80,7 @@ export async function initAnalytics(): Promise<void> {
       // explicitly clears a stuck flag so verbose logging can't linger in a dev's
       // browser after a one-off `debug: true` session.
       debug: false,
-      // Reverse-proxied through our own domain (see next.config.mjs rewrites) to
+      // Reverse-proxied through our own domain (see next.config.ts rewrites) to
       // dodge ad blockers. ui_host must stay PostHog's real host for toolbar links.
       api_host: '/ingest',
       ui_host: POSTHOG_UI_HOST,

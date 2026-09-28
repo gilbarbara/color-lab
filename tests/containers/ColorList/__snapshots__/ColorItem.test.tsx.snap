@@ -427,6 +427,7 @@ exports[`ColorItem > Render > renders correctly in HSL mode 1`] = `
                   data-react-aria-pressable="true"
                   data-slot="trigger"
                   id="react-aria-_r_1m_"
+                  style="user-select: none;"
                   tabindex="0"
                   type="button"
                 >
@@ -1337,6 +1338,7 @@ exports[`ColorItem > Render > renders correctly in RGB mode 1`] = `
                   data-react-aria-pressable="true"
                   data-slot="trigger"
                   id="react-aria-_r_3a_"
+                  style="user-select: none;"
                   tabindex="0"
                   type="button"
                 >

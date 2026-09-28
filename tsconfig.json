@@ -19,5 +19,6 @@
     "types": ["node"],
     "verbatimModuleSyntax": true
   },
-  "include": ["src", "app", "next-env.d.ts", "next.config.mjs", "vitest.config.ts"]
+  "include": ["src", "app", "next-env.d.ts",
+    "next.config.ts", "vitest.config.ts"]
 }
