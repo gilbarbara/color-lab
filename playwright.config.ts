@@ -35,7 +35,9 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: 'pnpm start',
+    // Not `pnpm start`: pnpm runs scripts in their own process group, so Playwright's
+    // group kill misses the server and the run hangs on teardown.
+    command: 'node scripts/standalone.mjs',
     port: 3000,
     reuseExistingServer: !process.env.CI,
   },
