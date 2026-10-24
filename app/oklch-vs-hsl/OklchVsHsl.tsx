@@ -169,7 +169,7 @@ export default function OklchVsHsl() {
         </div>
         <div>
           <p className="text-sm font-semibold mb-2">
-            OKLCH — <span className="font-mono">oklch(0.72 0.16 h)</span>
+            OKLCH — <span className="font-mono">oklch(0.72 0.24 h)</span>
           </p>
           <Row colors={HUES.map(h => `oklch(0.72 0.24 ${h})`)} />
         </div>

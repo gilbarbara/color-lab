@@ -176,7 +176,7 @@ exports[`pages/OklchVsHsl > renders correctly 1`] = `
           <span
             class="font-mono"
           >
-            oklch(0.72 0.16 h)
+            oklch(0.72 0.24 h)
           </span>
         </p>
         <div
