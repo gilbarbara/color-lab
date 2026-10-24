@@ -28,7 +28,7 @@ const jsonLdHtml = JSON.stringify(JSON_LD);
 export default function About() {
   return (
     <Page data-testid="About">
-      {/* eslint-disable-next-line react/no-danger */}
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */}
       <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
       <h1 className="text-4xl font-bold mb-8">ColorMeUp LAB</h1>
 

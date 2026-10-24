@@ -142,6 +142,7 @@ export default function HueChart(props: ScaleChartComponentProps) {
           {/* Hue dots at each step */}
           {dots.map((dot, index) => (
             <TooltipClickable
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               key={dot.label ?? index}
               aria-label={`Step ${dot.label}: hue ${normalizeHue(dot.hue)}°`}
               className="absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-danger ring-1 ring-content1 transition-transform hover:scale-150"

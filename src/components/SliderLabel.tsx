@@ -40,7 +40,7 @@ export default function SliderLabel(props: SliderLabelProps) {
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
+    // eslint-disable-next-line jsx-a11y-x/label-has-associated-control
     <label {...rest} className="flex gap-2 items-center">
       <span
         className={cn('text-sm/5', {

@@ -156,6 +156,7 @@ export default function ChromaChart(props: ScaleChartComponentProps) {
           {/* Output dots at each step */}
           {dots.map((dot, index) => (
             <TooltipClickable
+              // eslint-disable-next-line @eslint-react/no-array-index-key
               key={dot.label ?? index}
               aria-label={`Step ${dot.label}: chroma ${dot.output.toFixed(3)}`}
               className="absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-warning-500 ring-1 ring-content1 transition-transform hover:scale-150"

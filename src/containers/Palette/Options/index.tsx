@@ -120,7 +120,7 @@ export default function PaletteOptions() {
     <div className="border border-default p-4 mt-4 rounded-xl" data-testid="PaletteOptions">
       <div className="w-full flex flex-col @xl:flex-row items-center gap-4 @xl:gap-8">
         <div className="w-full flex items-center gap-2">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          {/* eslint-disable-next-line jsx-a11y-x/label-has-associated-control */}
           <label className="text-base shrink-0" htmlFor="variant-select">
             Variant
           </label>
@@ -156,7 +156,7 @@ export default function PaletteOptions() {
           </Select>
         </div>
         <div className="w-full flex items-center gap-2">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          {/* eslint-disable-next-line jsx-a11y-x/label-has-associated-control */}
           <label className="text-base shrink-0" htmlFor="lock-select">
             Lock
           </label>

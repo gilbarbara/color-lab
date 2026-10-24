@@ -1,6 +1,6 @@
 import config from '@gilbarbara/eslint-config';
-import vitest from '@gilbarbara/eslint-config/vitest';
 import testingLibrary from '@gilbarbara/eslint-config/testing-library';
+import vitest from '@gilbarbara/eslint-config/vitest';
 import playwright from 'eslint-plugin-playwright';
 
 export default [
@@ -20,6 +20,6 @@ export default [
   {
     rules: {
       'react-refresh/only-export-components': 'off',
-    }
-  }
+    },
+  },
 ];

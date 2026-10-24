@@ -69,7 +69,7 @@ export default function Popconfirm(props: PopconfirmProps) {
     confirmColor = 'primary',
     confirmText = 'Confirm',
     description,
-    icon = <WarningCircleIcon className="size-5 text-danger shrink-0" weight="fill" />,
+    icon,
     isDisabled = false,
     onCancel,
     onConfirm,
@@ -109,7 +109,11 @@ export default function Popconfirm(props: PopconfirmProps) {
       <PopoverTrigger disabled={isDisabled}>{children}</PopoverTrigger>
       <PopoverContent>
         <div className="flex items-center gap-2">
-          {icon}
+          {icon === undefined ? (
+            <WarningCircleIcon className="size-5 text-danger shrink-0" weight="fill" />
+          ) : (
+            icon
+          )}
           <p className="text-base font-medium">{title}</p>
         </div>
         {description && <div className="mt-2 text-sm">{description}</div>}

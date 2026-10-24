@@ -58,9 +58,9 @@ type Projections = {
   [K in ProjectionKey]?: ReturnType<(typeof COLOR_PROJECTIONS)[K]>;
 };
 
-type SliceDep = StoreKey | ProjectionKey;
+type SliceDependency = StoreKey | ProjectionKey;
 
-function isProjectionKey(key: SliceDep): key is ProjectionKey {
+function isProjectionKey(key: SliceDependency): key is ProjectionKey {
   return Object.hasOwn(COLOR_PROJECTIONS, key);
 }
 
@@ -73,7 +73,7 @@ const COMPUTED_DEPS = {
   hasCustomPaletteOptions: [SEED, 'globalOptions'],
   seedColor: [SEED],
   usedGroups: [USED_GROUPS],
-} as const satisfies Record<ComputedKey, readonly SliceDep[]>;
+} as const satisfies Record<ComputedKey, readonly SliceDependency[]>;
 
 const COMPUTED_KEYS = new Set(Object.keys(COMPUTED_DEPS) as ComputedKey[]);
 
@@ -91,15 +91,15 @@ function isComputedKey(key: UsePaletteKey): key is ComputedKey {
 export default function useGenerator<K extends UsePaletteKey>(
   ...keys: K[]
 ): Pick<PaletteAggregate, K> {
-  const sliceDeps = new Set<SliceDep>();
+  const sliceDependencies = new Set<SliceDependency>();
 
   for (const key of keys) {
     if (isComputedKey(key)) {
-      for (const dep of COMPUTED_DEPS[key]) {
-        sliceDeps.add(dep);
+      for (const dependency of COMPUTED_DEPS[key]) {
+        sliceDependencies.add(dependency);
       }
     } else {
-      sliceDeps.add(key);
+      sliceDependencies.add(key);
     }
   }
 
@@ -107,7 +107,7 @@ export default function useGenerator<K extends UsePaletteKey>(
     useShallow(state => {
       const out = {} as Partial<GeneratorStore> & Projections;
 
-      sliceDeps.forEach(k => {
+      sliceDependencies.forEach(k => {
         (out as Record<string, unknown>)[k] = isProjectionKey(k)
           ? COLOR_PROJECTIONS[k](state.colors)
           : state[k];

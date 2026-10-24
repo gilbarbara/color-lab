@@ -45,7 +45,7 @@ const jsonLdHtml = JSON.stringify(JSON_LD);
 export default function CustomColorScales() {
   return (
     <Page className="@container" data-testid="CustomColorScales">
-      {/* eslint-disable-next-line react/no-danger */}
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */}
       <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
       <h1 className="text-3xl lg:text-4xl font-bold mb-2">Custom Color Scales in OKLCH</h1>
       <p className="text-xl text-foreground mb-8">Scales that don't look generated</p>

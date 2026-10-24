@@ -24,7 +24,7 @@ interface TooltipClickableProps extends Omit<TooltipProps, 'children'> {
 export default function TooltipClickable(props: TooltipClickableProps) {
   const {
     'aria-label': ariaLabel = 'More information',
-    children = <InfoIcon />,
+    children,
     className,
     classNames,
     content,
@@ -151,7 +151,7 @@ export default function TooltipClickable(props: TooltipClickableProps) {
         style={style}
         type="button"
       >
-        {children}
+        {children === undefined ? <InfoIcon /> : children}
       </button>
     </Tooltip>
   );
