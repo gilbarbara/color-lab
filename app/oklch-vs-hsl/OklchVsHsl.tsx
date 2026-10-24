@@ -127,7 +127,7 @@ export default function OklchVsHsl() {
 
   return (
     <Page data-testid="OklchVsHsl">
-      {/* eslint-disable-next-line react/no-danger */}
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */}
       <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
       <h1 className="text-4xl font-bold mb-8">OKLCH vs HSL: why perceptual color wins</h1>
 

@@ -35,7 +35,7 @@ export default function GamutGroup(props: Props) {
         size="sm"
         value={gamut}
       >
-        <Radio className="gap-1" description={<>Wide gamut. Vivid colors.</>} value="p3">
+        <Radio className="gap-1" description="Wide gamut. Vivid colors." value="p3">
           P3
         </Radio>
         <Radio

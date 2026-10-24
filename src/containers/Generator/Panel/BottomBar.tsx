@@ -42,7 +42,7 @@ function PanelBottomBar(props: PanelBottomBarProps) {
     // descendants of a `role="button"` are not reachable. So tap and swipe here stay a pointer-only
     // affordance, and the caret below is the real focusable control — which is why this div needs
     // no role, tabindex, or key handler.
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    // eslint-disable-next-line jsx-a11y-x/click-events-have-key-events, jsx-a11y-x/no-static-element-interactions
     <div
       className="md:hidden sticky top-0 h-16 flex items-center justify-between p-4 bg-default-800 text-background dark:bg-default-100 dark:text-foreground z-20 border-b border-default touch-none"
       data-testid="GeneratorPanel-Handle"

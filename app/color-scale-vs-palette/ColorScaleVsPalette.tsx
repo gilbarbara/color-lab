@@ -46,7 +46,7 @@ const STATUS = {
 export default function ColorScaleVsPalette() {
   return (
     <Page data-testid="ColorScaleVsPalette">
-      {/* eslint-disable-next-line react/no-danger */}
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */}
       <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
 
       <h1 className="text-3xl lg:text-4xl font-bold mb-1">Color scale vs palette</h1>

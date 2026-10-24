@@ -151,6 +151,10 @@ function ReorderColors() {
                   // row, so it has to be obvious which one that is however it got focused.
                   className="flex cursor-grab items-center gap-2 rounded-medium px-1 py-1.5 select-none has-[button:focus]:bg-default-100 has-[button:focus]:ring-2 has-[button:focus]:ring-focus hover:bg-default-100 active:cursor-grabbing"
                   onDragEnd={() => commit(ordered)}
+                  // Opt out of framer-motion's built-in keyboard reordering: the grip button
+                  // owns the keyboard (Home/End, announcements, one commit per move). Not -1:
+                  // a click would still focus the row and let Space start an uncommitted grab.
+                  tabIndex={undefined}
                   value={color}
                 >
                   {/* The grip is the keyboard handle. It stays inside Reorder.Item with no

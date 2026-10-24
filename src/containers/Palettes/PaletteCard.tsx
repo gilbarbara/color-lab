@@ -1,4 +1,4 @@
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable @eslint-react/no-array-index-key */
 import { useEffect, useMemo, useState } from 'react';
 import { Button, Card, CardBody } from '@heroui/react';
 import { HeartIcon, TrashIcon } from '@phosphor-icons/react';

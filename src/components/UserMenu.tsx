@@ -65,6 +65,7 @@ export default function UserMenu() {
           showFallback
           size="sm"
           src={imageUrl}
+          type="button"
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="User menu options">

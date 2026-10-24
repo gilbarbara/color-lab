@@ -73,7 +73,7 @@ export const dynamic = 'force-dynamic';
 export default function PalettePage() {
   return (
     <>
-      {/* eslint-disable-next-line react/no-danger */}
+      {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */}
       <script dangerouslySetInnerHTML={{ __html: jsonLdHtml }} type="application/ld+json" />
       <Generator />
     </>

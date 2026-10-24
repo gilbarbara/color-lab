@@ -74,7 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* eslint-disable-next-line react/no-danger */}
+        {/* eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml */}
         <script dangerouslySetInnerHTML={{ __html: stateBootstrap }} />
       </head>
       <body className={inter.className} suppressHydrationWarning>

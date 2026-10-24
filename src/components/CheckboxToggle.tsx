@@ -20,7 +20,7 @@ export default function CheckboxToggle(props: CheckboxToggleProps) {
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
+    // eslint-disable-next-line jsx-a11y-x/label-has-associated-control
     <label {...getBaseProps()}>
       <VisuallyHidden>
         <input {...getInputProps()} />
