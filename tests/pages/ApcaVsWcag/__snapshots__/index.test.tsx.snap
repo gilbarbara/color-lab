@@ -1,0 +1,626 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`pages/ApcaVsWcag > renders correctly 1`] = `
+<div
+  class="flex flex-col flex-1"
+  data-testid="ApcaVsWcag"
+>
+  <div
+    class="w-full max-w-7xl mx-auto flex-1 py-8 px-4 md:px-8"
+  >
+    <script
+      type="application/ld+json"
+    >
+      {"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://lab.colormeup.co/apca-vs-wcag#article","headline":"APCA vs WCAG","description":"WCAG 2 and APCA pick different text colors for a wide band of mid-tone backgrounds. Both picks, side by side.","keywords":["APCA","WCAG","text contrast","color contrast","OKLCH"],"about":{"@id":"https://lab.colormeup.co/#webapp"},"image":"https://lab.colormeup.co/og-apca-vs-wcag.png","mainEntityOfPage":"https://lab.colormeup.co/apca-vs-wcag","url":"https://lab.colormeup.co/apca-vs-wcag","author":{"@id":"https://lab.colormeup.co/#creator"},"publisher":{"@id":"https://lab.colormeup.co/#org"},"isPartOf":{"@id":"https://lab.colormeup.co/#website"},"inLanguage":"en","datePublished":"2026-10-24","dateModified":"2026-10-24"},{"@type":"FAQPage","@id":"https://lab.colormeup.co/apca-vs-wcag#faq","isPartOf":{"@id":"https://lab.colormeup.co/apca-vs-wcag#article"},"mainEntity":[{"@type":"Question","name":"Which text color should go on my button?","acceptedAnswer":{"@type":"Answer","text":"On light and dark backgrounds, WCAG and APCA give the same answer, so use it. On mid-tones, from about OKLCH lightness 0.55 to 0.75 depending on hue and chroma, they split: WCAG picks black and APCA picks white. Put both versions side by side, as on this page, and use the one that reads better at your button’s size and weight."}},{"@type":"Question","name":"What does Lc mean?","acceptedAnswer":{"@type":"Answer","text":"Lc is APCA’s lightness contrast score. It runs from 0, no contrast, to about 106 for black text on white and 108 for white text on black. Higher reads easier. It isn’t a ratio of two light levels like the WCAG number; it models how strong text looks against its background."}},{"@type":"Question","name":"Why can Lc be negative?","acceptedAnswer":{"@type":"Answer","text":"The sign is the polarity. Positive means dark text on a lighter background; negative means light text on a darker one. The size of the number is the contrast, so compare absolute values: on #ff0044, white text scores Lc −69 and black scores Lc 40, so white wins."}}]},{"@type":"WebApplication","@id":"https://lab.colormeup.co/#webapp","name":"ColorMeUp LAB","url":"https://lab.colormeup.co","description":"OKLCH color scale generator: lightness, chroma, hue and curve control, WCAG & APCA contrast checks, and export to Tailwind, CSS, SCSS and SVG. Free and open-source.","applicationCategory":"DesignApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@id":"https://lab.colormeup.co/#creator"},"publisher":{"@id":"https://lab.colormeup.co/#org"},"sameAs":["https://github.com/gilbarbara/color-lab"]},{"@type":"Person","@id":"https://lab.colormeup.co/#creator","name":"Gil Barbara","url":"https://gilbarbara.dev/","sameAs":["https://github.com/gilbarbara"]},{"@type":"Organization","@id":"https://lab.colormeup.co/#org","name":"ColorMeUp LAB","url":"https://lab.colormeup.co","logo":"https://lab.colormeup.co/brand/icon-512.png"},{"@type":"WebSite","@id":"https://lab.colormeup.co/#website","name":"ColorMeUp LAB","url":"https://lab.colormeup.co","publisher":{"@id":"https://lab.colormeup.co/#org"},"inLanguage":"en"}]}
+    </script>
+    <h1
+      class="text-3xl lg:text-4xl font-bold mb-8"
+    >
+      APCA vs WCAG: black or white text?
+    </h1>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <p>
+        Ask WCAG 2 and APCA whether black or white text goes on a mid-tone background, and they often give opposite answers. Here is the same button, twice.
+      </p>
+    </div>
+    <div
+      class="grid grid-cols-2 gap-4 sm:flex sm:gap-8 mb-8"
+    >
+      <div
+        class="flex flex-col items-start gap-2"
+      >
+        <span
+          class="text-sm font-semibold"
+        >
+          WCAG
+           picks
+        </span>
+        <span
+          class="inline-flex items-center h-12 px-4 sm:px-6 rounded-medium text-base sm:text-lg font-semibold whitespace-nowrap"
+          data-testid="hook-wcag"
+          style="background-color: rgb(255, 0, 68); color: rgb(0, 0, 0);"
+        >
+          Get started
+        </span>
+        <p
+          class="text-sm text-foreground-500"
+        >
+          <span
+            class="whitespace-nowrap"
+          >
+            <span
+              class="capitalize"
+            >
+              black
+            </span>
+             
+            5.34:1
+             ·
+          </span>
+           
+          <span
+            class="whitespace-nowrap"
+          >
+            white
+             
+            3.94:1
+          </span>
+        </p>
+      </div>
+      <div
+        class="flex flex-col items-start gap-2"
+      >
+        <span
+          class="text-sm font-semibold"
+        >
+          APCA
+           picks
+        </span>
+        <span
+          class="inline-flex items-center h-12 px-4 sm:px-6 rounded-medium text-base sm:text-lg font-semibold whitespace-nowrap"
+          data-testid="hook-apca"
+          style="background-color: rgb(255, 0, 68); color: rgb(255, 255, 255);"
+        >
+          Get started
+        </span>
+        <p
+          class="text-sm text-foreground-500"
+        >
+          <span
+            class="whitespace-nowrap"
+          >
+            <span
+              class="capitalize"
+            >
+              white
+            </span>
+             
+            Lc 69
+             ·
+          </span>
+           
+          <span
+            class="whitespace-nowrap"
+          >
+            black
+             
+            Lc 40
+          </span>
+        </p>
+      </div>
+    </div>
+    <div
+      class="space-y-3 mb-8"
+    >
+      <p>
+        The two methods measure different things. 
+        <strong>
+          WCAG 2
+        </strong>
+         compares how much light each color emits. 
+        <strong>
+          APCA
+        </strong>
+         models how readable text looks, and it weighs dark and light colors differently, so light text on a mid-tone scores higher than WCAG’s ratio suggests.
+      </p>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Same color, two answers
+    </h2>
+    <p
+      class="mb-6"
+    >
+      Nine hues, all at OKLCH lightness 
+      0.62
+      . Each swatch uses the text color the method picks. At this lightness the two methods disagree on every hue.
+    </p>
+    <div
+      class="space-y-4 mb-8"
+    >
+      <div>
+        <p
+          class="text-sm font-semibold mb-2"
+        >
+          WCAG
+           picks
+        </p>
+        <div
+          class="grid grid-cols-9 gap-1"
+        >
+          <div
+            aria-label="oklch(0.62 0.2 0), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 0); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.2 40), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 40); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.1478 80), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.1478 80); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.17154 120), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.17154 120); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.19316 160), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.19316 160); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.14128 200), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.14128 200); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.18554 240), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.18554 240); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.2 280), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 280); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.2 320), black text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 320); color: rgb(0, 0, 0);"
+          >
+            Aa
+          </div>
+        </div>
+      </div>
+      <div>
+        <p
+          class="text-sm font-semibold mb-2"
+        >
+          APCA
+           picks
+        </p>
+        <div
+          class="grid grid-cols-9 gap-1"
+        >
+          <div
+            aria-label="oklch(0.62 0.2 0), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 0); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.2 40), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 40); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.1478 80), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.1478 80); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.17154 120), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.17154 120); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.19316 160), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.19316 160); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.14128 200), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.14128 200); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.18554 240), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.18554 240); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.2 280), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 280); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+          <div
+            aria-label="oklch(0.62 0.2 320), white text"
+            class="flex items-center justify-center aspect-square lg:aspect-video rounded-md text-sm sm:text-lg font-semibold"
+            role="img"
+            style="background-color: oklch(0.62 0.2 320); color: rgb(255, 255, 255);"
+          >
+            Aa
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Try it yourself
+    </h2>
+    <p
+      class="mb-6"
+    >
+      Drag through the panel. In the shaded band, WCAG picks black and APCA picks white. Below it both pick white; above it both pick black. Change the hue: the band shifts, but it never closes.
+    </p>
+    <div
+      class="flex flex-col lg:flex-row lg:items-start gap-6 mb-8"
+    >
+      <div
+        class="flex flex-col gap-4 lg:w-1/2"
+      >
+        <div
+          class="relative rounded-medium overflow-hidden"
+        >
+          <div
+            aria-label="OKLCH color panel"
+            aria-valuetext="Lightness 63%, Chroma 0.254"
+            class="group relative w-full cursor-crosshair overflow-hidden focus-visible:outline-none h-56 lg:h-80"
+            data-testid="OKLCHPanel"
+            role="slider"
+            style="touch-action: none;"
+            tabindex="0"
+          >
+            <canvas
+              class="absolute inset-0 size-full"
+              height="128"
+              width="256"
+            />
+            <div
+              class="pointer-events-none absolute size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-black ring-2 ring-white/20 transition-transform group-focus-visible:scale-125 z-10"
+              style="left: 78.20231511888886%; top: 8.252964744844437%;"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0"
+            data-testid="band-overlay"
+          >
+            <svg
+              class="absolute inset-0 size-full"
+              preserveAspectRatio="none"
+              viewBox="0 0 100 100"
+            >
+              <defs>
+                <pattern
+                  height="2"
+                  id="_r_0_"
+                  patternTransform="rotate(45)"
+                  patternUnits="userSpaceOnUse"
+                  width="2"
+                >
+                  <rect
+                    fill="rgba(255, 255, 255, 0.35)"
+                    height="2"
+                    width="1"
+                  />
+                  <rect
+                    fill="rgba(0, 0, 0, 0.35)"
+                    height="2"
+                    width="1"
+                    x="1"
+                  />
+                </pattern>
+              </defs>
+              <path
+                d="M0,53.92253959345463 L6.9996892435020195,51.46953593916022 L13.216852046318648,49.22994597172947 L18.719311821944082,46.76104732447105 L23.749707794342555,44.5990968175515 L28.336950528905565,42.4687453886565 L32.52337899750456,40.30534887924101 L36.35143567746012,38.09041683349119 L39.982973204689216,36.088264078716314 L43.38235447266263,34.11786156219553 L46.67241470184445,32.13229139926974 L50.141077442121215,30.134914597367633 L53.537069446058894,28.12592964419207 L57.061909998030366,26.35920496248024 L60.42692828754779,24.33634080411077 L63.923026315122435,22.425744290763696 L67.57473900903739,20.564886434907635 L71.44193624422532,18.71524312288102 L75.62262751794725,16.837583407518185 L81.47395650631762,15.727604757505464 L92.13739733495649,15.524034736721415 L100,15.581173166419726 L99.97371346358784,11.971536373574898 L99.98442608418536,6.374548027247573 L99.99585234246592,0.7136074160073114 L100,0.003550320009548802 L96.7908492715433,0 L83.62331441415564,0.00001907745298401764 L76.65244257194159,0.00231531721647249 L71.21662339761494,0.002729949943180987 L66.54166718806067,0.0029471148537907332 L62.324346156857736,0.004690740466506416 L58.406517043389606,0.004256657057555291 L54.696941072303396,0.003547597328490415 L51.13602342902942,0.004510123799550403 L49.481010150707284,0 L48.554473370540364,2.21076133316801 L46.692609764672554,6.3496385631496395 L44.03188747773647,8.448176533439755 L41.46465322933771,10.488110235349557 L38.79673478812593,12.633249442051653 L35.955546386396406,14.70824721071401 L33.00278238742892,16.97001845663869 L29.827749065698363,19.119742724002677 L26.495518775231595,21.476871200356484 L22.897071616325466,23.742357057223597 L19.049833954975604,26.12488594751178 L14.875063188977133,28.4393488484719 L10.345772035989945,30.76327330373375 L5.435341590488873,33.50502164752191 L1.7315451376305913e-14,35.882524775278945 Z"
+                fill="url(#_r_0_)"
+              />
+            </svg>
+            <span
+              class="absolute left-1.5 mt-1.5 rounded-sm bg-black/75 px-1.5 py-0.5 text-xs leading-none font-medium text-white whitespace-nowrap"
+              style="top: 53.92253959345463%;"
+            >
+              WCAG flips
+            </span>
+            <span
+              class="absolute left-1.5 mt-1.5 rounded-sm bg-black/75 px-1.5 py-0.5 text-xs leading-none font-medium text-white whitespace-nowrap"
+              style="top: 35.882524775278945%;"
+            >
+              APCA flips
+            </span>
+          </div>
+        </div>
+        <div
+          class="flex items-center gap-2"
+          data-testid="GlobalHueSlider"
+        >
+          <div
+            class="flex-1 py-1"
+          >
+            <div
+              class="relative h-3 w-full rounded-full cursor-pointer aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+              style="background: linear-gradient(to right, oklch(0.7 0.4 0), oklch(0.7 0.4 60), oklch(0.7 0.4 120), oklch(0.7 0.4 180), oklch(0.7 0.4 240), oklch(0.7 0.4 300), oklch(0.7 0.4 0)); touch-action: none;"
+            >
+              <input
+                aria-label="Hue"
+                aria-orientation="horizontal"
+                aria-valuemax="360"
+                aria-valuemin="0"
+                aria-valuenow="19.902240785746187"
+                class="peer absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+                max="360"
+                min="0"
+                step="1"
+                tabindex="0"
+                type="range"
+                value="19.902240785746187"
+              />
+              <div
+                aria-hidden="true"
+                class="absolute top-1/2 size-5 -translate-y-1/2 rounded-full border-2 border-black dark:border-white bg-white dark:bg-black shadow-md transition-transform cursor-grab peer-disabled:cursor-not-allowed peer-focus-visible:ring-1 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white before:content-[''] before:absolute before:-inset-2 before:rounded-full"
+                data-testid="GradientSliderThumb"
+                style="left: calc(5.528% - 1.106px);"
+              />
+            </div>
+          </div>
+        </div>
+        <p
+          class="text-sm text-foreground-500 font-mono"
+        >
+          oklch(
+          0.633
+           
+          0.254
+           
+          19.9
+          )
+        </p>
+      </div>
+      <div
+        class="grid grid-cols-2 gap-4 lg:w-1/2"
+      >
+        <div
+          class="flex flex-col gap-2"
+        >
+          <span
+            class="text-sm font-semibold"
+          >
+            WCAG
+             picks
+          </span>
+          <div
+            class="flex flex-col justify-center gap-2 p-4 aspect-square sm:aspect-video lg:aspect-square rounded-medium"
+            data-testid="swatch-wcag"
+            style="background-color: oklch(0.632686 0.25404 19.9022); color: rgb(0, 0, 0);"
+          >
+            <span
+              class="text-5xl font-semibold"
+            >
+              Aa
+            </span>
+            <span
+              class="text-base"
+            >
+              The quick brown fox jumps over the lazy dog.
+            </span>
+          </div>
+          <p
+            class="text-sm text-foreground-500"
+          >
+            <span
+              class="whitespace-nowrap"
+            >
+              <span
+                class="capitalize"
+              >
+                black
+              </span>
+               
+              5.34:1
+               ·
+            </span>
+             
+            <span
+              class="whitespace-nowrap"
+            >
+              white
+               
+              3.94:1
+            </span>
+          </p>
+        </div>
+        <div
+          class="flex flex-col gap-2"
+        >
+          <span
+            class="text-sm font-semibold"
+          >
+            APCA
+             picks
+          </span>
+          <div
+            class="flex flex-col justify-center gap-2 p-4 aspect-square sm:aspect-video lg:aspect-square rounded-medium"
+            data-testid="swatch-apca"
+            style="background-color: oklch(0.632686 0.25404 19.9022); color: rgb(255, 255, 255);"
+          >
+            <span
+              class="text-5xl font-semibold"
+            >
+              Aa
+            </span>
+            <span
+              class="text-base"
+            >
+              The quick brown fox jumps over the lazy dog.
+            </span>
+          </div>
+          <p
+            class="text-sm text-foreground-500"
+          >
+            <span
+              class="whitespace-nowrap"
+            >
+              <span
+                class="capitalize"
+              >
+                white
+              </span>
+               
+              Lc 69
+               ·
+            </span>
+             
+            <span
+              class="whitespace-nowrap"
+            >
+              black
+               
+              Lc 40
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="mb-8"
+    >
+      <p>
+        Lightness is easier to judge in a perceptual space; see
+         
+        <a
+          class="underline"
+          href="/oklch-vs-hsl"
+        >
+          OKLCH vs HSL
+        </a>
+         
+        for why, and
+         
+        <a
+          class="underline"
+          href="/custom-color-scales"
+        >
+          Custom Color Scales
+        </a>
+         
+        for building a scale around it.
+      </p>
+    </div>
+    <h2
+      class="text-2xl font-bold mb-4"
+    >
+      Common questions
+    </h2>
+    <div
+      class="space-y-6 mb-8"
+    >
+      <div>
+        <h3
+          class="text-lg font-semibold mb-1"
+        >
+          Which text color should go on my button?
+        </h3>
+        <p>
+          On light and dark backgrounds, WCAG and APCA give the same answer, so use it. On mid-tones, from about OKLCH lightness 0.55 to 0.75 depending on hue and chroma, they split: WCAG picks black and APCA picks white. Put both versions side by side, as on this page, and use the one that reads better at your button’s size and weight.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="text-lg font-semibold mb-1"
+        >
+          What does Lc mean?
+        </h3>
+        <p>
+          Lc is APCA’s lightness contrast score. It runs from 0, no contrast, to about 106 for black text on white and 108 for white text on black. Higher reads easier. It isn’t a ratio of two light levels like the WCAG number; it models how strong text looks against its background.
+        </p>
+      </div>
+      <div>
+        <h3
+          class="text-lg font-semibold mb-1"
+        >
+          Why can Lc be negative?
+        </h3>
+        <p>
+          The sign is the polarity. Positive means dark text on a lighter background; negative means light text on a darker one. The size of the number is the contrast, so compare absolute values: on #ff0044, white text scores Lc −69 and black scores Lc 40, so white wins.
+        </p>
+      </div>
+    </div>
+    <p>
+      <a
+        class="inline-flex items-center h-10 py-2 px-4 leading-none bg-primary text-primary-foreground rounded-medium"
+        href="/p/Primary-63.27_0.254_19.9"
+      >
+        Open the Generator
+      </a>
+    </p>
+  </div>
+</div>
+`;

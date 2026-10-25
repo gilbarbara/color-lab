@@ -135,7 +135,11 @@ export default function ColorScaleVsPalette() {
           </p>
           <p>
             WCAG 2 is the legal floor, but it overstates contrast near black, exactly where
-            dark-mode ramps live, so a step can pass WCAG and still fail APCA. Check both.
+            dark-mode ramps live, so a step can pass WCAG and still fail APCA.{' '}
+            <Link className="underline" href="/apca-vs-wcag">
+              Check both
+            </Link>
+            .
           </p>
         </div>
         <div>

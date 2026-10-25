@@ -226,7 +226,15 @@ exports[`pages/ColorScaleVsPalette > renders correctly 1`] = `
            Your text has to clear a real threshold.
         </p>
         <p>
-          WCAG 2 is the legal floor, but it overstates contrast near black, exactly where dark-mode ramps live, so a step can pass WCAG and still fail APCA. Check both.
+          WCAG 2 is the legal floor, but it overstates contrast near black, exactly where dark-mode ramps live, so a step can pass WCAG and still fail APCA.
+           
+          <a
+            class="underline"
+            href="/apca-vs-wcag"
+          >
+            Check both
+          </a>
+          .
         </p>
       </div>
       <div>

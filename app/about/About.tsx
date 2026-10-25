@@ -80,7 +80,10 @@ export default function About() {
           </h3>
           <p>
             Every step is measured with both WCAG and APCA, with a grid for pairing foreground and
-            background steps.
+            background steps.{' '}
+            <Link className="underline" href="/apca-vs-wcag">
+              Why both?
+            </Link>
           </p>
         </div>
 
