@@ -108,6 +108,13 @@ exports[`pages/About > renders correctly 1`] = `
         </h3>
         <p>
           Every step is measured with both WCAG and APCA, with a grid for pairing foreground and background steps.
+           
+          <a
+            class="underline"
+            href="/apca-vs-wcag"
+          >
+            Why both?
+          </a>
         </p>
       </div>
       <div>

@@ -9,6 +9,7 @@ ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps ar
 - [Color palette generator](https://lab.colormeup.co/p): The main tool — create and fine-tune OKLCH color scales with control over lightness range, lightness curve, chroma curve, and hue shift.
 - [OKLCH vs HSL](https://lab.colormeup.co/oklch-vs-hsl): Why OKLCH produces better scales than HSL.
 - [Custom color scales](https://lab.colormeup.co/custom-color-scales): Building custom color scales for a design system.
+- [APCA vs WCAG](https://lab.colormeup.co/apca-vs-wcag): Where APCA and WCAG 2 pick different text colors, shown side by side.
 - [Color scale vs palette](https://lab.colormeup.co/color-scale-vs-palette): How a scale differs from a palette, and six scale generators compared side by side.
 - [About](https://lab.colormeup.co/about): What the tool is, how it works, and the OKLCH approach.
 
