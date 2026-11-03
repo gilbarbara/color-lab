@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { APCA_LIGHTNESS_CONTRAST } from '~/config/globals';
 import { trackEvent } from '~/utils/analytics';
 
@@ -103,7 +105,7 @@ export default function Sidebar(props: SidebarProps) {
           label: headingClass,
         }}
         items={[
-          { label: 'WCAG 3 · APCA', value: 'apca' },
+          { label: 'APCA', value: 'apca' },
           { label: 'WCAG 2', value: 'wcag2' },
         ]}
         label="Guidelines"
@@ -138,6 +140,16 @@ export default function Sidebar(props: SidebarProps) {
           <p className="text-foreground-500 text-sm">Cols = background</p>
         </div>
       )}
+
+      {/* New tab keeps the grid open while reading. */}
+      <Link
+        className="mt-6 text-foreground-500 text-sm underline"
+        href="/apca-vs-wcag"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Why APCA and WCAG disagree
+      </Link>
     </aside>
   );
 }

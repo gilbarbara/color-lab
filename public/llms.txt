@@ -18,7 +18,7 @@ ColorMeUp LAB builds color scales directly in the OKLCH color space, so steps ar
 - Color space: OKLCH (perceptually uniform), with wide-gamut P3 preview.
 - Pricing: free and open-source, no account required to use the generator.
 - Export targets: Tailwind 4, Tailwind 3, CSS, SCSS, and SVG — each in OKLCH, HEX, HSL, or RGB notation.
-- Contrast: WCAG 2 and APCA (WCAG 3) contrast grid.
+- Contrast: WCAG 2 and APCA contrast grid.
 - Charts: lightness, chroma, and hue plotted per scale, so uneven steps are visible.
 - Scale presets: Tailwind, Material, Bootstrap, and Open Color.
 - Also: color groups, live component and typography preview, per-color curve overrides, and saved palettes with an account.

@@ -113,13 +113,13 @@ test('palette', async () => {
   await test.step('opens contrast grid', async () => {
     await page.getByRole('button', { name: 'View Contrast Grid' }).first().click();
 
-    await expect(page.getByRole('radio', { name: 'WCAG 3 · APCA' })).toBeChecked();
+    await expect(page.getByRole('radio', { name: 'APCA' })).toBeChecked();
 
     await expect(page).toHaveScreenshot(screenshotName('contrast-grid.png'));
 
     await page.getByRole('button', { name: 'Close' }).click();
 
-    await expect(page.getByRole('radio', { name: 'WCAG 3 · APCA' })).not.toBeVisible();
+    await expect(page.getByRole('radio', { name: 'APCA' })).not.toBeVisible();
   });
 
   await test.step('select first color', async () => {
