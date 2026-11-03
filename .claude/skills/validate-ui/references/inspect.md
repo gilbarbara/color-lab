@@ -16,7 +16,7 @@ The three analysis tools that hang off a scale row: **charts**, **Color Info**, 
 | close charts | `View Charts for <Name>` again | collapses |
 | open Color Info | button `View Color Info for <Name>` | columnheader `APCA Lc` visible |
 | close | button `Close` | gone |
-| open Contrast Grid | button `View Contrast Grid for <Name>` | button `WCAG 3 · APCA` visible |
+| open Contrast Grid | button `View Contrast Grid for <Name>` | button `APCA` visible |
 | close | button `Close` | gone |
 
 All three are `View … for <Name>` — one button per color, so the name disambiguates and no `.first()` is needed. The column header is `APCA Lc` (lowercase `c`), not `APCA LC`.
@@ -53,7 +53,7 @@ Selection is mirrored on the chart bar's `aria-pressed` and in `ColorInfo-Defini
 Modal, header `Contrast grid · <name>`. Every step scored against every other.
 
 **Sidebar** (`ContrastGrid-Sidebar`):
-- Guideline: `WCAG 3 · APCA` (default) or `WCAG 2` — two buttons.
+- Guideline: `APCA` (default) or `WCAG 2` — two buttons.
 - Threshold buttons, drawn from `APCA_THRESHOLDS` / `WCAG_THRESHOLDS` (the set changes with the guideline). APCA defaults to `Large min 45+`.
 - Under APCA, a hint: "Rows = text / Cols = background" — APCA is directional, unlike WCAG 2. Swapping foreground and background gives different scores, and that's correct.
 
@@ -75,7 +75,7 @@ Failing cells render their score too — they are not blank.
 
 ## What CI does not cover here
 
-- **Contrast Grid**: the `WCAG 3 · APCA` ↔ `WCAG 2` toggle, every threshold button, and every cell. Opened and screenshotted only.
+- **Contrast Grid**: the `APCA` ↔ `WCAG 2` toggle, every threshold button, and every cell. Opened and screenshotted only.
 - **Color Info**: step selection via the table rows or the chart bars; the chips; the gamut-drift warnings.
 - **Charts**: step interaction, and the shift-click "all colors" path.
 

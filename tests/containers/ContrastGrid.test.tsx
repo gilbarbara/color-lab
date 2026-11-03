@@ -60,7 +60,7 @@ describe('ContrastGrid', () => {
       expect(within(sidebar).getByRole('radiogroup', { name: 'APCA Lc' })).toBeInTheDocument();
 
       // The selected option must be announced, not just tinted.
-      expect(within(sidebar).getByRole('radio', { name: 'WCAG 3 · APCA' })).toBeChecked();
+      expect(within(sidebar).getByRole('radio', { name: 'APCA' })).toBeChecked();
       expect(within(sidebar).getByRole('radio', { name: 'WCAG 2' })).not.toBeChecked();
       expect(within(sidebar).getByRole('radio', { name: 'Large min 45+' })).toBeChecked();
     });

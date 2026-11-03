@@ -1480,7 +1480,7 @@ exports[`ContrastGrid > Render > render correctly > sidebar 1`] = `
         tabindex="0"
         type="button"
       >
-        WCAG 3 · APCA
+        APCA
       </button>
       <button
         aria-checked="false"
@@ -1616,5 +1616,13 @@ exports[`ContrastGrid > Render > render correctly > sidebar 1`] = `
       Cols = background
     </p>
   </div>
+  <a
+    class="mt-6 text-foreground-500 text-sm underline"
+    href="/apca-vs-wcag"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    Why APCA and WCAG disagree
+  </a>
 </aside>
 `;

@@ -44,7 +44,7 @@ If you have time for one thing, read the `<pre>` and check the values match the 
 
 ## Opened but never driven
 
-- **Contrast Grid** — the `WCAG 3 · APCA` ↔ `WCAG 2` toggle, every threshold button, every cell. Screenshot only.
+- **Contrast Grid** — the `APCA` ↔ `WCAG 2` toggle, every threshold button, every cell. Screenshot only.
 - **Color Info** — step selection (table rows, chart bars), chips, gamut-drift warnings.
 - **Charts** — step interaction; the shift-click "toggle all colors" path.
 
